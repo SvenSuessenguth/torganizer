@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+  <PERSONS PERSON_ID="1" FIRST_NAME="Sven" LAST_NAME="Süssenguth" GENDER="MALE" 
+    DATE_OF_BIRTH="1968-01-12" />
+  <PERSONS PERSON_ID="2" FIRST_NAME="Marvin" LAST_NAME="Süssenguth" GENDER="MALE" 
+    DATE_OF_BIRTH="2004-10-28" />
+  <PERSONS PERSON_ID="3" FIRST_NAME="Maya" LAST_NAME="Süssenguth" GENDER="FEMALE" 
+    DATE_OF_BIRTH="2009-06-09" />
+  <PERSONS PERSON_ID="4" FIRST_NAME="Derya" LAST_NAME="Süssenguth" GENDER="FEMALE" 
+    DATE_OF_BIRTH="2010-06-16" />
+  <PERSONS PERSON_ID="5" FIRST_NAME="Sabine" LAST_NAME="Süssenguth" GENDER="FEMALE" 
+    DATE_OF_BIRTH="1963-06-13" />
+</dataset>

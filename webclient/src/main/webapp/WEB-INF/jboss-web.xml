@@ -1,0 +1,3 @@
+<jboss-web>
+  <context-root>webclient</context-root>
+</jboss-web>

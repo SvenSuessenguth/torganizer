@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.1" 
+  xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">  
+  
+  <named-query name="Restriction.findAll">
+    <query>SELECT r FROM Restriction r</query>
+  </named-query>
+  <named-query name="Restriction.findById">
+    <query>SELECT r FROM Restriction r WHERE r.id = :id</query>
+  </named-query>
+  <named-query name="Person.findAll">
+    <query>SELECT p FROM Person p</query>
+  </named-query>
+  <named-query name="Person.findById">
+    <query>SELECT p FROM Person p WHERE p.id = :id</query>
+  </named-query>
+  <named-query name="Person.findByGender">
+    <query>SELECT p FROM Person p WHERE p.gender = :gender</query>
+  </named-query>
+  <named-query name="Player.findAll">
+    <query>SELECT p FROM Player p</query>
+  </named-query>
+  <named-query name="Player.findById">
+    <query>SELECT p FROM Player p WHERE p.id = :id</query>
+  </named-query>  
+  <named-query name="Tournament.findById">
+    <query>SELECT t FROM Tournament t WHERE t.id = :id</query>
+  </named-query>
+  <named-query name="Tournament.findAll">
+    <query>SELECT t FROM Tournament t</query>
+  </named-query>
+  <named-query name="Tournament.findSubscribers">
+    <query>SELECT p FROM Player p, Tournament t WHERE t.id = :id AND p MEMBER OF t.subscribers</query>
+  </named-query>
+  
+  <!--
+  @NamedQuery(name = "getAllTournaments", query = "SELECT t FROM Tournament t")
+  
+  @NamedQueries({
+    @NamedQuery(name = "getAllPlayers", query = "SELECT p FROM Player p WHERE p.tournament.id = :tournamentId"),
+    @NamedQuery(name = "findByClub", query = "SELECT p FROM Player p WHERE p.club = :club AND p.tournament.id = :tournamentId"),
+    @NamedQuery(name = "findPlayerWithoutClub", query = "SELECT p FROM Player p WHERE p.club is null AND p.tournament.id = (:tournamentId)"),
+    @NamedQuery(name = "getAllPlayersWithGender", query = "SELECT p FROM Player p WHERE p.person.gender = (:gender) AND p.tournament.id = (:tournamentId)"),
+    @NamedQuery(name = "countPlayers", query = "SELECT COUNT(p) FROM Player p WHERE p.tournament.id = (:tournamentId)") })
+    
+  @NamedQueries({
+    @NamedQuery(name = "getOpponentsForTournament", query = "SELECT o FROM Opponent o WHERE o.tournament.id = (:tournamentId)"),
+    @NamedQuery(name = "getAllOtherOpponents", query = "SELECT o FROM Opponent o WHERE o NOT IN (:opponents) AND o.tournament.id = (:tournamentId)") }) 
+   -->
+  
+  <entity class="org.cc.torganizer.core.entities.Restriction">
+    <table name="RESTRICTIONS" />
+    <inheritance strategy="JOINED"/>    
+    <discriminator-column name="TYPE" discriminator-type="STRING" length="20"/>
+    <attributes>    
+      <id name="id" >
+        <column name="RESTRICTION_ID"/>
+        <generated-value strategy="IDENTITY"/>
+       </id>
+     </attributes>
+  </entity>
+  
+  <entity class="org.cc.torganizer.core.entities.AgeRestriction" access="FIELD">
+    <table name="AGERESTRICTIONS" />
+    <discriminator-value>A</discriminator-value>
+    <attributes>
+      <basic name="maxDateOfBirth"><column name="MAX_DATE_OF_BIRTH"/></basic>      
+      <basic name="minDateOfBirth"><column name="MIN_DATE_OF_BIRTH"/></basic>
+    </attributes>
+  </entity>
+  
+  <entity class="org.cc.torganizer.core.entities.GenderRestriction">
+    <table name="GENDERRESTRICTIONS" />
+    <discriminator-value>G</discriminator-value>
+    <attributes>    
+      <basic name="validGender">
+        <column name="VALIDGENDER" nullable="false" />
+        <enumerated>STRING</enumerated>        
+      </basic>
+    </attributes>
+  </entity>
+  
+  <entity class="org.cc.torganizer.core.entities.OpponentTypeRestriction">
+    <table name="OPPONENTTYPERESTRICTIONS" />
+    <discriminator-value>T</discriminator-value>
+    <attributes>    
+      <basic name="validOpponentType">
+        <column name="VALIDOPPONENTTYPE" nullable="true" />
+        <enumerated>STRING</enumerated>        
+      </basic>
+    </attributes>
+  </entity>
+  
+  <entity class="org.cc.torganizer.core.entities.Person" access="FIELD" >
+    <table name="PERSONS" />
+    <attributes>    
+      <id name="id" >
+        <column name="PERSON_ID"/>
+          <generated-value strategy="IDENTITY"/>
+       </id>
+       <basic name="firstName"><column name="FIRST_NAME"/></basic>
+       <basic name="lastName"><column name="LAST_NAME"/></basic>
+       <basic name="dateOfBirth"><column name="DATE_OF_BIRTH"/></basic>
+       <basic name="gender">
+         <column name="GENDER" nullable="false" />
+         <enumerated>STRING</enumerated>        
+       </basic>      
+     </attributes>
+  </entity>
+  
+  <entity class="org.cc.torganizer.core.entities.Tournament" access="FIELD">
+    <table name="TOURNAMENTS" />
+    <attributes>    
+      <id name="id" >
+        <column name="TOURNAMENT_ID"/>
+          <generated-value strategy="IDENTITY"/>
+       </id>
+       <basic name="name"><column name="NAME"/></basic>
+       <one-to-many name="subscribers">
+         <join-table name="TOURNAMENT_SUBSCRIBERS">
+           <join-column name="TOURNAMENT_ID" referenced-column-name="TOURNAMENT_ID"/>
+           <inverse-join-column name="OPPONENT_ID" referenced-column-name="OPPONENT_ID" unique="true" />
+         </join-table>
+         <cascade><cascade-all/></cascade>
+       </one-to-many>
+       <one-to-many name="opponents">
+         <join-table name="TOURNAMENT_OPPONENTS">
+           <join-column name="TOURNAMENT_ID" referenced-column-name="TOURNAMENT_ID"/>
+           <inverse-join-column name="OPPONENT_ID" referenced-column-name="OPPONENT_ID" unique="true" />
+         </join-table>
+         <cascade><cascade-all/></cascade>
+       </one-to-many>
+     </attributes>
+  </entity>
+  
+  <entity class="org.cc.torganizer.core.entities.Opponent" access="FIELD">
+    <table name="OPPONENTS" />
+    <inheritance strategy="JOINED"/>    
+    <discriminator-column name="TYPE" discriminator-type="STRING" length="20"/>
+    <attributes>    
+      <id name="id" >
+        <column name="OPPONENT_ID"/>
+        <generated-value strategy="IDENTITY"/>
+       </id>
+       <basic name="status">
+         <column name="STATUS" nullable="false" />
+         <enumerated>STRING</enumerated>        
+       </basic>
+     </attributes>
+  </entity>  
+  
+  <entity class="org.cc.torganizer.core.entities.Player" access="FIELD">
+    <table name="PLAYERS" />
+    <discriminator-value>P</discriminator-value>
+    <attributes>
+      <basic name="lastMatch"><column name="LAST_MATCH"/></basic>      
+      <one-to-one name="person">
+        <join-column name="PERSON_ID" nullable="false" />
+        <cascade><cascade-all/></cascade>
+      </one-to-one>
+    </attributes>
+  </entity>
+  
+  
+  <!--
+  <entity class="org.cc.torganizer.core.entities.Bye" />
+  <entity class="org.cc.torganizer.core.entities.Club" />
+  <entity class="org.cc.torganizer.core.entities.Court" />
+  <entity class="org.cc.torganizer.core.entities.Discipline" />  
+  <entity class="org.cc.torganizer.core.entities.Group" />
+  <entity class="org.cc.torganizer.core.entities.Gymnasium" />
+  <entity class="org.cc.torganizer.core.entities.IndexedOpponent" />    
+  <entity class="org.cc.torganizer.core.entities.Match" />  
+  
+  <entity class="org.cc.torganizer.core.entities.Result" />
+  <entity class="org.cc.torganizer.core.entities.Round" />
+  <entity class="org.cc.torganizer.core.entities.Score" />
+  <entity class="org.cc.torganizer.core.entities.Squad" />
+  <entity class="org.cc.torganizer.core.entities.Team" />
+  -->
+  
+  <converter class="org.cc.torganizer.persistence.converter.BooleanTrueFalseConverter"/>
+</entity-mappings>  
