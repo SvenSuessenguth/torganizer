@@ -8,26 +8,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElementRef;
-import javax.xml.bind.annotation.XmlElementRefs;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.cc.torganizer.core.exceptions.RestrictionException;
 
@@ -39,11 +23,6 @@ import org.cc.torganizer.core.exceptions.RestrictionException;
  */
 @XmlRootElement(name = "Discipline")
 @XmlAccessorType(XmlAccessType.FIELD)
-@Entity
-@Table(name = "DISCIPLINES")
-@NamedQueries({
-    @NamedQuery(name = "getDisciplinesForTournament", query = "SELECT d FROM Discipline d WHERE d.tournament.id = (:tournamentId)"),
-    @NamedQuery(name = "getDisciplinesForOpponent", query = "SELECT d FROM Discipline d WHERE (:opponent) MEMBER OF d.opponents") })
 public class Discipline
   extends AbstractBaseEntity
   implements Serializable {
@@ -56,36 +35,19 @@ public class Discipline
    */
   public static final String NULL_DISCIPLINE_NAME = "-";
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "DISCIPLINE_ID")
   private Long id;
 
-  @Column(name = "LABEL")
   private String label;
   
-  @XmlElementRefs({ @XmlElementRef(type=Player.class), @XmlElementRef(type=Squad.class), @XmlElementRef(type=Team.class), @XmlElementRef(type=Unknown.class)}) 
-  @ManyToMany(cascade = CascadeType.ALL)
-  @JoinTable(name = "DISCIPLINES_OPPONENTS", joinColumns = {@JoinColumn(name = "DISCIPLINE_ID") }, inverseJoinColumns = @JoinColumn(name = "OPPONENT_ID"))
-  private List<Opponent> opponents = new ArrayList<Opponent>();
+  @XmlTransient
+  private Set<Opponent> opponents = new HashSet<>();
 
-  @OneToMany(cascade = CascadeType.ALL)
-  @OrderBy("index ASC")
-  @JoinTable(name = "DISCIPLINES_ROUNDS", joinColumns = {@JoinColumn(name = "DISCIPLINE_ID") }, inverseJoinColumns = @JoinColumn(name = "ROUND_ID"))
-  private List<Round> rounds = new ArrayList<Round>();
-
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "AGERESTRICTION_ID")
-  private AgeRestriction ageRestriction = new AgeRestriction();
-
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "GENDERRESTRICTION_ID")
-  private GenderRestriction genderRestriction = new GenderRestriction();
-
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "OPPONENTTYPERESTRICTION_ID")
-  private OpponentTypeRestriction opponentTypeRestriction = new OpponentTypeRestriction();
-
+  @XmlTransient
+  private transient List<Round> rounds = new ArrayList<Round>();
+  
+  @XmlTransient
+  private Set<Restriction> restrictions = new HashSet<>();
+  
   /**
    * in einer Discipline wird mindestens eine Round gespielt.
    */
@@ -122,7 +84,7 @@ public class Discipline
     this.label = newLabel;
   }
 
-  public List<Opponent> getOpponents() {
+  public Set<Opponent> getOpponents() {
     return opponents;
   }
 
@@ -136,7 +98,7 @@ public class Discipline
    */
   public void addOpponent(Opponent opponent) throws RestrictionException {
     // pruefen aller restrictions und werfen einer RestrictionException
-    for (Restriction restriction : getRestrictions()) {
+    for (Restriction restriction : restrictions) {
       if (restriction != null && restriction.isRestricted(opponent)) {
         throw new RestrictionException("Versto\u00df gegen Restriction: " + restriction.getClass().getName());
       }
@@ -194,20 +156,7 @@ public class Discipline
     this.rounds = newRounds;
   }
 
-  /**
-   * Liste aller Restriktionen.
-   * 
-   * @return Liste aller Restriktionen.
-   */
-  public Set<Restriction> getRestrictions() {
-    Set<Restriction> restrictions = new HashSet<Restriction>();
-    restrictions.add(getAgeRestriction());
-    restrictions.add(getGenderRestriction());
-    restrictions.add(getOpponentTypeRestriction());
-
-    return restrictions;
-  }
-
+  
   /**
    * Liste aller Player, die aus dem Opponents erstellt wird.
    * 
@@ -223,33 +172,13 @@ public class Discipline
     return players;
   }
 
-  public AgeRestriction getAgeRestriction() {
-    return ageRestriction;
+
+  public void addRestriction(Restriction restriction) {
+	restrictions.add(restriction);
   }
-
-  public void setAgeRestriction(AgeRestriction newAgeRestriction) {
-    this.ageRestriction = newAgeRestriction;
-  }
-
-  public GenderRestriction getGenderRestriction() {
-    return genderRestriction;
-  }
-
-  public void setGenderRestriction(GenderRestriction newGenderRestriction) {
-    this.genderRestriction = newGenderRestriction;
-  }
-
-  public void setOpponents(List<Opponent> newOpponents) {
-    this.opponents = newOpponents;
-  }
-
-  public OpponentTypeRestriction getOpponentTypeRestriction() {
-
-    return opponentTypeRestriction;
-  }
-
-  public void setOpponentTypeRestriction(OpponentTypeRestriction newOpponentTypeRestriction) {
-    this.opponentTypeRestriction = newOpponentTypeRestriction;
+  
+  public Set<Restriction> getRestrictions(){
+	  return restrictions;
   }
 
   @Override

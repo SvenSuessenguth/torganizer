@@ -1,7 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import static java.util.Collections.unmodifiableList;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -38,7 +36,7 @@ public class Tournament
   private Set<Opponent> opponents = new HashSet<>();
 
   @XmlTransient
-  private transient List<Discipline> disciplines = new ArrayList<Discipline>();
+  private Set<Discipline> disciplines = new HashSet<>();
 
   /**
    * Default.
@@ -73,12 +71,12 @@ public class Tournament
     disciplines.add(discipline);
   }
 
-  public List<Discipline> getDisciplines() {
-    return unmodifiableList(disciplines);
+  public Set<Discipline> getDisciplines() {
+    return disciplines;
   }
 
-  public void setDisciplines(List<Discipline> inDisciplines) {
-    this.disciplines = inDisciplines;
+  public void setDisciplines(Set<Discipline> disciplines) {
+    this.disciplines = disciplines;
   }
 
   /**

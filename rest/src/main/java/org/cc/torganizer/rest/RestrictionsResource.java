@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
@@ -24,58 +25,66 @@ import org.cc.torganizer.rest.container.RestrictionsContainer;
 @Produces("application/json")
 public class RestrictionsResource {
 
-  @PersistenceContext(name = "torganizer")
-  EntityManager entityManager;
+	@PersistenceContext(name = "torganizer")
+	EntityManager entityManager;
 
-  @GET
-  @Path("/")
-  public RestrictionsContainer all() {
+	@GET
+	@Path("/")
+	public RestrictionsContainer all() {
 
-    TypedQuery<Restriction> namedQuery = entityManager.createNamedQuery("Restriction.findAll", Restriction.class);
-    List<Restriction> restrictionsAsList = namedQuery.getResultList();
+		TypedQuery<Restriction> namedQuery = entityManager.createNamedQuery("Restriction.findAll", Restriction.class);
+		List<Restriction> restrictions = namedQuery.getResultList();
 
-    RestrictionsContainer restrictions = new RestrictionsContainer();
-    for (Restriction restriction : restrictionsAsList) {
-      restrictions.add(restriction);
-    }
+		RestrictionsContainer restrictionsContainer = new RestrictionsContainer(restrictions);
 
-    return restrictions;
-  }
+		return restrictionsContainer;
+	}
 
-  @GET
-  @Path("/add/gender")
-  public Restriction addGenderRestriction(@QueryParam("validGender") Gender validGender) {
-    GenderRestriction genderRestriction = new GenderRestriction();
-    genderRestriction.setValidGender(validGender);
+	@GET
+	@Path("{id}")
+	public Restriction byId(@PathParam("id") Long id) {
 
-    entityManager.persist(genderRestriction);
+		TypedQuery<Restriction> namedQuery = entityManager.createNamedQuery("Restriction.findById", Restriction.class);
+		namedQuery.setParameter("id", id);
+		List<Restriction> restrictions = namedQuery.getResultList();
 
-    return genderRestriction;
-  }
+		return restrictions.get(0);
+	}
 
-  @GET
-  @Path("/add/age")
-  public Restriction addAgeRestriction(@QueryParam("maxDateOfBirth") String maxDateOfBirthISO,
-      @QueryParam("minDateOfBirth") String minDateOfBirthISO) {
+	@GET
+	@Path("/new/gender")
+	public Restriction newGenderRestriction(@QueryParam("validGender") Gender validGender) {
+		GenderRestriction genderRestriction = new GenderRestriction();
+		genderRestriction.setValidGender(validGender);
 
-    AgeRestriction ageRestriction = new AgeRestriction();
-    ageRestriction.setMaxDateOfBirthISO(maxDateOfBirthISO);
-    ageRestriction.setMinDateOfBirthISO(minDateOfBirthISO);
+		entityManager.persist(genderRestriction);
 
-    entityManager.persist(ageRestriction);
+		return genderRestriction;
+	}
 
-    return ageRestriction;
-  }
-  
-  @GET
-  @Path("/add/opponenttype")
-  public Restriction addOpponentTypeRestriction(@QueryParam("validOpponentType") OpponentType validOpponentType) {
+	@GET
+	@Path("/new/age")
+	public Restriction newAgeRestriction(@QueryParam("maxDateOfBirth") String maxDateOfBirthISO,
+			@QueryParam("minDateOfBirth") String minDateOfBirthISO) {
 
-    OpponentTypeRestriction otRestriction = new OpponentTypeRestriction();
-    otRestriction.setValidOpponentType(validOpponentType);
-    
-    entityManager.persist(otRestriction);
+		AgeRestriction ageRestriction = new AgeRestriction();
+		ageRestriction.setMaxDateOfBirthISO(maxDateOfBirthISO);
+		ageRestriction.setMinDateOfBirthISO(minDateOfBirthISO);
 
-    return otRestriction;
-  }
+		entityManager.persist(ageRestriction);
+
+		return ageRestriction;
+	}
+
+	@GET
+	@Path("/new/opponenttype")
+	public Restriction newOpponentTypeRestriction(@QueryParam("validOpponentType") OpponentType validOpponentType) {
+
+		OpponentTypeRestriction otRestriction = new OpponentTypeRestriction();
+		otRestriction.setValidOpponentType(validOpponentType);
+
+		entityManager.persist(otRestriction);
+
+		return otRestriction;
+	}
 }

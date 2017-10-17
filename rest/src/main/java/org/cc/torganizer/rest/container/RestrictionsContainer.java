@@ -2,7 +2,6 @@ package org.cc.torganizer.rest.container;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -29,8 +28,12 @@ public class RestrictionsContainer {
   @XmlElements(value = { @XmlElement(name = "GenderRestriction", type = GenderRestriction.class),
       @XmlElement(name = "AgeRestriction", type = AgeRestriction.class),
       @XmlElement(name = "OpponentTypeRestriction", type = OpponentTypeRestriction.class) })
-  private List<Restriction> restrictions = new ArrayList<>();;
+  private List<Restriction> restrictions = new ArrayList<>();
 
+  public RestrictionsContainer(List<Restriction> restrictions) {
+	  this.restrictions = restrictions;
+  }
+  
   public void add(Restriction restriction) {
     restrictions.add(restriction);
   }
@@ -39,6 +42,6 @@ public class RestrictionsContainer {
   }
   
   public List<Restriction> getRestrictions(){
-    return Collections.unmodifiableList(restrictions);
+    return restrictions;
   }
 }

@@ -34,21 +34,27 @@
   <named-query name="Tournament.findSubscribers">
     <query>SELECT p FROM Player p, Tournament t WHERE t.id = :id AND p MEMBER OF t.subscribers</query>
   </named-query>
-  
-  <!--
-  @NamedQuery(name = "getAllTournaments", query = "SELECT t FROM Tournament t")
-  
-  @NamedQueries({
-    @NamedQuery(name = "getAllPlayers", query = "SELECT p FROM Player p WHERE p.tournament.id = :tournamentId"),
-    @NamedQuery(name = "findByClub", query = "SELECT p FROM Player p WHERE p.club = :club AND p.tournament.id = :tournamentId"),
-    @NamedQuery(name = "findPlayerWithoutClub", query = "SELECT p FROM Player p WHERE p.club is null AND p.tournament.id = (:tournamentId)"),
-    @NamedQuery(name = "getAllPlayersWithGender", query = "SELECT p FROM Player p WHERE p.person.gender = (:gender) AND p.tournament.id = (:tournamentId)"),
-    @NamedQuery(name = "countPlayers", query = "SELECT COUNT(p) FROM Player p WHERE p.tournament.id = (:tournamentId)") })
-    
-  @NamedQueries({
-    @NamedQuery(name = "getOpponentsForTournament", query = "SELECT o FROM Opponent o WHERE o.tournament.id = (:tournamentId)"),
-    @NamedQuery(name = "getAllOtherOpponents", query = "SELECT o FROM Opponent o WHERE o NOT IN (:opponents) AND o.tournament.id = (:tournamentId)") }) 
-   -->
+  <named-query name="Tournament.findOpponents">
+    <query>SELECT o FROM Opponent o, Tournament t WHERE t.id = :id AND o MEMBER OF t.opponents</query>
+  </named-query>
+  <named-query name="Tournament.findDisciplines">
+    <query>SELECT d FROM Discipline d, Tournament t WHERE t.id = :id AND d MEMBER OF t.disciplines</query>
+  </named-query>
+  <named-query name="Opponent.findById">
+    <query>SELECT o FROM Opponent o WHERE o.id = :id</query>
+  </named-query>
+  <named-query name="Discipline.findAll">
+    <query>SELECT d FROM Discipline d</query>
+  </named-query>
+  <named-query name="Discipline.findById">
+    <query>SELECT d FROM Discipline d WHERE d.id = :id</query>
+  </named-query>
+  <named-query name="Discipline.findOpponents">
+    <query>SELECT o FROM Opponent o, Discipline d WHERE d.id = :id AND o MEMBER OF d.opponents</query>
+  </named-query>
+  <named-query name="Discipline.findRestrictions">
+    <query>SELECT r FROM Restriction r, Discipline d WHERE d.id = :id AND r MEMBER OF d.restrictions</query>
+  </named-query>
   
   <entity class="org.cc.torganizer.core.entities.Restriction">
     <table name="RESTRICTIONS" />
@@ -132,6 +138,13 @@
          </join-table>
          <cascade><cascade-all/></cascade>
        </one-to-many>
+       <one-to-many name="disciplines">
+         <join-table name="TOURNAMENT_DISCIPLINES">
+           <join-column name="TOURNAMENT_ID" referenced-column-name="TOURNAMENT_ID"/>
+           <inverse-join-column name="DISCIPLINE_ID" referenced-column-name="DISCIPLINE_ID" unique="true" />
+         </join-table>
+         <cascade><cascade-all/></cascade>
+       </one-to-many>
      </attributes>
   </entity>
   
@@ -162,13 +175,43 @@
       </one-to-one>
     </attributes>
   </entity>
-  
+
+
+  <!-- 
+  @OneToMany(cascade = CascadeType.ALL)
+  @OrderBy("index ASC")
+  @JoinTable(name = "DISCIPLINES_ROUNDS", joinColumns = {@JoinColumn(name = "DISCIPLINE_ID") }, inverseJoinColumns = @JoinColumn(name = "ROUND_ID"))
+   -->
+  <entity class="org.cc.torganizer.core.entities.Discipline" access="FIELD">
+    <table name="DISCIPLINES" />
+    <attributes>    
+      <id name="id" >
+        <column name="DISCIPLINE_ID"/>
+          <generated-value strategy="IDENTITY"/>
+       </id>
+       <basic name="label"><column name="LABEL" nullable="false" /></basic>
+       <one-to-many name="opponents">
+         <join-table name="DISCIPLINES_OPPONENTS">
+           <join-column name="DISCIPLINE_ID" referenced-column-name="DISCIPLINE_ID"/>
+           <inverse-join-column name="OPPONENT_ID" referenced-column-name="OPPONENT_ID" unique="true" />
+         </join-table>
+         <cascade><cascade-all/></cascade>
+       </one-to-many>
+       <one-to-many name="restrictions">
+         <join-table name="DISCIPLINES_RESTRICTIONS">
+           <join-column name="DISCIPLINE_ID" referenced-column-name="DISCIPLINE_ID"/>
+           <inverse-join-column name="RESTRICTION_ID" referenced-column-name="RESTRICTION_ID" unique="true" />
+         </join-table>
+         <cascade><cascade-all/></cascade>
+       </one-to-many>
+     </attributes>
+  </entity>
   
   <!--
   <entity class="org.cc.torganizer.core.entities.Bye" />
   <entity class="org.cc.torganizer.core.entities.Club" />
   <entity class="org.cc.torganizer.core.entities.Court" />
-  <entity class="org.cc.torganizer.core.entities.Discipline" />  
+
   <entity class="org.cc.torganizer.core.entities.Group" />
   <entity class="org.cc.torganizer.core.entities.Gymnasium" />
   <entity class="org.cc.torganizer.core.entities.IndexedOpponent" />    
