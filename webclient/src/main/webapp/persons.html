@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="js/persons.js"></script>
+    <link rel="stylesheet" href="css/ui.css">
+    <title>startseite</title>
+  </head>
+
+  <body>
+
+    <template id="personRecord">
+      <tr>
+        <td id="firstName"></td>
+        <td id="lastName"></td>
+      </tr>
+    </template>
+
+    Anzahl <span id="personsCount"></span>
+    <table id="personsTable">
+      <tbody id="personsTableBody" />
+    </table>
+
+    <span id="personData"> 
+      <label for="pdFirstName">Vorname</label><input id="pdFirstName" type="text" value="">
+      <label for="pdLastName">Nachname</label> <input id="pdLastName" type="text" value="">
+      <label for="pdGender">Geschlecht</label> <input id="pdGender" type="text" value="">
+      <label for="pdDateOfBirth">Geburtsdatum</label> <input id="pdDateOfBirth" type="text" value="">
+    
+      <input type="button" value="neu" onclick="newPerson()">
+    </span>
+
+    <script>onload();</script>
+  </body>
+</html>

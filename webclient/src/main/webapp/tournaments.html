@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="de">
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="js/tournaments.js"></script>
+    <link rel="stylesheet" href="css/ui.css">
+    <title>Tournament</title>
+  </head>
+
+  <body>
+
+    <template id="tournamentRecord">
+      <tr>
+        <td id="name"></td>
+      </tr>
+    </template>
+
+    Anzahl <span id="tournamentsCount"></span>
+    <table id="tournamentsTable">
+      <tbody id="tournamentsTableBody" />
+    </table>
+
+    <span id="tournamentnData"> 
+      <label for="tdTournamentName">Name</label><input id="tdName" type="text" value="">
+      
+      <input type="button" value="neu" onclick="newTournament()">
+      <input type="button" value="aktualisieren" onclick="updateTournament()">
+    </span>
+
+    <script>onload();</script>
+  </body>
+</html>
