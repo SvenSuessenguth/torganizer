@@ -62,7 +62,7 @@ public class PersonsResource {
 
   @GET
   @Path("/add")
-  public Person addGenderRestriction(@QueryParam("firstName") String firstName, @QueryParam("lastName") String lastName,
+  public Person add(@QueryParam("firstName") String firstName, @QueryParam("lastName") String lastName,
       @QueryParam("gender") Gender gender, @QueryParam("dobISO") String dobISO) {
 
     Person person = new Person(firstName, lastName);
@@ -73,5 +73,26 @@ public class PersonsResource {
     entityManager.persist(person);
 
     return person;
+  }
+  
+  @GET
+  @Path("/update")
+  public Person update(@QueryParam("id") Long id, @QueryParam("firstName") String firstName, @QueryParam("lastName") String lastName,
+      @QueryParam("gender") Gender gender, @QueryParam("dobISO") String dobISO) {
+
+    TypedQuery<Person> namedQuery = entityManager.createNamedQuery("Person.findById", Person.class);
+    namedQuery.setParameter("id", id);
+    List<Person> persons = namedQuery.getResultList();
+
+    Person personToUpdate = persons.get(0);
+    personToUpdate.setFirstName(firstName);
+    personToUpdate.setLastName(lastName);
+    personToUpdate.setGender(gender);
+    LocalDate dateOfBirth = LocalDate.parse(dobISO, DateTimeFormatter.ISO_DATE);
+    personToUpdate.setDateOfBirth(dateOfBirth);
+    
+    entityManager.persist(personToUpdate);
+    
+    return personToUpdate;
   }
 }

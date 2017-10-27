@@ -35,10 +35,13 @@ function showPersonDetails(id){
     return response.json();
   }).then(function(data) {
     // "id":1, "firstName":"Sven", "lastName":"SÃ¼ssenguth", "gender":"MALE", "dateOfBirthISO":"1968-01-12"
+	document.getElementById("selectedPersonId").setAttribute('value', data.id)
+	
     document.getElementById("pdFirstName").setAttribute('value', data.firstName)
     document.getElementById("pdLastName").setAttribute('value', data.lastName)
     document.getElementById("pdGender").setAttribute('value', data.gender)
     document.getElementById("pdDateOfBirth").setAttribute('value', data.dateOfBirthISO)
+    
   }).catch(function(err) {
   });
 }
@@ -52,6 +55,25 @@ function newPerson(){
 	
   // http://localhost:8080/rest/resources/persons/add?firstName=Sven&lastName=Süssenguth&gender=MALE&dobISO=1968-01-12
   fetch('http://localhost:8080/rest/resources/persons/add?firstName='+firstName+'&lastName='+lastName+'&gender='+gender+'&dobISO='+dateOfBirth).then(function(response) {
+    return response;
+  }).then(function(data) {
+  }).catch(function(err) {
+  });
+
+  // neuladen des gesamten Dokumentes nach einem 'post'
+  window.location.reload(true);
+}
+
+//Anlegen einer neuen Person, mit den eingegebenen Daten
+function updatePerson(){
+  var id= document.getElementById("selectedPersonId").value
+  var firstName = document.getElementById("pdFirstName").value
+  var lastName = document.getElementById("pdLastName").value
+  var gender = document.getElementById("pdGender").value
+  var dateOfBirth = document.getElementById("pdDateOfBirth").value
+	
+  // http://localhost:8080/rest/resources/persons/add?firstName=Sven&lastName=Süssenguth&gender=MALE&dobISO=1968-01-12
+  fetch('http://localhost:8080/rest/resources/persons/update?id='+id+'&firstName='+firstName+'&lastName='+lastName+'&gender='+gender+'&dobISO='+dateOfBirth).then(function(response) {
     return response;
   }).then(function(data) {
   }).catch(function(err) {
