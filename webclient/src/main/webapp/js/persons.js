@@ -1,5 +1,7 @@
-// Laden der Personendaten bei der Anzeige der Seite
-function onload(){
+// 
+// load and show persons in a table on loading the page
+//
+function onload(){	
   fetch('http://localhost:8080/rest/resources/persons').then(function(response) {
 	return response.json();
   }).then(function(data) {
@@ -17,7 +19,7 @@ function onload(){
     var firstNameElement = template.querySelector("#firstName");
     firstNameElement.innerHTML = person.firstName;
     firstNameElement.setAttribute("id", "firstName"+person.id)
-    firstNameElement.onclick = function(e){ showPersonDetails(person.id); }
+    firstNameElement.onclick = function(e){ showSelectedPersonDetails(person.id); }
 		
     var lastNameElement = template.querySelector("#lastName"); 
     lastNameElement.innerHTML = person.lastName;
@@ -29,8 +31,10 @@ function onload(){
   });
 }
 
-// Anzeigen der Personendaten der angeklickten Person aus der Tabelle
-function showPersonDetails(id){
+//
+// show selected persons details
+// 
+function showSelectedPersonDetails(id){
   fetch('http://localhost:8080/rest/resources/persons/'+id).then(function(response) {
     return response.json();
   }).then(function(data) {
@@ -39,19 +43,30 @@ function showPersonDetails(id){
 	
     document.getElementById("pdFirstName").setAttribute('value', data.firstName)
     document.getElementById("pdLastName").setAttribute('value', data.lastName)
-    document.getElementById("pdGender").setAttribute('value', data.gender)
     document.getElementById("pdDateOfBirth").setAttribute('value', data.dateOfBirthISO)
     
+    var genderElement = document.getElementById("pdGender");
+	selectItemByValue(genderElement, data.gender);
   }).catch(function(err) {
   });
 }
 
-// Anlegen einer neuen Person, mit den eingegebenen Daten
+//
+// Create new person, send to the server and persist in database.
+// After that the table with all persons is updated.
+// 
 function newPerson(){
+	
+	if(!isFormValid()){
+		  return;
+	  }
+	
   var firstName = document.getElementById("pdFirstName").value
   var lastName = document.getElementById("pdLastName").value
-  var gender = document.getElementById("pdGender").value
   var dateOfBirth = document.getElementById("pdDateOfBirth").value
+  
+  var genderElement = document.getElementById("pdGender");
+  var gender = genderElement.options[genderElement.selectedIndex].value
 	
   // http://localhost:8080/rest/resources/persons/add?firstName=Sven&lastName=Süssenguth&gender=MALE&dobISO=1968-01-12
   fetch('http://localhost:8080/rest/resources/persons/add?firstName='+firstName+'&lastName='+lastName+'&gender='+gender+'&dobISO='+dateOfBirth).then(function(response) {
@@ -64,8 +79,15 @@ function newPerson(){
   window.location.reload(true);
 }
 
-//Anlegen einer neuen Person, mit den eingegebenen Daten
+//
+// Update persons date and persist in database
+// After that the table with all persons is updated.
+// 
 function updatePerson(){
+  if(!isFormValid()){
+	  return;
+  }
+	
   var id= document.getElementById("selectedPersonId").value
   var firstName = document.getElementById("pdFirstName").value
   var lastName = document.getElementById("pdLastName").value
@@ -82,3 +104,29 @@ function updatePerson(){
   // neuladen des gesamten Dokumentes nach einem 'post'
   window.location.reload(true);
 }
+
+
+//
+// Validating the form to show client side errors.
+// 
+function isFormValid(){
+	var form = document.getElementById("personsForm");
+	if(form.checkValidity()){
+		return true;
+	}else{
+	  document.getElementById("validateFormButton").click();
+	  return false;
+	}
+}
+
+//
+// http://www.imranulhoque.com/javascript/javascript-beginners-select-a-dropdown-option-by-value/
+//
+function selectItemByValue(elmnt, value){
+
+    for(var i=0; i < elmnt.options.length; i++)
+    {
+      if(elmnt.options[i].value == value)
+        elmnt.selectedIndex = i;
+    }
+  }

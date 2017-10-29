@@ -9,29 +9,36 @@
   </head>
 
   <body>
-    <input type="hidden" id="selectedPersonId" value="" />
-
     <template id="personRecord">
       <tr>
         <td id="firstName"></td>
         <td id="lastName"></td>
       </tr>
     </template>
+    
+    <form id="personsForm" onsubmit="return false;">
+    
+      <input type="hidden" id="selectedPersonId" value="" />
+      <input type="submit" id="validateFormButton" value="validate" style="display: none;">  
 
-    Anzahl <span id="personsCount"></span>
-    <table id="personsTable">
-      <tbody id="personsTableBody" />
-    </table>
-    <form onsubmit="return false;">
+      Anzahl <span id="personsCount"></span>
+      <table id="personsTable">
+        <tbody id="personsTableBody" />
+      </table>
+      
       <span id="personData"> 
         <label for="pdFirstName">Vorname
           <input id="pdFirstName" type="text" value="" autofocus="autofocus" required="required" >
         </label>
         <label for="pdLastName">Nachname
-          <input id="pdLastName" type="text" value="">
+          <input id="pdLastName" type="text" value="" required="required" >
         </label>
         <label for="pdGender">Geschlecht
-          <input id="pdGender" type="text" value="">
+          <select id="pdGender">
+            <option value="MALE">männlich</option>
+            <option value="FEMALE">weiblich</option>
+            <option value="UNKNOWN">unbekannt</option>
+          </select>
         </label>
         <label for="pdDateOfBirth">Geburtsdatum
           <input id="pdDateOfBirth" type="text" value="" placeholder="yyyy-mm-dd">
@@ -39,7 +46,6 @@
     
         <input type="button" value="neu" onclick="newPerson()">
         <input type="button" value="ändern" onclick="updatePerson()">
-        <input type="submit" class="hide" id="inputButton" value="validate">  
       </span>
 
     </form>
