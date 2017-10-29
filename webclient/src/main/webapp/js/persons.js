@@ -123,10 +123,9 @@ function isFormValid(){
 // http://www.imranulhoque.com/javascript/javascript-beginners-select-a-dropdown-option-by-value/
 //
 function selectItemByValue(elmnt, value){
-
-    for(var i=0; i < elmnt.options.length; i++)
-    {
-      if(elmnt.options[i].value == value)
+  for(var i=0; i < elmnt.options.length; i++) {
+    if(elmnt.options[i].value == value) {
         elmnt.selectedIndex = i;
     }
   }
+}
