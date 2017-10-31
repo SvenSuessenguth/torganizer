@@ -1,11 +1,11 @@
-var tableSize = Number(10);
+var tableSize = Number(1);
 
 // 
 // load and show persons in a table on loading the page
 //
 function showPersonsTable(){
 
-  var offset = Number(document.getElementById("pdOffset").value)
+  var offset = Number(localStorage.getItem('persons-table-offset'))
   
   document.getElementById("personsOffset").innerHTML = offset
   document.getElementById("personsLength").innerHTML = offset + tableSize
@@ -56,7 +56,7 @@ function showPersonsCount(){
 
 function next(){
   var personsCount = Number(document.getElementById("personsCount").innerHTML)
-  var currOffset = Number(document.getElementById("pdOffset").value)
+  var currOffset = Number(localStorage.getItem('persons-table-offset'))
   var newOffset = currOffset + tableSize
   
   if(newOffset>=personsCount){
@@ -64,12 +64,12 @@ function next(){
   }
   
   document.getElementById("personsOffset").innerHTML = newOffset
-  document.getElementById("pdOffset").setAttribute("value", newOffset)
+  localStorage.setItem('persons-table-offset', newOffset)
   showPersonsTable();
 }
 
 function prev(){
-  var currOffset = Number(document.getElementById("pdOffset").value)
+  var currOffset = Number(localStorage.getItem('persons-table-offset'))
   var newOffset = currOffset - tableSize
   
   if(newOffset<0){
@@ -78,7 +78,7 @@ function prev(){
   
   document.getElementById("personsOffset").innerHTML = newOffset
   document.getElementById("personsLength").innerHTML = newOffset + tableSize
-  document.getElementById("pdOffset").setAttribute("value", newOffset)
+  localStorage.setItem('persons-table-offset', newOffset)
   showPersonsTable();
 }
 
@@ -91,7 +91,8 @@ function showSelectedPersonDetails(id){
   }).then(function(data) {
     
     // "id":1, "firstName":"Sven", "lastName":"SÃ¼ssenguth", "gender":"MALE", "dateOfBirthISO":"1968-01-12"
-	  document.getElementById("selectedPersonId").setAttribute('value', data.id)
+    localStorage.setItem('persons-table-selected', data.id)
+	  
 	
     document.getElementById("pdFirstName").setAttribute('value', data.firstName)
     document.getElementById("pdLastName").setAttribute('value', data.lastName)
@@ -187,7 +188,7 @@ function selectItemByValue(elmnt, value){
 function personDataToJSon(){
   console.log("personDataToJSon");
   
-  var id= document.getElementById("selectedPersonId").value
+  var id= Number(localStorage.getItem('persons-table-selected'))
   var firstName = document.getElementById("pdFirstName").value
   var lastName = document.getElementById("pdLastName").value
   var dateOfBirth = document.getElementById("pdDateOfBirth").value
