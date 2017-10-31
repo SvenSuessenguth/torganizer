@@ -38,6 +38,8 @@ function showSelectedPersonDetails(id){
   fetch('http://localhost:8080/rest/resources/persons/'+id).then(function(response) {
     return response.json();
   }).then(function(data) {
+    console.log(data)
+    
     // "id":1, "firstName":"Sven", "lastName":"SÃ¼ssenguth", "gender":"MALE", "dateOfBirthISO":"1968-01-12"
 	document.getElementById("selectedPersonId").setAttribute('value', data.id)
 	
@@ -47,6 +49,8 @@ function showSelectedPersonDetails(id){
     
     var genderElement = document.getElementById("pdGender");
 	selectItemByValue(genderElement, data.gender);
+	
+	personDataToJSon();
   }).catch(function(err) {
   });
 }
@@ -84,21 +88,22 @@ function newPerson(){
 // After that the table with all persons is updated.
 // 
 function updatePerson(){
-  if(!isFormValid()){
-	  return;
-  }
-	
-  var id= document.getElementById("selectedPersonId").value
-  var firstName = document.getElementById("pdFirstName").value
-  var lastName = document.getElementById("pdLastName").value
-  var gender = document.getElementById("pdGender").value
-  var dateOfBirth = document.getElementById("pdDateOfBirth").value
-	
+  if(!isFormValid()){ return; }
+  
   // http://localhost:8080/rest/resources/persons/add?firstName=Sven&lastName=Süssenguth&gender=MALE&dobISO=1968-01-12
-  fetch('http://localhost:8080/rest/resources/persons/update?id='+id+'&firstName='+firstName+'&lastName='+lastName+'&gender='+gender+'&dobISO='+dateOfBirth).then(function(response) {
-    return response;
+  fetch('http://localhost:8080/rest/resources/persons/update',{
+    method: "POST",
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: personDataToJSon()    
+  }).then(function(response) {
+    return response.json;
   }).then(function(data) {
+    console.log(data)
   }).catch(function(err) {
+    console.log(err)
   });
 
   // neuladen des gesamten Dokumentes nach einem 'post'
@@ -128,4 +133,29 @@ function selectItemByValue(elmnt, value){
         elmnt.selectedIndex = i;
     }
   }
+}
+
+function personDataToJSon(){
+  console.log("personDataToJSon");
+  
+  var id= document.getElementById("selectedPersonId").value
+  var firstName = document.getElementById("pdFirstName").value
+  var lastName = document.getElementById("pdLastName").value
+  var dateOfBirth = document.getElementById("pdDateOfBirth").value
+  
+  var genderElement = document.getElementById("pdGender");
+  var gender = genderElement.options[genderElement.selectedIndex].value
+  
+  var json = JSON.stringify({
+    "id": Number(id),
+    "firstName": firstName,
+    "lastName": lastName,
+    "dateOfBirthISO": dateOfBirth,
+    "gender": gender      
+  })
+  
+  console.log('personDataToJSon:'+json)
+  
+  return json;
+  
 }

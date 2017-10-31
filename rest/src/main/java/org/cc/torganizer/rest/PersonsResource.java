@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -75,24 +76,11 @@ public class PersonsResource {
     return person;
   }
   
-  @GET
+  @POST
   @Path("/update")
-  public Person update(@QueryParam("id") Long id, @QueryParam("firstName") String firstName, @QueryParam("lastName") String lastName,
-      @QueryParam("gender") Gender gender, @QueryParam("dobISO") String dobISO) {
-
-    TypedQuery<Person> namedQuery = entityManager.createNamedQuery("Person.findById", Person.class);
-    namedQuery.setParameter("id", id);
-    List<Person> persons = namedQuery.getResultList();
-
-    Person personToUpdate = persons.get(0);
-    personToUpdate.setFirstName(firstName);
-    personToUpdate.setLastName(lastName);
-    personToUpdate.setGender(gender);
-    LocalDate dateOfBirth = LocalDate.parse(dobISO, DateTimeFormatter.ISO_DATE);
-    personToUpdate.setDateOfBirth(dateOfBirth);
+  public Person update(Person person) {
+    entityManager.merge(person);
     
-    entityManager.persist(personToUpdate);
-    
-    return personToUpdate;
+    return person;
   }
 }
