@@ -1,14 +1,18 @@
 // 
 // load and show persons in a table on loading the page
 //
-function onload(){	
-  fetch('http://localhost:8080/rest/resources/persons').then(function(response) {
+function onload(){
+
+  var offset = document.getElementById("pdOffset").value
+  var length = document.getElementById("pdLength").value
+  
+  fetch('http://localhost:8080/rest/resources/persons?offset='+offset+'&length='+length).then(function(response) {
 	return response.json();
   }).then(function(data) {
     // "persons":
     // {"id":1,"firstName":"Marvin","lastName":"SÃ¼ssenguth","gender":"MALE","dateOfBirthISO":"2004-10-28"},
-    document.getElementById("personsCount").innerHTML=data.persons.length;
-
+    showPersonsCount()
+    
     var personRecordTemplate = document.querySelector("#personRecord");
     var tableBody = document.querySelector('#personsTableBody');
 	
@@ -31,6 +35,37 @@ function onload(){
   });
 }
 
+function showPersonsCount(){
+  fetch('http://localhost:8080/rest/resources/persons/count').then(function(response) {
+    return response.json();
+    }).then(function(data) {
+      document.getElementById("personsCount").innerHTML=data;
+    }).catch(function(err) {
+  });
+}
+
+function next(){
+  var currOffset = Number(document.getElementById("pdOffset").value)
+  var length = Number(document.getElementById("pdLength").value)
+  var newOffset = currOffset + length
+  
+  document.getElementById("pdOffset").setAttribute("value", newOffset)
+  onload();
+}
+
+function prev(){
+  var currOffset = Number(document.getElementById("pdOffset").value)
+  var length = Number(document.getElementById("pdLength").value)
+  var newOffset = currOffset - length
+  
+  if(newOffset<0){
+    newOffset = 0;
+  }
+  
+  document.getElementById("pdOffset").setAttribute("value", newOffset)
+  onload();
+}
+
 //
 // show selected persons details
 // 
@@ -38,19 +73,17 @@ function showSelectedPersonDetails(id){
   fetch('http://localhost:8080/rest/resources/persons/'+id).then(function(response) {
     return response.json();
   }).then(function(data) {
-    console.log(data)
     
     // "id":1, "firstName":"Sven", "lastName":"SÃ¼ssenguth", "gender":"MALE", "dateOfBirthISO":"1968-01-12"
-	document.getElementById("selectedPersonId").setAttribute('value', data.id)
+	  document.getElementById("selectedPersonId").setAttribute('value', data.id)
 	
     document.getElementById("pdFirstName").setAttribute('value', data.firstName)
     document.getElementById("pdLastName").setAttribute('value', data.lastName)
     document.getElementById("pdDateOfBirth").setAttribute('value', data.dateOfBirthISO)
     
     var genderElement = document.getElementById("pdGender");
-	selectItemByValue(genderElement, data.gender);
+    selectItemByValue(genderElement, data.gender);
 	
-	personDataToJSon();
   }).catch(function(err) {
   });
 }

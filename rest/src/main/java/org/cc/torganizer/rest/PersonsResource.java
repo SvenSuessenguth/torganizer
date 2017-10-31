@@ -7,6 +7,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -29,12 +30,21 @@ public class PersonsResource {
 
   @GET
   @Path("/")
-  public PersonsContainer all() {
+  public PersonsContainer all(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
 
     TypedQuery<Person> namedQuery = entityManager.createNamedQuery("Person.findAll", Person.class);
+    namedQuery.setFirstResult(offset);
+    namedQuery.setMaxResults(length);
     List<Person> persons = namedQuery.getResultList();
 
     return new PersonsContainer(persons);
+  }
+  
+  @GET
+  @Path("/count")
+  public long count() {
+    Query query = entityManager.createQuery("SELECT count(*) FROM Person p");
+    return (long) query.getSingleResult();
   }
   
   @GET
@@ -49,7 +59,7 @@ public class PersonsResource {
   }
   
   @GET
-  @Path("/{gender}")
+  @Path("{gender}")
   public PersonsContainer allByGender(@PathParam("gender") String gender) {
 
     Gender g = Gender.valueOf(gender.toUpperCase());

@@ -18,13 +18,20 @@
     
     <form id="personsForm" onsubmit="return false;">
     
-      <input type="hidden" id="selectedPersonId" value="" />
       <input type="submit" id="validateFormButton" value="validate" style="display: none;">  
 
-      Anzahl <span id="personsCount"></span>
+      <span id="personsOffset"></span> bis <span id="personsLength"></span> von <span id="personsCount"></span>
+      <input type="hidden" id="selectedPersonId" value="" />
+      <input type="hidden" id="pdOffset" value="0" />
+      <input type="hidden" id="pdLength" value="1" />
       <table id="personsTable">
+        <thead>
+          <tr><th>Vorname</th><th>Nachname</th></tr>
+        </thead>
         <tbody id="personsTableBody" />
       </table>
+      <input type="button" value="next" onclick="next()">
+      <input type="button" value="prev" onclick="prev()">
       
       <span id="personData"> 
         <label for="pdFirstName">Vorname
