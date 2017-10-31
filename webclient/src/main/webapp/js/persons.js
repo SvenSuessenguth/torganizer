@@ -1,21 +1,31 @@
+var tableSize = Number(10);
+
 // 
 // load and show persons in a table on loading the page
 //
-function onload(){
+function showPersonsTable(){
 
-  var offset = document.getElementById("pdOffset").value
-  var length = document.getElementById("pdLength").value
+  var offset = Number(document.getElementById("pdOffset").value)
   
-  fetch('http://localhost:8080/rest/resources/persons?offset='+offset+'&length='+length).then(function(response) {
+  document.getElementById("personsOffset").innerHTML = offset
+  document.getElementById("personsLength").innerHTML = offset + tableSize
+  
+  fetch('http://localhost:8080/rest/resources/persons?offset='+offset+'&length='+tableSize).then(function(response) {
 	return response.json();
   }).then(function(data) {
     // "persons":
     // {"id":1,"firstName":"Marvin","lastName":"SÃ¼ssenguth","gender":"MALE","dateOfBirthISO":"2004-10-28"},
     showPersonsCount()
     
-    var personRecordTemplate = document.querySelector("#personRecord");
+    // bisherige Daten entfernen, damit keine doppelten Anzeigen erscheinen
+    // https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
     var tableBody = document.querySelector('#personsTableBody');
-	
+    while (tableBody.firstChild) {
+      tableBody.removeChild(tableBody.firstChild);
+    }
+    
+    var personRecordTemplate = document.querySelector("#personRecord");
+    
     data.persons.forEach(function(person){
     var t = document.querySelector("#personRecord").cloneNode(true)		
     var template = t.content
@@ -45,25 +55,31 @@ function showPersonsCount(){
 }
 
 function next(){
+  var personsCount = Number(document.getElementById("personsCount").innerHTML)
   var currOffset = Number(document.getElementById("pdOffset").value)
-  var length = Number(document.getElementById("pdLength").value)
-  var newOffset = currOffset + length
+  var newOffset = currOffset + tableSize
   
+  if(newOffset>=personsCount){
+    return;
+  }
+  
+  document.getElementById("personsOffset").innerHTML = newOffset
   document.getElementById("pdOffset").setAttribute("value", newOffset)
-  onload();
+  showPersonsTable();
 }
 
 function prev(){
   var currOffset = Number(document.getElementById("pdOffset").value)
-  var length = Number(document.getElementById("pdLength").value)
-  var newOffset = currOffset - length
+  var newOffset = currOffset - tableSize
   
   if(newOffset<0){
     newOffset = 0;
   }
   
+  document.getElementById("personsOffset").innerHTML = newOffset
+  document.getElementById("personsLength").innerHTML = newOffset + tableSize
   document.getElementById("pdOffset").setAttribute("value", newOffset)
-  onload();
+  showPersonsTable();
 }
 
 //
