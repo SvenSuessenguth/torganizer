@@ -6,15 +6,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 
-import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.core.entities.Status;
 import org.cc.torganizer.rest.container.PlayersContainer;
 
 @Stateless
@@ -48,21 +47,27 @@ public class PlayersResource {
   }
     
   
-  @GET
+  @POST
   @Path("/new")
-  public Player newPlayer(@QueryParam("personId") Long personId) {
-
-    // read person
-    TypedQuery<Person> namedQuery = entityManager.createNamedQuery("Person.findById", Person.class);
-    namedQuery.setParameter("id", personId);
-    List<Person> persons = namedQuery.getResultList();
-    Person person = persons.get(0);
-    
-    // persist new player
-    Player player = new Player(person);
-    player.setStatus(Status.INACTIVE);    
+  public Player newPlayer(Player player) {
+    player.setId(null);
     entityManager.persist(player);
 
     return player;
+  }
+  
+  @DELETE
+  @Path("/delete/{id}")
+  public Player deletePlayer(@PathParam("id") Long id) {
+
+    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
+    namedQuery.setParameter("id", id);
+    List<Player> players = namedQuery.getResultList();    
+    Player player = players.get(0);
+    
+    entityManager.remove(player);
+    
+    return player;
+    
   }
 }

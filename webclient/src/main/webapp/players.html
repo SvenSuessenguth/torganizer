@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="de">
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="js/players.js"></script>
+    <link rel="stylesheet" href="css/ui.css">
+    <title>startseite</title>
+  </head>
+
+  <body>
+    
+    <!--
+     | create persons and players in one step
+     +-->
+    <form id="playersForm" onsubmit="return false;">
+    
+      <input type="submit" id="validateFormButton" value="validate" style="display: none;">
+      
+      <!--
+       | Tabelle aller Spieler  
+       +-->
+      
+      <span id="playersData"> 
+        <label for="pdFirstName">Vorname
+          <input id="pdFirstName" type="text" value="" autofocus="autofocus" required="required" >
+        </label>
+        <label for="pdLastName">Nachname
+          <input id="pdLastName" type="text" value="" required="required" >
+        </label>
+        <label for="pdGender">Geschlecht
+          <select id="pdGender">
+            <option value="MALE">männlich</option>
+            <option value="FEMALE">weiblich</option>
+            <option value="UNKNOWN">unbekannt</option>
+          </select>
+        </label>
+        <label for="pdDateOfBirth">Geburtsdatum
+          <input id="pdDateOfBirth" type="date" value="">
+        </label>
+        <label for="pdStatus">Status
+          <select id="pdStatus">
+            <option value="ACTIVE">aktiv</option>
+            <option value="INACTIVE">inaktiv</option>
+          </select>
+        </label>
+    
+        <input type="button" value="neu" onclick="newPlayer()">
+        <input type="button" value="ändern" onclick="updatePlayer()">
+        <input type="button" value="löschen" onclick="deletePlayer()">
+      </span>
+      
+      
+      <input type="checkbox" id="autoAdd" checked="checked" />
+      <label id="autoAddLabel" for="autoAdd"></label>
+      
+    </form>
+    <script>onLoad();</script>
+  </body>
+</html>

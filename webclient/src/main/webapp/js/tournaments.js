@@ -32,6 +32,7 @@ function showTournamentDetails(id){
     // {"id":1,"name":"dings"}
     document.getElementById("tdName").setAttribute('value', tournament.name)
     localStorage.setItem('tournaments-current-tournament-id', tournament.id)
+    localStorage.setItem('tournaments-current-tournament-name', tournament.name)
   }).catch(function(err) {
   });
 }
@@ -44,6 +45,7 @@ function newTournament(){
     return response.json();
   }).then(function(tournament) {
     localStorage.setItem('tournaments-current-tournament-id', tournament.id)
+    localStorage.setItem('tournaments-current-tournament-name', tournament.name)
   }).catch(function(err) {
   });
 
