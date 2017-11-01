@@ -1,4 +1,4 @@
-var tableSize = Number(1);
+var tableSize = Number(10);
 
 // 
 // load and show persons in a table on loading the page
@@ -91,7 +91,7 @@ function showSelectedPersonDetails(id){
   }).then(function(data) {
     
     // "id":1, "firstName":"Sven", "lastName":"SÃ¼ssenguth", "gender":"MALE", "dateOfBirthISO":"1968-01-12"
-    localStorage.setItem('persons-table-selected', data.id)
+    localStorage.setItem('persons-current-person-id', data.id)
 	  
 	
     document.getElementById("pdFirstName").setAttribute('value', data.firstName)
@@ -115,15 +115,14 @@ function newPerson(){
 		  return;
 	  }
 	
-  var firstName = document.getElementById("pdFirstName").value
-  var lastName = document.getElementById("pdLastName").value
-  var dateOfBirth = document.getElementById("pdDateOfBirth").value
-  
-  var genderElement = document.getElementById("pdGender");
-  var gender = genderElement.options[genderElement.selectedIndex].value
-	
-  // http://localhost:8080/rest/resources/persons/add?firstName=Sven&lastName=Süssenguth&gender=MALE&dobISO=1968-01-12
-  fetch('http://localhost:8080/rest/resources/persons/add?firstName='+firstName+'&lastName='+lastName+'&gender='+gender+'&dobISO='+dateOfBirth).then(function(response) {
+  fetch('http://localhost:8080/rest/resources/persons/add',{
+    method: "POST",
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: personDataToJSon()
+  }).then(function(response) {
     return response;
   }).then(function(data) {
   }).catch(function(err) {
@@ -140,7 +139,6 @@ function newPerson(){
 function updatePerson(){
   if(!isFormValid()){ return; }
   
-  // http://localhost:8080/rest/resources/persons/add?firstName=Sven&lastName=Süssenguth&gender=MALE&dobISO=1968-01-12
   fetch('http://localhost:8080/rest/resources/persons/update',{
     method: "POST",
     headers: {
@@ -158,6 +156,32 @@ function updatePerson(){
 
   // neuladen des gesamten Dokumentes nach einem 'post'
   window.location.reload(true);
+}
+
+//
+// Delete person from database
+// After that the table with all persons is updated.
+//
+function deletePerson(){
+  
+if(!isFormValid()){ return; }
+
+console.log("delete1")
+var id= Number(localStorage.getItem('persons-current-person-id'))
+
+fetch('http://localhost:8080/rest/resources/persons/delete/'+id,{
+  method: "DELETE"
+  }).then(function(response) {
+    
+    return response.json;
+}).then(function(data) {
+ console.log(data)
+}).catch(function(err) {
+ console.log(err)
+});
+
+// neuladen des gesamten Dokumentes nach einem 'delete'
+window.location.reload(true);
 }
 
 
@@ -188,7 +212,7 @@ function selectItemByValue(elmnt, value){
 function personDataToJSon(){
   console.log("personDataToJSon");
   
-  var id= Number(localStorage.getItem('persons-table-selected'))
+  var id= Number(localStorage.getItem('persons-current-person-id'))
   var firstName = document.getElementById("pdFirstName").value
   var lastName = document.getElementById("pdLastName").value
   var dateOfBirth = document.getElementById("pdDateOfBirth").value

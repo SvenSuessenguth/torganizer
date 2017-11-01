@@ -30,7 +30,8 @@ function showTournamentDetails(id){
     return response.json();
   }).then(function(tournament) {
     // {"id":1,"name":"dings"}
-    document.getElementById("tdName").setAttribute('value', tournament.name)    
+    document.getElementById("tdName").setAttribute('value', tournament.name)
+    localStorage.setItem('tournaments-current-tournament-id', tournament.id)
   }).catch(function(err) {
   });
 }
@@ -39,10 +40,10 @@ function showTournamentDetails(id){
 function newTournament(){
   var name = document.getElementById("tdName").value
   
-  // http://localhost:8080/rest/resources/persons/add?firstName=Sven&lastName=Süssenguth&gender=MALE&dobISO=1968-01-12
   fetch('http://localhost:8080/rest/resources/tournaments/new?name='+name).then(function(response) {
-    return response;
-  }).then(function(data) {
+    return response.json();
+  }).then(function(tournament) {
+    localStorage.setItem('tournaments-current-tournament-id', tournament.id)
   }).catch(function(err) {
   });
 

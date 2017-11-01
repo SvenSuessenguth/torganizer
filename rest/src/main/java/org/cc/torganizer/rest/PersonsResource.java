@@ -1,7 +1,5 @@
 package org.cc.torganizer.rest;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -9,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -16,7 +15,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
-import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.rest.container.PersonsContainer;
 
@@ -58,29 +56,12 @@ public class PersonsResource {
     return persons.get(0);
   }
   
-  @GET
-  @Path("{gender}")
-  public PersonsContainer allByGender(@PathParam("gender") String gender) {
-
-    Gender g = Gender.valueOf(gender.toUpperCase());
-    TypedQuery<Person> namedQuery = entityManager.createNamedQuery("Person.findByGender", Person.class);
-    namedQuery.setParameter("gender", g);
-    
-    List<Person> personsByGender = namedQuery.getResultList();
-
-    return new PersonsContainer(personsByGender);
-  }
-
-  @GET
+  @POST
   @Path("/add")
-  public Person add(@QueryParam("firstName") String firstName, @QueryParam("lastName") String lastName,
-      @QueryParam("gender") Gender gender, @QueryParam("dobISO") String dobISO) {
-
-    Person person = new Person(firstName, lastName);
-    person.setGender(gender);
-    LocalDate dateOfBirth = LocalDate.parse(dobISO, DateTimeFormatter.ISO_DATE);
-    person.setDateOfBirth(dateOfBirth);
-
+  public Person add(Person person) {
+    // Person wird als nicht-persistente entity betrachtet.
+    // vom client wird die id '0' geliefert, sodass eine detached-entity-Exception geworfen wird.
+    person.setId(null);
     entityManager.persist(person);
 
     return person;
@@ -92,5 +73,18 @@ public class PersonsResource {
     entityManager.merge(person);
     
     return person;
+  }
+  
+  @DELETE
+  @Path("/delete/{id}")
+  public Person delete(@PathParam("id") Long id) {
+    TypedQuery<Person> namedQuery = entityManager.createNamedQuery("Person.findById", Person.class);
+    namedQuery.setParameter("id", id);
+    List<Person> persons = namedQuery.getResultList();
+
+    Person personToDelete = persons.get(0);
+    entityManager.remove(personToDelete);
+    
+    return personToDelete;
   }
 }

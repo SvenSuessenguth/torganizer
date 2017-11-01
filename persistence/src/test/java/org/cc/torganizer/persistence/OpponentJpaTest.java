@@ -20,6 +20,6 @@ public class OpponentJpaTest extends AbstractDbUnitJpaTest {
   public void testFindAll() {
     List<Opponent> opponents = entityManager.createNamedQuery("Opponent.findAll", Opponent.class)
         .getResultList();
-    assertThat(opponents, hasSize(5));
+    assertThat(opponents, hasSize(2));
   }
 }
