@@ -40,26 +40,26 @@ public class TournamentResource {
   }
 
   @GET
+  @Path("/create")
+  public Tournament createTournament(@QueryParam("name") String name) {
+    
+    Tournament tournament = new Tournament();
+    tournament.setName(name);
+    
+    entityManager.persist(tournament);
+    
+    return tournament;
+  }
+  
+  @GET
   @Path("{id}")
-  public Tournament byId(@PathParam("id") Long id) {
+  public Tournament read(@PathParam("id") Long id) {
 
     TypedQuery<Tournament> namedQuery = entityManager.createNamedQuery("Tournament.findById", Tournament.class);
     namedQuery.setParameter("id", id);
     List<Tournament> tournaments = namedQuery.getResultList();
 
     return tournaments.get(0);
-  }
-
-  @GET
-  @Path("/new")
-  public Tournament newTournament(@QueryParam("name") String name) {
-
-    Tournament tournament = new Tournament();
-    tournament.setName(name);
-
-    entityManager.persist(tournament);
-
-    return tournament;
   }
 
   @GET
@@ -160,5 +160,4 @@ public class TournamentResource {
 
     return disciplineToAdd;
   }
-
 }

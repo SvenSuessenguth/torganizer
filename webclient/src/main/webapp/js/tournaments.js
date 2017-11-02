@@ -38,10 +38,10 @@ function showTournamentDetails(id){
 }
 
 // Anlegen einer neuen Person, mit den eingegebenen Daten
-function newTournament(){
+function createTournament(){
   var name = document.getElementById("tdName").value
   
-  fetch('http://localhost:8080/rest/resources/tournaments/new?name='+name).then(function(response) {
+  fetch('http://localhost:8080/rest/resources/tournaments/create?name='+name).then(function(response) {
     return response.json();
   }).then(function(tournament) {
     localStorage.setItem('tournaments-current-tournament-id', tournament.id)

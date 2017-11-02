@@ -109,13 +109,13 @@ function showSelectedPersonDetails(id){
 // Create new person, send to the server and persist in database.
 // After that the table with all persons is updated.
 // 
-function newPerson(){
+function createPerson(){
 	
 	if(!isFormValid()){
 		  return;
 	  }
 	
-  fetch('http://localhost:8080/rest/resources/persons/add',{
+  fetch('http://localhost:8080/rest/resources/persons/create',{
     method: "POST",
     headers: {
       'Accept': 'application/json',
@@ -164,24 +164,20 @@ function updatePerson(){
 //
 function deletePerson(){
   
-if(!isFormValid()){ return; }
+  if(!isFormValid()){ return; }
 
-console.log("delete1")
-var id= Number(localStorage.getItem('persons-current-person-id'))
+  var id= Number(localStorage.getItem('persons-current-person-id'))
 
-fetch('http://localhost:8080/rest/resources/persons/delete/'+id,{
-  method: "DELETE"
+  fetch('http://localhost:8080/rest/resources/persons/delete/'+id,{
+    method: "DELETE"
   }).then(function(response) {
-    
     return response.json;
-}).then(function(data) {
- console.log(data)
-}).catch(function(err) {
- console.log(err)
-});
+  }).then(function(data) { 
+  }).catch(function(err) {
+  });
 
-// neuladen des gesamten Dokumentes nach einem 'delete'
-window.location.reload(true);
+  // neuladen des gesamten Dokumentes nach einem 'delete'
+  window.location.reload(true);
 }
 
 

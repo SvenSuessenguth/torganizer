@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -25,6 +26,48 @@ public class PlayersResource {
   EntityManager entityManager;
   
   
+  @POST
+  @Path("/create")
+  public Player create(Player player) {
+    player.setId(null);
+    entityManager.persist(player);
+    
+    return player;
+  }
+  
+  @GET
+  @Path("{id}")
+  public Player read(@PathParam("id") Long id) {
+
+    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
+    namedQuery.setParameter("id", id);
+    List<Player> players = namedQuery.getResultList();
+    
+    return players.get(0);
+  }
+  
+  @POST
+  @Path("/update")
+  public Player update(Player player) {
+    entityManager.merge(player);
+    
+    return player;
+  }
+  
+  @DELETE
+  @Path("/delete/{id}")
+  public Player delete(@PathParam("id") Long id) {
+
+    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
+    namedQuery.setParameter("id", id);
+    List<Player> players = namedQuery.getResultList();    
+    Player player = players.get(0);
+    
+    entityManager.remove(player);
+    
+    return player;
+  }
+
   @GET
   @Path("/")
   public PlayersContainer all() {
@@ -36,38 +79,9 @@ public class PlayersResource {
   }
   
   @GET
-  @Path("{id}")
-  public Player byId(@PathParam("id") Long id) {
-
-    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
-    namedQuery.setParameter("id", id);
-    List<Player> players = namedQuery.getResultList();
-    
-    return players.get(0);
-  }
-    
-  
-  @POST
-  @Path("/new")
-  public Player newPlayer(Player player) {
-    player.setId(null);
-    entityManager.persist(player);
-
-    return player;
-  }
-  
-  @DELETE
-  @Path("/delete/{id}")
-  public Player deletePlayer(@PathParam("id") Long id) {
-
-    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
-    namedQuery.setParameter("id", id);
-    List<Player> players = namedQuery.getResultList();    
-    Player player = players.get(0);
-    
-    entityManager.remove(player);
-    
-    return player;
-    
+  @Path("/count")
+  public long count() {
+    Query query = entityManager.createQuery("SELECT count(*) FROM Player p");
+    return (long) query.getSingleResult();
   }
 }

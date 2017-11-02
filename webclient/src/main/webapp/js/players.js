@@ -19,11 +19,11 @@ function onLoad(){
 //Create new person, send to the server and persist in database.
 //After that the table with all persons is updated.
 //
-function newPlayer(){
+function createPlayer(){
 
   //if(!isFormValid()){ return; }
 
-  fetch('http://localhost:8080/rest/resources/players/new',{
+  fetch('http://localhost:8080/rest/resources/players/create',{
     method: "POST",
     headers: {
       'Accept': 'application/json',
@@ -35,7 +35,7 @@ function newPlayer(){
   }).then(function(data) {
   }).catch(function(err) {
   });
-  alert("wait")
+  
   window.location.reload(true);
 }
 
@@ -73,8 +73,6 @@ function playerFormToJSon(){
       "gender": gender
     }
   })
-  
-  console.log('personDataToJSon:'+json)
   
   return json;
   
