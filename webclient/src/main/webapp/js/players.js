@@ -75,6 +75,5 @@ function playerFormToJSon(){
   })
   
   return json;
-  
 }
 

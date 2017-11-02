@@ -3,6 +3,7 @@
 
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="js/general.js"></script>
     <script type="text/javascript" src="js/players.js"></script>
     <link rel="stylesheet" href="css/ui.css">
     <title>startseite</title>
@@ -20,6 +21,15 @@
       <!--
        | Tabelle aller Spieler  
        +-->
+      <span id="playersOffset"></span> bis <span id="playersLength"></span> von <span id="playersCount"></span>
+      <table id="personsTable">
+        <thead>
+          <tr><th>Vorname</th><th>Nachname</th></tr>
+        </thead>
+        <tbody id="personsTableBody" />
+      </table>
+      <input type="button" value="next" onclick="next()">
+      <input type="button" value="prev" onclick="prev()">
       
       <span id="playersData"> 
         <label for="pdFirstName">Vorname

@@ -13,6 +13,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.rest.container.PlayersContainer;
@@ -70,11 +71,13 @@ public class PlayersResource {
 
   @GET
   @Path("/")
-  public PlayersContainer all() {
+  public PlayersContainer all(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
 
     TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findAll", Player.class);
+    namedQuery.setFirstResult(offset);
+    namedQuery.setMaxResults(length);
     List<Player> players = namedQuery.getResultList();
-    
+
     return new PlayersContainer(players);
   }
   

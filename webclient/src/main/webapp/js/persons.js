@@ -1,5 +1,9 @@
 var tableSize = Number(10);
 
+function onLoad(){
+  showPersonsTable();
+}
+
 // 
 // load and show persons in a table on loading the page
 //
@@ -111,7 +115,7 @@ function showSelectedPersonDetails(id){
 // 
 function createPerson(){
 	
-	if(!isFormValid()){
+	if(!isFormValid("personsForm")){
 		  return;
 	  }
 	
@@ -137,7 +141,7 @@ function createPerson(){
 // After that the table with all persons is updated.
 // 
 function updatePerson(){
-  if(!isFormValid()){ return; }
+  if(!isFormValid("personsForm")){ return; }
   
   fetch('http://localhost:8080/rest/resources/persons/update',{
     method: "POST",
@@ -164,7 +168,7 @@ function updatePerson(){
 //
 function deletePerson(){
   
-  if(!isFormValid()){ return; }
+  if(!isFormValid("personsForm")){ return; }
 
   var id= Number(localStorage.getItem('persons-current-person-id'))
 
@@ -178,20 +182,6 @@ function deletePerson(){
 
   // neuladen des gesamten Dokumentes nach einem 'delete'
   window.location.reload(true);
-}
-
-
-//
-// Validating the form to show client side errors.
-// 
-function isFormValid(){
-	var form = document.getElementById("personsForm");
-	if(form.checkValidity()){
-		return true;
-	}else{
-	  document.getElementById("validateFormButton").click();
-	  return false;
-	}
 }
 
 //
