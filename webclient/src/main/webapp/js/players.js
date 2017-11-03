@@ -77,3 +77,34 @@ function playerFormToJSon(){
   return json;
 }
 
+function showPlayersTable(){
+	
+}
+
+function next(){
+  var playersCount = Number(document.getElementById("playersCount").innerHTML)
+  var currOffset = Number(localStorage.getItem('players-table-offset'))
+  var newOffset = currOffset + tableSize
+	  
+  if(newOffset>=playersCount){
+    return;
+  }
+	  
+  document.getElementById("playersOffset").innerHTML = newOffset
+  localStorage.setItem('players-table-offset', newOffset)
+  showPlayersTable();
+}
+
+function prev(){
+  var currOffset = Number(localStorage.getItem('players-table-offset'))
+  var newOffset = currOffset - tableSize
+	  
+  if(newOffset<0){
+    newOffset = 0;
+  }
+	  
+  document.getElementById("playersOffset").innerHTML = newOffset
+  document.getElementById("playersLength").innerHTML = newOffset + tableSize
+  localStorage.setItem('players-table-offset', newOffset)
+  showPlayersTable();
+}
