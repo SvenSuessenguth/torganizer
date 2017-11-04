@@ -24,33 +24,23 @@ import org.cc.torganizer.rest.container.TournamentsContainer;
 @Stateless
 @Path("/tournaments")
 @Produces("application/json")
-public class TournamentResource {
+public class TournamentResource extends AbstractResource {
 
   @PersistenceContext(name = "torganizer")
   EntityManager entityManager;
 
   @GET
-  @Path("/")
-  public TournamentsContainer all() {
-
-    TypedQuery<Tournament> namedQuery = entityManager.createNamedQuery("Tournament.findAll", Tournament.class);
-    List<Tournament> tournaments = namedQuery.getResultList();
-
-    return new TournamentsContainer(tournaments);
-  }
-
-  @GET
   @Path("/create")
-  public Tournament createTournament(@QueryParam("name") String name) {
-    
+  public Tournament create(@QueryParam("name") String name) {
+
     Tournament tournament = new Tournament();
     tournament.setName(name);
-    
+
     entityManager.persist(tournament);
-    
+
     return tournament;
   }
-  
+
   @GET
   @Path("{id}")
   public Tournament read(@PathParam("id") Long id) {
@@ -60,6 +50,23 @@ public class TournamentResource {
     List<Tournament> tournaments = namedQuery.getResultList();
 
     return tournaments.get(0);
+  }
+
+  @GET
+  @Path("/")
+  public TournamentsContainer all(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
+
+    if (offset == null || length == null) {
+      offset = DEFAULT_OFFSET;
+      length = DEFAULT_LENGTH;
+    }
+
+    TypedQuery<Tournament> namedQuery = entityManager.createNamedQuery("Tournament.findAll", Tournament.class);
+    namedQuery.setFirstResult(offset);
+    namedQuery.setMaxResults(length);
+    List<Tournament> tournaments = namedQuery.getResultList();
+
+    return new TournamentsContainer(tournaments);
   }
 
   @GET
