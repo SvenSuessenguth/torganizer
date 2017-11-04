@@ -39,8 +39,8 @@ Wildfly
 	
 MySQL
 	my.ini nach c:\Windows kopieren
-	mysql-5.7.19-winx64 nach c:\dev\server kopieren
-	c:\dev\server\mysql-5.7.19-winx64\data anlegen
+	mysql-5.7.20-winx64 nach c:\dev\server kopieren
+	c:\dev\server\mysql-5.7.20-winx64\data anlegen
 	
 	mysqld --initialize-insecure
 	mysqld --console
