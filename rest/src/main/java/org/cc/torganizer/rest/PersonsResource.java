@@ -21,11 +21,11 @@ import org.cc.torganizer.rest.container.PersonsContainer;
 @Stateless
 @Path("/persons")
 @Produces("application/json")
-public class PersonsResource {
+public class PersonsResource extends AbstractResource {
 
   @PersistenceContext(name = "torganizer")
   EntityManager entityManager;
-  
+
   @POST
   @Path("/create")
   public Person create(Person person) {
@@ -36,7 +36,7 @@ public class PersonsResource {
 
     return person;
   }
-  
+
   @GET
   @Path("{id}")
   public Person read(@PathParam("id") Long id) {
@@ -47,15 +47,15 @@ public class PersonsResource {
 
     return persons.get(0);
   }
-  
+
   @POST
   @Path("/update")
   public Person update(Person person) {
     entityManager.merge(person);
-    
+
     return person;
   }
-  
+
   @DELETE
   @Path("/delete/{id}")
   public Person delete(@PathParam("id") Long id) {
@@ -65,13 +65,18 @@ public class PersonsResource {
 
     Person personToDelete = persons.get(0);
     entityManager.remove(personToDelete);
-    
+
     return personToDelete;
   }
-  
+
   @GET
   @Path("/")
   public PersonsContainer all(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
+
+    if (offset == null || length == null) {
+      offset = DEFAULT_OFFSET;
+      length = DEFAULT_LENGTH;
+    }
 
     TypedQuery<Person> namedQuery = entityManager.createNamedQuery("Person.findAll", Person.class);
     namedQuery.setFirstResult(offset);
@@ -80,7 +85,7 @@ public class PersonsResource {
 
     return new PersonsContainer(persons);
   }
-  
+
   @GET
   @Path("/count")
   public long count() {

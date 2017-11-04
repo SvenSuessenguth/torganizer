@@ -1,5 +1,8 @@
 package org.cc.torganizer.rest;
 
+import static org.cc.torganizer.rest.AbstractResource.DEFAULT_LENGTH;
+import static org.cc.torganizer.rest.AbstractResource.DEFAULT_OFFSET;
+
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -25,7 +28,6 @@ public class PlayersResource {
 
   @PersistenceContext(name = "torganizer")
   EntityManager entityManager;
-  
   
   @POST
   @Path("/create")
@@ -73,6 +75,11 @@ public class PlayersResource {
   @Path("/")
   public PlayersContainer all(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
 
+    if (offset == null || length == null) {
+      offset = DEFAULT_OFFSET;
+      length = DEFAULT_LENGTH;
+    }
+    
     TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findAll", Player.class);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(length);
