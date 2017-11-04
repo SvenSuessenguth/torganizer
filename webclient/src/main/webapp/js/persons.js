@@ -31,20 +31,20 @@ function showPersonsTable(){
     var personRecordTemplate = document.querySelector("#personRecord");
     
     data.persons.forEach(function(person){
-    var t = document.querySelector("#personRecord").cloneNode(true)		
-    var template = t.content
+      var t = document.querySelector("#personRecord").cloneNode(true)		
+      var template = t.content
 	
-    var firstNameElement = template.querySelector("#firstName");
-    firstNameElement.innerHTML = person.firstName;
-    firstNameElement.setAttribute("id", "firstName"+person.id)
-    firstNameElement.onclick = function(e){ showSelectedPersonDetails(person.id); }
+      var firstNameElement = template.querySelector("#firstName");
+      firstNameElement.innerHTML = person.firstName;
+      firstNameElement.setAttribute("id", "firstName"+person.id)
+      firstNameElement.onclick = function(e){ showSelectedPersonDetails(person.id); }
 		
-    var lastNameElement = template.querySelector("#lastName"); 
-    lastNameElement.innerHTML = person.lastName;
-    lastNameElement.setAttribute("id", "lasttName"+person.id)
+      var lastNameElement = template.querySelector("#lastName"); 
+      lastNameElement.innerHTML = person.lastName;
+      lastNameElement.setAttribute("id", "lasttName"+person.id)
 		
-    tableBody.appendChild(template);
-  });
+      tableBody.appendChild(template);
+    });
   }).catch(function(err) {
   });
 }

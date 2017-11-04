@@ -10,6 +10,12 @@
   </head>
 
   <body>
+    <template id="playerRecord">
+      <tr>
+        <td id="firstName"></td>
+        <td id="lastName"></td>
+      </tr>
+    </template>
     
     <!--
      | create persons and players in one step
@@ -22,11 +28,11 @@
        | Tabelle aller Spieler  
        +-->
       <span id="playersOffset"></span> bis <span id="playersLength"></span> von <span id="playersCount"></span>
-      <table id="personsTable">
+      <table id="playersTable">
         <thead>
           <tr><th>Vorname</th><th>Nachname</th></tr>
         </thead>
-        <tbody id="personsTableBody" />
+        <tbody id="playersTableBody" />
       </table>
       <input type="button" value="next" onclick="next()">
       <input type="button" value="prev" onclick="prev()">
@@ -65,6 +71,7 @@
       <label id="autoAddLabel" for="autoAdd"></label>
       
     </form>
-    <script>onLoad();</script>
+    <script>
+    onLoad();</script>
   </body>
 </html>
