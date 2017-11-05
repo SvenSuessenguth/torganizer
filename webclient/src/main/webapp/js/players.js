@@ -18,14 +18,10 @@ function onLoad(){
   showPlayersTable();
 }
 
-//
-//Create new person, send to the server and persist in database.
-//After that the table with all persons is updated.
-//
 function createPlayer(){
 
-  //if(!isFormValid()){ return; }
-
+  if(!isFormValid('playersForm')){ return; }
+  
   fetch('http://localhost:8080/rest/resources/players/create',{
     method: "POST",
     headers: {
@@ -34,28 +30,47 @@ function createPlayer(){
     },
     body: playerFormToJSon()
   }).then(function(response) {
-    return response;
-  }).then(function(data) {
+    return response.json();
+  }).then(function(player) {    
+    if(document.getElementById('autoAdd').checked){
+      var currentTournamentId = localStorage.getItem('tournaments-current-tournament-id');      
+      addPlayerToTournament(currentTournamentId, player.id);
+    }    
   }).catch(function(err) {
   });
   
   window.location.reload(true);
 }
 
+function updatePlayer(){
+
+  if(!isFormValid('playersForm')){ return; }
+  
+  fetch('http://localhost:8080/rest/resources/players/update',{
+    method: "POST",
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: playerFormToJSon()
+  }).then(function(response) {
+    return response.json();
+  }).then(function(player) {    
+    if(document.getElementById('autoAdd').checked){
+      var currentTournamentId = localStorage.getItem('tournaments-current-tournament-id');      
+      addPlayerToTournament(currentTournamentId, player.id);
+    }    
+  }).catch(function(err) {
+  });
+  
+  window.location.reload(true);
+}
+
+
+
 function playerFormToJSon(){
-  // {
-  //   "id":null,
-  //   "status":"ACTIVE",
-  //   "person":{
-  //     "id":null,
-  //     "firstName":"dings",
-  //     "lastName":"bums",
-  //     "gender":"UNKNOWN",
-  //     "dateOfBirthISO":""},
-  //   "lastMatch":null
-  // }
   var playerId= Number(localStorage.getItem('players-current-player-id'))
-  var personId = Number(localStorage.getItem('players-current-person-id'))
+  var personId = Number(localStorage.getItem('players-current-player-person-id'))
   var firstName = document.getElementById("pdFirstName").value
   var lastName = document.getElementById("pdLastName").value
   var dateOfBirth = document.getElementById("pdDateOfBirth").value
@@ -70,6 +85,7 @@ function playerFormToJSon(){
     "id": playerId,
     "status": status,
     "person":{
+      "id": personId,
       "firstName": firstName,
       "lastName": lastName,
       "dateOfBirthISO": dateOfBirth,
@@ -77,6 +93,7 @@ function playerFormToJSon(){
     }
   })
   
+  console.log("player: "+json)
   return json;
 }
 
@@ -89,10 +106,7 @@ function showPlayersTable(){
   fetch('http://localhost:8080/rest/resources/players?offset='+offset+'&length='+tableSize).then(function(response) {
   return response.json();
   }).then(function(data) {
-    // "persons":
-    // {"id":1,"firstName":"Marvin","lastName":"SÃ¼ssenguth","gender":"MALE","dateOfBirthISO":"2004-10-28"},
-    // showPersonsCount()
-
+    
     // bisherige Daten entfernen, damit keine doppelten Anzeigen erscheinen
     // https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
     var tableBody = document.querySelector('#playersTableBody');
@@ -155,9 +169,8 @@ fetch('http://localhost:8080/rest/resources/players/'+id).then(function(response
  return response.json();
 }).then(function(player) {
  
- // "id":1, "firstName":"Sven", "lastName":"SÃ¼ssenguth", "gender":"MALE", "dateOfBirthISO":"1968-01-12"
- localStorage.setItem('persons-current-player-id', player.id)
- 
+ localStorage.setItem('players-current-player-id', player.id)
+ localStorage.setItem('players-current-player-person-id', player.person.id)
 
  document.getElementById("pdFirstName").setAttribute('value', player.person.firstName)
  document.getElementById("pdLastName").setAttribute('value', player.person.lastName)

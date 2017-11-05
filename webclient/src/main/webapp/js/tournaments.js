@@ -52,3 +52,7 @@ function createTournament(){
   // neuladen des gesamten Dokumentes nach einem 'post'
   window.location.reload(true);
 }
+
+function addPlayerToTournament(tournamentId, playerId) {
+  console.log("add player "+playerId+" to tournament "+tournamentId)
+}
