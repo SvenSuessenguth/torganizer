@@ -33,6 +33,7 @@ public class PlayersResource {
   @Path("/create")
   public Player create(Player player) {
     player.setId(null);
+    player.getPerson().setId(null);
     entityManager.persist(player);
     
     return player;

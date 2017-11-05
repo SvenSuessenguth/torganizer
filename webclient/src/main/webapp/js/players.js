@@ -3,6 +3,7 @@ var tableSize = Number(10);
 function onLoad(){
   // if current tournament is selected, activate checkbox to auto add new player
   var currentTournamentName = localStorage.getItem('tournaments-current-tournament-name')
+  var currentTournamentId = localStorage.getItem('tournaments-current-tournament-id')
 
   if(currentTournamentName){
     document.getElementById('autoAdd').disabled = false;
@@ -13,6 +14,10 @@ function onLoad(){
     document.getElementById('autoAdd').checked = false;
     document.getElementById('autoAddLabel').innerHTML = '-/-'
   }
+  
+  // store number of players
+  var countTournamentPlayers = getTournamentNumberOfPlayers(currentTournamentId);
+  localStorage.setItem('tournament-number-of-players', countTournamentPlayers);
   
   // show first set of players
   showPlayersTable();
@@ -35,11 +40,13 @@ function createPlayer(){
     if(document.getElementById('autoAdd').checked){
       var currentTournamentId = localStorage.getItem('tournaments-current-tournament-id');      
       addPlayerToTournament(currentTournamentId, player.id);
-    }    
+    }
+    
+    window.location.reload(true);
   }).catch(function(err) {
+    
+    window.location.reload(true);
   });
-  
-  window.location.reload(true);
 }
 
 function updatePlayer(){
@@ -59,11 +66,13 @@ function updatePlayer(){
     if(document.getElementById('autoAdd').checked){
       var currentTournamentId = localStorage.getItem('tournaments-current-tournament-id');      
       addPlayerToTournament(currentTournamentId, player.id);
-    }    
+    }
+    
+    window.location.reload(true);
   }).catch(function(err) {
+    
+    window.location.reload(true);
   });
-  
-  window.location.reload(true);
 }
 
 

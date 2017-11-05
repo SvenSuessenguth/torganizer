@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -101,7 +102,14 @@ public class TournamentResource extends AbstractResource {
 
     return playerToAdd;
   }
-
+  
+  @GET
+  @Path("/{id}/subscribers/count")
+  public Long subscribersCount(@PathParam("id") Long tournamentId) {
+    Query query = entityManager.createNamedQuery("Tournament.countSubscribers");
+    return (long) query.getSingleResult();
+  }
+  
   @GET
   @Path("/{id}/opponents")
   public OpponentsContainer opponents(@PathParam("id") Long tournamentId) {
@@ -134,6 +142,7 @@ public class TournamentResource extends AbstractResource {
 
     return opponentToAdd;
   }
+  
 
   @GET
   @Path("/{id}/disciplines")

@@ -37,6 +37,9 @@
   <named-query name="Tournament.findSubscribers">
     <query>SELECT p FROM Player p, Tournament t WHERE t.id = :id AND p MEMBER OF t.subscribers</query>
   </named-query>
+  <named-query name="Tournament.countSubscribers">
+    <query>SELECT count(p) FROM Player p, Tournament t WHERE t.id = :id AND p MEMBER OF t.subscribers</query>
+  </named-query>
   <named-query name="Tournament.findOpponents">
     <query>SELECT o FROM Opponent o, Tournament t WHERE t.id = :id AND o MEMBER OF t.opponents</query>
   </named-query>
