@@ -54,6 +54,7 @@
     <module>persistence</module>
 	<module>rest</module>
 	<module>webclient</module>
+	<module>documentation</module>
   </modules>
   
 </project>
