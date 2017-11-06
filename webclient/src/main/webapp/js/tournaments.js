@@ -54,15 +54,20 @@ function createTournament(){
 }
 
 function addPlayerToTournament(tournamentId, playerId) {
-  console.log("add player "+playerId+" to tournament "+tournamentId)
+  fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/subscribers/add/'+playerId).then(function(response) {
+    return response.json();
+  }).then(function(count) {
+    console.log(count);    
+  }).catch(function(err) {
+  });
 }
 
-function getTournamentNumberOfPlayers(currentTournamentId){
-  fetch('http://localhost:8080/rest/resources/tournaments/create?name='+name).then(function(response) {
+function countSubscribers(tournamentId){
+  fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/subscribers/count').then(function(response) {
     return response.json();
-  }).then(function(tournament) {
-    localStorage.setItem('tournaments-current-tournament-id', tournament.id)
-    localStorage.setItem('tournaments-current-tournament-name', tournament.name)
+  }).then(function(count) {
+    console.log(count);
+    return count;
   }).catch(function(err) {
   });
 }

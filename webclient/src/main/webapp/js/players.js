@@ -16,8 +16,8 @@ function onLoad(){
   }
   
   // store number of players
-  var countTournamentPlayers = getTournamentNumberOfPlayers(currentTournamentId);
-  localStorage.setItem('tournament-number-of-players', countTournamentPlayers);
+  var countPlayers = countSubscribers(currentTournamentId);
+  localStorage.setItem('tournament-number-of-players', countPlayers);
   
   // show first set of players
   showPlayersTable();
@@ -36,7 +36,8 @@ function createPlayer(){
     body: playerFormToJSon()
   }).then(function(response) {
     return response.json();
-  }).then(function(player) {    
+  }).then(function(player) {
+    
     if(document.getElementById('autoAdd').checked){
       var currentTournamentId = localStorage.getItem('tournaments-current-tournament-id');      
       addPlayerToTournament(currentTournamentId, player.id);

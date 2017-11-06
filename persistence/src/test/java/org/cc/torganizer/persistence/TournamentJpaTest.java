@@ -15,12 +15,30 @@ public class TournamentJpaTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  public void testFindAll() {
+  public void testCountSubscribers_existingTournament() {
     Query query = entityManager.createNamedQuery("Tournament.countSubscribers");
     query.setParameter("id", 1L);
     long countSubscribers = (long) query.getSingleResult();
     
     MatcherAssert.assertThat(countSubscribers, Matchers.is(2L));
+  }
+  
+  @Test
+  public void testCountSubscribers_nonExistingTournament() {
+    Query query = entityManager.createNamedQuery("Tournament.countSubscribers");
+    query.setParameter("id", 2L);
+    long countSubscribers = (long) query.getSingleResult();
+    
+    MatcherAssert.assertThat(countSubscribers, Matchers.is(0L));
+  }
+  
+  @Test
+  public void testCountSubscribers_nonExistingTournament_NullId() {
+    Query query = entityManager.createNamedQuery("Tournament.countSubscribers");
+    query.setParameter("id", null);
+    long countSubscribers = (long) query.getSingleResult();
+    
+    MatcherAssert.assertThat(countSubscribers, Matchers.is(0L));
   }
   
 }

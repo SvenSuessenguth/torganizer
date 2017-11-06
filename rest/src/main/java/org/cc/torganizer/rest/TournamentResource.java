@@ -81,8 +81,8 @@ public class TournamentResource extends AbstractResource {
   }
 
   @GET
-  @Path("/{id}/subscribers/add")
-  public Player subscribers(@PathParam("id") Long tournamentId, @QueryParam("playerId") Long playerId) {
+  @Path("/{tid}/subscribers/add/{pid}")
+  public Player addSubscriber(@PathParam("tid") Long tournamentId, @PathParam("pid") Long playerId) {
     // load player
     TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
     namedQuery.setParameter("id", playerId);
@@ -107,6 +107,8 @@ public class TournamentResource extends AbstractResource {
   @Path("/{id}/subscribers/count")
   public Long subscribersCount(@PathParam("id") Long tournamentId) {
     Query query = entityManager.createNamedQuery("Tournament.countSubscribers");
+    query.setParameter("id", tournamentId);
+    
     return (long) query.getSingleResult();
   }
   
