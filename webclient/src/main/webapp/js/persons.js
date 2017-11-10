@@ -1,4 +1,4 @@
-var tableSize = Number(10);
+var tableSize = Number(2);
 
 function onLoad(){
   showPersonsTable();

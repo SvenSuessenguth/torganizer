@@ -35,8 +35,8 @@
         </thead>
         <tbody id="playersTableBody" />
       </table>
-      <input type="button" value="next" onclick="next()">
-      <input type="button" value="prev" onclick="prev()">
+      <input type="button" value="next" onclick="players.next()">
+      <input type="button" value="prev" onclick="players.prev()">
       
       <span id="playersData"> 
         <label for="pdFirstName">Vorname
@@ -62,9 +62,9 @@
           </select>
         </label>
     
-        <input type="button" value="neu" onclick="createPlayer()">
-        <input type="button" value="ändern" onclick="updatePlayer()">
-        <input type="button" value="löschen" onclick="deletePlayer()">
+        <input type="button" value="neu" onclick="players.createPlayer()">
+        <input type="button" value="ändern" onclick="players.updatePlayer()">
+        <input type="button" value="löschen" onclick="players.deletePlayer()">
       </span>
       
       
@@ -72,7 +72,6 @@
       <label id="autoAddLabel" for="autoAdd"></label>
       
     </form>
-    <script>
-    onLoad();</script>
+    <script>players.onLoad();</script>
   </body>
 </html>

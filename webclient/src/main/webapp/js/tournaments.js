@@ -66,7 +66,7 @@ function countSubscribers(tournamentId){
   fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/subscribers/count').then(function(response) {
     return response.json();
   }).then(function(count) {
-    console.log(count);
+    console.log("subscribers: "+count);
     return count;
   }).catch(function(err) {
   });
