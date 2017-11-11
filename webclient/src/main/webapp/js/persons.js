@@ -9,7 +9,7 @@ function onLoad(){
 //
 function showPersonsTable(){
 
-  var offset = Number(localStorage.getItem('persons-table-offset'))
+  var offset = Number(sessionStorage.getItem('persons-table-offset'))
   
   document.getElementById("personsOffset").innerHTML = offset
   document.getElementById("personsLength").innerHTML = offset + tableSize
@@ -60,7 +60,7 @@ function showPersonsCount(){
 
 function next(){
   var personsCount = Number(document.getElementById("personsCount").innerHTML)
-  var currOffset = Number(localStorage.getItem('persons-table-offset'))
+  var currOffset = Number(sessionStorage.getItem('persons-table-offset'))
   var newOffset = currOffset + tableSize
   
   if(newOffset>=personsCount){
@@ -68,12 +68,12 @@ function next(){
   }
   
   document.getElementById("personsOffset").innerHTML = newOffset
-  localStorage.setItem('persons-table-offset', newOffset)
+  sessionStorage.setItem('persons-table-offset', newOffset)
   showPersonsTable();
 }
 
 function prev(){
-  var currOffset = Number(localStorage.getItem('persons-table-offset'))
+  var currOffset = Number(sessionStorage.getItem('persons-table-offset'))
   var newOffset = currOffset - tableSize
   
   if(newOffset<0){
@@ -82,7 +82,7 @@ function prev(){
   
   document.getElementById("personsOffset").innerHTML = newOffset
   document.getElementById("personsLength").innerHTML = newOffset + tableSize
-  localStorage.setItem('persons-table-offset', newOffset)
+  sessionStorage.setItem('persons-table-offset', newOffset)
   showPersonsTable();
 }
 
@@ -95,7 +95,7 @@ function showSelectedPersonDetails(id){
   }).then(function(data) {
     
     // "id":1, "firstName":"Sven", "lastName":"SÃ¼ssenguth", "gender":"MALE", "dateOfBirthISO":"1968-01-12"
-    localStorage.setItem('persons-current-person-id', data.id)
+    sessionStorage.setItem('persons-current-person-id', data.id)
 	  
 	
     document.getElementById("pdFirstName").setAttribute('value', data.firstName)
@@ -170,7 +170,7 @@ function deletePerson(){
   
   if(!isFormValid("personsForm")){ return; }
 
-  var id= Number(localStorage.getItem('persons-current-person-id'))
+  var id= Number(sessionStorage.getItem('persons-current-person-id'))
 
   fetch('http://localhost:8080/rest/resources/persons/delete/'+id,{
     method: "DELETE"
@@ -198,7 +198,7 @@ function selectItemByValue(elmnt, value){
 function personDataToJSon(){
   console.log("personDataToJSon");
   
-  var id= Number(localStorage.getItem('persons-current-person-id'))
+  var id= Number(sessionStorage.getItem('persons-current-person-id'))
   var firstName = document.getElementById("pdFirstName").value
   var lastName = document.getElementById("pdLastName").value
   var dateOfBirth = document.getElementById("pdDateOfBirth").value

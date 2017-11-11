@@ -1,4 +1,5 @@
 var tableSize = Number(10);
+var tournaments = new Tournaments();
 
 class Players {
   constructor() {    
@@ -6,8 +7,8 @@ class Players {
   
   onLoad(){
     // if current tournament is selected, activate checkbox to auto add new player
-    var currentTournamentName = localStorage.getItem('tournaments-current-tournament-name')
-    var currentTournamentId = localStorage.getItem('tournaments-current-tournament-id')
+    var currentTournamentName = sessionStorage.getItem('tournaments-current-tournament-name')
+    var currentTournamentId = sessionStorage.getItem('tournaments-current-tournament-id')
 
     if(currentTournamentName){
       document.getElementById('autoAdd').disabled = false;
@@ -19,16 +20,11 @@ class Players {
       document.getElementById('autoAddLabel').innerHTML = '-/-'
     }
     
-    // store number of players
-    var countPlayers = countSubscribers(currentTournamentId);
-    localStorage.setItem('tournament-number-of-players', countPlayers);
-    
     // show first set of players
     this.showPlayersTable();
   }
 
   createPlayer(){
-
     if(!isFormValid('playersForm')){ return; }
     
     fetch('http://localhost:8080/rest/resources/players/create',{
@@ -42,20 +38,16 @@ class Players {
       return response.json();
     }).then(function(player) {
       
-      if(document.getElementById('autoAdd').checked){
-        var currentTournamentId = localStorage.getItem('tournaments-current-tournament-id');      
-        addPlayerToTournament(currentTournamentId, player.id);
+      if(document.getElementById('autoAdd').checked){              
+        tournaments.addPlayerToCurrentTournament(player.id);
       }
       
       window.location.reload(true);
     }).catch(function(err) {
-      
-      window.location.reload(true);
     });
   }
 
-  updatePlayer(){
-
+  updatePlayer() {
     if(!isFormValid('playersForm')){ return; }
     
     fetch('http://localhost:8080/rest/resources/players/update',{
@@ -69,7 +61,7 @@ class Players {
       return response.json();
     }).then(function(player) {    
       if(document.getElementById('autoAdd').checked){
-        var currentTournamentId = localStorage.getItem('tournaments-current-tournament-id');      
+        var currentTournamentId = sessionStorage.getItem('tournaments-current-tournament-id');      
         addPlayerToTournament(currentTournamentId, player.id);
       }
       
@@ -83,8 +75,8 @@ class Players {
 
 
   playerFormToJSon(){
-    var playerId= Number(localStorage.getItem('players-current-player-id'))
-    var personId = Number(localStorage.getItem('players-current-player-person-id'))
+    var playerId= Number(sessionStorage.getItem('players-current-player-id'))
+    var personId = Number(sessionStorage.getItem('players-current-player-person-id'))
     var firstName = document.getElementById("pdFirstName").value
     var lastName = document.getElementById("pdLastName").value
     var dateOfBirth = document.getElementById("pdDateOfBirth").value
@@ -112,14 +104,12 @@ class Players {
   }
 
   showPlayersTable(){
-    var offset = Number(localStorage.getItem('players-table-offset'))
+    var offset = Number(sessionStorage.getItem('players-table-offset'))
     
     document.getElementById("playersOffset").innerHTML = offset
     document.getElementById("playersLength").innerHTML = offset + tableSize
 
-    fetch('http://localhost:8080/rest/resources/players?offset='+offset+'&length='+tableSize).then(function(response) {
-      return response.json();
-    }).then(function(data) {
+    tournaments.getCurrentSubscribers(offset, tableSize).then(function(data) {
       
       // bisherige Daten entfernen, damit keine doppelten Anzeigen erscheinen
       // https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
@@ -128,6 +118,7 @@ class Players {
         tableBody.removeChild(tableBody.firstChild);
       }
       
+      // daten in die tabelle einfuegen
       data.players.forEach(function(player){
         var t = document.querySelector("#playerRecord").cloneNode(true)   
         var template = t.content
@@ -143,13 +134,18 @@ class Players {
       
         tableBody.appendChild(template);
       });
+      
+      // aktualisieren der Anzahl-Anzeige ueber der tabellen
+      tournaments.countCurrentSubscribers().then(function(response){
+        document.getElementById("playersCount").innerHTML = response;
+      })
     }).catch(function(err) {
     });
   }
 
   next(){
     var playersCount = Number(document.getElementById("playersCount").innerHTML)
-    var currOffset = Number(localStorage.getItem('players-table-offset'))
+    var currOffset = Number(sessionStorage.getItem('players-table-offset'))
     var newOffset = currOffset + tableSize
       
     if(newOffset>=playersCount){
@@ -157,12 +153,12 @@ class Players {
     }
       
     document.getElementById("playersOffset").innerHTML = newOffset
-    localStorage.setItem('players-table-offset', newOffset)
+    sessionStorage.setItem('players-table-offset', newOffset)
     this.showPlayersTable();
   }
 
   prev(){
-    var currOffset = Number(localStorage.getItem('players-table-offset'))
+    var currOffset = Number(sessionStorage.getItem('players-table-offset'))
     var newOffset = currOffset - tableSize
       
     if(newOffset<0){
@@ -171,7 +167,7 @@ class Players {
       
     document.getElementById("playersOffset").innerHTML = newOffset
     document.getElementById("playersLength").innerHTML = newOffset + tableSize
-    localStorage.setItem('players-table-offset', newOffset)
+    sessionStorage.setItem('players-table-offset', newOffset)
     this.showPlayersTable();
   }
 
@@ -183,8 +179,8 @@ class Players {
       return response.json();
     }).then(function(player) {
    
-      localStorage.setItem('players-current-player-id', player.id)
-      localStorage.setItem('players-current-player-person-id', player.person.id)
+      sessionStorage.setItem('players-current-player-id', player.id)
+      sessionStorage.setItem('players-current-player-person-id', player.person.id)
 
       document.getElementById("pdFirstName").setAttribute('value', player.person.firstName)
       document.getElementById("pdLastName").setAttribute('value', player.person.lastName)

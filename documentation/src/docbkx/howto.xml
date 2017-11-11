@@ -1,29 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>  <!-- -*- nxml -*- -->
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE article [
 <!ENTITY version "5.0">
-<!--
-<!ENTITY yes "<phrase role='unicode yes'>✔</phrase>">
-<!ENTITY no "<phrase role='unicode no'>✘</phrase>">
--->
-<!ENTITY yes "<phrase role='unicode yes'>YES</phrase>">
-<!ENTITY no "<phrase role='unicode no'>NO</phrase>">
 ]>
 <article xmlns="http://docbook.org/ns/docbook"
-	 xmlns:xl="http://www.w3.org/1999/xlink"
-	 version="5.0" xml:lang="en">
-<info>
-<title>Torganizer</title>
-<subtitle>Archtektur, Administration und Gebrauch</subtitle>
+  xmlns:xl="http://www.w3.org/1999/xlink"
+  version="5.0" xml:lang="en">
+	 
+  <info>
+    <title>Torganizer</title>
+    <subtitle>Archtektur, Administration und Gebrauch</subtitle>
+  </info>
 
-
-</info>
-
-
-<section xml:id="architecture">
-<title>Architektur</title>
-  <section>
-    <title>Tabellen</title>
+  <section xml:id="architecture">
+    <title>Architektur</title>
+    <section>
+      <title>Dateien</title>
+      Zu jedem HTML gehört ein gleich benamtes JavaScript und CSS. 
+      Dort sind nur Funktionalitäten hinterlegt, die zu dem zugehörigen Modell gehören. 
+      Zu der Funktionalität gehören die Rest-Aufrufe, die ein Promise zurückgeben 
+      (können von allen genutzt werden) und JS-Funktionen, die das HTML manipulieren.
+      Daten, die im LocalStorage abgelegt werden, werden auch nur hier zugreifbar gemacht.   
+    </section>
   </section>
-</section>
-
 </article>

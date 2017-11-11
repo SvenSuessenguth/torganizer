@@ -79,6 +79,24 @@ public class TournamentResource extends AbstractResource {
 
     return new PlayersContainer(players);
   }
+  
+  @GET
+  @Path("/{id}/subscribers")
+  public PlayersContainer subscribersFromTo(@PathParam("id") Long tournamentId, @QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
+    if (offset == null || length == null) {
+      offset = DEFAULT_OFFSET;
+      length = DEFAULT_LENGTH;
+    }
+    
+    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Tournament.findSubscribers", Player.class);
+    namedQuery.setParameter("id", tournamentId);
+    namedQuery.setFirstResult(offset);
+    namedQuery.setMaxResults(length);
+    
+    List<Player> players = namedQuery.getResultList();
+
+    return new PlayersContainer(players);
+  }
 
   @GET
   @Path("/{tid}/subscribers/add/{pid}")

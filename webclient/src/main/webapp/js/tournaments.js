@@ -1,73 +1,94 @@
-// Laden der Turniere bei der Anzeige der Seite
-function onload(){
-  fetch('http://localhost:8080/rest/resources/tournaments').then(function(response) {
-	return response.json();
-  }).then(function(data) {
-    // {"tournaments":[{"id":1,"name":"dings"}]}
-    document.getElementById("tournamentsCount").innerHTML=data.tournaments.length;
-
-    var personRecordTemplate = document.querySelector("#tournamentsRecord");
-    var tableBody = document.querySelector('#tournamentsTableBody');
-	
-    data.tournaments.forEach(function(tournament){
-    var t = document.querySelector("#tournamentRecord").cloneNode(true)		
-    var template = t.content
-	
-    var nameElement = template.querySelector("#name");
-    nameElement.innerHTML = tournament.name;
-    nameElement.setAttribute("id", "tournament-"+tournament.id)
-    nameElement.onclick = function(e){ showTournamentDetails(tournament.id); }
-		
-    tableBody.appendChild(template);
-  });
-  }).catch(function(err) {
-  });
-}
-
-// Anzeigen der Turnierdaten des angeklickten Turniers aus der Tabelle
-function showTournamentDetails(id){
-  fetch('http://localhost:8080/rest/resources/tournaments/'+id).then(function(response) {
-    return response.json();
-  }).then(function(tournament) {
-    // {"id":1,"name":"dings"}
-    document.getElementById("tdName").setAttribute('value', tournament.name)
-    localStorage.setItem('tournaments-current-tournament-id', tournament.id)
-    localStorage.setItem('tournaments-current-tournament-name', tournament.name)
-  }).catch(function(err) {
-  });
-}
-
-// Anlegen einer neuen Person, mit den eingegebenen Daten
-function createTournament(){
-  var name = document.getElementById("tdName").value
+class Tournaments {
+  constructor() {
+  }
   
-  fetch('http://localhost:8080/rest/resources/tournaments/create?name='+name).then(function(response) {
-    return response.json();
-  }).then(function(tournament) {
-    localStorage.setItem('tournaments-current-tournament-id', tournament.id)
-    localStorage.setItem('tournaments-current-tournament-name', tournament.name)
-  }).catch(function(err) {
-  });
+  onload(){
+    this.showTournamentsTable();    
+  }
+ 
+  showTournamentsTable(){
+    fetch('http://localhost:8080/rest/resources/tournaments').then(function(response) {
+      return response.json();
+      }).then(function(data) {
+        // {"tournaments":[{"id":1,"name":"dings"}]}
+        document.getElementById("tournamentsCount").innerHTML=data.tournaments.length;
 
-  // neuladen des gesamten Dokumentes nach einem 'post'
-  window.location.reload(true);
-}
+        var personRecordTemplate = document.querySelector("#tournamentsRecord");
+        var tableBody = document.querySelector('#tournamentsTableBody');
+    
+        data.tournaments.forEach(function(tournament){
+        var t = document.querySelector("#tournamentRecord").cloneNode(true)   
+        var template = t.content
+    
+        var nameElement = template.querySelector("#name");
+        nameElement.innerHTML = tournament.name;
+        nameElement.setAttribute("id", "tournament-"+tournament.id)
+        nameElement.onclick = function(e){ tournaments.showTournamentDetails(tournament.id); }
+        
+        tableBody.appendChild(template);
+      });
+    }).catch(function(err) {
+    });
+  }
+  
+  showTournamentDetails(id) {
+    fetch('http://localhost:8080/rest/resources/tournaments/'+id).then(function(response) {
+      return response.json();
+    }).then(function(tournament) {
+      // {"id":1,"name":"dings"}
+      document.getElementById("tdName").setAttribute('value', tournament.name)
+      sessionStorage.setItem('tournaments-current-tournament-id', tournament.id)
+      sessionStorage.setItem('tournaments-current-tournament-name', tournament.name)
+    }).catch(function(err) {
+    });
+  }
 
-function addPlayerToTournament(tournamentId, playerId) {
-  fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/subscribers/add/'+playerId).then(function(response) {
-    return response.json();
-  }).then(function(count) {
-    console.log(count);    
-  }).catch(function(err) {
-  });
-}
-
-function countSubscribers(tournamentId){
-  fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/subscribers/count').then(function(response) {
-    return response.json();
-  }).then(function(count) {
-    console.log("subscribers: "+count);
+  createTournament(){
+    var name = document.getElementById("tdName").value
+    
+    fetch('http://localhost:8080/rest/resources/tournaments/create?name='+name).then(function(response) {
+      return response.json();
+    }).then(function(tournament) {
+      sessionStorage.setItem('tournaments-current-tournament-id', tournament.id)
+      sessionStorage.setItem('tournaments-current-tournament-name', tournament.name)
+      
+      this.showTournamentsTable();
+      this.showTournamentDetails(tournament.id)
+    }).catch(function(err) {
+    });
+  }
+  
+  addPlayerToCurrentTournament(playerId) {
+    var tournamentId = sessionStorage.getItem('tournaments-current-tournament-id')
+    
+    fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/subscribers/add/'+playerId).then(function(response) {
+      return response.json();
+    }).then(function(count) {
+      console.log("currently "+count+" subscribers for tournament "+tournamentId);    
+    }).catch(function(err) {
+    });
+  }
+  
+  getCurrentSubscribers(offset, length) {
+    var tournamentId = Number(sessionStorage.getItem('tournaments-current-tournament-id'));
+    
+    var subscribers = fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/subscribers?offset='+offset+'&length='+length)
+    .then(function(response) {
+      return response.json();
+    });
+    
+    return subscribers;
+  }
+  
+  countCurrentSubscribers() {
+    var tournamentId = Number(sessionStorage.getItem('tournaments-current-tournament-id'));
+    
+    var count = fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/subscribers/count').then(function(response) {
+      return response.json();
+    });
+    
     return count;
-  }).catch(function(err) {
-  });
+  }
 }
+
+var tournaments = new Tournaments();
