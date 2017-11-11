@@ -55,6 +55,7 @@
   <modules>
     <module>model</module>
     <module>persistence</module>
+	<module>validation</module>
 	<module>rest</module>
 	<module>webclient</module>
 	<module>documentation</module>
