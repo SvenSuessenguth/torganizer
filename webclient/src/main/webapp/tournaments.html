@@ -10,25 +10,26 @@
   </head>
 
   <body>
+    <form id="tournamentsForm">
+      <template id="tournamentRecord">
+        <tr>
+          <td id="name"></td>
+        </tr>
+      </template>
 
-    <template id="tournamentRecord">
-      <tr>
-        <td id="name"></td>
-      </tr>
-    </template>
+      Anzahl <span id="tournamentsCount"></span>
+      <table id="tournamentsTable">
+        <tbody id="tournamentsTableBody"></tbody>
+      </table>
 
-    Anzahl <span id="tournamentsCount"></span>
-    <table id="tournamentsTable">
-      <tbody id="tournamentsTableBody" />
-    </table>
-
-    <span id="tournamentnData"> 
-      <label for="tdTournamentName">Name</label><input id="tdName" type="text" value="">
+      <span id="tournamentnData"> 
+        <label for="tdTournamentName">Name</label><input id="tdName" type="text" value="">
       
-      <input type="button" value="neu" onclick="tournaments.createTournament()">
-      <input type="button" value="aktualisieren" onclick="tournaments.updateTournament()">
-    </span>
-
+        <input type="button" value="neu" onclick="tournaments.createTournament()">
+        <input type="button" value="aktualisieren" onclick="tournaments.updateTournament()">
+      </span>
+    </form>
+    
     <script>tournaments.onload();</script>
   </body>
 </html>

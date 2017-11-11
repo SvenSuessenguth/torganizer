@@ -9,10 +9,10 @@ function onLoad(){
 //
 function showPersonsTable(){
 
-  var offset = Number(sessionStorage.getItem('persons-table-offset'))
+  var offset = Number(sessionStorage.getItem('persons-table-offset'));
   
-  document.getElementById("personsOffset").innerHTML = offset
-  document.getElementById("personsLength").innerHTML = offset + tableSize
+  document.getElementById("personsOffset").innerHTML = offset;
+  document.getElementById("personsLength").innerHTML = offset + tableSize;
   
   fetch('http://localhost:8080/rest/resources/persons?offset='+offset+'&length='+tableSize).then(function(response) {
 	return response.json();
@@ -32,16 +32,16 @@ function showPersonsTable(){
     
     data.persons.forEach(function(person){
       var t = document.querySelector("#personRecord").cloneNode(true)		
-      var template = t.content
+      var template = t.content;
 	
       var firstNameElement = template.querySelector("#firstName");
       firstNameElement.innerHTML = person.firstName;
-      firstNameElement.setAttribute("id", "firstName"+person.id)
-      firstNameElement.onclick = function(e){ showSelectedPersonDetails(person.id); }
+      firstNameElement.setAttribute("id", "firstName"+person.id);
+      firstNameElement.onclick = function(e){ showSelectedPersonDetails(person.id); };
 		
       var lastNameElement = template.querySelector("#lastName"); 
       lastNameElement.innerHTML = person.lastName;
-      lastNameElement.setAttribute("id", "lasttName"+person.id)
+      lastNameElement.setAttribute("id", "lasttName"+person.id);
 		
       tableBody.appendChild(template);
     });
@@ -59,30 +59,30 @@ function showPersonsCount(){
 }
 
 function next(){
-  var personsCount = Number(document.getElementById("personsCount").innerHTML)
-  var currOffset = Number(sessionStorage.getItem('persons-table-offset'))
-  var newOffset = currOffset + tableSize
+  var personsCount = Number(document.getElementById("personsCount").innerHTML);
+  var currOffset = Number(sessionStorage.getItem('persons-table-offset'));
+  var newOffset = currOffset + tableSize;
   
   if(newOffset>=personsCount){
     return;
   }
   
-  document.getElementById("personsOffset").innerHTML = newOffset
-  sessionStorage.setItem('persons-table-offset', newOffset)
+  document.getElementById("personsOffset").innerHTML = newOffset;
+  sessionStorage.setItem('persons-table-offset', newOffset);
   showPersonsTable();
 }
 
 function prev(){
-  var currOffset = Number(sessionStorage.getItem('persons-table-offset'))
-  var newOffset = currOffset - tableSize
+  var currOffset = Number(sessionStorage.getItem('persons-table-offset'));
+  var newOffset = currOffset - tableSize;
   
   if(newOffset<0){
     newOffset = 0;
   }
   
-  document.getElementById("personsOffset").innerHTML = newOffset
-  document.getElementById("personsLength").innerHTML = newOffset + tableSize
-  sessionStorage.setItem('persons-table-offset', newOffset)
+  document.getElementById("personsOffset").innerHTML = newOffset;
+  document.getElementById("personsLength").innerHTML = newOffset + tableSize;
+  sessionStorage.setItem('persons-table-offset', newOffset);
   showPersonsTable();
 }
 
@@ -95,12 +95,12 @@ function showSelectedPersonDetails(id){
   }).then(function(data) {
     
     // "id":1, "firstName":"Sven", "lastName":"SÃ¼ssenguth", "gender":"MALE", "dateOfBirthISO":"1968-01-12"
-    sessionStorage.setItem('persons-current-person-id', data.id)
+    sessionStorage.setItem('persons-current-person-id', data.id);
 	  
 	
-    document.getElementById("pdFirstName").setAttribute('value', data.firstName)
-    document.getElementById("pdLastName").setAttribute('value', data.lastName)
-    document.getElementById("pdDateOfBirth").setAttribute('value', data.dateOfBirthISO)
+    document.getElementById("pdFirstName").setAttribute('value', data.firstName);
+    document.getElementById("pdLastName").setAttribute('value', data.lastName);
+    document.getElementById("pdDateOfBirth").setAttribute('value', data.dateOfBirthISO);
     
     var genderElement = document.getElementById("pdGender");
     selectItemByValue(genderElement, data.gender);
@@ -153,9 +153,9 @@ function updatePerson(){
   }).then(function(response) {
     return response.json;
   }).then(function(data) {
-    console.log(data)
+    console.log(data);
   }).catch(function(err) {
-    console.log(err)
+    console.log(err);
   });
 
   // neuladen des gesamten Dokumentes nach einem 'post'
@@ -170,7 +170,7 @@ function deletePerson(){
   
   if(!isFormValid("personsForm")){ return; }
 
-  var id= Number(sessionStorage.getItem('persons-current-person-id'))
+  var id= Number(sessionStorage.getItem('persons-current-person-id'));
 
   fetch('http://localhost:8080/rest/resources/persons/delete/'+id,{
     method: "DELETE"
@@ -184,27 +184,16 @@ function deletePerson(){
   window.location.reload(true);
 }
 
-//
-// http://www.imranulhoque.com/javascript/javascript-beginners-select-a-dropdown-option-by-value/
-//
-function selectItemByValue(elmnt, value){
-  for(var i=0; i < elmnt.options.length; i++) {
-    if(elmnt.options[i].value == value) {
-        elmnt.selectedIndex = i;
-    }
-  }
-}
-
 function personDataToJSon(){
   console.log("personDataToJSon");
   
-  var id= Number(sessionStorage.getItem('persons-current-person-id'))
-  var firstName = document.getElementById("pdFirstName").value
-  var lastName = document.getElementById("pdLastName").value
-  var dateOfBirth = document.getElementById("pdDateOfBirth").value
+  var id= Number(sessionStorage.getItem('persons-current-person-id'));
+  var firstName = document.getElementById("pdFirstName").value;
+  var lastName = document.getElementById("pdLastName").value;
+  var dateOfBirth = document.getElementById("pdDateOfBirth").value;
   
   var genderElement = document.getElementById("pdGender");
-  var gender = genderElement.options[genderElement.selectedIndex].value
+  var gender = genderElement.options[genderElement.selectedIndex].value;
   
   var json = JSON.stringify({
     "id": Number(id),
@@ -212,9 +201,9 @@ function personDataToJSon(){
     "lastName": lastName,
     "dateOfBirthISO": dateOfBirth,
     "gender": gender      
-  })
+  });
   
-  console.log('personDataToJSon:'+json)
+  console.log('personDataToJSon:'+json);
   
   return json;
   

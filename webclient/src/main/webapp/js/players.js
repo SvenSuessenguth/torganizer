@@ -7,17 +7,17 @@ class Players {
   
   onLoad(){
     // if current tournament is selected, activate checkbox to auto add new player
-    var currentTournamentName = sessionStorage.getItem('tournaments-current-tournament-name')
-    var currentTournamentId = sessionStorage.getItem('tournaments-current-tournament-id')
+    var currentTournamentName = sessionStorage.getItem('tournaments-current-tournament-name');
+    var currentTournamentId = sessionStorage.getItem('tournaments-current-tournament-id');
 
     if(currentTournamentName){
       document.getElementById('autoAdd').disabled = false;
       document.getElementById('autoAdd').checked = true;
-      document.getElementById('autoAddLabel').innerHTML = currentTournamentName 
+      document.getElementById('autoAddLabel').innerHTML = currentTournamentName; 
     }else{
       document.getElementById('autoAdd').disabled = true;
       document.getElementById('autoAdd').checked = false;
-      document.getElementById('autoAddLabel').innerHTML = '-/-'
+      document.getElementById('autoAddLabel').innerHTML = '-/-';
     }
     
     // show first set of players
@@ -75,17 +75,17 @@ class Players {
 
 
   playerFormToJSon(){
-    var playerId= Number(sessionStorage.getItem('players-current-player-id'))
-    var personId = Number(sessionStorage.getItem('players-current-player-person-id'))
-    var firstName = document.getElementById("pdFirstName").value
-    var lastName = document.getElementById("pdLastName").value
-    var dateOfBirth = document.getElementById("pdDateOfBirth").value
+    var playerId= Number(sessionStorage.getItem('players-current-player-id'));
+    var personId = Number(sessionStorage.getItem('players-current-player-person-id'));
+    var firstName = document.getElementById("pdFirstName").value;
+    var lastName = document.getElementById("pdLastName").value;
+    var dateOfBirth = document.getElementById("pdDateOfBirth").value;
     
     var genderElement = document.getElementById("pdGender");
-    var gender = genderElement.options[genderElement.selectedIndex].value
+    var gender = genderElement.options[genderElement.selectedIndex].value;
     
     var statusElement = document.getElementById("pdStatus");
-    var status = statusElement.options[statusElement.selectedIndex].value
+    var status = statusElement.options[statusElement.selectedIndex].value;
     
     var json = JSON.stringify({
       "id": playerId,
@@ -97,17 +97,17 @@ class Players {
         "dateOfBirthISO": dateOfBirth,
         "gender": gender
       }
-    })
+    });
     
-    console.log("player: "+json)
+    console.log("player: "+json);
     return json;
   }
 
   showPlayersTable(){
-    var offset = Number(sessionStorage.getItem('players-table-offset'))
+    var offset = Number(sessionStorage.getItem('players-table-offset'));
     
-    document.getElementById("playersOffset").innerHTML = offset
-    document.getElementById("playersLength").innerHTML = offset + tableSize
+    document.getElementById("playersOffset").innerHTML = offset;
+    document.getElementById("playersLength").innerHTML = offset + tableSize;
 
     tournaments.getCurrentSubscribers(offset, tableSize).then(function(data) {
       
@@ -120,17 +120,17 @@ class Players {
       
       // daten in die tabelle einfuegen
       data.players.forEach(function(player){
-        var t = document.querySelector("#playerRecord").cloneNode(true)   
-        var template = t.content
+        var t = document.querySelector("#playerRecord").cloneNode(true);
+        var template = t.content;
     
         var firstNameElement = template.querySelector("#firstName");
         firstNameElement.innerHTML = player.person.firstName;
-        firstNameElement.setAttribute("id", "firstName"+player.id)
-        firstNameElement.onclick = function(e){ new Players().showSelectedPlayerDetails(player.id); }
+        firstNameElement.setAttribute("id", "firstName"+player.id);
+        firstNameElement.onclick = function(e){ new Players().showSelectedPlayerDetails(player.id); };
       
         var lastNameElement = template.querySelector("#lastName"); 
         lastNameElement.innerHTML = player.person.lastName;
-        lastNameElement.setAttribute("id", "lasttName"+player.id)
+        lastNameElement.setAttribute("id", "lasttName"+player.id);
       
         tableBody.appendChild(template);
       });
@@ -138,36 +138,36 @@ class Players {
       // aktualisieren der Anzahl-Anzeige ueber der tabellen
       tournaments.countCurrentSubscribers().then(function(response){
         document.getElementById("playersCount").innerHTML = response;
-      })
+      });
     }).catch(function(err) {
     });
   }
 
   next(){
-    var playersCount = Number(document.getElementById("playersCount").innerHTML)
-    var currOffset = Number(sessionStorage.getItem('players-table-offset'))
-    var newOffset = currOffset + tableSize
+    var playersCount = Number(document.getElementById("playersCount").innerHTML);
+    var currOffset = Number(sessionStorage.getItem('players-table-offset'));
+    var newOffset = currOffset + tableSize;
       
     if(newOffset>=playersCount){
       return;
     }
       
-    document.getElementById("playersOffset").innerHTML = newOffset
-    sessionStorage.setItem('players-table-offset', newOffset)
+    document.getElementById("playersOffset").innerHTML = newOffset;
+    sessionStorage.setItem('players-table-offset', newOffset);
     this.showPlayersTable();
   }
 
   prev(){
-    var currOffset = Number(sessionStorage.getItem('players-table-offset'))
-    var newOffset = currOffset - tableSize
+    var currOffset = Number(sessionStorage.getItem('players-table-offset'));
+    var newOffset = currOffset - tableSize;
       
     if(newOffset<0){
       newOffset = 0;
     }
       
-    document.getElementById("playersOffset").innerHTML = newOffset
-    document.getElementById("playersLength").innerHTML = newOffset + tableSize
-    sessionStorage.setItem('players-table-offset', newOffset)
+    document.getElementById("playersOffset").innerHTML = newOffset;
+    document.getElementById("playersLength").innerHTML = newOffset + tableSize;
+    sessionStorage.setItem('players-table-offset', newOffset);
     this.showPlayersTable();
   }
 
@@ -179,13 +179,13 @@ class Players {
       return response.json();
     }).then(function(player) {
    
-      sessionStorage.setItem('players-current-player-id', player.id)
-      sessionStorage.setItem('players-current-player-person-id', player.person.id)
+      sessionStorage.setItem('players-current-player-id', player.id);
+      sessionStorage.setItem('players-current-player-person-id', player.person.id);
 
-      document.getElementById("pdFirstName").setAttribute('value', player.person.firstName)
-      document.getElementById("pdLastName").setAttribute('value', player.person.lastName)
-      document.getElementById("pdDateOfBirth").setAttribute('value', player.person.dateOfBirthISO)
-   
+      document.getElementById("pdFirstName").setAttribute('value', player.person.firstName);
+      document.getElementById("pdLastName").setAttribute('value', player.person.lastName);
+      document.getElementById("pdDateOfBirth").setAttribute('value', player.person.dateOfBirthISO);
+      
       var genderElement = document.getElementById("pdGender");
       selectItemByValue(genderElement, player.person.gender);
 
