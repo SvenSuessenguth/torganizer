@@ -31,6 +31,13 @@ function includeFragments(){
   var nav = navs.getElementById("nav-wrapper")
   var navClone = document.importNode(nav.content, true);
   
-  fragments = document.getElementById('fragments');  
+  // Footer
+  var footersImport = document.getElementById('footer');
+  var footers = footersImport.import;
+  var footer = footers.getElementById("footer-wrapper")
+  var footerClone = document.importNode(footer.content, true);
+  
+  fragments = document.getElementById('fragments');
   fragments.appendChild(navClone);
+  fragments.appendChild(footerClone);
 }
