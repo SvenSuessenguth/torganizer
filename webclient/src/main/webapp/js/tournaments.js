@@ -36,7 +36,7 @@ class Tournaments {
       return response.json();
     }).then(function(tournament) {
       // {"id":1,"name":"dings"}
-      document.getElementById("tdName").setAttribute('value', tournament.name);
+      document.getElementById("tournamentName").setAttribute('value', tournament.name);
       sessionStorage.setItem('tournaments-current-tournament-id', tournament.id);
       sessionStorage.setItem('tournaments-current-tournament-name', tournament.name);
     }).catch(function(err) {
@@ -44,7 +44,7 @@ class Tournaments {
   }
 
   createTournament(){
-    var name = document.getElementById("tdName").value;
+    var name = document.getElementById("tournamentName").value;
     
     fetch('http://localhost:8080/rest/resources/tournaments/create?name='+name).then(function(response) {
       return response.json();
@@ -52,8 +52,7 @@ class Tournaments {
       sessionStorage.setItem('tournaments-current-tournament-id', tournament.id);
       sessionStorage.setItem('tournaments-current-tournament-name', tournament.name);
       
-      this.showTournamentsTable();
-      this.showTournamentDetails(tournament.id);
+      window.location.reload(true);
     }).catch(function(err) {
     });
   }

@@ -9,6 +9,12 @@ table{
   border: 1px solid Gray;
   border-collapse:collapse;  
 }
+tr:nth-child(odd){
+  background-color: #F4F4F4;
+}
+tr:nth-child(even){
+  background-color: #FFFFFF;
+}
 th{
   background-color: #FECEA8;
   border: 1px solid Gray;
