@@ -22,3 +22,15 @@ function selectItemByValue(elmnt, value){
     }
   }
 }
+
+// http://blog.teamtreehouse.com/introduction-html-imports
+function includeFragments(){
+  // Navigation
+  var navsImport = document.getElementById('nav');
+  var navs = navsImport.import;
+  var nav = navs.getElementById("nav-wrapper")
+  var navClone = document.importNode(nav.content, true);
+  
+  fragments = document.getElementById('fragments');  
+  fragments.appendChild(navClone);
+}

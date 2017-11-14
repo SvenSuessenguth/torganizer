@@ -3,6 +3,7 @@ class Tournaments {
   }
   
   onload(){
+    includeFragments();
     this.showTournamentsTable();    
   }
  

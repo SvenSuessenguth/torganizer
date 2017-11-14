@@ -6,6 +6,8 @@ class Players {
   }
   
   onLoad(){
+    includeFragments();
+    
     // if current tournament is selected, activate checkbox to auto add new player
     var currentTournamentName = sessionStorage.getItem('tournaments-current-tournament-name');
     var currentTournamentId = sessionStorage.getItem('tournaments-current-tournament-id');
