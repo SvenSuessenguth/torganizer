@@ -11,6 +11,11 @@
     <jta-data-source>jdbc/torganizerDS</jta-data-source>
     
     <mapping-file>META-INF/orm.xml</mapping-file>
+    <mapping-file>META-INF/discipline-orm.xml</mapping-file>
+    <mapping-file>META-INF/opponent-orm.xml</mapping-file>
+    <mapping-file>META-INF/person-orm.xml</mapping-file>
+    <mapping-file>META-INF/restriction-orm.xml</mapping-file>
+    <mapping-file>META-INF/tournament-orm.xml</mapping-file>
     
     <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>      
