@@ -4,7 +4,9 @@
 
   <OPPONENTS OPPONENT_ID="1" status="ACTIVE" TYPE="B"/>
   <OPPONENTS OPPONENT_ID="2" status="ACTIVE" TYPE="P"/>
+  
   <BYES  OPPONENT_ID="1"/>
+  
   <PLAYERS OPPONENT_ID="2" PERSON_ID="1"/>
   
 </dataset>

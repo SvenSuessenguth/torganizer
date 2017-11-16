@@ -20,38 +20,39 @@ import org.dbunit.ext.mysql.MySqlDataTypeFactory;
 import org.dbunit.ext.mysql.MySqlMetadataHandler;
 import org.dbunit.operation.DatabaseOperation;
 import org.hibernate.internal.SessionImpl;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 
-public abstract class AbstractDbUnitJpaTest {
+public abstract class AbstractDbUnitJpaTest{
 
-  protected static EntityManagerFactory entityManagerFactory;
-  protected static EntityManager entityManager;
-  protected static Connection connection;
-
-  @BeforeClass
-  public static void initTestFixture() throws Exception {
+  protected EntityManagerFactory entityManagerFactory;
+  protected EntityManager entityManager;
+  protected Connection connection;
+  
+  @Before
+  public void initTestFixture() throws Exception {
     // Get the entity manager for the tests.
     entityManagerFactory = Persistence.createEntityManagerFactory("torganizerTest");
-    entityManager = entityManagerFactory.createEntityManager();
+    entityManager = entityManagerFactory.createEntityManager();    
     connection = ((SessionImpl) (entityManager.getDelegate())).connection();
+    entityManager.getTransaction().begin();
   }
 
-  @AfterClass
-  public static void closeTestFixture() {
-    entityManager.close();
+  @After
+  public void closeTestFixture() {
+	entityManager.getTransaction().rollback();
+	entityManager.close();
     entityManagerFactory.close();
   }
-
+  
   public void initDatabase(String testData) throws IOException, DatabaseUnitException, SQLException {
     // Connection aufbauen
-    IDatabaseConnection dbunitConn = new DatabaseConnection(connection, "test");
+	IDatabaseConnection dbunitConn = new DatabaseConnection(connection);
     DatabaseConfig dbConfig = dbunitConn.getConfig();
     dbConfig.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MySqlDataTypeFactory());
     dbConfig.setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER, new MySqlMetadataHandler());
 
     // Testdaten laden und [NULL] durch null-Value ersetzen
-
     URL url = getClass().getClassLoader().getResource(testData);
     InputStream is = url.openStream();
     ReplacementDataSet dataSet = new ReplacementDataSet(new FlatXmlDataSetBuilder().build(is));

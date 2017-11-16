@@ -51,8 +51,8 @@ public class RestrictionJpaTest extends AbstractDbUnitJpaTest {
     assertThat(restriction, is(instanceOf(AgeRestriction.class)));
     AgeRestriction ageRestriction = (AgeRestriction) restriction;
     assertThat(ageRestriction, is(notNullValue()));
-    assertThat(ageRestriction.getMaxDateOfBirth(), is(equalTo(LocalDate.of(1999, 1, 1))));
-    assertThat(ageRestriction.getMinDateOfBirth(), is(equalTo(LocalDate.of(1998, 6, 5))));
+    assertThat(ageRestriction.getMaxDateOfBirth(), is(equalTo(LocalDate.of(1999, 1, 2))));
+    assertThat(ageRestriction.getMinDateOfBirth(), is(equalTo(LocalDate.of(1998, 6, 6))));
   }
 
   @Test

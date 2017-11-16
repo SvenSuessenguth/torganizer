@@ -18,15 +18,13 @@
     <mapping-file>META-INF/tournament-orm.xml</mapping-file>
 
     <properties>
-      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>      
-      <property name="hibernate.hbm2ddl.auto" value="create"/>
-      <property name="hibernate.show_sql" value="true"/>      
-      <property name="hibernate.format_sql" value="true"/>
+      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:test;create=true"/>
+      <property name="javax.persistence.jdbc.user" value=""/>
+      <property name="javax.persistence.jdbc.password" value=""/>
       
-      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/test"/>
-      <property name="javax.persistence.jdbc.user" value="root"/>
-      <property name="javax.persistence.jdbc.password" value=""/>      
+      <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>      
     </properties>    
   </persistence-unit>
   
