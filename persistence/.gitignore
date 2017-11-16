@@ -7,6 +7,7 @@ tomcat
 #
 # Default excludes
 #
+*.log
 
 # Binaries
 *.7z
