@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.1" 
+  xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">  
+  
+  <named-query name="Restriction.findAll">
+    <query>SELECT r FROM Restriction r</query>
+  </named-query>
+  <named-query name="Restriction.findById">
+    <query>SELECT r FROM Restriction r WHERE r.id = :id</query>
+  </named-query>
+  
+  <entity class="org.cc.torganizer.core.entities.Restriction">
+    <table name="RESTRICTIONS" />
+    <inheritance strategy="JOINED"/>    
+    <discriminator-column name="TYPE" discriminator-type="STRING" length="20"/>
+    <attributes>    
+      <id name="id" >
+        <column name="RESTRICTION_ID"/>
+        <generated-value strategy="IDENTITY"/>
+       </id>
+     </attributes>
+  </entity>
+  
+  <entity class="org.cc.torganizer.core.entities.AgeRestriction" access="FIELD">
+    <table name="AGERESTRICTIONS" />
+    <discriminator-value>A</discriminator-value>
+    <attributes>
+      <basic name="maxDateOfBirth"><column name="MAX_DATE_OF_BIRTH"/></basic>      
+      <basic name="minDateOfBirth"><column name="MIN_DATE_OF_BIRTH"/></basic>
+    </attributes>
+  </entity>
+  
+  <entity class="org.cc.torganizer.core.entities.GenderRestriction">
+    <table name="GENDERRESTRICTIONS" />
+    <discriminator-value>G</discriminator-value>
+    <attributes>    
+      <basic name="validGender">
+        <column name="VALIDGENDER" nullable="false" />
+        <enumerated>STRING</enumerated>        
+      </basic>
+    </attributes>
+  </entity>
+  
+  <entity class="org.cc.torganizer.core.entities.OpponentTypeRestriction">
+    <table name="OPPONENTTYPERESTRICTIONS" />
+    <discriminator-value>T</discriminator-value>
+    <attributes>    
+      <basic name="validOpponentType">
+        <column name="VALIDOPPONENTTYPE" nullable="true" />
+        <enumerated>STRING</enumerated>        
+      </basic>
+    </attributes>
+  </entity>
+  
+</entity-mappings>  

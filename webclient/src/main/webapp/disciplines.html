@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="js/global.js"></script>
+    <script type="text/javascript" src="js/disciplines.js"></script>
+    <link rel="stylesheet" href="css/ui.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="import" href="nav.html" id="nav">
+    <link rel="import" href="footer.html" id="footer">
+    <title>Tournament</title>
+  </head>
+
+  <body id="body">
+    <div id="fragments"></div>
+  
+    <form id="form">
+      <template id="disciplinesRecord">
+        <tr>
+          <td id="name"></td>
+        </tr>
+      </template>
+
+      Anzahl <span id="disciplinesCount"></span>
+      <table id="disciplinesTable">
+        <tbody id="disciplinesTableBody"></tbody>
+      </table>
+
+      <span id="disciplinesData"> 
+        <label for="disciplinesName">Name</label><input id="disciplinesName" type="text" value="">
+      
+        <input type="button" value="neu" onclick="disciplines.createDiscipline()">
+        <input type="button" value="aktualisieren" onclick="disciplines.updateDiscipline()">
+      </span>
+    </form>
+    
+    <script>disciplines.onload();</script>
+  </body>
+</html>

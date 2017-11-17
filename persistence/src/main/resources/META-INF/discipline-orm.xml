@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.1" 
+  xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">  
+  
+  <named-query name="Discipline.findAll">
+    <query>SELECT d FROM Discipline d</query>
+  </named-query>
+  <named-query name="Discipline.findById">
+    <query>SELECT d FROM Discipline d WHERE d.id = :id</query>
+  </named-query>
+  <named-query name="Discipline.findOpponents">
+    <query>SELECT o FROM Opponent o, Discipline d WHERE d.id = :id AND o MEMBER OF d.opponents</query>
+  </named-query>
+  <named-query name="Discipline.findRestrictions">
+    <query>SELECT r FROM Restriction r, Discipline d WHERE d.id = :id AND r MEMBER OF d.restrictions</query>
+  </named-query>
+  
+  <!-- 
+  @OneToMany(cascade = CascadeType.ALL)
+  @OrderBy("index ASC")
+  @JoinTable(name = "DISCIPLINES_ROUNDS", joinColumns = {@JoinColumn(name = "DISCIPLINE_ID") }, inverseJoinColumns = @JoinColumn(name = "ROUND_ID"))
+   -->
+  <entity class="org.cc.torganizer.core.entities.Discipline" access="FIELD">
+    <table name="DISCIPLINES" />
+    <attributes>    
+      <id name="id" >
+        <column name="DISCIPLINE_ID"/>
+          <generated-value strategy="IDENTITY"/>
+       </id>
+       <basic name="label"><column name="LABEL" nullable="false" /></basic>
+       <one-to-many name="opponents">
+         <join-table name="DISCIPLINES_OPPONENTS">
+           <join-column name="DISCIPLINE_ID" referenced-column-name="DISCIPLINE_ID"/>
+           <inverse-join-column name="OPPONENT_ID" referenced-column-name="OPPONENT_ID" unique="true" />
+         </join-table>
+         <cascade><cascade-all/></cascade>
+       </one-to-many>
+       <one-to-many name="restrictions">
+         <join-table name="DISCIPLINES_RESTRICTIONS">
+           <join-column name="DISCIPLINE_ID" referenced-column-name="DISCIPLINE_ID"/>
+           <inverse-join-column name="RESTRICTION_ID" referenced-column-name="RESTRICTION_ID" unique="true" />
+         </join-table>
+         <cascade><cascade-all/></cascade>
+       </one-to-many>
+     </attributes>
+  </entity>
+  
+</entity-mappings>  

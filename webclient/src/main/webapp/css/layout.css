@@ -1,0 +1,38 @@
+/*
+Farbschema aus 
+https://digitalsynopsis.com/wp-content/uploads/2016/01/minimal-web-color-palettes-combination-hex-code-2.png
+
+Hier werden *keine* Groessen-, Positions- oder Floatangaben gemacht! 
+*/
+
+/*
+Navigation
+*/
+
+/*
+Alles andere
+*/
+table{
+  border: 1px solid Gray;
+  border-collapse:collapse;  
+}
+tr:nth-child(odd){
+  background-color: #F4F4F4;
+}
+tr:nth-child(even){
+  background-color: #FFFFFF;
+}
+th{
+  background-color: #FECEA8;
+  border: 1px solid Gray;
+  padding: 2px 20px;
+}
+td{
+  border: 1px solid Gray;
+  padding: 2px 20px;
+}
+
+input{
+  border: 1px solid Gray;
+  padding: 2px 2px;
+}
