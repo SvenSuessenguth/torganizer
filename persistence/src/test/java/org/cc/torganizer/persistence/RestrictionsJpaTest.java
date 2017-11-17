@@ -19,7 +19,7 @@ import org.cc.torganizer.core.entities.Restriction;
 import org.junit.Before;
 import org.junit.Test;
 
-public class RestrictionJpaTest extends AbstractDbUnitJpaTest {
+public class RestrictionsJpaTest extends AbstractDbUnitJpaTest {
 
   @Before
   public void before() throws Exception {

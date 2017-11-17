@@ -7,7 +7,7 @@ import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TournamentJpaTest extends AbstractDbUnitJpaTest {
+public class TournamentsJpaTest extends AbstractDbUnitJpaTest {
 
   @Before
   public void before() throws Exception {

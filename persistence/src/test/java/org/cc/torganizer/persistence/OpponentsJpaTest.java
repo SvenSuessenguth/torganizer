@@ -9,7 +9,7 @@ import org.cc.torganizer.core.entities.Opponent;
 import org.junit.Before;
 import org.junit.Test;
 
-public class OpponentJpaTest extends AbstractDbUnitJpaTest {
+public class OpponentsJpaTest extends AbstractDbUnitJpaTest {
 
   @Before
   public void before() throws Exception {
