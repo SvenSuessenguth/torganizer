@@ -7,6 +7,13 @@ class Tournaments {
     this.showTournamentsTable();    
   }
  
+  getCurrentTournamentId(){
+    return sessionStorage.getItem('tournaments-current-tournament-id');
+  }
+  isActiveTournament(){
+    return this.getCurrentTournamentId() != null;
+  }
+  
   showTournamentsTable(){
     fetch('http://localhost:8080/rest/resources/tournaments').then(function(response) {
       return response.json();

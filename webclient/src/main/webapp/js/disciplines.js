@@ -6,7 +6,7 @@ class Tournaments {
     includeFragments();
     this.showTournamentsTable();    
   }
- 
+  
   showTournamentsTable(){
     fetch('http://localhost:8080/rest/resources/tournaments').then(function(response) {
       return response.json();

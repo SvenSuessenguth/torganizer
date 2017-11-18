@@ -31,6 +31,8 @@ function includeFragments(){
   var nav = navs.getElementById("nav-wrapper")
   var navClone = document.importNode(nav.content, true);
   
+  activateNavigation();
+  
   // Footer
   var footersImport = document.getElementById('footer');
   var footers = footersImport.import;
@@ -40,4 +42,22 @@ function includeFragments(){
   fragments = document.getElementById('fragments');
   fragments.appendChild(navClone);
   fragments.appendChild(footerClone);
+}
+
+//
+// Es muss ein aktives Turnier ausgewählt sein, bevor man weitere Eingaben
+// (andere Seiten) anzeigen kann.
+//
+function activateNavigation() {
+  var activeNavigation = new Tournaments().isActiveTournament();
+  alert(activateNavigation);
+  if(!activateNavigation) {
+    // text soll von allen optional-Links angezeigt werden, aber kein a href vorhanden sein
+    // https://www.w3schools.com/jsref/met_document_getelementsbyclassname.asp
+    var navOptional = document.getElementsByClassName("nav-optional");
+    var i;
+    for (i = 0; i < navOptional.length; i++) {
+      navOptional[i].removeAttribute("href");
+    }
+  }
 }
