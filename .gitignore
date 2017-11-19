@@ -8,7 +8,7 @@ tomcat
 # Default excludes
 #
 
-# Binaries
+# Binaries and Logs
 *.7z
 *.dmg
 *.gz
@@ -21,6 +21,7 @@ tomcat
 *.ear
 *.sar
 *.class
+*.log
 
 # Maven 
 target/
