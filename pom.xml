@@ -8,8 +8,9 @@
 
   <!--
    | mvn cobertura:cobertura sonar:sonar 
-   | -Dsonar.host.url=http://localhost:9000 
-   | -Dsonar.login=1eb21357d7bfd4678fa9efbf414cb8852033ec09
+   |   -Dcobertura.report.format=xml
+   |   -Dsonar.host.url=http://localhost:9000 
+   |   -Dsonar.login=1eb21357d7bfd4678fa9efbf414cb8852033ec09
    +-->
   <url>http://localhost:8080/torganizer</url>
   
