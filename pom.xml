@@ -7,8 +7,7 @@
   <packaging>pom</packaging>
 
   <!--
-   | mvn cobertura:cobertura sonar:sonar 
-   |   -Dcobertura.report.format=xml
+   | mvn sonar:sonar 
    |   -Dsonar.host.url=http://localhost:9000 
    |   -Dsonar.login=1eb21357d7bfd4678fa9efbf414cb8852033ec09
    +-->
