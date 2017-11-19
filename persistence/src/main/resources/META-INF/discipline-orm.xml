@@ -16,6 +16,9 @@
   <named-query name="Discipline.findRestrictions">
     <query>SELECT r FROM Restriction r, Discipline d WHERE d.id = :id AND r MEMBER OF d.restrictions</query>
   </named-query>
+  <named-query name="Discipline.findByTournamentId">
+    <query>SELECT d FROM Discipline d, Tournament t WHERE t.id = :tournamentId AND d MEMBER OF t.disciplines</query>
+  </named-query>
   
   <!-- 
   @OneToMany(cascade = CascadeType.ALL)
