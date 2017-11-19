@@ -25,11 +25,14 @@ function selectItemByValue(elmnt, value){
 
 // http://blog.teamtreehouse.com/introduction-html-imports
 function includeFragments(){
+  fragments = document.getElementById('fragments');
+  
   // Navigation
   var navsImport = document.getElementById('nav');
   var navs = navsImport.import;
   var nav = navs.getElementById("nav-wrapper")
   var navClone = document.importNode(nav.content, true);
+  fragments.appendChild(navClone);
   
   activateNavigation();
   
@@ -39,8 +42,6 @@ function includeFragments(){
   var footer = footers.getElementById("footer-wrapper")
   var footerClone = document.importNode(footer.content, true);
   
-  fragments = document.getElementById('fragments');
-  fragments.appendChild(navClone);
   fragments.appendChild(footerClone);
 }
 
@@ -49,9 +50,8 @@ function includeFragments(){
 // (andere Seiten) anzeigen kann.
 //
 function activateNavigation() {
-  var activeNavigation = new Tournaments().isActiveTournament();
-  alert(activateNavigation);
-  if(!activateNavigation) {
+  var activeNavigation = tournaments.isActiveTournament();
+  if(!activeNavigation) {
     // text soll von allen optional-Links angezeigt werden, aber kein a href vorhanden sein
     // https://www.w3schools.com/jsref/met_document_getelementsbyclassname.asp
     var navOptional = document.getElementsByClassName("nav-optional");

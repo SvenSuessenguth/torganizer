@@ -47,6 +47,8 @@ class Tournaments {
       document.getElementById("tournamentName").setAttribute('value', tournament.name);
       sessionStorage.setItem('tournaments-current-tournament-id', tournament.id);
       sessionStorage.setItem('tournaments-current-tournament-name', tournament.name);
+      
+      window.location.reload(true);
     }).catch(function(err) {
     });
   }
