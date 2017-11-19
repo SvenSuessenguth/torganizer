@@ -37,6 +37,9 @@ public class Tournament
 
   @XmlTransient
   private Set<Discipline> disciplines = new HashSet<>();
+  
+  @XmlTransient
+  private Set<Gymnasium> gymnasiums = new HashSet<>();
 
   /**
    * Default.
@@ -136,5 +139,13 @@ public class Tournament
 
   public void setOpponents(Set<Opponent> opponents) {
     this.opponents = opponents;
+  }
+
+  public Set<Gymnasium> getGymnasiums() {
+    return gymnasiums;
+  }
+
+  public void setGymnasiums(Set<Gymnasium> gymnasiums) {
+    this.gymnasiums = gymnasiums;
   }
 }

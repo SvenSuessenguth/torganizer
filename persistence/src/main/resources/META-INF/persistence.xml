@@ -13,6 +13,7 @@
     <mapping-file>META-INF/orm.xml</mapping-file>
     <mapping-file>META-INF/club-orm.xml</mapping-file>
     <mapping-file>META-INF/discipline-orm.xml</mapping-file>
+    <mapping-file>META-INF/gymnasium-orm.xml</mapping-file>
     <mapping-file>META-INF/opponent-orm.xml</mapping-file>
     <mapping-file>META-INF/person-orm.xml</mapping-file>
     <mapping-file>META-INF/restriction-orm.xml</mapping-file>
