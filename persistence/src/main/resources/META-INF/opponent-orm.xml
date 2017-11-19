@@ -19,6 +19,9 @@
   </named-query>
   <named-query name="Player.findById">
     <query>SELECT p FROM Player p WHERE p.id = :id</query>
+  </named-query>
+  <named-query name="Player.findByTournament">
+    <query>SELECT p FROM Player p, Tournament t WHERE t.id = :tournamentId AND p MEMBER OF t.subscribers</query>
   </named-query>  
   
   <entity class="org.cc.torganizer.core.entities.Opponent" access="FIELD">

@@ -28,17 +28,17 @@ public class PlayersResource {
 
   @PersistenceContext(name = "torganizer")
   EntityManager entityManager;
-  
+
   @POST
   @Path("/create")
   public Player create(Player player) {
     player.setId(null);
     player.getPerson().setId(null);
     entityManager.persist(player);
-    
+
     return player;
   }
-  
+
   @GET
   @Path("{id}")
   public Player read(@PathParam("id") Long id) {
@@ -46,49 +46,51 @@ public class PlayersResource {
     TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
     namedQuery.setParameter("id", id);
     List<Player> players = namedQuery.getResultList();
-    
+
     return players.get(0);
   }
-  
+
   @POST
   @Path("/update")
   public Player update(Player player) {
     entityManager.merge(player);
-    
+
     return player;
   }
-  
+
   @DELETE
   @Path("/delete/{id}")
   public Player delete(@PathParam("id") Long id) {
 
     TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
     namedQuery.setParameter("id", id);
-    List<Player> players = namedQuery.getResultList();    
+    List<Player> players = namedQuery.getResultList();
     Player player = players.get(0);
-    
+
     entityManager.remove(player);
-    
+
     return player;
   }
 
   @GET
   @Path("/")
-  public PlayersContainer all(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
+  public PlayersContainer all(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length,
+      @QueryParam("tournamentId") Long tournamentId) {
 
     if (offset == null || length == null) {
       offset = DEFAULT_OFFSET;
       length = DEFAULT_LENGTH;
     }
-    
-    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findAll", Player.class);
+
+    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findByTournament", Player.class);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(length);
+    namedQuery.setParameter("tournamentId", tournamentId);
     List<Player> players = namedQuery.getResultList();
 
     return new PlayersContainer(players);
   }
-  
+
   @GET
   @Path("/count")
   public long count() {
