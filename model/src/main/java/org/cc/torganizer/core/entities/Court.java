@@ -1,7 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.io.Serializable;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,11 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "getCourtForMatch", query = "SELECT c FROM Court c WHERE c.match = (:match)"),
     @NamedQuery(name = "getUnusedCourtsForGymnasium", query = "SELECT c FROM Court c WHERE c.match IS null AND c.gymnasium = (:gymnasium)") })
 public class Court
-  extends AbstractBaseEntity
-  implements Serializable {
-
-  /** serialVersionUID. */
-  private static final long serialVersionUID = -3617725285622881480L;
+  extends AbstractBaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)

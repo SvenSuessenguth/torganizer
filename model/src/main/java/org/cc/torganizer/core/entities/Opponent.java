@@ -1,6 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -17,10 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "Opponent")
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class Opponent extends AbstractBaseEntity implements Serializable {
-
-	/** serialVersionUID . */
-	private static final long serialVersionUID = 6510884430758866717L;
+public abstract class Opponent extends AbstractBaseEntity {
 
 	private Long id;
 	

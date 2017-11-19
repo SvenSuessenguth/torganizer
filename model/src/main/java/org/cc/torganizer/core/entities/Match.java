@@ -2,7 +2,6 @@ package org.cc.torganizer.core.entities;
 
 import static java.util.Collections.unmodifiableList;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -43,7 +42,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({ @NamedQuery(name = "getMatchesForGroup", query = "SELECT m FROM Match m WHERE m.group = :group"),
     @NamedQuery(name = "getRunningMatchesForGroup", query = "SELECT m FROM Match m WHERE m.running = true AND m.group = :group"),
     @NamedQuery(name = "getFinishedMatchesForGroup", query = "SELECT m FROM Match m WHERE m.running = true AND m.finished IS NOT NULL AND m.group = :group") })
-public class Match implements Serializable, IIndexed {
+public class Match implements IIndexed {
 
   /**
    * Match, bei dem keiner der Opponents bekannt ist.
@@ -54,9 +53,6 @@ public class Match implements Serializable, IIndexed {
     Opponent guest = new Unknown();
     NULL_MATCH = new Match(null, home, guest);
   }
-
-  /** serialVersionUID. */
-  private static final long serialVersionUID = -7127123174895853532L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)

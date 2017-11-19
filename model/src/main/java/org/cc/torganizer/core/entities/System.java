@@ -2,7 +2,6 @@ package org.cc.torganizer.core.entities;
 
 import static org.cc.torganizer.core.util.LangUtil.capitalize;
 
-import java.io.Serializable;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
@@ -18,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "System")
 @XmlAccessorType(XmlAccessType.FIELD)
-public enum System implements Serializable {
+public enum System {
 
   /** Doppel-KO. */
   DOUBLE_ELIMINATION,

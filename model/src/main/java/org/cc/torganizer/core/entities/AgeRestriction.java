@@ -1,6 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -17,10 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "AgeRestriction")
 @XmlAccessorType(XmlAccessType.NONE)
-public class AgeRestriction extends Restriction implements Serializable {
-
-	/** serialVersionUID . */
-	private static final long serialVersionUID = 1405771570244108773L;
+public class AgeRestriction extends Restriction{
 
 	/**
 	 * liegt zeitlich NACH dem minDateOfBirth (hat h\u00f6heren Jahres-, Monats-

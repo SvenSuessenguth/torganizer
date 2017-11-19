@@ -1,6 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -19,11 +18,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @XmlRootElement(name = "Tournament")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Tournament
-  implements Serializable {
-
-  /** serialVersionUID . */
-  private static final long serialVersionUID = 3989029129624555931L;
+public class Tournament {
 
   private Long id;
 

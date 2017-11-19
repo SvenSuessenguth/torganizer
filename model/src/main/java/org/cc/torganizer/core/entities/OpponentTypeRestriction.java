@@ -1,7 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -17,11 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "OpponentTypeRestriction")
 @XmlAccessorType(XmlAccessType.NONE)
 public class OpponentTypeRestriction
-  extends Restriction
-  implements Serializable {
-
-  /** serialVersionUID . */
-  private static final long serialVersionUID = 5733413636683839317L;
+  extends Restriction {
 
   @XmlAttribute
   private OpponentType validOpponentType = OpponentType.PLAYER;

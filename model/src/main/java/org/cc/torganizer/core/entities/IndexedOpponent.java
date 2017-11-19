@@ -1,7 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.io.Serializable;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,10 +26,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "INDEXED_OPPONENTS")
 public class IndexedOpponent
   extends AbstractBaseEntity
-  implements Serializable, IIndexed {
-  /** serialVersionUID. */
-  private static final long serialVersionUID = 7871370160088562445L;
-
+  implements IIndexed {
+  
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "INDEXED_OPPONENT_ID")

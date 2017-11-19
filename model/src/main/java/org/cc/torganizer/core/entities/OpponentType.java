@@ -1,6 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -14,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "OpponentType")
 @XmlAccessorType(XmlAccessType.FIELD)
-public enum OpponentType implements Serializable {
+public enum OpponentType {
   /** Ein Player. */
   PLAYER(0, Player.class),
 

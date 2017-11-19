@@ -1,6 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,11 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "bye")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Bye
-  extends Opponent
-  implements Serializable {
-
-  /** serialVersionUID . */
-  private static final long serialVersionUID = -5456818775828449905L;
+  extends Opponent {
 
   /**
    * Default.

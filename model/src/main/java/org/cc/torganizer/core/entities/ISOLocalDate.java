@@ -1,6 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -9,17 +8,14 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * {@link LocalDate} unterstützt keine marshalling/unmarshalling von XML auf Objekt und zurück. 
+ * {@link LocalDate} unterstï¿½tzt keine marshalling/unmarshalling von XML auf Objekt und zurï¿½ck. 
  * Daher hier eine eigene Implementierung, die intern {@link LocalDate} verwendet.
  * @author u000349
  *
  */
 @XmlRootElement(name="LocalDate")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ISOLocalDate implements Serializable {
-
-  /** SerialVersionUID. */
-  private static final long serialVersionUID = -1265699059932385093L;
+public class ISOLocalDate {
 
   private Integer year;
   private Integer month;

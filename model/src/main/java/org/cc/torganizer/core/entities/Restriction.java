@@ -1,7 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -13,12 +11,7 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @version $Id: $
  */
 @XmlAccessorType(XmlAccessType.NONE)
-public abstract class Restriction
-  extends AbstractBaseEntity
-  implements Serializable {
-
-  /** serialVersionUID . */
-  private static final long serialVersionUID = 7939856501542489385L;
+public abstract class Restriction extends AbstractBaseEntity {
 
   @XmlAttribute
   private Long id;
@@ -37,6 +30,7 @@ public abstract class Restriction
   public final Long getId() {
     return id;
   }
+
   @Override
   public final void setId(Long newId) {
     id = newId;

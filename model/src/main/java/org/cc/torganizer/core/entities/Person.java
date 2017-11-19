@@ -1,6 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -18,10 +17,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "Person")
 @XmlAccessorType(XmlAccessType.NONE)
-public class Person extends AbstractBaseEntity implements Serializable {
-  /** serialVersionUID. */
-  static final long serialVersionUID = 1118674300004077117L;
-
+public class Person extends AbstractBaseEntity {
+  
   @XmlAttribute
   private Long id;
 

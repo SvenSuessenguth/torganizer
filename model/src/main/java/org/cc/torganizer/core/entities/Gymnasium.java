@@ -1,6 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +16,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @XmlRootElement(name = "Gymnasium")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Gymnasium implements Serializable {
-  /** serialVersionUID. */
-  private static final long serialVersionUID = -1258367644977462487L;
+public class Gymnasium {
   
   private Long id;
 

@@ -1,6 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -35,10 +34,7 @@ import org.cc.torganizer.core.comparators.IndexedComparator;
 @Entity
 @Table(name = "GROUPS")
 public class Group
-  implements Serializable, IIndexed {
-
-  /** serialVersionUID. */
-  private static final long serialVersionUID = 8731591706641099541L;
+  implements IIndexed {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)

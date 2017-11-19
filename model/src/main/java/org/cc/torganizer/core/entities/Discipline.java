@@ -2,7 +2,6 @@ package org.cc.torganizer.core.entities;
 
 import static java.util.Collections.unmodifiableList;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -24,11 +23,7 @@ import org.cc.torganizer.core.exceptions.RestrictionException;
 @XmlRootElement(name = "Discipline")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Discipline
-  extends AbstractBaseEntity
-  implements Serializable {
-
-  /** serialVersionUID. */
-  public static final long serialVersionUID = 3321249651978154828L;
+  extends AbstractBaseEntity {
 
   /**
    * Darzustellender Name, wenn noch keine Disziplin zugewiesen wurde.

@@ -1,7 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -16,11 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "GenderRestriction")
 @XmlAccessorType(XmlAccessType.NONE)
 public class GenderRestriction
-  extends Restriction
-  implements Serializable {
-
-  /** serialVersionUID. */
-  private static final long serialVersionUID = -1308690718337207383L;
+  extends Restriction {
   
   @XmlAttribute
   private Gender validGender = Gender.UNKNOWN;

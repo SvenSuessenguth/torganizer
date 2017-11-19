@@ -1,6 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,11 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "ROUNDS")
-public class Round
-  implements Serializable, IIndexed {
-
-  /** serialVersionUID . */
-  private static final long serialVersionUID = -1602338813103149398L;
+public class Round implements IIndexed {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,7 +44,8 @@ public class Round
   private Integer index;
 
   @OneToMany(cascade = CascadeType.ALL)
-  @JoinTable(name = "ROUNDS_GROUPS", joinColumns = {@JoinColumn(name = "ROUND_ID") }, inverseJoinColumns = @JoinColumn(name = "GROUP_ID"))
+  @JoinTable(name = "ROUNDS_GROUPS", joinColumns = {
+      @JoinColumn(name = "ROUND_ID") }, inverseJoinColumns = @JoinColumn(name = "GROUP_ID"))
   private List<Group> groups = new ArrayList<Group>();
 
   /** Every Round has a defaultsystem. Defaultsystem: ROUND_ROBIN */

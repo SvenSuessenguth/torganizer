@@ -1,6 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,16 +18,10 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "Player")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Player
-  extends Opponent
-  implements Serializable {
-
-  /** serialVersionUID . */
-  private static final long serialVersionUID = -4620606842327970901L;
+public class Player extends Opponent {
 
   private Person person;
-  
-  
+
   private LocalDateTime lastMatch;
 
   /**
@@ -74,7 +67,6 @@ public class Player
     return players;
   }
 
-  
   public LocalDateTime getLastMatch() {
     return lastMatch;
   }

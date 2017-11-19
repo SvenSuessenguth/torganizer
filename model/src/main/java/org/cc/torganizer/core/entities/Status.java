@@ -1,6 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "Status")
 @XmlAccessorType(XmlAccessType.FIELD)
-public enum Status implements Serializable {
+public enum Status {
   /**
    * Aktiv.
    */
@@ -56,12 +55,12 @@ public enum Status implements Serializable {
    */
   public static Status fromInt(int value) {
     switch (value) {
-      case 1:
-        return ACTIVE;
-      case 0:
-        return INACTIVE;
-      default:
-        return INACTIVE;
+    case 1:
+      return ACTIVE;
+    case 0:
+      return INACTIVE;
+    default:
+      return INACTIVE;
     }
   }
 
@@ -69,12 +68,12 @@ public enum Status implements Serializable {
   @Override
   public String toString() {
     switch (value) {
-      case 1:
-        return "ACTIVE";
-      case 0:
-        return "INACTIVE";
-      default:
-        return "INACTIVE";
+    case 1:
+      return "ACTIVE";
+    case 0:
+      return "INACTIVE";
+    default:
+      return "INACTIVE";
     }
   }
 }

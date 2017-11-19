@@ -1,6 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,24 +28,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "TEAMS")
 @DiscriminatorValue("T")
 @NamedQuery(name = "getAllTeams", query = "SELECT t FROM Team t WHERE t.tournament.id = (:tournamentId)")
-public class Team
-  extends Opponent
-  implements Serializable {
+public class Team extends Opponent {
 
   /** Ersatz f\u00fcr null-Values. */
   public static final Team NONE = new Team();
-
-  /** serialVersionUID. */
-  private static final long serialVersionUID = 2653063483519484447L;
 
   /**
    * Set of actually playing opponents, which can be players but Squads or other
    * Teams also. In Badminton there are playing single players and squads
    * (double e.g.).
    */
-  @ManyToMany(targetEntity = org.cc.torganizer.core.entities.Opponent.class, cascade = {CascadeType.PERSIST,
+  @ManyToMany(targetEntity = org.cc.torganizer.core.entities.Opponent.class, cascade = { CascadeType.PERSIST,
       CascadeType.MERGE })
-  @JoinTable(name = "TEAMS_OPPONENTS", joinColumns = {@JoinColumn(name = "TEAM_ID") }, inverseJoinColumns = {@JoinColumn(name = "OPPONENT_ID") })
+  @JoinTable(name = "TEAMS_OPPONENTS", joinColumns = { @JoinColumn(name = "TEAM_ID") }, inverseJoinColumns = {
+      @JoinColumn(name = "OPPONENT_ID") })
   private List<Opponent> opponents = new ArrayList<Opponent>();
 
   /**
@@ -67,7 +62,7 @@ public class Team
   public void setOpponents(List<Opponent> newOpponents) {
     this.opponents = newOpponents;
   }
-  
+
   @Override
   public List<Player> getPlayers() {
     List<Player> players = new ArrayList<Player>();

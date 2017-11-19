@@ -1,7 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,10 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "RESULTS")
-public class Result
-  implements Serializable, IIndexed {
-  /** serialVersionUID. */
-  private static final long serialVersionUID = -4128650892662131009L;
+public class Result implements IIndexed {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)

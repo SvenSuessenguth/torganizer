@@ -1,7 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,17 +13,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "Club")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Club
-  extends AbstractBaseEntity
-  implements Serializable {
+  extends AbstractBaseEntity {
 
   /**
    * zu verwendender Name, wenn ein Opponent keinem club angehoert.
    */
   public static final String NULL_CLUB_NAME = "-";
 
-  /** serialVersionUID . */
-  private static final long serialVersionUID = 6677186900389248499L;
-  
   private Long id;
   
   private String name;

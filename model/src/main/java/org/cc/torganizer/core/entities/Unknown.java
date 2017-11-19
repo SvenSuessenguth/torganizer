@@ -1,6 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,12 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "Unknown")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Unknown
-  extends Opponent
-  implements Serializable {
-
-  /** serialVersionUID. */
-  private static final long serialVersionUID = 6674002647255180301L;
+public class Unknown extends Opponent {
 
   /**
    * Default.

@@ -1,6 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,18 +28,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "SQUADS")
 @DiscriminatorValue("S")
 @NamedQuery(name = "getAllSquads", query = "SELECT s FROM Squad s WHERE s.tournament.id = (:tournamentId)")
-public class Squad
-  extends Opponent
-  implements Serializable {
-
-  /** serialVersionUID . */
-  public static final long serialVersionUID = 8790780333895675554L;
+public class Squad extends Opponent {
 
   /** Ersatz f\u00fcr null-Values. */
   public static final Squad NONE = new Squad();
 
-  @ManyToMany(targetEntity = Player.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE })
-  @JoinTable(name = "SQUADS_PLAYERS", joinColumns = {@JoinColumn(name = "SQUAD_ID") }, inverseJoinColumns = {@JoinColumn(name = "PLAYER_ID") })
+  @ManyToMany(targetEntity = Player.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+  @JoinTable(name = "SQUADS_PLAYERS", joinColumns = { @JoinColumn(name = "SQUAD_ID") }, inverseJoinColumns = {
+      @JoinColumn(name = "PLAYER_ID") })
   private List<Player> players = new ArrayList<Player>();
 
   /**
