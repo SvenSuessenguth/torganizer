@@ -34,9 +34,8 @@ public class OpponentTypeRestriction
 
     Class<? extends Opponent> validOpponentClass = validOpponentType.getOpponentClass();
     Class<Opponent> opponentClass = (Class<Opponent>) opponent.getClass();
-    boolean isRestricted = !validOpponentClass.equals(opponentClass);
 
-    return isRestricted;
+    return !validOpponentClass.equals(opponentClass);
   }
 
   public OpponentType getValidOpponentType() {

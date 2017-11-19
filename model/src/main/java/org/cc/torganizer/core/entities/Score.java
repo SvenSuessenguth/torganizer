@@ -29,8 +29,8 @@ public class Score {
   @Column(name = "SCORE_ID")
   private Long id;
 
-  @Column(name = "SCORE", nullable = false)
-  private Integer score;
+  @Column(name = "POINTS", nullable = false)
+  private Integer points;
 
   /**
    * Bequemlichkeitskonstruktor.
@@ -38,7 +38,7 @@ public class Score {
    * @param newScore Score
    */
   public Score(Integer newScore) {
-    this.score = newScore;
+    this.points = newScore;
   }
 
   /**
@@ -48,11 +48,11 @@ public class Score {
     // gem. Bean-Spec.
   }
 
-  public Integer getScore() {
-    return score;
+  public Integer getPoints() {
+    return points;
   }
 
-  public void setScore(Integer newScore) {
-    this.score = newScore;
+  public void setPoints(Integer points) {
+    this.points = points;
   }
 }

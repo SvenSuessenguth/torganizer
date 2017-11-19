@@ -47,14 +47,14 @@ public class Group
   @OneToMany(cascade = CascadeType.ALL)
   @OrderBy("index ASC")
   @JoinTable(name = "GROUPS_INDEXED_OPPONENTS", joinColumns = {@JoinColumn(name = "GROUP_ID") }, inverseJoinColumns = @JoinColumn(name = "INDEXED_OPPONENT_ID"))
-  private List<IndexedOpponent> indexedOpponents = new ArrayList<IndexedOpponent>();
+  private List<IndexedOpponent> indexedOpponents = new ArrayList<>();
 
   /**
    * Ein Match soll nur der Group zugewiesen werden, wenn es persistiert werden
    * soll (running/finished).
    */
   @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
-  private List<Match> matches = new ArrayList<Match>();
+  private List<Match> matches = new ArrayList<>();
 
   /**
    * Default.
@@ -107,7 +107,7 @@ public class Group
    * @return Liste der Opponents, die dieser Gruppe zugewiesen sind.
    */
   public List<Opponent> getOpponents() {
-    List<Opponent> result = new ArrayList<Opponent>();
+    List<Opponent> result = new ArrayList<>();
     Collections.sort(getIndexedOpponents(), new IndexedComparator());
 
     for (IndexedOpponent io : getIndexedOpponents()) {
@@ -259,7 +259,7 @@ public class Group
    * @return Liste aller laufenden Matches
    */
   public List<Match> getRunningMatches() {
-    List<Match> runningMatches = new ArrayList<Match>();
+    List<Match> runningMatches = new ArrayList<>();
 
     for (Match match : getMatches()) {
       if (!match.isFinished()) {
@@ -276,7 +276,7 @@ public class Group
    * @return Liste aller abgeschlossenen Matches
    */
   public List<Match> getFinishedMatches() {
-    List<Match> finishedMatches = new ArrayList<Match>();
+    List<Match> finishedMatches = new ArrayList<>();
 
     for (Match match : getMatches()) {
       if (match.isFinished()) {

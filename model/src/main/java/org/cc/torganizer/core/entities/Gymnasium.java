@@ -23,7 +23,7 @@ public class Gymnasium {
   private String name;
 
   @XmlTransient
-  private transient List<Court> courts = new ArrayList<Court>();
+  private transient List<Court> courts = new ArrayList<>();
 
   /**
    * Default.

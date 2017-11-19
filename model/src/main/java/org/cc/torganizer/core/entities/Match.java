@@ -71,7 +71,7 @@ public class Match implements IIndexed {
   @OrderBy("index ASC")
   @JoinTable(name = "MATCHES_RESULTS", joinColumns = {
       @JoinColumn(name = "MATCH_ID") }, inverseJoinColumns = @JoinColumn(name = "RESULT_ID"))
-  private List<Result> results = new ArrayList<Result>();
+  private List<Result> results = new ArrayList<>();
 
   /**
    * Bidirektionale Beziehung zu der Gruppe, in der das Match stattfindet.
@@ -243,7 +243,7 @@ public class Match implements IIndexed {
    * @return Liste der Opponents. Zuerst home, dann guest.
    */
   public List<Opponent> getOpponents() {
-    List<Opponent> opponents = new ArrayList<Opponent>();
+    List<Opponent> opponents = new ArrayList<>();
 
     opponents.add(home);
     opponents.add(guest);
@@ -272,7 +272,7 @@ public class Match implements IIndexed {
   /** {@inheritDoc} */
   @Override
   public String toString() {
-    StringBuffer result = new StringBuffer();
+    StringBuilder result = new StringBuilder();
 
     Iterator<Opponent> iter = getOpponents().iterator();
 
@@ -386,6 +386,6 @@ public class Match implements IIndexed {
       }
     }
 
-    return overallTimeSinceLastMatch / playerCount;
+    return playerCount!=0?overallTimeSinceLastMatch / playerCount:Long.MAX_VALUE;
   }
 }

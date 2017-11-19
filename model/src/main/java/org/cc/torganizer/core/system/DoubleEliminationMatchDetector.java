@@ -94,7 +94,7 @@ public class DoubleEliminationMatchDetector
   @Override
   public List<Match> getPendingMatches() {
 
-    List<Match> pendingMatches = new ArrayList<Match>();
+    List<Match> pendingMatches = new ArrayList<>();
 
     // Upper und Lower Bracket
     List<Match> pendingMatchesUpperBracket = semd.getPendingMatches();
@@ -144,10 +144,10 @@ public class DoubleEliminationMatchDetector
    */
   protected List<Match> getPendingMatchesLowerBracket() {
     // Hilfslisten
-    List<Match> pendingMatches = new ArrayList<Match>();
+    List<Match> pendingMatches = new ArrayList<>();
 
     // Anzahl der Level
-    long maxLevel = semd.getNumberOfLevels() * 2;
+    long maxLevel = semd.getNumberOfLevels() * 2L;
     // Matches der jeweiligen Level ermitteln
     for (int level = 0; level <= maxLevel; level += 1) {
       List<Match> matchesOnLevel = getMatchesOnLevel(level);
@@ -170,7 +170,7 @@ public class DoubleEliminationMatchDetector
    */
   protected List<Match> getMatchesOnLevel(int level) {
 
-    List<Match> matches = new ArrayList<Match>();
+    List<Match> matches = new ArrayList<>();
 
     if (isFirstLevel(level)) {
       matches.addAll(getFirstLevelMatches());
@@ -212,7 +212,7 @@ public class DoubleEliminationMatchDetector
   protected List<Match> getFirstLevelMatches() {
 
     int level = 0;
-    List<Match> matches = new ArrayList<Match>();
+    List<Match> matches = new ArrayList<>();
     List<Opponent> losers = semd.getLosersOnLevel(level);
     for (int i = 0; i < losers.size() - 1; i += 2) {
       Opponent home = losers.get(i);
@@ -376,7 +376,7 @@ public class DoubleEliminationMatchDetector
    */
   public List<Opponent> getWinnersOnLevel(int level) {
 
-    List<Opponent> winners = new ArrayList<Opponent>();
+    List<Opponent> winners = new ArrayList<>();
     List<Match> matches = getDoubleEliminationExistingMatchesOnLevel(level);
 
     for (Match match : matches) {
@@ -394,7 +394,7 @@ public class DoubleEliminationMatchDetector
    * @return Liste der bereits vorhandenen Matches auf einem Level
    */
   protected List<Match> getDoubleEliminationExistingMatchesOnLevel(int level) {
-    List<Match> matches = new ArrayList<Match>();
+    List<Match> matches = new ArrayList<>();
 
     int startMatchIndex = getStartMatchIndex(level);
     int endMatchIndex = getEndMatchIndex(level);
@@ -454,7 +454,7 @@ public class DoubleEliminationMatchDetector
     List<Opponent> left = opponents.subList(0, opponents.size() / 2);
     List<Opponent> right = opponents.subList(opponents.size() / 2, opponents.size());
 
-    List<Opponent> result = new ArrayList<Opponent>();
+    List<Opponent> result = new ArrayList<>();
     if (reverseFactor == 1) {
       result.addAll(orderUpperBracketLosers(right, splitFactor / 2, notReverseFactor));
       result.addAll(orderUpperBracketLosers(left, splitFactor / 2, notReverseFactor));

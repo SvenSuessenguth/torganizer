@@ -21,7 +21,6 @@ class Tournaments {
         // {"tournaments":[{"id":1,"name":"dings"}]}
         document.getElementById("tournamentsCount").innerHTML=data.tournaments.length;
 
-        var personRecordTemplate = document.querySelector("#tournamentsRecord");
         var tableBody = document.querySelector('#tournamentsTableBody');
     
         data.tournaments.forEach(function(tournament){

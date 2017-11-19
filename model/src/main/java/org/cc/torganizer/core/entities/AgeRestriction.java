@@ -90,10 +90,10 @@ public class AgeRestriction extends Restriction{
 				return false;
 			}
 
-			if (maxDateOfBirth != null && maxDateOfBirth.isBefore(dateOfBirth) && dateOfBirth != null) {
+			if (maxDateOfBirth != null && maxDateOfBirth.isBefore(dateOfBirth)) {
 				restricted = true;
 			}
-			if (minDateOfBirth != null && minDateOfBirth.isAfter(dateOfBirth) && dateOfBirth != null) {
+			if (minDateOfBirth != null && minDateOfBirth.isAfter(dateOfBirth)) {
 				restricted = true;
 			}
 		}

@@ -17,8 +17,6 @@ public class RoundRobinMatchDetector
   extends AbstractPendingMatchDetector
   implements PendingMatchDetector {
 
-  private List<Match> pendingMatches = new ArrayList<Match>();
-
   /**
    * Gruppe muss vorgegeben sein.
    * 
@@ -31,7 +29,7 @@ public class RoundRobinMatchDetector
   /** {@inheritDoc} */
   @Override
   public List<Match> getPendingMatches() {
-    pendingMatches = new ArrayList<Match>();
+    List<Match> pendingMatches = new ArrayList<>();
 
     // Alle spielen gegen alle
     // ohne Hin- und Rueckspiel 

@@ -27,9 +27,8 @@ public class Bye
   }
 
   @Override
-  @SuppressWarnings("unchecked")
   public List<Player> getPlayers() {
-    return Collections.EMPTY_LIST	;
+    return Collections.emptyList();
   }
 
   /**
@@ -43,7 +42,7 @@ public class Bye
   public static List<Opponent> createByes(int size, Tournament pTournament) {
 
     // fehlenden Byes generieren
-    List<Opponent> byes = new ArrayList<Opponent>();
+    List<Opponent> byes = new ArrayList<>();
     for (int i = 0; i < size; i += 1) {
       Bye bye = new Bye();
       byes.add(bye);

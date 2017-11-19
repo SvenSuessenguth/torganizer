@@ -42,7 +42,7 @@ public class Team extends Opponent {
       CascadeType.MERGE })
   @JoinTable(name = "TEAMS_OPPONENTS", joinColumns = { @JoinColumn(name = "TEAM_ID") }, inverseJoinColumns = {
       @JoinColumn(name = "OPPONENT_ID") })
-  private List<Opponent> opponents = new ArrayList<Opponent>();
+  private List<Opponent> opponents = new ArrayList<>();
 
   /**
    * Default.
@@ -65,7 +65,7 @@ public class Team extends Opponent {
 
   @Override
   public List<Player> getPlayers() {
-    List<Player> players = new ArrayList<Player>();
+    List<Player> players = new ArrayList<>();
 
     for (Opponent opponent : opponents) {
       players.addAll(opponent.getPlayers());

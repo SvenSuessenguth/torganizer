@@ -46,7 +46,7 @@ public class Round implements IIndexed {
   @OneToMany(cascade = CascadeType.ALL)
   @JoinTable(name = "ROUNDS_GROUPS", joinColumns = {
       @JoinColumn(name = "ROUND_ID") }, inverseJoinColumns = @JoinColumn(name = "GROUP_ID"))
-  private List<Group> groups = new ArrayList<Group>();
+  private List<Group> groups = new ArrayList<>();
 
   /** Every Round has a defaultsystem. Defaultsystem: ROUND_ROBIN */
   @Enumerated(EnumType.STRING)
@@ -90,10 +90,9 @@ public class Round implements IIndexed {
     return getGroups().get(inIndex);
   }
 
-  @SuppressWarnings("unchecked")
   public List<Opponent> getForwardPlayers() {
     // TODO: die besten 'forwardPlayersCount' Opponents einer Runde bestimmen
-    return Collections.EMPTY_LIST;
+    return Collections.emptyList();
   }
 
   public Group getFirstGroup() {

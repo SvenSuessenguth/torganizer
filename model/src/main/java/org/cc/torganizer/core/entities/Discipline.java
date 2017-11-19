@@ -38,7 +38,7 @@ public class Discipline
   private Set<Opponent> opponents = new HashSet<>();
 
   @XmlTransient
-  private transient List<Round> rounds = new ArrayList<Round>();
+  private transient List<Round> rounds = new ArrayList<>();
   
   @XmlTransient
   private Set<Restriction> restrictions = new HashSet<>();
@@ -87,11 +87,9 @@ public class Discipline
    * Hinzufuegen eines Opponents zur Disziplin inklusive pruefen der
    * Restriktionen.
    * 
-   * @param opponent Opponent, der der Disziplin hinzugefuegt werden soll.
-   * @throws org.cc.torganizer.core.exceptions.RestrictionException wird
-   *           geworfen, wenn eine Restriktion das Hinzufuegen verhindert
+   * @param opponent Opponent, der der Disziplin hinzugefuegt werden soll.   * 
    */
-  public void addOpponent(Opponent opponent) throws RestrictionException {
+  public void addOpponent(Opponent opponent) {
     // pruefen aller restrictions und werfen einer RestrictionException
     for (Restriction restriction : restrictions) {
       if (restriction != null && restriction.isRestricted(opponent)) {
@@ -158,7 +156,7 @@ public class Discipline
    * @return Liste aller Player
    */
   public Set<Player> getPlayers() {
-    Set<Player> players = new HashSet<Player>();
+    Set<Player> players = new HashSet<>();
 
     for (Opponent opponent : getOpponents()) {
       players.addAll(opponent.getPlayers());

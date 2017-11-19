@@ -61,7 +61,7 @@ public class Player extends Opponent {
   /** {@inheritDoc} */
   @Override
   public List<Player> getPlayers() {
-    List<Player> players = new ArrayList<Player>();
+    List<Player> players = new ArrayList<>();
     players.add(this);
 
     return players;

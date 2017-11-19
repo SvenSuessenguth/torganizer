@@ -234,7 +234,7 @@ public class SingleEliminationMatchDetector
 
   /**
    * Hier werden die Matches auf einem Level gefunden und nach ihrem Index
-   * aufsteigende sortiert. Anschlieﬂend werden die Verlierer der Matches in
+   * aufsteigende sortiert. Anschlie√üend werden die Verlierer der Matches in
    * einer Liste an die gleiche Position wie das Match eingetragen. Beispiel:
    * Acht Opponents bestreiten auf Level 0 Die Matches 3, 4, 5 und 6. Der
    * Verlierer aus Match 6 kommt in der Liste der Loser auf Position 4, der
@@ -296,7 +296,7 @@ public class SingleEliminationMatchDetector
    * @return Startindex
    */
   public int getStartIndex(int level) {
-    int maxLevel = getNumberOfLevels();
+    double maxLevel = getNumberOfLevels();
     return (int) (Math.pow(2, maxLevel - level - 1) - 1);
   }
 
@@ -308,7 +308,7 @@ public class SingleEliminationMatchDetector
    * @return Endindex
    */
   public int getEndIndex(int level) {
-    int maxLevel = getNumberOfLevels();
+    double maxLevel = getNumberOfLevels();
     return (int) (Math.pow(2, maxLevel - level) - 2);
   }
 }

@@ -77,11 +77,7 @@ public class Result implements IIndexed {
    *         <code>false</code>
    */
   public boolean areScoresSet() {
-    if (homeScore == null || guestScore == null) {
-      return false;
-    }
-
-    return true;
+    return homeScore != null && guestScore != null;
   }
 
   /**

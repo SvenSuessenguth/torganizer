@@ -84,7 +84,7 @@ public class Tournament {
    */
   public List<Match> getRunningMatches() {
 
-    List<Match> runningMatches = new ArrayList<Match>();
+    List<Match> runningMatches = new ArrayList<>();
 
     for (Discipline discipline : getDisciplines()) {
       Round round = discipline.getCurrentRound();
@@ -103,7 +103,7 @@ public class Tournament {
    * @return Liste der finished Matches
    */
   public List<Match> getFinishedMatches() {
-    List<Match> finishedMatches = new ArrayList<Match>();
+    List<Match> finishedMatches = new ArrayList<>();
 
     for (Discipline discipline : getDisciplines()) {
       for (Round round : discipline.getRounds()) {
