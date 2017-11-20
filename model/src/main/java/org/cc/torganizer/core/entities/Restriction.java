@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @version $Id: $
  */
 @XmlAccessorType(XmlAccessType.NONE)
-public abstract class Restriction extends AbstractBaseEntity {
+public abstract class Restriction {
 
   @XmlAttribute
   private Long id;
@@ -26,12 +26,10 @@ public abstract class Restriction extends AbstractBaseEntity {
    */
   public abstract boolean isRestricted(Opponent opponent);
 
-  @Override
   public final Long getId() {
     return id;
   }
 
-  @Override
   public final void setId(Long newId) {
     id = newId;
   }

@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "Person")
 @XmlAccessorType(XmlAccessType.NONE)
-public class Person extends AbstractBaseEntity {
+public class Person {
   
   @XmlAttribute
   private Long id;
@@ -98,12 +98,10 @@ public class Person extends AbstractBaseEntity {
   }
 
   /** {@inheritDoc} */
-  @Override
   public Long getId() {
     return id;
   }
 
-  @Override
   public void setId(Long newId) {
     this.id = newId;
   }

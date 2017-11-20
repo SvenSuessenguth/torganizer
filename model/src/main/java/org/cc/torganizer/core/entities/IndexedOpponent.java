@@ -25,7 +25,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "INDEXED_OPPONENTS")
 public class IndexedOpponent
-  extends AbstractBaseEntity
   implements IIndexed {
   
   @Id
@@ -90,12 +89,10 @@ public class IndexedOpponent
   }
 
   /** {@inheritDoc} */
-  @Override
   public Long getId() {
     return id;
   }
   
-  @Override
   public void setId(Long newId) {
     this.id = newId;
   }

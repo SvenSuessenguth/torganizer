@@ -31,8 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "getCourtsWithMatchForTournament", query = "SELECT c FROM Court c WHERE c.match IS NOT NULL AND c.gymnasium.tournament.id = (:tournamentId)"),
     @NamedQuery(name = "getCourtForMatch", query = "SELECT c FROM Court c WHERE c.match = (:match)"),
     @NamedQuery(name = "getUnusedCourtsForGymnasium", query = "SELECT c FROM Court c WHERE c.match IS null AND c.gymnasium = (:gymnasium)") })
-public class Court
-  extends AbstractBaseEntity {
+public class Court {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -73,12 +72,10 @@ public class Court
     this.nr = newNr;
   }
 
-  @Override
   public Long getId() {
     return this.id;
   }
   
-  @Override
   public void setId(Long newId) {
     this.id = newId;
   }

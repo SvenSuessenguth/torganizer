@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "Opponent")
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class Opponent extends AbstractBaseEntity {
+public abstract class Opponent {
 
 	private Long id;
 	
@@ -52,13 +52,11 @@ public abstract class Opponent extends AbstractBaseEntity {
 	}
 
 	/** {@inheritDoc} */
-	@Override
 	public Long getId() {
 		return this.id;
 	}
 
 	/** {@inheritDoc} */
-	@Override
 	public void setId(Long newId) {
 		this.id = newId;
 	}
