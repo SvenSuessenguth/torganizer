@@ -1,11 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -19,26 +13,18 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "Result")
 @XmlAccessorType(XmlAccessType.FIELD)
-@Entity
-@Table(name = "RESULTS")
 public class Result implements IIndexed {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "RESULT_ID")
   private Long id;
 
-  @Column(name = "HOME_SCORE")
   private Integer homeScore;
 
-  @Column(name = "GUEST_SCORE")
   private Integer guestScore;
 
   /**
    * Reihenfolge der Results. -1 als Standardwert, wenn die Reihenfolge ohne
    * Bedeutung ist.
    */
-  @Column(name = "INDEX", nullable = false)
   private Integer index = Integer.valueOf(-1);
 
   /**
@@ -115,5 +101,13 @@ public class Result implements IIndexed {
 
   public void setGuestScore(Integer newGuestScore) {
     this.guestScore = newGuestScore;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 }
