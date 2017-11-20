@@ -7,22 +7,6 @@ class Players {
   
   onLoad(){
     includeFragments();
-    
-    // if current tournament is selected, activate checkbox to auto add new player
-    var currentTournamentName = sessionStorage.getItem('tournaments-current-tournament-name');
-    var currentTournamentId = sessionStorage.getItem('tournaments-current-tournament-id');
-
-    if(currentTournamentName){
-      document.getElementById('autoAdd').disabled = false;
-      document.getElementById('autoAdd').checked = true;
-      document.getElementById('autoAddLabel').innerHTML = currentTournamentName; 
-    }else{
-      document.getElementById('autoAdd').disabled = true;
-      document.getElementById('autoAdd').checked = false;
-      document.getElementById('autoAddLabel').innerHTML = '-/-';
-    }
-    
-    // show first set of players
     this.showPlayersTable();
   }
 

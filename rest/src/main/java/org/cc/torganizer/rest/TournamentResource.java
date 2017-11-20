@@ -27,6 +27,7 @@ import org.cc.torganizer.rest.container.TournamentsContainer;
 @Produces("application/json")
 public class TournamentResource extends AbstractResource {
 
+  private static final String TOURNAMENT_FIND_BY_ID_QUERY_NAME = "Tournament.findById";
   @PersistenceContext(name = "torganizer")
   EntityManager entityManager;
 
@@ -46,7 +47,7 @@ public class TournamentResource extends AbstractResource {
   @Path("{id}")
   public Tournament read(@PathParam("id") Long id) {
 
-    TypedQuery<Tournament> namedQuery = entityManager.createNamedQuery("Tournament.findById", Tournament.class);
+    TypedQuery<Tournament> namedQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME, Tournament.class);
     namedQuery.setParameter("id", id);
     List<Tournament> tournaments = namedQuery.getResultList();
 
@@ -108,7 +109,7 @@ public class TournamentResource extends AbstractResource {
     Player playerToAdd = players.get(0);
 
     // load tournament
-    TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery("Tournament.findById",
+    TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME,
         Tournament.class);
     namedTournamentQuery.setParameter("id", tournamentId);
     List<Tournament> tournaments = namedTournamentQuery.getResultList();
@@ -150,7 +151,7 @@ public class TournamentResource extends AbstractResource {
     Opponent opponentToAdd = opponents.get(0);
 
     // load tournament
-    TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery("Tournament.findById",
+    TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME,
         Tournament.class);
     namedTournamentQuery.setParameter("id", tournamentId);
     List<Tournament> tournaments = namedTournamentQuery.getResultList();
@@ -184,7 +185,7 @@ public class TournamentResource extends AbstractResource {
     Discipline disciplineToAdd = disciplines.get(0);
 
     // load tournament
-    TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery("Tournament.findById",
+    TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME,
         Tournament.class);
     namedTournamentQuery.setParameter("id", tournamentId);
     List<Tournament> tournaments = namedTournamentQuery.getResultList();

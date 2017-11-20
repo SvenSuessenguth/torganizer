@@ -35,9 +35,7 @@ public class RestrictionsResource {
 		TypedQuery<Restriction> namedQuery = entityManager.createNamedQuery("Restriction.findAll", Restriction.class);
 		List<Restriction> restrictions = namedQuery.getResultList();
 
-		RestrictionsContainer restrictionsContainer = new RestrictionsContainer(restrictions);
-
-		return restrictionsContainer;
+		return new RestrictionsContainer(restrictions);
 	}
 
 	@GET

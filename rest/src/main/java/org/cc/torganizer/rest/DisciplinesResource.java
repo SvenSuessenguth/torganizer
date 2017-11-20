@@ -24,6 +24,8 @@ import org.cc.torganizer.rest.container.RestrictionsContainer;
 @Produces("application/json")
 public class DisciplinesResource {
 
+  private static final String DISCIPLINE_FIND_BY_ID_QUERY_NAME = "Discipline.findById";
+  private static final String DISCIPLINE_FIND_ALL_QUERY_NAME = "Discipline.findAll";
   @PersistenceContext(name = "torganizer")
   EntityManager entityManager;
 
@@ -31,7 +33,7 @@ public class DisciplinesResource {
   @Path("/")
   public DisciplinesContainer all() {
 
-    TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery("Discipline.findAll", Discipline.class);
+    TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery(DISCIPLINE_FIND_ALL_QUERY_NAME, Discipline.class);
     List<Discipline> disciplines = namedQuery.getResultList();
 
     return new DisciplinesContainer(disciplines);
@@ -41,7 +43,7 @@ public class DisciplinesResource {
   @Path("{id}")
   public Discipline byId(@PathParam("id") Long id) {
 
-    TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery("Discipline.findById", Discipline.class);
+    TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery(DISCIPLINE_FIND_BY_ID_QUERY_NAME, Discipline.class);
     namedQuery.setParameter("id", id);
     List<Discipline> disciplines = namedQuery.getResultList();
 
@@ -80,7 +82,7 @@ public class DisciplinesResource {
     Opponent opponentToAdd = opponents.get(0);
 
     // load discipline
-    TypedQuery<Discipline> namedDisciplineQuery = entityManager.createNamedQuery("Discipline.findById",
+    TypedQuery<Discipline> namedDisciplineQuery = entityManager.createNamedQuery(DISCIPLINE_FIND_BY_ID_QUERY_NAME,
         Discipline.class);
     namedDisciplineQuery.setParameter("id", disciplineId);
     List<Discipline> disciplines = namedDisciplineQuery.getResultList();
@@ -114,7 +116,7 @@ public class DisciplinesResource {
     Restriction restrictionToAdd = restrictions.get(0);
 
     // load discipline
-    TypedQuery<Discipline> namedDisciplineQuery = entityManager.createNamedQuery("Discipline.findById",
+    TypedQuery<Discipline> namedDisciplineQuery = entityManager.createNamedQuery(DISCIPLINE_FIND_BY_ID_QUERY_NAME,
         Discipline.class);
     namedDisciplineQuery.setParameter("id", disciplineId);
     List<Discipline> disciplines = namedDisciplineQuery.getResultList();

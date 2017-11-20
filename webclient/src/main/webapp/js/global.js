@@ -25,7 +25,7 @@ function selectItemByValue(elmnt, value){
 
 // http://blog.teamtreehouse.com/introduction-html-imports
 function includeFragments(){
-  fragments = document.getElementById('fragments');
+  var fragments = document.getElementById('fragments');
   
   // Navigation
   var navsImport = document.getElementById('nav');
@@ -65,8 +65,7 @@ function activateNavigation() {
 //https://stackoverflow.com/questions/979975/how-to-get-the-value-from-the-get-parameters
 function getUrlVars() {
   var vars = {};
-  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,    
-  function(m,key,value) {
+  window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(m,key,value) {
     vars[key] = value;
   });
   return vars;

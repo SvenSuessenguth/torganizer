@@ -29,14 +29,14 @@ public enum System {
   ROUND_ROBIN;
   /**
    * Name wird formatiert, wobei die jeweils ersten Buchstaben (aller erster und
-   * die Buchstaben nach einem Unterstrich) gro\u00df geschrieben werden und
-   * alle anderen klein.
+   * die Buchstaben nach einem Unterstrich) gro\u00df geschrieben werden und alle
+   * anderen klein.
    *
    * @return Name des Enums.
    */
   public String getFormattedName() {
     StringTokenizer st = new StringTokenizer(this.name(), "_");
-    StringBuffer formattedName = new StringBuffer();
+    StringBuilder formattedName = new StringBuilder();
 
     while (st.hasMoreTokens()) {
       String s = st.nextToken();

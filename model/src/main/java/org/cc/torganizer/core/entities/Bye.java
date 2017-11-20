@@ -36,10 +36,9 @@ public class Bye
    * zum Turnier halten.
    * 
    * @param size Anzahl der zu erzeugenden Freilose
-   * @param pTournament Turnier, in dem die Freilose eingesetzt werden.
    * @return Liste von Freilosen
    */
-  public static List<Opponent> createByes(int size, Tournament pTournament) {
+  public static List<Opponent> createByes(int size) {
 
     // fehlenden Byes generieren
     List<Opponent> byes = new ArrayList<>();

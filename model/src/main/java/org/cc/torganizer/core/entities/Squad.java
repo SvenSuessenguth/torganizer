@@ -36,7 +36,7 @@ public class Squad extends Opponent {
   @ManyToMany(targetEntity = Player.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
   @JoinTable(name = "SQUADS_PLAYERS", joinColumns = { @JoinColumn(name = "SQUAD_ID") }, inverseJoinColumns = {
       @JoinColumn(name = "PLAYER_ID") })
-  private List<Player> players = new ArrayList<Player>();
+  private List<Player> players = new ArrayList<>();
 
   /**
    * Default.

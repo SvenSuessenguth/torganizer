@@ -13,7 +13,6 @@ class Test {
   }
   
   countCurrentSubscribers() {
-    var tournamentId = Number(localStorage.getItem('tournaments-current-tournament-id'));    
     var count = fetch('http://localhost:8080/rest/resources/tournaments/1/subscribers/count').then(function(response) {
       return response.json();
     });

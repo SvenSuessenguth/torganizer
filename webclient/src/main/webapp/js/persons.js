@@ -28,8 +28,6 @@ function showPersonsTable(){
       tableBody.removeChild(tableBody.firstChild);
     }
     
-    var personRecordTemplate = document.querySelector("#personRecord");
-    
     data.persons.forEach(function(person){
       var t = document.querySelector("#personRecord").cloneNode(true)		
       var template = t.content;

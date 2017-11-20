@@ -130,7 +130,7 @@ public class SingleEliminationMatchDetector
   @Override
   public List<Match> getPendingMatches() {
 
-    List<Match> pendingMatches = new ArrayList<Match>();
+    List<Match> pendingMatches = new ArrayList<>();
 
     // Index 0 fuer das Endspiel
     // Index 1 und 2 fuer die Halbfinalspiele
@@ -245,7 +245,7 @@ public class SingleEliminationMatchDetector
    *         Match unbekannt ist oder noch nicht abgeschlossen ist.
    */
   protected final List<Opponent> getLosersOnLevel(int level) {
-    List<Opponent> losersOnLevel = new ArrayList<Opponent>();
+    List<Opponent> losersOnLevel = new ArrayList<>();
     List<Match> matchesOnLevel = getMatchesOnLevel(level);
 
     for (Match match : matchesOnLevel) {
@@ -277,7 +277,7 @@ public class SingleEliminationMatchDetector
    * @return a {@link java.util.List} object.
    */
   protected List<Match> getMatchesOnLevel(int level) {
-    List<Match> matches = new ArrayList<Match>();
+    List<Match> matches = new ArrayList<>();
 
     int startIndex = getStartIndex(level);
     int endIndex = getEndIndex(level);

@@ -88,7 +88,7 @@ public final class LangUtil {
 	 *         <code>end</code> (ausgeschlossen)
 	 */
 	public static List<Integer> createIntegerList(int start, int end) {
-		List<Integer> integerList = new ArrayList<Integer>();
+		List<Integer> integerList = new ArrayList<>();
 
 		for (int value = start; value < end; value += 1) {
 			integerList.add(value);
