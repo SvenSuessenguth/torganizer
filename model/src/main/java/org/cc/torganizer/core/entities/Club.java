@@ -12,14 +12,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "Club")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Club {
+public class Club extends Entity{
   
   /**
    * zu verwendender Name, wenn ein Opponent keinem club angehoert.
    */
   public static final String NULL_CLUB_NAME = "-";
-
-  private Long id;
   
   private String name;
 
@@ -45,13 +43,5 @@ public class Club {
 
   public void setName(String newName) {
     this.name = newName;
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
   }
 }
