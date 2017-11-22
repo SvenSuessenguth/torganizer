@@ -130,7 +130,7 @@ public class DoubleEliminationMatchDetector
 
     if (Checker.isNoNullValue(wub, wlb)) {
       finalMatch = new Match(wub, wlb);
-      finalMatch.setIndex(finalMatchIndex);
+      finalMatch.setPosition(finalMatchIndex);
     }
 
     return finalMatch;
@@ -238,7 +238,7 @@ public class DoubleEliminationMatchDetector
     int matchIndex = getMatchIndex(level, i);
     if (Checker.isNoNullValue(home, guest) && getGroup().getMatch(matchIndex) == null) {
       match = new Match(home, guest);
-      match.setIndex(matchIndex);
+      match.setPosition(matchIndex);
     }
 
     return match;

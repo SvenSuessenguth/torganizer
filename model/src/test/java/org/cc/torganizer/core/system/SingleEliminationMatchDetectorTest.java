@@ -51,13 +51,13 @@ public class SingleEliminationMatchDetectorTest {
 		Match m0 = new Match(group.getOpponent(0), group.getOpponent(1));
 		m0.addResult(new Result(0, 1, 0));
 		m0.setFinishedTime(LocalDateTime.now());
-		m0.setIndex(1);
+		m0.setPosition(1);
 		group.getMatches().add(m0);
 
 		Match m1 = new Match(group.getOpponent(2), group.getOpponent(3));
 		m1.addResult(new Result(0, 1, 0));
 		m1.setFinishedTime(LocalDateTime.now());
-		m1.setIndex(2);
+		m1.setPosition(2);
 		group.getMatches().add(m1);
 
 		semd.setGroup(group);
@@ -164,7 +164,7 @@ public class SingleEliminationMatchDetectorTest {
 		m2.addResult(new Result(0, 1, 0));
 		m2.setFinishedTime(LocalDateTime.now());
 		m2.setRunning(false);
-		m2.setIndex(2);
+		m2.setPosition(2);
 		group.getMatches().add(m2);
 		semd.setGroup(group);
 
@@ -182,7 +182,7 @@ public class SingleEliminationMatchDetectorTest {
 		// Matches
 		for (int i = 0; i < m; i += 1) {
 			Match match = new Match();
-			match.setIndex(i);
+			match.setPosition(i);
 			group.getMatches().add(match);
 		}
 		// Opponents
@@ -265,7 +265,7 @@ public class SingleEliminationMatchDetectorTest {
 		// Matches auf Level-0
 		Match match3 = new Match(group.getOpponent(0), group.getOpponent(1));
 		match3.addResult(new Result(0, 1, 0));
-		match3.setIndex(3);
+		match3.setPosition(3);
 		match3.setFinishedTime(LocalDateTime.now());
 		group.getMatches().add(match3);
 		assertThat(match3.getWinner().getPlayers().get(0).getPerson().getFirstName(), is("0"));
@@ -273,20 +273,20 @@ public class SingleEliminationMatchDetectorTest {
 
 		Match match4 = new Match(group.getOpponent(2), group.getOpponent(3));
 		match4.addResult(new Result(0, 1, 0));
-		match4.setIndex(4);
+		match4.setPosition(4);
 		match4.setFinishedTime(LocalDateTime.now());
 		group.getMatches().add(match4);
 
 		Match match5 = new Match(group.getOpponent(4), group.getOpponent(5));
 		match5.addResult(new Result(0, 0, 1));
-		match5.setIndex(5);
+		match5.setPosition(5);
 		match5.setFinishedTime(LocalDateTime.now());
 		group.getMatches().add(match5);
 
 		// Matches auf Level-1
 		Match match1 = new Match(group.getOpponent(0), group.getOpponent(2));
 		match1.addResult(new Result(0, 0, 1));
-		match1.setIndex(1);
+		match1.setPosition(1);
 		group.getMatches().add(match1);
 
 		semd.setGroup(group);

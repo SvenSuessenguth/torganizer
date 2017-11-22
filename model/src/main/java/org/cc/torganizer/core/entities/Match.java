@@ -8,20 +8,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -37,11 +23,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "Match")
 @XmlAccessorType(XmlAccessType.FIELD)
-@Entity
-@Table(name = "MATCHES")
-@NamedQueries({ @NamedQuery(name = "getMatchesForGroup", query = "SELECT m FROM Match m WHERE m.group = :group"),
-    @NamedQuery(name = "getRunningMatchesForGroup", query = "SELECT m FROM Match m WHERE m.running = true AND m.group = :group"),
-    @NamedQuery(name = "getFinishedMatchesForGroup", query = "SELECT m FROM Match m WHERE m.running = true AND m.finished IS NOT NULL AND m.group = :group") })
 public class Match implements IPositional {
 
   /**
@@ -54,45 +35,31 @@ public class Match implements IPositional {
     NULL_MATCH = new Match(home, guest);
   }
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "MATCH_ID")
   private Long id;
 
-  @ManyToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "HOME_ID", nullable = true)
   private Opponent home;
 
-  @ManyToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "GUEST_ID", nullable = true)
   private Opponent guest;
 
-  @OneToMany(cascade = CascadeType.ALL)
-  @OrderBy("index ASC")
-  @JoinTable(name = "MATCHES_RESULTS", joinColumns = {
-      @JoinColumn(name = "MATCH_ID") }, inverseJoinColumns = @JoinColumn(name = "RESULT_ID"))
   private List<Result> results = new ArrayList<>();
 
   
   /**
-   * Nummer des Matches in der Gruppe, in der das Match stattfindet. Der Index
+   * Nummer des Matches in der Gruppe, in der das Match stattfindet. Die Position
    * wird zum Beispiel f\u00fcr das System DoubleKO ben\u00f6tigt. Standardwert
    * ist '-1'.
    */
-  @Column(name = "INDEX", nullable = false)
-  private Integer index = Integer.valueOf(-1);
+  private Integer position = Integer.valueOf(-1);
 
   /**
    * Indikator, ob ein Match im Augnblick gespielt wird.
    */
-  @Column(name = "RUNNING", nullable = false)
   private Boolean running = Boolean.FALSE;
 
   /**
    * Wann wurde das Ergebnis eingetragen. Daraus kann die Wartezeit eines
    * Opponents seit dem letzten Spiel ermittelt werden.
    */
-  @Column(name = "FINISHED", nullable = true)
   private LocalDateTime finishedTime;
 
   /**
@@ -245,11 +212,11 @@ public class Match implements IPositional {
   /** {@inheritDoc} */
   @Override
   public Integer getPosition() {
-    return index;
+    return position;
   }
 
-  public void setIndex(Integer newIndex) {
-    this.index = newIndex;
+  public void setPosition(Integer newPosition) {
+    this.position = newPosition;
   }
 
   /** {@inheritDoc} */

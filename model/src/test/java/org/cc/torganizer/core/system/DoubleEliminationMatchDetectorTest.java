@@ -214,13 +214,13 @@ public class DoubleEliminationMatchDetectorTest {
 		Match m1 = new Match(players[0], players[1]);
 		m1.addResult(new Result(0, 1, 0));
 		m1.setFinishedTime(LocalDateTime.now());
-		m1.setIndex(1);
+		m1.setPosition(1);
 		group.getMatches().add(m1);
 
 		Match m2 = new Match(players[2], players[3]);
 		m2.addResult(new Result(0, 2, 3));
 		m2.setFinishedTime(LocalDateTime.now());
-		m2.setIndex(2);
+		m2.setPosition(2);
 		group.getMatches().add(m2);
 
 		demd.setGroup(group);
@@ -318,7 +318,7 @@ public class DoubleEliminationMatchDetectorTest {
 		addMatch(group, 2, players[2], players[3], new Result(0, 0, 1));
 		addMatch(group, 0, players[0], players[3], new Result(0, 1, 0));
 		Match m3 = new Match(players[1], players[3]);
-		m3.setIndex(3);
+		m3.setPosition(3);
 		m3.setRunning(true);
 		group.getMatches().add(m3);
 
@@ -461,7 +461,7 @@ public class DoubleEliminationMatchDetectorTest {
 			match.addResult(result);
 		}
 		match.setFinishedTime(LocalDateTime.now());
-		match.setIndex(matchIndex);
+		match.setPosition(matchIndex);
 		group.getMatches().add(match);
 
 		return match;

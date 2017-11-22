@@ -51,6 +51,7 @@ public abstract class AbstractDbUnitJpaTest{
     DatabaseConfig dbConfig = dbunitConn.getConfig();
     dbConfig.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MySqlDataTypeFactory());
     dbConfig.setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER, new MySqlMetadataHandler());
+    dbConfig.setProperty(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, Boolean.TRUE);
 
     // Testdaten laden und [NULL] durch null-Value ersetzen
     URL url = getClass().getClassLoader().getResource(testData);

@@ -151,14 +151,14 @@ public class SingleEliminationMatchDetector
         // Match findet nicht auf level-0 statt
         if (index < startIndexOnLevel0) {
           Match match = new Match(m0.getWinner(), m1.getWinner());
-          match.setIndex(index);
+          match.setPosition(index);
           pendingMatches.add(match);
         }
 
         // Match hat keine Vorgaenger-Matches
         if (index >= startIndexOnLevel0) {
           Match match = new Match();
-          match.setIndex(index);
+          match.setPosition(index);
 
           assignOpponentsToMatch(match);
           pendingMatches.add(match);

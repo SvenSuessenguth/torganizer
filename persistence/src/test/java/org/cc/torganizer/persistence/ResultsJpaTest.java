@@ -7,7 +7,6 @@ import static org.hamcrest.Matchers.is;
 import java.util.List;
 
 import org.cc.torganizer.core.entities.Result;
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -42,7 +42,7 @@ public class RoundRobinMatchDetector
         int matchIndex = row * n + col;
         if (row < col && getGroup().getMatch(matchIndex) == null) {
           Match match = new Match(home, guest);
-          match.setIndex(matchIndex);
+          match.setPosition(matchIndex);
           pendingMatches.add(match);
         }
         col += 1;
