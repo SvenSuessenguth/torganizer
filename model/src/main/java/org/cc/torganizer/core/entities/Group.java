@@ -124,9 +124,9 @@ public class Group
    * @param opponent Opponent, der de Group hinzugef\u00fcgt werden soll.
    */
   public void addOpponent(Opponent opponent) {
-    Integer position = positionalOpponents.size();
+    Integer lastPosition = positionalOpponents.size();
     PositionalOpponent positionalOpponent = new PositionalOpponent();
-    positionalOpponent.setPosition(position);
+    positionalOpponent.setPosition(lastPosition);
     positionalOpponent.setOpponent(opponent);
 
     getPositionalOpponents().add(positionalOpponent);

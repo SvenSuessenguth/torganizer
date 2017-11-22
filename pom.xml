@@ -12,6 +12,9 @@
    |
    | SIGNAL
    | mvn sonar:sonar -Dsonar.host.url=http://localhost:9090 -Dsonar.login=ab9168e1325a494a826bdf6d85bfeb601825bf84
+   |
+   | Home2
+   | mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=ad11cce8b5173f2eaee40874afd733c622935936
    +-->
   <url>http://localhost:8080/torganizer</url>
   
