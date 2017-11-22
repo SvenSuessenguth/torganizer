@@ -53,7 +53,7 @@ public class MatchGetWinnerTest {
 	public void before() {
 		Opponent home = new Player(HOME_NAME, HOME_NAME);
 		Opponent guest = new Player(GUEST_NAME, GUEST_NAME);
-		match = new Match(new Group(), home, guest);
+		match = new Match(home, guest);
 		if (isFinished) {
 			match.setFinishedTime(LocalDateTime.now());
 		}

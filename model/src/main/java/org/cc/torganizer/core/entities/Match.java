@@ -51,7 +51,7 @@ public class Match implements IPositional {
   static {
     Opponent home = new Unknown();
     Opponent guest = new Unknown();
-    NULL_MATCH = new Match(null, home, guest);
+    NULL_MATCH = new Match(home, guest);
   }
 
   @Id
@@ -73,13 +73,7 @@ public class Match implements IPositional {
       @JoinColumn(name = "MATCH_ID") }, inverseJoinColumns = @JoinColumn(name = "RESULT_ID"))
   private List<Result> results = new ArrayList<>();
 
-  /**
-   * Bidirektionale Beziehung zu der Gruppe, in der das Match stattfindet.
-   */
-  @ManyToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "GROUP_ID", nullable = false)
-  private Group group;
-
+  
   /**
    * Nummer des Matches in der Gruppe, in der das Match stattfindet. Der Index
    * wird zum Beispiel f\u00fcr das System DoubleKO ben\u00f6tigt. Standardwert
@@ -111,15 +105,12 @@ public class Match implements IPositional {
   /**
    * convinience constructor.
    * 
-   * @param newGroup
-   *          <i>group</i>, in der das Match stattfindet
    * @param newHome
    *          home <i>opponent</i>
    * @param newGuest
    *          guest <i>opponent</i>
    */
-  public Match(Group newGroup, Opponent newHome, Opponent newGuest) {
-    this.group = newGroup;
+  public Match(Opponent newHome, Opponent newGuest) {
     this.home = newHome;
     this.guest = newGuest;
   }
@@ -249,14 +240,6 @@ public class Match implements IPositional {
     opponents.add(guest);
 
     return unmodifiableList(opponents);
-  }
-
-  public Group getGroup() {
-    return group;
-  }
-
-  public void setGroup(Group newGroup) {
-    this.group = newGroup;
   }
 
   /** {@inheritDoc} */

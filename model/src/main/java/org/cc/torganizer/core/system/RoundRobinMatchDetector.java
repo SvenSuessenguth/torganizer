@@ -41,7 +41,7 @@ public class RoundRobinMatchDetector
       for (Opponent guest : opponents) {
         int matchIndex = row * n + col;
         if (row < col && getGroup().getMatch(matchIndex) == null) {
-          Match match = new Match(getGroup(), home, guest);
+          Match match = new Match(home, guest);
           match.setIndex(matchIndex);
           pendingMatches.add(match);
         }

@@ -150,7 +150,7 @@ public class SingleEliminationMatchDetector
 
         // Match findet nicht auf level-0 statt
         if (index < startIndexOnLevel0) {
-          Match match = new Match(getGroup(), m0.getWinner(), m1.getWinner());
+          Match match = new Match(m0.getWinner(), m1.getWinner());
           match.setIndex(index);
           pendingMatches.add(match);
         }
@@ -158,7 +158,6 @@ public class SingleEliminationMatchDetector
         // Match hat keine Vorgaenger-Matches
         if (index >= startIndexOnLevel0) {
           Match match = new Match();
-          match.setGroup(getGroup());
           match.setIndex(index);
 
           assignOpponentsToMatch(match);
@@ -193,7 +192,7 @@ public class SingleEliminationMatchDetector
       }
     }
 
-    return new Match(getGroup(), new Unknown(), new Unknown());
+    return new Match(new Unknown(), new Unknown());
   }
 
   /**

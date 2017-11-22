@@ -48,13 +48,13 @@ public class SingleEliminationMatchDetectorTest {
 		group.addOpponent(new Player(new Person("c", "c")));
 		group.addOpponent(new Player(new Person("d", "d")));
 
-		Match m0 = new Match(group, group.getOpponent(0), group.getOpponent(1));
+		Match m0 = new Match(group.getOpponent(0), group.getOpponent(1));
 		m0.addResult(new Result(0, 1, 0));
 		m0.setFinishedTime(LocalDateTime.now());
 		m0.setIndex(1);
 		group.getMatches().add(m0);
 
-		Match m1 = new Match(group, group.getOpponent(2), group.getOpponent(3));
+		Match m1 = new Match(group.getOpponent(2), group.getOpponent(3));
 		m1.addResult(new Result(0, 1, 0));
 		m1.setFinishedTime(LocalDateTime.now());
 		m1.setIndex(2);
@@ -160,7 +160,7 @@ public class SingleEliminationMatchDetectorTest {
 		group.addOpponent(new Player("3", "3"));
 
 		// Ein Spiel mit einem Winner c
-		Match m2 = new Match(group, group.getOpponent(2), group.getOpponent(3));
+		Match m2 = new Match(group.getOpponent(2), group.getOpponent(3));
 		m2.addResult(new Result(0, 1, 0));
 		m2.setFinishedTime(LocalDateTime.now());
 		m2.setRunning(false);
@@ -263,7 +263,7 @@ public class SingleEliminationMatchDetectorTest {
 		}
 
 		// Matches auf Level-0
-		Match match3 = new Match(group, group.getOpponent(0), group.getOpponent(1));
+		Match match3 = new Match(group.getOpponent(0), group.getOpponent(1));
 		match3.addResult(new Result(0, 1, 0));
 		match3.setIndex(3);
 		match3.setFinishedTime(LocalDateTime.now());
@@ -271,20 +271,20 @@ public class SingleEliminationMatchDetectorTest {
 		assertThat(match3.getWinner().getPlayers().get(0).getPerson().getFirstName(), is("0"));
 		assertThat(match3.getLoser().getPlayers().get(0).getPerson().getFirstName(), is("1"));
 
-		Match match4 = new Match(group, group.getOpponent(2), group.getOpponent(3));
+		Match match4 = new Match(group.getOpponent(2), group.getOpponent(3));
 		match4.addResult(new Result(0, 1, 0));
 		match4.setIndex(4);
 		match4.setFinishedTime(LocalDateTime.now());
 		group.getMatches().add(match4);
 
-		Match match5 = new Match(group, group.getOpponent(4), group.getOpponent(5));
+		Match match5 = new Match(group.getOpponent(4), group.getOpponent(5));
 		match5.addResult(new Result(0, 0, 1));
 		match5.setIndex(5);
 		match5.setFinishedTime(LocalDateTime.now());
 		group.getMatches().add(match5);
 
 		// Matches auf Level-1
-		Match match1 = new Match(group, group.getOpponent(0), group.getOpponent(2));
+		Match match1 = new Match(group.getOpponent(0), group.getOpponent(2));
 		match1.addResult(new Result(0, 0, 1));
 		match1.setIndex(1);
 		group.getMatches().add(match1);
