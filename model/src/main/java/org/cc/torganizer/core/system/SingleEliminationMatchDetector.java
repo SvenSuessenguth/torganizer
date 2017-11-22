@@ -207,8 +207,8 @@ public class SingleEliminationMatchDetector
 
     int oIndex = 2 * (match.getPosition() + 1) - getGroup().getOpponents().size();
 
-    Opponent home = getGroup().getIndexedOpponent(oIndex).getOpponent();
-    Opponent guest = getGroup().getIndexedOpponent(oIndex + 1).getOpponent();
+    Opponent home = getGroup().getPositionalOpponent(oIndex).getOpponent();
+    Opponent guest = getGroup().getPositionalOpponent(oIndex + 1).getOpponent();
 
     match.setHome(home);
     match.setGuest(guest);

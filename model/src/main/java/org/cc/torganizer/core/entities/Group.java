@@ -41,13 +41,13 @@ public class Group
   @Column(name = "GROUP_ID")
   private Long id;
 
-  @Column(name = "INDEX")
-  private Integer index;
+  @Column(name = "POSITION")
+  private Integer position;
 
   @OneToMany(cascade = CascadeType.ALL)
-  @OrderBy("index ASC")
-  @JoinTable(name = "GROUPS_INDEXED_OPPONENTS", joinColumns = {@JoinColumn(name = "GROUP_ID") }, inverseJoinColumns = @JoinColumn(name = "INDEXED_OPPONENT_ID"))
-  private List<PositionalOpponent> indexedOpponents = new ArrayList<>();
+  @OrderBy("position ASC")
+  @JoinTable(name = "GROUPS_POSITIONAL_OPPONENTS", joinColumns = {@JoinColumn(name = "GROUP_ID") }, inverseJoinColumns = @JoinColumn(name = "POSITIONAL_OPPONENT_ID"))
+  private List<PositionalOpponent> positionalOpponents = new ArrayList<>();
 
   /**
    * Ein Match soll nur der Group zugewiesen werden, wenn es persistiert werden
@@ -64,53 +64,53 @@ public class Group
   }
 
   /**
-   * Gibt die nach Index sortierte Liste von Opponents zur\u00fcck.
+   * Gibt die nach Position sortierte Liste von Opponents zur\u00fcck.
    * 
-   * @return nach Index sortierte Liste von IndexedOpponents
+   * @return nach Position sortierte Liste von PositionalOpponents
    */
-  public List<PositionalOpponent> getIndexedOpponents() {
-    // sortieren nach index
-    Collections.sort(indexedOpponents, new PositionalComparator());
+  public List<PositionalOpponent> getPositionalOpponents() {
+    // sortieren nach Position
+    Collections.sort(positionalOpponents, new PositionalComparator());
 
-    return indexedOpponents;
+    return positionalOpponents;
   }
 
   /**
    * <p>
-   * Setter for the field <code>indexedOpponents</code>.
+   * Setter for the field <code>positionalOpponents</code>.
    * </p>
    * 
-   * @param inIndexedOpponents a {@link java.util.List} object.
+   * @param newPositionalOpponents a {@link java.util.List} object.
    */
-  public void setIndexedOpponents(List<PositionalOpponent> inIndexedOpponents) {
-    this.indexedOpponents = inIndexedOpponents;
+  public void setPositionalOpponents(List<PositionalOpponent> newPositionalOpponents) {
+    this.positionalOpponents = newPositionalOpponents;
   }
 
   /**
    * Liste der Opponents, die zu dieser Group geh\u00f6ren wird neu gesetzt.
    * Alte Inhalte werden dabei gel\u00f6scht.
    * 
-   * @param inOpponents Opponents, die der Group zugewiesen werden sollen.
+   * @param newOpponents Opponents, die der Group zugewiesen werden sollen.
    */
-  public void setOpponents(List<Opponent> inOpponents) {
-    getIndexedOpponents().clear();
-    for (Opponent o : inOpponents) {
-      PositionalOpponent io = new PositionalOpponent(o, inOpponents.indexOf(o) + 1);
-      getIndexedOpponents().add(io);
+  public void setOpponents(List<Opponent> newOpponents) {
+    getPositionalOpponents().clear();
+    for (Opponent o : newOpponents) {
+      PositionalOpponent io = new PositionalOpponent(o, newOpponents.indexOf(o) + 1);
+      getPositionalOpponents().add(io);
     }
   }
 
   /**
    * Lesen der Opponents, die dieser Group zugewiesen sind. Die Liste
-   * enth\u00e4lt die Opponents in der durch den Index vorgegebenen Reihenfolge.
+   * enth\u00e4lt die Opponents in der durch die Position  vorgegebenen Reihenfolge.
    * 
    * @return Liste der Opponents, die dieser Gruppe zugewiesen sind.
    */
   public List<Opponent> getOpponents() {
     List<Opponent> result = new ArrayList<>();
-    Collections.sort(getIndexedOpponents(), new PositionalComparator());
+    Collections.sort(getPositionalOpponents(), new PositionalComparator());
 
-    for (PositionalOpponent io : getIndexedOpponents()) {
+    for (PositionalOpponent io : getPositionalOpponents()) {
       result.add(io.getOpponent());
     }
 
@@ -118,18 +118,18 @@ public class Group
   }
 
   /**
-   * Hinzuf\u00fcgen eines (unindizierten) Opponents. Der neue Index ist so
+   * Hinzuf\u00fcgen eines (unindizierten) Opponents. Die neue Position ist so
    * gro\u00df, dass der neue Opponent als letzter angef\u00fcgt wird.
    * 
    * @param opponent Opponent, der de Group hinzugef\u00fcgt werden soll.
    */
   public void addOpponent(Opponent opponent) {
-    Integer oIndex = indexedOpponents.size();
-    PositionalOpponent indexedOpponent = new PositionalOpponent();
-    indexedOpponent.setPosition(oIndex);
-    indexedOpponent.setOpponent(opponent);
+    Integer position = positionalOpponents.size();
+    PositionalOpponent positionalOpponent = new PositionalOpponent();
+    positionalOpponent.setPosition(position);
+    positionalOpponent.setOpponent(opponent);
 
-    getIndexedOpponents().add(indexedOpponent);
+    getPositionalOpponents().add(positionalOpponent);
   }
 
   /**
@@ -140,14 +140,14 @@ public class Group
   public void removeOpponent(Opponent opponent) {
 
     // passenden IndexedOpponent finden und entfernen
-    PositionalOpponent ioToRemove = getIndexedOpponent(opponent);
-    getIndexedOpponents().remove(ioToRemove);
+    PositionalOpponent poToRemove = getPositionalOpponent(opponent);
+    getPositionalOpponents().remove(poToRemove);
 
     // Neuindizierung
-    int newIndex = 0;
-    for (PositionalOpponent o : getIndexedOpponents()) {
-      o.setPosition(newIndex);
-      newIndex += 1;
+    int newPosition = 0;
+    for (PositionalOpponent o : getPositionalOpponents()) {
+      o.setPosition(newPosition);
+      newPosition += 1;
     }
   }
 
@@ -159,87 +159,87 @@ public class Group
    *          soll.
    * @return Der IndexedOpponent
    */
-  public PositionalOpponent getIndexedOpponent(Opponent opponent) {
-    PositionalOpponent indexedOpponent = null;
-    for (PositionalOpponent io : getIndexedOpponents()) {
+  public PositionalOpponent getPositionalOpponent(Opponent opponent) {
+    PositionalOpponent positionalOpponent = null;
+    for (PositionalOpponent io : getPositionalOpponents()) {
       if (io.getOpponent().equals(opponent)) {
-        indexedOpponent = io;
+        positionalOpponent = io;
       }
     }
-    return indexedOpponent;
+    return positionalOpponent;
   }
 
   /**
    * Gibt den Opponents zurueck, der in den entsprechenden Index hat.
    * 
-   * @param opponentsIndex Index des gesuchten Opopnents.
+   * @param opponentsPosition Index des gesuchten Opopnents.
    * @return a {@link org.cc.torganizer.core.entities.Opponent} object.
    */
-  public Opponent getOpponent(Integer opponentsIndex) {
-    PositionalOpponent io = getIndexedOpponent(opponentsIndex);
-    return io == null ? null : io.getOpponent();
+  public Opponent getOpponent(Integer opponentsPosition) {
+    PositionalOpponent po = getPositionalOpponent(opponentsPosition);
+    return po == null ? null : po.getOpponent();
   }
 
   /**
-   * Lesen des indizierten Opponents, bei dem der Index mit dem Parameter
+   * Lesen des indizierten Opponents, bei dem die Position mit dem Parameter
    * \u00fcbereinstimmt.
    * 
-   * @param reqIndex Index, zu dem der indizierte Opponent gefunden werden soll.
+   * @param reqPosition Index, zu dem der indizierte Opponent gefunden werden soll.
    * @return Der IndexedOpponent
    */
-  public PositionalOpponent getIndexedOpponent(Integer reqIndex) {
-    PositionalOpponent indexedOpponent = null;
-    for (PositionalOpponent io : getIndexedOpponents()) {
-      if (io != null && io.getPosition().equals(reqIndex)) {
-        indexedOpponent = io;
+  public PositionalOpponent getPositionalOpponent(Integer reqPosition) {
+    PositionalOpponent positionalOpponent = null;
+    for (PositionalOpponent po : getPositionalOpponents()) {
+      if (po != null && po.getPosition().equals(reqPosition)) {
+        positionalOpponent = po;
       }
     }
-    return indexedOpponent;
+    return positionalOpponent;
   }
 
   /**
    * \u00c4ndern der Reihenfolge innerhalb der Liste der indizierten Opponents
-   * durch tauschen des Index, so dass der \u00fcbergebene Opponent den
-   * n\u00e4chst kleineren Index bekommt.
+   * durch tauschen der Position, so dass der \u00fcbergebene Opponent die
+   * n\u00e4chst kleinere Position bekommt.
    * 
-   * @param opponent Opponent, der in der indexreihenfolge weiter vorne stehen
-   *          soll (kleinerer Index)
+   * @param opponent Opponent, der in der Positionsreihenfolge weiter vorne stehen
+   *          soll (kleinerer Position)
    */
   public void moveUp(Opponent opponent) {
-    PositionalOpponent indexedOpponent = getIndexedOpponent(opponent);
-    int indexOld = indexedOpponent.getPosition();
+    PositionalOpponent positionalOpponent = getPositionalOpponent(opponent);
+    int positionOld = positionalOpponent.getPosition();
 
-    if (indexOld > 0) {
-      PositionalOpponent swap = getIndexedOpponent(indexOld - 1);
-      indexedOpponent.swapPosition(swap);
+    if (positionOld > 0) {
+      PositionalOpponent swap = getPositionalOpponent(positionOld - 1);
+      positionalOpponent.swapPosition(swap);
     }
   }
 
   /**
-   * Tauschen der Position dieses Opponents mit dem Opponent, der den um eins
-   * hoeheren Index hat (wenn moeglich).
+   * Tauschen der Position dieses Opponents mit dem Opponent, der die um eins
+   * hoehere Position hat (wenn moeglich).
    * 
    * @param opponent Opponent, der in der Positionsliste um eins nach unten
    *          wandern soll
    */
   public void moveDown(Opponent opponent) {
-    PositionalOpponent indexedOpponent = getIndexedOpponent(opponent);
-    int indexOld = indexedOpponent.getPosition();
+    PositionalOpponent positionalOpponent = getPositionalOpponent(opponent);
+    int positionOld = positionalOpponent.getPosition();
 
-    if (indexOld <= getIndexedOpponents().size() - 2) {
-      PositionalOpponent swap = getIndexedOpponent(indexOld + 1);
-      indexedOpponent.swapPosition(swap);
+    if (positionOld <= getPositionalOpponents().size() - 2) {
+      PositionalOpponent swap = getPositionalOpponent(positionOld + 1);
+      positionalOpponent.swapPosition(swap);
     }
   }
 
   /** {@inheritDoc} */
   @Override
   public Integer getPosition() {
-    return index;
+    return position;
   }
 
-  public void setIndex(Integer newIndex) {
-    this.index = newIndex;
+  public void setPosition(Integer newPosition) {
+    this.position = newPosition;
   }
 
   /**
@@ -301,20 +301,20 @@ public class Group
   /** {@inheritDoc} */
   @Override
   public String toString() {
-    return "[index:" + index + "][matches:" + getMatches().size() + "][indexedOpponents:" + indexedOpponents.size()
+    return "[position:" + position + "][matches:" + getMatches().size() + "][positionalOpponents:" + positionalOpponents.size()
         + "]";
   }
   
   /**
-   * Match mit dem gewuenschten Index. Der indes ist insbesondere fuer das
+   * Match mit der gewuenschten Position. Die Position ist insbesondere fuer das
    * finden der noch ausstehenden Matches von Bedeutung.
    * 
-   * @param matchIndex Indes des gesuchten Matches
+   * @param matchPosition Indes des gesuchten Matches
    * @return a {@link org.cc.torganizer.core.entities.Match} object.
    */
-  public Match getMatch(Integer matchIndex) {
+  public Match getMatch(Integer matchPosition) {
     for (Match match : getMatches()) {
-      if (match != null && matchIndex.equals(match.getPosition())) {
+      if (match != null && matchPosition.equals(match.getPosition())) {
         return match;
       }
     }

@@ -77,7 +77,7 @@ public class SingleEliminationMatchDetectorTest {
 		group.addOpponent(new Player());
 		semd.setGroup(group);
 
-		assertEquals(8, group.getIndexedOpponents().size());
+		assertEquals(8, group.getPositionalOpponents().size());
 
 		// Wenn noch keine Matches gespielt wurden, werden alle Matches als pending
 		// gefunden
