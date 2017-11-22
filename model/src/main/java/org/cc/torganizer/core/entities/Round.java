@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "ROUNDS")
-public class Round implements IIndexed {
+public class Round implements IPositional {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -125,7 +125,7 @@ public class Round implements IIndexed {
 
   /** {@inheritDoc} */
   @Override
-  public Integer getIndex() {
+  public Integer getPosition() {
     return index;
   }
 

@@ -23,26 +23,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "IndexedOpponent")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
-@Table(name = "INDEXED_OPPONENTS")
-public class IndexedOpponent
-  implements IIndexed {
+@Table(name = "POSITIONAL_OPPONENTS")
+public class PositionalOpponent
+  implements IPositional {
   
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "INDEXED_OPPONENT_ID")
+  @Column(name = "POSITIONAL_OPPONENT_ID")
   private Long id;
 
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "OPPONENT_ID")
   private Opponent opponent;
 
-  @Column(name = "INDEX")
-  private Integer index;
+  @Column(name = "POSITION")
+  private Integer position;
 
   /**
    * default bean constructor.
    */
-  public IndexedOpponent() {
+  public PositionalOpponent() {
     // gem. Bean-Spec.
   }
 
@@ -50,24 +50,24 @@ public class IndexedOpponent
    * Bequemlichkeitskonstruktor.
    * 
    * @param newOpponent Opponent
-   * @param newIndex Index des Opponents
+   * @param newPosition Position des Opponents
    */
-  public IndexedOpponent(Opponent newOpponent, Integer newIndex) {
+  public PositionalOpponent(Opponent newOpponent, Integer newPosition) {
     this.opponent = newOpponent;
-    this.index = newIndex;
+    this.position = newPosition;
   }
 
   /**
-   * Tauschen des Index mit einem anderen IndexedOpponent.
+   * Tauschen der Position mit einem anderen PositionalOpponent.
    * 
-   * @param other IdexedOpponent, mit dem der Index getauscht werden soll.
+   * @param other {@link PositionalOpponent}, mit dem die Position getauscht werden soll.
    */
-  public void swapIndex(IndexedOpponent other) {
-    int thisIndex = getIndex();
-    int otherIndex = other.getIndex();
+  public void swapPosition(PositionalOpponent other) {
+    int thisPosition = getPosition();
+    int otherPosition = other.getPosition();
 
-    this.setIndex(otherIndex);
-    other.setIndex(thisIndex);
+    this.setPosition(otherPosition);
+    other.setPosition(thisPosition);
   }
 
   public Opponent getOpponent() {
@@ -80,12 +80,12 @@ public class IndexedOpponent
 
   /** {@inheritDoc} */
   @Override
-  public Integer getIndex() {
-    return index;
+  public Integer getPosition() {
+    return position;
   }
 
-  public void setIndex(Integer inIndex) {
-    this.index = inIndex;
+  public void setPosition(Integer newPosition) {
+    this.position = newPosition;
   }
 
   /** {@inheritDoc} */

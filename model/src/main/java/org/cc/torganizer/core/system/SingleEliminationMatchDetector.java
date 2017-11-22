@@ -182,13 +182,13 @@ public class SingleEliminationMatchDetector
   protected Match getMatch(int matchIndex, List<Match> matches) {
 
     for (Match match : matches) {
-      if (match.getIndex().equals(matchIndex)) {
+      if (match.getPosition().equals(matchIndex)) {
         return match;
       }
     }
 
     for (Match match : getGroup().getMatches()) {
-      if (match.getIndex().equals(matchIndex)) {
+      if (match.getPosition().equals(matchIndex)) {
         return match;
       }
     }
@@ -205,7 +205,7 @@ public class SingleEliminationMatchDetector
    */
   protected void assignOpponentsToMatch(Match match) {
 
-    int oIndex = 2 * (match.getIndex() + 1) - getGroup().getOpponents().size();
+    int oIndex = 2 * (match.getPosition() + 1) - getGroup().getOpponents().size();
 
     Opponent home = getGroup().getIndexedOpponent(oIndex).getOpponent();
     Opponent guest = getGroup().getIndexedOpponent(oIndex + 1).getOpponent();

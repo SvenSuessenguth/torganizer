@@ -221,7 +221,7 @@ public class SingleEliminationMatchDetectorTest {
 	 */
 	private boolean listContainsMatchWithIndex(List<Match> matches, int index) {
 		for (Match match : matches) {
-			if (match.getIndex() == index) {
+			if (match.getPosition() == index) {
 				return true;
 			}
 		}

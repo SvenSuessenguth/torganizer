@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({ @NamedQuery(name = "getMatchesForGroup", query = "SELECT m FROM Match m WHERE m.group = :group"),
     @NamedQuery(name = "getRunningMatchesForGroup", query = "SELECT m FROM Match m WHERE m.running = true AND m.group = :group"),
     @NamedQuery(name = "getFinishedMatchesForGroup", query = "SELECT m FROM Match m WHERE m.running = true AND m.finished IS NOT NULL AND m.group = :group") })
-public class Match implements IIndexed {
+public class Match implements IPositional {
 
   /**
    * Match, bei dem keiner der Opponents bekannt ist.
@@ -261,7 +261,7 @@ public class Match implements IIndexed {
 
   /** {@inheritDoc} */
   @Override
-  public Integer getIndex() {
+  public Integer getPosition() {
     return index;
   }
 

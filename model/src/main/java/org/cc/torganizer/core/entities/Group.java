@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.cc.torganizer.core.comparators.IndexedComparator;
+import org.cc.torganizer.core.comparators.PositionalComparator;
 
 /**
  * Eine Group sammelt Opponents zusammen. Innerhalb einer Group werden die
@@ -34,7 +34,7 @@ import org.cc.torganizer.core.comparators.IndexedComparator;
 @Entity
 @Table(name = "GROUPS")
 public class Group
-  implements IIndexed {
+  implements IPositional {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,7 +47,7 @@ public class Group
   @OneToMany(cascade = CascadeType.ALL)
   @OrderBy("index ASC")
   @JoinTable(name = "GROUPS_INDEXED_OPPONENTS", joinColumns = {@JoinColumn(name = "GROUP_ID") }, inverseJoinColumns = @JoinColumn(name = "INDEXED_OPPONENT_ID"))
-  private List<IndexedOpponent> indexedOpponents = new ArrayList<>();
+  private List<PositionalOpponent> indexedOpponents = new ArrayList<>();
 
   /**
    * Ein Match soll nur der Group zugewiesen werden, wenn es persistiert werden
@@ -68,9 +68,9 @@ public class Group
    * 
    * @return nach Index sortierte Liste von IndexedOpponents
    */
-  public List<IndexedOpponent> getIndexedOpponents() {
+  public List<PositionalOpponent> getIndexedOpponents() {
     // sortieren nach index
-    Collections.sort(indexedOpponents, new IndexedComparator());
+    Collections.sort(indexedOpponents, new PositionalComparator());
 
     return indexedOpponents;
   }
@@ -82,7 +82,7 @@ public class Group
    * 
    * @param inIndexedOpponents a {@link java.util.List} object.
    */
-  public void setIndexedOpponents(List<IndexedOpponent> inIndexedOpponents) {
+  public void setIndexedOpponents(List<PositionalOpponent> inIndexedOpponents) {
     this.indexedOpponents = inIndexedOpponents;
   }
 
@@ -95,7 +95,7 @@ public class Group
   public void setOpponents(List<Opponent> inOpponents) {
     getIndexedOpponents().clear();
     for (Opponent o : inOpponents) {
-      IndexedOpponent io = new IndexedOpponent(o, inOpponents.indexOf(o) + 1);
+      PositionalOpponent io = new PositionalOpponent(o, inOpponents.indexOf(o) + 1);
       getIndexedOpponents().add(io);
     }
   }
@@ -108,9 +108,9 @@ public class Group
    */
   public List<Opponent> getOpponents() {
     List<Opponent> result = new ArrayList<>();
-    Collections.sort(getIndexedOpponents(), new IndexedComparator());
+    Collections.sort(getIndexedOpponents(), new PositionalComparator());
 
-    for (IndexedOpponent io : getIndexedOpponents()) {
+    for (PositionalOpponent io : getIndexedOpponents()) {
       result.add(io.getOpponent());
     }
 
@@ -125,8 +125,8 @@ public class Group
    */
   public void addOpponent(Opponent opponent) {
     Integer oIndex = indexedOpponents.size();
-    IndexedOpponent indexedOpponent = new IndexedOpponent();
-    indexedOpponent.setIndex(oIndex);
+    PositionalOpponent indexedOpponent = new PositionalOpponent();
+    indexedOpponent.setPosition(oIndex);
     indexedOpponent.setOpponent(opponent);
 
     getIndexedOpponents().add(indexedOpponent);
@@ -140,13 +140,13 @@ public class Group
   public void removeOpponent(Opponent opponent) {
 
     // passenden IndexedOpponent finden und entfernen
-    IndexedOpponent ioToRemove = getIndexedOpponent(opponent);
+    PositionalOpponent ioToRemove = getIndexedOpponent(opponent);
     getIndexedOpponents().remove(ioToRemove);
 
     // Neuindizierung
     int newIndex = 0;
-    for (IndexedOpponent o : getIndexedOpponents()) {
-      o.setIndex(newIndex);
+    for (PositionalOpponent o : getIndexedOpponents()) {
+      o.setPosition(newIndex);
       newIndex += 1;
     }
   }
@@ -159,9 +159,9 @@ public class Group
    *          soll.
    * @return Der IndexedOpponent
    */
-  public IndexedOpponent getIndexedOpponent(Opponent opponent) {
-    IndexedOpponent indexedOpponent = null;
-    for (IndexedOpponent io : getIndexedOpponents()) {
+  public PositionalOpponent getIndexedOpponent(Opponent opponent) {
+    PositionalOpponent indexedOpponent = null;
+    for (PositionalOpponent io : getIndexedOpponents()) {
       if (io.getOpponent().equals(opponent)) {
         indexedOpponent = io;
       }
@@ -176,7 +176,7 @@ public class Group
    * @return a {@link org.cc.torganizer.core.entities.Opponent} object.
    */
   public Opponent getOpponent(Integer opponentsIndex) {
-    IndexedOpponent io = getIndexedOpponent(opponentsIndex);
+    PositionalOpponent io = getIndexedOpponent(opponentsIndex);
     return io == null ? null : io.getOpponent();
   }
 
@@ -187,10 +187,10 @@ public class Group
    * @param reqIndex Index, zu dem der indizierte Opponent gefunden werden soll.
    * @return Der IndexedOpponent
    */
-  public IndexedOpponent getIndexedOpponent(Integer reqIndex) {
-    IndexedOpponent indexedOpponent = null;
-    for (IndexedOpponent io : getIndexedOpponents()) {
-      if (io != null && io.getIndex().equals(reqIndex)) {
+  public PositionalOpponent getIndexedOpponent(Integer reqIndex) {
+    PositionalOpponent indexedOpponent = null;
+    for (PositionalOpponent io : getIndexedOpponents()) {
+      if (io != null && io.getPosition().equals(reqIndex)) {
         indexedOpponent = io;
       }
     }
@@ -206,12 +206,12 @@ public class Group
    *          soll (kleinerer Index)
    */
   public void moveUp(Opponent opponent) {
-    IndexedOpponent indexedOpponent = getIndexedOpponent(opponent);
-    int indexOld = indexedOpponent.getIndex();
+    PositionalOpponent indexedOpponent = getIndexedOpponent(opponent);
+    int indexOld = indexedOpponent.getPosition();
 
     if (indexOld > 0) {
-      IndexedOpponent swap = getIndexedOpponent(indexOld - 1);
-      indexedOpponent.swapIndex(swap);
+      PositionalOpponent swap = getIndexedOpponent(indexOld - 1);
+      indexedOpponent.swapPosition(swap);
     }
   }
 
@@ -223,18 +223,18 @@ public class Group
    *          wandern soll
    */
   public void moveDown(Opponent opponent) {
-    IndexedOpponent indexedOpponent = getIndexedOpponent(opponent);
-    int indexOld = indexedOpponent.getIndex();
+    PositionalOpponent indexedOpponent = getIndexedOpponent(opponent);
+    int indexOld = indexedOpponent.getPosition();
 
     if (indexOld <= getIndexedOpponents().size() - 2) {
-      IndexedOpponent swap = getIndexedOpponent(indexOld + 1);
-      indexedOpponent.swapIndex(swap);
+      PositionalOpponent swap = getIndexedOpponent(indexOld + 1);
+      indexedOpponent.swapPosition(swap);
     }
   }
 
   /** {@inheritDoc} */
   @Override
-  public Integer getIndex() {
+  public Integer getPosition() {
     return index;
   }
 
@@ -314,7 +314,7 @@ public class Group
    */
   public Match getMatch(Integer matchIndex) {
     for (Match match : getMatches()) {
-      if (match != null && matchIndex.equals(match.getIndex())) {
+      if (match != null && matchIndex.equals(match.getPosition())) {
         return match;
       }
     }

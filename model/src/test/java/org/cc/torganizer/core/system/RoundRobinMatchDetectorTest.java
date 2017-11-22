@@ -67,9 +67,9 @@ public class RoundRobinMatchDetectorTest {
 
     List<Match> matches = rrmd.getPendingMatches();
 
-    assertEquals(1, matches.get(0).getIndex().intValue());
-    assertEquals(2, matches.get(1).getIndex().intValue());
-    assertEquals(5, matches.get(2).getIndex().intValue());
+    assertEquals(1, matches.get(0).getPosition().intValue());
+    assertEquals(2, matches.get(1).getPosition().intValue());
+    assertEquals(5, matches.get(2).getPosition().intValue());
   }
 
   @Test

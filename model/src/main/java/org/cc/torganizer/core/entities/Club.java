@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "Club")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Club {
-
+  
   /**
    * zu verwendender Name, wenn ein Opponent keinem club angehoert.
    */
@@ -48,10 +48,10 @@ public class Club {
   }
 
   public Long getId() {
-    return this.id;
+    return id;
   }
-  
-	public void setId(Long newId) {
-		this.id = newId;
-	}
+
+  public void setId(Long id) {
+    this.id = id;
+  }
 }

@@ -25,7 +25,7 @@
   <entity class="org.cc.torganizer.core.entities.Club" access="FIELD">
     <table name="CLUBS" />
     <attributes>    
-      <id name="id" >
+      <id name="id" access="PROPERTY">
         <column name="CLUB_ID"/>
         <generated-value strategy="IDENTITY"/>
        </id>

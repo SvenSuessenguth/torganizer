@@ -13,10 +13,10 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "Result")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Result implements IIndexed {
+public class Result implements IPositional {
 
   private Long id;
-
+  
   private Integer homeScore;
 
   private Integer guestScore;
@@ -25,33 +25,34 @@ public class Result implements IIndexed {
    * Reihenfolge der Results. -1 als Standardwert, wenn die Reihenfolge ohne
    * Bedeutung ist.
    */
-  private Integer index = Integer.valueOf(-1);
+  private Integer position = -1;
 
   /**
    * Standardkonstruktor.
    */
   public Result() {
-    // gem. Bean-Spec.
+    position = -1;
+
   }
 
   /**
    * Konstruktor.
    * 
-   * @param newIndex Index
+   * @param newPosition Index
    */
-  public Result(Integer newIndex) {
-    this(newIndex, 0, 0);
+  public Result(Integer newPosition) {
+    this(newPosition, 0, 0);
   }
 
   /**
    * Bequemlichkeitskonstruktor.
    * 
-   * @param newIndex Index des Results
+   * @param newPosition Index des Results
    * @param newHomeScore Score des Homes
    * @param newGuestScore Score des Guests
    */
-  public Result(Integer newIndex, Integer newHomeScore, Integer newGuestScore) {
-    this.index = newIndex;
+  public Result(Integer newPosition, Integer newHomeScore, Integer newGuestScore) {
+    this.position = newPosition == null ? -1 : newPosition;
     this.homeScore = newHomeScore;
     this.guestScore = newGuestScore;
   }
@@ -79,12 +80,12 @@ public class Result implements IIndexed {
 
   /** {@inheritDoc} */
   @Override
-  public Integer getIndex() {
-    return index;
+  public Integer getPosition() {
+    return position;
   }
 
-  public void setIndex(Integer inIndex) {
-    this.index = inIndex;
+  public void setPosition(Integer newPosition) {
+    this.position = newPosition;
   }
 
   public Integer getHomeScore() {

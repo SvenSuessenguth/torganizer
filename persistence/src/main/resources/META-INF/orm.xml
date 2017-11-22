@@ -5,4 +5,5 @@
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">  
   
   <converter class="org.cc.torganizer.persistence.converter.BooleanTrueFalseConverter"/>
+  
 </entity-mappings>  

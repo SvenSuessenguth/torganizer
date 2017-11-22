@@ -136,7 +136,7 @@ public class Discipline {
   public Round getRound(int index) {
     Round round = null;
     for (Round r : getRounds()) {
-      if (r.getIndex() == index) {
+      if (r.getPosition() == index) {
         round = r;
       }
     }
