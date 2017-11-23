@@ -1,5 +1,7 @@
 package org.cc.torganizer.core.entities.aggregates;
 
+import java.util.Objects;
+
 import org.cc.torganizer.core.entities.Match;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Result;
@@ -9,8 +11,7 @@ import org.cc.torganizer.core.entities.Result;
  * 
  * @author svens
  */
-public class ResultAggregate
-  extends AbstractAggregate {
+public class ResultAggregate extends AbstractAggregate {
 
   /**
    * Default.
@@ -25,7 +26,7 @@ public class ResultAggregate
       return;
     }
 
-    boolean isHome = match.getHome().equals(opponent);
+    boolean isHome = Objects.equals(match.getHome(), opponent);
     for (Result result : match.getResults()) {
       if (isHome) {
         if (result.getHomeScore() > result.getGuestScore()) {

@@ -22,9 +22,13 @@
   @JoinTable(name = "GYMNASIUMS_COURTS", joinColumns = {
       @JoinColumn(name = "GYMNASIUM_ID") }, inverseJoinColumns = @JoinColumn(name = "COURT_ID"))
    -->
+  <named-query name="Gymnasium.findById">
+    <query>SELECT g FROM Gymnasium g WHERE g.id = :id</query>
+  </named-query>
   <named-query name="Gymnasium.findByTournament">
     <query>SELECT g FROM Gymnasium g, Tournament t WHERE t.id = :tournamentId AND g MEMBER OF t.gymnasiums</query>
   </named-query>
+  
   
   <entity class="org.cc.torganizer.core.entities.Gymnasium" access="FIELD">
     <table name="GYMNASIUMS" />
@@ -36,6 +40,12 @@
        <basic name="name">
          <column name="NAME" nullable="false" />        
        </basic>
+        <one-to-many name="courts">
+         <join-table name="GYMNASIUM_COURTS">
+           <join-column name="GYMNASIUM_ID" referenced-column-name="GYMNASIUM_ID"/>
+           <inverse-join-column name="COURT_ID" referenced-column-name="ID" unique="true" />
+         </join-table>
+       </one-to-many>
      </attributes>
   </entity>
 

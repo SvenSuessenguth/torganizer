@@ -23,7 +23,7 @@ public class Gymnasium {
   private String name;
 
   @XmlTransient
-  private transient List<Court> courts = new ArrayList<>();
+  private List<Court> courts = new ArrayList<>();
 
   /**
    * Default.
@@ -43,7 +43,6 @@ public class Gymnasium {
       courts.clear();
       for (int i = 0; i < number; i += 1) {
         Court court = new Court();
-        court.setGymnasium(this);
         court.setNr(i + 1);
         courts.add(court);
       }

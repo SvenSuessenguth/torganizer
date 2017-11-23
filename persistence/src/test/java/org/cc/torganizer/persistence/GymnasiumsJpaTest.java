@@ -32,4 +32,14 @@ public class GymnasiumsJpaTest extends AbstractDbUnitJpaTest {
     assertThat(allGymnasiums, hasSize(0));
   }
 
+  @Test
+  public void findGymnasium_byId() {
+    List<Gymnasium> allGymnasiums = entityManager.createNamedQuery("Gymnasium.findById", Gymnasium.class)
+        .setParameter("id", 1L)
+        .getResultList();
+    assertThat(allGymnasiums, hasSize(1));
+    Gymnasium g = allGymnasiums.get(0);
+    
+    assertThat(g.getCourts(),hasSize(1));
+  }
 }
