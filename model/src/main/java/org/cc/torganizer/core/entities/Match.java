@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "Match")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Match implements IPositional {
+public class Match extends Entity implements IPositional {
 
   /**
    * Match, bei dem keiner der Opponents bekannt ist.
@@ -35,15 +35,12 @@ public class Match implements IPositional {
     NULL_MATCH = new Match(home, guest);
   }
 
-  private Long id;
-
   private Opponent home;
 
   private Opponent guest;
 
   private List<Result> results = new ArrayList<>();
 
-  
   /**
    * Nummer des Matches in der Gruppe, in der das Match stattfindet. Die Position
    * wird zum Beispiel f\u00fcr das System DoubleKO ben\u00f6tigt. Standardwert
@@ -237,10 +234,6 @@ public class Match implements IPositional {
     return result.toString();
   }
 
-  public Long getId() {
-    return this.id;
-  }
-
   public Boolean isRunning() {
     return running;
   }
@@ -336,6 +329,6 @@ public class Match implements IPositional {
       }
     }
 
-    return playerCount!=0?overallTimeSinceLastMatch / playerCount:Long.MAX_VALUE;
+    return playerCount != 0 ? overallTimeSinceLastMatch / playerCount : Long.MAX_VALUE;
   }
 }

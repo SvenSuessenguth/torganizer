@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.cc.torganizer.core.entities.Person;
 
 /**
- * Container für Restrictions, um korrektes XML/JSON zu generieren.
+ * Container fÃ¼r Players, um korrektes XML/JSON zu generieren.
  *  
  * @author svens
  */

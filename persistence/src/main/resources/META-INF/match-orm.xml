@@ -36,10 +36,6 @@
   <entity class="org.cc.torganizer.core.entities.Match" access="FIELD">
     <table name="MATCHES" />
     <attributes>    
-      <id name="id" >
-        <column name="MATCH_ID"/>
-        <generated-value strategy="IDENTITY"/>
-       </id>
        <basic name="position">
          <column name="POSITION" nullable="false"/>
        </basic>
@@ -51,7 +47,7 @@
        </basic>
        <one-to-many name="results">
          <join-table name="MATCH_RESULTS">
-           <join-column name="MATCH_ID" referenced-column-name="MATCH_ID"/>
+           <join-column name="MATCH_ID" referenced-column-name="ID"/>
            <inverse-join-column name="RESULT_ID" referenced-column-name="RESULT_ID" unique="true" />
          </join-table>
        </one-to-many>

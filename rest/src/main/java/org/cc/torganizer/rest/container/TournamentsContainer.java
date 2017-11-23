@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.cc.torganizer.core.entities.Tournament;
 
 /**
- * Container für Restrictions, um korrektes XML/JSON zu generieren.
+ * Container fÃ¼r Tournaments, um korrektes XML/JSON zu generieren.
  *  
  * @author svens
  */

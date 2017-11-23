@@ -16,7 +16,7 @@ import org.cc.torganizer.core.entities.OpponentTypeRestriction;
 import org.cc.torganizer.core.entities.Restriction;
 
 /**
- * Container für Restrictions, um korrektes XML/JSON zu generieren.
+ * Container fÃ¼r Restrictions, um korrektes XML/JSON zu generieren.
  *  
  * @author svens
  * @see https://stackoverflow.com/questions/4888228/configuring-collection-of-polymorphic-objects-to-work-in-jaxb2
