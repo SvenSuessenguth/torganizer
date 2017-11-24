@@ -17,18 +17,14 @@
   <entity class="org.cc.torganizer.core.entities.Person" access="FIELD" >
     <table name="PERSONS" />
     <attributes>    
-      <id name="id" >
-        <column name="PERSON_ID"/>
-          <generated-value strategy="IDENTITY"/>
-       </id>
-       <basic name="firstName"><column name="FIRST_NAME"/></basic>
-       <basic name="lastName"><column name="LAST_NAME"/></basic>
-       <basic name="dateOfBirth"><column name="DATE_OF_BIRTH"/></basic>
-       <basic name="gender">
-         <column name="GENDER" nullable="false" />
-         <enumerated>STRING</enumerated>        
-       </basic>      
-     </attributes>
+      <basic name="firstName"><column name="FIRST_NAME"/></basic>
+      <basic name="lastName"><column name="LAST_NAME"/></basic>
+      <basic name="dateOfBirth"><column name="DATE_OF_BIRTH"/></basic>
+      <basic name="gender">
+        <column name="GENDER" nullable="false" />
+        <enumerated>STRING</enumerated>        
+      </basic>      
+    </attributes>
   </entity>
 
 </entity-mappings>  

@@ -17,11 +17,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "Person")
 @XmlAccessorType(XmlAccessType.NONE)
-public class Person {
+public class Person extends Entity{
   
-  @XmlAttribute
-  private Long id;
-
   @XmlAttribute
   private String firstName;
 
@@ -95,14 +92,5 @@ public class Person {
 
   public void setGender(Gender newGender) {
     this.gender = newGender;
-  }
-
-  /** {@inheritDoc} */
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long newId) {
-    this.id = newId;
   }
 }
