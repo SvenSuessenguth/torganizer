@@ -18,10 +18,8 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @XmlRootElement(name = "Tournament")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Tournament{
+public class Tournament extends Entity{
 
-  private Long id;
-  
   private String name;
   
   @XmlTransient
@@ -134,13 +132,5 @@ public class Tournament{
 
   public void setGymnasiums(Set<Gymnasium> gymnasiums) {
     this.gymnasiums = gymnasiums;
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
   }
 }

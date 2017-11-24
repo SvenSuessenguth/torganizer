@@ -14,14 +14,10 @@
   <entity class="org.cc.torganizer.core.entities.Result" access="FIELD">
     <table name="RESULTS" />
     <attributes>    
-      <id name="id">
-        <column name="RESULT_ID"/>
-        <generated-value strategy="IDENTITY"/>
-       </id>
-       <basic name="homeScore"><column name="HOME_SCORE" nullable="false"/></basic>
-       <basic name="guestScore"><column name="GUEST_SCORE" nullable="false"/></basic>
-       <basic name="position"><column name="POSITION" nullable="false"/></basic>       
-     </attributes>
+      <basic name="homeScore"><column name="HOME_SCORE" nullable="false"/></basic>
+      <basic name="guestScore"><column name="GUEST_SCORE" nullable="false"/></basic>
+      <basic name="position"><column name="POSITION" nullable="false"/></basic>       
+    </attributes>
   </entity>
 
 </entity-mappings>  

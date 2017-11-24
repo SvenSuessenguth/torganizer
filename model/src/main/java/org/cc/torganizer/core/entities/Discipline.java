@@ -22,14 +22,12 @@ import org.cc.torganizer.core.exceptions.RestrictionException;
  */
 @XmlRootElement(name = "Discipline")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Discipline {
+public class Discipline extends Entity{
 
   /**
    * Darzustellender Name, wenn noch keine Disziplin zugewiesen wurde.
    */
   public static final String NULL_DISCIPLINE_NAME = "-";
-
-  private Long id;
 
   private String label;
   
@@ -171,13 +169,5 @@ public class Discipline {
   
   public Set<Restriction> getRestrictions(){
 	  return restrictions;
-  }
-
-  public Long getId() {
-    return id;
-  }
-  
-  public void setId(Long newId) {
-    this.id = newId;
   }
 }

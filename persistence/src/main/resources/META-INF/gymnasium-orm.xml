@@ -4,24 +4,6 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">  
   
-  
-  <!--
-  @Entity
-  @Table(name = "GYMNASIUMS")
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "ID")
-  
-  @Column(name = "NAME")
-  
-  @ManyToOne
-  @JoinColumn(name = "TOURNAMENT_ID", nullable = false)
-  
-  @OneToMany(cascade = CascadeType.ALL)
-  @JoinTable(name = "GYMNASIUMS_COURTS", joinColumns = {
-      @JoinColumn(name = "GYMNASIUM_ID") }, inverseJoinColumns = @JoinColumn(name = "COURT_ID"))
-   -->
   <named-query name="Gymnasium.findById">
     <query>SELECT g FROM Gymnasium g WHERE g.id = :id</query>
   </named-query>
@@ -29,20 +11,15 @@
     <query>SELECT g FROM Gymnasium g, Tournament t WHERE t.id = :tournamentId AND g MEMBER OF t.gymnasiums</query>
   </named-query>
   
-  
   <entity class="org.cc.torganizer.core.entities.Gymnasium" access="FIELD">
     <table name="GYMNASIUMS" />
     <attributes>    
-      <id name="id" >
-        <column name="GYMNASIUM_ID"/>
-        <generated-value strategy="IDENTITY"/>
-       </id>
        <basic name="name">
          <column name="NAME" nullable="false" />        
        </basic>
         <one-to-many name="courts">
          <join-table name="GYMNASIUM_COURTS">
-           <join-column name="GYMNASIUM_ID" referenced-column-name="GYMNASIUM_ID"/>
+           <join-column name="GYMNASIUM_ID" referenced-column-name="ID"/>
            <inverse-join-column name="COURT_ID" referenced-column-name="ID" unique="true" />
          </join-table>
        </one-to-many>

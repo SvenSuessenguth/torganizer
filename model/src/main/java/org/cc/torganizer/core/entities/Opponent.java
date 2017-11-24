@@ -16,10 +16,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "Opponent")
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class Opponent {
+public abstract class Opponent extends Entity {
 
-	private Long id;
-	
 	private Status status = Status.ACTIVE;
 
 	/**
@@ -49,16 +47,6 @@ public abstract class Opponent {
 	 */
 	public void setStatus(Status inStatus) {
 		this.status = inStatus;
-	}
-
-	/** {@inheritDoc} */
-	public Long getId() {
-		return this.id;
-	}
-
-	/** {@inheritDoc} */
-	public void setId(Long newId) {
-		this.id = newId;
 	}
 
 	/**

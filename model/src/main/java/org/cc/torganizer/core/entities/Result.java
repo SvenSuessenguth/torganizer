@@ -13,10 +13,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "Result")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Result implements IPositional {
+public class Result extends Entity implements IPositional {
 
-  private Long id;
-  
   private Integer homeScore;
 
   private Integer guestScore;
@@ -102,13 +100,5 @@ public class Result implements IPositional {
 
   public void setGuestScore(Integer newGuestScore) {
     this.guestScore = newGuestScore;
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
   }
 }

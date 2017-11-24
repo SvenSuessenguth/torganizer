@@ -2,11 +2,11 @@
 <dataset>
   <PERSONS PERSON_ID="1" FIRST_NAME="Sven" LAST_NAME="Suessenguth" GENDER="MALE" />
 
-  <OPPONENTS OPPONENT_ID="1" status="ACTIVE" TYPE="B"/>
-  <OPPONENTS OPPONENT_ID="2" status="ACTIVE" TYPE="P"/>
+  <OPPONENTS ID="1" status="ACTIVE" TYPE="B"/>
+  <OPPONENTS ID="2" status="ACTIVE" TYPE="P"/>
   
-  <BYES  OPPONENT_ID="1"/>
+  <BYES ID="1"/>
   
-  <PLAYERS OPPONENT_ID="2" PERSON_ID="1"/>
+  <PLAYERS ID="2" PERSON_ID="1"/>
   
 </dataset>

@@ -20,37 +20,33 @@
   <entity class="org.cc.torganizer.core.entities.Tournament" access="FIELD">
     <table name="TOURNAMENTS" />
     <attributes>    
-      <id name="id">
-        <column name="TOURNAMENT_ID"/>
-          <generated-value strategy="IDENTITY"/>
-       </id>
        <basic name="name"><column name="NAME"/></basic>
        <one-to-many name="subscribers">
          <join-table name="TOURNAMENT_SUBSCRIBERS">
-           <join-column name="TOURNAMENT_ID" referenced-column-name="TOURNAMENT_ID"/>
-           <inverse-join-column name="OPPONENT_ID" referenced-column-name="OPPONENT_ID" unique="true" />
+           <join-column name="TOURNAMENT_ID" referenced-column-name="ID"/>
+           <inverse-join-column name="OPPONENT_ID" referenced-column-name="ID" unique="true" />
          </join-table>
          <cascade><cascade-all/></cascade>
        </one-to-many>
        <one-to-many name="opponents">
          <join-table name="TOURNAMENT_OPPONENTS">
-           <join-column name="TOURNAMENT_ID" referenced-column-name="TOURNAMENT_ID"/>
-           <inverse-join-column name="OPPONENT_ID" referenced-column-name="OPPONENT_ID" unique="true" />
+           <join-column name="TOURNAMENT_ID" referenced-column-name="ID"/>
+           <inverse-join-column name="OPPONENT_ID" referenced-column-name="ID" unique="true" />
          </join-table>
          <cascade><cascade-all/></cascade>
        </one-to-many>
        <one-to-many name="disciplines">
          <join-table name="TOURNAMENT_DISCIPLINES">
-           <join-column name="TOURNAMENT_ID" referenced-column-name="TOURNAMENT_ID"/>
-           <inverse-join-column name="DISCIPLINE_ID" referenced-column-name="DISCIPLINE_ID" unique="true" />
+           <join-column name="TOURNAMENT_ID" referenced-column-name="ID"/>
+           <inverse-join-column name="DISCIPLINE_ID" referenced-column-name="ID" unique="true" />
          </join-table>
          <cascade><cascade-all/></cascade>
        </one-to-many>
        
        <one-to-many name="gymnasiums">
          <join-table name="TOURNAMENT_GYMNASIUMS">
-           <join-column name="TOURNAMENT_ID" referenced-column-name="TOURNAMENT_ID"/>
-           <inverse-join-column name="GYMNASIUM_ID" referenced-column-name="GYMNASIUM_ID" unique="true" />
+           <join-column name="TOURNAMENT_ID" referenced-column-name="ID"/>
+           <inverse-join-column name="GYMNASIUM_ID" referenced-column-name="ID" unique="true" />
          </join-table>
          <cascade><cascade-all/></cascade>
        </one-to-many>

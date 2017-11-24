@@ -16,9 +16,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @XmlRootElement(name = "Gymnasium")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Gymnasium {
-  
-  private Long id;
+public class Gymnasium extends Entity {
 
   private String name;
 
@@ -63,13 +61,5 @@ public class Gymnasium {
 
   public void setName(String pName) {
     this.name = pName;
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(long newId) {
-    this.id = newId;
   }
 }

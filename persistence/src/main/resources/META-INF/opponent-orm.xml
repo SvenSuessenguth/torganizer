@@ -29,11 +29,7 @@
     <inheritance strategy="JOINED"/>    
     <discriminator-column name="TYPE" discriminator-type="STRING" length="20"/>
     <attributes>    
-      <id name="id" >
-        <column name="OPPONENT_ID"/>
-        <generated-value strategy="IDENTITY"/>
-       </id>
-       <basic name="status">
+      <basic name="status">
          <column name="STATUS" nullable="false" />
          <enumerated>STRING</enumerated>        
        </basic>
@@ -57,4 +53,4 @@
     <discriminator-value>B</discriminator-value>
   </entity>
 
-</entity-mappings>  
+</entity-mappings>

@@ -4,32 +4,6 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">  
   
-  <!--
-  
-@NamedQueries({
-    @NamedQuery(name = "getCourtsForGymnasium", query = "SELECT c FROM Court c WHERE c.gymnasium = (:gymnasium)"),
-    @NamedQuery(name = "getCourtsWithMatchForTournament", query = "SELECT c FROM Court c WHERE c.match IS NOT NULL AND c.gymnasium.tournament.id = (:tournamentId)"),
-    @NamedQuery(name = "getCourtForMatch", query = "SELECT c FROM Court c WHERE c.match = (:match)"),
-    @NamedQuery(name = "getUnusedCourtsForGymnasium", query = "SELECT c FROM Court c WHERE c.match IS null AND c.gymnasium = (:gymnasium)") })
-   
-  
-  <named-query name="Club.findById">
-    <query>SELECT c FROM Club c WHERE c.id = :id</query>
-  </named-query>
-  -->
-  
-  <!--
-  @Entity
-@Table(name = "COURTS")
-  
-  @ManyToOne
-  @JoinColumn(name = "GYMNASIUM_ID", nullable = false)
-  
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "MATCH_ID", nullable = true)
-  
-  @Column(name = "NR", nullable = false)
-   -->
   <entity class="org.cc.torganizer.core.entities.Court" access="FIELD">
     <table name="COURTS" />
     <attributes>    

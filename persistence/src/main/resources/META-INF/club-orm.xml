@@ -11,17 +11,6 @@
     <query>SELECT c FROM Club c</query>
   </named-query>
   
-  <!--
-  @Entity
-  @Table(name = "CLUBS")
-  @NamedQuery(name = "getClubs", query = "SELECT c FROM Club c")
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "CLUB_ID") 
-  
-  @Column(name = "CLUB_NAME")
-   -->
   <entity class="org.cc.torganizer.core.entities.Club" access="FIELD">
     <table name="CLUBS" />
     <attributes>    

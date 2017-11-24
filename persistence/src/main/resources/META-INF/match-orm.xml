@@ -4,31 +4,6 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">  
   
-  <!--
-  @Entity
-@Table(name = "MATCHES")
-@NamedQueries({ @NamedQuery(name = "getMatchesForGroup", query = "SELECT m FROM Match m WHERE m.group = :group"),
-    @NamedQuery(name = "getRunningMatchesForGroup", query = "SELECT m FROM Match m WHERE m.running = true AND m.group = :group"),
-    @NamedQuery(name = "getFinishedMatchesForGroup", query = "SELECT m FROM Match m WHERE m.running = true AND m.finished IS NOT NULL AND m.group = :group") })
-  
-  @ManyToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "HOME_ID", nullable = true)
-  
-  @ManyToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "GUEST_ID", nullable = true)
-  
-  @OneToMany(cascade = CascadeType.ALL)
-  @OrderBy("index ASC")
-  @JoinTable(name = "MATCHES_RESULTS", joinColumns = {
-      @JoinColumn(name = "MATCH_ID") }, inverseJoinColumns = @JoinColumn(name = "RESULT_ID"))
-   
-   
-   @Column(name = "POSITION", nullable = false)
-  @Column(name = "RUNNING", nullable = false)
-  @Column(name = "FINISHED", nullable = true)
-  
-   -->
-  
   <named-query name="Match.findById">
     <query>SELECT m FROM Match m WHERE m.id = :id</query>
   </named-query>
@@ -48,7 +23,7 @@
        <one-to-many name="results">
          <join-table name="MATCH_RESULTS">
            <join-column name="MATCH_ID" referenced-column-name="ID"/>
-           <inverse-join-column name="RESULT_ID" referenced-column-name="RESULT_ID" unique="true" />
+           <inverse-join-column name="RESULT_ID" referenced-column-name="ID" unique="true" />
          </join-table>
        </one-to-many>
        <one-to-one name="home">
