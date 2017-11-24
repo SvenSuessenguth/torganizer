@@ -4,17 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -28,29 +17,18 @@ import org.cc.torganizer.core.comparators.PositionalComparator;
  */
 @XmlRootElement(name = "Group")
 @XmlAccessorType(XmlAccessType.FIELD)
-@Entity
-@Table(name = "GROUPS")
-public class Group
+
+public class Group extends Entity
   implements IPositional {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "GROUP_ID")
-  private Long id;
-
-  @Column(name = "POSITION")
+  
   private Integer position;
 
-  @OneToMany(cascade = CascadeType.ALL)
-  @OrderBy("position ASC")
-  @JoinTable(name = "GROUPS_POSITIONAL_OPPONENTS", joinColumns = {@JoinColumn(name = "GROUP_ID") }, inverseJoinColumns = @JoinColumn(name = "POSITIONAL_OPPONENT_ID"))
   private List<PositionalOpponent> positionalOpponents = new ArrayList<>();
 
   /**
    * Ein Match soll nur der Group zugewiesen werden, wenn es persistiert werden
    * soll (running/finished).
-   */
-  @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
+   */ 
   private List<Match> matches = new ArrayList<>();
 
   /**
@@ -316,16 +294,5 @@ public class Group
       }
     }
     return null;
-  }
-
-  /**
-   * <p>
-   * Getter for the field <code>id</code>.
-   * </p>
-   * 
-   * @return a {@link java.lang.Long} object.
-   */
-  public Long getId() {
-    return id;
   }
 }

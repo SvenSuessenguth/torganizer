@@ -13,10 +13,12 @@
     <mapping-file>META-INF/club-orm.xml</mapping-file>
     <mapping-file>META-INF/court-orm.xml</mapping-file>
     <mapping-file>META-INF/discipline-orm.xml</mapping-file>
+    <mapping-file>META-INF/group-orm.xml</mapping-file>
     <mapping-file>META-INF/gymnasium-orm.xml</mapping-file>
     <mapping-file>META-INF/match-orm.xml</mapping-file>
     <mapping-file>META-INF/opponent-orm.xml</mapping-file>
     <mapping-file>META-INF/person-orm.xml</mapping-file>
+    <mapping-file>META-INF/positional-opponent-orm.xml</mapping-file>
     <mapping-file>META-INF/restriction-orm.xml</mapping-file>
     <mapping-file>META-INF/result-orm.xml</mapping-file>
     <mapping-file>META-INF/tournament-orm.xml</mapping-file>
