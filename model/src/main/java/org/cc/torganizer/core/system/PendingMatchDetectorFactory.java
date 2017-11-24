@@ -4,7 +4,6 @@ import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.System;
 
 /**
- * @author svens
  */
 public class PendingMatchDetectorFactory {
 

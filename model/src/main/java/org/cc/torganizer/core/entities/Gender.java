@@ -6,9 +6,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Geschlecht.
- * 
- * @author svens
- * @version $Id: $
  */
 @XmlRootElement(name = "Gender")
 @XmlAccessorType(XmlAccessType.FIELD)

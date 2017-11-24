@@ -5,9 +5,6 @@ import org.cc.torganizer.core.entities.Group;
 /**
  * Dient zur Verwaltung der Group, zu der noch ausstehende Matches gefunden
  * werden sollen.
- *
- * @author svens
- * @version $Id: $
  */
 public abstract class AbstractPendingMatchDetector
   implements PendingMatchDetector {

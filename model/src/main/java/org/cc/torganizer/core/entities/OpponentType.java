@@ -7,9 +7,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Aufzaehlung von verschiedenen Opponent-Typen. Diese werden z.B. als
  * Restriktionen bei Disciplines verwendet.
- *
- * @author svens
- * @version $Id: $
  */
 @XmlRootElement(name = "OpponentType")
 @XmlAccessorType(XmlAccessType.FIELD)

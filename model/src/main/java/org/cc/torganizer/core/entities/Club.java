@@ -6,9 +6,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Verein.
- * 
- * @author svens
- * @version $Id: $
  */
 @XmlRootElement(name = "Club")
 @XmlAccessorType(XmlAccessType.FIELD)

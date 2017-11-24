@@ -4,9 +4,6 @@ import java.util.List;
 
 /**
  * Hilfsmethoden zu Listen und Arrays.
- *
- * @author svens
- * @version $Id: $
  */
 public class Checker {
 

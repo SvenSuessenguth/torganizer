@@ -6,15 +6,10 @@ import org.cc.torganizer.core.entities.Unknown;
 
 /**
  * Aggregieren der Siege und Niederlagen.
- * 
- * @author svens
  */
 public class MatchAggregate
   extends AbstractAggregate {
 
-  /**
-   * Default.
-   */
   public MatchAggregate() {
     // gem. Bean-Spec.
   }

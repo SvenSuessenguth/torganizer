@@ -7,8 +7,6 @@ import org.cc.torganizer.core.util.Checker;
 
 /**
  * Sortieren nach der Position.
- * 
- * @author svens
  */
 public class PositionalComparator
   implements Comparator<IPositional>{

@@ -10,9 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Restriktion auf Teilnahme an einem Modus wegen der Altersbeschraenkung.
- * 
- * @author svens
- * @version $Id: $
  */
 @XmlRootElement(name = "AgeRestriction")
 @XmlAccessorType(XmlAccessType.NONE)

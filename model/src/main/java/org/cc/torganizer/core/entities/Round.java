@@ -25,9 +25,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Reihenfolge gespielt werden, daher der INDEX. Analog im Fussball gibt eine
  * Qualifikationsrunde, Vorrunde und Finalrunde. Im Badminton wird haeufig in
  * der ersten Runde Gruppenspiele gefolgt von Einfachem KO gespielt.
- * 
- * @author svens
- * @version $Id: $
  */
 @XmlRootElement(name = "Round")
 @XmlAccessorType(XmlAccessType.FIELD)

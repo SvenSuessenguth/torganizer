@@ -9,8 +9,6 @@ import org.cc.torganizer.core.util.Checker;
 /**
  * Vergleich von aggregierten Daten (gewonnene/verlorene Matches, Saetze,
  * Punkte) um eine Tabelle aufbauen zu koennen.
- * 
- * @author svens
  */
 public class AggregationComparator
   implements Comparator<Aggregation>, Serializable {

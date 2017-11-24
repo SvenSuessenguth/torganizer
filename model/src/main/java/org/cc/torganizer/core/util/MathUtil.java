@@ -2,9 +2,6 @@ package org.cc.torganizer.core.util;
 
 /**
  * Mathematische Hilfsmethoden.
- * 
- * @author svens
- * @version $Id: $
  */
 public final class MathUtil {
 

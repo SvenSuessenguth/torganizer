@@ -6,9 +6,6 @@ import java.util.Locale;
 
 /**
  * Allgemeine Utilities.
- * 
- * @author svens
- * @version $Id: $
  */
 public final class LangUtil {
 

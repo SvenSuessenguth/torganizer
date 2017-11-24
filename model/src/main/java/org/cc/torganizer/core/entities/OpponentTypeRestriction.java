@@ -8,9 +8,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Restriktion bezueglich des Typs des spielberechtigten Opponents. Z.B. darf
  * nur Einzel- oder nur Doppel gespielt werden.
- * 
- * @author svens
- * @version $Id: $
  */
 @XmlRootElement(name = "OpponentTypeRestriction")
 @XmlAccessorType(XmlAccessType.NONE)

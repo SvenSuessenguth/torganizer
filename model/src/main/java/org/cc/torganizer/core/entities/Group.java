@@ -25,9 +25,6 @@ import org.cc.torganizer.core.comparators.PositionalComparator;
  * Eine Group sammelt Opponents zusammen. Innerhalb einer Group werden die
  * Matches ausgef\u00fchrt, die den Sieger oder die Opponents, die in die
  * n\u00e4chste Round kommen, bestimmen
- * 
- * @author svens
- * @version $Id: $
  */
 @XmlRootElement(name = "Group")
 @XmlAccessorType(XmlAccessType.FIELD)

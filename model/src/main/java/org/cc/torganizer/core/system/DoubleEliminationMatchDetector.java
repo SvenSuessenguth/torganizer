@@ -67,11 +67,9 @@ import org.cc.torganizer.core.util.Checker;
  * 
  * Das Finale wird nur einfach gespielt, auch wenn der Verlierer des Finales aus
  * dem Upper-Bracket stammt und bisher nich nicht verloren hat.
- * 
- * @author svens
+ *
  * @see <a
  *      href="https://groups.google.com/forum/?fromgroups#!topic/rec.sport.table-soccer/CCUadSrQymk">rec.sport.table-soccer</a>
- * @version $Id: $
  */
 public class DoubleEliminationMatchDetector
   extends AbstractPendingMatchDetector

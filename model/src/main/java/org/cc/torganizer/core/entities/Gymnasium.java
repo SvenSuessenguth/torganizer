@@ -10,9 +10,6 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Gymnasium.
- * 
- * @author svens
- * @version $Id: $
  */
 @XmlRootElement(name = "Gymnasium")
 @XmlAccessorType(XmlAccessType.FIELD)

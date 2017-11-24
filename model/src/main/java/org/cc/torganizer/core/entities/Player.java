@@ -12,9 +12,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Wegen Restriktionen der Persistenz-API k\u00f6nnen keine Interfaces verwendet
  * werden. Daher muss im Objektmodell der Player ein Opponent mit Person als
  * Attribut sein.
- * 
- * @author admin
- * @version $Id: $
  */
 @XmlRootElement(name = "Player")
 @XmlAccessorType(XmlAccessType.FIELD)

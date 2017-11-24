@@ -10,9 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Freilos.
- * 
- * @author svens
- * @version $Id: $
  */
 @XmlRootElement(name = "bye")
 @XmlAccessorType(XmlAccessType.FIELD)

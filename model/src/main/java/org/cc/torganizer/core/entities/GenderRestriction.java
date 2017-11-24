@@ -7,9 +7,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Restriktion bezueglich des Geschlechtes.
- * 
- * @author svens
- * @version $Id: $
  */
 @XmlRootElement(name = "GenderRestriction")
 @XmlAccessorType(XmlAccessType.NONE)

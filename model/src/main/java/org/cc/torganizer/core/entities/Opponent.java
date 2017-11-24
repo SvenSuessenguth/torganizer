@@ -7,12 +7,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * <p>
  * Abstract Opponent class.
- * </p>
- * 
- * @author svens
- * @version $Id: $
  */
 @XmlRootElement(name = "Opponent")
 @XmlAccessorType(XmlAccessType.FIELD)

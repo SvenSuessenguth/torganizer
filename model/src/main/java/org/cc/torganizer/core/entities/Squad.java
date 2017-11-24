@@ -18,9 +18,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Ein Squad ist eine Zusammenfassung mehrerer Players. Dies kann z.B. im
  * Badminton ein Doppel sein.
- * 
- * @author svens
- * @version $Id: $
  */
 @XmlRootElement(name = "Squad")
 @XmlAccessorType(XmlAccessType.FIELD)

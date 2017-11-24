@@ -109,9 +109,6 @@ import org.cc.torganizer.core.entities.Unknown;
  * </tr>
  * </tbody>
  * </table>
- * 
- * @author svens
- * @version $Id: $
  */
 public class SingleEliminationMatchDetector
   extends AbstractPendingMatchDetector

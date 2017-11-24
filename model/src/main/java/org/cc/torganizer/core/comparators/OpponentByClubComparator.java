@@ -9,9 +9,6 @@ import org.cc.torganizer.core.entities.Opponent;
  * Sortierung nach dem Vereinsnamen des ersten Players (Weil ein Opponent auch
  * ein Squad oder Team sein kann). Wenn kein Verein zugewiesen ist, dann ist der
  * Opponent immer 'kleiner'.
- * 
- * @author svens
- * @version $Id: $
  */
 public class OpponentByClubComparator
   implements Comparator<Opponent>, Serializable {

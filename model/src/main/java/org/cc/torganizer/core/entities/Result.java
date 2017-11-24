@@ -7,9 +7,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Ein <i>result</i> kann das endgueltige Endergebnis eines <i>matches</i> sein,
  * oder ein Zwischenergebnis (z.B. Satzergebnis) repraesentieren.
- * 
- * @author Sven Suessenguth
- * @version $Id: $
  */
 @XmlRootElement(name = "Result")
 @XmlAccessorType(XmlAccessType.FIELD)

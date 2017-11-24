@@ -11,12 +11,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * <p>
- * Score class.
- * </p>
- * 
- * @author svens
- * @version $Id: $
  */
 @XmlRootElement(name = "Score")
 @XmlAccessorType(XmlAccessType.FIELD)

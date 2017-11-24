@@ -1,9 +1,7 @@
 package org.cc.torganizer.core.entities;
 
 /**
- * Diese klasse dieent nur der Verwaltung der ID, die zur Persistierung mit JPA benötigt wird. 
- * @author u000349
- *
+ * Diese klasse dieent nur der Verwaltung der ID, die zur Persistierung mit JPA benötigt wird.
  */
 public class Entity {
   private Long id;

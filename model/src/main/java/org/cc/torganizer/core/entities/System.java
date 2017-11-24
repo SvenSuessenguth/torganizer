@@ -11,9 +11,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * System, nach dem gespielt werden soll.
- *
- * @author svens
- * @version $Id: $
  */
 @XmlRootElement(name = "System")
 @XmlAccessorType(XmlAccessType.FIELD)

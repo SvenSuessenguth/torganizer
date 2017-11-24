@@ -16,9 +16,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Opponent um einen Index erweitert, um in Listen eine Sortierreihenfolge
  * einhalten zu k\u00f6nnen.
- * 
- * @author svens
- * @version $Id: $
  */
 @XmlRootElement(name = "IndexedOpponent")
 @XmlAccessorType(XmlAccessType.FIELD)

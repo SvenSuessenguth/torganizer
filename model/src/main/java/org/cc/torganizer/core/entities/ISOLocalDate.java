@@ -10,8 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * {@link LocalDate} unterstützt keine marshalling/unmarshalling von XML auf Objekt und zurück. 
  * Daher hier eine eigene Implementierung, die intern {@link LocalDate} verwendet.
- * @author u000349
- *
  */
 @XmlRootElement(name="LocalDate")
 @XmlAccessorType(XmlAccessType.FIELD)

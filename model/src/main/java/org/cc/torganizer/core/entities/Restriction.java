@@ -6,9 +6,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 
 /**
  * Abstrakte Oberklasse zu allen Restriktionen.
- * 
- * @author svens
- * @version $Id: $
  */
 @XmlAccessorType(XmlAccessType.NONE)
 public abstract class Restriction {

@@ -15,11 +15,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Ein <i>match</i> stellt eine Spiel zwischen zwei oder mehr <i>opponents</i>
  * dar.
- * 
- * @author svens $LastChangedBy: u000349 $<br />
- *         $LastChangedDate: 2017-10-16 08:40:18 +0200 (Mo, 16 Okt 2017) $<br />
- *         $Revision: 1368 $
- * @version $Id: $
  */
 @XmlRootElement(name = "Match")
 @XmlAccessorType(XmlAccessType.FIELD)

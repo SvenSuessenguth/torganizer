@@ -10,10 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * A person represents an man or a woman with core data.
- * 
- * @author admin (latest modification by $Author: u000349 $) $Rev: 1365 $
- *         $LastChangedDate: 2017-10-13 08:53:18 +0200 (Fr, 13 Okt 2017) $
- * @version $Id: $
  */
 @XmlRootElement(name = "Person")
 @XmlAccessorType(XmlAccessType.NONE)

@@ -8,9 +8,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Der Status zeigt an, ob ein Spieler spielbereit ist, oder dem Turnier nicht
  * mehr zu Verf\u00fcgung steht. Der Status sagt nicht, ob der Spieler spielt
  * oder spielfrei hat.
- *
- * @author svens
- * @version $Id: $
  */
 @XmlRootElement(name = "Status")
 @XmlAccessorType(XmlAccessType.FIELD)

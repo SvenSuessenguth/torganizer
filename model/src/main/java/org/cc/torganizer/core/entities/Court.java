@@ -6,9 +6,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Spielfeld.
- * 
- * @author svens
- * @version $Id: $
  */
 @XmlRootElement(name = "Court")
 @XmlAccessorType(XmlAccessType.FIELD)

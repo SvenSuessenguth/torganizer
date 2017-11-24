@@ -12,9 +12,6 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Tournament, welches verwaltet werden soll.
- * 
- * @author svens
- * @version $Id: $
  */
 @XmlRootElement(name = "Tournament")
 @XmlAccessorType(XmlAccessType.FIELD)

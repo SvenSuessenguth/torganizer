@@ -16,9 +16,6 @@ import org.cc.torganizer.core.exceptions.RestrictionException;
 
 /**
  * Auszufuehrende Disziplin innerhalb eines Turnieres (z.B. HE-A)
- * 
- * @author svens
- * @version $Id: $
  */
 @XmlRootElement(name = "Discipline")
 @XmlAccessorType(XmlAccessType.FIELD)

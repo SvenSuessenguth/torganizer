@@ -6,15 +6,10 @@ import org.cc.torganizer.core.entities.Result;
 
 /**
  * Aggregieren der Daten zu verlorenen und gewonnenen Punkten.
- * 
- * @author svens
  */
 public class ScoreAggregate
   extends AbstractAggregate {
 
-  /**
-   * Default.
-   */
   public ScoreAggregate() {
     // gem. Bean-Spec.
   }

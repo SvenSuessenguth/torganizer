@@ -8,14 +8,9 @@ import org.cc.torganizer.core.entities.Result;
 
 /**
  * Aggregieren der gewonnenen und verlorenen Saetze (Results).
- * 
- * @author svens
  */
 public class ResultAggregate extends AbstractAggregate {
 
-  /**
-   * Default.
-   */
   public ResultAggregate() {
     // gem. Bean-Spec.
   }

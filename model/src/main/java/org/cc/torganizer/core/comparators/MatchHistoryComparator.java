@@ -8,9 +8,6 @@ import org.cc.torganizer.core.entities.Match;
 /**
  * Erm\u00F6glichen einer Sortierung, die fuer eine gleichmaessige Wartezeit der
  * Spieler sorgt.
- * 
- * @author svens
- * @version $Id: $
  */
 public class MatchHistoryComparator
   implements Comparator<Match>, Serializable {

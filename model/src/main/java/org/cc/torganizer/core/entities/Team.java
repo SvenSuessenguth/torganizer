@@ -18,9 +18,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Ein Team ist eine Zusammenfassung mehrere Opponents. im Badminton sind das
  * z.B. Squads und Players.
- * 
- * @author svens
- * @version $Id: $
  */
 @XmlRootElement(name = "Team")
 @XmlAccessorType(XmlAccessType.FIELD)

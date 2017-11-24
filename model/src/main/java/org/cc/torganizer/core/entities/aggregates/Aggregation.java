@@ -5,8 +5,6 @@ import org.cc.torganizer.core.entities.Opponent;
 /**
  * Zusammenfassung aller aggregierten Daten eines Opponents ueber alle Matches,
  * Results (entsprechen Saetzen) und den Scores.
- * 
- * @author svens
  */
 public class Aggregation {
   private Opponent opponent;

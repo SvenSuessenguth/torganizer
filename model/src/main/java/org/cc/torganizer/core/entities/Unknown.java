@@ -9,8 +9,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Wird verwendet, wenn die Gegner eines Matches noch nicht feststehen.
- * 
- * @author svens
  */
 @XmlRootElement(name = "Unknown")
 @XmlAccessorType(XmlAccessType.FIELD)

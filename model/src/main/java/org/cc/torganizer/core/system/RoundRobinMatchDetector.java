@@ -9,9 +9,6 @@ import org.cc.torganizer.core.entities.Opponent;
 
 /**
  * RoundRobin bedeutet jeder spielt gegen jeden.
- * 
- * @author svens
- * @version $Id: $
  */
 public class RoundRobinMatchDetector
   extends AbstractPendingMatchDetector

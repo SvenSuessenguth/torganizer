@@ -5,8 +5,6 @@ import org.cc.torganizer.core.entities.Opponent;
 
 /**
  * Allgemeine Funktionen zur Verdichtung von Daten.
- * 
- * @author svens
  */
 public abstract class AbstractAggregate {
 
