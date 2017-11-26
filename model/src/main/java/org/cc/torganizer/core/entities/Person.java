@@ -2,6 +2,7 @@ package org.cc.torganizer.core.entities;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -13,8 +14,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "Person")
 @XmlAccessorType(XmlAccessType.NONE)
-public class Person extends Entity{
-  
+public class Person extends Entity {
+
   @XmlAttribute
   private String firstName;
 
@@ -69,17 +70,18 @@ public class Person extends Entity{
   public void setDateOfBirth(LocalDate newDateOfBirth) {
     this.dateOfBirth = newDateOfBirth;
   }
-  
+
   @XmlAttribute
   public String getDateOfBirthISO() {
-    return dateOfBirth!=null?dateOfBirth.format(DateTimeFormatter.ISO_DATE):"";
+    return dateOfBirth != null ? dateOfBirth.format(DateTimeFormatter.ISO_DATE) : "";
   }
+
   public void setDateOfBirthISO(String dateOfBirthISO) {
-    if(dateOfBirthISO==null) {
+    if (dateOfBirthISO == null || Objects.equals("", dateOfBirthISO)) {
       dateOfBirth = null;
+    } else {
+      dateOfBirth = LocalDate.parse(dateOfBirthISO, DateTimeFormatter.ISO_DATE);
     }
-    
-    dateOfBirth = LocalDate.parse(dateOfBirthISO, DateTimeFormatter.ISO_DATE);
   }
 
   public Gender getGender() {

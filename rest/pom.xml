@@ -23,7 +23,15 @@
     <dependency>
 	  <groupId>org.cc.torganizer</groupId><artifactId>persistence</artifactId>
 	  <version>${project.version}</version><scope>compile</scope>
-	</dependency>	
+	</dependency>
+	
+	<!--
+     | javax.json 
+     +-->
+    <dependency>
+      <groupId>org.glassfish</groupId><artifactId>javax.json</artifactId>
+      <version>1.1</version><scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
