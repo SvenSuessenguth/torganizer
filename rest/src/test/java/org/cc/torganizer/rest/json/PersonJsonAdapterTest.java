@@ -19,11 +19,10 @@ public class PersonJsonAdapterTest {
 
   private Jsonb jsonb;
   
-  private PersonJsonAdapter adapter;
-  
   @Before
   public void before() {
-    adapter = new PersonJsonAdapter();
+    // object to test
+    PersonJsonAdapter adapter = new PersonJsonAdapter();
     
     JsonbConfig jc = new JsonbConfig().withAdapters(adapter);
     jsonb = JsonbBuilder.create(jc);
