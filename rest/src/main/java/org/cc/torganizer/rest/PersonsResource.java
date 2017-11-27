@@ -45,7 +45,9 @@ public class PersonsResource extends AbstractResource {
     namedQuery.setParameter("id", id);
     List<Person> persons = namedQuery.getResultList();
 
-    return persons.get(0);
+    Person person = new Person("Sven", "Süssenguth");
+    person.setId(id);
+    return person;
   }
 
   @POST
