@@ -8,9 +8,9 @@ import javax.json.JsonObjectBuilder;
 import javax.json.bind.adapter.JsonbAdapter;
 
 import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.core.entities.Status;
 
-public class PlayerJsonAdapter extends AbstractJsonAdapter<Player, JsonObject>
-    implements JsonbAdapter<Player, JsonObject> {
+public class PlayerJsonAdapter implements AbstractJsonAdapter, JsonbAdapter<Player, JsonObject> {
 
   private PersonJsonAdapter personAdapter = new PersonJsonAdapter();
 
@@ -32,9 +32,9 @@ public class PlayerJsonAdapter extends AbstractJsonAdapter<Player, JsonObject>
   public JsonObject adaptToJson(Player player) throws Exception {
     JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
 
-    addWithDefault(objectBuilder, "id", player.getId(), "");
-    addWithDefault(objectBuilder, "status", player.getStatus(), ACTIVE.toString());
-    addWithDefault(objectBuilder, "lastMatch", player.getLastMatch(), "");
+    addWithEmptyDefault(objectBuilder, "id", player.getId());
+    addWithDefault(objectBuilder, "status", player.getStatus(), ACTIVE);
+    addWithEmptyDefault(objectBuilder, "lastMatch", player.getLastMatch());
 
     return objectBuilder.add("person", personAdapter.adaptToJson(player.getPerson()))
         .build();
@@ -44,7 +44,8 @@ public class PlayerJsonAdapter extends AbstractJsonAdapter<Player, JsonObject>
   public Player adaptFromJson(JsonObject jo) throws Exception {
     Player player = new Player();
 
-    player.setId(toLong(jo.getString("id", null)));
+    player.setId(longFromString(jo.getString("id", null)));
+    player.setStatus(Status.valueOf(jo.getString("status", ACTIVE.toString())));
 
     return player;
   }

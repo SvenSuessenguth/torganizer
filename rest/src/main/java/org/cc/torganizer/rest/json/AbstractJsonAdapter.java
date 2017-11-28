@@ -6,34 +6,37 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 import javax.json.JsonObjectBuilder;
-import javax.json.bind.adapter.JsonbAdapter;
 
 /**
  * this class contains helper methods to create and parse jsondata.
  */
-public abstract class AbstractJsonAdapter<T, V> implements JsonbAdapter<T, V> {
+public interface AbstractJsonAdapter {
 
-  public void addWithDefault(JsonObjectBuilder objectBuilder, String name, Object value, String defaultValue) {
+  default void addWithEmptyDefault(JsonObjectBuilder objectBuilder, String name, Object value) {
+    addWithDefault(objectBuilder, name, value, "");
+  } 
+  
+  default void addWithDefault(JsonObjectBuilder objectBuilder, String name, Object value, Object defaultValue) {
     if (value == null) {
-      objectBuilder.add(name, defaultValue);
+      objectBuilder.add(name, defaultValue.toString());
     } else {
       objectBuilder.add(name, value.toString());
     }
   }
 
-  public String toString(LocalDateTime ldt) {
+  default String localDateTimeToString(LocalDateTime ldt) {
     return "";
   }
 
-  public LocalDateTime toLocalDateTime(String string) {
+  default LocalDateTime localDateTimeFromString(String string) {
     return null;
   }
 
-  public String toISO(LocalDate localDate) {
+  default String localDateToString(LocalDate localDate) {
     return localDate != null ? localDate.format(DateTimeFormatter.ISO_DATE) : "";
   }
 
-  public LocalDate fromISO(String string) {
+  default LocalDate localDateFromString(String string) {
     LocalDate localDate = null;
 
     if (string == null || Objects.equals("", string)) {
@@ -45,7 +48,7 @@ public abstract class AbstractJsonAdapter<T, V> implements JsonbAdapter<T, V> {
     return localDate;
   }
 
-  public Long toLong(String string) {
+  default Long longFromString(String string) {
     Long value;
     if (string == null || Objects.equals("", string)) {
       value = null;

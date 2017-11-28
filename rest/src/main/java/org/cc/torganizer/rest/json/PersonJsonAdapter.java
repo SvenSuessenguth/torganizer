@@ -8,18 +8,17 @@ import javax.json.bind.adapter.JsonbAdapter;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Person;
 
-public class PersonJsonAdapter extends AbstractJsonAdapter<Person, JsonObject>
-    implements JsonbAdapter<Person, JsonObject> {
+public class PersonJsonAdapter implements AbstractJsonAdapter, JsonbAdapter<Person, JsonObject> {
 
   @Override
   public JsonObject adaptToJson(Person person) throws Exception {
     JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
 
-    addWithDefault(objectBuilder, "id", person.getId(), "");
-    addWithDefault(objectBuilder, "firstName", person.getFirstName(), "");
-    addWithDefault(objectBuilder, "lastName", person.getLastName(), "");
-    addWithDefault(objectBuilder, "gender", person.getGender(), "");
-    addWithDefault(objectBuilder, "dateOfBirth", toISO(person.getDateOfBirth()), "");
+    addWithEmptyDefault(objectBuilder, "id", person.getId());
+    addWithEmptyDefault(objectBuilder, "firstName", person.getFirstName());
+    addWithEmptyDefault(objectBuilder, "lastName", person.getLastName());
+    addWithDefault(objectBuilder, "gender", person.getGender(), Gender.UNKNOWN);
+    addWithEmptyDefault(objectBuilder, "dateOfBirth", localDateToString(person.getDateOfBirth()));
 
     return objectBuilder.build();
   }
@@ -30,8 +29,8 @@ public class PersonJsonAdapter extends AbstractJsonAdapter<Person, JsonObject>
 
     person.setFirstName(jo.getString("firstName", null));
     person.setLastName(jo.getString("lastName", null));
-    person.setDateOfBirth(fromISO(jo.getString("dateOfBirth", null)));
-    person.setId(toLong(jo.getString("id", null)));
+    person.setDateOfBirth(localDateFromString(jo.getString("dateOfBirth", null)));
+    person.setId(longFromString(jo.getString("id", null)));
     person.setGender(Gender.valueOf(jo.getString("gender", null)));
 
     return person;
