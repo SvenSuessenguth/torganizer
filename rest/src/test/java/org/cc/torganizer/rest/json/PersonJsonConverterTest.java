@@ -4,28 +4,26 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
+import java.io.StringReader;
 import java.time.LocalDate;
 
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
-import javax.json.bind.JsonbConfig;
+import javax.json.Json;
+import javax.json.JsonObject;
 
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Person;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PersonJsonAdapterTest {
+public class PersonJsonConverterTest {
 
-  private Jsonb jsonb;
-
+  private PersonJsonConverter converter;
+  
   @Before
   public void before() {
     // object to test
-    PersonJsonAdapter adapter = new PersonJsonAdapter();
+     converter = new PersonJsonConverter();
 
-    JsonbConfig jc = new JsonbConfig().withAdapters(adapter);
-    jsonb = JsonbBuilder.create(jc);
   }
 
   @Test
@@ -35,7 +33,7 @@ public class PersonJsonAdapterTest {
     p.setDateOfBirth(LocalDate.of(2017, 11, 27));
     p.setId(1L);
 
-    String json = jsonb.toJson(p);
+    String json = converter.toJson(p).toString();
 
     String expected = "{\"id\":\"1\",\"firstName\":\"vorname\",\"lastName\":\"nachname\",\"gender\":\"MALE\",\"dateOfBirth\":\"2017-11-27\"}";
     assertThat(json, is(expected));
@@ -48,7 +46,7 @@ public class PersonJsonAdapterTest {
     p.setDateOfBirth(null);
     p.setId(1L);
 
-    String json = jsonb.toJson(p);
+    String json = converter.toJson(p).toString();
 
     String expected = "{\"id\":\"1\",\"firstName\":\"vorname\",\"lastName\":\"nachname\",\"gender\":\"MALE\",\"dateOfBirth\":\"\"}";
     assertThat(json, is(expected));
@@ -61,17 +59,20 @@ public class PersonJsonAdapterTest {
     p.setDateOfBirth(LocalDate.of(2017, 11, 27));
     p.setId(null);
 
-    String json = jsonb.toJson(p);
+    String json = converter.toJson(p).toString();
 
     String expected = "{\"id\":\"\",\"firstName\":\"vorname\",\"lastName\":\"nachname\",\"gender\":\"MALE\",\"dateOfBirth\":\"2017-11-27\"}";
     assertThat(json, is(expected));
   }
 
   @Test
-  public void testAdaptToPerson_allFieldsAreSet() {
-    String json = "{\"id\":\"1\",\"firstName\":\"vorname\",\"lastName\":\"nachname\",\"gender\":\"MALE\",\"dateOfBirth\":\"2017-11-27\"}";
+  public void testAdaptToPerson_allFieldsAreSet() throws Exception {
+    String jsonString = "{\"id\":\"1\",\"firstName\":\"vorname\",\"lastName\":\"nachname\",\"gender\":\"MALE\",\"dateOfBirth\":\"2017-11-27\"}";
+    StringReader sr = new StringReader(jsonString);
+    
+    JsonObject json = Json.createReader(sr).readObject();
 
-    Person person = jsonb.fromJson(json, Person.class);
+    Person person = converter.fromJson(json);
 
     assertThat(person, is(notNullValue()));
     assertThat(person.getId(), is(1L));

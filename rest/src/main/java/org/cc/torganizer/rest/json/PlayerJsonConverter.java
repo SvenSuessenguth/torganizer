@@ -5,14 +5,13 @@ import static org.cc.torganizer.core.entities.Status.ACTIVE;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
-import javax.json.bind.adapter.JsonbAdapter;
 
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Status;
 
-public class PlayerJsonAdapter implements AbstractJsonAdapter, JsonbAdapter<Player, JsonObject> {
+public class PlayerJsonConverter implements AbstractJsonConverter{
 
-  private PersonJsonAdapter personAdapter = new PersonJsonAdapter();
+  private PersonJsonConverter personConverter = new PersonJsonConverter();
 
   /**
    * <code>
@@ -28,20 +27,18 @@ public class PlayerJsonAdapter implements AbstractJsonAdapter, JsonbAdapter<Play
    *   }
    * </code>
    */
-  @Override
-  public JsonObject adaptToJson(Player player) throws Exception {
+  public JsonObject toJson(Player player) throws Exception {
     JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
 
     addWithEmptyDefault(objectBuilder, "id", player.getId());
     addWithDefault(objectBuilder, "status", player.getStatus(), ACTIVE);
     addWithEmptyDefault(objectBuilder, "lastMatch", player.getLastMatch());
 
-    return objectBuilder.add("person", personAdapter.adaptToJson(player.getPerson()))
+    return objectBuilder.add("person", personConverter.toJson(player.getPerson()))
         .build();
   }
 
-  @Override
-  public Player adaptFromJson(JsonObject jo) throws Exception {
+  public Player fromJson(JsonObject jo) throws Exception {
     Player player = new Player();
 
     player.setId(longFromString(jo.getString("id", null)));

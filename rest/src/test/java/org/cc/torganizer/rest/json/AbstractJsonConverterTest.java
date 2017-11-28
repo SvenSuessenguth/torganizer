@@ -8,13 +8,13 @@ import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
-public class AbstractJsonAdapterTest implements AbstractJsonAdapter {
+public class AbstractJsonConverterTest implements AbstractJsonConverter {
 
-  private AbstractJsonAdapter adapter;
+  private AbstractJsonConverter adapter;
 
   @Before
   public void before() {
-    adapter = new AbstractJsonAdapter() {
+    adapter = new AbstractJsonConverter() {
     };
   }
 

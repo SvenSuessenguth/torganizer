@@ -10,7 +10,7 @@ import javax.json.JsonObjectBuilder;
 /**
  * this class contains helper methods to create and parse jsondata.
  */
-public interface AbstractJsonAdapter {
+public interface AbstractJsonConverter {
 
   default void addWithEmptyDefault(JsonObjectBuilder objectBuilder, String name, Object value) {
     addWithDefault(objectBuilder, name, value, "");

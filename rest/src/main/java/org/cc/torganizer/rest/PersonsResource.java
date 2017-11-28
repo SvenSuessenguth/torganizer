@@ -3,10 +3,8 @@ package org.cc.torganizer.rest;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.json.JsonObject;
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
-import javax.json.bind.JsonbConfig;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -21,7 +19,7 @@ import javax.ws.rs.QueryParam;
 
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.rest.container.PersonsContainer;
-import org.cc.torganizer.rest.json.PersonJsonAdapter;
+import org.cc.torganizer.rest.json.PersonJsonConverter;
 
 @Stateless
 @Path("/persons")
@@ -31,19 +29,13 @@ public class PersonsResource extends AbstractResource {
   @PersistenceContext(name = "torganizer")
   EntityManager entityManager;
 
-  private Jsonb jsonb;
-  
-  public PersonsResource() {
-    PersonJsonAdapter adapter = new PersonJsonAdapter();
-
-    JsonbConfig jc = new JsonbConfig().withAdapters(adapter);
-    jsonb = JsonbBuilder.create(jc);
-  }
+  @Inject
+  private PersonJsonConverter converter;
   
   @POST
   @Path("/create")
-  public Person create(JsonObject jsonObject) {
-    Person person = jsonb.fromJson(jsonObject.toString(), Person.class);
+  public Person create(JsonObject jsonObject) throws Exception{
+    Person person = converter.fromJson(jsonObject);
     
     // Person wird als nicht-persistente entity betrachtet.
     // vom client wird die id '0' geliefert, sodass eine detached-entity-Exception geworfen wird.
