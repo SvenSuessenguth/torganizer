@@ -7,14 +7,7 @@
   <packaging>pom</packaging>
 
   <!--
-   | Home
-   | mvn sonar:sonar  -Dsonar.host.url=http://localhost:9000 -Dsonar.login=1eb21357d7bfd4678fa9efbf414cb8852033ec09
-   |
-   | SIGNAL
-   | mvn sonar:sonar -Dsonar.host.url=http://localhost:9090 -Dsonar.login=ab9168e1325a494a826bdf6d85bfeb601825bf84
-   |
-   | Home2
-   | mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=af25ca8e9db2df8ec99d6b952c6b9767463cf12c
+   | mvn install sonar:sonar -Dsonar.host.url=http://localhost:9000
    +-->
   <url>http://localhost:8080/torganizer</url>
   
