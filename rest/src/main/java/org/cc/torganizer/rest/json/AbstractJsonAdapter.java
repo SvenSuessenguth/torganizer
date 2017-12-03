@@ -4,13 +4,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
-
 import javax.json.JsonObjectBuilder;
 
 /**
  * this class contains helper methods to create and parse jsondata.
  */
-public interface AbstractJsonConverter {
+public interface AbstractJsonAdapter {
 
   default void addWithEmptyDefault(JsonObjectBuilder objectBuilder, String name, Object value) {
     addWithDefault(objectBuilder, name, value, "");

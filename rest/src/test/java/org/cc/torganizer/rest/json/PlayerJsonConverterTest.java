@@ -1,7 +1,6 @@
 package org.cc.torganizer.rest.json;
 
 import java.time.LocalDateTime;
-
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Status;
@@ -24,7 +23,7 @@ public class PlayerJsonConverterTest {
     player.setStatus(Status.ACTIVE);
     player.setLastMatch(LocalDateTime.of(2017, 11, 27, 15, 30));
 
-    String json = converter.toJson(player).toString();
+    String json = converter.adaptToJson(player).toString();
 
     System.out.println(json);
   }

@@ -1,7 +1,6 @@
 package org.cc.torganizer.rest;
 
 import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.json.JsonObject;
@@ -16,10 +15,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.rest.container.PersonsContainer;
-import org.cc.torganizer.rest.json.PersonJsonConverter;
+import org.cc.torganizer.rest.json.PersonJsonAdapter;
 
 @Stateless
 @Path("/persons")
@@ -30,12 +28,12 @@ public class PersonsResource extends AbstractResource {
   EntityManager entityManager;
 
   @Inject
-  private PersonJsonConverter converter;
+  private PersonJsonAdapter converter;
   
   @POST
   @Path("/create")
   public Person create(JsonObject jsonObject) throws Exception{
-    Person person = converter.fromJson(jsonObject);
+    Person person = converter.adaptFromJson(jsonObject);
     
     // Person wird als nicht-persistente entity betrachtet.
     // vom client wird die id '0' geliefert, sodass eine detached-entity-Exception geworfen wird.

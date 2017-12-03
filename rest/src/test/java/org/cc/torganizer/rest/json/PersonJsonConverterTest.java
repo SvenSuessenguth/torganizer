@@ -1,28 +1,25 @@
 package org.cc.torganizer.rest.json;
 
+import java.io.StringReader;
+import java.time.LocalDate;
+import javax.json.Json;
+import javax.json.JsonObject;
+import org.cc.torganizer.core.entities.Gender;
+import org.cc.torganizer.core.entities.Person;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-
-import java.io.StringReader;
-import java.time.LocalDate;
-
-import javax.json.Json;
-import javax.json.JsonObject;
-
-import org.cc.torganizer.core.entities.Gender;
-import org.cc.torganizer.core.entities.Person;
 import org.junit.Before;
 import org.junit.Test;
 
 public class PersonJsonConverterTest {
 
-  private PersonJsonConverter converter;
+  private PersonJsonAdapter converter;
   
   @Before
   public void before() {
     // object to test
-     converter = new PersonJsonConverter();
+     converter = new PersonJsonAdapter();
 
   }
 
@@ -33,7 +30,7 @@ public class PersonJsonConverterTest {
     p.setDateOfBirth(LocalDate.of(2017, 11, 27));
     p.setId(1L);
 
-    String json = converter.toJson(p).toString();
+    String json = converter.adaptToJson(p).toString();
 
     String expected = "{\"id\":\"1\",\"firstName\":\"vorname\",\"lastName\":\"nachname\",\"gender\":\"MALE\",\"dateOfBirth\":\"2017-11-27\"}";
     assertThat(json, is(expected));
@@ -46,7 +43,7 @@ public class PersonJsonConverterTest {
     p.setDateOfBirth(null);
     p.setId(1L);
 
-    String json = converter.toJson(p).toString();
+    String json = converter.adaptToJson(p).toString();
 
     String expected = "{\"id\":\"1\",\"firstName\":\"vorname\",\"lastName\":\"nachname\",\"gender\":\"MALE\",\"dateOfBirth\":\"\"}";
     assertThat(json, is(expected));
@@ -59,7 +56,7 @@ public class PersonJsonConverterTest {
     p.setDateOfBirth(LocalDate.of(2017, 11, 27));
     p.setId(null);
 
-    String json = converter.toJson(p).toString();
+    String json = converter.adaptToJson(p).toString();
 
     String expected = "{\"id\":\"\",\"firstName\":\"vorname\",\"lastName\":\"nachname\",\"gender\":\"MALE\",\"dateOfBirth\":\"2017-11-27\"}";
     assertThat(json, is(expected));
@@ -72,7 +69,7 @@ public class PersonJsonConverterTest {
     
     JsonObject json = Json.createReader(sr).readObject();
 
-    Person person = converter.fromJson(json);
+    Person person = converter.adaptFromJson(json);
 
     assertThat(person, is(notNullValue()));
     assertThat(person.getId(), is(1L));

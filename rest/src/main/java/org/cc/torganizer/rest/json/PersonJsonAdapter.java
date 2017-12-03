@@ -3,13 +3,14 @@ package org.cc.torganizer.rest.json;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
-
+import javax.json.bind.adapter.JsonbAdapter;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Person;
 
-public class PersonJsonConverter implements AbstractJsonConverter {
+public class PersonJsonAdapter implements AbstractJsonAdapter, JsonbAdapter<Person, JsonObject> {
 
-  public JsonObject toJson(Person person) throws Exception {
+  @Override
+  public JsonObject adaptToJson(Person person) throws Exception {
     JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
 
     addWithEmptyDefault(objectBuilder, "id", person.getId());
@@ -21,7 +22,8 @@ public class PersonJsonConverter implements AbstractJsonConverter {
     return objectBuilder.build();
   }
 
-  public Person fromJson(JsonObject jo) throws Exception {
+  @Override
+  public Person adaptFromJson(JsonObject jo) throws Exception {
     Person person = new Person();
 
     person.setFirstName(jo.getString("firstName", null));
