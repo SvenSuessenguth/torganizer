@@ -29,7 +29,6 @@ public class RestrictionsResource {
 	EntityManager entityManager;
 
 	@GET
-	@Path("/")
 	public RestrictionsContainer all() {
 
 		TypedQuery<Restriction> namedQuery = entityManager.createNamedQuery("Restriction.findAll", Restriction.class);

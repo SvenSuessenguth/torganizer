@@ -80,7 +80,6 @@ public class PersonsResource extends AbstractResource {
   }
 
   @GET
-  @Path("/")
   public PersonsContainer all(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
 
     if (offset == null || length == null) {

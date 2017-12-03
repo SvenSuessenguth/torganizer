@@ -73,7 +73,6 @@ public class PlayersResource {
   }
 
   @GET
-  @Path("/")
   public PlayersContainer all(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length,
       @QueryParam("tournamentId") Long tournamentId) {
 

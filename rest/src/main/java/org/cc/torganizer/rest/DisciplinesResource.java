@@ -30,7 +30,6 @@ public class DisciplinesResource {
   EntityManager entityManager;
 
   @GET
-  @Path("/")
   public DisciplinesContainer all() {
 
     TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery(DISCIPLINE_FIND_ALL_QUERY_NAME, Discipline.class);

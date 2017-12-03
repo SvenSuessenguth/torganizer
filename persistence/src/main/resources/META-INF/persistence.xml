@@ -7,7 +7,7 @@
              version="2.1">
 
   <persistence-unit name="torganizer" transaction-type="JTA">
-    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>	
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>	
     <jta-data-source>jdbc/torganizerDS</jta-data-source>
     
     <mapping-file>META-INF/orm.xml</mapping-file>
@@ -29,11 +29,15 @@
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/torganizer"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.password" value=""/>
-            
+      <!-- EclipseLink -->
+      <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+
+      <!-- Hibernate
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>      
       <property name="hibernate.hbm2ddl.auto" value="create"/>
       <property name="hibernate.show_sql" value="true"/>      
       <property name="hibernate.format_sql" value="true"/>
+      -->
     </properties>    
   </persistence-unit>
   

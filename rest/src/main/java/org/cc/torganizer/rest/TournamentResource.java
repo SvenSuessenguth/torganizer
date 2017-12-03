@@ -1,5 +1,6 @@
 package org.cc.torganizer.rest;
 
+import com.sun.xml.internal.fastinfoset.tools.StAX2SAXReader;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -7,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -55,7 +57,6 @@ public class TournamentResource extends AbstractResource {
   }
 
   @GET
-  @Path("/")
   public TournamentsContainer all(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
 
     if (offset == null || length == null) {
@@ -72,7 +73,7 @@ public class TournamentResource extends AbstractResource {
   }
 
   @GET
-  @Path("/{id}/subscribers")
+  @Path("/{id}/subscribers/all")
   public PlayersContainer subscribers(@PathParam("id") Long tournamentId) {
     TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Tournament.findSubscribers", Player.class);
     namedQuery.setParameter("id", tournamentId);
@@ -82,13 +83,13 @@ public class TournamentResource extends AbstractResource {
   }
   
   @GET
-  @Path("/{id}/subscribers")
+  @Path("/{id}/subscribers/section")
   public PlayersContainer subscribersFromTo(@PathParam("id") Long tournamentId, @QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
     if (offset == null || length == null) {
       offset = DEFAULT_OFFSET;
       length = DEFAULT_LENGTH;
     }
-    
+            
     TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Tournament.findSubscribers", Player.class);
     namedQuery.setParameter("id", tournamentId);
     namedQuery.setFirstResult(offset);
