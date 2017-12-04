@@ -2,15 +2,10 @@ package org.cc.torganizer.core.entities;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Abstract Opponent class.
  */
-@XmlRootElement(name = "Opponent")
-@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class Opponent extends Entity {
 
 	private Status status = Status.ACTIVE;
@@ -19,7 +14,7 @@ public abstract class Opponent extends Entity {
 	 * Gibt eine Liste aller Players zurueck, die teil des Opponents sind.
 	 * 
 	 * @return Liste aller Players dieses Opponents.
-	 */
+	 */  
 	public abstract List<Player> getPlayers();
 
 	/**

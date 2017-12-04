@@ -3,22 +3,20 @@ package org.cc.torganizer.core.entities;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 
 /**
  * Wegen Restriktionen der Persistenz-API k\u00f6nnen keine Interfaces verwendet
  * werden. Daher muss im Objektmodell der Player ein Opponent mit Person als
  * Attribut sein.
  */
-@XmlRootElement(name = "Player")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Player extends Opponent {
 
+  @JsonbProperty
   private Person person;
 
+  @JsonbProperty(nillable = true)
   private LocalDateTime lastMatch;
 
   /**
@@ -57,6 +55,7 @@ public class Player extends Opponent {
 
   /** {@inheritDoc} */
   @Override
+  @JsonbTransient
   public List<Player> getPlayers() {
     List<Player> players = new ArrayList<>();
     players.add(this);

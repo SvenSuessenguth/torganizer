@@ -1,6 +1,7 @@
 package org.cc.torganizer.core.entities;
 
 import java.time.LocalDate;
+import javax.json.bind.annotation.JsonbProperty;
 
 /**
  * A person represents an man or a woman with core data.
@@ -11,6 +12,7 @@ public class Person extends Entity {
 
   private String lastName;
 
+  @JsonbProperty(nillable = true)
   private LocalDate dateOfBirth;
 
   private Gender gender = Gender.UNKNOWN;
