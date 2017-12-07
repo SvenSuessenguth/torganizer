@@ -5,30 +5,27 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 
 /**
  * Tournament, welches verwaltet werden soll.
  */
-@XmlRootElement(name = "Tournament")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Tournament extends Entity{
 
+  @JsonbProperty
   private String name;
-  
-  @XmlTransient
+
+  @JsonbTransient
   private Set<Player> subscribers = new HashSet<>();
   
-  @XmlTransient
+  @JsonbTransient
   private Set<Opponent> opponents = new HashSet<>();
 
-  @XmlTransient
+  @JsonbTransient
   private Set<Discipline> disciplines = new HashSet<>();
   
-  @XmlTransient
+  @JsonbTransient
   private Set<Gymnasium> gymnasiums = new HashSet<>();
 
   /**
@@ -69,6 +66,7 @@ public class Tournament extends Entity{
    * 
    * @return Liste der running Matches
    */
+  @JsonbTransient
   public List<Match> getRunningMatches() {
 
     List<Match> runningMatches = new ArrayList<>();
@@ -89,6 +87,7 @@ public class Tournament extends Entity{
    * 
    * @return Liste der finished Matches
    */
+  @JsonbTransient
   public List<Match> getFinishedMatches() {
     List<Match> finishedMatches = new ArrayList<>();
 
