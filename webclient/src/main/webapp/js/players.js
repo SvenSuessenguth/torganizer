@@ -61,8 +61,8 @@ class Players {
 
 
   playerFormToJSon(){
-    var playerId= Number(sessionStorage.getItem('players-current-player-id'));
-    var personId = Number(sessionStorage.getItem('players-current-player-person-id'));
+    var playerId= sessionStorage.getItem('players-current-player-id');
+    var personId = sessionStorage.getItem('players-current-player-person-id');
     var firstName = document.getElementById("pdFirstName").value;
     var lastName = document.getElementById("pdLastName").value;
     var dateOfBirth = document.getElementById("pdDateOfBirth").value;
@@ -80,7 +80,7 @@ class Players {
         "id": personId,
         "firstName": firstName,
         "lastName": lastName,
-        "dateOfBirthISO": dateOfBirth,
+        "dateOfBirth": dateOfBirth,
         "gender": gender
       }
     });

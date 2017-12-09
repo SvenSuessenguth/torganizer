@@ -13,7 +13,6 @@ public class Player extends Opponent {
 
   private Person person;
   
-  
   private LocalDateTime lastMatch;
 
   /**

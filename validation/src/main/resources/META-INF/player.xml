@@ -7,14 +7,9 @@
 
   <default-package>org.cc.torganizer.core.entities</default-package>
   
-  <bean class="Person" ignore-annotations="true">
-    <field name="firstName">
-      <constraint annotation="javax.validation.constraints.NotBlank" />
-      <constraint annotation="javax.validation.constraints.NotNull"/>
-      <constraint annotation="javax.validation.constraints.Size">
-        <element name="min">1</element>
-        <element name="max">20</element>
-      </constraint>
+  <bean class="Player" ignore-annotations="true">
+    <field name="person">
+      <valid/>
     </field>
   </bean>
 </constraint-mappings>
