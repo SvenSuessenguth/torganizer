@@ -5,27 +5,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbTransient;
-
 /**
  * Tournament, welches verwaltet werden soll.
  */
 public class Tournament extends Entity{
 
-  @JsonbProperty
   private String name;
 
-  @JsonbTransient
   private Set<Player> subscribers = new HashSet<>();
   
-  @JsonbTransient
   private Set<Opponent> opponents = new HashSet<>();
 
-  @JsonbTransient
   private Set<Discipline> disciplines = new HashSet<>();
   
-  @JsonbTransient
   private Set<Gymnasium> gymnasiums = new HashSet<>();
 
   /**
@@ -66,7 +58,6 @@ public class Tournament extends Entity{
    * 
    * @return Liste der running Matches
    */
-  @JsonbTransient
   public List<Match> getRunningMatches() {
 
     List<Match> runningMatches = new ArrayList<>();
@@ -87,7 +78,6 @@ public class Tournament extends Entity{
    * 
    * @return Liste der finished Matches
    */
-  @JsonbTransient
   public List<Match> getFinishedMatches() {
     List<Match> finishedMatches = new ArrayList<>();
 

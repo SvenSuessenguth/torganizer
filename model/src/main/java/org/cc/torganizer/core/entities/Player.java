@@ -3,8 +3,6 @@ package org.cc.torganizer.core.entities;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbTransient;
 
 /**
  * Wegen Restriktionen der Persistenz-API k\u00f6nnen keine Interfaces verwendet
@@ -13,10 +11,9 @@ import javax.json.bind.annotation.JsonbTransient;
  */
 public class Player extends Opponent {
 
-  @JsonbProperty
   private Person person;
-
-  @JsonbProperty(nillable = true)
+  
+  
   private LocalDateTime lastMatch;
 
   /**
@@ -55,7 +52,6 @@ public class Player extends Opponent {
 
   /** {@inheritDoc} */
   @Override
-  @JsonbTransient
   public List<Player> getPlayers() {
     List<Player> players = new ArrayList<>();
     players.add(this);
