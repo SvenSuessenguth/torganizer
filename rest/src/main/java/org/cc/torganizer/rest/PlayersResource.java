@@ -58,13 +58,18 @@ public class PlayersResource {
 
   @GET
   @Path("{id}")
-  public Player read(@PathParam("id") Long id) {
+  public String read(@PathParam("id") Long id) {
 
     TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
     namedQuery.setParameter("id", id);
     List<Player> players = namedQuery.getResultList();
 
-    return players.get(0);
+    JsonbConfig config = new JsonbConfig().withAdapters(new PlayerAdapter());
+    Jsonb jsonb = JsonbBuilder.create(config);
+    
+    String json =  jsonb.toJson(players.get(0), Player.class);
+    
+    return json;
   }
 
   @POST

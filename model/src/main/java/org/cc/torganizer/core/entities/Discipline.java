@@ -1,25 +1,16 @@
 package org.cc.torganizer.core.entities;
 
-import static java.util.Collections.unmodifiableList;
-
 import java.util.ArrayList;
+import static java.util.Collections.unmodifiableList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
 import org.cc.torganizer.core.exceptions.RestrictionException;
 
 /**
  * Auszufuehrende Disziplin innerhalb eines Turnieres (z.B. HE-A)
  */
-@XmlRootElement(name = "Discipline")
-@XmlAccessorType(XmlAccessType.FIELD)
-public class Discipline extends Entity{
+public final class Discipline extends Entity{
 
   /**
    * Darzustellender Name, wenn noch keine Disziplin zugewiesen wurde.
@@ -28,19 +19,19 @@ public class Discipline extends Entity{
 
   private String label;
   
-  @XmlTransient
-  private Set<Opponent> opponents = new HashSet<>();
+  private final Set<Opponent> opponents;
 
-  @XmlTransient
-  private transient List<Round> rounds = new ArrayList<>();
+  private final List<Round> rounds;
   
-  @XmlTransient
-  private Set<Restriction> restrictions = new HashSet<>();
+  private final Set<Restriction> restrictions;
   
   /**
    * in einer Discipline wird mindestens eine Round gespielt.
    */
   public Discipline() {
+    this.opponents = new HashSet<>();
+    this.restrictions = new HashSet<>();
+    this.rounds = new ArrayList<>();
     Round round = new Round();
     round.setIndex(0);
     addRound(round);
@@ -143,7 +134,6 @@ public class Discipline extends Entity{
     this.rounds = newRounds;
   }
 
-  
   /**
    * Liste aller Player, die aus dem Opponents erstellt wird.
    * 
@@ -152,9 +142,9 @@ public class Discipline extends Entity{
   public Set<Player> getPlayers() {
     Set<Player> players = new HashSet<>();
 
-    for (Opponent opponent : getOpponents()) {
+    getOpponents().forEach((opponent) -> {
       players.addAll(opponent.getPlayers());
-    }
+    });
 
     return players;
   }

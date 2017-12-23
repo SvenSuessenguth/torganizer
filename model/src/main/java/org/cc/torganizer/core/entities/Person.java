@@ -53,6 +53,8 @@ public class Person extends Entity {
   }
 
   public void setGender(Gender newGender) {
+    assert gender != null;
+    
     this.gender = newGender;
   }
 }
