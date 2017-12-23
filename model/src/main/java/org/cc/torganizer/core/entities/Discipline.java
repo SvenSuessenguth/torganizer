@@ -131,7 +131,11 @@ public final class Discipline extends Entity{
   }
 
   public void setRounds(List<Round> newRounds) {
-    this.rounds = newRounds;
+    this.rounds.clear(); 
+    
+    if(newRounds!=null){
+      this.rounds.addAll(newRounds);
+    }
   }
 
   /**

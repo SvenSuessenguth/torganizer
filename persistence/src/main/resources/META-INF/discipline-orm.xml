@@ -24,6 +24,7 @@
     <table name="DISCIPLINES" />
     <attributes>    
        <basic name="label"><column name="LABEL" nullable="false" /></basic>
+       <transient name="rounds" />
        <one-to-many name="opponents">
          <join-table name="DISCIPLINES_OPPONENTS">
            <join-column name="DISCIPLINE_ID" referenced-column-name="ID"/>
