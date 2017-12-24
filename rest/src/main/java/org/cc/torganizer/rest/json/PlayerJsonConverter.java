@@ -1,5 +1,6 @@
 package org.cc.torganizer.rest.json;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashMap;
 import javax.enterprise.context.RequestScoped;
@@ -10,6 +11,7 @@ import javax.json.JsonArrayBuilder;
 import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 
 /**
@@ -47,7 +49,22 @@ public class PlayerJsonConverter extends ModelJsonConverter<Player>{
 
   @Override
   public Player toModel(JsonObject jsonObject) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    Player player = new Player();
+    
+    String idString = get(jsonObject, "id");
+    Long id = idString==null?null:Long.valueOf(idString);
+    player.setId(id);
+    
+    String lastMatchString = get(jsonObject, "lastMatch");
+    LocalDateTime lastMatch = super.localDateTimeFromString(lastMatchString);
+    player.setLastMatch(lastMatch);
+    
+    JsonObject personJsonObject = jsonObject.getJsonObject("person");
+    final Person person = personConverter.toModel(personJsonObject);
+    player.setPerson(person);
+    
+    return player;
   }
 
   @Override

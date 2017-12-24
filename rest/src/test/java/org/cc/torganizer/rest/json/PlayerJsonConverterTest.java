@@ -1,9 +1,13 @@
 package org.cc.torganizer.rest.json;
 
+import java.io.StringReader;
 import java.time.LocalDateTime;
 import static java.time.LocalDateTime.of;
 import java.time.Month;
+import javax.json.Json;
 import javax.json.JsonObject;
+import javax.json.JsonReader;
+import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Player;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -51,5 +55,22 @@ public class PlayerJsonConverterTest {
     final JsonObject jsonObject = converter.toJsonObject(player);
     
     assertThat(jsonObject.toString(), is(expected));
+  }
+  
+  @Test
+  public void testFromJson(){
+    String jsonString ="{\"id\":null,\"lastMatch\":\"2017-12-24 18:00:00\","
+            + "\"person\":{"
+            + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
+            + "\"dateOfBirth\":null,\"gender\":\"MALE\"}}";
+    JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
+    JsonObject jsonObject = jsonReader.readObject();     
+    
+    Player player = converter.toModel(jsonObject);
+    
+    LocalDateTime expectedLastMatch = LocalDateTime.of(2017, Month.DECEMBER, 24, 18, 0, 0);
+    assertThat(player.getLastMatch(), is(expectedLastMatch));
+    assertThat(player.getPerson().getFirstName(), is("vorname"));
+    assertThat(player.getPerson().getGender(), is(Gender.MALE));
   }
 }
