@@ -16,7 +16,10 @@ import javax.json.JsonReader;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Person;
 import org.hamcrest.MatcherAssert;
+import static org.hamcrest.MatcherAssert.assertThat;
 import org.hamcrest.Matchers;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -93,7 +96,7 @@ public class PersonJsonConverterTest {
     
     final JsonArray result = converter.toJsonArray(persons);
     
-    MatcherAssert.assertThat(result, Matchers.is(Matchers.notNullValue()));
-    MatcherAssert.assertThat(result.toString(), Matchers.is(expected));
+    assertThat(result, is(notNullValue()));
+    assertThat(result.toString(), is(expected));
   }
 }

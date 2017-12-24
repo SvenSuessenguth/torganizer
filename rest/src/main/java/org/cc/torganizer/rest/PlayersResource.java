@@ -3,10 +3,9 @@ package org.cc.torganizer.rest;
 import java.util.List;
 import java.util.Set;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
-import javax.json.bind.JsonbConfig;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -27,25 +26,25 @@ import javax.ws.rs.core.MediaType;
 import org.cc.torganizer.core.entities.Player;
 import static org.cc.torganizer.rest.AbstractResource.DEFAULT_LENGTH;
 import static org.cc.torganizer.rest.AbstractResource.DEFAULT_OFFSET;
-import org.cc.torganizer.rest.container.PlayersContainer;
-import org.cc.torganizer.rest.json.PlayerAdapter;
+import org.cc.torganizer.rest.json.PlayerJsonConverter;
 
 @Stateless
 @Path("/players")
 @Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class PlayersResource {
 
   @PersistenceContext(name = "torganizer")
   EntityManager entityManager;
+  
+  @Inject
+  private PlayerJsonConverter converter;
 
   @POST
   @Path("/create")
-  @Consumes(MediaType.APPLICATION_JSON)
-  public String create(JsonObject jsonObject) {
-    JsonbConfig config = new JsonbConfig().withAdapters(new PlayerAdapter());
-    Jsonb jsonb = JsonbBuilder.create(config);
+  public JsonObject create(JsonObject jsonObject) {
     
-    Player player = jsonb.fromJson(jsonObject.toString(), Player.class);
+    Player player = converter.toModel(jsonObject);
     
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     Validator validator = factory.getValidator();
@@ -53,36 +52,31 @@ public class PlayersResource {
     
     entityManager.persist(player);
 
-    return jsonb.toJson(player);
+    return converter.toJsonObject(player);
   }
 
   @GET
   @Path("{id}")
-  public String read(@PathParam("id") Long id) {
+  public JsonObject read(@PathParam("id") Long id) {
 
     TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
     namedQuery.setParameter("id", id);
     List<Player> players = namedQuery.getResultList();
 
-    JsonbConfig config = new JsonbConfig().withAdapters(new PlayerAdapter());
-    Jsonb jsonb = JsonbBuilder.create(config);
-    
-    String json =  jsonb.toJson(players.get(0), Player.class);
-    
-    return json;
+    return  converter.toJsonObject(players.get(0));
   }
 
   @POST
   @Path("/update")
-  public Player update(Player player) {
+  public String update(Player player) {
     entityManager.merge(player);
 
-    return player;
+    return  converter.toJsonObject(player).toString();
   }
 
   @DELETE
   @Path("/delete/{id}")
-  public Player delete(@PathParam("id") Long id) {
+  public JsonObject delete(@PathParam("id") Long id) {
 
     TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
     namedQuery.setParameter("id", id);
@@ -91,11 +85,11 @@ public class PlayersResource {
 
     entityManager.remove(player);
 
-    return player;
+    return converter.toJsonObject(player);
   }
 
   @GET
-  public PlayersContainer all(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length,
+  public JsonArray all(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length,
       @QueryParam("tournamentId") Long tournamentId) {
 
     if (offset == null || length == null) {
@@ -109,7 +103,7 @@ public class PlayersResource {
     namedQuery.setParameter("tournamentId", tournamentId);
     List<Player> players = namedQuery.getResultList();
 
-    return new PlayersContainer(players);
+    return converter.toJsonArray(players);
   }
 
   @GET

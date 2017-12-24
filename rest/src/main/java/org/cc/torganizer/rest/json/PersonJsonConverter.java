@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import javax.enterprise.context.RequestScoped;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -25,11 +26,12 @@ import org.cc.torganizer.core.entities.Person;
  *
  * @author svens
  */
+@RequestScoped
 public class PersonJsonConverter extends ModelJsonConverter<Person>{
 
   @Override
   public JsonObject toJsonObject(Person person) {
-    JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<String, Object>());
+    JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonObjectBuilder objectBuilder = factory.createObjectBuilder();
     
     add(objectBuilder, "id", person.getId());
