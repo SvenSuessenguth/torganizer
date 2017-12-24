@@ -5,14 +5,20 @@
  */
 package org.cc.torganizer.rest.json;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonValue;
+import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Person;
 
 /**
@@ -39,7 +45,6 @@ public class PersonJsonConverter extends ModelJsonConverter<Person>{
   public JsonArray toJsonArray(Collection<Person> persons) {
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonArrayBuilder arrayBuilder = factory.createArrayBuilder();
-    arrayBuilder.add("persons");
     
     persons.forEach((person) -> {
       arrayBuilder.add(this.toJsonObject(person));
@@ -50,13 +55,34 @@ public class PersonJsonConverter extends ModelJsonConverter<Person>{
   
   @Override
   public Person toModel(JsonObject jsonObject) {
-    throw new UnsupportedOperationException("Not supported yet.");
+    
+    String firstName = jsonObject.getString("firstName");
+    String lastName = jsonObject.getString("lastName");
+    Person person = new Person(firstName, lastName);
+
+    String idString = get(jsonObject, "id");
+    Long id = idString==null?null:Long.valueOf(idString);
+    person.setId(id);
+    
+    String genderString = get(jsonObject, "gender");
+    Gender gender = Gender.valueOf(genderString);
+    person.setGender(gender);
+    
+    String dateOfBirthString = get(jsonObject, "dateOfBirth");
+    LocalDate dateOfBirth = dateOfBirthString==null?null:LocalDate.parse(dateOfBirthString, DateTimeFormatter.ISO_DATE);
+    person.setDateOfBirth(dateOfBirth);
+    
+    return person;
   }
 
   @Override
   public Collection<Person> toModels(JsonArray jsonArray) {
-    throw new UnsupportedOperationException("Not supported yet.");
+    List<Person> persons = new ArrayList<>();
+    
+    jsonArray.forEach((JsonValue arrayValue) -> {
+      persons.add(toModel((JsonObject)arrayValue));
+    });
+    
+    return persons;
   }
-
-  
 }

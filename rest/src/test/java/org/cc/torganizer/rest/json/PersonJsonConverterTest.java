@@ -5,10 +5,15 @@
  */
 package org.cc.torganizer.rest.json;
 
+import java.io.StringReader;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
+import javax.json.JsonReader;
+import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Person;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -43,8 +48,39 @@ public class PersonJsonConverterTest {
   }
   
   @Test
+  public void testToModelObject_withNullValues() {
+    String jsonString = "{\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
+            + "\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}";
+    JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
+    JsonObject jsonObject = jsonReader.readObject();     
+    
+    Person person = converter.toModel(jsonObject);
+    
+    MatcherAssert.assertThat(person.getDateOfBirth(), Matchers.is(Matchers.nullValue()));
+    MatcherAssert.assertThat(person.getGender(), Matchers.is(Gender.UNKNOWN));
+    MatcherAssert.assertThat(person.getFirstName(), Matchers.is("vorname"));
+  }
+  
+  @Test
+  public void testToModelObjects() {
+    String jsonString = "["
+            + "{\"id\":null,\"firstName\":\"vornameA\",\"lastName\":\"nachnameA\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
+            + "{\"id\":null,\"firstName\":\"vornameB\",\"lastName\":\"nachnameB\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}"
+            + "]";
+    
+    JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
+    JsonArray jsonArray = jsonReader.readArray();
+    
+    
+    Collection<Person> persons = converter.toModels(jsonArray);
+    
+    MatcherAssert.assertThat(persons, Matchers.is(Matchers.notNullValue()));
+    MatcherAssert.assertThat(persons.size(), Matchers.is(2));
+  }
+  
+  @Test
   public void testToJsonObject_multiplePersons() {
-    String expected = "[\"persons\","
+    String expected = "["
             + "{\"id\":null,\"firstName\":\"vornameA\",\"lastName\":\"nachnameA\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
             + "{\"id\":null,\"firstName\":\"vornameB\",\"lastName\":\"nachnameB\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}"
             + "]";
