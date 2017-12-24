@@ -49,6 +49,10 @@ public abstract class ModelJsonConverter<T> {
     return localDateTime.format(formatter);
   }
   protected LocalDateTime localDateTimeFromString(String localDateTimeString){
+    if(localDateTimeString==null||localDateTimeString.isEmpty()){
+      return null;
+    }
+    
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     return LocalDateTime.parse(localDateTimeString, formatter);
   }

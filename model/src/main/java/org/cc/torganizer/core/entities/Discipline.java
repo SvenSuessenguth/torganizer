@@ -146,9 +146,7 @@ public final class Discipline extends Entity{
   public Set<Player> getPlayers() {
     Set<Player> players = new HashSet<>();
 
-    getOpponents().forEach((opponent) -> {
-      players.addAll(opponent.getPlayers());
-    });
+    getOpponents().forEach(opponent -> players.addAll(opponent.getPlayers()));
 
     return players;
   }

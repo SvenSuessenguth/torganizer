@@ -48,9 +48,7 @@ public class PersonJsonConverter extends ModelJsonConverter<Person>{
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonArrayBuilder arrayBuilder = factory.createArrayBuilder();
     
-    persons.forEach((person) -> {
-      arrayBuilder.add(this.toJsonObject(person));
-    });
+    persons.forEach(person -> arrayBuilder.add(this.toJsonObject(person)));
     
     return arrayBuilder.build();
   }
@@ -81,9 +79,7 @@ public class PersonJsonConverter extends ModelJsonConverter<Person>{
   public Collection<Person> toModels(JsonArray jsonArray) {
     List<Person> persons = new ArrayList<>();
     
-    jsonArray.forEach((JsonValue arrayValue) -> {
-      persons.add(toModel((JsonObject)arrayValue));
-    });
+    jsonArray.forEach((JsonValue arrayValue) -> persons.add(toModel((JsonObject)arrayValue)));
     
     return persons;
   }

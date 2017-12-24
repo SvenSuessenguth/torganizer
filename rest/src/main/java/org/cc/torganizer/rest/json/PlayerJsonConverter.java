@@ -1,8 +1,10 @@
 package org.cc.torganizer.rest.json;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -11,6 +13,7 @@ import javax.json.JsonArrayBuilder;
 import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonValue;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 
@@ -40,9 +43,7 @@ public class PlayerJsonConverter extends ModelJsonConverter<Player>{
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonArrayBuilder arrayBuilder = factory.createArrayBuilder();
     
-    players.forEach((player) -> {
-      arrayBuilder.add(this.toJsonObject(player));
-    });
+    players.forEach(player -> arrayBuilder.add(this.toJsonObject(player)) );
     
     return arrayBuilder.build();
   }
@@ -69,7 +70,10 @@ public class PlayerJsonConverter extends ModelJsonConverter<Player>{
 
   @Override
   public Collection<Player> toModels(JsonArray jsonArray) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    List<Player> players = new ArrayList<>();
+    
+    jsonArray.forEach((JsonValue arrayValue) -> players.add(toModel((JsonObject)arrayValue)));
+    
+    return players;
   }
-  
 }
