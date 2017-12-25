@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import javax.json.JsonArray;
+import javax.json.JsonNumber;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonString;
@@ -76,12 +77,22 @@ public abstract class ModelJsonConverter<T> {
   public String get(JsonObject jsonObject, String key){
     if(jsonObject.containsKey(key)){
       JsonValue jsonValue = jsonObject.get(key);
+      
       if(JsonValue.NULL.equals(jsonValue)){
         return null;
       }
-      return ((JsonString)jsonValue).getString();
-    }else{
-      return null;
+      
+      if(jsonValue.getValueType().equals(JsonValue.ValueType.STRING)){
+        return ((JsonString)jsonValue).getString();
+      }
+      
+      if(jsonValue.getValueType().equals(JsonValue.ValueType.NUMBER)){
+        int number = ((JsonNumber) jsonValue).intValue();
+        return Integer.toString(number);
+      }
+      
     }
+    
+    return null;
   }
 }

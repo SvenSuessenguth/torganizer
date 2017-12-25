@@ -6,6 +6,8 @@
 package org.cc.torganizer.rest.json;
 
 import java.io.StringReader;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -15,11 +17,10 @@ import javax.json.JsonObject;
 import javax.json.JsonReader;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Person;
-import org.hamcrest.MatcherAssert;
 import static org.hamcrest.MatcherAssert.assertThat;
-import org.hamcrest.Matchers;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -46,8 +47,8 @@ public class PersonJsonConverterTest {
     
     JsonObject result = converter.toJsonObject(person);
     
-    MatcherAssert.assertThat(result, Matchers.is(Matchers.notNullValue()));
-    MatcherAssert.assertThat(result.toString(), Matchers.is(expected));
+    assertThat(result, is(notNullValue()));
+    assertThat(result.toString(), is(expected));
   }
   
   @Test
@@ -59,9 +60,21 @@ public class PersonJsonConverterTest {
     
     Person person = converter.toModel(jsonObject);
     
-    MatcherAssert.assertThat(person.getDateOfBirth(), Matchers.is(Matchers.nullValue()));
-    MatcherAssert.assertThat(person.getGender(), Matchers.is(Gender.UNKNOWN));
-    MatcherAssert.assertThat(person.getFirstName(), Matchers.is("vorname"));
+    assertThat(person.getDateOfBirth(), is(nullValue()));
+    assertThat(person.getGender(), is(Gender.UNKNOWN));
+    assertThat(person.getFirstName(), is("vorname"));
+  }
+  
+  @Test
+  public void testToModel_withId(){
+    String jsonString = "{\"id\":0,\"firstName\":\"A\",\"lastName\":\"A\",\"dateOfBirth\":\"2017-12-25\",\"gender\":\"MALE\"}";
+    JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
+    JsonObject jsonObject = jsonReader.readObject();     
+    
+    Person person = converter.toModel(jsonObject);
+    
+    assertThat(person.getId(), is(0L));
+    assertThat(person.getDateOfBirth(), is(LocalDate.of(2017, Month.DECEMBER, 25)));
   }
   
   @Test
@@ -77,8 +90,8 @@ public class PersonJsonConverterTest {
     
     Collection<Person> persons = converter.toModels(jsonArray);
     
-    MatcherAssert.assertThat(persons, Matchers.is(Matchers.notNullValue()));
-    MatcherAssert.assertThat(persons.size(), Matchers.is(2));
+    assertThat(persons, is(notNullValue()));
+    assertThat(persons.size(), is(2));
   }
   
   @Test

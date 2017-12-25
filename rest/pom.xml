@@ -34,21 +34,18 @@
      | https://javaee.github.io/jsonp/getting-started.html 
      +-->
     <dependency>
-      <groupId>org.glassfish</groupId><artifactId>javax.json</artifactId>
-      <version>1.1</version>
+      <groupId>org.glassfish</groupId><artifactId>javax.json</artifactId>      
     </dependency>
   
     <!--
      | json-b
      +-->
-	  <dependency>
+	<dependency>
       <groupId>org.eclipse</groupId><artifactId>yasson</artifactId>
-      <version>1.0.1</version>
     </dependency>
     <!-- bereits durch json-p eingebunden
     <dependency>
       <groupId>org.glassfish</groupId><artifactId>javax.json</artifactId>
-      <version>1.1</version>
     </dependency>
     -->
   </dependencies>

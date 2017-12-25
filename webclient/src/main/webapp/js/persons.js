@@ -14,11 +14,10 @@ function showPersonsTable(){
   document.getElementById("personsOffset").innerHTML = offset;
   document.getElementById("personsLength").innerHTML = offset + tableSize;
   
-  fetch('http://localhost:8080/rest/resources/persons?offset='+offset+'&length='+tableSize).then(function(response) {
+  fetch('http://localhost:8080/rest/resources/persons/all?offset='+offset+'&length='+tableSize).then(function(response) {
 	return response.json();
   }).then(function(data) {
-    // "persons":
-    // {"id":1,"firstName":"Marvin","lastName":"SÃ¼ssenguth","gender":"MALE","dateOfBirthISO":"2004-10-28"},
+    // [{"id":1,"firstName":"Marvin","lastName":"SÃ¼ssenguth","gender":"MALE","dateOfBirthISO":"2004-10-28"}, ]
     showPersonsCount()
     
     // bisherige Daten entfernen, damit keine doppelten Anzeigen erscheinen
@@ -28,8 +27,8 @@ function showPersonsTable(){
       tableBody.removeChild(tableBody.firstChild);
     }
     
-    data.persons.forEach(function(person){
-      var t = document.querySelector("#personRecord").cloneNode(true)		
+    data.forEach(function(person){
+      var t = document.querySelector("#personRecord").cloneNode(true);
       var template = t.content;
 	
       var firstNameElement = template.querySelector("#firstName");
@@ -117,7 +116,7 @@ function createPerson(){
 		  return;
 	  }
 	
-  fetch('http://localhost:8080/rest/resources/persons/create',{
+  fetch('http://localhost:8080/rest/resources/persons',{
     method: "POST",
     headers: {
       'Accept': 'application/json',
@@ -141,8 +140,8 @@ function createPerson(){
 function updatePerson(){
   if(!isFormValid("personsForm")){ return; }
   
-  fetch('http://localhost:8080/rest/resources/persons/update',{
-    method: "POST",
+  fetch('http://localhost:8080/rest/resources/persons',{
+    method: "PUT",
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -170,7 +169,7 @@ function deletePerson(){
 
   var id= Number(sessionStorage.getItem('persons-current-person-id'));
 
-  fetch('http://localhost:8080/rest/resources/persons/delete/'+id,{
+  fetch('http://localhost:8080/rest/resources/persons/'+id,{
     method: "DELETE"
   }).then(function(response) {
     return response.json;
@@ -197,7 +196,7 @@ function personDataToJSon(){
     "id": Number(id),
     "firstName": firstName,
     "lastName": lastName,
-    "dateOfBirthISO": dateOfBirth,
+    "dateOfBirth": dateOfBirth,
     "gender": gender      
   });
   
