@@ -63,10 +63,7 @@ public class PersonsResource extends AbstractResource {
 
     TypedQuery<Person> namedQuery = entityManager.createNamedQuery("Person.findById", Person.class);
     namedQuery.setParameter("id", id);
-    List<Person> persons = namedQuery.getResultList();
-
-    Person person = new Person("Sven", "Süssenguth");
-    person.setId(id);
+    Person person = namedQuery.getSingleResult();
     
     return converter.toJsonObject(person);
   }

@@ -170,7 +170,7 @@ class Players {
 
       document.getElementById("pdFirstName").setAttribute('value', player.person.firstName);
       document.getElementById("pdLastName").setAttribute('value', player.person.lastName);
-      document.getElementById("pdDateOfBirth").setAttribute('value', player.person.dateOfBirthISO);
+      document.getElementById("pdDateOfBirth").setAttribute('value', player.person.dateOfBirth);
       
       var genderElement = document.getElementById("pdGender");
       selectItemByValue(genderElement, player.person.gender);

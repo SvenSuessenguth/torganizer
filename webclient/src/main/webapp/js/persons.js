@@ -91,13 +91,14 @@ function showSelectedPersonDetails(id){
     return response.json();
   }).then(function(data) {
     
-    // "id":1, "firstName":"Sven", "lastName":"SÃ¼ssenguth", "gender":"MALE", "dateOfBirthISO":"1968-01-12"
+    // "id":1, "firstName":"Sven", "lastName":"Süssenguth", "gender":"MALE", "dateOfBirth":"1968-01-12"
     sessionStorage.setItem('persons-current-person-id', data.id);
-	  
 	
+    console.log("data: "+data.dateOfBirth);
+  
     document.getElementById("pdFirstName").setAttribute('value', data.firstName);
     document.getElementById("pdLastName").setAttribute('value', data.lastName);
-    document.getElementById("pdDateOfBirth").setAttribute('value', data.dateOfBirthISO);
+    document.getElementById("pdDateOfBirth").setAttribute('value', data.dateOfBirth);
     
     var genderElement = document.getElementById("pdGender");
     selectItemByValue(genderElement, data.gender);
