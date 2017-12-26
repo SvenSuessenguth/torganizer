@@ -94,8 +94,6 @@ function showSelectedPersonDetails(id){
     // "id":1, "firstName":"Sven", "lastName":"Süssenguth", "gender":"MALE", "dateOfBirth":"1968-01-12"
     sessionStorage.setItem('persons-current-person-id', data.id);
 	
-    console.log("data: "+data.dateOfBirth);
-  
     document.getElementById("pdFirstName").setAttribute('value', data.firstName);
     document.getElementById("pdLastName").setAttribute('value', data.lastName);
     document.getElementById("pdDateOfBirth").setAttribute('value', data.dateOfBirth);
@@ -141,7 +139,8 @@ function createPerson(){
 function updatePerson(){
   if(!isFormValid("personsForm")){ return; }
   
-  fetch('http://localhost:8080/rest/resources/persons',{
+  var id= Number(sessionStorage.getItem('persons-current-person-id'));
+  fetch('http://localhost:8080/rest/resources/persons/'+id,{
     method: "PUT",
     headers: {
       'Accept': 'application/json',
