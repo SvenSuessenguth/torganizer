@@ -11,11 +11,11 @@ class Tournaments {
     return sessionStorage.getItem('tournaments-current-tournament-id');
   }
   isActiveTournament(){
-    return this.getCurrentTournamentId() != null;
+    return this.getCurrentTournamentId() !== null;
   }
   
   showTournamentsTable(){
-    fetch('http://localhost:8080/rest/resources/tournaments').then(function(response) {
+    fetch('http://localhost:8080/rest/resources/tournaments?offset=0&length=100').then(function(response) {
       return response.json();
       }).then(function(data) {
         // {"tournaments":[{"id":1,"name":"dings"}]}
@@ -53,19 +53,30 @@ class Tournaments {
   }
 
   createTournament(){
-    var name = document.getElementById("tournamentName").value;
-    
-    fetch('http://localhost:8080/rest/resources/tournaments/create?name='+name).then(function(response) {
-      return response.json();
-    }).then(function(tournament) {
-      sessionStorage.setItem('tournaments-current-tournament-id', tournament.id);
-      sessionStorage.setItem('tournaments-current-tournament-name', tournament.name);
-      
-      window.location.reload(true);
+	
+    if(!isFormValid("tournamentsForm")){
+      return;
+    }
+	
+    fetch('http://localhost:8080/rest/resources/tournaments',{
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: tournamentDataToJSon()
+    })
+    .then(function(response){return response.json();})
+    .then(function(json) {
+      sessionStorage.setItem('tournaments-current-tournament-id', json.id);
+      sessionStorage.setItem('tournaments-current-tournament-name', json.name);
     }).catch(function(err) {
     });
+
+    // neuladen des gesamten Dokumentes nach einem 'post'
+    window.location.reload(true);
   }
-  
+
   addPlayerToCurrentTournament(playerId) {
     var tournamentId = sessionStorage.getItem('tournaments-current-tournament-id');
     
@@ -97,6 +108,18 @@ class Tournaments {
     
     return count;
   }
+}
+
+function tournamentDataToJSon(){
+  var id= tournaments.getCurrentTournamentId();
+  var name = document.getElementById("tournamentName").value;
+  
+  var json = JSON.stringify({
+    "id": Number(id),
+    "name": name
+  });
+  
+  return json;  
 }
 
 var tournaments = new Tournaments();

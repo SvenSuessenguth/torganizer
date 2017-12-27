@@ -18,6 +18,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -41,7 +42,6 @@ public class PlayersResource {
   private PlayerJsonConverter converter;
 
   @POST
-  @Path("/create")
   public JsonObject create(JsonObject jsonObject) {
     
     Player player = converter.toModel(jsonObject);
@@ -61,34 +61,34 @@ public class PlayersResource {
 
     TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
     namedQuery.setParameter("id", id);
-    List<Player> players = namedQuery.getResultList();
+    Player player = namedQuery.getSingleResult();
 
-    return  converter.toJsonObject(players.get(0));
+    return  converter.toJsonObject(player);
   }
 
-  @POST
-  @Path("/update")
-  public String update(Player player) {
+  @PUT
+  public String update(JsonObject jsonObject) {
+    final Player player = converter.toModel(jsonObject);
     entityManager.merge(player);
 
     return  converter.toJsonObject(player).toString();
   }
 
   @DELETE
-  @Path("/delete/{id}")
+  @Path("/{id}")
   public JsonObject delete(@PathParam("id") Long id) {
 
     TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
     namedQuery.setParameter("id", id);
-    List<Player> players = namedQuery.getResultList();
-    Player player = players.get(0);
-
+    Player player = namedQuery.getSingleResult();
+    
     entityManager.remove(player);
 
     return converter.toJsonObject(player);
   }
 
   @GET
+  @Path("/all")
   public JsonArray all(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length,
       @QueryParam("tournamentId") Long tournamentId) {
 
@@ -109,7 +109,7 @@ public class PlayersResource {
   @GET
   @Path("/count")
   public long count() {
-    Query query = entityManager.createQuery("SELECT count(*) FROM Player p");
+    Query query = entityManager.createQuery("SELECT count(p) FROM Player p");
     return (long) query.getSingleResult();
   }
 }

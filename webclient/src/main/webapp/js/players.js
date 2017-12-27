@@ -13,7 +13,7 @@ class Players {
   createPlayer(){
     if(!isFormValid('playersForm')){ return; }
     
-    fetch('http://localhost:8080/rest/resources/players/create',{
+    fetch('http://localhost:8080/rest/resources/players',{
       method: "POST",
       headers: {
         'Accept': 'application/json',
@@ -36,8 +36,8 @@ class Players {
   updatePlayer() {
     if(!isFormValid('playersForm')){ return; }
     
-    fetch('http://localhost:8080/rest/resources/players/update',{
-      method: "POST",
+    fetch('http://localhost:8080/rest/resources/players/',{
+      method: "PUT",
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'

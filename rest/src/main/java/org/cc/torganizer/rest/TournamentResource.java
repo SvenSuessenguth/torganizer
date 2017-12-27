@@ -1,61 +1,82 @@
 package org.cc.torganizer.rest;
 
+import java.net.URI;
 import java.util.List;
-
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
+import static javax.ws.rs.core.Response.created;
+import javax.ws.rs.core.UriInfo;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.rest.container.DisciplinesContainer;
 import org.cc.torganizer.rest.container.OpponentsContainer;
-import org.cc.torganizer.rest.container.PlayersContainer;
-import org.cc.torganizer.rest.container.TournamentsContainer;
+import org.cc.torganizer.rest.json.PlayerJsonConverter;
+import org.cc.torganizer.rest.json.TournamentJsonConverter;
 
 @Stateless
 @Path("/tournaments")
 @Produces("application/json")
+@Consumes("application/json")
 public class TournamentResource extends AbstractResource {
 
   private static final String TOURNAMENT_FIND_BY_ID_QUERY_NAME = "Tournament.findById";
+  
   @PersistenceContext(name = "torganizer")
   EntityManager entityManager;
+  
+  @Inject
+  private TournamentJsonConverter tConverter;
+  
+  @Inject
+  private PlayerJsonConverter pConverter;
 
-  @GET
-  @Path("/create")
-  public Tournament create(@QueryParam("name") String name) {
+  @POST
+  public Response create(JsonObject jsonObject, @Context UriInfo uriInfo) {
 
-    Tournament tournament = new Tournament();
-    tournament.setName(name);
+    Tournament tournament = tConverter.toModel(jsonObject);
+    // vom client kann die id '0' geliefert werden, sodass eine detached-entity-Exception geworfen wird.
+    tournament.setId(null);
 
     entityManager.persist(tournament);
-
-    return tournament;
+    // otherwise the new persisted entity has no id until method done
+    entityManager.flush();
+    
+    final JsonObject result = tConverter.toJsonObject(tournament);
+    URI uri = uriInfo.getAbsolutePathBuilder().path(""+tournament.getId()).build();
+    
+    return created(uri).entity(result).build();
   }
 
   @GET
   @Path("{id}")
-  public Tournament read(@PathParam("id") Long id) {
+  public JsonObject read(@PathParam("id") Long id) {
 
     TypedQuery<Tournament> namedQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME, Tournament.class);
     namedQuery.setParameter("id", id);
-    List<Tournament> tournaments = namedQuery.getResultList();
+    Tournament tournament = namedQuery.getSingleResult();
 
-    return tournaments.get(0);
+    return tConverter.toJsonObject(tournament);
   }
-
+  
   @GET
-  public TournamentsContainer all(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
+  public JsonArray all(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
 
     if (offset == null || length == null) {
       offset = DEFAULT_OFFSET;
@@ -67,22 +88,12 @@ public class TournamentResource extends AbstractResource {
     namedQuery.setMaxResults(length);
     List<Tournament> tournaments = namedQuery.getResultList();
 
-    return new TournamentsContainer(tournaments);
+    return tConverter.toJsonArray(tournaments);
   }
 
   @GET
-  @Path("/{id}/subscribers/all")
-  public PlayersContainer subscribers(@PathParam("id") Long tournamentId) {
-    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Tournament.findSubscribers", Player.class);
-    namedQuery.setParameter("id", tournamentId);
-    List<Player> players = namedQuery.getResultList();
-
-    return new PlayersContainer(players);
-  }
-  
-  @GET
-  @Path("/{id}/subscribers/section")
-  public PlayersContainer subscribersFromTo(@PathParam("id") Long tournamentId, @QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
+  @Path("/{id}/subscribers")
+  public JsonArray subscribersFromTo(@PathParam("id") Long tournamentId, @QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
     if (offset == null || length == null) {
       offset = DEFAULT_OFFSET;
       length = DEFAULT_LENGTH;
@@ -95,12 +106,12 @@ public class TournamentResource extends AbstractResource {
     
     List<Player> players = namedQuery.getResultList();
 
-    return new PlayersContainer(players);
+    return pConverter.toJsonArray(players);
   }
 
-  @GET
-  @Path("/{tid}/subscribers/add/{pid}")
-  public Player addSubscriber(@PathParam("tid") Long tournamentId, @PathParam("pid") Long playerId) {
+  @POST
+  @Path("/{tid}/subscribers/{pid}")
+  public JsonObject addSubscriber(@PathParam("tid") Long tournamentId, @PathParam("pid") Long playerId) {
     // load player
     TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
     namedQuery.setParameter("id", playerId);
@@ -118,7 +129,7 @@ public class TournamentResource extends AbstractResource {
     tournament.getSubscribers().add(playerToAdd);
     entityManager.persist(tournament);
 
-    return playerToAdd;
+    return pConverter.toJsonObject(playerToAdd);
   }
   
   @GET
@@ -140,8 +151,8 @@ public class TournamentResource extends AbstractResource {
     return new OpponentsContainer(opponents);
   }
 
-  @GET
-  @Path("/{id}/opponents/add")
+  @POST
+  @Path("/{id}/opponents")
   public Opponent opponents(@PathParam("id") Long tournamentId, @QueryParam("opponentId") Long opponentId) {
     // load player
     TypedQuery<Opponent> namedQuery = entityManager.createNamedQuery("Opponent.findById", Opponent.class);
@@ -174,8 +185,8 @@ public class TournamentResource extends AbstractResource {
     return new DisciplinesContainer(disciplines);
   }
 
-  @GET
-  @Path("/{id}/disciplines/add")
+  @POST
+  @Path("/{id}/disciplines")
   public Discipline disciplines(@PathParam("id") Long tournamentId, @QueryParam("disciplineId") Long disciplineId) {
     // load discipline
     TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery("Discipline.findById", Discipline.class);

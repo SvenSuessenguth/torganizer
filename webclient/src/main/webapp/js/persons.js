@@ -182,8 +182,6 @@ function deletePerson(){
 }
 
 function personDataToJSon(){
-  console.log("personDataToJSon");
-  
   var id= Number(sessionStorage.getItem('persons-current-person-id'));
   var firstName = document.getElementById("pdFirstName").value;
   var lastName = document.getElementById("pdLastName").value;
@@ -200,8 +198,5 @@ function personDataToJSon(){
     "gender": gender      
   });
   
-  console.log('personDataToJSon:'+json);
-  
-  return json;
-  
+  return json;  
 }
