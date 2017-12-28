@@ -126,6 +126,8 @@ public class TournamentResource extends AbstractResource {
     // persist tournament
     tournament.getSubscribers().add(playerToAdd);
     entityManager.persist(tournament);
+    // to get the id
+    entityManager.flush();
 
     return pConverter.toJsonObject(playerToAdd);
   }

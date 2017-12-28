@@ -82,7 +82,12 @@ class Tournaments {
   addPlayerToCurrentTournament(playerId) {
     var tournamentId = sessionStorage.getItem('tournaments-current-tournament-id');
     
-    fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/subscribers/add/'+playerId).then(function(response) {
+    fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/subscribers/'+playerId,{
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+      }
+    }).then(function(response) {
       return response.json();
     }).then(function(count) {
       console.log("currently "+count+" subscribers for tournament "+tournamentId);    

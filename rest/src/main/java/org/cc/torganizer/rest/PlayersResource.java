@@ -51,6 +51,8 @@ public class PlayersResource {
     Set<ConstraintViolation<Player>> violations = validator.validate( player );
     
     entityManager.persist(player);
+    // with no flush, the id is not known
+    entityManager.flush();
 
     return converter.toJsonObject(player);
   }

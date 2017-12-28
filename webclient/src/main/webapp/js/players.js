@@ -23,11 +23,7 @@ class Players {
     }).then(function(response) {
       return response.json();
     }).then(function(player) {
-      
-      if(document.getElementById('autoAdd').checked){              
-        tournaments.addPlayerToCurrentTournament(player.id);
-      }
-      
+      tournaments.addPlayerToCurrentTournament(player.id);
       window.location.reload(true);
     }).catch(function(err) {
     });
@@ -105,7 +101,7 @@ class Players {
       }
       
       // daten in die tabelle einfuegen
-      data.players.forEach(function(player){
+      data.forEach(function(player){
         var t = document.querySelector("#playerRecord").cloneNode(true);
         var template = t.content;
     
