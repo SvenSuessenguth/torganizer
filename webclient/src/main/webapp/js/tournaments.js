@@ -15,18 +15,22 @@ class Tournaments {
   }
   
   showTournamentsTable(){
-    fetch('http://localhost:8080/rest/resources/tournaments?offset=0&length=100').then(function(response) {
+    fetch('http://localhost:8080/rest/resources/tournaments?offset=0&length=100', {
+      method: "GET",
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then(function(response) {
       return response.json();
-      }).then(function(data) {
-        // {"tournaments":[{"id":1,"name":"dings"}]}
-        document.getElementById("tournamentsCount").innerHTML=data.tournaments.length;
-
-        var tableBody = document.querySelector('#tournamentsTableBody');
+    }).then(function(data) {
+      // {"tournaments":[{"id":1,"name":"dings"}]}
+      document.getElementById("tournamentsCount").innerHTML=data.length;
+      var tableBody = document.querySelector('#tournamentsTableBody');
     
-        data.tournaments.forEach(function(tournament){
+      data.forEach(function(tournament){
         var t = document.querySelector("#tournamentRecord").cloneNode(true);
         var template = t.content;
-    
+  
         var nameElement = template.querySelector("#name");
         nameElement.innerHTML = tournament.name;
         nameElement.setAttribute("id", "tournament-"+tournament.id);
@@ -41,13 +45,11 @@ class Tournaments {
   showTournamentDetails(id) {
     fetch('http://localhost:8080/rest/resources/tournaments/'+id).then(function(response) {
       return response.json();
-    }).then(function(tournament) {
+    }).then(function(data) {
       // {"id":1,"name":"dings"}
-      document.getElementById("tournamentName").setAttribute('value', tournament.name);
-      sessionStorage.setItem('tournaments-current-tournament-id', tournament.id);
-      sessionStorage.setItem('tournaments-current-tournament-name', tournament.name);
-      
-      window.location.reload(true);
+      document.getElementById("tournamentName").setAttribute('value', data.name);
+      sessionStorage.setItem('tournaments-current-tournament-id', data.id);
+      sessionStorage.setItem('tournaments-current-tournament-name', data.name);
     }).catch(function(err) {
     });
   }

@@ -55,8 +55,6 @@ public class TournamentResource extends AbstractResource {
     tournament.setId(null);
 
     entityManager.persist(tournament);
-    // otherwise the new persisted entity has no id until method done
-    entityManager.flush();
     
     final JsonObject result = tConverter.toJsonObject(tournament);
     URI uri = uriInfo.getAbsolutePathBuilder().path(""+tournament.getId()).build();

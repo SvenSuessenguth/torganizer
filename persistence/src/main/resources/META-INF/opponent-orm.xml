@@ -26,21 +26,22 @@
   
   <entity class="org.cc.torganizer.core.entities.Opponent" access="FIELD">
     <table name="OPPONENTS" />
-    <inheritance strategy="JOINED"/>    
+    <inheritance strategy="JOINED"/>
     <discriminator-column name="TYPE" discriminator-type="STRING" length="20"/>
-    <attributes>    
+    <attributes>
+      <id name="id"><generated-value/></id>
       <basic name="status">
          <column name="STATUS" nullable="false" />
-         <enumerated>STRING</enumerated>        
+         <enumerated>STRING</enumerated>
        </basic>
      </attributes>
-  </entity>  
+  </entity>
   
   <entity class="org.cc.torganizer.core.entities.Player" access="FIELD">
     <table name="PLAYERS" />
     <discriminator-value>P</discriminator-value>
     <attributes>
-      <basic name="lastMatch"><column name="LAST_MATCH"/></basic>      
+      <basic name="lastMatch"><column name="LAST_MATCH"/></basic>
       <one-to-one name="person" orphan-removal="true">
         <join-column name="PERSON_ID" nullable="false" />
         <cascade><cascade-all/></cascade>
