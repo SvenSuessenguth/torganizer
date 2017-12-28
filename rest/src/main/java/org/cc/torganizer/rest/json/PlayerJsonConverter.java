@@ -16,6 +16,7 @@ import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.core.entities.Status;
 
 /**
  * @author svens
@@ -33,6 +34,7 @@ public class PlayerJsonConverter extends ModelJsonConverter<Player>{
     
     add(objectBuilder, "id", player.getId());
     add(objectBuilder, "lastMatch", player.getLastMatch());
+    add(objectBuilder, "status", player.getStatus().toString());
     add(objectBuilder, "person", personConverter.toJsonObject(player.getPerson()));
       
     return objectBuilder.build();
@@ -61,6 +63,10 @@ public class PlayerJsonConverter extends ModelJsonConverter<Player>{
     LocalDateTime lastMatch = super.localDateTimeFromString(lastMatchString);
     player.setLastMatch(lastMatch);
     
+    String statusString = get(jsonObject, "status");
+    Status status = statusString==null||statusString.trim().isEmpty()?Status.ACTIVE:Status.valueOf(statusString);
+    player.setStatus(status);
+   
     JsonObject personJsonObject = jsonObject.getJsonObject("person");
     final Person person = personConverter.toModel(personJsonObject);
     player.setPerson(person);
