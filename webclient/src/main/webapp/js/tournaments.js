@@ -1,3 +1,5 @@
+/* global fetch, tournamentResource */
+
 class Tournaments {
   constructor() {
   }
@@ -15,32 +17,25 @@ class Tournaments {
   }
   
   showTournamentsTable(){
-    fetch('http://localhost:8080/rest/resources/tournaments?offset=0&length=100', {
-      method: "GET",
-      headers: {
-        'Accept': 'application/json'
-      }
-    }).then(function(response) {
-      return response.json();
-    }).then(function(data) {
-      // {"tournaments":[{"id":1,"name":"dings"}]}
-      document.getElementById("tournamentsCount").innerHTML=data.length;
-      var tableBody = document.querySelector('#tournamentsTableBody');
+    tournamentResource.readMultiple(0,100,this.showTournamentsTableSuccess, this.showTournamentsTableFailure);
+  }
+  showTournamentsTableSuccess(data){    
+    document.getElementById("tournamentsCount").innerHTML=data.length;
+    var tableBody = document.querySelector('#tournamentsTableBody');
     
-      data.forEach(function(tournament){
-        var t = document.querySelector("#tournamentRecord").cloneNode(true);
-        var template = t.content;
+    data.forEach(function(tournament){
+      var t = document.querySelector("#tournamentRecord").cloneNode(true);
+      var template = t.content;
   
-        var nameElement = template.querySelector("#name");
-        nameElement.innerHTML = tournament.name;
-        nameElement.setAttribute("id", "tournament-"+tournament.id);
-        nameElement.onclick = function(e){ tournaments.showTournamentDetails(tournament.id); };
+      var nameElement = template.querySelector("#name");
+      nameElement.innerHTML = tournament.name;
+      nameElement.setAttribute("id", "tournament-"+tournament.id);
+      nameElement.onclick = function(e){ tournaments.showTournamentDetails(tournament.id); };
         
-        tableBody.appendChild(template);
-      });
-    }).catch(function(err) {
+      tableBody.appendChild(template);
     });
   }
+  showTournamentsTableFailure(data){console.log(data);}
   
   showTournamentDetails(id) {
     fetch('http://localhost:8080/rest/resources/tournaments/'+id).then(function(response) {
