@@ -52,6 +52,28 @@ class TournamentResource {
     .catch(function(err) { onFailure("???"); });
   }
   
+  update(json, onSuccess, onFailure){    
+    fetch('http://localhost:8080/rest/resources/tournaments/',{
+      method: "PUT",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: json
+    })
+    .then(function(response) {
+      if (response.ok)
+        return response.json();
+      else
+        throw new Error('Fehlerhandling noch nicht spezifiziert');
+    })
+    .then(function(json) { onSuccess(json); })
+    .catch(function(err) { onFailure("???"); });
+  }
+  
+  delete(json){    
+  }
+  
   getSubscribers(tournamentId, offset, length, onSuccess, onFailure){
     fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/subscribers?offset='+offset+'&length='+length)
     .then(function(response) {

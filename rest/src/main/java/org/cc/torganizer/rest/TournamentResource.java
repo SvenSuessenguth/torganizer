@@ -11,8 +11,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -64,7 +66,7 @@ public class TournamentResource extends AbstractResource {
 
   @GET
   @Path("{id}")
-  public JsonObject read(@PathParam("id") Long id) {
+  public JsonObject readSingle(@PathParam("id") Long id) {
 
     TypedQuery<Tournament> namedQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME, Tournament.class);
     namedQuery.setParameter("id", id);
@@ -74,7 +76,7 @@ public class TournamentResource extends AbstractResource {
   }
   
   @GET
-  public JsonArray all(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
+  public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
 
     if (offset == null || length == null) {
       offset = DEFAULT_OFFSET;
@@ -87,6 +89,22 @@ public class TournamentResource extends AbstractResource {
     List<Tournament> tournaments = namedQuery.getResultList();
 
     return tConverter.toJsonArray(tournaments);
+  }
+  
+  @PUT
+  public JsonObject update(JsonObject jsonObject) {
+    Tournament tournament = tConverter.toModel(jsonObject);
+    entityManager.merge(tournament);
+    
+    return tConverter.toJsonObject(tournament);
+  }
+  
+  @DELETE
+  public JsonObject delete(JsonObject jsonObject){
+    Tournament tournament = tConverter.toModel(jsonObject);
+    entityManager.remove(tournament);
+    
+    return tConverter.toJsonObject(tournament);
   }
 
   @GET

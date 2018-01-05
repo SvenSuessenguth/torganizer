@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/layout.css">
     <link rel="import" href="nav.html" id="nav">
     <link rel="import" href="footer.html" id="footer">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <title>Tournament</title>
   </head>
 
@@ -28,11 +29,11 @@
         <tbody id="tournamentsTableBody"></tbody>
       </table>
 
-      <span id="tournamentnData"> 
+      <span id="tournamentData"> 
         <label for="tournamentName">Name</label><input id="tournamentName" type="text" value="">
       
-        <input type="button" value="neu" onclick="tournaments.createTournament()">
-        <input type="button" value="aktualisieren" onclick="tournaments.updateTournament()">
+        <input type="button" value="neu" onclick="tournaments.create()">
+        <input type="button" value="aktualisieren" onclick="tournaments.update()">
       </span>
     </form>
     
