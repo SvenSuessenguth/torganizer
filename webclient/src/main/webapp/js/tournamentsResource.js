@@ -1,6 +1,6 @@
 /* global fetch */
 
-class TournamentResource {
+class TournamentsResource {
   constructor() {
   }
   
@@ -116,4 +116,4 @@ class TournamentResource {
   }
 }
 
-var tournamentResource = new TournamentResource();
+var tournamentsResource = new TournamentsResource();

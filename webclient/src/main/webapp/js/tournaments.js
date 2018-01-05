@@ -1,4 +1,4 @@
-/* global fetch, tournamentResource */
+/* global fetch, tournamentsResource */
 
 class Tournaments {
   constructor() {
@@ -17,7 +17,7 @@ class Tournaments {
   }
   
   showTournamentsTable(){
-    tournamentResource.readMultiple(0, 100, this.showTournamentsTableSuccess, this.showTournamentsTableFailure);
+    tournamentsResource.readMultiple(0, 100, this.showTournamentsTableSuccess, this.showTournamentsTableFailure);
   }
   showTournamentsTableSuccess(data){    
     document.getElementById("tournamentsCount").innerHTML=data.length;
@@ -51,7 +51,7 @@ class Tournaments {
   
   create(){	
     var json = this.inputToJSon();
-    tournamentResource.create(json, this.createSuccess, this.createFailure);
+    tournamentsResource.create(json, this.createSuccess, this.createFailure);
   }
   createSuccess(json){
     sessionStorage.setItem('tournaments-current-tournament-id', json.id);
@@ -63,7 +63,7 @@ class Tournaments {
 
   update(){	
     var json = this.inputToJSon();
-    tournamentResource.update(json, this.updateSuccess, this.updateFailure);
+    tournamentsResource.update(json, this.updateSuccess, this.updateFailure);
   }
   updateSuccess(json){
     sessionStorage.setItem('tournaments-current-tournament-id', json.id);

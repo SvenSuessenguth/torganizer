@@ -36,7 +36,7 @@ import org.cc.torganizer.rest.json.TournamentJsonConverter;
 @Path("/tournaments")
 @Produces("application/json")
 @Consumes("application/json")
-public class TournamentResource extends AbstractResource {
+public class TournamentsResource extends AbstractResource {
 
   private static final String TOURNAMENT_FIND_BY_ID_QUERY_NAME = "Tournament.findById";
   
