@@ -35,7 +35,7 @@ public class PlayerJsonConverterTest {
   
   @Test
   public void testToJson_withNullValues(){
-    String expected ="{\"id\":null,\"lastMatch\":null,"
+    String expected ="{\"id\":null,\"lastMatch\":null,\"status\":\"ACTIVE\","
             + "\"person\":{"
             + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
             + "\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}}";
@@ -48,7 +48,7 @@ public class PlayerJsonConverterTest {
   
   @Test
   public void testToJson_withLastMatch(){
-    String expected ="{\"id\":null,\"lastMatch\":\"2017-12-24 18:00:00\","
+    String expected ="{\"id\":null,\"lastMatch\":\"2017-12-24 18:00:00\",\"status\":\"ACTIVE\","
             + "\"person\":{"
             + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
             + "\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}}";
