@@ -1,0 +1,55 @@
+/* global fetch */
+
+class PlayersResource {
+  constructor() {
+  }
+  
+  create(json, onSuccess, onFailure){
+    fetch('http://localhost:8080/rest/resources/players',{
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: json
+    })
+    .then(function(response) {
+      if (response.ok)
+        return response.json();
+      else
+        throw new Error('Fehlerhandling noch nicht spezifiziert');
+    })
+    .then(function(json) { onSuccess(json); })
+    .catch(function(err) { onFailure("???"); });
+  }
+  
+  readSingle(tournamentId, onSuccess, onFailure){    
+  }
+  
+  readMultiple(offset, length, onSuccess, onFailure){    
+  }
+  
+  update(json, onSuccess, onFailure){
+    fetch('http://localhost:8080/rest/resources/players/',{
+      method: "PUT",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: json
+    })
+    .then(function(response) {
+      if (response.ok)
+        return response.json();
+      else
+        throw new Error('Fehlerhandling noch nicht spezifiziert');
+    })
+    .then(function(json) { onSuccess(json); })
+    .catch(function(err) { onFailure("???"); });
+  }
+  
+  delete(json, onSuccess, onFailure){
+  }
+}
+
+var playersResource = new PlayersResource();

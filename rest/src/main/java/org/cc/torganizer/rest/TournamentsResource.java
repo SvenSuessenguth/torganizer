@@ -109,7 +109,7 @@ public class TournamentsResource extends AbstractResource {
 
   @GET
   @Path("/{id}/subscribers")
-  public JsonArray subscribersFromTo(@PathParam("id") Long tournamentId, @QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
+  public JsonArray subscribers(@PathParam("id") Long tournamentId, @QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
     if (offset == null || length == null) {
       offset = DEFAULT_OFFSET;
       length = DEFAULT_LENGTH;
@@ -126,8 +126,8 @@ public class TournamentsResource extends AbstractResource {
   }
 
   @POST
-  @Path("/{tid}/subscribers/{pid}")
-  public JsonObject addSubscriber(@PathParam("tid") Long tournamentId, @PathParam("pid") Long playerId) {
+  @Path("/{tid}/subscribers")
+  public JsonObject addSubscriber(@PathParam("tid") Long tournamentId, @QueryParam("pid") Long playerId) {
     // load player
     TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
     namedQuery.setParameter("id", playerId);

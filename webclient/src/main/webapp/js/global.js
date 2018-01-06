@@ -50,7 +50,7 @@ function includeFragments(){
 // (andere Seiten) anzeigen kann.
 //
 function activateNavigation() {
-  var activeNavigation = tournaments.isActiveTournament();
+  var activeNavigation = new Tournaments().isActiveTournament();
   if(!activeNavigation) {
     // text soll von allen optional-Links angezeigt werden, aber kein a href vorhanden sein
     // https://www.w3schools.com/jsref/met_document_getelementsbyclassname.asp

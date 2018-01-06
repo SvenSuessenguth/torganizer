@@ -59,13 +59,29 @@ public class PlayersResource {
 
   @GET
   @Path("{id}")
-  public JsonObject read(@PathParam("id") Long id) {
+  public JsonObject readSingle(@PathParam("id") Long id) {
 
     TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
     namedQuery.setParameter("id", id);
     Player player = namedQuery.getSingleResult();
 
     return  converter.toJsonObject(player);
+  }
+  
+  @GET
+  public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
+
+    if (offset == null || length == null) {
+      offset = DEFAULT_OFFSET;
+      length = DEFAULT_LENGTH;
+    }
+
+    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findAll", Player.class);
+    namedQuery.setFirstResult(offset);
+    namedQuery.setMaxResults(length);
+    List<Player> players = namedQuery.getResultList();
+
+    return converter.toJsonArray(players);
   }
 
   @PUT
@@ -87,25 +103,6 @@ public class PlayersResource {
     entityManager.remove(player);
 
     return converter.toJsonObject(player);
-  }
-
-  @GET
-  @Path("/all")
-  public JsonArray all(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length,
-      @QueryParam("tournamentId") Long tournamentId) {
-
-    if (offset == null || length == null) {
-      offset = DEFAULT_OFFSET;
-      length = DEFAULT_LENGTH;
-    }
-
-    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findByTournament", Player.class);
-    namedQuery.setFirstResult(offset);
-    namedQuery.setMaxResults(length);
-    namedQuery.setParameter("tournamentId", tournamentId);
-    List<Player> players = namedQuery.getResultList();
-
-    return converter.toJsonArray(players);
   }
 
   @GET

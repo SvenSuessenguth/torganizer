@@ -10,7 +10,7 @@ class Tournaments {
   }
  
   getCurrentTournamentId(){
-    return sessionStorage.getItem('tournaments-current-tournament-id');
+    return Number(sessionStorage.getItem('tournaments-current-tournament-id'));
   }
   isActiveTournament(){
     return this.getCurrentTournamentId() !== null;
@@ -71,45 +71,6 @@ class Tournaments {
     window.location.reload(true);
   }
   updateFailure(json){   
-  }
-
-
-
-  addPlayerToCurrentTournament(playerId) {
-    var tournamentId = sessionStorage.getItem('tournaments-current-tournament-id');
-    
-    fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/subscribers/'+playerId,{
-      method: "POST",
-      headers: {
-        'Accept': 'application/json',
-      }
-    }).then(function(response) {
-      return response.json();
-    }).then(function(count) {
-      console.log("currently "+count+" subscribers for tournament "+tournamentId);    
-    }).catch(function(err) {
-    });
-  }
-  
-  getCurrentSubscribers(offset, length) {
-    var tournamentId = Number(sessionStorage.getItem('tournaments-current-tournament-id'));
-    
-    var subscribers = fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/subscribers?offset='+offset+'&length='+length)
-    .then(function(response) {
-      return response.json();
-    });
-    
-    return subscribers;
-  }
-  
-  countCurrentSubscribers() {
-    var tournamentId = Number(sessionStorage.getItem('tournaments-current-tournament-id'));
-    
-    var count = fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/subscribers/count').then(function(response) {
-      return response.json();
-    });
-    
-    return count;
   }
   
   inputToJSon(){

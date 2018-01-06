@@ -5,6 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script type="text/javascript" src="js/global.js"></script>
     <script type="text/javascript" src="js/tournaments.js"></script>
+    <script type="text/javascript" src="js/tournamentsResource.js"></script>
+    <script type="text/javascript" src="js/playersResource.js"></script>
     <script type="text/javascript" src="js/players.js"></script>
     <link rel="stylesheet" href="css/ui.css">
     <link rel="stylesheet" href="css/layout.css">
@@ -67,9 +69,9 @@
           </select>
         </label>
     
-        <input type="button" value="neu" onclick="players.createPlayer()">
-        <input type="button" value="ändern" onclick="players.updatePlayer()">
-        <input type="button" value="löschen" onclick="players.deletePlayer()">
+        <input type="button" value="neu" onclick="players.create()">
+        <input type="button" value="ändern" onclick="players.update()">
+        <input type="button" value="löschen" onclick="players.delete()">
       </span>
       
     </form>

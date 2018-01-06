@@ -86,8 +86,9 @@ class TournamentsResource {
     .catch(function(err) { onFailure("???"); });
   }
   
-  addSubscriber(tournamentId, playerId, onSuccess, onFailure) {    
-    fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/subscribers/'+playerId,{
+  addSubscriber(tournamentId, playerId, onSuccess, onFailure) {
+    console.log("hier bin ich schon mal...");
+    fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/subscribers?pid='+playerId,{
       method: "POST",
       headers: {
         'Accept': 'application/json'
