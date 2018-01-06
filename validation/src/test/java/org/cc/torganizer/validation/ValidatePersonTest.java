@@ -1,16 +1,13 @@
 package org.cc.torganizer.validation;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-
 import java.util.Set;
-
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-
 import org.cc.torganizer.core.entities.Person;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -52,6 +49,12 @@ public class ValidatePersonTest {
     Person p = new Person(tooShortFirstName, "ok");
     
     Set<ConstraintViolation<Person>> violations = validator.validate( p );
+    
+    for (ConstraintViolation<Person> violation : violations) {
+      System.out.println(violation.getPropertyPath());
+      System.out.println(violation.getInvalidValue());
+      System.out.println(violation.getMessage());
+    }
     
     // notNull, notBlank
     assertThat(violations.size(), is(2));

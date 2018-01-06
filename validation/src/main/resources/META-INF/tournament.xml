@@ -1,0 +1,20 @@
+<constraint-mappings
+  xmlns="http://xmlns.jcp.org/xml/ns/validation/mapping"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/validation/mapping
+    http://xmlns.jcp.org/xml/ns/validation/mapping/validation-mapping-2.0.xsd"
+  version="2.0">
+
+  <default-package>org.cc.torganizer.core.entities</default-package>
+  
+  <bean class="Tournament" ignore-annotations="true">
+    <field name="name">
+      <constraint annotation="javax.validation.constraints.NotBlank" />
+      <constraint annotation="javax.validation.constraints.NotNull"/>
+      <constraint annotation="javax.validation.constraints.Size">
+        <element name="min">1</element>
+        <element name="max">20</element>
+      </constraint>
+    </field>
+  </bean>
+</constraint-mappings>
