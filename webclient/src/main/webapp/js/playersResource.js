@@ -23,10 +23,15 @@ class PlayersResource {
     .catch(function(err) { onFailure("???"); });
   }
   
-  readSingle(tournamentId, onSuccess, onFailure){    
-  }
-  
-  readMultiple(offset, length, onSuccess, onFailure){    
+  readSingle(id, onSuccess, onFailure){
+    fetch('http://localhost:8080/rest/resources/players/'+id).then(function(response) {
+      if (response.ok)
+        return response.json();
+      else
+        throw new Error('Fehlerhandling noch nicht spezifiziert');
+    })
+    .then(function(json) { onSuccess(json); })
+    .catch(function(err) { onFailure("???"); });
   }
   
   update(json, onSuccess, onFailure){

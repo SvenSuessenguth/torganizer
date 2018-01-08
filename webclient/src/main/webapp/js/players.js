@@ -89,7 +89,7 @@ class Players {
       var firstNameElement = template.querySelector("#firstName");
       firstNameElement.innerHTML = player.person.firstName;
       firstNameElement.setAttribute("id", "firstName"+player.id);
-      firstNameElement.onclick = function(e){ new Players().showSelectedPlayerDetails(player.id); };
+      firstNameElement.onclick = function(e){ new Players().showDetails(player.id); };
       
       var lastNameElement = template.querySelector("#lastName"); 
       lastNameElement.innerHTML = player.person.lastName;
@@ -131,24 +131,21 @@ class Players {
   //
   //show selected players details
   //
-  showSelectedPlayerDetails(id) {
-    fetch('http://localhost:8080/rest/resources/players/'+id).then(function(response) {
-      return response.json();
-    }).then(function(player) {
-   
-      sessionStorage.setItem('players-current-player-id', player.id);
-      sessionStorage.setItem('players-current-player-person-id', player.person.id);
-
-      document.getElementById("pdFirstName").setAttribute('value', player.person.firstName);
-      document.getElementById("pdLastName").setAttribute('value', player.person.lastName);
-      document.getElementById("pdDateOfBirth").setAttribute('value', player.person.dateOfBirth);
-      
-      var genderElement = document.getElementById("pdGender");
-      selectItemByValue(genderElement, player.person.gender);
-
-    }).catch(function(err) {
-    });
+  showDetails(id) {
+    playersResource.readSingle(id, this.showDetailsSuccess, this.showDetailsFailure);
   }
+  showDetailsSuccess(json){
+    sessionStorage.setItem('players-current-player-id', json.id);
+    sessionStorage.setItem('players-current-player-person-id', json.person.id);
+
+    document.getElementById("pdFirstName").setAttribute('value', json.person.firstName);
+    document.getElementById("pdLastName").setAttribute('value', json.person.lastName);
+    document.getElementById("pdDateOfBirth").setAttribute('value', json.person.dateOfBirth);
+      
+    var genderElement = document.getElementById("pdGender");
+    selectItemByValue(genderElement, json.person.gender);
+  }
+  showDetailsFailure(json){}
 }
 
 var players = new Players();
