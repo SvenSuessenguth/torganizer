@@ -29,12 +29,20 @@ public class SquadJsonConverter extends ModelJsonConverter<Squad>{
   @Inject  
   private PlayerJsonConverter playerConverter;
   
+  public SquadJsonConverter(){
+  }
+  
+  public SquadJsonConverter(PlayerJsonConverter playerConverter){
+    this.playerConverter = playerConverter;
+  }
+  
   @Override
   public JsonObject toJsonObject(Squad squad) {
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonObjectBuilder objectBuilder = factory.createObjectBuilder();
     
     add(objectBuilder, "id", squad.getId());
+    objectBuilder.add("players", playerConverter.toJsonArray(squad.getPlayers()));
       
     return objectBuilder.build();
   }

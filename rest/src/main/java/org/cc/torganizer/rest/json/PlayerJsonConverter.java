@@ -26,6 +26,13 @@ public class PlayerJsonConverter extends ModelJsonConverter<Player>{
 
   @Inject  
   private PersonJsonConverter personConverter;
+
+  public PlayerJsonConverter(){
+  }
+  
+  public PlayerJsonConverter(PersonJsonConverter personConverter){
+    this.personConverter = personConverter;
+  }
   
   @Override
   public JsonObject toJsonObject(Player player) {

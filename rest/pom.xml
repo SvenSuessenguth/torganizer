@@ -36,18 +36,6 @@
     <dependency>
       <groupId>org.glassfish</groupId><artifactId>javax.json</artifactId>      
     </dependency>
-  
-    <!--
-     | json-b
-     +-->
-	<dependency>
-      <groupId>org.eclipse</groupId><artifactId>yasson</artifactId>
-    </dependency>
-    <!-- bereits durch json-p eingebunden
-    <dependency>
-      <groupId>org.glassfish</groupId><artifactId>javax.json</artifactId>
-    </dependency>
-    -->
   </dependencies>
   
   <build>
