@@ -1,6 +1,6 @@
 package org.cc.torganizer.core.entities;
 
-import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -15,7 +15,7 @@ public abstract class Opponent extends Entity {
 	 * 
 	 * @return Liste aller Players dieses Opponents.
 	 */  
-	public abstract List<Player> getPlayers();
+	public abstract Set<Player> getPlayers();
 
 	public Status getStatus() {
 		return status;

@@ -1,12 +1,11 @@
 package org.cc.torganizer.persistence;
 
+import java.util.List;
+import org.cc.torganizer.core.entities.Match;
+import org.cc.torganizer.core.entities.Player;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-
-import java.util.List;
-
-import org.cc.torganizer.core.entities.Match;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,7 +23,10 @@ public class MatchesJpaTest extends AbstractDbUnitJpaTest {
     assertThat(results, hasSize(1));
     Match m = results.get(0);
     
-    assertThat(m.getHome().getPlayers().get(0).getPerson().getFirstName(), is("Max"));
-    assertThat(m.getGuest().getPlayers().get(0).getPerson().getFirstName(), is("Üöä"));    
+    Player home = m.getHome().getPlayers().iterator().next();
+    Player guest = m.getGuest().getPlayers().iterator().next();
+    
+    assertThat(home.getPerson().getFirstName(), is("Max"));
+    assertThat(guest.getPerson().getFirstName(), is("Üöä"));    
   }  
 }

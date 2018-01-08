@@ -1,8 +1,8 @@
 package org.cc.torganizer.core.entities;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Wegen Restriktionen der Persistenz-API k\u00f6nnen keine Interfaces verwendet
@@ -51,8 +51,8 @@ public class Player extends Opponent {
 
   /** {@inheritDoc} */
   @Override
-  public List<Player> getPlayers() {
-    List<Player> players = new ArrayList<>();
+  public Set<Player> getPlayers() {
+    Set<Player> players = new HashSet<>();
     players.add(this);
 
     return players;

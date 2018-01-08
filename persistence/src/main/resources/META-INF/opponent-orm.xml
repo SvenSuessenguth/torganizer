@@ -24,6 +24,16 @@
     <query>SELECT p FROM Player p, Tournament t WHERE t.id = :tournamentId AND p MEMBER OF t.subscribers</query>
   </named-query>  
   
+  <named-query name="Squad.findAll">
+    <query>SELECT s FROM Squad s</query>
+  </named-query>
+  <named-query name="Squad.findById">
+    <query>SELECT s FROM Squad s WHERE s.id = :id</query>
+  </named-query>
+  <named-query name="Squad.findByTournament">
+    <query>SELECT s FROM Squad s, Tournament t WHERE t.id = :tournamentId AND s MEMBER OF t.opponents</query>
+  </named-query>  
+  
   <entity class="org.cc.torganizer.core.entities.Opponent" access="FIELD">
     <table name="OPPONENTS" />
     <inheritance strategy="JOINED"/>
@@ -46,6 +56,20 @@
         <join-column name="PERSON_ID" nullable="false" />
         <cascade><cascade-all/></cascade>
       </one-to-one>
+    </attributes>
+  </entity>
+  
+  <entity class="org.cc.torganizer.core.entities.Squad" access="FIELD">
+    <table name="SQUADS" />
+    <discriminator-value>S</discriminator-value>
+    <attributes>
+      <one-to-many name="players">
+         <join-table name="SQUAD_PLAYERS">
+           <join-column name="SQUAD_ID" referenced-column-name="ID"/>
+           <inverse-join-column name="PLAYER_ID" referenced-column-name="ID" unique="true" />
+         </join-table>
+         <cascade><cascade-all/></cascade>
+       </one-to-many>
     </attributes>
   </entity>
   

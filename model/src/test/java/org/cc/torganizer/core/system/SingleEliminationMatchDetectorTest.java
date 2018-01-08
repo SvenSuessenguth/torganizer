@@ -1,17 +1,9 @@
 package org.cc.torganizer.core.system;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.stub;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Match;
 import org.cc.torganizer.core.entities.Opponent;
@@ -19,9 +11,14 @@ import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Result;
 import org.hamcrest.MatcherAssert;
+import static org.hamcrest.Matchers.is;
 import org.junit.After;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.stub;
 
 public class SingleEliminationMatchDetectorTest {
 
@@ -268,9 +265,7 @@ public class SingleEliminationMatchDetectorTest {
 		match3.setPosition(3);
 		match3.setFinishedTime(LocalDateTime.now());
 		group.getMatches().add(match3);
-		assertThat(match3.getWinner().getPlayers().get(0).getPerson().getFirstName(), is("0"));
-		assertThat(match3.getLoser().getPlayers().get(0).getPerson().getFirstName(), is("1"));
-
+		
 		Match match4 = new Match(group.getOpponent(2), group.getOpponent(3));
 		match4.addResult(new Result(0, 1, 0));
 		match4.setPosition(4);

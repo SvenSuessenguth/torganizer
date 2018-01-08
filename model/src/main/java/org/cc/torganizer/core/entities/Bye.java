@@ -3,16 +3,11 @@ package org.cc.torganizer.core.entities;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Set;
 
 /**
  * Freilos.
  */
-@XmlRootElement(name = "bye")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Bye
   extends Opponent {
 
@@ -24,8 +19,8 @@ public class Bye
   }
 
   @Override
-  public List<Player> getPlayers() {
-    return Collections.emptyList();
+  public Set<Player> getPlayers() {
+    return Collections.emptySet();
   }
 
   /**

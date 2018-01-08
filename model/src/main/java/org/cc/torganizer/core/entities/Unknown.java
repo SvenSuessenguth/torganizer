@@ -1,17 +1,11 @@
 package org.cc.torganizer.core.entities;
 
 import java.util.Collections;
-import java.util.List;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Set;
 
 /**
  * Wird verwendet, wenn die Gegner eines Matches noch nicht feststehen.
  */
-@XmlRootElement(name = "Unknown")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Unknown extends Opponent {
 
   /**
@@ -23,7 +17,7 @@ public class Unknown extends Opponent {
 
   /** {@inheritDoc} */
   @Override
-  public List<Player> getPlayers() {
-    return Collections.emptyList();
+  public Set<Player> getPlayers() {
+    return Collections.emptySet();
   }
 }

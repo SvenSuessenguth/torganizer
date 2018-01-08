@@ -1,8 +1,9 @@
 package org.cc.torganizer.core.entities;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -61,8 +62,8 @@ public class Team extends Opponent {
   }
 
   @Override
-  public List<Player> getPlayers() {
-    List<Player> players = new ArrayList<>();
+  public Set<Player> getPlayers() {
+    Set<Player> players = new HashSet<>();
 
     for (Opponent opponent : opponents) {
       players.addAll(opponent.getPlayers());
