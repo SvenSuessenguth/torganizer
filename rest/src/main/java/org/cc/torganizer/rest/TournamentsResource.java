@@ -57,6 +57,7 @@ public class TournamentsResource extends AbstractResource {
     tournament.setId(null);
 
     entityManager.persist(tournament);
+    entityManager.flush();
     
     final JsonObject result = tConverter.toJsonObject(tournament);
     URI uri = uriInfo.getAbsolutePathBuilder().path(""+tournament.getId()).build();
