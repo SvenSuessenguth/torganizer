@@ -1,5 +1,6 @@
 package org.cc.torganizer.core.entities;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,6 +24,10 @@ public class Squad extends Opponent {
 
   public void addPlayer(Player player) {
     players.add(player);
+  }
+  
+  public void addPlayers(Collection<Player> players) {
+    players.addAll(players);
   }
 
   /** {@inheritDoc} */

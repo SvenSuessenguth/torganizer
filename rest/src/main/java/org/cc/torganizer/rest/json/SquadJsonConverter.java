@@ -13,6 +13,7 @@ import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
+import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 
 /**
@@ -65,6 +66,10 @@ public class SquadJsonConverter extends ModelJsonConverter<Squad>{
     String idString = get(jsonObject, "id");
     Long id = idString==null?null:Long.valueOf(idString);
     squad.setId(id);
+    
+    JsonArray playersJson = jsonObject.getJsonArray("players");
+    Collection<Player> players = playerConverter.toModels(playersJson);
+    squad.addPlayers(players);
     
     return squad;
   }

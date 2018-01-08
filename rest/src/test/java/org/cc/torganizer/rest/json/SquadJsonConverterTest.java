@@ -1,14 +1,18 @@
 package org.cc.torganizer.rest.json;
 
+import java.io.StringReader;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
+import javax.json.JsonReader;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -54,11 +58,6 @@ public class SquadJsonConverterTest {
             + "\"players\":["
             + "{\"id\":null,\"lastMatch\":null,\"status\":\"ACTIVE\","
             + "\"person\":{\"id\":null,\"firstName\":\"vorname_0\",\"lastName\":\"nachname_0\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}}"
-            + "]},"
-            + "{\"id\":null,"
-            + "\"players\":["
-            + "{\"id\":null,\"lastMatch\":null,\"status\":\"ACTIVE\","
-            + "\"person\":{\"id\":null,\"firstName\":\"vorname_2\",\"lastName\":\"nachname_2\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}}"
             + "]}"
             + "]";
     
@@ -67,17 +66,28 @@ public class SquadJsonConverterTest {
     Squad squad_0 = new Squad();
     squad_0.setPlayers(players_0);
     
-    Player player_2 = new Player("vorname_2", "nachname_2");
-    Set<Player> players_1 = Stream.of(player_2).collect(Collectors.toSet());   
-    Squad squad_1 = new Squad();
-    squad_1.setPlayers(players_1);
-    
-    Set<Squad> squads = Stream.of(squad_0, squad_1).collect(Collectors.toSet());   
+    Set<Squad> squads = Stream.of(squad_0).collect(Collectors.toSet());   
     
     final JsonArray jsonArray = converter.toJsonArray(squads);
     
     System.out.println(jsonArray.toString());
     
     assertThat(jsonArray.toString(), is(expected));
+  }
+  
+  @Test
+  public void testToModel(){
+    String jsonString = "{\"id\":null,"
+            + "\"players\":["
+            + "{\"id\":null,\"lastMatch\":null,\"status\":\"ACTIVE\","
+            + "\"person\":{\"id\":null,\"firstName\":\"vorname_0\",\"lastName\":\"nachname_0\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}}"
+            + "]}";
+    JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
+    JsonObject jsonObject = jsonReader.readObject();
+    
+    final Squad squad = converter.toModel(jsonObject);
+    System.out.println(squad);
+    assertThat(squad, is(notNullValue()));
+    
   }
 }
