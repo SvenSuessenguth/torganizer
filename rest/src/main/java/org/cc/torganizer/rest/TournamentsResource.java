@@ -24,12 +24,12 @@ import javax.ws.rs.core.Response;
 import static javax.ws.rs.core.Response.created;
 import javax.ws.rs.core.UriInfo;
 import org.cc.torganizer.core.entities.Discipline;
-import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.core.entities.Squad;
 import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.rest.container.DisciplinesContainer;
-import org.cc.torganizer.rest.container.OpponentsContainer;
 import org.cc.torganizer.rest.json.PlayerJsonConverter;
+import org.cc.torganizer.rest.json.SquadJsonConverter;
 import org.cc.torganizer.rest.json.TournamentJsonConverter;
 
 @Stateless
@@ -48,6 +48,9 @@ public class TournamentsResource extends AbstractResource {
   
   @Inject
   private PlayerJsonConverter pConverter;
+  
+  @Inject
+  private SquadJsonConverter sConverter;
 
   @POST
   public Response create(JsonObject jsonObject, @Context UriInfo uriInfo) {
@@ -161,36 +164,79 @@ public class TournamentsResource extends AbstractResource {
   }
   
   @GET
-  @Path("/{id}/opponents")
-  public OpponentsContainer opponents(@PathParam("id") Long tournamentId) {
-    TypedQuery<Opponent> namedQuery = entityManager.createNamedQuery("Tournament.findOpponents", Opponent.class);
+  @Path("/{id}/players")
+  public JsonArray players(@PathParam("id") Long tournamentId, @QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
+    if (offset == null || length == null) {
+      offset = DEFAULT_OFFSET;
+      length = DEFAULT_LENGTH;
+    }
+    
+    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Tournament.findPlayers", Player.class);
     namedQuery.setParameter("id", tournamentId);
-    List<Opponent> opponents = namedQuery.getResultList();
+    namedQuery.setFirstResult(offset);
+    namedQuery.setMaxResults(length);
+    List<Player> players = namedQuery.getResultList();
 
-    return new OpponentsContainer(opponents);
+    return pConverter.toJsonArray(players);
   }
 
   @POST
-  @Path("/{id}/opponents")
-  public Opponent opponents(@PathParam("id") Long tournamentId, @QueryParam("opponentId") Long opponentId) {
+  @Path("/{id}/players")
+  public JsonObject players(@PathParam("id") Long tournamentId, @QueryParam("opponentId") Long playerId) {
     // load player
-    TypedQuery<Opponent> namedQuery = entityManager.createNamedQuery("Opponent.findById", Opponent.class);
-    namedQuery.setParameter("id", opponentId);
-    List<Opponent> opponents = namedQuery.getResultList();
-    Opponent opponentToAdd = opponents.get(0);
-
+    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Opponent.findById", Player.class);
+    namedQuery.setParameter("id", playerId);
+    Player player = namedQuery.getSingleResult();
+    
     // load tournament
     TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME,
         Tournament.class);
     namedTournamentQuery.setParameter("id", tournamentId);
-    List<Tournament> tournaments = namedTournamentQuery.getResultList();
-    Tournament tournament = tournaments.get(0);
-
+    Tournament tournament = namedTournamentQuery.getSingleResult();
+    
     // persist tournament
-    tournament.getOpponents().add(opponentToAdd);
+    tournament.getOpponents().add(player);
     entityManager.persist(tournament);
 
-    return opponentToAdd;
+    return pConverter.toJsonObject(player);
+  }
+  
+  @GET
+  @Path("/{id}/squads")
+  public JsonArray squads(@PathParam("id") Long tournamentId, @QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
+    if (offset == null || length == null) {
+      offset = DEFAULT_OFFSET;
+      length = DEFAULT_LENGTH;
+    }
+    
+    TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Tournament.findSquads", Squad.class);
+    namedQuery.setParameter("id", tournamentId);
+    namedQuery.setFirstResult(offset);
+    namedQuery.setMaxResults(length);
+    List<Squad> squads = namedQuery.getResultList();
+
+    return sConverter.toJsonArray(squads);
+  }
+
+  @POST
+  @Path("/{id}/squads")
+  public JsonObject squads(@PathParam("id") Long tournamentId, @QueryParam("opponentId") Long squadId) {
+    // load player
+    TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Opponent.findById", Squad.class);
+    namedQuery.setParameter("id", squadId);
+    Squad squad = namedQuery.getSingleResult();
+    
+    // load tournament
+    TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME,
+        Tournament.class);
+    namedTournamentQuery.setParameter("id", tournamentId);
+    Tournament tournament = namedTournamentQuery.getSingleResult();
+    
+    // persist tournament
+    tournament.getOpponents().add(squad);
+    entityManager.persist(tournament);
+
+    return sConverter.toJsonObject(squad);
   }
   
 
