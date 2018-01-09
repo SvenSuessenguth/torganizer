@@ -10,17 +10,17 @@
   <named-query name="Tournament.findById">
     <query>SELECT t FROM Tournament t WHERE t.id = :id</query>
   </named-query>
-  <named-query name="Tournament.findSubscribers">
-    <query>SELECT p FROM Player p, Tournament t WHERE t.id = :id AND p MEMBER OF t.subscribers</query>
-  </named-query>
-  <named-query name="Tournament.countSubscribers">
-    <query>SELECT count(p) FROM Player p, Tournament t WHERE t.id = :id AND p MEMBER OF t.subscribers</query>
-  </named-query>
   <named-query name="Tournament.findPlayers">
     <query>SELECT p FROM Player p, Tournament t WHERE t.id = :id AND p MEMBER OF t.opponents</query>
   </named-query>
+  <named-query name="Tournament.countPlayers">
+    <query>SELECT count(p) FROM Player p, Tournament t WHERE t.id = :id AND p MEMBER OF t.opponents</query>
+  </named-query>
   <named-query name="Tournament.findSquads">
     <query>SELECT s FROM Squad s, Tournament t WHERE t.id = :id AND s MEMBER OF t.opponents</query>
+  </named-query>
+  <named-query name="Tournament.countSquads">
+    <query>SELECT count(s) FROM Squad s, Tournament t WHERE t.id = :id AND s MEMBER OF t.opponents</query>
   </named-query>
   
   <entity class="org.cc.torganizer.core.entities.Tournament" access="FIELD">
@@ -28,13 +28,6 @@
     <attributes>
        <id name="id"><generated-value/></id>
        <basic name="name"><column name="NAME"/></basic>
-       <one-to-many name="subscribers">
-         <join-table name="TOURNAMENT_SUBSCRIBERS">
-           <join-column name="TOURNAMENT_ID" referenced-column-name="ID"/>
-           <inverse-join-column name="OPPONENT_ID" referenced-column-name="ID" unique="true" />
-         </join-table>
-         <cascade><cascade-all/></cascade>
-       </one-to-many>
        <one-to-many name="opponents">
          <join-table name="TOURNAMENT_OPPONENTS">
            <join-column name="TOURNAMENT_ID" referenced-column-name="ID"/>

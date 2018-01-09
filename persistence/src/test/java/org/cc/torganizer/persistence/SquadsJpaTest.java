@@ -5,7 +5,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import org.cc.torganizer.core.entities.Squad;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
@@ -44,16 +43,5 @@ public class SquadsJpaTest extends AbstractDbUnitJpaTest {
     
     assertThat(squad, is(not(nullValue())));
     assertThat(squad.getPlayers(), hasSize(2));
-  }
-  
-  @Test
-  public void testFindByTournament() {
-    final TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Squad.findByTournament", Squad.class);
-    namedQuery.setParameter("tournamentId", 1L);
-    
-    List<Squad> squads = namedQuery.getResultList();
-    
-    assertThat(squads, is(not(empty())));
-    assertThat(squads, hasSize(2));
   }
 }

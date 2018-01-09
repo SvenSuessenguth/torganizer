@@ -10,9 +10,6 @@
   <named-query name="Opponent.findById">
     <query>SELECT o FROM Opponent o WHERE o.id = :id</query>
   </named-query>
-  <named-query name="Opponent.findByTournament">
-    <query>SELECT o FROM Opponent o, Tournament t WHERE t.id = :tournamentId AND o MEMBER OF t.opponents</query>
-  </named-query>
   
   <named-query name="Player.findAll">
     <query>SELECT p FROM Player p</query>
@@ -20,9 +17,6 @@
   <named-query name="Player.findById">
     <query>SELECT p FROM Player p WHERE p.id = :id</query>
   </named-query>
-  <named-query name="Player.findByTournament">
-    <query>SELECT p FROM Player p, Tournament t WHERE t.id = :tournamentId AND p MEMBER OF t.subscribers</query>
-  </named-query>  
   
   <named-query name="Squad.findAll">
     <query>SELECT s FROM Squad s</query>
@@ -30,9 +24,6 @@
   <named-query name="Squad.findById">
     <query>SELECT s FROM Squad s WHERE s.id = :id</query>
   </named-query>
-  <named-query name="Squad.findByTournament">
-    <query>SELECT s FROM Squad s, Tournament t WHERE t.id = :tournamentId AND s MEMBER OF t.opponents</query>
-  </named-query>  
   
   <entity class="org.cc.torganizer.core.entities.Opponent" access="FIELD">
     <table name="OPPONENTS" />

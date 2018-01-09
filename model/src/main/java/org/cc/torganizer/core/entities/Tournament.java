@@ -12,8 +12,6 @@ public class Tournament extends Entity{
 
   private String name;
 
-  private Set<Player> subscribers = new HashSet<>();
-  
   private Set<Opponent> opponents = new HashSet<>();
 
   private Set<Discipline> disciplines = new HashSet<>();
@@ -95,15 +93,6 @@ public class Tournament extends Entity{
 
     return finishedMatches;
   }
-
-  public Set<Player> getSubscribers() {
-    return subscribers;
-  }
-
-  public void setSubscribers(Set<Player> subscribers) {
-    this.subscribers = subscribers;
-  }
-
   public Set<Opponent> getOpponents() {
     return opponents;
   }

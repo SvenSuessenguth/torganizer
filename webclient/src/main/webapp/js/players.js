@@ -20,12 +20,12 @@ class Players {
     // this can't be used inside a promise
     // https://stackoverflow.com/questions/32547735/javascript-promises-how-to-access-variable-this-inside-a-then-scope
     var players = new Players();
-    tournamentsResource.addSubscriber(tournamentId, json.id, players.addSubscriberSuccess, players.addSubScriberFailure);
+    tournamentsResource.addPlayer(tournamentId, json.id, players.addPlayerSuccess, players.addPlayerFailure);
     window.location.reload(true);
   }
   createFailure(json){}
-  addSubscriberSuccess(json){console.log("successfully added subscriber to tournament")}
-  addSubScriberFailure(json){console.log("failure adding subscriber to tournament")}
+  addPlayerSuccess(json){console.log("successfully added player to tournament");}
+  addPlayerFailure(json){console.log("failure adding player to tournament");}
 
   update() {
     var json = this.inputToJSon();
@@ -71,11 +71,11 @@ class Players {
     document.getElementById("playersOffset").innerHTML = offset;
     document.getElementById("playersLength").innerHTML = offset + tableSize;
 
-    tournamentsResource.getSubscribers(tournamentId, offset, tableSize, this.getSubscribersSuccess, this.getSubscribersFailure);
+    tournamentsResource.getPlayers(tournamentId, offset, tableSize, this.getPlayersSuccess, this.getPlayersFailure);
   }
   // bisherige Daten entfernen, damit keine doppelten Anzeigen erscheinen
   // https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
-  getSubscribersSuccess(json){
+  getPlayersSuccess(json){
     var tableBody = document.querySelector('#playersTableBody');
     while (tableBody.firstChild) {
       tableBody.removeChild(tableBody.firstChild);
@@ -98,7 +98,7 @@ class Players {
       tableBody.appendChild(template);
     });
   }
-  getSubscribersFailure(json){}
+  getPlayersFailure(json){}
 
   next(){
     var playersCount = Number(document.getElementById("playersCount").innerHTML);

@@ -74,8 +74,8 @@ class TournamentsResource {
   delete(json){    
   }
   
-  getSubscribers(tournamentId, offset, length, onSuccess, onFailure){
-    fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/subscribers?offset='+offset+'&length='+length)
+  getPlayers(tournamentId, offset, length, onSuccess, onFailure){
+    fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/players?offset='+offset+'&length='+length)
     .then(function(response) {
       if (response.ok)
         return response.json();
@@ -86,9 +86,9 @@ class TournamentsResource {
     .catch(function(err) { onFailure("???"); });
   }
   
-  addSubscriber(tournamentId, playerId, onSuccess, onFailure) {
+  addPlayer(tournamentId, playerId, onSuccess, onFailure) {
     console.log("hier bin ich schon mal...");
-    fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/subscribers?pid='+playerId,{
+    fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/players?pid='+playerId,{
       method: "POST",
       headers: {
         'Accept': 'application/json'
@@ -104,8 +104,8 @@ class TournamentsResource {
    .catch(function(err) { onFailure("???"); });
   }
   
-  countSubscribers(tournamentId, onSuccess, onFailure) {
-    fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/subscribers/count')
+  countPlayers(tournamentId, onSuccess, onFailure) {
+    fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/players/count')
     .then(function(response) {
       if (response.ok)
         return response.json();

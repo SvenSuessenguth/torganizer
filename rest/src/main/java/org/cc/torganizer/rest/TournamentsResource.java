@@ -112,82 +112,31 @@ public class TournamentsResource extends AbstractResource {
   }
 
   @GET
-  @Path("/{id}/subscribers")
-  public JsonArray subscribers(@PathParam("id") Long tournamentId, @QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
-    if (offset == null || length == null) {
-      offset = DEFAULT_OFFSET;
-      length = DEFAULT_LENGTH;
-    }
-            
-    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Tournament.findSubscribers", Player.class);
-    namedQuery.setParameter("id", tournamentId);
-    namedQuery.setFirstResult(offset);
-    namedQuery.setMaxResults(length);
-    
-    List<Player> players = namedQuery.getResultList();
-
-    return pConverter.toJsonArray(players);
-  }
-
-  @POST
-  @Path("/{tid}/subscribers")
-  public JsonObject addSubscriber(@PathParam("tid") Long tournamentId, @QueryParam("pid") Long playerId) {
-    // load player
-    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
-    namedQuery.setParameter("id", playerId);
-    List<Player> players = namedQuery.getResultList();
-    Player playerToAdd = players.get(0);
-
-    // load tournament
-    TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME,
-        Tournament.class);
-    namedTournamentQuery.setParameter("id", tournamentId);
-    List<Tournament> tournaments = namedTournamentQuery.getResultList();
-    Tournament tournament = tournaments.get(0);
-
-    // persist tournament
-    tournament.getSubscribers().add(playerToAdd);
-    entityManager.persist(tournament);
-    // to get the id
-    entityManager.flush();
-
-    return pConverter.toJsonObject(playerToAdd);
-  }
-  
-  @GET
-  @Path("/{id}/subscribers/count")
-  public Long subscribersCount(@PathParam("id") Long tournamentId) {
-    Query query = entityManager.createNamedQuery("Tournament.countSubscribers");
-    query.setParameter("id", tournamentId);
-    
-    return (long) query.getSingleResult();
-  }
-  
-  @GET
   @Path("/{id}/players")
   public JsonArray players(@PathParam("id") Long tournamentId, @QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
     if (offset == null || length == null) {
       offset = DEFAULT_OFFSET;
       length = DEFAULT_LENGTH;
     }
-    
+            
     TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Tournament.findPlayers", Player.class);
     namedQuery.setParameter("id", tournamentId);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(length);
+    
     List<Player> players = namedQuery.getResultList();
 
     return pConverter.toJsonArray(players);
   }
 
   @POST
-  @Path("/{id}/players")
-  public JsonObject players(@PathParam("id") Long tournamentId, @QueryParam("opponentId") Long playerId) {
+  @Path("/{tid}/players")
+  public JsonObject players(@PathParam("tid") Long tournamentId, @QueryParam("pid") Long playerId) {
     // load player
-    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Opponent.findById", Player.class);
+    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
     namedQuery.setParameter("id", playerId);
     Player player = namedQuery.getSingleResult();
-    
+
     // load tournament
     TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME,
         Tournament.class);
@@ -197,8 +146,19 @@ public class TournamentsResource extends AbstractResource {
     // persist tournament
     tournament.getOpponents().add(player);
     entityManager.persist(tournament);
+    // to get the id
+    entityManager.flush();
 
     return pConverter.toJsonObject(player);
+  }
+  
+  @GET
+  @Path("/{id}/players/count")
+  public Long playersCount(@PathParam("id") Long tournamentId) {
+    Query query = entityManager.createNamedQuery("Tournament.countPlayers");
+    query.setParameter("id", tournamentId);
+    
+    return (long) query.getSingleResult();
   }
   
   @GET

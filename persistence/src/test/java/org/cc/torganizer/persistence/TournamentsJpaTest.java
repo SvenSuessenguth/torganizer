@@ -20,8 +20,8 @@ public class TournamentsJpaTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  public void testCountSubscribers_existingTournament() {
-    Query query = entityManager.createNamedQuery("Tournament.countSubscribers");
+  public void testCountPlayers_existingTournament() {
+    Query query = entityManager.createNamedQuery("Tournament.countPlayers");
     query.setParameter("id", 1L);
     long countSubscribers = (long) query.getSingleResult();
     
@@ -30,7 +30,7 @@ public class TournamentsJpaTest extends AbstractDbUnitJpaTest {
   
   @Test
   public void testCountSubscribers_nonExistingTournament() {
-    Query query = entityManager.createNamedQuery("Tournament.countSubscribers");
+    Query query = entityManager.createNamedQuery("Tournament.countPlayers");
     query.setParameter("id", 2L);
     long countSubscribers = (long) query.getSingleResult();
     
@@ -39,7 +39,7 @@ public class TournamentsJpaTest extends AbstractDbUnitJpaTest {
   
   @Test
   public void testCountSubscribers_nonExistingTournament_NullId() {
-    Query query = entityManager.createNamedQuery("Tournament.countSubscribers");
+    Query query = entityManager.createNamedQuery("Tournament.countPlayers");
     query.setParameter("id", null);
     long countSubscribers = (long) query.getSingleResult();
     
