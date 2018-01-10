@@ -1,0 +1,19 @@
+{
+  "elements": {
+    "table-scroller": {
+      "attributes": {
+        "for": {}
+      }
+    },
+    "torganizer-players": {},
+    "players-table": {
+      "attributes": {
+        "data": {},
+        "onselect": {},
+        "id": {},
+        "rows": {}
+      }
+    }
+  },
+  "attributes": {}
+}

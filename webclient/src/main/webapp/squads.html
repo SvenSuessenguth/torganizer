@@ -22,32 +22,40 @@
     <form id="squadsForm" onsubmit="return false;">
       
       Alle Spieler:
-      <table class="playersTable">
-        <tr>
-          <th>Vorname</th><th>Nachname</th><th>Verein</th>
-        </tr>
-        <tr>
-          <td style="white-space: nowrap">&#128270;<input id="filterFirstName" type="text" value="" /></td>
-          <td><input id="filterLastName" type="text" value="" /></td>
-          <td><input id="filterClub" type="text" value="" /></td>
-        </tr>
+      <table>
+        <thead>
+          <tr>
+            <th>Vorname</th><th>Nachname</th><th>Verein</th>
+          </tr>
+        </thead>
+        <tbody id="playersTableBody"></tbody>
       </table>
+      <input type="submit" value="prev" />
+      <input type="submit" value="next" />
       
       Squad:
-      <table class="squadPlayersTable">
-        <tr>
-          <th>Vorname</th><th>Nachname</th><th>Verein</th>
-        </tr>        
+      <table>
+        <thead>
+          <tr>
+            <th>Vorname</th><th>Nachname</th><th>Verein</th>
+          </tr>  
+        </thead>
+        <tbody id="squadTableBody">
+        </tbody>
       </table>
       <input id="neu" type="submit" value="neu" />
       <input id="ändern" type="submit" value="ändern" />
       <input id="löschen" type="submit" value="löschen" />
       
       Squads:
-      <table class="squadsTable">
-        <tr>
-          <th>Vornamen</th><th>Nachnamen</th><th>Vereine</th>
-        </tr>        
+      <table>
+        <thead>
+          <tr>
+            <th>Spieler</th><th>Verein(e)</th>
+          </tr>  
+        </thead>
+        <tbody id="squadsTableBody">
+        </tbody>
       </table>
       
     </form>

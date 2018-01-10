@@ -199,6 +199,14 @@ public class TournamentsResource extends AbstractResource {
     return sConverter.toJsonObject(squad);
   }
   
+  @GET
+  @Path("/{id}/squads/count")
+  public Long squadsCount(@PathParam("id") Long tournamentId) {
+    Query query = entityManager.createNamedQuery("Tournament.countSquads");
+    query.setParameter("id", tournamentId);
+    
+    return (long) query.getSingleResult();
+  }
 
   @GET
   @Path("/{id}/disciplines")
