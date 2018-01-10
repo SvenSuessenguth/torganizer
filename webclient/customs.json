@@ -1,5 +1,11 @@
 {
   "elements": {
+    "tournament-players": {
+      "attributes": {
+        "id": {},
+        "rows": {}
+      }
+    },
     "table-scroller": {
       "attributes": {
         "for": {}

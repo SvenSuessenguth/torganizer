@@ -126,6 +126,8 @@ public class TournamentsResource extends AbstractResource {
     
     List<Player> players = namedQuery.getResultList();
 
+    System.out.println(pConverter.toJsonArray(players).toString());
+    
     return pConverter.toJsonArray(players);
   }
 
