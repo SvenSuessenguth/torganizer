@@ -83,7 +83,7 @@ class TournamentsResource {
         throw new Error('Fehlerhandling noch nicht spezifiziert');
     })
     .then(function(json) { onSuccess(json); })
-    .catch(function(err) { onFailure("???"); });
+    .catch(function(err) { onFailure(err); });
   }
   
   addPlayer(tournamentId, playerId, onSuccess, onFailure) {

@@ -2,6 +2,7 @@
   "elements": {
     "tournament-players": {
       "attributes": {
+        "data": {},
         "id": {},
         "rows": {}
       }

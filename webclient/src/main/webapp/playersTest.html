@@ -3,12 +3,12 @@
   <head>
     <title>test der Player-Component</title>
     <script type="text/javascript" src="js/tournamentsResource.js"></script>
-    <link rel="import" href="custom/tournament-players/tournament-players.html"></link>    
+    <link rel="import" href="custom/players-table/players-table.html"></link>    
     <link rel="import" href="custom/table-scroller/table-scroller.html"></link>    
   </head>
-  <body>
+  
     <h1>Players</h1>
-    <tournament-players id="tournament-players" rows="15" data="[]"/>
+    <tournament-players id="players-table" rows="15" data="[]" />
     
     <input type="button" onclick="changeData()" value="change Data"/>
     <script>
@@ -17,12 +17,13 @@
       }
       function getPlayersSuccess(json){
         
-        var playersTable = document.getElementById("tournament-players");
+        var playersTable = document.getElementById("players-table");
         playersTable.setAttribute("data", JSON.stringify(json));
       }
       function getPlayersFailure(json){
         console.log("getPlayersFailure");
+        console.log(JSON.stringify(json));
       }
     </script>
-  </body>  
+    
 </html>

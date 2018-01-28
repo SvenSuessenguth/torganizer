@@ -1,7 +1,7 @@
 // https://developers.google.com/web/fundamentals/web-components/customelements
 // http://www.adam-bien.com/roller/abien/entry/creating_a_customelement_webcomponent_from
 
-class TournamentPlayers extends HTMLElement{
+class PlayersTable extends HTMLElement{
   
   static get observedAttributes() {
     return ['data'];
@@ -16,17 +16,17 @@ class TournamentPlayers extends HTMLElement{
   
   connectedCallback(){
     var attRows = this.getAttribute("rows");
-    if(attRows == null){
+    if(attRows === null){
       rows = 10;
     }
     
     var attData = this.getAttribute("data");
-    if(attData == null || attData.length==0){
+    if(attData === null || attData.length===0){
       data = '[]';
     }
     
     var ownerDocument = document.currentScript.ownerDocument;
-    var template = ownerDocument.getElementById("tournament-players-template");
+    var template = ownerDocument.getElementById("players-table-template");
     
     var clone = document.importNode(template.content, true);
     document.body.appendChild(clone);
@@ -42,4 +42,5 @@ class TournamentPlayers extends HTMLElement{
   }
 };
 
-customElements.define("tournament-players", TournamentPlayers);
+var customElements;
+customElements.define("players-table", PlayersTable);
