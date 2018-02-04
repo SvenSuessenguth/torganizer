@@ -12,8 +12,9 @@
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/squads.css">
     <link rel="import" href="nav.html" id="nav">
-    <link rel="import" href="footer.html" id="footer">
-    <title>Players</title>
+    <link rel="import" href="footer.html" id="footer">    
+    <link rel="import" href="custom/players-table/players-table.html"></link>    
+    <title>Squads</title>
   </head>
 
   <body id="body">
@@ -22,16 +23,10 @@
     <form id="squadsForm" onsubmit="return false;">
       
       Alle Spieler:
-      <table>
-        <thead>
-          <tr>
-            <th>Vorname</th><th>Nachname</th><th>Verein</th>
-          </tr>
-        </thead>
-        <tbody id="playersTableBody"></tbody>
-      </table>
+      <players-table id="all-players-table" rows="10" data="[]" onshow="squads.initAllPlayersData()" /> 
       <input type="submit" value="prev" />
       <input type="submit" value="next" />
+      <hr />
       
       Squad:
       <table>
@@ -46,6 +41,7 @@
       <input id="neu" type="submit" value="neu" />
       <input id="ändern" type="submit" value="ändern" />
       <input id="löschen" type="submit" value="löschen" />
+      <hr />
       
       Squads:
       <table>
@@ -57,6 +53,7 @@
         <tbody id="squadsTableBody">
         </tbody>
       </table>
+      <hr />
       
     </form>
     

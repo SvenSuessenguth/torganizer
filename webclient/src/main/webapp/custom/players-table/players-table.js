@@ -18,6 +18,7 @@ class PlayersTable extends HTMLElement{
   get data() { return this.getAttribute('data'); }
   
   connectedCallback(){
+    
     var attRows = this.getAttribute("rows");
     if(attRows !== null){
       this.rows = attRows;
@@ -51,6 +52,10 @@ class PlayersTable extends HTMLElement{
     }
     
     document.body.appendChild(clone);
+    
+    // show first data
+    let attOnshow = this.getAttribute("onshow");
+    eval(attOnshow);
   }
   
   attributeChangedCallback(name, oldValue, newValue) {
