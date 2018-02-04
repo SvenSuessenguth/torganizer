@@ -9,15 +9,10 @@ class PlayersTable extends HTMLElement{
   
   constructor(){
     super();
+    this.attachShadow({ mode: 'open' });
     this.rows = 10;
     // to access tbody on attribute change
     this.tbody = null;
-  }
-  
-  set data(newData) { this.setAttribute('data', newData); }
-  get data() { return this.getAttribute('data'); }
-  
-  connectedCallback(){
     
     var attRows = this.getAttribute("rows");
     if(attRows !== null){
@@ -28,18 +23,22 @@ class PlayersTable extends HTMLElement{
     if(attData === null || attData.length===0){
       data = '[]';
     }
-    
+  }
+  
+  set data(newData) { this.setAttribute('data', newData); }
+  get data() { return this.getAttribute('data'); }
+  
+  connectedCallback(){    
     var ownerDocument = document.currentScript.ownerDocument;
-    var template = ownerDocument.getElementById("players-table-template");
-    
-    var clone = document.importNode(template.content, true);    
+    var template = ownerDocument.getElementById("players-table-template");    
+    var playerTable = document.importNode(template.content, true);    
     
     // always show empty table with all rows
-    this.tbody = clone.getElementById("players-table-body");    
+    this.tbody = playerTable.getElementById("players-table-body");    
     for (var i = 0; i < this.rows; i++) { 
       var rowPlayer = document.createElement("tr");
       var tdFirstName = document.createElement("td");
-      // for correct height of a row
+      // for correct height of an empty row
       tdFirstName.innerHTML += '&nbsp;';
       var tdLastName = document.createElement("td");      
       var tdClub = document.createElement("td");
@@ -51,7 +50,7 @@ class PlayersTable extends HTMLElement{
       this.tbody.appendChild(rowPlayer);
     }
     
-    document.body.appendChild(clone);
+     this.shadowRoot.appendChild(playerTable);
     
     // show first data
     let attOnshow = this.getAttribute("onshow");

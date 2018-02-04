@@ -30,7 +30,7 @@ function includeFragments(){
   // Navigation
   var navsImport = document.getElementById('nav');
   var navs = navsImport.import;
-  var nav = navs.getElementById("nav-wrapper")
+  var nav = navs.getElementById("nav-wrapper");
   var navClone = document.importNode(nav.content, true);
   fragments.appendChild(navClone);
   

@@ -23,17 +23,17 @@
     <form id="squadsForm" onsubmit="return false;">
       
       Alle Spieler:
-      <players-table id="all-players-table" rows="10" data="[]" onshow="squads.initAllPlayersData()" /> 
+      <players-table id="all-players-table" rows="10" data="[]" onshow="squads.initAllPlayersData()" > 
+      </players-table>
       <input type="submit" value="prev" />
       <input type="submit" value="next" />
-      <hr />
       
       Spieler des Squad:
-      <players-table id="selected-players-table" rows="2" data="[]" onshow="squads.initSelectedPlayersData()" /> 
+      <players-table id="selected-players-table" rows="2" data="[]" onshow="squads.initSelectedPlayersData()" > 
+      </players-table>
       <input id="neu" type="submit" value="neu" />
       <input id="ändern" type="submit" value="ändern" />
       <input id="löschen" type="submit" value="löschen" />
-      <hr />
       
       Squads:
       <table>
@@ -45,8 +45,6 @@
         <tbody id="squadsTableBody">
         </tbody>
       </table>
-      <hr />
-      
     </form>
     
     <script>squads.onLoad();</script>
