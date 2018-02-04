@@ -23,6 +23,13 @@ class Squads {
     console.log("getPlayersFailure");
     console.log(JSON.stringify(json));
   }
+  
+  initSelectedPlayersData(){
+  }
+  initSelectedPlayersDataSuccess(json){    
+  }
+  initSelectedPlayersDataFailure(json){
+  }
 }
 
 var squads = new Squads();

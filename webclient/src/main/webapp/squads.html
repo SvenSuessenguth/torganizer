@@ -28,16 +28,8 @@
       <input type="submit" value="next" />
       <hr />
       
-      Squad:
-      <table>
-        <thead>
-          <tr>
-            <th>Vorname</th><th>Nachname</th><th>Verein</th>
-          </tr>  
-        </thead>
-        <tbody id="squadTableBody">
-        </tbody>
-      </table>
+      Spieler des Squad:
+      <players-table id="selected-players-table" rows="2" data="[]" onshow="squads.initSelectedPlayersData()" /> 
       <input id="neu" type="submit" value="neu" />
       <input id="ändern" type="submit" value="ändern" />
       <input id="löschen" type="submit" value="löschen" />
