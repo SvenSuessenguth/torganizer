@@ -22,4 +22,88 @@
       Daten, die im LocalStorage abgelegt werden, werden auch nur hier zugreifbar gemacht.   
     </section>
   </section>
+  
+  <section xml:id="configuration">
+    <title>Konfiguration</title>
+    <section>
+      <title>Applicationserver</title>
+      <section>
+        <title>Wildfly 11</title>
+        <itemizedlist mark='opencircle'>
+          <listitem>
+            <para>Anlegen von "${WILDFLY_HOME}/modules/system/layers/base/com/mysql/main"</para>
+		  </listitem>
+		  <listitem>
+		    <para>Kopieren des jdbc-Treibers in diesen Ordner</para>
+		  </listitem>
+		  <listitem>
+			<para>Anlegen einer Datei "module.xml" in diesem Ordner und dem Inhalt</para>
+		    <programlisting><![CDATA[
+<module xmlns="urn:jboss:module:1.3" name="com.mysql">
+  <resources>
+    <resource-root path="mysql-connector-java-5.1.44-bin.jar"/>
+  </resources>
+  <dependencies>
+    <module name="javax.api"/>
+  </dependencies>
+</module>
+]]></programlisting>
+			</listitem>
+			<listitem>
+			  <para>datasources subsystem anpassen</para>
+			  <programlisting><![CDATA[
+<subsystem xmlns="urn:jboss:domain:datasources:2.0">
+  <datasources>
+    ...
+    <datasource jndi-name="java:/jdbc/torganizerDS" pool-name="torganizerDS" enabled="true" use-java-context="true">
+      <connection-url>jdbc:mysql://localhost:3306/torganizer</connection-url>
+      <driver>mysql</driver>
+      <security>
+        <user-name>root</user-name>
+        <password>root</password>
+      </security>
+    </datasource>
+			
+    <drivers>
+      ...
+      <driver name="mysql" module="com.mysql">
+        <xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</xa-datasource-class>
+      </driver>
+    </drivers>
+  </datasources>
+</subsystem>
+]]></programlisting>
+			</listitem>
+			<listitem>
+			  <para>ausführen von ${WILDFLY_HOME}\bin\add-user mit user 'admin'</para>
+			</listitem>
+		  </itemizedlist>
+      </section>
+    </section>
+	<section>
+	  <title>Database</title>
+	  <section>
+	    <title>Mysql</title>		
+		my.ini nach c:\Windows kopieren
+ <programlisting><![CDATA[
+[mysqld]
+# set basedir to your installation path
+basedir=c:\\dev\\server\\mysql-5.7.20-win32
+# set datadir to the location of your data directory
+datadir=c:\\dev\\server\\mysql-5.7.20-win32\\data
+
+# https://stackoverflow.com/questions/5359495/how-to-change-a-mysql-database-to-utc
+default-time-zone = '+00:00'
+]]></programlisting>
+		
+	mysql-5.7.20-winx64 nach c:\dev\server kopieren
+	c:\dev\server\mysql-5.7.20-winx64\data anlegen
+	
+	mysqld --initialize-insecure
+	mysqld --console
+
+	Datenbank 'test' und 'torganizer' anlegen
+	  </section>
+	</section>
+  </section>
 </article>
