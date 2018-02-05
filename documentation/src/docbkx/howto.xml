@@ -14,12 +14,10 @@
   <section xml:id="architecture">
     <title>Architektur</title>
     <section>
-      <title>Dateien</title>
-      Zu jedem HTML gehört ein gleich benamtes JavaScript und CSS. 
-      Dort sind nur Funktionalitäten hinterlegt, die zu dem zugehörigen Modell gehören. 
-      Zu der Funktionalität gehören die Rest-Aufrufe, die ein Promise zurückgeben 
-      (können von allen genutzt werden) und JS-Funktionen, die das HTML manipulieren.
-      Daten, die im LocalStorage abgelegt werden, werden auch nur hier zugreifbar gemacht.   
+      <title>Dateien des Clients</title>
+      Zu jedem HTML gehört ein gleichnamiges JavaScript und CSS. 
+      Zu jedem JavaScript gibt es im LocalStorage den Namespace path_to_javascript, unterhalb dessen alle Parameter gespeichert werden, 
+	  die zu der HTML-Seite auf Client-Seite gehalten werden müssen.      
     </section>
   </section>
   

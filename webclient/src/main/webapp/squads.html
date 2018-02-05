@@ -25,8 +25,8 @@
       Alle Spieler:
       <players-table id="all-players-table" rows="10" data="[]" onshow="squads.initAllPlayersData()" > 
       </players-table>
-      <input type="submit" value="prev" />
-      <input type="submit" value="next" />
+      <input type="submit" value="prev" onclick="squads.prevAllPlayersData()" />
+      <input type="submit" value="next" onclick="squads.nextAllPlayersData()" />
       
       Spieler des Squad:
       <players-table id="selected-players-table" rows="2" data="[]" onshow="squads.initSelectedPlayersData()" > 
