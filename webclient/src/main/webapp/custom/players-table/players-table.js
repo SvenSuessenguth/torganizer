@@ -21,7 +21,7 @@ class PlayersTable extends HTMLElement{
     
     var attData = this.getAttribute("data");
     if(attData === null || attData.length===0){
-      data = '[]';
+      this.data = '[]';
     }
   }
   
