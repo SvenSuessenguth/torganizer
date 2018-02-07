@@ -8,6 +8,7 @@ class Squads {
   
   onLoad(){
     includeFragments();
+    this.initAllPlayersData();
   }
   
   initAllPlayersData(){

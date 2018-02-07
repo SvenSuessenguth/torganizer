@@ -51,10 +51,6 @@ class PlayersTable extends HTMLElement{
     }
     
      this.shadowRoot.appendChild(playerTable);
-    
-    // show first data
-    let attOnshow = this.getAttribute("onshow");
-    eval(attOnshow);
   }
   
   attributeChangedCallback(name, oldValue, newValue) {
