@@ -81,10 +81,10 @@ class PlayersTable extends HTMLElement{
     for(var i=counter;i<this.rows;i+=1){
       var rowPlayer = tbody.getElementsByTagName("tr")[i];
       var tdFirstName = rowPlayer.getElementsByTagName("td")[0];
-      tdFirstName.innerHTML += '&nbsp;';
+      tdFirstName.innerHTML = '&nbsp;';
       
       var tdLastName = rowPlayer.getElementsByTagName("td")[1];
-      tdLastName.innerHTML += '&nbsp;';
+      tdLastName.innerHTML = '&nbsp;';
     }
   }
 };

@@ -12,17 +12,42 @@ class Squads {
   }
   
   initAllPlayersData(){
-    tournamentsResource.getPlayers(1, 0, 10, this.initAllPlayersDataSuccess, this.initAllPlayersDataFailure);
+    var allPlayersDataLength = document.getElementById("all-players-table").getAttribute("rows");
+    var allPlayersDataTournamentId = tournaments.getCurrentTournamentId();    
+    sessionStorage.setItem("squads.allPlayersDataOffset", 0);    
+    
+    this.showAllPlayersData(allPlayersDataTournamentId, 0, allPlayersDataLength);
+  }
+  prevAllPlayersData(){
+    var allPlayersDataLength = Number(document.getElementById("all-players-table").getAttribute("rows"));
+    var allPlayersDataTournamentId = tournaments.getCurrentTournamentId();
+    var allPlayersDataOffset = Number(sessionStorage.getItem("squads.allPlayersDataOffset"));
+    allPlayersDataOffset = allPlayersDataOffset - allPlayersDataLength;
+    if(allPlayersDataOffset<0){
+      allPlayersDataOffset = 0;
+    }
+    sessionStorage.setItem("squads.allPlayersDataOffset", allPlayersDataOffset);
+    
+    this.showAllPlayersData(allPlayersDataTournamentId, allPlayersDataOffset, allPlayersDataLength);
+  }
+  nextAllPlayersData(){
+    var allPlayersDataLength = Number(document.getElementById("all-players-table").getAttribute("rows"));
+    var allPlayersDataTournamentId = tournaments.getCurrentTournamentId();
+    var allPlayersDataOffset = Number(sessionStorage.getItem("squads.allPlayersDataOffset"));
+    allPlayersDataOffset = allPlayersDataOffset + allPlayersDataLength;    
+    sessionStorage.setItem("squads.allPlayersDataOffset", allPlayersDataOffset);
+    
+    this.showAllPlayersData(allPlayersDataTournamentId, allPlayersDataOffset, allPlayersDataLength);
   }
   
-  initAllPlayersDataSuccess(json){        
+  showAllPlayersData(tournamentId, offset, rows){
+    tournamentsResource.getPlayers(tournamentId, offset, rows, this.showAllPlayersDataSuccess, this.showAllPlayersDataFailure);
+  }
+  showAllPlayersDataSuccess(json){        
     var playersTable = document.getElementById("all-players-table");
     playersTable.setAttribute("data", JSON.stringify(json));        
-  }
-  
-  initAllPlayersDataFailure(json){
-    console.log("getPlayersFailure");
-    console.log(JSON.stringify(json));
+  }  
+  showAllPlayersDataFailure(json){
   }
   
   initSelectedPlayersData(){
