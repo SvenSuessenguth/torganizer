@@ -1,1 +1,0 @@
-call .\env.bat

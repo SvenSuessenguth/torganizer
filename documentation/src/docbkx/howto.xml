@@ -98,6 +98,8 @@ default-time-zone = '+00:00'
 	c:\dev\server\mysql-5.7.20-winx64\data anlegen
 	
 	mysqld --initialize-insecure
+	
+	// starten des DBMS
 	mysqld --console
 
 	Datenbank 'test' und 'torganizer' anlegen
