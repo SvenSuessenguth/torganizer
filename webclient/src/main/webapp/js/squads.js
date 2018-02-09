@@ -8,53 +8,55 @@ class Squads {
   
   onLoad(){
     includeFragments();
-    this.initAllPlayersData();
+    this.initAllPlayers();
   }
   
-  initAllPlayersData(){
-    var allPlayersDataLength = document.getElementById("all-players-table").getAttribute("rows");
-    var allPlayersDataTournamentId = tournaments.getCurrentTournamentId();    
-    sessionStorage.setItem("squads.allPlayersDataOffset", 0);    
+  initAllPlayers(){
+    var allPlayersLength = document.getElementById("all-players-table").getAttribute("rows");
+    var allPlayersTournamentId = tournaments.getCurrentTournamentId();    
+    sessionStorage.setItem("squads.allPlayersOffset", 0);    
     
-    this.showAllPlayersData(allPlayersDataTournamentId, 0, allPlayersDataLength);
+    this.updateAllPlayers(allPlayersTournamentId, 0, allPlayersLength);
   }
-  prevAllPlayersData(){
-    var allPlayersDataLength = Number(document.getElementById("all-players-table").getAttribute("rows"));
-    var allPlayersDataTournamentId = tournaments.getCurrentTournamentId();
-    var allPlayersDataOffset = Number(sessionStorage.getItem("squads.allPlayersDataOffset"));
-    allPlayersDataOffset = allPlayersDataOffset - allPlayersDataLength;
-    if(allPlayersDataOffset<0){
-      allPlayersDataOffset = 0;
+  prevAllPlayers(){
+    var allPlayersLength = Number(document.getElementById("all-players-table").getAttribute("rows"));
+    var allPlayersTournamentId = tournaments.getCurrentTournamentId();
+    var allPlayersOffset = Number(sessionStorage.getItem("squads.allPlayersOffset"));
+    allPlayersOffset = allPlayersOffset - allPlayersLength;
+    if(allPlayersOffset<0){
+      allPlayersOffset = 0;
     }
-    sessionStorage.setItem("squads.allPlayersDataOffset", allPlayersDataOffset);
+    sessionStorage.setItem("squads.allPlayersOffset", allPlayersOffset);
     
-    this.showAllPlayersData(allPlayersDataTournamentId, allPlayersDataOffset, allPlayersDataLength);
+    this.updateAllPlayers(allPlayersTournamentId, allPlayersOffset, allPlayersLength);
   }
-  nextAllPlayersData(){
-    var allPlayersDataLength = Number(document.getElementById("all-players-table").getAttribute("rows"));
-    var allPlayersDataTournamentId = tournaments.getCurrentTournamentId();
-    var allPlayersDataOffset = Number(sessionStorage.getItem("squads.allPlayersDataOffset"));
-    allPlayersDataOffset = allPlayersDataOffset + allPlayersDataLength;    
-    sessionStorage.setItem("squads.allPlayersDataOffset", allPlayersDataOffset);
+  nextAllPlayers(){
+    var allPlayersLength = Number(document.getElementById("all-players-table").getAttribute("rows"));
+    var allPlayersTournamentId = tournaments.getCurrentTournamentId();
+    var allPlayersOffset = Number(sessionStorage.getItem("squads.allPlayersOffset"));
+    allPlayersOffset = allPlayersOffset + allPlayersLength;    
+    sessionStorage.setItem("squads.allPlayersOffset", allPlayersOffset);
     
-    this.showAllPlayersData(allPlayersDataTournamentId, allPlayersDataOffset, allPlayersDataLength);
+    this.updateAllPlayers(allPlayersTournamentId, allPlayersOffset, allPlayersLength);
   }
   
-  showAllPlayersData(tournamentId, offset, rows){
-    tournamentsResource.getPlayers(tournamentId, offset, rows, this.showAllPlayersDataSuccess, this.showAllPlayersDataFailure);
+  updateAllPlayers(tournamentId, offset, rows){
+    tournamentsResource.getPlayers(tournamentId, offset, rows, this.updateAllPlayersSuccess, this.updateAllPlayersFailure);
   }
-  showAllPlayersDataSuccess(json){        
+  updateAllPlayersSuccess(json){
+    // if json-array is empty and offset > 0, we are one step too far
+    var allPlayersOffset = Number(sessionStorage.getItem("squads.allPlayersOffset"));
+    var allPlayersLength = Number(document.getElementById("all-players-table").getAttribute("rows"));
+    if(json.length===0 && allPlayersOffset>0){
+      sessionStorage.setItem("squads.allPlayersOffset", allPlayersOffset-allPlayersLength);
+      return;
+    }
+    
+    // update custom element with data
     var playersTable = document.getElementById("all-players-table");
     playersTable.setAttribute("data", JSON.stringify(json));        
   }  
-  showAllPlayersDataFailure(json){
-  }
-  
-  initSelectedPlayersData(){
-  }
-  initSelectedPlayersDataSuccess(json){    
-  }
-  initSelectedPlayersDataFailure(json){
+  updateAllPlayersFailure(json){
   }
 }
 
