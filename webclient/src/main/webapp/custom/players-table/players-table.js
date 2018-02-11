@@ -23,6 +23,11 @@ class PlayersTable extends HTMLElement{
     if(attData === null || attData.length===0){
       this.data = '[]';
     }
+    
+    var attId = this.getAttribute("id");
+    if(attId === null || attData.length===0){
+      this.Id = '';
+    }
   }
   
   set data(newData) { this.setAttribute('data', newData); }
@@ -31,10 +36,10 @@ class PlayersTable extends HTMLElement{
   connectedCallback(){    
     var ownerDocument = document.currentScript.ownerDocument;
     var template = ownerDocument.getElementById("players-table-template");    
-    var playerTable = document.importNode(template.content, true);    
+    this.playerTable = document.importNode(template.content, true);    
     
-    // always show empty table with all rows
-    this.tbody = playerTable.getElementById("players-table-body");    
+    // always show empty table with all rows    
+    this.tbody = this.playerTable.getElementById("players-table-body");    
     for (var i = 0; i < this.rows; i++) { 
       var rowPlayer = document.createElement("tr");
       var tdFirstName = document.createElement("td");
@@ -50,7 +55,7 @@ class PlayersTable extends HTMLElement{
       this.tbody.appendChild(rowPlayer);
     }
     
-     this.shadowRoot.appendChild(playerTable);
+     this.shadowRoot.appendChild(this.playerTable);
   }
   
   attributeChangedCallback(name, oldValue, newValue) {
@@ -64,15 +69,18 @@ class PlayersTable extends HTMLElement{
     var jsonArray = JSON.parse(newValue);    
     var counter = 0;
     var tbody = this.tbody;
+    // therefore 'playerSelected' is a global function, the id of the event-sending element is dynmic
+    var id = this.getAttribute("id");
+    
     jsonArray.forEach(function(player){      
       var rowPlayer = tbody.getElementsByTagName("tr")[counter];
+      rowPlayer.setAttribute("onclick", "playerSelected("+player.id+", \""+id+"\")");
+      
       var tdFirstName = rowPlayer.getElementsByTagName("td")[0];
       tdFirstName.innerHTML = player.person.firstName;
       
       var tdLastName = rowPlayer.getElementsByTagName("td")[1];
       tdLastName.innerHTML = player.person.lastName;
-      
-      // missing club
       
       counter += 1;
     });
@@ -88,6 +96,12 @@ class PlayersTable extends HTMLElement{
     }
   }
 };
+
+function playerSelected(playerId, elementId){
+  // https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Creating_and_triggering_events
+  var event = new CustomEvent('player-selected', {"detail":playerId});  
+  document.getElementById(elementId).dispatchEvent(event);
+}
 
 var customElements;
 customElements.define("players-table", PlayersTable);

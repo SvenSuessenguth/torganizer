@@ -8,7 +8,7 @@ class Squads {
   
   onLoad(){
     includeFragments();
-    this.initAllPlayers();    
+    this.initAllPlayers(); 
   }
   
   initAllPlayers(){
@@ -17,7 +17,14 @@ class Squads {
     sessionStorage.setItem("squads.allPlayersOffset", 0);    
     
     this.updateAllPlayers(allPlayersTournamentId, 0, allPlayersLength);
+    
+    document.getElementById("all-players-table").addEventListener("player-selected", this.addPlayerToSquad);
   }
+  
+  addPlayerToSquad(event){
+    console.log("add player "+event.detail+" to squad");    
+  }
+  
   prevAllPlayers(){
     var allPlayersLength = Number(document.getElementById("all-players-table").getAttribute("rows"));
     var allPlayersTournamentId = tournaments.getCurrentTournamentId();
