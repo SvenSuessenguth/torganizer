@@ -36,6 +36,8 @@ target/
 .settings/
 .classpath
 .project
+.tern-project
+.factorypath
 
 # NetBeans specific
 nbproject/private/
