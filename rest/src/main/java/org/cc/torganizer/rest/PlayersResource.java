@@ -50,11 +50,15 @@ public class PlayersResource {
     Validator validator = factory.getValidator();
     Set<ConstraintViolation<Player>> violations = validator.validate( player );
     
+    if(violations.size()==0){
+    
     entityManager.persist(player);
     // with no flush, the id is not known
     entityManager.flush();
 
-    return converter.toJsonObject(player);
+    return converter.toJsonObject(player);}
+    
+    return null;
   }
 
   @GET
