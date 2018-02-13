@@ -19,6 +19,7 @@
     <jta-data-source>jdbc/torganizerDS</jta-data-source>
     
     <mapping-file>META-INF/orm.xml</mapping-file>
+    
     <mapping-file>META-INF/club-orm.xml</mapping-file>
     <mapping-file>META-INF/court-orm.xml</mapping-file>
     <mapping-file>META-INF/discipline-orm.xml</mapping-file>
@@ -37,9 +38,8 @@
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/torganizer"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.password" value=""/>
-      <!-- EclipseLink in Glassfish, OpenLiberty, WLP  -->
-      <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
-     
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
+      
       <!-- Hibernate in Wildfly
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>      
       <property name="hibernate.hbm2ddl.auto" value="create"/>

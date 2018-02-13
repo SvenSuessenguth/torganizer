@@ -26,7 +26,6 @@
   <entity class="org.cc.torganizer.core.entities.Tournament" access="FIELD">
     <table name="TOURNAMENTS" />
     <attributes>
-       <id name="id"><generated-value/></id>
        <basic name="name"><column name="NAME"/></basic>
        <one-to-many name="opponents">
          <join-table name="TOURNAMENT_OPPONENTS">

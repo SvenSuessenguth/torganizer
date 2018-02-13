@@ -10,7 +10,7 @@ import org.cc.torganizer.core.exceptions.RestrictionException;
 /**
  * Auszufuehrende Disziplin innerhalb eines Turnieres (z.B. HE-A)
  */
-public final class Discipline extends Entity{
+public class Discipline extends Entity{
 
   /**
    * Darzustellender Name, wenn noch keine Disziplin zugewiesen wurde.
@@ -19,11 +19,11 @@ public final class Discipline extends Entity{
 
   private String label;
   
-  private final Set<Opponent> opponents;
+  private Set<Opponent> opponents;
 
-  private final List<Round> rounds;
+  private List<Round> rounds;
   
-  private final Set<Restriction> restrictions;
+  private Set<Restriction> restrictions;
   
   /**
    * in einer Discipline wird mindestens eine Round gespielt.

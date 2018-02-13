@@ -24,10 +24,12 @@
       <groupId>org.cc.torganizer</groupId><artifactId>persistence</artifactId>
       <version>${project.version}</version><scope>compile</scope>
     </dependency>
+    <!-- noch nicht mir wlp 18?
     <dependency>
       <groupId>org.cc.torganizer</groupId><artifactId>validation</artifactId>
       <version>${project.version}</version><scope>compile</scope>
     </dependency>
+    -->
 	
     <!--
      | javax.json

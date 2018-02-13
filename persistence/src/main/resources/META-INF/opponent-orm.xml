@@ -29,8 +29,7 @@
     <table name="OPPONENTS" />
     <inheritance strategy="JOINED"/>
     <discriminator-column name="TYPE" discriminator-type="STRING" length="20"/>
-    <attributes>
-      <id name="id"><generated-value/></id>
+    <attributes>      
       <basic name="status">
          <column name="STATUS" nullable="false" />
          <enumerated>STRING</enumerated>
