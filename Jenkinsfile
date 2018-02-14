@@ -24,7 +24,9 @@ pipeline {
         }
 		stage('report') {
             steps {
-                bat 'mvn sonar:sonar -Dsonar.host.url=${SONAR_HOST_URL}'
+                withSonarQubeEnv('My SonarQube Server') {
+                  bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
+                }
             }
         }
     }
