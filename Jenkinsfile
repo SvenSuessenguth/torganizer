@@ -24,7 +24,7 @@ pipeline {
         }
 		stage('report') {
             steps {
-                bat 'mvn sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL'            
+                bat 'mvn sonar:sonar -Dsonar.host.url=${SONAR_HOST_URL}'
             }
         }
     }
