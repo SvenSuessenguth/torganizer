@@ -22,5 +22,11 @@ pipeline {
                 archive 'target/*.jar'
             }
         }
+		stage('report') {
+            steps {
+                // Run the maven build
+                bat 'mvn sonar:sonar'
+            }
+        }
     }
 }
