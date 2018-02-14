@@ -25,7 +25,7 @@ pipeline {
 		stage('report') {
             steps {
                 // Run the maven build
-                bat 'mvn sonar:sonar'
+                bat 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9090'
             }
         }
     }
