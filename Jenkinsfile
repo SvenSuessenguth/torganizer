@@ -24,9 +24,7 @@ pipeline {
         }
 		stage('report') {
             steps {
-                withSonarQubeEnv('SonarQube') {
-                    bat 'mvn sonar:sonar'
-                }
+                bat 'mvn sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL'            
             }
         }
     }
