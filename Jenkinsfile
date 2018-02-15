@@ -1,8 +1,14 @@
 pipeline {
     agent any
+	
+	options {
+      buildDiscarder(logRotator(numToKeepStr: '3', artifactNumToKeepStr: '3'))
+	}
+	
 	triggers {
 		pollSCM('* * * * *')
 	}
+	
     tools {
         maven 'apache-maven-3.5.2'
         jdk 'jdk1.8.0_144'
