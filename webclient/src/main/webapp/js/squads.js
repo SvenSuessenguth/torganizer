@@ -1,4 +1,4 @@
-/* global squadsResource, tournamentsResource, tournaments */
+/* global squadsResource, playersResource, tournamentsResource, tournaments */
 
 var tableSize = Number(10);
 
@@ -18,11 +18,17 @@ class Squads {
     
     this.updateAllPlayers(allPlayersTournamentId, 0, allPlayersLength);
     
-    document.getElementById("all-players-table").addEventListener("player-selected", this.addPlayerToSquad);
+    document.getElementById("all-players-table").addEventListener("player-selected", this.playerSelectedFromAllPlayer);
   }
   
-  addPlayerToSquad(event){
-    console.log("add player "+event.detail+" to squad");    
+  playerSelectedFromAllPlayer(event){    
+    playersResource.readSingle(Number(event.detail), squads.addPlayerToSquadSuccess, squads.addPlayerToSquadFailure);
+  }
+  addPlayerToSquadSuccess(json){
+    console.log("add player "+event.detail+" to squad");
+  }
+  addPlayerToSquadFailure(json){
+    console.log("add player to squad with failure");
   }
   
   prevAllPlayers(){
