@@ -25,7 +25,7 @@ class PlayersTable extends HTMLElement{
     }
     
     var attId = this.getAttribute("id");
-    if(attId === null || attData.length===0){
+    if(attId === null || attId.length===0){
       this.Id = '';
     }
   }
