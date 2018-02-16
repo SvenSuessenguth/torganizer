@@ -1,16 +1,16 @@
 pipeline {
     agent any
 	
-    properties([
-	  parameters
-	  ([
-	    string(defaultValue: '*/master', description: '', name: 'Branch Specifier', trim: false)
-	  ]), 
-	  pipelineTriggers([pollSCM('* * * * *')])
-	])
+    parameters {
+      string(name: 'Branch Specifier', defaultValue: '*/master', description: '-')
+    }
 	
 	options {
       buildDiscarder(logRotator(daysToKeepStr: '3', numToKeepStr: '3', artifactNumToKeepStr: '3'))
+	}
+	
+	triggers {
+		pollSCM('* * * * *')
 	}
 	
     tools {
