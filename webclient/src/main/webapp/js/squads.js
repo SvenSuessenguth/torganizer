@@ -22,10 +22,24 @@ class Squads {
   }
   
   playerSelectedFromAllPlayer(event){    
-    playersResource.readSingle(Number(event.detail), squads.addPlayerToSquadSuccess, squads.addPlayerToSquadFailure);
+    playersResource.readSingle(event.detail, squads.addPlayerToSquadSuccess, squads.addPlayerToSquadFailure);
   }
   addPlayerToSquadSuccess(json){
-    console.log("add player "+event.detail+" to squad");
+    var retrievedData = sessionStorage.getItem("squads.selected-players-table");
+    var playersInSquad;
+    if(retrievedData!==null){
+      playersInSquad = JSON.parse(retrievedData);
+    }else{
+      playersInSquad = [];
+    }
+    if(playersInSquad.length===2){
+      alert("max 2 players in squad");
+      return;
+    }
+    
+    playersInSquad.push(json);
+    sessionStorage.setItem("squads.selected-players-table", JSON.stringify(playersInSquad));
+    
   }
   addPlayerToSquadFailure(json){
     console.log("add player to squad with failure");

@@ -24,10 +24,18 @@ class PlayersResource {
   }
   
   readSingle(id, onSuccess, onFailure){
-    fetch('http://localhost:8080/rest/resources/players/'+id).then(function(response) {
-      if (response.ok)
-        return response.json();
-      else
+    console.log("readSingle");
+    fetch('http://localhost:8080/rest/resources/players/'+id, {
+      method: "GET",
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then(function(response) {
+      if (response.ok){
+        var json = response.json();
+        console.log(json);
+        return json;
+      } else
         throw new Error('Fehlerhandling noch nicht spezifiziert');
     })
     .then(function(json) { onSuccess(json); })
