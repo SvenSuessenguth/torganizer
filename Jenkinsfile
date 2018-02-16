@@ -1,10 +1,6 @@
 pipeline {
     agent any
 	
-    parameters {
-      string(name: 'Branch_Specifier', defaultValue: '*/master', description: '-')
-    }
-	
 	options {
       buildDiscarder(logRotator(daysToKeepStr: '3', numToKeepStr: '3', artifactNumToKeepStr: '3'))
 	}
