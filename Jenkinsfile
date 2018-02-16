@@ -2,7 +2,7 @@ pipeline {
     agent any
 	
     parameters {
-      string(name: 'Branch Specifier', defaultValue: '*/master', description: '-')
+      string(name: 'Branch_Specifier', defaultValue: '*/master', description: '-')
     }
 	
 	options {
