@@ -1,6 +1,12 @@
 pipeline {
     agent any
 	
+    properties([
+      parameters([
+        string(name: 'Branch Specifier', defaultValue: '*/master', )
+      ])
+    ])
+	
 	options {
       buildDiscarder(logRotator(daysToKeepStr: '3', numToKeepStr: '3', artifactNumToKeepStr: '3'))
 	}
