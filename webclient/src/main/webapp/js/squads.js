@@ -9,6 +9,7 @@ class Squads {
   onLoad(){
     includeFragments();
     this.initAllPlayers();
+    this.updateSquad();
   }
   
   initAllPlayers(){
@@ -69,13 +70,14 @@ class Squads {
   
   updateSquad(){
     var sessionStorageData = sessionStorage.getItem("squads.selected-players-table");
-    var playersInSquad = JSON.parse(sessionStorageData);
+    var selectedPlayersTable = document.getElementById("selected-players-table");
     
-    playersInSquad.forEach(function (player){
-      console.log("player in Squad: "+player.id);
-    });
-    
-    
+    selectedPlayersTable.setAttribute("data", sessionStorageData);
+  }
+  
+  resetSelectedPlayers(){
+    sessionStorage.setItem("squads.selected-players-table", "[]");
+    this.updateSquad();
   }
   
   updateAllPlayers(tournamentId, offset, rows){

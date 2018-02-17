@@ -32,7 +32,6 @@ class PlayersResource {
     }).then(function(response) {
       if (response.ok){
         var json = response.json();
-        console.log(json);
         return json;
       } else
         throw new Error('Fehlerhandling noch nicht spezifiziert');
