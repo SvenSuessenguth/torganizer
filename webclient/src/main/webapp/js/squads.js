@@ -8,7 +8,7 @@ class Squads {
   
   onLoad(){
     includeFragments();
-    this.initAllPlayers(); 
+    this.initAllPlayers();
   }
   
   initAllPlayers(){
@@ -27,18 +27,18 @@ class Squads {
   addPlayerToSquadSuccess(json){
     var retrievedData = sessionStorage.getItem("squads.selected-players-table");
     var playersInSquad;
-    if(retrievedData!==null){
+    if(retrievedData!==null && retrievedData.length!==0){
       playersInSquad = JSON.parse(retrievedData);
     }else{
       playersInSquad = [];
     }
     if(playersInSquad.length===2){
-      alert("max 2 players in squad");
       return;
     }
     
     playersInSquad.push(json);
     sessionStorage.setItem("squads.selected-players-table", JSON.stringify(playersInSquad));
+    squads.updateSquad();
     
   }
   addPlayerToSquadFailure(json){
@@ -65,6 +65,17 @@ class Squads {
     sessionStorage.setItem("squads.allPlayersOffset", allPlayersOffset);
     
     this.updateAllPlayers(allPlayersTournamentId, allPlayersOffset, allPlayersLength);
+  }
+  
+  updateSquad(){
+    var sessionStorageData = sessionStorage.getItem("squads.selected-players-table");
+    var playersInSquad = JSON.parse(sessionStorageData);
+    
+    playersInSquad.forEach(function (player){
+      console.log("player in Squad: "+player.id);
+    });
+    
+    
   }
   
   updateAllPlayers(tournamentId, offset, rows){

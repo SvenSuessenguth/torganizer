@@ -24,7 +24,6 @@ class PlayersResource {
   }
   
   readSingle(id, onSuccess, onFailure){
-    console.log("readSingle");
     fetch('http://localhost:8080/rest/resources/players/'+id, {
       method: "GET",
       headers: {
