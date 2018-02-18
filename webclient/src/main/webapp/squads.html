@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="css/squads.css">
     <link rel="import" href="nav.html" id="nav">
     <link rel="import" href="footer.html" id="footer">    
-    <link rel="import" href="custom/players-table/players-table.html"></link>    
+    <link rel="import" href="custom/players-table/players-table.html"></link>
+    <link rel="import" href="custom/squads-table/squads-table.html"></link>    
     <title>Squads</title>
   </head>
 
@@ -47,6 +48,10 @@
         <tbody id="squadsTableBody">
         </tbody>
       </table>
+      
+      <hr />
+      <squads-table id="all-squads-table" rows="5" data="[]" > 
+      </squads-table>
     </form>
     
     <script>squads.onLoad();</script>

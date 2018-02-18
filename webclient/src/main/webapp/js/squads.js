@@ -9,7 +9,18 @@ class Squads {
   onLoad(){
     includeFragments();
     this.initAllPlayers();
+    this.initSquads();
     this.updateSquad();
+  }
+  
+  initSquads(){
+    var allSquadsLength = document.getElementById("all-squads-table").getAttribute("rows");
+    var allSquadsTournamentId = tournaments.getCurrentTournamentId();    
+    sessionStorage.setItem("squads.allSquadsOffset", 0);    
+    
+    this.updateAllSquads(allSquadsTournamentId, 0, allSquadsLength);
+    
+    document.getElementById("all-squads-table").addEventListener("squad-selected", this.squadSelectedFromAllSquads);
   }
   
   initAllPlayers(){
