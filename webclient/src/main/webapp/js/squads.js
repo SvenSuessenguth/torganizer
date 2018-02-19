@@ -91,9 +91,19 @@ class Squads {
     this.updateSquad();
   }
   
+  updateAllSquads(tournamentId, offset, rows){
+    tournamentsResource.getSquads(tournamentId, offset, rows, this.updateAllSquadsSuccess, this.updateAllSquadsFailure);
+  }
+  updateAllSquadsSuccess(json){
+    console.log("updateAllSquadsSuccess");
+  }
+  updateAllSquadsFailure(json){
+  }
+  
   updateAllPlayers(tournamentId, offset, rows){
     tournamentsResource.getPlayers(tournamentId, offset, rows, this.updateAllPlayersSuccess, this.updateAllPlayersFailure);
   }
+  
   updateAllPlayersSuccess(json){
     // if json-array is empty and offset > 0, we are one step too far
     var allPlayersOffset = Number(sessionStorage.getItem("squads.allPlayersOffset"));
