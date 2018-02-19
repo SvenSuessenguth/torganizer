@@ -59,14 +59,14 @@ public class SquadsResource {
   }
   
   @GET
-  public JsonArray readMultiple(@QueryParam("tournamentId") Long tournamentId, @QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
+  public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
 
     if (offset == null || length == null) {
       offset = DEFAULT_OFFSET;
       length = DEFAULT_LENGTH;
     }
 
-    TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Squad.findAllForTournament", Squad.class);
+    TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Squad.findAll", Squad.class);
     namedQuery.setFirstResult(offset);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(length);
