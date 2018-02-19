@@ -26,6 +26,9 @@ tomcat
 # Maven 
 target/
 
+# Visual Studio Code
+.vscode/
+
 # IntelliJ project files 
 *.iml
 *.iws
