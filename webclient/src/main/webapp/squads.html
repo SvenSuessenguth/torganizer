@@ -6,6 +6,7 @@
     <script type="text/javascript" src="js/global.js"></script>
     <script type="text/javascript" src="js/tournaments.js"></script>
     <script type="text/javascript" src="js/tournamentsResource.js"></script>
+    <script type="text/javascript" src="js/playersResource.js"></script>
     <script type="text/javascript" src="js/squadsResource.js"></script>
     <script type="text/javascript" src="js/squads.js"></script>
     <link rel="stylesheet" href="css/ui.css">
@@ -13,7 +14,8 @@
     <link rel="stylesheet" href="css/squads.css">
     <link rel="import" href="nav.html" id="nav">
     <link rel="import" href="footer.html" id="footer">    
-    <link rel="import" href="custom/players-table/players-table.html"></link>    
+    <link rel="import" href="custom/players-table/players-table.html"></link>
+    <link rel="import" href="custom/squads-table/squads-table.html"></link>    
     <title>Squads</title>
   </head>
 
@@ -23,7 +25,7 @@
     <form id="squadsForm" onsubmit="return false;">
       
       Alle Spieler:
-      <players-table id="all-players-table" rows="1" data="[]" > 
+      <players-table id="all-players-table" rows="5" data="[]" > 
       </players-table>
       <input type="submit" value="prev" onclick="squads.prevAllPlayers()" />
       <input type="submit" value="next" onclick="squads.nextAllPlayers()" />
@@ -31,10 +33,11 @@
       Spieler des Squad:
       <players-table id="selected-players-table" rows="2" data="[]" > 
       </players-table>
-      <input id="neu" type="submit" value="neu" />
-      <input id="ändern" type="submit" value="ändern" />
+      <input id="speichern" type="submit" value="speichern" />
       <input id="löschen" type="submit" value="löschen" />
+      <input id="verwerfen" type="submit" value="verwerfen" onclick="squads.resetSelectedPlayers()"/>
       
+      <hr />
       Squads:
       <table>
         <thead>
@@ -45,6 +48,10 @@
         <tbody id="squadsTableBody">
         </tbody>
       </table>
+      
+      <hr />
+      <squads-table id="all-squads-table" rows="5" data="[]" > 
+      </squads-table>
     </form>
     
     <script>squads.onLoad();</script>

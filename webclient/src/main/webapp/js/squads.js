@@ -1,4 +1,4 @@
-/* global squadsResource, tournamentsResource, tournaments */
+/* global squadsResource, playersResource, tournamentsResource, tournaments */
 
 var tableSize = Number(10);
 
@@ -8,7 +8,19 @@ class Squads {
   
   onLoad(){
     includeFragments();
-    this.initAllPlayers(); 
+    this.initAllPlayers();
+    this.initSquads();
+    this.updateSquad();
+  }
+  
+  initSquads(){
+    var allSquadsLength = document.getElementById("all-squads-table").getAttribute("rows");
+    var allSquadsTournamentId = tournaments.getCurrentTournamentId();    
+    sessionStorage.setItem("squads.allSquadsOffset", 0);    
+    
+    this.updateAllSquads(allSquadsTournamentId, 0, allSquadsLength);
+    
+    document.getElementById("all-squads-table").addEventListener("squad-selected", this.squadSelectedFromAllSquads);
   }
   
   initAllPlayers(){
@@ -18,11 +30,31 @@ class Squads {
     
     this.updateAllPlayers(allPlayersTournamentId, 0, allPlayersLength);
     
-    document.getElementById("all-players-table").addEventListener("player-selected", this.addPlayerToSquad);
+    document.getElementById("all-players-table").addEventListener("player-selected", this.playerSelectedFromAllPlayer);
   }
   
-  addPlayerToSquad(event){
-    console.log("add player "+event.detail+" to squad");    
+  playerSelectedFromAllPlayer(event){    
+    playersResource.readSingle(event.detail, squads.addPlayerToSquadSuccess, squads.addPlayerToSquadFailure);
+  }
+  addPlayerToSquadSuccess(json){
+    var retrievedData = sessionStorage.getItem("squads.selected-players-table");
+    var playersInSquad;
+    if(retrievedData!==null && retrievedData.length!==0){
+      playersInSquad = JSON.parse(retrievedData);
+    }else{
+      playersInSquad = [];
+    }
+    if(playersInSquad.length===2){
+      return;
+    }
+    
+    playersInSquad.push(json);
+    sessionStorage.setItem("squads.selected-players-table", JSON.stringify(playersInSquad));
+    squads.updateSquad();
+    
+  }
+  addPlayerToSquadFailure(json){
+    console.log("add player to squad with failure");
   }
   
   prevAllPlayers(){
@@ -45,6 +77,18 @@ class Squads {
     sessionStorage.setItem("squads.allPlayersOffset", allPlayersOffset);
     
     this.updateAllPlayers(allPlayersTournamentId, allPlayersOffset, allPlayersLength);
+  }
+  
+  updateSquad(){
+    var sessionStorageData = sessionStorage.getItem("squads.selected-players-table");
+    var selectedPlayersTable = document.getElementById("selected-players-table");
+    
+    selectedPlayersTable.setAttribute("data", sessionStorageData);
+  }
+  
+  resetSelectedPlayers(){
+    sessionStorage.setItem("squads.selected-players-table", "[]");
+    this.updateSquad();
   }
   
   updateAllPlayers(tournamentId, offset, rows){

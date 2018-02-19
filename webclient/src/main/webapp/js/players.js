@@ -19,7 +19,6 @@ class Players {
     var tournamentId = tournaments.getCurrentTournamentId();
     // this can't be used inside a promise
     // https://stackoverflow.com/questions/32547735/javascript-promises-how-to-access-variable-this-inside-a-then-scope
-    var players = new Players();
     tournamentsResource.addPlayer(tournamentId, json.id, players.addPlayerSuccess, players.addPlayerFailure);
     window.location.reload(true);
   }

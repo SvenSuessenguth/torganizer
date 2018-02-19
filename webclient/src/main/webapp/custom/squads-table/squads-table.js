@@ -1,7 +1,7 @@
 // https://developers.google.com/web/fundamentals/web-components/customelements
 // http://www.adam-bien.com/roller/abien/entry/creating_a_customelement_webcomponent_from
 
-class PlayersTable extends HTMLElement{
+class SquadsTable extends HTMLElement{
   
   static get observedAttributes() {
     return ['data'];
@@ -35,27 +35,27 @@ class PlayersTable extends HTMLElement{
   
   connectedCallback(){    
     var ownerDocument = document.currentScript.ownerDocument;
-    var template = ownerDocument.getElementById("players-table-template");    
-    this.playerTable = document.importNode(template.content, true);    
+    var template = ownerDocument.getElementById("squads-table-template");    
+    this.squadsTable = document.importNode(template.content, true);    
     
     // always show empty table with all rows    
-    this.tbody = this.playerTable.getElementById("players-table-body");    
+    this.tbody = this.squadsTable.getElementById("squads-table-body");    
     for (var i = 0; i < this.rows; i++) { 
-      var rowPlayer = document.createElement("tr");
-      var tdFirstName = document.createElement("td");
+      var rowSquad = document.createElement("tr");
+      var tdFirstNames = document.createElement("td");
       // for correct height of an empty row
-      tdFirstName.innerHTML += '&nbsp;';
-      var tdLastName = document.createElement("td");      
-      var tdClub = document.createElement("td");
+      tdFirstNames.innerHTML += '&nbsp;';
+      var tdLastNames = document.createElement("td");      
+      var tdClubs = document.createElement("td");
       
-      rowPlayer.appendChild(tdFirstName);
-      rowPlayer.appendChild(tdLastName);
-      rowPlayer.appendChild(tdClub);
+      rowSquad.appendChild(tdFirstNames);
+      rowSquad.appendChild(tdLastNames);
+      rowSquad.appendChild(tdClubs);
       
-      this.tbody.appendChild(rowPlayer);
+      this.tbody.appendChild(rowSquad);
     }
     
-     this.shadowRoot.appendChild(this.playerTable);
+     this.shadowRoot.appendChild(this.squadsTable);
   }
   
   attributeChangedCallback(name, oldValue, newValue) {
@@ -65,43 +65,43 @@ class PlayersTable extends HTMLElement{
     }
     
     // only listening for changes of 'data'
-    // so newValue is always an array of players
+    // so newValue is always an array of squads
     var jsonArray = JSON.parse(newValue);    
     var counter = 0;
     var tbody = this.tbody;
-    // therefore 'playerSelected' is a global function, the id of the event-sending element is dynmic
+    // therefore 'squadSelected' is a global function, the id of the event-sending element is dynmic
     var id = this.getAttribute("id");
     
-    jsonArray.forEach(function(player){      
-      var rowPlayer = tbody.getElementsByTagName("tr")[counter];
-      rowPlayer.setAttribute("onclick", "playerSelected("+player.id+", \""+id+"\")");
+    jsonArray.forEach(function(squad){      
+      var rowSquad = tbody.getElementsByTagName("tr")[counter];
+      rowSquad.setAttribute("onclick", "squadSelected("+squad.id+", \""+id+"\")");
       
-      var tdFirstName = rowPlayer.getElementsByTagName("td")[0];
-      tdFirstName.innerHTML = player.person.firstName;
+      var tdFirstNames = rowSquad.getElementsByTagName("td")[0];
+      tdFirstNames.innerHTML = "Vorname-1<br />Vorname-2";
       
-      var tdLastName = rowPlayer.getElementsByTagName("td")[1];
-      tdLastName.innerHTML = player.person.lastName;
+      var tdLastNames = rowSquad.getElementsByTagName("td")[1];
+      tdLastNames.innerHTML = "Nachname-1<br />Nachname-2";
       
       counter += 1;
     });
     
     // clear left over rows
     for(var i=counter;i<this.rows;i+=1){
-      var rowPlayer = tbody.getElementsByTagName("tr")[i];
-      var tdFirstName = rowPlayer.getElementsByTagName("td")[0];
-      tdFirstName.innerHTML = '&nbsp;';
+      var rowSquad = tbody.getElementsByTagName("tr")[i];
+      var tdFirstNames = rowSquad.getElementsByTagName("td")[0];
+      tdFirstNames.innerHTML = '&nbsp;';
       
-      var tdLastName = rowPlayer.getElementsByTagName("td")[1];
-      tdLastName.innerHTML = '&nbsp;';
+      var tdLastNames = rowSquad.getElementsByTagName("td")[1];
+      tdLastNames.innerHTML = '&nbsp;';
     }
   }
 };
 
-function playerSelected(playerId, elementId){
+function squadSelected(squadId, elementId){
   // https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Creating_and_triggering_events
-  var event = new CustomEvent('player-selected', {"detail":playerId});  
+  var event = new CustomEvent('squad-selected', {"detail":squadId});  
   document.getElementById(elementId).dispatchEvent(event);
 }
 
 var customElements;
-customElements.define("players-table", PlayersTable);
+customElements.define("squads-table", SquadsTable);

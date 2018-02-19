@@ -1,5 +1,12 @@
 {
   "elements": {
+    "squads-table": {
+      "attributes": {
+        "data": {},
+        "id": {},
+        "rows": {}
+      }
+    },
     "tournament-players": {
       "attributes": {
         "data": {},
@@ -19,6 +26,11 @@
         "onselect": {},
         "id": {},
         "rows": {}
+      }
+    },
+    "table": {
+      "attributes": {
+        "id": {}
       }
     }
   },
