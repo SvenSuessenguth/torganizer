@@ -1,6 +1,6 @@
 /* global playersResource, tournamentsResource, tournaments */
 
-var tableSize = Number(10);
+var tableSize = Number(3);
 
 class Players {
   constructor() {    
@@ -105,10 +105,6 @@ class Players {
     var currOffset = Number(sessionStorage.getItem('players.players-table.offset'));
     var newOffset = currOffset + tableSize;
       
-    if(newOffset>=playersCount){
-      return;
-    }
-      
     document.getElementById("players-offset").innerHTML = newOffset;
     sessionStorage.setItem('players.players-table.offset', newOffset);
     this.updatePlayersTable();
@@ -121,7 +117,7 @@ class Players {
     if(newOffset<0){
       newOffset = 0;
     }
-      
+    
     document.getElementById("players-offset").innerHTML = newOffset;
     document.getElementById("players-length").innerHTML = newOffset + tableSize;
     sessionStorage.setItem('players.players-table.offset', newOffset);
