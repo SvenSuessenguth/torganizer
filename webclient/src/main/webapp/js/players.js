@@ -70,11 +70,11 @@ class Players {
     document.getElementById("playersOffset").innerHTML = offset;
     document.getElementById("playersLength").innerHTML = offset + tableSize;
 
-    tournamentsResource.getPlayers(tournamentId, offset, tableSize, this.getPlayersSuccess, this.getPlayersFailure);
+    tournamentsResource.getPlayers(tournamentId, offset, tableSize, this.getPlayersResolve, this.getPlayersReject);
   }
   // bisherige Daten entfernen, damit keine doppelten Anzeigen erscheinen
   // https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
-  getPlayersSuccess(json){
+  getPlayersResolve(json){
     var tableBody = document.querySelector('#playersTableBody');
     while (tableBody.firstChild) {
       tableBody.removeChild(tableBody.firstChild);
@@ -97,7 +97,7 @@ class Players {
       tableBody.appendChild(template);
     });
   }
-  getPlayersFailure(json){}
+  getPlayersReject(json){}
 
   next(){
     var playersCount = Number(document.getElementById("playersCount").innerHTML);
