@@ -36,15 +36,15 @@ class Players {
 
   inputToJSon(){
     var playerId= sessionStorage.getItem('players-current-player-id');
-    var personId = sessionStorage.getItem('players-current-player-person-id');
-    var firstName = document.getElementById("pdFirstName").value;
-    var lastName = document.getElementById("pdLastName").value;
-    var dateOfBirth = document.getElementById("pdDateOfBirth").value;
+    var personId = sessionStorage.getItem('players.current-player.person.id');
+    var firstName = document.getElementById("first-name").value;
+    var lastName = document.getElementById("last-name").value;
+    var dateOfBirth = document.getElementById("date-of-birth").value;
     
-    var genderElement = document.getElementById("pdGender");
+    var genderElement = document.getElementById("gender");
     var gender = genderElement.options[genderElement.selectedIndex].value;
     
-    var statusElement = document.getElementById("pdStatus");
+    var statusElement = document.getElementById("status");
     var status = statusElement.options[statusElement.selectedIndex].value;
     
     var json = JSON.stringify({
@@ -63,67 +63,68 @@ class Players {
     return json;
   }
 
-  updatePlayersTable(){
-    var offset = Number(sessionStorage.getItem('players-table-offset'));
+  updatePlayersTable() {
+    var offset = Number(sessionStorage.getItem('players.players-table.offset'));
     var tournamentId = tournaments.getCurrentTournamentId();
     
-    document.getElementById("playersOffset").innerHTML = offset;
-    document.getElementById("playersLength").innerHTML = offset + tableSize;
+    document.getElementById("players-offset").innerHTML = offset;
+    document.getElementById("players-length").innerHTML = offset + tableSize;
 
-    tournamentsResource.getPlayers(tournamentId, offset, tableSize, this.getPlayersResolve, this.getPlayersReject);
-  }
-  // bisherige Daten entfernen, damit keine doppelten Anzeigen erscheinen
-  // https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
-  getPlayersResolve(json){
-    var tableBody = document.querySelector('#playersTableBody');
+    tournamentsResource.getPlayers(tournamentId, offset, tableSize, this.getPlayersTableDataResolve, this.getPlayersTableDataReject);
+  }  
+  getPlayersTableDataResolve(json){ players.updatePlayersTableInternal(json); }
+  getPlayersTableDataReject(json){ console.log(json); }
+  updatePlayersTableInternal(json){
+    // bisherige Daten entfernen, damit keine doppelten Anzeigen erscheinen
+    // https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
+    var tableBody = document.querySelector('#players-table-body');
     while (tableBody.firstChild) {
       tableBody.removeChild(tableBody.firstChild);
     }
       
     // daten in die tabelle einfuegen
     json.forEach(function(player){
-      var t = document.querySelector("#playerRecord").cloneNode(true);
+      var t = document.querySelector("#player-record").cloneNode(true);
       var template = t.content;
     
-      var firstNameElement = template.querySelector("#firstName");
+      var firstNameElement = template.querySelector("#first-name");
       firstNameElement.innerHTML = player.person.firstName;
-      firstNameElement.setAttribute("id", "firstName"+player.id);
+      firstNameElement.setAttribute("id", "first-name"+player.id);
       firstNameElement.onclick = function(e){ new Players().showDetails(player.id); };
       
-      var lastNameElement = template.querySelector("#lastName"); 
+      var lastNameElement = template.querySelector("#last-name"); 
       lastNameElement.innerHTML = player.person.lastName;
-      lastNameElement.setAttribute("id", "lasttName"+player.id);
+      lastNameElement.setAttribute("id", "last-name"+player.id);
       
       tableBody.appendChild(template);
     });
   }
-  getPlayersReject(json){}
 
   next(){
-    var playersCount = Number(document.getElementById("playersCount").innerHTML);
-    var currOffset = Number(sessionStorage.getItem('players-table-offset'));
+    var playersCount = Number(document.getElementById("players-count").innerHTML);
+    var currOffset = Number(sessionStorage.getItem('players.players-table.offset'));
     var newOffset = currOffset + tableSize;
       
     if(newOffset>=playersCount){
       return;
     }
       
-    document.getElementById("playersOffset").innerHTML = newOffset;
-    sessionStorage.setItem('players-table-offset', newOffset);
+    document.getElementById("players-offset").innerHTML = newOffset;
+    sessionStorage.setItem('players.players-table.offset', newOffset);
     this.updatePlayersTable();
   }
 
   prev(){
-    var currOffset = Number(sessionStorage.getItem('players-table-offset'));
+    var currOffset = Number(sessionStorage.getItem('players.players-table.offset'));
     var newOffset = currOffset - tableSize;
       
     if(newOffset<0){
       newOffset = 0;
     }
       
-    document.getElementById("playersOffset").innerHTML = newOffset;
-    document.getElementById("playersLength").innerHTML = newOffset + tableSize;
-    sessionStorage.setItem('players-table-offset', newOffset);
+    document.getElementById("players-offset").innerHTML = newOffset;
+    document.getElementById("players-length").innerHTML = newOffset + tableSize;
+    sessionStorage.setItem('players.players-table.offset', newOffset);
     this.updatePlayersTable();
   }
 
@@ -137,11 +138,11 @@ class Players {
     sessionStorage.setItem('players-current-player-id', json.id);
     sessionStorage.setItem('players-current-player-person-id', json.person.id);
 
-    document.getElementById("pdFirstName").setAttribute('value', json.person.firstName);
-    document.getElementById("pdLastName").setAttribute('value', json.person.lastName);
-    document.getElementById("pdDateOfBirth").setAttribute('value', json.person.dateOfBirth);
+    document.getElementById("first-name").setAttribute('value', json.person.firstName);
+    document.getElementById("last-name").setAttribute('value', json.person.lastName);
+    document.getElementById("date-of-birth").setAttribute('value', json.person.dateOfBirth);
       
-    var genderElement = document.getElementById("pdGender");
+    var genderElement = document.getElementById("gender");
     selectItemByValue(genderElement, json.person.gender);
   }
   showDetailsFailure(json){}
