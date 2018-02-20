@@ -4,14 +4,14 @@ class PlayersResource {
   constructor() {
   }
   
-  create(json, onSuccess, onFailure){
+  create(player, onSuccess, onFailure){
     fetch('http://localhost:8080/rest/resources/players',{
       method: "POST",
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: json
+      body: JSON.stringify(player)
     })
     .then(function(response) {
       if (response.ok)
@@ -59,7 +59,22 @@ class PlayersResource {
     .catch(function(err) { onFailure("???"); });
   }
   
-  delete(json, onSuccess, onFailure){
+  delete(id, onSuccess, onFailure){
+    fetch('http://localhost:8080/rest/resources/players/'+id,{
+      method: "DELETE",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(function(response) {
+      if (response.ok)
+        return response.json();
+      else
+        throw new Error('Fehlerhandling noch nicht spezifiziert');
+    })
+    .then(function(json) { onSuccess(json); })
+    .catch(function(err) { onFailure("???"); });
   }
 }
 

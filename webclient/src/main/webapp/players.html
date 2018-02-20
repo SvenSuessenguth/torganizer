@@ -28,7 +28,7 @@
     <!--
      | create persons and players in one step
      +-->
-    <form id="playersForm" onsubmit="return false;">
+    <form id="players-form" onsubmit="return false;">
     
       <input type="submit" id="validateFormButton" value="validate" style="display: none;">
       
@@ -72,6 +72,7 @@
         <input type="button" value="neu" onclick="players.create()">
         <input type="button" value="ändern" onclick="players.update()">
         <input type="button" value="löschen" onclick="players.delete()">
+        <input type="button" value="verwerfen" onclick="players.inputCancel()">
       </span>
       
     </form>

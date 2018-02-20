@@ -87,7 +87,6 @@ class TournamentsResource {
   }
   
   addPlayer(tournamentId, playerId, onSuccess, onFailure) {
-    console.log("hier bin ich schon mal...");
     fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/players?pid='+playerId,{
       method: "POST",
       headers: {
