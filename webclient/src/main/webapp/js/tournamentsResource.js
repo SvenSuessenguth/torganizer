@@ -103,6 +103,23 @@ class TournamentsResource {
    .catch(function(err) { onFailure("???"); });
   }
   
+  removePlayer(tournamentId, playerId, onSuccess, onFailure) {
+    fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/players?pid='+playerId,{
+      method: "DELETE",
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(function(response) {
+      if (response.ok)
+        return response.json();
+      else
+        throw new Error('Fehlerhandling noch nicht spezifiziert');
+    })
+   .then(function(json) { onSuccess(json); })
+   .catch(function(err) { onFailure("???"); });
+  }
+  
   countPlayers(tournamentId, onSuccess, onFailure) {
     fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/players/count')
     .then(function(response) {

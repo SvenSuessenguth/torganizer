@@ -52,7 +52,8 @@ class Players {
   // ---------------------------------------------------------------------------
   delete(){
     var player = this.inputToJSon();
-    playersResource.delete(player.id, this.deleteResolve, this.deleteReject);    
+    var tournamentId = tournaments.getCurrentTournamentId();
+    tournamentsResource.removePlayer(tournamentId, player.id, this.deleteResolve, this.deleteReject);    
   }
   deleteResolve(json){players.updatePlayersTable();}
   deleteReject(json){}

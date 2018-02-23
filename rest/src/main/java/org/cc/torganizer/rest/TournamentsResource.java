@@ -152,6 +152,35 @@ public class TournamentsResource extends AbstractResource {
     return pConverter.toJsonObject(player);
   }
   
+  /**
+   * Remove player from tournament. The player is not deleted at all.
+   * @param tournamentId
+   * @param playerId
+   * @return 
+   */
+  @DELETE
+  @Path("/{tid}/players/[pid}")
+  public JsonObject removePlayer(@PathParam("tid") Long tournamentId, @PathParam("pid") Long playerId) {
+    // load player
+    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
+    namedQuery.setParameter("id", playerId);
+    Player player = namedQuery.getSingleResult();
+
+    // load tournament
+    TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME,
+        Tournament.class);
+    namedTournamentQuery.setParameter("id", tournamentId);
+    Tournament tournament = namedTournamentQuery.getSingleResult();
+    
+    // persist tournament
+    tournament.getOpponents().remove(player);
+    entityManager.persist(tournament);
+    // to get the id
+    entityManager.flush();
+
+    return pConverter.toJsonObject(player);
+  }
+  
   @GET
   @Path("/{id}/players/count")
   public Long playersCount(@PathParam("id") Long tournamentId) {
