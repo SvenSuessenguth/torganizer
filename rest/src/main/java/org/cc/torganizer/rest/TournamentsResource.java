@@ -159,7 +159,7 @@ public class TournamentsResource extends AbstractResource {
    * @return 
    */
   @DELETE
-  @Path("/{tid}/players/[pid}")
+  @Path("/{tid}/players/{pid}")
   public JsonObject removePlayer(@PathParam("tid") Long tournamentId, @PathParam("pid") Long playerId) {
     // load player
     TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);

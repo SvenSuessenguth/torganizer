@@ -29,7 +29,8 @@ class Players {
   createReject(json){}
   addPlayerResolve(json){
     console.log("successfully added player to tournament");
-    this.updatePlayersTable();
+    players.updatePlayersTable();
+    players.inputCancel();
   }
   addPlayerReject(json){console.log("failure adding player to tournament");}
 
@@ -42,7 +43,10 @@ class Players {
     var json = this.inputToJSon();
     playersResource.update(json, this.updateResolve, this.updateReject);    
   }
-  updateResolve(json){players.updatePlayersTable();}
+  updateResolve(json){
+    players.updatePlayersTable();
+    players.inputCancel();
+  }
   updateReject(json){}
   
   // ---------------------------------------------------------------------------
@@ -55,7 +59,10 @@ class Players {
     var tournamentId = tournaments.getCurrentTournamentId();
     tournamentsResource.removePlayer(tournamentId, player.id, this.deleteResolve, this.deleteReject);    
   }
-  deleteResolve(json){players.updatePlayersTable();}
+  deleteResolve(json){
+    players.updatePlayersTable();
+    players.inputCancel();
+  }
   deleteReject(json){}
 
   // ---------------------------------------------------------------------------
@@ -87,8 +94,8 @@ class Players {
     sessionStorage.setItem('players-current-player-id', json.id);
     sessionStorage.setItem('players-current-player-person-id', json.person.id);
 
-    document.getElementById("first-name").setAttribute('value', json.person.firstName);
-    document.getElementById("last-name").setAttribute('value', json.person.lastName);
+    document.getElementById("first-name").value = json.person.firstName;
+    document.getElementById("last-name").value = json.person.lastName;
     document.getElementById("date-of-birth").setAttribute('value', json.person.dateOfBirth);
       
     var genderElement = document.getElementById("gender");
@@ -96,14 +103,22 @@ class Players {
   }
   
   inputCancel(){
-    sessionStorage.setItem('players-current-player-id', null);
-    sessionStorage.setItem('players-current-player-person-id', null);
+    var currentPlayerId = sessionStorage.getItem('players-current-player-id');
+    console.log("players-current-player-id to clear : "+currentPlayerId)
+    if(currentPlayerId!==null){
+      sessionStorage.removeItem('players-current-player-id');
+    }
+    var currentPersonId = sessionStorage.getItem('players-current-player-person-id'); 
+    if(currentPersonId!== null){
+      sessionStorage.removeItem('players-current-player-person-id');
+    }
 
-    document.getElementById("first-name").setAttribute('value', "");
-    document.getElementById("last-name").setAttribute('value', "");
-    document.getElementById("date-of-birth").setAttribute('value', null);      
+    document.getElementById("first-name").value = '';
+    document.getElementById("last-name").value = '';
+    document.getElementById("date-of-birth").valueAsDate = null;      
     var genderElement = document.getElementById("gender");
     selectItemByValue(genderElement, "MALE");
+    console.log("jetzt sollten alle Felder clear sein");
   }
   
 
@@ -178,19 +193,8 @@ class Players {
   //
   // ---------------------------------------------------------------------------
   showDetails(id) {
-    playersResource.readSingle(id, this.showDetailsResolve, this.showDetailsReject);
-  }
-  showDetailsResolve(json){
-    sessionStorage.setItem('players-current-player-id', json.id);
-    sessionStorage.setItem('players-current-player-person-id', json.person.id);
-
-    document.getElementById("first-name").setAttribute('value', json.person.firstName);
-    document.getElementById("last-name").setAttribute('value', json.person.lastName);
-    document.getElementById("date-of-birth").setAttribute('value', json.person.dateOfBirth);
-      
-    var genderElement = document.getElementById("gender");
-    selectItemByValue(genderElement, json.person.gender);
-  }
+    playersResource.readSingle(id, this.inputFromJson, this.showDetailsReject);
+  }  
   showDetailsReject(json){}
 }
 

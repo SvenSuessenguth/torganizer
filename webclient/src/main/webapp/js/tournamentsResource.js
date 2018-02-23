@@ -104,7 +104,7 @@ class TournamentsResource {
   }
   
   removePlayer(tournamentId, playerId, onSuccess, onFailure) {
-    fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/players?pid='+playerId,{
+    fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/players/'+playerId,{
       method: "DELETE",
       headers: {
         'Accept': 'application/json'
