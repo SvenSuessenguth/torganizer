@@ -1,6 +1,6 @@
 /* global playersResource, tournamentsResource, tournaments */
 
-var tableSize = Number(3);
+var tableSize = Number(10);
 
 class Players {
   constructor() {    
@@ -118,7 +118,7 @@ class Players {
     document.getElementById("date-of-birth").valueAsDate = null;      
     var genderElement = document.getElementById("gender");
     selectItemByValue(genderElement, "MALE");
-    console.log("jetzt sollten alle Felder clear sein");
+    document.getElementById("first-name").focus();
   }
   
 
