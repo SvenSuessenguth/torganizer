@@ -13,6 +13,19 @@ class Players {
 
   // ---------------------------------------------------------------------------
   //
+  // decide wether to create or to update a player
+  //
+  // ---------------------------------------------------------------------------
+  createOrUpdate(){
+    if(sessionStorage.getItem('players-current-player-id')===null){
+      this.create();      
+    }else{
+      this.update();
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  //
   // create new player
   //
   // ---------------------------------------------------------------------------
@@ -30,7 +43,7 @@ class Players {
   addPlayerResolve(json){
     console.log("successfully added player to tournament");
     players.updatePlayersTable();
-    players.inputCancel();
+    players.cancel();
   }
   addPlayerReject(json){console.log("failure adding player to tournament");}
 
@@ -45,7 +58,7 @@ class Players {
   }
   updateResolve(json){
     players.updatePlayersTable();
-    players.inputCancel();
+    players.cancel();
   }
   updateReject(json){}
   
@@ -61,13 +74,13 @@ class Players {
   }
   deleteResolve(json){
     players.updatePlayersTable();
-    players.inputCancel();
+    players.cancel();
   }
   deleteReject(json){}
 
   // ---------------------------------------------------------------------------
   //
-  // clear and convert form data to/from json
+  // convert form data to/from json and cancel (clear the form
   //
   // ---------------------------------------------------------------------------
   inputToJSon(){
@@ -101,10 +114,10 @@ class Players {
     var genderElement = document.getElementById("gender");
     selectItemByValue(genderElement, json.person.gender);
   }
-  
-  inputCancel(){
+
+  cancel(){
     var currentPlayerId = sessionStorage.getItem('players-current-player-id');
-    console.log("players-current-player-id to clear : "+currentPlayerId);
+    console.log("players-current-player-id to cancel : "+currentPlayerId);
     if(currentPlayerId!==null){
       sessionStorage.removeItem('players-current-player-id');
     }
@@ -121,7 +134,11 @@ class Players {
     document.getElementById("first-name").focus();
   }
   
-
+  // ---------------------------------------------------------------------------
+  //
+  // update the table with loaded data and hader above the table
+  //
+  // ---------------------------------------------------------------------------
   updatePlayersTable() {
     var offset = Number(sessionStorage.getItem('players.players-table.offset'));
     var tournamentId = tournaments.getCurrentTournamentId();
@@ -149,11 +166,13 @@ class Players {
     json.forEach(function(player){
       var t = document.querySelector("#player-record").cloneNode(true);
       var template = t.content;
-    
+     
+      var playerRow = template.querySelector("#player-row");
+      playerRow.onclick = function(e){ new Players().showDetails(player.id); };
+      
       var firstNameElement = template.querySelector("#first-name");
       firstNameElement.innerHTML = player.person.firstName;
-      firstNameElement.setAttribute("id", "first-name"+player.id);
-      firstNameElement.onclick = function(e){ new Players().showDetails(player.id); };
+      firstNameElement.setAttribute("id", "first-name"+player.id);      
       
       var lastNameElement = template.querySelector("#last-name"); 
       lastNameElement.innerHTML = player.person.lastName;
