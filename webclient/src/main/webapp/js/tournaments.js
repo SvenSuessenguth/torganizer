@@ -49,29 +49,30 @@ class Tournaments {
     });
   }
   
-  create(){	
+  save(){
     var json = this.inputToJSon();
-    tournamentsResource.create(json, this.createSuccess, this.createFailure);
+    var tournamentId = this.getCurrentTournamentId();
+    var method = "UNKNOWN";
+    
+    if(tournamentId===null){ method = "POST"; }
+    else{ method = "PUT"; }
+    
+    tournamentsResource.createOrUpdate(json, method, this.createSuccess, this.createFailure);
   }
+  
   createSuccess(json){
     sessionStorage.setItem('tournaments-current-tournament-id', json.id);
     sessionStorage.setItem('tournaments-current-tournament-name', json.name);
     window.location.reload(true);
   }
-  createFailure(json){   
-  }
+  createFailure(json){}
 
-  update(){	
-    var json = this.inputToJSon();
-    tournamentsResource.update(json, this.updateSuccess, this.updateFailure);
-  }
   updateSuccess(json){
     sessionStorage.setItem('tournaments-current-tournament-id', json.id);
     sessionStorage.setItem('tournaments-current-tournament-name', json.name);
     window.location.reload(true);
   }
-  updateFailure(json){   
-  }
+  updateFailure(json){}
   
   inputToJSon(){
     var id= tournaments.getCurrentTournamentId();
