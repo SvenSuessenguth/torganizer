@@ -113,6 +113,9 @@ class Players {
       
     var genderElement = document.getElementById("gender");
     selectItemByValue(genderElement, json.person.gender);
+    
+    var statusElement = document.getElementById("status");
+    selectItemByValue(statusElement, json.status);
   }
 
   cancel(){
@@ -131,6 +134,8 @@ class Players {
     document.getElementById("date-of-birth").valueAsDate = null;      
     var genderElement = document.getElementById("gender");
     selectItemByValue(genderElement, "MALE");
+    var statusElement = document.getElementById("status");
+    selectItemByValue(statusElement, "ACTIVE");
     document.getElementById("first-name").focus();
   }
   
