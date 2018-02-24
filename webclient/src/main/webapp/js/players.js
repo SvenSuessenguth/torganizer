@@ -130,9 +130,13 @@ class Players {
     document.getElementById("players-length").innerHTML = offset + tableSize;
 
     tournamentsResource.getPlayers(tournamentId, offset, tableSize, this.updatePlayersTableResolve, this.updatePlayersTableReject);
+    tournamentsResource.countPlayers(tournamentId, this.countPlayersTableResolve, this.countPlayersTableReject);
   }  
   updatePlayersTableResolve(json){ players.updatePlayersTableInternal(json); }
   updatePlayersTableReject(json){ console.log(json); }
+  countPlayersTableResolve(json){ document.getElementById("players-count").innerHTML = json; }
+  countPlayersTableReject(json){ console.log(json); }
+  
   updatePlayersTableInternal(json){
     // bisherige Daten entfernen, damit keine doppelten Anzeigen erscheinen
     // https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
