@@ -9,6 +9,7 @@ class Players {
   onLoad(){
     includeFragments();
     this.updatePlayersTable();
+    this.cancel();
   }
 
   // ---------------------------------------------------------------------------

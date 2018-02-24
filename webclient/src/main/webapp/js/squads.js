@@ -34,7 +34,7 @@ class Squads {
   }
   
   playerSelectedFromAllPlayer(event){    
-    playersResource.readSingle(event.detail, squads.addPlayerToSquadSuccess, squads.addPlayerToSquadFailure);
+    playersResource.readOrDelete(event.detail, "GET", squads.addPlayerToSquadSuccess, squads.addPlayerToSquadFailure);
   }
   addPlayerToSquadSuccess(json){
     var retrievedData = sessionStorage.getItem("squads.selected-players-table");
@@ -86,7 +86,7 @@ class Squads {
     selectedPlayersTable.setAttribute("data", sessionStorageData);
   }
   
-  resetSelectedPlayers(){
+  cancel(){
     sessionStorage.setItem("squads.selected-players-table", "[]");
     this.updateSquad();
   }

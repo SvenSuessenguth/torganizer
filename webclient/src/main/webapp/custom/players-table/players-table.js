@@ -66,25 +66,28 @@ class PlayersTable extends HTMLElement{
     
     // only listening for changes of 'data'
     // so newValue is always an array of players
-    var jsonArray = JSON.parse(newValue);    
-    var counter = 0;
-    var tbody = this.tbody;
-    // therefore 'playerSelected' is a global function, the id of the event-sending element is dynmic
-    var id = this.getAttribute("id");
+    if(newValue!== '' && newValue!==null && newValue!=='null')
+    {
+      var jsonArray = JSON.parse(newValue);    
+      var counter = 0;
+      var tbody = this.tbody;
+      // therefore 'playerSelected' is a global function, the id of the event-sending element is dynmic
+      var id = this.getAttribute("id");
     
-    jsonArray.forEach(function(player){      
-      var rowPlayer = tbody.getElementsByTagName("tr")[counter];
-      rowPlayer.setAttribute("onclick", "playerSelected("+player.id+", \""+id+"\")");
+      jsonArray.forEach(function(player){      
+        var rowPlayer = tbody.getElementsByTagName("tr")[counter];
+        rowPlayer.setAttribute("onclick", "playerSelected("+player.id+", \""+id+"\")");
       
-      var tdFirstName = rowPlayer.getElementsByTagName("td")[0];
-      tdFirstName.innerHTML = player.person.firstName;
+        var tdFirstName = rowPlayer.getElementsByTagName("td")[0];
+        tdFirstName.innerHTML = player.person.firstName;
       
-      var tdLastName = rowPlayer.getElementsByTagName("td")[1];
-      tdLastName.innerHTML = player.person.lastName;
+        var tdLastName = rowPlayer.getElementsByTagName("td")[1];
+        tdLastName.innerHTML = player.person.lastName;
       
-      counter += 1;
-    });
-    
+        counter += 1;
+      });
+    }
+  
     // clear left over rows
     for(var i=counter;i<this.rows;i+=1){
       var rowPlayer = tbody.getElementsByTagName("tr")[i];
