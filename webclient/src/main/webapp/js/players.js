@@ -18,7 +18,7 @@ class Players {
   // ---------------------------------------------------------------------------
   create(){
     var json = this.inputToJSon();
-    playersResource.create(json, this.createResolve, this.createReject);
+    playersResource.createOrUpdate(json, "POST", this.createResolve, this.createReject);
   }
   createResolve(json){
     var tournamentId = tournaments.getCurrentTournamentId();
@@ -41,7 +41,7 @@ class Players {
   // ---------------------------------------------------------------------------
   update() {
     var json = this.inputToJSon();
-    playersResource.update(json, this.updateResolve, this.updateReject);    
+    playersResource.createOrUpdate(json, "PUT", this.updateResolve, this.updateReject);    
   }
   updateResolve(json){
     players.updatePlayersTable();
@@ -96,7 +96,7 @@ class Players {
 
     document.getElementById("first-name").value = json.person.firstName;
     document.getElementById("last-name").value = json.person.lastName;
-    document.getElementById("date-of-birth").setAttribute('value', json.person.dateOfBirth);
+    document.getElementById("date-of-birth").value = json.person.dateOfBirth;
       
     var genderElement = document.getElementById("gender");
     selectItemByValue(genderElement, json.person.gender);
@@ -193,7 +193,7 @@ class Players {
   //
   // ---------------------------------------------------------------------------
   showDetails(id) {
-    playersResource.readSingle(id, this.inputFromJson, this.showDetailsReject);
+    playersResource.readOrDelete(id, "GET", this.inputFromJson, this.showDetailsReject);
   }  
   showDetailsReject(json){}
 }

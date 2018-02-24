@@ -4,9 +4,11 @@ class PlayersResource {
   constructor() {
   }
   
-  create(player, onSuccess, onFailure){
+  // create a new or update an existing player
+  // method must be one of "POST" (create) or "PUT" (update)
+  createOrUpdate(player, method, onSuccess, onFailure){
     fetch('http://localhost:8080/rest/resources/players',{
-      method: "POST",
+      method: method,
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -23,9 +25,11 @@ class PlayersResource {
     .catch(function(err) { onFailure("???"); });
   }
   
-  readSingle(id, onSuccess, onFailure){
+  // read or delete an existing player
+  // method must be one of "GET" (read) or "DELETE" (delete)
+  readOrDelete(id, method, onSuccess, onFailure){
     fetch('http://localhost:8080/rest/resources/players/'+id, {
-      method: "GET",
+      method: method,
       headers: {
         'Accept': 'application/json'
       }
@@ -34,43 +38,6 @@ class PlayersResource {
         var json = response.json();
         return json;
       } else
-        throw new Error('Fehlerhandling noch nicht spezifiziert');
-    })
-    .then(function(json) { onSuccess(json); })
-    .catch(function(err) { onFailure("???"); });
-  }
-  
-  update(player, onSuccess, onFailure){
-    fetch('http://localhost:8080/rest/resources/players/',{
-      method: "PUT",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(player)
-    })
-    .then(function(response) {
-      if (response.ok)
-        return response.json();
-      else
-        throw new Error('Fehlerhandling noch nicht spezifiziert');
-    })
-    .then(function(json) { onSuccess(json); })
-    .catch(function(err) { onFailure("???"); });
-  }
-  
-  delete(id, onSuccess, onFailure){
-    fetch('http://localhost:8080/rest/resources/players/'+id,{
-      method: "DELETE",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(function(response) {
-      if (response.ok)
-        return response.json();
-      else
         throw new Error('Fehlerhandling noch nicht spezifiziert');
     })
     .then(function(json) { onSuccess(json); })
