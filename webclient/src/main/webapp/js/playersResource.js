@@ -40,14 +40,14 @@ class PlayersResource {
     .catch(function(err) { onFailure("???"); });
   }
   
-  update(json, onSuccess, onFailure){
+  update(player, onSuccess, onFailure){
     fetch('http://localhost:8080/rest/resources/players/',{
       method: "PUT",
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: json
+      body: JSON.stringify(player)
     })
     .then(function(response) {
       if (response.ok)

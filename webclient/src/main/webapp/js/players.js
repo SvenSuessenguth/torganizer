@@ -78,7 +78,7 @@ class Players {
       "id": sessionStorage.getItem('players-current-player-id'),
       "status": statusElement.options[statusElement.selectedIndex].value,
       "person":{
-        "id": sessionStorage.getItem('players.current-player.person.id'),
+        "id": sessionStorage.getItem('players-current-player-person-id'),
         "firstName": document.getElementById("first-name").value,
         "lastName": document.getElementById("last-name").value,
         "dateOfBirth": document.getElementById("date-of-birth").value,
@@ -104,7 +104,7 @@ class Players {
   
   inputCancel(){
     var currentPlayerId = sessionStorage.getItem('players-current-player-id');
-    console.log("players-current-player-id to clear : "+currentPlayerId)
+    console.log("players-current-player-id to clear : "+currentPlayerId);
     if(currentPlayerId!==null){
       sessionStorage.removeItem('players-current-player-id');
     }
