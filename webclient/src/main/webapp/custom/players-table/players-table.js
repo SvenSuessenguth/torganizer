@@ -65,7 +65,7 @@ class PlayersTable extends HTMLElement{
     }
     
     // only listening for changes of 'data'
-    // so newValue is always an array of players
+    // so newValue is always an array of players (or null on loading the page)
     if(newValue!== '' && newValue!==null && newValue!=='null')
     {
       var jsonArray = JSON.parse(newValue);    
