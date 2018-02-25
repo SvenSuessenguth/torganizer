@@ -10,7 +10,7 @@ class Squads {
     includeFragments();
     this.initAllPlayers();
     this.initSquads();
-    this.updateSquad();
+    this.cancel();
   }
   
   initSquads(){
