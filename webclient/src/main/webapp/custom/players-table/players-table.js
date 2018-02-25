@@ -66,11 +66,11 @@ class PlayersTable extends HTMLElement{
     
     // only listening for changes of 'data'
     // so newValue is always an array of players (or null on loading the page)
+    var tbody = this.tbody;
     if(newValue!== '' && newValue!==null && newValue!=='null')
     {
       var jsonArray = JSON.parse(newValue);    
-      var counter = 0;
-      var tbody = this.tbody;
+      var counter = 0;      
       // therefore 'playerSelected' is a global function, the id of the event-sending element is dynmic
       var id = this.getAttribute("id");
     
