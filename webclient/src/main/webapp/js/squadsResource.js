@@ -11,7 +11,7 @@ class SquadsResource {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: json
+      body: JSON.stringify(json)
     })
     .then(function(response) {
       if (response.ok)

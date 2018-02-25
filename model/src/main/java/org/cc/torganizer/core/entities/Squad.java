@@ -27,7 +27,7 @@ public class Squad extends Opponent {
   }
   
   public void addPlayers(Collection<Player> players) {
-    players.addAll(players);
+    this.players.addAll(players);
   }
 
   /** {@inheritDoc} */

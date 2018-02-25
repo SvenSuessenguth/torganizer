@@ -82,6 +82,7 @@ public class SquadJsonConverterTest {
             + "{\"id\":null,\"lastMatch\":null,\"status\":\"ACTIVE\","
             + "\"person\":{\"id\":null,\"firstName\":\"vorname_0\",\"lastName\":\"nachname_0\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}}"
             + "]}";
+    
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonObject jsonObject = jsonReader.readObject();
     

@@ -19,9 +19,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 import static org.cc.torganizer.rest.AbstractResource.DEFAULT_LENGTH;
 import static org.cc.torganizer.rest.AbstractResource.DEFAULT_OFFSET;
+import org.cc.torganizer.rest.json.PlayerJsonConverter;
 import org.cc.torganizer.rest.json.SquadJsonConverter;
 
 @Stateless
@@ -35,6 +37,9 @@ public class SquadsResource {
   
   @Inject
   private SquadJsonConverter converter;
+  
+  @Inject
+  private PlayerJsonConverter pConverter;
 
   @POST
   public JsonObject create(JsonObject jsonObject) {
@@ -101,5 +106,17 @@ public class SquadsResource {
   public long count() {
     Query query = entityManager.createQuery("SELECT count(s) FROM Squad s");
     return (long) query.getSingleResult();
+  }
+  
+  @GET
+  @Path("/{id}/players")
+  public JsonArray players(@PathParam("id") Long squadId) {
+            
+    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Squad.findPlayers", Player.class);
+    namedQuery.setParameter("id", squadId);
+    
+    List<Player> players = namedQuery.getResultList();
+
+    return pConverter.toJsonArray(players);
   }
 }

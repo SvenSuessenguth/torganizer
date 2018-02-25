@@ -2,7 +2,9 @@ package org.cc.torganizer.persistence;
 
 import java.util.List;
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
@@ -43,5 +45,14 @@ public class SquadsJpaTest extends AbstractDbUnitJpaTest {
     
     assertThat(squad, is(not(nullValue())));
     assertThat(squad.getPlayers(), hasSize(2));
+  }
+  
+  @Test
+  public void testFindPlayers() {
+    Query query = entityManager.createNamedQuery("Squad.findPlayers");
+    query.setParameter("id", 5L);
+    List<Player> players = query.getResultList();
+    
+    assertThat(players, hasSize(2));
   }
 }
