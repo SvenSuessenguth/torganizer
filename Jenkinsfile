@@ -25,8 +25,13 @@ pipeline {
             steps {
                 // Run the maven build
                 bat 'mvn test'
-                junit '**/target/surefire-reports/TEST-*.xml'
-                archive 'target/*.jar'
+                junit '**/target/surefire-reports/TEST-*.xml'                
+            }
+        }
+		stage('package') {
+            steps {
+                // Run the maven build
+                bat 'mvn package -DskipTests'
             }
         }
 		stage('report') {
