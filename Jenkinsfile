@@ -39,7 +39,7 @@ pipeline {
     }
 	post {
         always {
-            archiveArtifacts artifacts: '**/*.war', fingerprint: true
+            archiveArtifacts artifacts: '*/target/*.war', fingerprint: true
         }
     }
 }
