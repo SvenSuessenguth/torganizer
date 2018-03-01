@@ -142,6 +142,7 @@ class Squads {
   addSquadResolve(json){
     var tournamentId = tournaments.getCurrentTournamentId();
     squads.updateAllSquads(tournamentId, 0, 10);
+    squads.cancel();
   }
   addSquadReject(json){}
   
