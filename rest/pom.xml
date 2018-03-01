@@ -34,7 +34,8 @@
      | https://javaee.github.io/jsonp/getting-started.html 
      +-->
     <dependency>
-      <groupId>org.glassfish</groupId><artifactId>javax.json</artifactId>      
+      <groupId>org.glassfish</groupId><artifactId>javax.json</artifactId>
+      <version>1.1</version><scope>test</scope>
     </dependency>
   </dependencies>
   
