@@ -1,18 +1,10 @@
 package org.cc.torganizer.core.entities;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Restriktion auf Teilnahme an einem Modus wegen der Altersbeschraenkung.
  */
-@XmlRootElement(name = "AgeRestriction")
-@XmlAccessorType(XmlAccessType.NONE)
 public class AgeRestriction extends Restriction{
 
 	/**
@@ -42,32 +34,13 @@ public class AgeRestriction extends Restriction{
 		this.maxDateOfBirth = newMaxDateOfBirth;
 	}
 
-	@XmlAttribute
-	public String getMaxDateOfBirthISO() {
-		return maxDateOfBirth == null ? "" : maxDateOfBirth.format(DateTimeFormatter.ISO_DATE);
-	}
-
-	public void setMaxDateOfBirthISO(String maxDateOfBirthISO) {
-		maxDateOfBirth = maxDateOfBirthISO == null ? null
-				: LocalDate.parse(maxDateOfBirthISO, DateTimeFormatter.ISO_DATE);
-	}
-
+	
 	public LocalDate getMinDateOfBirth() {
 		return minDateOfBirth;
 	}
 
 	public void setMinDateOfBirth(LocalDate newMinDateOfBirth) {
 		this.minDateOfBirth = newMinDateOfBirth;
-	}
-
-	@XmlAttribute
-	public String getMinDateOfBirthISO() {
-		return minDateOfBirth == null ? "" : minDateOfBirth.format(DateTimeFormatter.ISO_DATE);
-	}
-
-	public void setMinDateOfBirthISO(String minDateOfBirthISO) {
-		minDateOfBirth = minDateOfBirthISO == null ? null
-				: LocalDate.parse(minDateOfBirthISO, DateTimeFormatter.ISO_DATE);
 	}
 
 	/** {@inheritDoc} */

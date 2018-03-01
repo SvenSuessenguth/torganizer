@@ -1,15 +1,9 @@
 package org.cc.torganizer.core.entities;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * Ein <i>result</i> kann das endgueltige Endergebnis eines <i>matches</i> sein,
  * oder ein Zwischenergebnis (z.B. Satzergebnis) repraesentieren.
  */
-@XmlRootElement(name = "Result")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Result extends Entity implements IPositional {
 
   private Integer homeScore;

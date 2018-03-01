@@ -5,15 +5,10 @@ import static org.cc.torganizer.core.util.LangUtil.capitalize;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * System, nach dem gespielt werden soll.
  */
-@XmlRootElement(name = "System")
-@XmlAccessorType(XmlAccessType.FIELD)
 public enum System {
 
   /** Doppel-KO. */

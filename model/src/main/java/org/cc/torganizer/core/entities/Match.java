@@ -1,23 +1,17 @@
 package org.cc.torganizer.core.entities;
 
-import static java.util.Collections.unmodifiableList;
-
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import static java.util.Collections.unmodifiableList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Ein <i>match</i> stellt eine Spiel zwischen zwei oder mehr <i>opponents</i>
  * dar.
  */
-@XmlRootElement(name = "Match")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Match extends Entity implements IPositional {
 
   /**
@@ -34,14 +28,14 @@ public class Match extends Entity implements IPositional {
 
   private Opponent guest;
 
-  private List<Result> results = new ArrayList<>();
+  private final List<Result> results;
 
   /**
    * Nummer des Matches in der Gruppe, in der das Match stattfindet. Die Position
    * wird zum Beispiel f\u00fcr das System DoubleKO ben\u00f6tigt. Standardwert
    * ist '-1'.
    */
-  private Integer position = Integer.valueOf(-1);
+  private Integer position = -1;
 
   /**
    * Indikator, ob ein Match im Augnblick gespielt wird.
@@ -59,6 +53,7 @@ public class Match extends Entity implements IPositional {
    */
   public Match() {
     super();
+    results = new ArrayList<>();
   }
 
   /**
@@ -72,6 +67,7 @@ public class Match extends Entity implements IPositional {
   public Match(Opponent newHome, Opponent newGuest) {
     this.home = newHome;
     this.guest = newGuest;
+    results  = new ArrayList<>();
   }
 
   /**

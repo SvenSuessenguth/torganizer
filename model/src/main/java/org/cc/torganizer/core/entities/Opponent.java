@@ -2,7 +2,6 @@ package org.cc.torganizer.core.entities;
 
 import java.util.Set;
 
-
 /**
  * Abstract Opponent class.
  */

@@ -1,16 +1,10 @@
 package org.cc.torganizer.core.entities;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * Der Status zeigt an, ob ein Spieler spielbereit ist, oder dem Turnier nicht
  * mehr zu Verf\u00fcgung steht. Der Status sagt nicht, ob der Spieler spielt
  * oder spielfrei hat.
  */
-@XmlRootElement(name = "Status")
-@XmlAccessorType(XmlAccessType.FIELD)
 public enum Status {
   /**
    * Aktiv.
@@ -24,7 +18,7 @@ public enum Status {
    */
   INACTIVE(0);
 
-  private int value;
+  private final int value;
 
   /**
    * Konstruktor.

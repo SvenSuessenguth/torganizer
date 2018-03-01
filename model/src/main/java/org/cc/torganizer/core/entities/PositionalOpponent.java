@@ -1,16 +1,9 @@
 package org.cc.torganizer.core.entities;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * Opponent um einen Index erweitert, um in Listen eine Sortierreihenfolge
  * einhalten zu k\u00f6nnen.
  */
-@XmlRootElement(name = "IndexedOpponent")
-@XmlAccessorType(XmlAccessType.FIELD)
-
 public class PositionalOpponent extends Entity implements IPositional {
  
   private Opponent opponent;

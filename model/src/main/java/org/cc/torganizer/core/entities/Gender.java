@@ -1,14 +1,8 @@
 package org.cc.torganizer.core.entities;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * Geschlecht.
  */
-@XmlRootElement(name = "Gender")
-@XmlAccessorType(XmlAccessType.FIELD)
 public enum Gender {
 
   /** Maennlich. */

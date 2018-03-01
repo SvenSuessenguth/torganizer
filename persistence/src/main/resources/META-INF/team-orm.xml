@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.1" 
+  xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">  
+  
+  <!--
+  copied annotations from java-source
+  
+  @Entity
+@Table(name = "TEAMS")
+@DiscriminatorValue("T")
+@NamedQuery(name = "getAllTeams", query = "SELECT t FROM Team t WHERE t.tournament.id = (:tournamentId)")
+
+@ManyToMany(targetEntity = org.cc.torganizer.core.entities.Opponent.class, cascade = { CascadeType.PERSIST,
+      CascadeType.MERGE })
+  @JoinTable(name = "TEAMS_OPPONENTS", joinColumns = { @JoinColumn(name = "TEAM_ID") }, inverseJoinColumns = {
+      @JoinColumn(name = "OPPONENT_ID") })
+  
+  -->
+
+</entity-mappings>  

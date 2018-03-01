@@ -34,7 +34,7 @@
        <one-to-many name="restrictions">
          <join-table name="DISCIPLINES_RESTRICTIONS">
            <join-column name="ID" referenced-column-name="ID"/>
-           <inverse-join-column name="RESTRICTION_ID" referenced-column-name="RESTRICTION_ID" unique="true" />
+           <inverse-join-column name="RESTRICTION_ID" referenced-column-name="ID" unique="true" />
          </join-table>
          <cascade><cascade-all/></cascade>
        </one-to-many>

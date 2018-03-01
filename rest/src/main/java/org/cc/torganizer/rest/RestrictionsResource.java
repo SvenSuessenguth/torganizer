@@ -1,7 +1,8 @@
 package org.cc.torganizer.rest;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,7 +12,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-
 import org.cc.torganizer.core.entities.AgeRestriction;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.GenderRestriction;
@@ -65,8 +65,15 @@ public class RestrictionsResource {
 			@QueryParam("minDateOfBirth") String minDateOfBirthISO) {
 
 		AgeRestriction ageRestriction = new AgeRestriction();
-		ageRestriction.setMaxDateOfBirthISO(maxDateOfBirthISO);
-		ageRestriction.setMinDateOfBirthISO(minDateOfBirthISO);
+    
+    LocalDate maxDateOfBirth = maxDateOfBirthISO == null ? null
+				: LocalDate.parse(maxDateOfBirthISO, DateTimeFormatter.ISO_DATE);
+    
+    LocalDate minDateOfBirth = minDateOfBirthISO == null ? null
+				: LocalDate.parse(minDateOfBirthISO, DateTimeFormatter.ISO_DATE);
+    
+		ageRestriction.setMaxDateOfBirth(maxDateOfBirth);
+		ageRestriction.setMinDateOfBirth(minDateOfBirth);
 
 		entityManager.persist(ageRestriction);
 

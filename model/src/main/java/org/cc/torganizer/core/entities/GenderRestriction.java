@@ -1,19 +1,11 @@
 package org.cc.torganizer.core.entities;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * Restriktion bezueglich des Geschlechtes.
  */
-@XmlRootElement(name = "GenderRestriction")
-@XmlAccessorType(XmlAccessType.NONE)
 public class GenderRestriction
   extends Restriction {
   
-  @XmlAttribute
   private Gender validGender = Gender.UNKNOWN;
 
   /**

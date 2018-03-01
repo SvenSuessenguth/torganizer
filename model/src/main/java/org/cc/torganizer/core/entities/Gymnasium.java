@@ -3,21 +3,14 @@ package org.cc.torganizer.core.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Gymnasium.
  */
-@XmlRootElement(name = "Gymnasium")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Gymnasium extends Entity {
 
   private String name;
 
-  @XmlTransient
   private List<Court> courts = new ArrayList<>();
 
   /**

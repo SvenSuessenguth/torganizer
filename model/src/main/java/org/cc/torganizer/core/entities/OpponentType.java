@@ -1,15 +1,9 @@
 package org.cc.torganizer.core.entities;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * Aufzaehlung von verschiedenen Opponent-Typen. Diese werden z.B. als
  * Restriktionen bei Disciplines verwendet.
  */
-@XmlRootElement(name = "OpponentType")
-@XmlAccessorType(XmlAccessType.FIELD)
 public enum OpponentType {
   /** Ein Player. */
   PLAYER(0, Player.class),

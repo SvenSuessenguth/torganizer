@@ -4,57 +4,26 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * Runde in einer Disziplin. Alle Runden m\u00fcssen in einer definierten
  * Reihenfolge gespielt werden, daher der INDEX. Analog im Fussball gibt eine
  * Qualifikationsrunde, Vorrunde und Finalrunde. Im Badminton wird haeufig in
  * der ersten Runde Gruppenspiele gefolgt von Einfachem KO gespielt.
  */
-@XmlRootElement(name = "Round")
-@XmlAccessorType(XmlAccessType.FIELD)
-@Entity
-@Table(name = "ROUNDS")
-public class Round implements IPositional {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "ROUND_ID")
-  private Long id;
+public class Round extends Entity implements IPositional {
 
-  @Column(name = "INDEX")
   private Integer index;
 
-  @OneToMany(cascade = CascadeType.ALL)
-  @JoinTable(name = "ROUNDS_GROUPS", joinColumns = {
-      @JoinColumn(name = "ROUND_ID") }, inverseJoinColumns = @JoinColumn(name = "GROUP_ID"))
   private List<Group> groups = new ArrayList<>();
 
   /** Every Round has a defaultsystem. Defaultsystem: ROUND_ROBIN */
-  @Enumerated(EnumType.STRING)
-  @Column(name = "SYSTEM", nullable = true)
   private System system = System.ROUND_ROBIN;
 
   /**
    * Anzahl der Spieler, die in die n\u00e4chste Runde kommen.
-   */
-  @Column(name = "FORWARD_PLAYERS_COUNT")
-  private Integer forwardPlayersCount = Integer.valueOf(0);
+   */  
+  private Integer forwardPlayersCount = 0;
 
   /**
    * Default.

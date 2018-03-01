@@ -1,20 +1,12 @@
 package org.cc.torganizer.core.entities;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * Restriktion bezueglich des Typs des spielberechtigten Opponents. Z.B. darf
  * nur Einzel- oder nur Doppel gespielt werden.
  */
-@XmlRootElement(name = "OpponentTypeRestriction")
-@XmlAccessorType(XmlAccessType.NONE)
 public class OpponentTypeRestriction
   extends Restriction {
 
-  @XmlAttribute
   private OpponentType validOpponentType = OpponentType.PLAYER;
 
   /**

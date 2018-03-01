@@ -1,14 +1,8 @@
 package org.cc.torganizer.core.entities;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * Spielfeld.
  */
-@XmlRootElement(name = "Court")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Court extends Entity {
 
   private Match match;

@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import org.cc.torganizer.core.comparators.PositionalComparator;
 
@@ -15,9 +12,6 @@ import org.cc.torganizer.core.comparators.PositionalComparator;
  * Matches ausgef\u00fchrt, die den Sieger oder die Opponents, die in die
  * n\u00e4chste Round kommen, bestimmen
  */
-@XmlRootElement(name = "Group")
-@XmlAccessorType(XmlAccessType.FIELD)
-
 public class Group extends Entity
   implements IPositional {
   

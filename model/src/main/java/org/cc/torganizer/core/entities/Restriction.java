@@ -1,17 +1,9 @@
 package org.cc.torganizer.core.entities;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-
 /**
  * Abstrakte Oberklasse zu allen Restriktionen.
  */
-@XmlAccessorType(XmlAccessType.NONE)
-public abstract class Restriction {
-
-  @XmlAttribute
-  private Long id;
+public abstract class Restriction extends Entity{
 
   /**
    * Gibt an, ob es f\u00fcr den \u00fcbergebenen Opponent eine Restriktion
@@ -22,12 +14,4 @@ public abstract class Restriction {
    *         sonst <code>false</code>
    */
   public abstract boolean isRestricted(Opponent opponent);
-
-  public final Long getId() {
-    return id;
-  }
-
-  public final void setId(Long newId) {
-    id = newId;
-  }
 }
