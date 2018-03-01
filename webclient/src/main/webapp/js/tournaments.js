@@ -52,7 +52,7 @@ class Tournaments {
   save(){
     var json = this.inputToJSon();
     var tournamentId = this.getCurrentTournamentId();
-    var method = "UNKNOWN";
+    var method;
     
     if(tournamentId===null){ method = "POST"; }
     else{ method = "PUT"; }
