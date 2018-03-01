@@ -29,10 +29,21 @@
       </table>
 
       <span id="disciplinesData"> 
-        <label for="disciplinesName">Name</label><input id="disciplinesName" type="text" value="">
+        <label for="disciplinesName">Name</label><input id="discipline-name" type="text" value="">
       
-        <input type="button" value="neu" onclick="disciplines.createDiscipline()">
-        <input type="button" value="aktualisieren" onclick="disciplines.updateDiscipline()">
+        <!-- restrictions -->
+        <h3>Restrictions</h3>
+        <h4>Age</h4>
+        <label for="min-date-of-birth">min</label><input id="min-date-of-birth" type="date" value="">
+        <label for="max-date-of-birth">max</label><input id="max-date-of-birth" type="date" value="">
+        <hr />
+        <h4>Gender</h4>
+        <hr />
+        <h4>Type</h4>
+        <hr />
+        
+        <input type="button" value="save" onclick="disciplines.save()">
+        <input type="button" value="cancel" onclick="disciplines.cancel()">
       </span>
     </form>
     
