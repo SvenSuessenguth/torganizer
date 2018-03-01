@@ -94,7 +94,9 @@ class Squads {
   updateAllSquads(tournamentId, offset, rows){
     tournamentsResource.getSquads(tournamentId, offset, rows, this.updateAllSquadsResolve, this.updateAllSquadsReject);
   }
-  updateAllSquadsResolve(json){ }
+  updateAllSquadsResolve(json){ 
+    document.getElementById("all-squads-table").setAttribute("data", JSON.stringify(json));
+  }
   updateAllSquadsReject(json){ }
   
   updateAllPlayers(tournamentId, offset, rows){
@@ -129,10 +131,19 @@ class Squads {
     }
     else{ this.update(); }
   }
-  createResolve(json){ console.log("create resolved squad"); }
+  createResolve(json){ 
+    var tournamentId = tournaments.getCurrentTournamentId();
+    var squadId = json.id;
+    tournamentsResource.addSquad(tournamentId, squadId, squads.addSquadResolve, squads.addSquadReject);
+  }
   createReject(json) { console.log("create rejected squad"); }
   updateResolve(json){ console.log("udpate resolved squad"); }
   updateReject(json) { console.log("update rejected squad"); }
+  addSquadResolve(json){
+    var tournamentId = tournaments.getCurrentTournamentId();
+    squads.updateAllSquads(tournamentId, 0, 10);
+  }
+  addSquadReject(json){}
   
   //--------------------------------------------------------------------------------------------------------------------
   //

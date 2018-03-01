@@ -209,7 +209,7 @@ public class TournamentsResource extends AbstractResource {
 
   @POST
   @Path("/{id}/squads")
-  public JsonObject squads(@PathParam("id") Long tournamentId, @QueryParam("opponentId") Long squadId) {
+  public JsonObject squads(@PathParam("id") Long tournamentId, @QueryParam("sid") Long squadId) {
     // load player
     TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Opponent.findById", Squad.class);
     namedQuery.setParameter("id", squadId);

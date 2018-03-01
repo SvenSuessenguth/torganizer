@@ -66,21 +66,29 @@ class SquadsTable extends HTMLElement{
     
     // only listening for changes of 'data'
     // so newValue is always an array of squads
-    var jsonArray = JSON.parse(newValue);    
+    var squads = JSON.parse(newValue);    
     var counter = 0;
     var tbody = this.tbody;
     // therefore 'squadSelected' is a global function, the id of the event-sending element is dynmic
     var id = this.getAttribute("id");
     
-    jsonArray.forEach(function(squad){      
+    squads.forEach(function(squad){      
       var rowSquad = tbody.getElementsByTagName("tr")[counter];
       rowSquad.setAttribute("onclick", "squadSelected("+squad.id+", \""+id+"\")");
       
+      var players = squad.players;
+      
       var tdFirstNames = rowSquad.getElementsByTagName("td")[0];
-      tdFirstNames.innerHTML = "Vorname-1<br />Vorname-2";
+      tdFirstNames.innerHTML = "";
+      players.forEach(function(player){
+        tdFirstNames.innerHTML += player.person.firstName+"<br />";
+      });
       
       var tdLastNames = rowSquad.getElementsByTagName("td")[1];
-      tdLastNames.innerHTML = "Nachname-1<br />Nachname-2";
+      tdLastNames.innerHTML = "";
+      players.forEach(function(player){
+        tdLastNames.innerHTML += player.person.lastName+"<br />";
+      });
       
       counter += 1;
     });
