@@ -30,7 +30,7 @@ pipeline {
 			// @see https://jenkins.io/blog/2017/02/07/declarative-maven-project/
 			post {
                 success {
-                    junit 'target/surefire-reports/**/*.xml' 
+                    junit '**/target/surefire-reports/TEST-*.xml' 
                 }
             }
         }
