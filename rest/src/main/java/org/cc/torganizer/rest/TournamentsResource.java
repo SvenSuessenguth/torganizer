@@ -57,9 +57,7 @@ public class TournamentsResource extends AbstractResource {
     entityManager.persist(tournament);
     entityManager.flush();
     
-    final JsonObject result = tConverter.toJsonObject(tournament);
-    
-    return result;
+    return tConverter.toJsonObject(tournament);
   }
 
   @GET
