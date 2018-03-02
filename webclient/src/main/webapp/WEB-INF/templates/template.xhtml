@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html xml:lang="de" lang="de" 
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <h:head>
+    <title>#{initParam['de.signaliduna.APPLICATION_NAME']}</title>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="content-style-type" content="text/css" />
+    <meta http-equiv="expires" content="14400" />
+    <meta http-equiv="pragma" content="no-cache" />
+    
+    <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon.ico']}"/>
+    
+    <h:outputScript name="js/global.js" target="head" />
+    <h:outputStylesheet name="css/ui.css" />
+    <h:outputStylesheet name="css/layout.css" />
+  </h:head>
+  
+  <h:body>
+    <h:form id="appForm">
+      <ui:include src="/WEB-INF/templates/header.xhtml" />
+      <ui:include src="/WEB-INF/templates/menue.xhtml" />
+      <ui:insert name="content">Seiteninhalt!</ui:insert>
+      <ui:include src="/WEB-INF/templates/footer.xhtml" />      
+    </h:form>
+  </h:body>
+</html>

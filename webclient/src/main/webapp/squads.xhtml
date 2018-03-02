@@ -1,27 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE html>
-<html lang="de">
 
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script type="text/javascript" src="resources/js/global.js"></script>
-    <script type="text/javascript" src="resources/js/tournaments.js"></script>
-    <script type="text/javascript" src="resources/js/tournamentsResource.js"></script>
-    <script type="text/javascript" src="resources/js/playersResource.js"></script>
-    <script type="text/javascript" src="resources/js/squadsResource.js"></script>
-    <script type="text/javascript" src="resources/js/squads.js"></script>
-    <link rel="stylesheet" href="resources/css/ui.css"></link>
-    <link rel="stylesheet" href="resources/css/layout.css"></link>
-    <link rel="import" href="nav.html" id="nav"></link>
-    <link rel="import" href="footer.html" id="footer"></link>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  template="/WEB-INF/templates/template.xhtml">
+
+  <ui:define name="content">
+    <h:outputScript name="js/tournamentsResource.js" target="head" />
+    <h:outputScript name="js/tournaments.js" target="head" />
+    <h:outputScript name="js/playersResource.js" target="head" />
+    <h:outputScript name="js/squadsResource.js" target="head" />
+    <h:outputScript name="js/squads.js" target="head" />
+    
     <link rel="import" href="custom/players-table/players-table.html"></link>
     <link rel="import" href="custom/squads-table/squads-table.html"></link>
-    <title>Squads</title>
-  </head>
-
-  <body id="body">
-    <div id="fragments"></div>
-  
-    <form id="squadsForm" onsubmit="return false;">
       
       Alle Spieler:
       <players-table id="all-players-table" rows="5" data="[]" > 
@@ -41,8 +34,7 @@
       </squads-table>
       <input type="submit" value="prev" onclick="squads.prevAllSquads()" />
       <input type="submit" value="next" onclick="squads.nextAllSquads()" />
-    </form>
     
     <script>squads.onLoad();</script>
-  </body>
-</html>
+  </ui:define>
+</ui:composition>

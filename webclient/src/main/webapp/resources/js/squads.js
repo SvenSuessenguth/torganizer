@@ -7,7 +7,6 @@ class Squads {
   }
   
   onLoad(){
-    includeFragments();
     this.initAllPlayers();
     this.initSquads();
     this.cancel();

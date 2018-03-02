@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  template="/WEB-INF/templates/template.xhtml">
+
+  <ui:define name="content">
+    <h:outputScript name="js/tournamentsResource.js" target="head" />
+    <h:outputScript name="js/tournaments.js" target="head" />
+    <h:outputScript name="js/playersResource.js" target="head" />
+    <h:outputScript name="js/players.js" target="head" />
+
+    <template id="player-record">
+      <tr id="player-row">
+        <td id="first-name" />
+        <td id="last-name" />
+      </tr>
+    </template>
+    
+    <input type="submit" id="validateFormButton" value="validate" style="display: none;" />
+      
+    <!--
+     | Tabelle aller Spieler  
+     +-->
+    <span id="players-offset"></span> bis <span id="players-length"></span> von <span id="players-count"></span>
+    <table id="players-table">
+      <thead>
+        <tr><th>Vorname</th><th>Nachname</th></tr>
+      </thead>
+      <tbody id="players-table-body" />
+    </table>
+    <input type="button" value="prev" onclick="players.prev()" />
+    <input type="button" value="next" onclick="players.next()" />
+      
+    <span id="players-data"> 
+      <label for="first-name">Vorname
+        <input id="first-name" type="text" value="" autofocus="autofocus" required="required" />
+      </label>
+      <label for="last-name">Nachname
+        <input id="last-name" type="text" value="" required="required" />
+      </label>
+      <label for="gender">Geschlecht
+        <select id="gender">
+          <option value="MALE">männlich</option>
+          <option value="FEMALE">weiblich</option>
+          <option value="UNKNOWN">unbekannt</option>
+        </select>
+      </label>
+      <label for="date-of-birth">Geburtsdatum
+        <input id="date-of-birth" type="date" value="" />
+      </label>
+      <label for="status">Status
+        <select id="status">
+          <option value="ACTIVE">aktiv</option>
+          <option value="INACTIVE">inaktiv</option>
+        </select>
+      </label>
+
+      <input type="button" value="save" onclick="players.createOrUpdate()" />
+      <input type="button" value="delete" onclick="players.delete()" />
+      <input type="button" value="cancel" onclick="players.cancel()" />
+    </span>
+
+    <script>players.onLoad();</script>
+  </ui:define>
+</ui:composition>

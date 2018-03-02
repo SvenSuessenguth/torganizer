@@ -23,28 +23,6 @@ function selectItemByValue(elmnt, value){
   }
 }
 
-// http://blog.teamtreehouse.com/introduction-html-imports
-function includeFragments(){
-  var fragments = document.getElementById('fragments');
-  
-  // Navigation
-  var navsImport = document.getElementById('nav');
-  var navs = navsImport.import;
-  var nav = navs.getElementById("nav-wrapper");
-  var navClone = document.importNode(nav.content, true);
-  fragments.appendChild(navClone);
-  
-  activateNavigation();
-  
-  // Footer
-  var footersImport = document.getElementById('footer');
-  var footers = footersImport.import;
-  var footer = footers.getElementById("footer-wrapper")
-  var footerClone = document.importNode(footer.content, true);
-  
-  fragments.appendChild(footerClone);
-}
-
 //
 // Es muss ein aktives Turnier ausgewählt sein, bevor man weitere Eingaben
 // (andere Seiten) anzeigen kann.

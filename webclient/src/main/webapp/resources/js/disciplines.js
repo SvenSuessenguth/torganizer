@@ -3,7 +3,6 @@ class Disciplines {
   }
   
   onload(){
-    includeFragments();
   }
   
   save(){
