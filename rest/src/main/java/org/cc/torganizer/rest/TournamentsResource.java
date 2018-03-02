@@ -1,6 +1,5 @@
 package org.cc.torganizer.rest;
 
-import java.net.URI;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -19,10 +18,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Response;
-import static javax.ws.rs.core.Response.created;
-import javax.ws.rs.core.UriInfo;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
@@ -53,7 +48,7 @@ public class TournamentsResource extends AbstractResource {
   private SquadJsonConverter sConverter;
 
   @POST
-  public Response create(JsonObject jsonObject, @Context UriInfo uriInfo) {
+  public JsonObject create(JsonObject jsonObject) {
 
     Tournament tournament = tConverter.toModel(jsonObject);
     // vom client kann die id '0' geliefert werden, sodass eine detached-entity-Exception geworfen wird.
@@ -63,9 +58,8 @@ public class TournamentsResource extends AbstractResource {
     entityManager.flush();
     
     final JsonObject result = tConverter.toJsonObject(tournament);
-    URI uri = uriInfo.getAbsolutePathBuilder().path(""+tournament.getId()).build();
     
-    return created(uri).entity(result).build();
+    return result;
   }
 
   @GET

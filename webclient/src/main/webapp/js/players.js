@@ -132,7 +132,7 @@ class Players {
 
     document.getElementById("first-name").value = '';
     document.getElementById("last-name").value = '';
-    document.getElementById("date-of-birth").valueAsDate = null;      
+    document.getElementById("date-of-birth").valueAsDate = null;
     var genderElement = document.getElementById("gender");
     selectItemByValue(genderElement, "MALE");
     var statusElement = document.getElementById("status");

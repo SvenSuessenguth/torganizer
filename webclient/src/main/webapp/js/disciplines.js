@@ -15,6 +15,8 @@ class Disciplines {
     document.getElementById("discipline-name").value = "";
     
     // cancel age-restriction
+    document.getElementById("min-date-of-birth").valueAsDate = null;
+    document.getElementById("max-date-of-birth").valueAsDate = null;
     
     // cancel gender-restriction
      

@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 /**
  * Restriktion auf Teilnahme an einem Modus wegen der Altersbeschraenkung.
+ * Fehlt die obere oder untere Grenze, ist das Intervall in die entsprechende 
+ * Richtung offen.
  */
 public class AgeRestriction extends Restriction{
 

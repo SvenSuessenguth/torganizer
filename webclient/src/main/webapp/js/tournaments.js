@@ -10,7 +10,13 @@ class Tournaments {
   }
  
   getCurrentTournamentId(){
+    var tournamentId = sessionStorage.getItem('tournaments-current-tournament-id');
+    
+    // do not convert NULL to '0'
+    if(tournamentId !== null){
     return Number(sessionStorage.getItem('tournaments-current-tournament-id'));
+    }
+    return tournamentId;
   }
   isActiveTournament(){
     return this.getCurrentTournamentId() !== null;
@@ -74,12 +80,19 @@ class Tournaments {
   }
   updateFailure(json){}
   
+  cancel(){
+    sessionStorage.removeItem('tournaments-current-tournament-id');
+    sessionStorage.removeItem('tournaments-current-tournament-name');
+    document.getElementById("tournamentName").value = "";
+    document.getElementById("tournamentName").focus();
+  }
+  
   inputToJSon(){
     var id= tournaments.getCurrentTournamentId();
     var name = document.getElementById("tournamentName").value;
   
     var json = JSON.stringify({
-      "id": Number(id),
+      "id": id,
       "name": name
     });  
     return json;  
