@@ -1,7 +1,5 @@
 /* global squadsResource, playersResource, tournamentsResource, tournaments */
 
-var tableSize = Number(10);
-
 class Squads {
   constructor() {    
   }
@@ -14,10 +12,10 @@ class Squads {
   
   initSquads(){
     var allSquadsLength = document.getElementById("all-squads-table").getAttribute("rows");
-    var allSquadsTournamentId = tournaments.getCurrentTournamentId();    
+    var tournamentId = tournaments.getCurrentTournamentId();    
     sessionStorage.setItem("squads.all-squads-offset", 0);    
     
-    this.updateAllSquads(allSquadsTournamentId, 0, allSquadsLength);
+    this.updateAllSquads(tournamentId, 0, allSquadsLength);
     
     document.getElementById("all-squads-table").addEventListener("squad-selected", this.squadSelectedFromAllSquads);
   }
@@ -133,23 +131,37 @@ class Squads {
     squadsResource.createOrUpdate(squad, "POST", this.createResolve, this.createReject); 
   }
   createResolve(json){
-    console.log("wird diese Methode nicht aufgerufen???");
     var tournamentId = tournaments.getCurrentTournamentId();
     var squadId = json.id;
     tournamentsResource.addSquad(tournamentId, squadId, squads.addSquadResolve, squads.addSquadReject);
   }
-  createReject(json) { console.log("create rejected squad"); }
-  update(squad) {
-    squadsResource.createOrUpdate(squad, "PUT", this.updateResolve, this.updateReject);
-  }
-  updateResolve(json){ console.log("udpate resolved squad"); }
-  updateReject(error) { console.log(error); }
+  createReject(error) { console.log(error); }
   addSquadResolve(json){
     var tournamentId = tournaments.getCurrentTournamentId();
     squads.updateAllSquads(tournamentId, 0, 10);
     squads.cancel();
   }
   addSquadReject(error){ console.log(error); }
+  
+  update(squad) {
+    squadsResource.createOrUpdate(squad, "PUT", this.updateResolve, this.updateReject);
+    squads.canel();
+  }
+  updateResolve(json){ console.log("udpate resolved squad"); }
+  updateReject(error) { console.log(error); }
+  
+  
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // navigationg the all squads table
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  prevAllSquads(){
+    
+  }
+  nextAllSquads(){
+    
+  }
   
   //--------------------------------------------------------------------------------------------------------------------
   //
@@ -162,7 +174,6 @@ class Squads {
       "players": JSON.parse(sessionStorage.getItem("squads.selected-players-table"))
     };
     
-    console.log("squad: "+json);
     return json;
   }
 }

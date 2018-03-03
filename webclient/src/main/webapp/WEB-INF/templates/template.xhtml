@@ -23,11 +23,9 @@
   </h:head>
   
   <h:body>
-    <h:form id="appForm">
-      <ui:include src="/WEB-INF/templates/header.xhtml" />
-      <ui:include src="/WEB-INF/templates/menue.xhtml" />
-      <ui:insert name="content">Seiteninhalt!</ui:insert>
-      <ui:include src="/WEB-INF/templates/footer.xhtml" />      
-    </h:form>
+    <ui:include src="/WEB-INF/templates/header.xhtml" />
+    <ui:include src="/WEB-INF/templates/menue.xhtml" />
+    <ui:insert name="content">Seiteninhalt!</ui:insert>
+    <ui:include src="/WEB-INF/templates/footer.xhtml" />
   </h:body>
 </html>

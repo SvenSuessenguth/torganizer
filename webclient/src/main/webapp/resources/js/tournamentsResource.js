@@ -126,7 +126,6 @@ class TournamentsResource {
   }
 
   addSquad(tournamentId, squadId, onSuccess, onFailure) {
-    console.log("hier bin ich schon mal...");
     fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/squads?sid='+squadId,{
       method: "POST",
       headers: {

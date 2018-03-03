@@ -73,12 +73,11 @@ class SquadsTable extends HTMLElement{
     var id = this.getAttribute("id");
     
     squads.forEach(function(squad){      
-      var rowSquad = tbody.getElementsByTagName("tr")[counter];
+      var rowSquad = tbody.getElementsByTagName("tr")[counter];      
       rowSquad.setAttribute("onclick", "squadSelected("+squad.id+", \""+id+"\")");
       
-      var players = squad.players;
-      
-      var tdFirstNames = rowSquad.getElementsByTagName("td")[0];
+      var players = squad.players;      
+      var tdFirstNames = rowSquad.getElementsByTagName("td")[0];      
       tdFirstNames.innerHTML = "";
       players.forEach(function(player){
         tdFirstNames.innerHTML += player.person.firstName+"<br />";
@@ -94,7 +93,7 @@ class SquadsTable extends HTMLElement{
     });
     
     // clear left over rows
-    for(var i=counter;i<this.rows;i+=1){
+    for(var i=squads.length;i<this.rows;i+=1){
       var rowSquad = tbody.getElementsByTagName("tr")[i];
       var tdFirstNames = rowSquad.getElementsByTagName("td")[0];
       tdFirstNames.innerHTML = '&nbsp;';

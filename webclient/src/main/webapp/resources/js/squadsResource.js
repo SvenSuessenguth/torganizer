@@ -17,7 +17,7 @@ class SquadsResource {
       if (response.ok)
         return response.json();
       else
-        throw new Error('Fehlerhandling noch nicht spezifiziert');
+        throw new Error(response.status);
     })
     .then(function(json) { onSuccess(json); })
     .catch(function(err) { onFailure(err); });
