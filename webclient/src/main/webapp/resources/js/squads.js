@@ -128,7 +128,9 @@ class Squads {
     {
       squadsResource.createOrUpdate(squad, "POST", this.createResolve, this.createReject);
     }
-    else{ this.update(); }
+    else{ 
+      squadsResource.createOrUpdate(squad, "PUT", this.updateResolve, this.updateReject);
+    }
   }
   createResolve(json){ 
     var tournamentId = tournaments.getCurrentTournamentId();
