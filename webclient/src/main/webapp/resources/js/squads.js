@@ -123,29 +123,33 @@ class Squads {
   //--------------------------------------------------------------------------------------------------------------------
   save(){
     var squad = this.inputToJSon();
-    
-    if(squad===null || squad.id==='' || squad.id==='null' || squad.id===null)
-    {
-      squadsResource.createOrUpdate(squad, "POST", this.createResolve, this.createReject);
-    }
-    else{ 
-      squadsResource.createOrUpdate(squad, "PUT", this.updateResolve, this.updateReject);
+    if(squad===null || squad.id==='' || squad.id==='null' || squad.id===null) {
+      this.create(squad);
+    } else {
+      this.update(squad);
     }
   }
-  createResolve(json){ 
+  create(squad){
+    squadsResource.createOrUpdate(squad, "POST", this.createResolve, this.createReject); 
+  }
+  createResolve(json){
+    console.log("wird diese Methode nicht aufgerufen???");
     var tournamentId = tournaments.getCurrentTournamentId();
     var squadId = json.id;
     tournamentsResource.addSquad(tournamentId, squadId, squads.addSquadResolve, squads.addSquadReject);
   }
   createReject(json) { console.log("create rejected squad"); }
+  update(squad) {
+    squadsResource.createOrUpdate(squad, "PUT", this.updateResolve, this.updateReject);
+  }
   updateResolve(json){ console.log("udpate resolved squad"); }
-  updateReject(json) { console.log("update rejected squad"); }
+  updateReject(error) { console.log(error); }
   addSquadResolve(json){
     var tournamentId = tournaments.getCurrentTournamentId();
     squads.updateAllSquads(tournamentId, 0, 10);
     squads.cancel();
   }
-  addSquadReject(json){}
+  addSquadReject(error){ console.log(error); }
   
   //--------------------------------------------------------------------------------------------------------------------
   //

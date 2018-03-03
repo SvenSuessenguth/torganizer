@@ -22,7 +22,7 @@ class PlayersResource {
         throw new Error('Fehlerhandling noch nicht spezifiziert');
     })
     .then(function(json) { onSuccess(json); })
-    .catch(function(err) { onFailure("???"); });
+    .catch(function(err) { onFailure(err); });
   }
   
   // read or delete an existing player

@@ -7,7 +7,6 @@ class Players {
   }
   
   onLoad(){
-    includeFragments();
     this.updatePlayersTable();
     this.cancel();
   }
@@ -40,13 +39,13 @@ class Players {
     // https://stackoverflow.com/questions/32547735/javascript-promises-how-to-access-variable-this-inside-a-then-scope
     tournamentsResource.addPlayer(tournamentId, json.id, players.addPlayerResolve, players.addPlayerReject);    
   }
-  createReject(json){}
+  createReject(error){ console.log(error); }
   addPlayerResolve(json){
     console.log("successfully added player to tournament");
     players.updatePlayersTable();
     players.cancel();
   }
-  addPlayerReject(json){console.log("failure adding player to tournament");}
+  addPlayerReject(error){console.log(error);}
 
   // ---------------------------------------------------------------------------
   //
