@@ -62,7 +62,7 @@ class Squads {
     if(allPlayersOffset<0){
       allPlayersOffset = 0;
     }
-    sessionStorage.setItem("squads.allPlayersOffset", allPlayersOffset);
+    sessionStorage.setItem("squads.all-players-offset", allPlayersOffset);
     
     this.updateAllPlayers(allPlayersTournamentId, allPlayersOffset, allPlayersLength);
   }
