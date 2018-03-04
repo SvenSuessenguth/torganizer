@@ -54,6 +54,11 @@ class Squads {
     console.log("add player to squad with failure");
   }
   
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // navigating the tables
+  //
+  //--------------------------------------------------------------------------------------------------------------------
   prevAllPlayers(){
     var allPlayersLength = Number(document.getElementById("all-players-table").getAttribute("rows"));
     var allPlayersTournamentId = tournaments.getCurrentTournamentId();
@@ -68,13 +73,35 @@ class Squads {
   }
   nextAllPlayers(){
     var allPlayersLength = Number(document.getElementById("all-players-table").getAttribute("rows"));
-    var allPlayersTournamentId = tournaments.getCurrentTournamentId();
+    var tournamentId = tournaments.getCurrentTournamentId();
     var allPlayersOffset = Number(sessionStorage.getItem("squads.all-players-offset"));
     allPlayersOffset = allPlayersOffset + allPlayersLength;    
     sessionStorage.setItem("squads.all-players-offset", allPlayersOffset);
     
-    this.updateAllPlayers(allPlayersTournamentId, allPlayersOffset, allPlayersLength);
+    this.updateAllPlayers(tournamentId, allPlayersOffset, allPlayersLength);
   }
+  prevAllSquads(){
+    var allSquadsRows = Number(document.getElementById("all-squads-table").getAttribute("rows"));
+    var tournamentId = tournaments.getCurrentTournamentId();
+    var allSquadsOffset = Number(sessionStorage.getItem("squads.all-squads-offset"));
+    allSquadsOffset = allSquadsOffset - allSquadsRows;
+    if(allSquadsOffset <0){
+      allSquadsOffset = 0;
+    }
+    sessionStorage.setItem("squads.all-squads-offset", allSquadsOffset);
+    
+    this.updateAllSquads(tournamentId, allSquadsOffset, allSquadsRows);
+  }  
+  nextAllSquads(){
+    var allSquadsRows = Number(document.getElementById("all-squads-table").getAttribute("rows"));
+    var tournamentId = tournaments.getCurrentTournamentId();
+    var allSquadsOffset = Number(sessionStorage.getItem("squads.all-squads-offset"));
+    allSquadsOffset = allSquadsOffset + allSquadsRows;
+    sessionStorage.setItem("squads.all-squads-offset", allSquadsOffset);
+    
+    this.updateAllSquads(tournamentId, allSquadsOffset, allSquadsRows);
+  }
+  
   
   updateSquad(){
     var sessionStorageData = sessionStorage.getItem("squads.selected-players-table");
@@ -149,19 +176,6 @@ class Squads {
   }
   updateResolve(json){ console.log("udpate resolved squad"); }
   updateReject(error) { console.log(error); }
-  
-  
-  //--------------------------------------------------------------------------------------------------------------------
-  //
-  // navigationg the all squads table
-  //
-  //--------------------------------------------------------------------------------------------------------------------
-  prevAllSquads(){
-    
-  }
-  nextAllSquads(){
-    
-  }
   
   //--------------------------------------------------------------------------------------------------------------------
   //
