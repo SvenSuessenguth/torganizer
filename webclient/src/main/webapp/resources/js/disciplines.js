@@ -18,8 +18,12 @@ class Disciplines {
     document.getElementById("max-date-of-birth").valueAsDate = null;
     
     // cancel gender-restriction
+    var genderElement = document.getElementById("gender");
+    selectItemByValue(genderElement, "MALE");
      
     // cancel type-restriction
+    var opponmentTypeElement = document.getElementById("opponent-type");
+    selectItemByValue(opponmentTypeElement, "PLAYER");    
   }
 }
 
