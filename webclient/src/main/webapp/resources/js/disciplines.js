@@ -3,12 +3,23 @@ class Disciplines {
   }
   
   onload(){
+    this.cancel();
   }
   
+  //--------------------------------------------------------------------------------------------------------------------
+  // 
+  // save
+  //
+  //--------------------------------------------------------------------------------------------------------------------
   save(){
     
   }
- 
+  
+  //--------------------------------------------------------------------------------------------------------------------
+  // 
+  // cancel
+  //
+  //--------------------------------------------------------------------------------------------------------------------
   cancel(){
     // cancel core data
     document.getElementById("discipline-name").value = "";
@@ -24,6 +35,29 @@ class Disciplines {
     // cancel type-restriction
     var opponmentTypeElement = document.getElementById("opponent-type");
     selectItemByValue(opponmentTypeElement, "PLAYER");    
+  }
+  
+  
+  //--------------------------------------------------------------------------------------------------------------------
+  // 
+  // converting from/to json/form
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  disciplineToJson(){
+  }
+  disciplineToForm(discipline){
+  }
+  ageRestrictionToJson(){
+  }
+  ageRestrictionToForm(ageRestriction){
+  }
+  genderRestrictionToJson(){
+  }
+  genderRestrictionToForm(genderRestriction){
+  }
+  opponentTypeRestrictionToJson(){
+  }
+  opponentTypeRestrictionToForm(opponentTypeRestriction){
   }
 }
 
