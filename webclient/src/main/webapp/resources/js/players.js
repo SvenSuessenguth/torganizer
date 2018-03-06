@@ -11,26 +11,21 @@ class Players {
     this.cancel();
   }
 
-  // ---------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------------------------------------------
   //
-  // decide wether to create or to update a player
+  // save
   //
   // ---------------------------------------------------------------------------
-  createOrUpdate(){
+  save(){
     if(sessionStorage.getItem('players-current-player-id')===null){
       this.create();      
     }else{
       this.update();
     }
   }
-
-  // ---------------------------------------------------------------------------
-  //
-  // create new player
-  //
-  // ---------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------------------------------------------
   create(){
-    var json = this.inputToJSon();
+    var json = this.formToPlayer();
     playersResource.createOrUpdate(json, "POST", this.createResolve, this.createReject);
   }
   createResolve(json){
@@ -46,14 +41,9 @@ class Players {
     players.cancel();
   }
   addPlayerReject(error){console.log(error);}
-
-  // ---------------------------------------------------------------------------
-  //
-  // update existing player
-  //
-  // ---------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------------------------------------------
   update() {
-    var json = this.inputToJSon();
+    var json = this.formToPlayer();
     playersResource.createOrUpdate(json, "PUT", this.updateResolve, this.updateReject);    
   }
   updateResolve(json){
@@ -62,13 +52,13 @@ class Players {
   }
   updateReject(json){}
   
-  // ---------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------------------------------------------
   //
-  // delete existing player
+  // delete
   //
-  // ---------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------------------------------------------
   delete(){
-    var player = this.inputToJSon();
+    var player = this.formToPlayer();
     var tournamentId = tournaments.getCurrentTournamentId();
     tournamentsResource.removePlayer(tournamentId, player.id, this.deleteResolve, this.deleteReject);    
   }
@@ -78,46 +68,11 @@ class Players {
   }
   deleteReject(json){}
 
-  // ---------------------------------------------------------------------------
+  //--------------------------------------------------------------------------------------------------------------------
   //
-  // convert form data to/from json and cancel (clear the form
+  // cancel
   //
-  // ---------------------------------------------------------------------------
-  inputToJSon(){
-    var genderElement = document.getElementById("gender");
-    var statusElement = document.getElementById("status");
-    
-    var json = {
-      "id": sessionStorage.getItem('players-current-player-id'),
-      "status": statusElement.options[statusElement.selectedIndex].value,
-      "person":{
-        "id": sessionStorage.getItem('players-current-player-person-id'),
-        "firstName": document.getElementById("first-name").value,
-        "lastName": document.getElementById("last-name").value,
-        "dateOfBirth": document.getElementById("date-of-birth").value,
-        "gender": genderElement.options[genderElement.selectedIndex].value
-      }
-    };
-    
-    console.log("player: "+json);
-    return json;
-  }
-  
-  inputFromJson(json){
-    sessionStorage.setItem('players-current-player-id', json.id);
-    sessionStorage.setItem('players-current-player-person-id', json.person.id);
-
-    document.getElementById("first-name").value = json.person.firstName;
-    document.getElementById("last-name").value = json.person.lastName;
-    document.getElementById("date-of-birth").value = json.person.dateOfBirth;
-      
-    var genderElement = document.getElementById("gender");
-    selectItemByValue(genderElement, json.person.gender);
-    
-    var statusElement = document.getElementById("status");
-    selectItemByValue(statusElement, json.status);
-  }
-
+  //--------------------------------------------------------------------------------------------------------------------
   cancel(){
     var currentPlayerId = sessionStorage.getItem('players-current-player-id');
     console.log("players-current-player-id to cancel : "+currentPlayerId);
@@ -138,7 +93,47 @@ class Players {
     selectItemByValue(statusElement, "ACTIVE");
     document.getElementById("first-name").focus();
   }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  // 
+  // converting from/to json/form
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  formToPlayer(){
+    var genderElement = document.getElementById("gender");
+    var statusElement = document.getElementById("status");
+    
+    var json = {
+      "id": sessionStorage.getItem('players-current-player-id'),
+      "status": statusElement.options[statusElement.selectedIndex].value,
+      "person":{
+        "id": sessionStorage.getItem('players-current-player-person-id'),
+        "firstName": document.getElementById("first-name").value,
+        "lastName": document.getElementById("last-name").value,
+        "dateOfBirth": document.getElementById("date-of-birth").value,
+        "gender": genderElement.options[genderElement.selectedIndex].value
+      }
+    };
+    
+    console.log("player: "+json);
+    return json;
+  }
   
+  playerToForm(json){
+    sessionStorage.setItem('players-current-player-id', json.id);
+    sessionStorage.setItem('players-current-player-person-id', json.person.id);
+
+    document.getElementById("first-name").value = json.person.firstName;
+    document.getElementById("last-name").value = json.person.lastName;
+    document.getElementById("date-of-birth").value = json.person.dateOfBirth;
+      
+    var genderElement = document.getElementById("gender");
+    selectItemByValue(genderElement, json.person.gender);
+    
+    var statusElement = document.getElementById("status");
+    selectItemByValue(statusElement, json.status);
+  }
+
   // ---------------------------------------------------------------------------
   //
   // update the table with loaded data and hader above the table
@@ -221,7 +216,7 @@ class Players {
   //
   // ---------------------------------------------------------------------------
   showDetails(id) {
-    playersResource.readOrDelete(id, "GET", this.inputFromJson, this.showDetailsReject);
+    playersResource.readOrDelete(id, "GET", this.playerToForm, this.showDetailsReject);
   }  
   showDetailsReject(json){}
 }

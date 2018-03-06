@@ -43,19 +43,19 @@ class Disciplines {
   // converting from/to json/form
   //
   //--------------------------------------------------------------------------------------------------------------------
-  disciplineToJson(){
+  formToDiscipline(){
   }
   disciplineToForm(discipline){
   }
-  ageRestrictionToJson(){
+  formToAgeRestriction(){
   }
   ageRestrictionToForm(ageRestriction){
   }
-  genderRestrictionToJson(){
+  formToGenderRestriction(){
   }
   genderRestrictionToForm(genderRestriction){
   }
-  opponentTypeRestrictionToJson(){
+  formToOpponentTypeRestriction(){
   }
   opponentTypeRestrictionToForm(opponentTypeRestriction){
   }
