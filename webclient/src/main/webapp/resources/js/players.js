@@ -94,46 +94,6 @@ class Players {
     document.getElementById("first-name").focus();
   }
 
-  //--------------------------------------------------------------------------------------------------------------------
-  // 
-  // converting from/to json/form
-  //
-  //--------------------------------------------------------------------------------------------------------------------
-  formToPlayer(){
-    var genderElement = document.getElementById("gender");
-    var statusElement = document.getElementById("status");
-    
-    var json = {
-      "id": sessionStorage.getItem('players-current-player-id'),
-      "status": statusElement.options[statusElement.selectedIndex].value,
-      "person":{
-        "id": sessionStorage.getItem('players-current-player-person-id'),
-        "firstName": document.getElementById("first-name").value,
-        "lastName": document.getElementById("last-name").value,
-        "dateOfBirth": document.getElementById("date-of-birth").value,
-        "gender": genderElement.options[genderElement.selectedIndex].value
-      }
-    };
-    
-    console.log("player: "+json);
-    return json;
-  }
-  
-  playerToForm(json){
-    sessionStorage.setItem('players-current-player-id', json.id);
-    sessionStorage.setItem('players-current-player-person-id', json.person.id);
-
-    document.getElementById("first-name").value = json.person.firstName;
-    document.getElementById("last-name").value = json.person.lastName;
-    document.getElementById("date-of-birth").value = json.person.dateOfBirth;
-      
-    var genderElement = document.getElementById("gender");
-    selectItemByValue(genderElement, json.person.gender);
-    
-    var statusElement = document.getElementById("status");
-    selectItemByValue(statusElement, json.status);
-  }
-
   // ---------------------------------------------------------------------------
   //
   // update the table of all players
@@ -182,6 +142,25 @@ class Players {
     });
   }
 
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // navigating the table
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  prev(){
+    var currOffset = Number(sessionStorage.getItem('players.players-table.offset'));
+    var newOffset = currOffset - tableSize;
+      
+    if(newOffset<0){
+      newOffset = 0;
+    }
+      
+    document.getElementById("players-offset").innerHTML = newOffset;
+    document.getElementById("players-length").innerHTML = newOffset + tableSize;
+    sessionStorage.setItem('players.players-table.offset', newOffset);
+    this.updatePlayersTable();
+  }
+  
   next(){
     var playersCount = Number(document.getElementById("players-count").innerHTML);
     var currOffset = Number(sessionStorage.getItem('players.players-table.offset'));
@@ -196,20 +175,6 @@ class Players {
     this.updatePlayersTable();
   }
 
-  prev(){
-    var currOffset = Number(sessionStorage.getItem('players.players-table.offset'));
-    var newOffset = currOffset - tableSize;
-      
-    if(newOffset<0){
-      newOffset = 0;
-    }
-      
-    document.getElementById("players-offset").innerHTML = newOffset;
-    document.getElementById("players-length").innerHTML = newOffset + tableSize;
-    sessionStorage.setItem('players.players-table.offset', newOffset);
-    this.updatePlayersTable();
-  }
-
   // ---------------------------------------------------------------------------
   //
   // show selected player
@@ -219,6 +184,46 @@ class Players {
     playersResource.readOrDelete(id, "GET", this.playerToForm, this.showDetailsReject);
   }  
   showDetailsReject(json){}
+  
+  //--------------------------------------------------------------------------------------------------------------------
+  // 
+  // converting from/to json/form
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  formToPlayer(){
+    var genderElement = document.getElementById("gender");
+    var statusElement = document.getElementById("status");
+    
+    var json = {
+      "id": sessionStorage.getItem('players-current-player-id'),
+      "status": statusElement.options[statusElement.selectedIndex].value,
+      "person":{
+        "id": sessionStorage.getItem('players-current-player-person-id'),
+        "firstName": document.getElementById("first-name").value,
+        "lastName": document.getElementById("last-name").value,
+        "dateOfBirth": document.getElementById("date-of-birth").value,
+        "gender": genderElement.options[genderElement.selectedIndex].value
+      }
+    };
+    
+    console.log("player: "+json);
+    return json;
+  }
+  
+  playerToForm(json){
+    sessionStorage.setItem('players-current-player-id', json.id);
+    sessionStorage.setItem('players-current-player-person-id', json.person.id);
+
+    document.getElementById("first-name").value = json.person.firstName;
+    document.getElementById("last-name").value = json.person.lastName;
+    document.getElementById("date-of-birth").value = json.person.dateOfBirth;
+      
+    var genderElement = document.getElementById("gender");
+    selectItemByValue(genderElement, json.person.gender);
+    
+    var statusElement = document.getElementById("status");
+    selectItemByValue(statusElement, json.status);
+  }
 }
 
 var players = new Players();

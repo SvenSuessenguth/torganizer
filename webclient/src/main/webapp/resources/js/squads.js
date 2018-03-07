@@ -147,7 +147,7 @@ class Squads {
   //
   //--------------------------------------------------------------------------------------------------------------------
   save(){
-    var squad = this.inputToJSon();
+    var squad = this.formToSquad();
     if(squad===null || squad.id==='' || squad.id==='null' || squad.id===null) {
       this.create(squad);
     } else {
@@ -182,7 +182,7 @@ class Squads {
   // converting the input-data (the squad-data in this case) to/from json
   //
   //--------------------------------------------------------------------------------------------------------------------
-  inputToJSon(){    
+  formToSquad(){    
     var json = {
       "id": sessionStorage.getItem('squads.current-squad-id'),
       "players": JSON.parse(sessionStorage.getItem("squads.selected-players-table"))
