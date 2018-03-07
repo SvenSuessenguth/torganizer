@@ -136,7 +136,7 @@ class Players {
 
   // ---------------------------------------------------------------------------
   //
-  // update the table with loaded data and hader above the table
+  // update the table of all players
   //
   // ---------------------------------------------------------------------------
   updatePlayersTable() {
