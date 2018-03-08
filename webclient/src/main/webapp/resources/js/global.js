@@ -3,7 +3,6 @@
 // no business logic is called, just formal errors.
 // 
 function isFormValid(formId){
-  var sven;
   var form = document.getElementById(formId);
   if(form.checkValidity()){
     return true;

@@ -1,8 +1,8 @@
 package org.cc.torganizer.rest;
 
 import java.util.List;
-
 import javax.ejb.Stateless;
+import javax.json.JsonObject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -11,13 +11,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Restriction;
-import org.cc.torganizer.rest.container.DisciplinesContainer;
-import org.cc.torganizer.rest.container.OpponentsContainer;
-import org.cc.torganizer.rest.container.RestrictionsContainer;
 
 @Stateless
 @Path("/disciplines")
@@ -30,50 +26,50 @@ public class DisciplinesResource {
   EntityManager entityManager;
 
   @GET
-  public DisciplinesContainer all() {
+  public JsonObject all() {
 
     TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery(DISCIPLINE_FIND_ALL_QUERY_NAME, Discipline.class);
     List<Discipline> disciplines = namedQuery.getResultList();
 
-    return new DisciplinesContainer(disciplines);
+    return null;
   }
 
   @GET
   @Path("{id}")
-  public Discipline byId(@PathParam("id") Long id) {
+  public JsonObject byId(@PathParam("id") Long id) {
 
     TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery(DISCIPLINE_FIND_BY_ID_QUERY_NAME, Discipline.class);
     namedQuery.setParameter("id", id);
     List<Discipline> disciplines = namedQuery.getResultList();
 
-    return disciplines.get(0);
+    return null;
   }
 
   @GET
   @Path("/new")
-  public Discipline newDiscipline(@QueryParam("label") String label) {
+  public JsonObject newDiscipline(@QueryParam("label") String label) {
 
     Discipline discipline = new Discipline();
     discipline.setLabel(label);
 
     entityManager.persist(discipline);
 
-    return discipline;
+    return null;
   }
 
   @GET
   @Path("/{id}/opponents")
-  public OpponentsContainer opponents(@PathParam("id") Long id) {
+  public JsonObject opponents(@PathParam("id") Long id) {
     TypedQuery<Opponent> namedQuery = entityManager.createNamedQuery("Discipline.findOpponents", Opponent.class);
     namedQuery.setParameter("id", id);
     List<Opponent> opponents = namedQuery.getResultList();
 
-    return new OpponentsContainer(opponents);
+    return null;
   }
 
   @GET
   @Path("/{id}/opponents/add")
-  public Opponent opponents(@PathParam("id") Long disciplineId, @QueryParam("opponentId") Long opponentId) {
+  public JsonObject opponents(@PathParam("id") Long disciplineId, @QueryParam("opponentId") Long opponentId) {
     // load Opponent
     TypedQuery<Opponent> namedQuery = entityManager.createNamedQuery("Opponent.findById", Opponent.class);
     namedQuery.setParameter("id", opponentId);
@@ -91,23 +87,23 @@ public class DisciplinesResource {
     discipline.getOpponents().add(opponentToAdd);
     entityManager.persist(discipline);
 
-    return opponentToAdd;
+    return null;
   }
 
   @GET
   @Path("/{id}/restrictions")
-  public RestrictionsContainer restrictions(@PathParam("id") Long id) {
+  public JsonObject restrictions(@PathParam("id") Long id) {
     TypedQuery<Restriction> namedQuery = entityManager.createNamedQuery("Discipline.findRestrictions",
         Restriction.class);
     namedQuery.setParameter("id", id);
     List<Restriction> restrictions = namedQuery.getResultList();
 
-    return new RestrictionsContainer(restrictions);
+    return null;
   }
 
   @GET
   @Path("/{id}/restrictions/add")
-  public Restriction addRestrictions(@PathParam("id") Long disciplineId, @QueryParam("restrictionId") Long restrictionId) {
+  public JsonObject addRestrictions(@PathParam("id") Long disciplineId, @QueryParam("restrictionId") Long restrictionId) {
     // load Restriction
     TypedQuery<Restriction> namedQuery = entityManager.createNamedQuery("Restriction.findById", Restriction.class);
     namedQuery.setParameter("id", restrictionId);
@@ -125,7 +121,7 @@ public class DisciplinesResource {
     discipline.getRestrictions().add(restrictionToAdd);
     entityManager.persist(discipline);
 
-    return restrictionToAdd;
+    return null;
   }
 
 }

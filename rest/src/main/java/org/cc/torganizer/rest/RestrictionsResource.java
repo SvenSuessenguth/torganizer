@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.json.JsonObject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -18,50 +20,53 @@ import org.cc.torganizer.core.entities.GenderRestriction;
 import org.cc.torganizer.core.entities.OpponentType;
 import org.cc.torganizer.core.entities.OpponentTypeRestriction;
 import org.cc.torganizer.core.entities.Restriction;
-import org.cc.torganizer.rest.container.RestrictionsContainer;
+import org.cc.torganizer.rest.json.RestrictionJsonConverter;
 
 @Stateless
 @Path("restrictions")
 @Produces("application/json")
 public class RestrictionsResource {
 
+  @Inject
+  private RestrictionJsonConverter converter;
+  
 	@PersistenceContext(name = "torganizer")
 	EntityManager entityManager;
 
 	@GET
-	public RestrictionsContainer all() {
+	public JsonObject all() {
 
 		TypedQuery<Restriction> namedQuery = entityManager.createNamedQuery("Restriction.findAll", Restriction.class);
 		List<Restriction> restrictions = namedQuery.getResultList();
 
-		return new RestrictionsContainer(restrictions);
+		return null;
 	}
 
 	@GET
 	@Path("{id}")
-	public Restriction byId(@PathParam("id") Long id) {
+	public JsonObject byId(@PathParam("id") Long id) {
 
 		TypedQuery<Restriction> namedQuery = entityManager.createNamedQuery("Restriction.findById", Restriction.class);
 		namedQuery.setParameter("id", id);
 		List<Restriction> restrictions = namedQuery.getResultList();
 
-		return restrictions.get(0);
+		return null;
 	}
 
 	@GET
 	@Path("/new/gender")
-	public Restriction newGenderRestriction(@QueryParam("validGender") Gender validGender) {
+	public JsonObject newGenderRestriction(@QueryParam("validGender") Gender validGender) {
 		GenderRestriction genderRestriction = new GenderRestriction();
 		genderRestriction.setValidGender(validGender);
 
 		entityManager.persist(genderRestriction);
 
-		return genderRestriction;
+		return null;
 	}
 
 	@GET
 	@Path("/new/age")
-	public Restriction newAgeRestriction(@QueryParam("maxDateOfBirth") String maxDateOfBirthISO,
+	public JsonObject newAgeRestriction(@QueryParam("maxDateOfBirth") String maxDateOfBirthISO,
 			@QueryParam("minDateOfBirth") String minDateOfBirthISO) {
 
 		AgeRestriction ageRestriction = new AgeRestriction();
@@ -77,18 +82,18 @@ public class RestrictionsResource {
 
 		entityManager.persist(ageRestriction);
 
-		return ageRestriction;
+		return null;
 	}
 
 	@GET
 	@Path("/new/opponenttype")
-	public Restriction newOpponentTypeRestriction(@QueryParam("validOpponentType") OpponentType validOpponentType) {
+	public JsonObject newOpponentTypeRestriction(@QueryParam("validOpponentType") OpponentType validOpponentType) {
 
 		OpponentTypeRestriction otRestriction = new OpponentTypeRestriction();
 		otRestriction.setValidOpponentType(validOpponentType);
 
 		entityManager.persist(otRestriction);
 
-		return otRestriction;
+		return null;
 	}
 }
