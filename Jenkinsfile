@@ -47,7 +47,7 @@ pipeline {
 		  script {
 		    try {
             bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
-			} catch(Excpetion e){
+			} catch(Exception e){
 			  currentBuild.result = 'SUCCESS'
 			}
           }
