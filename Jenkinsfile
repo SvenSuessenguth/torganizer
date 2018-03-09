@@ -48,7 +48,7 @@ pipeline {
         }
       }
 	  // do not fail the build for missing sonar
-	  result = "SUCCESS"
+	  currentBuild.result = 'SUCCESS'
     }
   }
 	
