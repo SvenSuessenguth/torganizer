@@ -48,7 +48,9 @@ pipeline {
 		    try {
               bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
             } catch(exc){
-              result.result = 'UNSTABLE'
+              // result of the stage
+              result.result = 'UNSTABLE'	  
+              // result of the complete build
 			  currentBuild.result = 'SUCCESS'
             }
           }
