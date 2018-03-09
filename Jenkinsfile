@@ -46,9 +46,9 @@ pipeline {
         withSonarQubeEnv('SonarQube') {
           bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
         }
+		// do not fail the build for missing sonar
+	    currentBuild.result = 'SUCCESS'
       }
-	  // do not fail the build for missing sonar
-	  currentBuild.result = 'SUCCESS'
     }
   }
 	
