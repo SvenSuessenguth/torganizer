@@ -44,14 +44,15 @@ pipeline {
     stage('report') {
       steps {
         withSonarQubeEnv('SonarQube') {
+          // https://issues.jenkins-ci.org/browse/JENKINS-26522
 		  script{
-		  try{
-		  bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
-		  }catch(exc){
-		    stageStatus 'UNSTABLE';
-			currentBuild.result = 'SUCCESS'
-		  }
-		  }
+            try{
+		      bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
+            }catch(exc){
+              annotate('currentStage.status', 'UNSTABLE');
+              currentBuild.result = 'SUCCESS';
+            }
+          }
         }        
       } 
     }    
