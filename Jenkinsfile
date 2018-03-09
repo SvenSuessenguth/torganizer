@@ -46,8 +46,11 @@ pipeline {
         withSonarQubeEnv('SonarQube') {
           bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
         }
-		// do not fail the build for missing sonar
-	    currentBuild.result = 'SUCCESS'
+		
+      }
+	  // https://mtarnawa.org/2017/06/25/post-steps-in-jenkins-declarative-pipeline/
+	  script {
+        currentBuild.result = 'SUCCESS'
       }
     }
   }
