@@ -47,15 +47,7 @@ pipeline {
           bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
         }
       } 
-    }
-    stage('wtf'){
-      steps {
-        // https://mtarnawa.org/2017/06/25/post-steps-in-jenkins-declarative-pipeline/
-        script {
-          currentBuild.result = 'SUCCESS'
-        }
-      }  
-    }
+    }    
   }
 	
   post {
