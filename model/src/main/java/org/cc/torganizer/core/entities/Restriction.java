@@ -41,7 +41,7 @@ public abstract class Restriction extends Entity {
       return discriminator;
     }
 
-    public static Type getByDiscriminator(String discriminator) {
+    public static Type byDiscriminator(String discriminator) {
       for (Type type : values()) {
         if (type.discriminator.equals(discriminator)) {
           return type;

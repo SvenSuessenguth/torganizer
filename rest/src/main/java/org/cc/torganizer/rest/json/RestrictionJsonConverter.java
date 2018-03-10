@@ -1,5 +1,7 @@
 package org.cc.torganizer.rest.json;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -12,6 +14,7 @@ import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
+import org.cc.torganizer.core.entities.AgeRestriction;
 import org.cc.torganizer.core.entities.Restriction;
 
 /**
@@ -59,14 +62,32 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
   public Restriction toModel(JsonObject jsonObject) {
 
     String discriminator = jsonObject.getString("discriminator");
-
-    Restriction restriction = Restriction.Type.getByDiscriminator(discriminator).create();
+    Restriction.Type restrictionType = Restriction.Type.byDiscriminator(discriminator);
+    Restriction restriction = restrictionType.create();
 
     String idString = get(jsonObject, "id");
     Long id = idString == null ? null : Long.valueOf(idString);
     restriction.setId(id);
 
+    switch (restrictionType) {
+      case AGE_RESTRICTION:
+        restriction = toAgeRestrictionModel((AgeRestriction) restriction, jsonObject);
+        break;
+
+    }
     return restriction;
+  }
+
+  private AgeRestriction toAgeRestrictionModel(AgeRestriction ageRestriction, JsonObject jsonObject) {
+    String minDateOfBirthString = get(jsonObject, "minDateOfBirth");
+    LocalDate minDateOfBirth = minDateOfBirthString == null || minDateOfBirthString.trim().isEmpty() ? null : LocalDate.parse(minDateOfBirthString, DateTimeFormatter.ISO_DATE);
+    ageRestriction.setMinDateOfBirth(minDateOfBirth);
+
+    String maxDateOfBirthString = get(jsonObject, "maxDateOfBirth");
+    LocalDate maxDateOfBirth = maxDateOfBirthString == null || maxDateOfBirthString.trim().isEmpty() ? null : LocalDate.parse(maxDateOfBirthString, DateTimeFormatter.ISO_DATE);
+    ageRestriction.setMaxDateOfBirth(maxDateOfBirth);
+
+    return ageRestriction;
   }
 
   @Override

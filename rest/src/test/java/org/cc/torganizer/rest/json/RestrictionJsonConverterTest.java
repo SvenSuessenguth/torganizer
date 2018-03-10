@@ -6,6 +6,8 @@
 package org.cc.torganizer.rest.json;
 
 import java.io.StringReader;
+import java.time.LocalDate;
+import java.time.Month;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
@@ -16,10 +18,6 @@ import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- *
- * @author svens
- */
 public class RestrictionJsonConverterTest {
 
   private RestrictionJsonConverter converter;
@@ -42,8 +40,8 @@ public class RestrictionJsonConverterTest {
     Restriction restriction = converter.toModel(jsonObject);
     MatcherAssert.assertThat(restriction, Matchers.is(Matchers.instanceOf(AgeRestriction.class)));
 
-    //AgeRestriction ageRestriction = (AgeRestriction) restriction;
-    //MatcherAssert.assertThat(ageRestriction.getMinDateOfBirth(), Matchers.is(LocalDate.of(1968, Month.JANUARY, 1)));
-    //MatcherAssert.assertThat(ageRestriction.getMaxDateOfBirth(), Matchers.is(LocalDate.of(1970, Month.JANUARY, 1)));
+    AgeRestriction ageRestriction = (AgeRestriction) restriction;
+    MatcherAssert.assertThat(ageRestriction.getMinDateOfBirth(), Matchers.is(LocalDate.of(1968, Month.JANUARY, 12)));
+    MatcherAssert.assertThat(ageRestriction.getMaxDateOfBirth(), Matchers.is(LocalDate.of(1970, Month.JANUARY, 12)));
   }
 }
