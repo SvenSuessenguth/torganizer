@@ -22,7 +22,6 @@ import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 import org.cc.torganizer.core.entities.Tournament;
-import org.cc.torganizer.rest.container.DisciplinesContainer;
 import org.cc.torganizer.rest.json.PlayerJsonConverter;
 import org.cc.torganizer.rest.json.SquadJsonConverter;
 import org.cc.torganizer.rest.json.TournamentJsonConverter;
@@ -231,17 +230,17 @@ public class TournamentsResource extends AbstractResource {
 
   @GET
   @Path("/{id}/disciplines")
-  public DisciplinesContainer disciplines(@PathParam("id") Long tournamentId) {
+  public JsonObject disciplines(@PathParam("id") Long tournamentId) {
     TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery("Tournament.findDisciplines", Discipline.class);
     namedQuery.setParameter("id", tournamentId);
     List<Discipline> disciplines = namedQuery.getResultList();
 
-    return new DisciplinesContainer(disciplines);
+    return null;
   }
 
   @POST
   @Path("/{id}/disciplines")
-  public Discipline disciplines(@PathParam("id") Long tournamentId, @QueryParam("disciplineId") Long disciplineId) {
+  public JsonObject disciplines(@PathParam("id") Long tournamentId, @QueryParam("disciplineId") Long disciplineId) {
     // load discipline
     TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery("Discipline.findById", Discipline.class);
     namedQuery.setParameter("id", disciplineId);
@@ -259,6 +258,6 @@ public class TournamentsResource extends AbstractResource {
     tournament.getDisciplines().add(disciplineToAdd);
     entityManager.persist(tournament);
 
-    return disciplineToAdd;
+    return null;
   }
 }

@@ -19,11 +19,11 @@ public class Discipline extends Entity{
 
   private String label;
   
-  private Set<Opponent> opponents;
+  private final Set<Opponent> opponents;
 
-  private List<Round> rounds;
+  private final List<Round> rounds;
   
-  private Set<Restriction> restrictions;
+  private final Set<Restriction> restrictions;
   
   /**
    * in einer Discipline wird mindestens eine Round gespielt.
@@ -100,7 +100,7 @@ public class Discipline extends Entity{
    * 
    * @param round Runde.
    */
-  public void addRound(Round round) {
+  public final void addRound(Round round) {
     round.setIndex(rounds.size());
     rounds.add(round);
   }
