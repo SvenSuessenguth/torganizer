@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -13,73 +12,69 @@ import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
-import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.core.entities.Squad;
+import org.cc.torganizer.core.entities.Restriction;
 
 /**
- * @author svens
- * 
+ * What does a restriction-json look like:
+ * <p>
+ * AgeRestriction
  * <pre>
- 
+ * {
+ *   id:
+ *   type:
+ *   maxDateOfBirth:
+ *   minDateOfBirth:
+ * }
  * </pre>
- * 
+ *
+ * @author svens
  */
 @RequestScoped
-public class RestrictionJsonConverter extends ModelJsonConverter<Squad>{
+public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
 
-  @Inject  
-  private PlayerJsonConverter playerConverter;
-  
-  public RestrictionJsonConverter(){
+  public RestrictionJsonConverter() {
   }
-  
-  public RestrictionJsonConverter(PlayerJsonConverter playerConverter){
-    this.playerConverter = playerConverter;
-  }
-  
+
   @Override
-  public JsonObject toJsonObject(Squad squad) {
+  public JsonObject toJsonObject(Restriction restriction) {
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonObjectBuilder objectBuilder = factory.createObjectBuilder();
-    
-    add(objectBuilder, "id", squad.getId());
-    objectBuilder.add("players", playerConverter.toJsonArray(squad.getPlayers()));
-      
+
+    add(objectBuilder, "id", restriction.getId());
+
     return objectBuilder.build();
   }
 
   @Override
-  public JsonArray toJsonArray(Collection<Squad> squads) {
+  public JsonArray toJsonArray(Collection<Restriction> restrictions) {
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonArrayBuilder arrayBuilder = factory.createArrayBuilder();
-    
-    squads.forEach(squad -> arrayBuilder.add(this.toJsonObject(squad)) );
-    
+
+    restrictions.forEach(restriction -> arrayBuilder.add(this.toJsonObject(restriction)));
+
     return arrayBuilder.build();
   }
 
   @Override
-  public Squad toModel(JsonObject jsonObject) {
-    
-    Squad squad = new Squad();
-    
+  public Restriction toModel(JsonObject jsonObject) {
+
+    String discriminator = jsonObject.getString("discriminator");
+
+    Restriction restriction = Restriction.Type.getByDiscriminator(discriminator).create();
+
     String idString = get(jsonObject, "id");
-    Long id = idString==null?null:Long.valueOf(idString);
-    squad.setId(id);
-    
-    JsonArray playersJson = jsonObject.getJsonArray("players");
-    Collection<Player> players = playerConverter.toModels(playersJson);
-    squad.addPlayers(players);
-    
-    return squad;
+    Long id = idString == null ? null : Long.valueOf(idString);
+    restriction.setId(id);
+
+    return restriction;
   }
 
   @Override
-  public Collection<Squad> toModels(JsonArray jsonArray) {
-    List<Squad> squads = new ArrayList<>();
-    
-    jsonArray.forEach((JsonValue arrayValue) -> squads.add(toModel((JsonObject)arrayValue)));
-    
-    return squads;
+  public Collection<Restriction> toModels(JsonArray jsonArray) {
+    List<Restriction> restrictions = new ArrayList<>();
+
+    jsonArray.forEach((JsonValue arrayValue) -> restrictions.add(toModel((JsonObject) arrayValue)));
+
+    return restrictions;
   }
 }

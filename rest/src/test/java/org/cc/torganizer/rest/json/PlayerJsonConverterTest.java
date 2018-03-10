@@ -26,85 +26,84 @@ import org.mockito.runners.MockitoJUnitRunner;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class PlayerJsonConverterTest {
-  
+
   @Spy
   private PersonJsonConverter personConverter;
-  
+
   @InjectMocks
   private PlayerJsonConverter converter;
-  
+
   @Test
-  public void testToJson_withNullValues(){
-    String expected ="{\"id\":null,\"lastMatch\":null,\"status\":\"ACTIVE\","
-            + "\"person\":{"
-            + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
-            + "\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}}";
+  public void testToJson_withNullValues() {
+    String expected = "{\"id\":null,\"lastMatch\":null,\"status\":\"ACTIVE\","
+      + "\"person\":{"
+      + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
+      + "\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}}";
     Player player = new Player("vorname", "nachname");
-    
+
     final JsonObject jsonObject = converter.toJsonObject(player);
-    
+
     assertThat(jsonObject.toString(), is(expected));
   }
-  
+
   @Test
-  public void testToJson_withLastMatch(){
-    String expected ="{\"id\":null,\"lastMatch\":\"2017-12-24 18:00:00\",\"status\":\"ACTIVE\","
-            + "\"person\":{"
-            + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
-            + "\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}}";
+  public void testToJson_withLastMatch() {
+    String expected = "{\"id\":null,\"lastMatch\":\"2017-12-24 18:00:00\",\"status\":\"ACTIVE\","
+      + "\"person\":{"
+      + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
+      + "\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}}";
     Player player = new Player("vorname", "nachname");
-    LocalDateTime christmasEve = of(2017, Month.DECEMBER, 24, 18, 0,0);
+    LocalDateTime christmasEve = of(2017, Month.DECEMBER, 24, 18, 0, 0);
     player.setLastMatch(christmasEve);
-    
+
     final JsonObject jsonObject = converter.toJsonObject(player);
-    
+
     assertThat(jsonObject.toString(), is(expected));
   }
-  
+
   @Test
-  public void testToModel_singlePlayer(){
-    String jsonString ="{\"id\":null,\"lastMatch\":\"2017-12-24 18:00:00\","
-            + "\"person\":{"
-            + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
-            + "\"dateOfBirth\":null,\"gender\":\"MALE\"}}";
+  public void testToModel_singlePlayer() {
+    String jsonString = "{\"id\":null,\"lastMatch\":\"2017-12-24 18:00:00\","
+      + "\"person\":{"
+      + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
+      + "\"dateOfBirth\":null,\"gender\":\"MALE\"}}";
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
-    JsonObject jsonObject = jsonReader.readObject();     
-    
+    JsonObject jsonObject = jsonReader.readObject();
+
     Player player = converter.toModel(jsonObject);
-    
+
     LocalDateTime expectedLastMatch = LocalDateTime.of(2017, Month.DECEMBER, 24, 18, 0, 0);
     assertThat(player.getLastMatch(), is(expectedLastMatch));
     assertThat(player.getPerson().getFirstName(), is("vorname"));
     assertThat(player.getPerson().getGender(), is(Gender.MALE));
   }
-  
+
   @Test
-  public void testToModels_multiplePlayer(){
-    String jsonString ="["
-            + "{\"id\":null,\"lastMatch\":\"2017-12-24 18:00:00\","
-            + "\"person\":{"
-            + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
-            + "\"dateOfBirth\":null,\"gender\":\"MALE\"}},"
-            
-            +"{\"id\":null,\"lastMatch\":null,"
-            + "\"person\":{"
-            + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
-            + "\"dateOfBirth\":\"1968-01-12\",\"gender\":\"MALE\"}}"
-            + "]";
+  public void testToModels_multiplePlayer() {
+    String jsonString = "["
+      + "{\"id\":null,\"lastMatch\":\"2017-12-24 18:00:00\","
+      + "\"person\":{"
+      + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
+      + "\"dateOfBirth\":null,\"gender\":\"MALE\"}},"
+      + "{\"id\":null,\"lastMatch\":null,"
+      + "\"person\":{"
+      + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
+      + "\"dateOfBirth\":\"1968-01-12\",\"gender\":\"MALE\"}}"
+      + "]";
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonArray jsonArray = jsonReader.readArray();
-    
-    List<Player> players = (List<Player>)converter.toModels(jsonArray);
-    
+
+    List<Player> players = (List<Player>) converter.toModels(jsonArray);
+
     assertThat(players, is(notNullValue()));
     assertThat(players.size(), is(2));
-    
+
     Player player0 = players.get(0);
     LocalDateTime expectedLastMatch = LocalDateTime.of(2017, Month.DECEMBER, 24, 18, 0, 0);
     assertThat(player0.getLastMatch(), is(expectedLastMatch));
     assertThat(player0.getPerson().getFirstName(), is("vorname"));
     assertThat(player0.getPerson().getGender(), is(Gender.MALE));
-    
+
     Player player1 = players.get(1);
     LocalDate expectedDateOfBirth = LocalDate.of(1968, Month.JANUARY, 12);
     assertThat(player1.getPerson().getDateOfBirth(), is(expectedDateOfBirth));

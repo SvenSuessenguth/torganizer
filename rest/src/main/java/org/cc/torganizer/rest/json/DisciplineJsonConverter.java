@@ -13,28 +13,23 @@ import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
-import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Discipline;
 
 /**
- * @author svens
- * 
- * <pre>
- 
- * </pre>
+ * A json-disciplines contains nothing but label and restrictions.
  * 
  */
 @RequestScoped
 public class DisciplineJsonConverter extends ModelJsonConverter<Discipline>{
 
   @Inject  
-  private PlayerJsonConverter playerConverter;
+  private RestrictionJsonConverter restrictionConverter;
   
   public DisciplineJsonConverter(){
   }
   
-  public DisciplineJsonConverter(PlayerJsonConverter playerConverter){
-    this.playerConverter = playerConverter;
+  public DisciplineJsonConverter(RestrictionJsonConverter restrictionConverter){
+    this.restrictionConverter = restrictionConverter;
   }
   
   @Override
