@@ -12,6 +12,8 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import org.cc.torganizer.core.entities.AgeRestriction;
+import org.cc.torganizer.core.entities.Gender;
+import org.cc.torganizer.core.entities.GenderRestriction;
 import org.cc.torganizer.core.entities.Restriction;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -46,7 +48,7 @@ public class RestrictionJsonConverterTest {
   }
 
   @Test
-  public void testToJsonl_AgeRestriction() {
+  public void testToJson_AgeRestriction() {
     String expectedJsonString = "{\"id\":1,"
       + "\"discriminator\":\"" + Restriction.Discriminator.AGE_RESTRICTION.getId() + "\","
       + "\"minDateOfBirth\":\"1968-01-12\","
@@ -56,6 +58,39 @@ public class RestrictionJsonConverterTest {
     restriction.setId(1L);
     restriction.setMinDateOfBirth(LocalDate.of(1968, Month.JANUARY, 12));
     restriction.setMaxDateOfBirth(LocalDate.of(1970, Month.JANUARY, 12));
+
+    JsonObject jsonObject = converter.toJsonObject(restriction);
+    String actualJsonString = jsonObject.toString();
+
+    MatcherAssert.assertThat(expectedJsonString, Matchers.is(actualJsonString));
+  }
+
+  @Test
+  public void testToModel_GenderRestriction() {
+    String jsonString = "{\"id\":1, "
+      + "\"discriminator\":\"" + Restriction.Discriminator.GENDER_RESTRICTION.getId() + "\","
+      + "\"validGender\":\"MALE\"}";
+
+    JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
+    JsonObject jsonObject = jsonReader.readObject();
+
+    Restriction restriction = converter.toModel(jsonObject);
+    MatcherAssert.assertThat(restriction, Matchers.is(Matchers.instanceOf(GenderRestriction.class)));
+
+    GenderRestriction genderRestriction = (GenderRestriction) restriction;
+    MatcherAssert.assertThat(genderRestriction.getValidGender(), Matchers.is(Gender.MALE));
+
+  }
+
+  @Test
+  public void testToJson_GenderRestriction() {
+    String expectedJsonString = "{\"id\":1,"
+      + "\"discriminator\":\"" + Restriction.Discriminator.GENDER_RESTRICTION.getId() + "\","
+      + "\"validGender\":\"MALE\"}";
+
+    GenderRestriction restriction = new GenderRestriction();
+    restriction.setId(1L);
+    restriction.setValidGender(Gender.MALE);
 
     JsonObject jsonObject = converter.toJsonObject(restriction);
     String actualJsonString = jsonObject.toString();

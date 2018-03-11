@@ -15,6 +15,8 @@ import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
 import org.cc.torganizer.core.entities.AgeRestriction;
+import org.cc.torganizer.core.entities.Gender;
+import org.cc.torganizer.core.entities.GenderRestriction;
 import org.cc.torganizer.core.entities.Restriction;
 
 /**
@@ -52,6 +54,9 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
       case AGE_RESTRICTION:
         toJsonObject((AgeRestriction) restriction, objectBuilder);
         break;
+      case GENDER_RESTRICTION:
+        toJsonObject((GenderRestriction) restriction, objectBuilder);
+        break;
       default:
         throw new IllegalArgumentException("Can't convert restriction with discriminator-id " + restriction.getDiscriminator().getId() + " to json.");
     }
@@ -63,6 +68,13 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
 
     add(objectBuilder, "minDateOfBirth", restriction.getMinDateOfBirth());
     add(objectBuilder, "maxDateOfBirth", restriction.getMaxDateOfBirth());
+
+    return objectBuilder;
+  }
+
+  public JsonObjectBuilder toJsonObject(GenderRestriction restriction, JsonObjectBuilder objectBuilder) {
+
+    add(objectBuilder, "validGender", restriction.getValidGender().toString());
 
     return objectBuilder;
   }
@@ -93,6 +105,9 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
       case AGE_RESTRICTION:
         restriction = toModel((AgeRestriction) restriction, jsonObject);
         break;
+      case GENDER_RESTRICTION:
+        restriction = toModel((GenderRestriction) restriction, jsonObject);
+        break;
 
     }
     return restriction;
@@ -108,6 +123,15 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
     ageRestriction.setMaxDateOfBirth(maxDateOfBirth);
 
     return ageRestriction;
+  }
+
+  private GenderRestriction toModel(GenderRestriction genderRestriction, JsonObject jsonObject) {
+
+    String validGenderString = get(jsonObject, "validGender");
+    Gender validGender = Gender.valueOf(validGenderString);
+    genderRestriction.setValidGender(validGender);
+
+    return genderRestriction;
   }
 
   @Override
