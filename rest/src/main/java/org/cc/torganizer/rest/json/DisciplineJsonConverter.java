@@ -17,29 +17,30 @@ import org.cc.torganizer.core.entities.Discipline;
 
 /**
  * A json-disciplines contains nothing but label and restrictions.
- * 
+ *
  */
 @RequestScoped
-public class DisciplineJsonConverter extends ModelJsonConverter<Discipline>{
+public class DisciplineJsonConverter extends ModelJsonConverter<Discipline> {
 
-  @Inject  
+  @Inject
   private RestrictionJsonConverter restrictionConverter;
-  
-  public DisciplineJsonConverter(){
+
+  public DisciplineJsonConverter() {
   }
-  
-  public DisciplineJsonConverter(RestrictionJsonConverter restrictionConverter){
+
+  public DisciplineJsonConverter(RestrictionJsonConverter restrictionConverter) {
     this.restrictionConverter = restrictionConverter;
   }
-  
+
   @Override
   public JsonObject toJsonObject(Discipline discipline) {
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonObjectBuilder objectBuilder = factory.createObjectBuilder();
-    
+
     add(objectBuilder, "id", discipline.getId());
-    // objectBuilder.add("players", playerConverter.toJsonArray(squad.getPlayers()));
-      
+    add(objectBuilder, "label", discipline.getLabel());
+    objectBuilder.add("restrictions", restrictionConverter.toJsonArray(discipline.getRestrictions()));
+
     return objectBuilder.build();
   }
 
@@ -47,30 +48,30 @@ public class DisciplineJsonConverter extends ModelJsonConverter<Discipline>{
   public JsonArray toJsonArray(Collection<Discipline> disciplines) {
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonArrayBuilder arrayBuilder = factory.createArrayBuilder();
-    
-    disciplines.forEach(discipline -> arrayBuilder.add(this.toJsonObject(discipline)) );
-    
+
+    disciplines.forEach(discipline -> arrayBuilder.add(this.toJsonObject(discipline)));
+
     return arrayBuilder.build();
   }
 
   @Override
   public Discipline toModel(JsonObject jsonObject) {
-    
+
     Discipline discipline = new Discipline();
-    
+
     String idString = get(jsonObject, "id");
-    Long id = idString==null?null:Long.valueOf(idString);
+    Long id = idString == null ? null : Long.valueOf(idString);
     discipline.setId(id);
-    
+
     return discipline;
   }
 
   @Override
   public Collection<Discipline> toModels(JsonArray jsonArray) {
     List<Discipline> disciplines = new ArrayList<>();
-    
-    jsonArray.forEach((JsonValue arrayValue) -> disciplines.add(toModel((JsonObject)arrayValue)));
-    
+
+    jsonArray.forEach((JsonValue arrayValue) -> disciplines.add(toModel((JsonObject) arrayValue)));
+
     return disciplines;
   }
 }

@@ -31,7 +31,7 @@
          </join-table>
          <cascade><cascade-all/></cascade>
        </one-to-many>
-       <one-to-many name="restrictions">
+       <one-to-many name="restrictions" fetch="EAGER">
          <join-table name="DISCIPLINES_RESTRICTIONS">
            <join-column name="ID" referenced-column-name="ID"/>
            <inverse-join-column name="RESTRICTION_ID" referenced-column-name="ID" unique="true" />
