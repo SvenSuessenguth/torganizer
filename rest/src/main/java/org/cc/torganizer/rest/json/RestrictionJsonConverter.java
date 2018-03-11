@@ -17,6 +17,8 @@ import javax.json.JsonValue;
 import org.cc.torganizer.core.entities.AgeRestriction;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.GenderRestriction;
+import org.cc.torganizer.core.entities.OpponentType;
+import org.cc.torganizer.core.entities.OpponentTypeRestriction;
 import org.cc.torganizer.core.entities.Restriction;
 
 /**
@@ -57,6 +59,9 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
       case GENDER_RESTRICTION:
         toJsonObject((GenderRestriction) restriction, objectBuilder);
         break;
+      case OPPONENT_TYPE_RESTRICTION:
+        toJsonObject((OpponentTypeRestriction) restriction, objectBuilder);
+        break;
       default:
         throw new IllegalArgumentException("Can't convert restriction with discriminator-id " + restriction.getDiscriminator().getId() + " to json.");
     }
@@ -79,6 +84,13 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
     return objectBuilder;
   }
 
+  public JsonObjectBuilder toJsonObject(OpponentTypeRestriction restriction, JsonObjectBuilder objectBuilder) {
+
+    add(objectBuilder, "validOpponentType", restriction.getValidOpponentType().toString());
+
+    return objectBuilder;
+  }
+
   @Override
   public JsonArray toJsonArray(Collection<Restriction> restrictions
   ) {
@@ -93,21 +105,26 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
   @Override
   public Restriction toModel(JsonObject jsonObject) {
 
-    String discriminator = jsonObject.getString("discriminator");
-    Restriction.Discriminator restrictionType = Restriction.Discriminator.byId(discriminator);
-    Restriction restriction = restrictionType.create();
+    String discriminatorId = jsonObject.getString("discriminator");
+    Restriction.Discriminator discriminator = Restriction.Discriminator.byId(discriminatorId);
+    Restriction restriction = discriminator.create();
 
     String idString = get(jsonObject, "id");
     Long id = idString == null ? null : Long.valueOf(idString);
     restriction.setId(id);
 
-    switch (restrictionType) {
+    switch (discriminator) {
       case AGE_RESTRICTION:
         restriction = toModel((AgeRestriction) restriction, jsonObject);
         break;
       case GENDER_RESTRICTION:
         restriction = toModel((GenderRestriction) restriction, jsonObject);
         break;
+      case OPPONENT_TYPE_RESTRICTION:
+        restriction = toModel((OpponentTypeRestriction) restriction, jsonObject);
+        break;
+      default:
+        throw new IllegalArgumentException("Can't convert json with discriminator-id " + restriction.getDiscriminator().getId() + " to model.");
 
     }
     return restriction;
@@ -132,6 +149,15 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
     genderRestriction.setValidGender(validGender);
 
     return genderRestriction;
+  }
+
+  private OpponentTypeRestriction toModel(OpponentTypeRestriction opponentTypeRestriction, JsonObject jsonObject) {
+
+    String validOpponentTypeString = get(jsonObject, "validOpponentType");
+    OpponentType validOpponentType = OpponentType.valueOf(validOpponentTypeString);
+    opponentTypeRestriction.setValidOpponentType(validOpponentType);
+
+    return opponentTypeRestriction;
   }
 
   @Override

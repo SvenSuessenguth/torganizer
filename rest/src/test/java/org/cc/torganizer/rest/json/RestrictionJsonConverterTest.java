@@ -14,6 +14,8 @@ import javax.json.JsonReader;
 import org.cc.torganizer.core.entities.AgeRestriction;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.GenderRestriction;
+import org.cc.torganizer.core.entities.OpponentType;
+import org.cc.torganizer.core.entities.OpponentTypeRestriction;
 import org.cc.torganizer.core.entities.Restriction;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -91,6 +93,39 @@ public class RestrictionJsonConverterTest {
     GenderRestriction restriction = new GenderRestriction();
     restriction.setId(1L);
     restriction.setValidGender(Gender.MALE);
+
+    JsonObject jsonObject = converter.toJsonObject(restriction);
+    String actualJsonString = jsonObject.toString();
+
+    MatcherAssert.assertThat(expectedJsonString, Matchers.is(actualJsonString));
+  }
+
+  @Test
+  public void testToModel_OpponentTypeRestriction() {
+    String jsonString = "{\"id\":1,"
+      + "\"discriminator\":\"" + Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION.getId() + "\","
+      + "\"validOpponentType\":\"PLAYER\"}";
+
+    JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
+    JsonObject jsonObject = jsonReader.readObject();
+
+    Restriction restriction = converter.toModel(jsonObject);
+    MatcherAssert.assertThat(restriction, Matchers.is(Matchers.instanceOf(OpponentTypeRestriction.class)));
+
+    OpponentTypeRestriction opponentTypeRestriction = (OpponentTypeRestriction) restriction;
+    MatcherAssert.assertThat(opponentTypeRestriction.getValidOpponentType(), Matchers.is(OpponentType.PLAYER));
+
+  }
+
+  @Test
+  public void testToJson_OpponentTypeRestriction() {
+    String expectedJsonString = "{\"id\":1,"
+      + "\"discriminator\":\"" + Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION.getId() + "\","
+      + "\"validOpponentType\":\"PLAYER\"}";
+
+    OpponentTypeRestriction restriction = new OpponentTypeRestriction();
+    restriction.setId(1L);
+    restriction.setValidOpponentType(OpponentType.PLAYER);
 
     JsonObject jsonObject = converter.toJsonObject(restriction);
     String actualJsonString = jsonObject.toString();
