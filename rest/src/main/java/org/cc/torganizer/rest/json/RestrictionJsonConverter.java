@@ -70,7 +70,6 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
   }
 
   public JsonObjectBuilder toJsonObject(AgeRestriction restriction, JsonObjectBuilder objectBuilder) {
-
     add(objectBuilder, "minDateOfBirth", restriction.getMinDateOfBirth());
     add(objectBuilder, "maxDateOfBirth", restriction.getMaxDateOfBirth());
 
@@ -78,22 +77,19 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
   }
 
   public JsonObjectBuilder toJsonObject(GenderRestriction restriction, JsonObjectBuilder objectBuilder) {
-
     add(objectBuilder, "validGender", restriction.getValidGender().toString());
 
     return objectBuilder;
   }
 
   public JsonObjectBuilder toJsonObject(OpponentTypeRestriction restriction, JsonObjectBuilder objectBuilder) {
-
     add(objectBuilder, "validOpponentType", restriction.getValidOpponentType().toString());
 
     return objectBuilder;
   }
 
   @Override
-  public JsonArray toJsonArray(Collection<Restriction> restrictions
-  ) {
+  public JsonArray toJsonArray(Collection<Restriction> restrictions) {
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonArrayBuilder arrayBuilder = factory.createArrayBuilder();
 
@@ -143,7 +139,6 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
   }
 
   private GenderRestriction toModel(GenderRestriction genderRestriction, JsonObject jsonObject) {
-
     String validGenderString = get(jsonObject, "validGender");
     Gender validGender = Gender.valueOf(validGenderString);
     genderRestriction.setValidGender(validGender);
@@ -152,7 +147,6 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
   }
 
   private OpponentTypeRestriction toModel(OpponentTypeRestriction opponentTypeRestriction, JsonObject jsonObject) {
-
     String validOpponentTypeString = get(jsonObject, "validOpponentType");
     OpponentType validOpponentType = OpponentType.valueOf(validOpponentTypeString);
     opponentTypeRestriction.setValidOpponentType(validOpponentType);
