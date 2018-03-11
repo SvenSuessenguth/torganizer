@@ -1,6 +1,8 @@
 package org.cc.torganizer.core.entities;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import static java.util.Collections.unmodifiableList;
 import java.util.HashSet;
 import java.util.List;
@@ -10,7 +12,7 @@ import org.cc.torganizer.core.exceptions.RestrictionException;
 /**
  * Auszufuehrende Disziplin innerhalb eines Turnieres (z.B. HE-A)
  */
-public class Discipline extends Entity{
+public class Discipline extends Entity {
 
   /**
    * Darzustellender Name, wenn noch keine Disziplin zugewiesen wurde.
@@ -18,13 +20,13 @@ public class Discipline extends Entity{
   public static final String NULL_DISCIPLINE_NAME = "-";
 
   private String label;
-  
+
   private final Set<Opponent> opponents;
 
   private final List<Round> rounds;
-  
+
   private final Set<Restriction> restrictions;
-  
+
   /**
    * in einer Discipline wird mindestens eine Round gespielt.
    */
@@ -40,7 +42,7 @@ public class Discipline extends Entity{
   /**
    * Finden der letzten Round, in der Opponents zugewiesen sind. In einer Round
    * spielen Opponents, wenn mindestens einer Group Opponents zugewisen sind.
-   * 
+   *
    * @return a {@link org.cc.torganizer.core.entities.Round} object.
    */
   public Round getCurrentRound() {
@@ -71,8 +73,8 @@ public class Discipline extends Entity{
   /**
    * Hinzufuegen eines Opponents zur Disziplin inklusive pruefen der
    * Restriktionen.
-   * 
-   * @param opponent Opponent, der der Disziplin hinzugefuegt werden soll.   * 
+   *
+   * @param opponent Opponent, der der Disziplin hinzugefuegt werden soll. *
    */
   public void addOpponent(Opponent opponent) {
     // pruefen aller restrictions und werfen einer RestrictionException
@@ -88,7 +90,7 @@ public class Discipline extends Entity{
 
   /**
    * Entfernen eines Opponents aus der Disziplin.
-   * 
+   *
    * @param opponent Opponent, der nicht mehr an der Disziplin teilnehmen soll.
    */
   public void removeOpponent(Opponent opponent) {
@@ -97,7 +99,7 @@ public class Discipline extends Entity{
 
   /**
    * Hinzufuegen einer Runde, die in dieser Disziplin gespielt werden soll.
-   * 
+   *
    * @param round Runde.
    */
   public final void addRound(Round round) {
@@ -106,7 +108,7 @@ public class Discipline extends Entity{
   }
 
   public List<Round> getRounds() {
-  	return unmodifiableList(rounds);
+    return unmodifiableList(rounds);
   }
 
   public Round getFirstRound() {
@@ -115,7 +117,7 @@ public class Discipline extends Entity{
 
   /**
    * Lesen einer bestimmten Runde, die in der Disziplin gespielt werden soll.
-   * 
+   *
    * @param index Index der gesuchten Runde.
    * @return Runde mit dem geforderten Index.
    */
@@ -131,16 +133,16 @@ public class Discipline extends Entity{
   }
 
   public void setRounds(List<Round> newRounds) {
-    this.rounds.clear(); 
-    
-    if(newRounds!=null){
+    this.rounds.clear();
+
+    if (newRounds != null) {
       this.rounds.addAll(newRounds);
     }
   }
 
   /**
    * Liste aller Player, die aus dem Opponents erstellt wird.
-   * 
+   *
    * @return Liste aller Player
    */
   public Set<Player> getPlayers() {
@@ -151,12 +153,20 @@ public class Discipline extends Entity{
     return players;
   }
 
-
   public void addRestriction(Restriction restriction) {
-	restrictions.add(restriction);
+    restrictions.add(restriction);
   }
-  
-  public Set<Restriction> getRestrictions(){
-	  return restrictions;
+
+  public Collection<Restriction> getRestrictions() {
+    // for regressiontest the restrictions are ordered by the discriminator
+    // 1. AgeRestriction
+    // 2. GenderRestriction
+    // 3. OpponentTypeRestriction
+    List<Restriction> orderedRestrictions = new ArrayList<>();
+    orderedRestrictions.addAll(this.restrictions);
+
+    Collections.sort(orderedRestrictions, (Restriction o1, Restriction o2) -> o1.getDiscriminator().getId().compareTo(o2.getDiscriminator().getId()));
+
+    return orderedRestrictions;
   }
 }
