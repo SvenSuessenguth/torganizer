@@ -43,13 +43,33 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonObjectBuilder objectBuilder = factory.createObjectBuilder();
 
+    Restriction.Discriminator discriminator = restriction.getDiscriminator();
+
     add(objectBuilder, "id", restriction.getId());
+    add(objectBuilder, "discriminator", discriminator.getId());
+
+    switch (discriminator) {
+      case AGE_RESTRICTION:
+        toJsonObject((AgeRestriction) restriction, objectBuilder);
+        break;
+      default:
+        throw new IllegalArgumentException("Can't convert restriction with discriminator-id " + restriction.getDiscriminator().getId() + " to json.");
+    }
 
     return objectBuilder.build();
   }
 
+  public JsonObjectBuilder toJsonObject(AgeRestriction restriction, JsonObjectBuilder objectBuilder) {
+
+    add(objectBuilder, "minDateOfBirth", restriction.getMinDateOfBirth());
+    add(objectBuilder, "maxDateOfBirth", restriction.getMaxDateOfBirth());
+
+    return objectBuilder;
+  }
+
   @Override
-  public JsonArray toJsonArray(Collection<Restriction> restrictions) {
+  public JsonArray toJsonArray(Collection<Restriction> restrictions
+  ) {
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonArrayBuilder arrayBuilder = factory.createArrayBuilder();
 
@@ -62,7 +82,7 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
   public Restriction toModel(JsonObject jsonObject) {
 
     String discriminator = jsonObject.getString("discriminator");
-    Restriction.Type restrictionType = Restriction.Type.byDiscriminator(discriminator);
+    Restriction.Discriminator restrictionType = Restriction.Discriminator.byId(discriminator);
     Restriction restriction = restrictionType.create();
 
     String idString = get(jsonObject, "id");
@@ -71,14 +91,14 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
 
     switch (restrictionType) {
       case AGE_RESTRICTION:
-        restriction = toAgeRestrictionModel((AgeRestriction) restriction, jsonObject);
+        restriction = toModel((AgeRestriction) restriction, jsonObject);
         break;
 
     }
     return restriction;
   }
 
-  private AgeRestriction toAgeRestrictionModel(AgeRestriction ageRestriction, JsonObject jsonObject) {
+  private AgeRestriction toModel(AgeRestriction ageRestriction, JsonObject jsonObject) {
     String minDateOfBirthString = get(jsonObject, "minDateOfBirth");
     LocalDate minDateOfBirth = minDateOfBirthString == null || minDateOfBirthString.trim().isEmpty() ? null : LocalDate.parse(minDateOfBirthString, DateTimeFormatter.ISO_DATE);
     ageRestriction.setMinDateOfBirth(minDateOfBirth);

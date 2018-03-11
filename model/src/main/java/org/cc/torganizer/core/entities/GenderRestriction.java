@@ -5,7 +5,9 @@ package org.cc.torganizer.core.entities;
  */
 public class GenderRestriction
   extends Restriction {
-  
+
+  private static final transient Discriminator DISCRIMINATOR = Discriminator.GENDER_RESTRICTION;
+
   private Gender validGender = Gender.UNKNOWN;
 
   /**
@@ -15,7 +17,9 @@ public class GenderRestriction
     // gem. Bean-Spec.
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean isRestricted(Opponent opponent) {
 
@@ -34,11 +38,11 @@ public class GenderRestriction
   /**
    * Prueft, ob die Gender ungleich sind und das Gender der GenderRestriction
    * nicht null oder UNKNOWN ist.
-   * 
+   *
    * @param player Player
    * @return <code>true</code>, wenn das Gender des Players nicht mit der
-   *         Vorgabe uebereinstimmt und die Vorgabe nicht UNKNOWN ist, sonst
-   *         <code>false</code>
+   * Vorgabe uebereinstimmt und die Vorgabe nicht UNKNOWN ist, sonst
+   * <code>false</code>
    */
   protected boolean isGenderRestricted(Player player) {
     Gender gender = player.getPerson().getGender();
@@ -48,10 +52,10 @@ public class GenderRestriction
 
   /**
    * Prueft, ob das Gender des Players bekannt ist (also nicht UNKNOWN).
-   * 
+   *
    * @param player Player, dessen Gender geprueft werden soll.
    * @return <code>true</code>, wenn das Gender der Person nicht
-   *         <code>null</code> und nicht unbekannt ist, sonst <code>false</code>
+   * <code>null</code> und nicht unbekannt ist, sonst <code>false</code>
    */
   protected boolean isGenderSet(Player player) {
     boolean isGenderSet = true;
@@ -72,9 +76,19 @@ public class GenderRestriction
     this.validGender = newValidGender;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String toString() {
     return "GenderRestriction with validGender='" + validGender + "'";
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Discriminator getDiscriminator() {
+    return GenderRestriction.DISCRIMINATOR;
   }
 }

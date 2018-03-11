@@ -30,7 +30,7 @@ public class RestrictionJsonConverterTest {
   @Test
   public void testToModel_AgeRestriction() {
     String jsonString = "{\"id\":1, "
-      + "\"discriminator\":\"" + Restriction.Type.AGE_RESTRICTION.getDiscriminator() + "\","
+      + "\"discriminator\":\"" + Restriction.Discriminator.AGE_RESTRICTION.getId() + "\","
       + "\"minDateOfBirth\":\"1968-01-12\","
       + "\"maxDateOfBirth\":\"1970-01-12\"}";
 
@@ -43,5 +43,23 @@ public class RestrictionJsonConverterTest {
     AgeRestriction ageRestriction = (AgeRestriction) restriction;
     MatcherAssert.assertThat(ageRestriction.getMinDateOfBirth(), Matchers.is(LocalDate.of(1968, Month.JANUARY, 12)));
     MatcherAssert.assertThat(ageRestriction.getMaxDateOfBirth(), Matchers.is(LocalDate.of(1970, Month.JANUARY, 12)));
+  }
+
+  @Test
+  public void testToJsonl_AgeRestriction() {
+    String expectedJsonString = "{\"id\":1,"
+      + "\"discriminator\":\"" + Restriction.Discriminator.AGE_RESTRICTION.getId() + "\","
+      + "\"minDateOfBirth\":\"1968-01-12\","
+      + "\"maxDateOfBirth\":\"1970-01-12\"}";
+
+    AgeRestriction restriction = new AgeRestriction();
+    restriction.setId(1L);
+    restriction.setMinDateOfBirth(LocalDate.of(1968, Month.JANUARY, 12));
+    restriction.setMaxDateOfBirth(LocalDate.of(1970, Month.JANUARY, 12));
+
+    JsonObject jsonObject = converter.toJsonObject(restriction);
+    String actualJsonString = jsonObject.toString();
+
+    MatcherAssert.assertThat(expectedJsonString, Matchers.is(actualJsonString));
   }
 }

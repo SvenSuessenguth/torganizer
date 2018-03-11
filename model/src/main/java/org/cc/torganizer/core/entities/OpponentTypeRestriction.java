@@ -7,6 +7,8 @@ package org.cc.torganizer.core.entities;
 public class OpponentTypeRestriction
   extends Restriction {
 
+  private static final transient Discriminator DISCRIMINATOR = Discriminator.OPPONENT_TYPE_RESTRICTION;
+
   private OpponentType validOpponentType = OpponentType.PLAYER;
 
   /**
@@ -16,7 +18,9 @@ public class OpponentTypeRestriction
     // gem. Bean-Spec.
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   @SuppressWarnings("unchecked")
   public boolean isRestricted(Opponent opponent) {
@@ -34,10 +38,20 @@ public class OpponentTypeRestriction
   public void setValidOpponentType(OpponentType newValidOpponentType) {
     this.validOpponentType = newValidOpponentType;
   }
-  
-  /** {@inheritDoc} */
+
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String toString() {
     return "OpponentTypeRestriction with validOpponentType: " + validOpponentType;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Discriminator getDiscriminator() {
+    return OpponentTypeRestriction.DISCRIMINATOR;
   }
 }

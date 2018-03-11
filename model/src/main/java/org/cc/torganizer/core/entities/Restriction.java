@@ -5,11 +5,11 @@ package org.cc.torganizer.core.entities;
  */
 public abstract class Restriction extends Entity {
 
-  public static final String AGE_RESTRICTION = "ageRestriction";
-  public static final String GENDER_RESTRICTION = "genderRestriction";
-  public static final String OPPONENT_TYPE_RESTRICTION = "opponentTypeRestriction";
-
-  public enum Type {
+  /**
+   * Discriminator with factory-methods for restrictions. This discriminator is
+   * not used for JPA.
+   */
+  public enum Discriminator {
     AGE_RESTRICTION("A") {
       @Override
       public Restriction create() {
@@ -29,26 +29,26 @@ public abstract class Restriction extends Entity {
       }
     };
 
-    private final String discriminator;
+    private final String id;
 
-    Type(String discriminator) {
-      this.discriminator = discriminator;
+    Discriminator(String discriminator) {
+      this.id = discriminator;
     }
 
     public abstract Restriction create();
 
-    public String getDiscriminator() {
-      return discriminator;
+    public String getId() {
+      return id;
     }
 
-    public static Type byDiscriminator(String discriminator) {
-      for (Type type : values()) {
-        if (type.discriminator.equals(discriminator)) {
-          return type;
+    public static Discriminator byId(String id) {
+      for (Discriminator discriminator : values()) {
+        if (discriminator.id.equals(id)) {
+          return discriminator;
         }
       }
 
-      throw new IllegalArgumentException("no Restriction.Type found for discriminator '" + discriminator + "'");
+      throw new IllegalArgumentException("no Restriction.Discriminator found for id '" + id + "'");
     }
   }
 
@@ -61,4 +61,6 @@ public abstract class Restriction extends Entity {
    * sonst <code>false</code>
    */
   public abstract boolean isRestricted(Opponent opponent);
+
+  public abstract Discriminator getDiscriminator();
 }
