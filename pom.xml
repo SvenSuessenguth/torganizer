@@ -10,6 +10,13 @@
    | mvn install sonar:sonar -Dsonar.host.url=http://localhost:9000
    +-->
   <url>http://localhost:8080/torganizer</url>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>maven-snapshots</id>
+      <url>http://localhost:8081/repository/maven-snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
   
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>

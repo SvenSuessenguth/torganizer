@@ -35,10 +35,10 @@ pipeline {
         }
       }
     }
-    stage('package') {
+    stage('deploy') {
       steps {
         // Run the maven build
-        bat 'mvn package -DskipTests'
+        bat 'mvn deploy -DskipTests'
       }
     }
     stage('report') {
