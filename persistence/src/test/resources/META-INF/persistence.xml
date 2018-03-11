@@ -28,6 +28,7 @@
       <!-- 
        | Derby
        | @see test-dependencies in pom.xml
+       | @see http://blog.payara.fish/whats-coming-in-payara-5
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:test;create=true"/>
       <property name="javax.persistence.jdbc.user" value=""/>
