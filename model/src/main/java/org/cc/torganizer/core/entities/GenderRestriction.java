@@ -6,7 +6,7 @@ package org.cc.torganizer.core.entities;
 public class GenderRestriction
   extends Restriction {
 
-  private static final transient Discriminator DISCRIMINATOR = Discriminator.GENDER_RESTRICTION;
+  private static final Discriminator DISCRIMINATOR = Discriminator.GENDER_RESTRICTION;
 
   private Gender validGender = Gender.UNKNOWN;
 

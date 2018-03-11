@@ -7,7 +7,7 @@ package org.cc.torganizer.core.entities;
 public class OpponentTypeRestriction
   extends Restriction {
 
-  private static final transient Discriminator DISCRIMINATOR = Discriminator.OPPONENT_TYPE_RESTRICTION;
+  private static final Discriminator DISCRIMINATOR = Discriminator.OPPONENT_TYPE_RESTRICTION;
 
   private OpponentType validOpponentType = OpponentType.PLAYER;
 

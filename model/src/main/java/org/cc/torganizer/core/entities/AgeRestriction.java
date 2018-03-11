@@ -9,7 +9,7 @@ import java.time.LocalDate;
  */
 public class AgeRestriction extends Restriction {
 
-  private static final transient Discriminator DISCRIMINATOR = Discriminator.AGE_RESTRICTION;
+  private static final Discriminator DISCRIMINATOR = Discriminator.AGE_RESTRICTION;
 
   /**
    * liegt zeitlich NACH dem minDateOfBirth (hat h\u00f6heren Jahres-, Monats-
