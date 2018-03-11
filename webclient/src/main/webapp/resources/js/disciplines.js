@@ -1,63 +1,96 @@
 class Disciplines {
   constructor() {
   }
-  
-  onload(){
+
+  onload() {
     this.cancel();
   }
-  
+
   //--------------------------------------------------------------------------------------------------------------------
-  // 
+  //
   // save
   //
   //--------------------------------------------------------------------------------------------------------------------
-  save(){
-    
+  save() {
+
   }
-  
+
   //--------------------------------------------------------------------------------------------------------------------
-  // 
+  //
   // cancel
   //
   //--------------------------------------------------------------------------------------------------------------------
-  cancel(){
+  cancel() {
     // cancel core data
     document.getElementById("discipline-name").value = "";
-    
+
     // cancel age-restriction
     document.getElementById("min-date-of-birth").valueAsDate = null;
     document.getElementById("max-date-of-birth").valueAsDate = null;
-    
+
     // cancel gender-restriction
     var genderElement = document.getElementById("gender");
     selectItemByValue(genderElement, "MALE");
-     
+
     // cancel type-restriction
     var opponmentTypeElement = document.getElementById("opponent-type");
-    selectItemByValue(opponmentTypeElement, "PLAYER");    
+    selectItemByValue(opponmentTypeElement, "PLAYER");
   }
-  
-  
+
   //--------------------------------------------------------------------------------------------------------------------
-  // 
+  //
   // converting from/to json/form
   //
   //--------------------------------------------------------------------------------------------------------------------
-  formToDiscipline(){
+  formToDiscipline() {
   }
-  disciplineToForm(discipline){
+  disciplineToForm(discipline) {
   }
-  formToAgeRestriction(){
+  formToAgeRestriction() {
+    var json = {
+      "id": sessionStorage.getItem('disciplines.current-discipline-id'),
+      "minDateOfBirth": document.getElementById("min-date-of-birth").value,
+      "maxDateOfBirth": document.getElementById("max-date-of-birth").value
+    };
+
+    return json;
   }
-  ageRestrictionToForm(ageRestriction){
+  ageRestrictionToForm(ageRestriction) {
+    sessionStorage.setItem('disciplines.current-age-restriction-id', ageRestriction.id);
+    document.getElementById("min-date-of-birth").value = ageRestriction.minDateOfBirth;
+    document.getElementById("max-date-of-birth").value = ageRestriction.maxDateOfBirth;
   }
-  formToGenderRestriction(){
+  formToGenderRestriction() {
+    var genderElement = document.getElementById("valid-gender");
+
+    var json = {
+      "id": sessionStorage.getItem('disciplines.current-gender-restriction-id'),
+      "validGender": genderElement.options[genderElement.selectedIndex].value
+    };
+
+    return json;
   }
-  genderRestrictionToForm(genderRestriction){
+  genderRestrictionToForm(genderRestriction) {
+    sessionStorage.setItem('disciplines.current-gender-restriction-id', genderRestriction.id);
+
+    var genderElement = document.getElementById("valid-gender");
+    selectItemByValue(genderElement, genderRestriction.validGender);
   }
-  formToOpponentTypeRestriction(){
+  formToOpponentTypeRestriction() {
+    var opponentTypeElement = document.getElementById("valid-opponent-type");
+
+    var json = {
+      "id": sessionStorage.getItem('disciplines.current-opponent-type-restriction-id'),
+      "validGender": opponentTypeElement.options[opponentTypeElement.selectedIndex].value
+    };
+
+    return json;
   }
-  opponentTypeRestrictionToForm(opponentTypeRestriction){
+  opponentTypeRestrictionToForm(opponentTypeRestriction) {
+    sessionStorage.setItem('disciplines.current-opponent-type-restriction-id', opponentTypeRestriction.id);
+
+    var opponentTypeElement = document.getElementById("valid-opponent-type");
+    selectItemByValue(opponentTypeElement, opponentTypeRestriction.validOpponentType);
   }
 }
 

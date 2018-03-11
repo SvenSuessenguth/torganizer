@@ -1,8 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-/**
- * Abstrakte Oberklasse zu allen Restriktionen.
- */
 public abstract class Restriction extends Entity {
 
   /**

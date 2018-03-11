@@ -158,7 +158,7 @@ public class Discipline extends Entity {
   }
 
   public Collection<Restriction> getRestrictions() {
-    // for regressiontest the restrictions are ordered by the discriminator
+    // for regressiontest the restrictions are ordered by discriminator
     // 1. AgeRestriction
     // 2. GenderRestriction
     // 3. OpponentTypeRestriction

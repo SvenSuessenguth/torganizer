@@ -51,7 +51,6 @@ public class RestrictionsResource extends AbstractResource {
   }
 
   @GET
-  @Path("{id}")
   public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
 
     if (offset == null || length == null) {
