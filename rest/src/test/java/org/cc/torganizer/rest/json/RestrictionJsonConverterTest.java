@@ -71,7 +71,7 @@ public class RestrictionJsonConverterTest {
   public void testToModel_GenderRestriction() {
     String jsonString = "{\"id\":1, "
       + "\"discriminator\":\"" + Restriction.Discriminator.GENDER_RESTRICTION.getId() + "\","
-      + "\"validGender\":\"MALE\"}";
+      + "\"gender\":\"MALE\"}";
 
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonObject jsonObject = jsonReader.readObject();
@@ -80,7 +80,7 @@ public class RestrictionJsonConverterTest {
     MatcherAssert.assertThat(restriction, Matchers.is(Matchers.instanceOf(GenderRestriction.class)));
 
     GenderRestriction genderRestriction = (GenderRestriction) restriction;
-    MatcherAssert.assertThat(genderRestriction.getValidGender(), Matchers.is(Gender.MALE));
+    MatcherAssert.assertThat(genderRestriction.getGender(), Matchers.is(Gender.MALE));
 
   }
 
@@ -88,11 +88,11 @@ public class RestrictionJsonConverterTest {
   public void testToJson_GenderRestriction() {
     String expectedJsonString = "{\"id\":1,"
       + "\"discriminator\":\"" + Restriction.Discriminator.GENDER_RESTRICTION.getId() + "\","
-      + "\"validGender\":\"MALE\"}";
+      + "\"gender\":\"MALE\"}";
 
     GenderRestriction restriction = new GenderRestriction();
     restriction.setId(1L);
-    restriction.setValidGender(Gender.MALE);
+    restriction.setGender(Gender.MALE);
 
     JsonObject jsonObject = converter.toJsonObject(restriction);
     String actualJsonString = jsonObject.toString();
@@ -104,7 +104,7 @@ public class RestrictionJsonConverterTest {
   public void testToModel_OpponentTypeRestriction() {
     String jsonString = "{\"id\":1,"
       + "\"discriminator\":\"" + Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION.getId() + "\","
-      + "\"validOpponentType\":\"PLAYER\"}";
+      + "\"opponentType\":\"PLAYER\"}";
 
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonObject jsonObject = jsonReader.readObject();
@@ -113,7 +113,7 @@ public class RestrictionJsonConverterTest {
     MatcherAssert.assertThat(restriction, Matchers.is(Matchers.instanceOf(OpponentTypeRestriction.class)));
 
     OpponentTypeRestriction opponentTypeRestriction = (OpponentTypeRestriction) restriction;
-    MatcherAssert.assertThat(opponentTypeRestriction.getValidOpponentType(), Matchers.is(OpponentType.PLAYER));
+    MatcherAssert.assertThat(opponentTypeRestriction.getOpponentType(), Matchers.is(OpponentType.PLAYER));
 
   }
 
@@ -121,11 +121,11 @@ public class RestrictionJsonConverterTest {
   public void testToJson_OpponentTypeRestriction() {
     String expectedJsonString = "{\"id\":1,"
       + "\"discriminator\":\"" + Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION.getId() + "\","
-      + "\"validOpponentType\":\"PLAYER\"}";
+      + "\"opponentType\":\"PLAYER\"}";
 
     OpponentTypeRestriction restriction = new OpponentTypeRestriction();
     restriction.setId(1L);
-    restriction.setValidOpponentType(OpponentType.PLAYER);
+    restriction.setOpponentType(OpponentType.PLAYER);
 
     JsonObject jsonObject = converter.toJsonObject(restriction);
     String actualJsonString = jsonObject.toString();

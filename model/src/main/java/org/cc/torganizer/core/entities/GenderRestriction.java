@@ -8,7 +8,7 @@ public class GenderRestriction
 
   private static final Discriminator DISCRIMINATOR = Discriminator.GENDER_RESTRICTION;
 
-  private Gender validGender = Gender.UNKNOWN;
+  private Gender gender = Gender.UNKNOWN;
 
   /**
    * Default.
@@ -27,7 +27,7 @@ public class GenderRestriction
 
     for (Player player : opponent.getPlayers()) {
       // gender stimmt nicht ueberein
-      if (isGenderSet(player) && isGenderRestricted(player)) {
+      if (player.hasGender() && isGenderRestricted(player)) {
         isRestricted = true;
       }
     }
@@ -45,35 +45,17 @@ public class GenderRestriction
    * <code>false</code>
    */
   protected boolean isGenderRestricted(Player player) {
-    Gender gender = player.getPerson().getGender();
+    Gender playersGender = player.getPerson().getGender();
 
-    return !Gender.UNKNOWN.equals(validGender) && !validGender.equals(gender);
+    return !Gender.UNKNOWN.equals(playersGender) && !playersGender.equals(playersGender);
   }
 
-  /**
-   * Prueft, ob das Gender des Players bekannt ist (also nicht UNKNOWN).
-   *
-   * @param player Player, dessen Gender geprueft werden soll.
-   * @return <code>true</code>, wenn das Gender der Person nicht
-   * <code>null</code> und nicht unbekannt ist, sonst <code>false</code>
-   */
-  protected boolean isGenderSet(Player player) {
-    boolean isGenderSet = true;
-
-    Gender gender = player.getPerson().getGender();
-    if (gender == null || Gender.UNKNOWN.equals(gender)) {
-      isGenderSet = false;
-    }
-
-    return isGenderSet;
+  public Gender getGender() {
+    return gender;
   }
 
-  public Gender getValidGender() {
-    return validGender;
-  }
-
-  public void setValidGender(Gender newValidGender) {
-    this.validGender = newValidGender;
+  public void setGender(Gender newGender) {
+    this.gender = newGender;
   }
 
   /**
@@ -81,7 +63,7 @@ public class GenderRestriction
    */
   @Override
   public String toString() {
-    return "GenderRestriction with validGender='" + validGender + "'";
+    return "GenderRestriction with gender='" + gender + "'";
   }
 
   /**

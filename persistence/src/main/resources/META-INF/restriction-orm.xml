@@ -34,8 +34,8 @@
         <table name="GENDERRESTRICTIONS" />
         <discriminator-value>G</discriminator-value>
         <attributes>
-            <basic name="validGender">
-                <column name="VALIDGENDER" nullable="false" />
+            <basic name="gender">
+                <column name="GENDER" nullable="false" />
                 <enumerated>STRING</enumerated>
             </basic>
         </attributes>
@@ -45,8 +45,8 @@
         <table name="OPPONENTTYPERESTRICTIONS" />
         <discriminator-value>T</discriminator-value>
         <attributes>
-            <basic name="validOpponentType">
-                <column name="VALIDOPPONENTTYPE" nullable="true" />
+            <basic name="opponentType">
+                <column name="OPPONENTTYPE" nullable="true" />
                 <enumerated>STRING</enumerated>
             </basic>
         </attributes>

@@ -30,8 +30,8 @@ public class DisciplineJsonConverterTest {
     String expected = "{\"id\":null,\"label\":\"Damen-Einzel U50\","
       + "\"restrictions\":"
       + "[{\"id\":null,\"discriminator\":\"A\",\"minDateOfBirth\":\"1968-01-12\",\"maxDateOfBirth\":\"1970-01-12\"},"
-      + "{\"id\":null,\"discriminator\":\"G\",\"validGender\":\"FEMALE\"},"
-      + "{\"id\":null,\"discriminator\":\"O\",\"validOpponentType\":\"PLAYER\"}]}";
+      + "{\"id\":null,\"discriminator\":\"G\",\"gender\":\"FEMALE\"},"
+      + "{\"id\":null,\"discriminator\":\"O\",\"opponentType\":\"PLAYER\"}]}";
 
     Discipline discipline = new Discipline();
     discipline.setLabel("Damen-Einzel U50");
@@ -42,11 +42,11 @@ public class DisciplineJsonConverterTest {
     discipline.addRestriction(ageRestriction);
 
     GenderRestriction genderRestriction = new GenderRestriction();
-    genderRestriction.setValidGender(Gender.FEMALE);
+    genderRestriction.setGender(Gender.FEMALE);
     discipline.addRestriction(genderRestriction);
 
     OpponentTypeRestriction opponentTypeRestriction = new OpponentTypeRestriction();
-    opponentTypeRestriction.setValidOpponentType(OpponentType.PLAYER);
+    opponentTypeRestriction.setOpponentType(OpponentType.PLAYER);
     discipline.addRestriction(opponentTypeRestriction);
 
     String actual = converter.toJsonObject(discipline).toString();

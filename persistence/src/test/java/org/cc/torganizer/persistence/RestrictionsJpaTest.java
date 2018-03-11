@@ -40,7 +40,7 @@ public class RestrictionsJpaTest extends AbstractDbUnitJpaTest {
 
     assertThat(restriction, is(instanceOf(GenderRestriction.class)));
     GenderRestriction genderRestriction = (GenderRestriction) restriction;
-    assertThat(genderRestriction.getValidGender(), is(Gender.FEMALE));
+    assertThat(genderRestriction.getGender(), is(Gender.FEMALE));
   }
 
   @Test
@@ -62,6 +62,6 @@ public class RestrictionsJpaTest extends AbstractDbUnitJpaTest {
 
     assertThat(restriction, is(instanceOf(OpponentTypeRestriction.class)));
     OpponentTypeRestriction otRestriction = (OpponentTypeRestriction) restriction;
-    assertThat(otRestriction.getValidOpponentType(), is(OpponentType.PLAYER));
+    assertThat(otRestriction.getOpponentType(), is(OpponentType.PLAYER));
   }
 }

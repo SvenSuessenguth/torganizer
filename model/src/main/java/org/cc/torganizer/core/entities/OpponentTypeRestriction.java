@@ -9,7 +9,7 @@ public class OpponentTypeRestriction
 
   private static final Discriminator DISCRIMINATOR = Discriminator.OPPONENT_TYPE_RESTRICTION;
 
-  private OpponentType validOpponentType = OpponentType.PLAYER;
+  private OpponentType opponentType = OpponentType.PLAYER;
 
   /**
    * Default.
@@ -25,18 +25,18 @@ public class OpponentTypeRestriction
   @SuppressWarnings("unchecked")
   public boolean isRestricted(Opponent opponent) {
 
-    Class<? extends Opponent> validOpponentClass = validOpponentType.getOpponentClass();
+    Class<? extends Opponent> validOpponentClass = opponentType.getOpponentClass();
     Class<Opponent> opponentClass = (Class<Opponent>) opponent.getClass();
 
     return !validOpponentClass.equals(opponentClass);
   }
 
-  public OpponentType getValidOpponentType() {
-    return validOpponentType;
+  public OpponentType getOpponentType() {
+    return opponentType;
   }
 
-  public void setValidOpponentType(OpponentType newValidOpponentType) {
-    this.validOpponentType = newValidOpponentType;
+  public void setOpponentType(OpponentType newOpponentType) {
+    this.opponentType = newOpponentType;
   }
 
   /**
@@ -44,7 +44,7 @@ public class OpponentTypeRestriction
    */
   @Override
   public String toString() {
-    return "OpponentTypeRestriction with validOpponentType: " + validOpponentType;
+    return "OpponentTypeRestriction with opponentType: " + opponentType;
   }
 
   /**

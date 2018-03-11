@@ -77,13 +77,13 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
   }
 
   public JsonObjectBuilder toJsonObject(GenderRestriction restriction, JsonObjectBuilder objectBuilder) {
-    add(objectBuilder, "validGender", restriction.getValidGender().toString());
+    add(objectBuilder, "gender", restriction.getGender().toString());
 
     return objectBuilder;
   }
 
   public JsonObjectBuilder toJsonObject(OpponentTypeRestriction restriction, JsonObjectBuilder objectBuilder) {
-    add(objectBuilder, "validOpponentType", restriction.getValidOpponentType().toString());
+    add(objectBuilder, "opponentType", restriction.getOpponentType().toString());
 
     return objectBuilder;
   }
@@ -139,17 +139,17 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
   }
 
   private GenderRestriction toModel(GenderRestriction genderRestriction, JsonObject jsonObject) {
-    String validGenderString = get(jsonObject, "validGender");
-    Gender validGender = Gender.valueOf(validGenderString);
-    genderRestriction.setValidGender(validGender);
+    String genderString = get(jsonObject, "gender");
+    Gender gender = Gender.valueOf(genderString);
+    genderRestriction.setGender(gender);
 
     return genderRestriction;
   }
 
   private OpponentTypeRestriction toModel(OpponentTypeRestriction opponentTypeRestriction, JsonObject jsonObject) {
-    String validOpponentTypeString = get(jsonObject, "validOpponentType");
-    OpponentType validOpponentType = OpponentType.valueOf(validOpponentTypeString);
-    opponentTypeRestriction.setValidOpponentType(validOpponentType);
+    String opponentTypeString = get(jsonObject, "opponentType");
+    OpponentType opponentType = OpponentType.valueOf(opponentTypeString);
+    opponentTypeRestriction.setOpponentType(opponentType);
 
     return opponentTypeRestriction;
   }

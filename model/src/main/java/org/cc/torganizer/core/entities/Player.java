@@ -12,7 +12,7 @@ import java.util.Set;
 public class Player extends Opponent {
 
   private Person person;
-  
+
   private LocalDateTime lastMatch;
 
   /**
@@ -24,7 +24,7 @@ public class Player extends Opponent {
 
   /**
    * convenience constructor.
-   * 
+   *
    * @param newPerson holds the players person-data
    */
   public Player(Person newPerson) {
@@ -33,7 +33,7 @@ public class Player extends Opponent {
 
   /**
    * convenience constructor.
-   * 
+   *
    * @param firstName Vorname
    * @param lastName Nachname
    */
@@ -49,7 +49,9 @@ public class Player extends Opponent {
     this.person = newPerson;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Set<Player> getPlayers() {
     Set<Player> players = new HashSet<>();
@@ -64,5 +66,23 @@ public class Player extends Opponent {
 
   public void setLastMatch(LocalDateTime pLastMatch) {
     this.lastMatch = pLastMatch;
+  }
+
+  /**
+   * Prueft, ob das Gender des Players bekannt ist (also nicht UNKNOWN).
+   *
+   * @return <code>true</code>, wenn das Gender der Person nicht
+   * <code>null</code> und nicht unbekannt ist, sonst <code>false</code>
+   */
+  public boolean hasGender() {
+
+    boolean isGenderSet = true;
+
+    Gender gender = getPerson().getGender();
+    if (gender == null || Gender.UNKNOWN.equals(gender)) {
+      isGenderSet = false;
+    }
+
+    return isGenderSet;
   }
 }

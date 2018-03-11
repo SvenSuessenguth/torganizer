@@ -61,11 +61,11 @@ class Disciplines {
     document.getElementById("max-date-of-birth").value = ageRestriction.maxDateOfBirth;
   }
   formToGenderRestriction() {
-    var genderElement = document.getElementById("valid-gender");
+    var genderElement = document.getElementById("gender");
 
     var json = {
       "id": sessionStorage.getItem('disciplines.current-gender-restriction-id'),
-      "validGender": genderElement.options[genderElement.selectedIndex].value
+      "gender": genderElement.options[genderElement.selectedIndex].value
     };
 
     return json;
@@ -73,15 +73,15 @@ class Disciplines {
   genderRestrictionToForm(genderRestriction) {
     sessionStorage.setItem('disciplines.current-gender-restriction-id', genderRestriction.id);
 
-    var genderElement = document.getElementById("valid-gender");
-    selectItemByValue(genderElement, genderRestriction.validGender);
+    var genderElement = document.getElementById("gender");
+    selectItemByValue(genderElement, genderRestriction.gender);
   }
   formToOpponentTypeRestriction() {
-    var opponentTypeElement = document.getElementById("valid-opponent-type");
+    var opponentTypeElement = document.getElementById("opponent-type");
 
     var json = {
       "id": sessionStorage.getItem('disciplines.current-opponent-type-restriction-id'),
-      "validGender": opponentTypeElement.options[opponentTypeElement.selectedIndex].value
+      "opponentType": opponentTypeElement.options[opponentTypeElement.selectedIndex].value
     };
 
     return json;
@@ -89,8 +89,8 @@ class Disciplines {
   opponentTypeRestrictionToForm(opponentTypeRestriction) {
     sessionStorage.setItem('disciplines.current-opponent-type-restriction-id', opponentTypeRestriction.id);
 
-    var opponentTypeElement = document.getElementById("valid-opponent-type");
-    selectItemByValue(opponentTypeElement, opponentTypeRestriction.validOpponentType);
+    var opponentTypeElement = document.getElementById("opponent-type");
+    selectItemByValue(opponentTypeElement, opponentTypeRestriction.opponentType);
   }
 }
 
