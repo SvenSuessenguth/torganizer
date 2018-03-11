@@ -5,10 +5,10 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
-  
+
   <persistence-unit name="torganizerTest" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-    
+
     <mapping-file>META-INF/orm.xml</mapping-file>
     <mapping-file>META-INF/club-orm.xml</mapping-file>
     <mapping-file>META-INF/court-orm.xml</mapping-file>
@@ -24,16 +24,31 @@
     <mapping-file>META-INF/tournament-orm.xml</mapping-file>
 
     <properties>
+
+      <!-- 
+       | Derby
+       | @see test-dependencies in pom.xml
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:test;create=true"/>
       <property name="javax.persistence.jdbc.user" value=""/>
       <property name="javax.persistence.jdbc.password" value=""/>
-      
+
       <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyTenSevenDialect"/>
       <property name="hibernate.hbm2ddl.auto" value="update"/>
-    </properties>    
+       |
+       +-->
+
+      <!-- H2 -->
+      <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test;INIT=CREATE SCHEMA IF NOT EXISTS torganizer"/>
+      <property name="javax.persistence.jdbc.user" value=""/>
+      <property name="javax.persistence.jdbc.password" value=""/>
+
+      <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+    </properties>
   </persistence-unit>
-  
+
 </persistence>
 
 

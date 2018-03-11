@@ -36,9 +36,18 @@
       <groupId>org.hibernate</groupId><artifactId>hibernate-entitymanager</artifactId>
       <version>5.2.14.Final</version><scope>test</scope>
     </dependency>
+    <!-- 
+     | used for testing jpa
+     | @see persistence.xml under test
     <dependency>
       <groupId>org.apache.derby</groupId><artifactId>derby</artifactId>
       <version>10.14.1.0</version><scope>test</scope>
+    </dependency>
+     |
+     +-->
+    <dependency>
+      <groupId>com.h2database</groupId><artifactId>h2</artifactId>
+      <version>1.4.196</version><scope>test</scope>
     </dependency>
   </dependencies>
 
