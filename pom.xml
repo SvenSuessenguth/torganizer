@@ -6,11 +6,15 @@
   <version>2.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <!--
-   | mvn install sonar:sonar -Dsonar.host.url=http://localhost:9000
-   +-->
   <url>http://localhost:8080/torganizer</url>
 
+  <scm>
+    <url>https://github.com/SvenSuessenguth/torganizer</url>
+    <connection>scm:git:git://github.com/SvenSuessenguth/torganizer.git</connection>
+    <developerConnection>scm:git:git@github.com:SvenSuessenguth/torganizer.git</developerConnection>
+	<tag>master</tag>
+  </scm>
+  
   <distributionManagement>
     <snapshotRepository>
       <id>maven-snapshots</id>
