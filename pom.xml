@@ -8,6 +8,13 @@
 
   <url>http://localhost:8080/torganizer</url>
 
+  <scm>
+    <url>https://github.com/SvenSuessenguth/torganizer</url>
+    <connection>scm:git:git://github.com/SvenSuessenguth/torganizer.git</connection>
+    <developerConnection>scm:git:git@github.com:SvenSuessenguth/torganizer.git</developerConnection>
+	<tag>master</tag>
+  </scm>
+  
   <distributionManagement>
     <snapshotRepository>
       <id>maven-snapshots</id>
