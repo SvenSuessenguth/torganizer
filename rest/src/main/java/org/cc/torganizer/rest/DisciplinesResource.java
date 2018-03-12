@@ -15,7 +15,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.Restriction;
 import static org.cc.torganizer.rest.AbstractResource.DEFAULT_OFFSET;
 import org.cc.torganizer.rest.json.DisciplineJsonConverter;
 
@@ -36,8 +35,6 @@ public class DisciplinesResource extends AbstractResource {
   @POST
   public JsonObject create(JsonObject jsonObject) {
 
-    System.out.println(jsonObject.toString());
-
     Discipline discipline = converter.toModel(jsonObject);
     entityManager.persist(discipline);
     entityManager.flush();
@@ -53,7 +50,7 @@ public class DisciplinesResource extends AbstractResource {
       length = DEFAULT_LENGTH;
     }
 
-    TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery("Discipline.findAll", Discipline.class);
+    TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery(DISCIPLINE_FIND_ALL_QUERY_NAME, Discipline.class);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(length);
     List<Discipline> disciplines = namedQuery.getResultList();
@@ -67,9 +64,9 @@ public class DisciplinesResource extends AbstractResource {
 
     TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery(DISCIPLINE_FIND_BY_ID_QUERY_NAME, Discipline.class);
     namedQuery.setParameter("id", id);
-    List<Discipline> disciplines = namedQuery.getResultList();
+    Discipline discipline = namedQuery.getSingleResult();
 
-    return null;
+    return converter.toJsonObject(discipline);
   }
 
   @GET
@@ -104,39 +101,4 @@ public class DisciplinesResource extends AbstractResource {
 
     return null;
   }
-
-  @GET
-  @Path("/{id}/restrictions")
-  public JsonObject restrictions(@PathParam("id") Long id) {
-    TypedQuery<Restriction> namedQuery = entityManager.createNamedQuery("Discipline.findRestrictions",
-      Restriction.class);
-    namedQuery.setParameter("id", id);
-    List<Restriction> restrictions = namedQuery.getResultList();
-
-    return null;
-  }
-
-  @GET
-  @Path("/{id}/restrictions/add")
-  public JsonObject addRestrictions(@PathParam("id") Long disciplineId, @QueryParam("restrictionId") Long restrictionId) {
-    // load Restriction
-    TypedQuery<Restriction> namedQuery = entityManager.createNamedQuery("Restriction.findById", Restriction.class);
-    namedQuery.setParameter("id", restrictionId);
-    List<Restriction> restrictions = namedQuery.getResultList();
-    Restriction restrictionToAdd = restrictions.get(0);
-
-    // load discipline
-    TypedQuery<Discipline> namedDisciplineQuery = entityManager.createNamedQuery(DISCIPLINE_FIND_BY_ID_QUERY_NAME,
-      Discipline.class);
-    namedDisciplineQuery.setParameter("id", disciplineId);
-    List<Discipline> disciplines = namedDisciplineQuery.getResultList();
-    Discipline discipline = disciplines.get(0);
-
-    // persist discipline
-    discipline.getRestrictions().add(restrictionToAdd);
-    entityManager.persist(discipline);
-
-    return null;
-  }
-
 }
