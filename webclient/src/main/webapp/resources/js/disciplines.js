@@ -12,8 +12,20 @@ class Disciplines {
   //
   //--------------------------------------------------------------------------------------------------------------------
   save() {
-
+    var discipline = this.formToDiscipline();
+    if (discipline === null || discipline.id === '' || discipline.id === 'null' || discipline.id === null) {
+      this.create(discipline);
+    } else {
+      this.update(discipline);
+    }
   }
+  create(discipline) { }
+  createResolve(json) { }
+  createReject(json) { }
+
+  update(discipline) { }
+  updateResolve(json) { }
+  updateReject(json) { }
 
   //--------------------------------------------------------------------------------------------------------------------
   //
@@ -43,12 +55,24 @@ class Disciplines {
   //
   //--------------------------------------------------------------------------------------------------------------------
   formToDiscipline() {
+    var json = {
+      "id": sessionStorage.getItem('disciplines.current-discipline-id'),
+      "label": document.getElementById("discipline-name").value,
+      "restrictions": [
+        this.formToAgeRestriction(),
+        this.formToGenderRestriction(),
+        this.formToOpponentTypeRestriction()
+      ]
+    };
+
+    return json;
   }
   disciplineToForm(discipline) {
   }
   formToAgeRestriction() {
     var json = {
-      "id": sessionStorage.getItem('disciplines.current-discipline-id'),
+      "id": sessionStorage.getItem('disciplines.current-age-restriction-id'),
+      "discriminator": "A",
       "minDateOfBirth": document.getElementById("min-date-of-birth").value,
       "maxDateOfBirth": document.getElementById("max-date-of-birth").value
     };
@@ -65,6 +89,7 @@ class Disciplines {
 
     var json = {
       "id": sessionStorage.getItem('disciplines.current-gender-restriction-id'),
+      "discriminator": "G",
       "gender": genderElement.options[genderElement.selectedIndex].value
     };
 
@@ -81,6 +106,7 @@ class Disciplines {
 
     var json = {
       "id": sessionStorage.getItem('disciplines.current-opponent-type-restriction-id'),
+      "discriminator": "O",
       "opponentType": opponentTypeElement.options[opponentTypeElement.selectedIndex].value
     };
 
