@@ -6,9 +6,6 @@
   <version>2.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <!--
-   | mvn install sonar:sonar -Dsonar.host.url=http://localhost:9000
-   +-->
   <url>http://localhost:8080/torganizer</url>
 
   <distributionManagement>
