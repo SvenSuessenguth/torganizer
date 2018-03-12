@@ -19,11 +19,15 @@ class Disciplines {
       this.update(discipline);
     }
   }
-  create(discipline) { }
+  create(discipline) {
+    disciplinesResource.createOrUpdate(discipline, "POST", this.createResolve, this.createReject);
+  }
   createResolve(json) { }
   createReject(json) { }
 
-  update(discipline) { }
+  update(discipline) {
+    disciplinesResource.createOrUpdate(discipline, "PUT", this.createResolve, this.createReject);
+  }
   updateResolve(json) { }
   updateReject(json) { }
 

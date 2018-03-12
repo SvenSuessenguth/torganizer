@@ -14,6 +14,7 @@ import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
 import org.cc.torganizer.core.entities.Discipline;
+import org.cc.torganizer.core.entities.Restriction;
 
 /**
  * A json-disciplines contains nothing but label and restrictions.
@@ -62,6 +63,16 @@ public class DisciplineJsonConverter extends ModelJsonConverter<Discipline> {
     String idString = get(jsonObject, "id");
     Long id = idString == null ? null : Long.valueOf(idString);
     discipline.setId(id);
+
+    String label = get(jsonObject, "label");
+    discipline.setLabel(label);
+
+    JsonArray restrictionsJson = jsonObject.getJsonArray("restrictions");
+    Collection<Restriction> restrictions = restrictionConverter.toModels(restrictionsJson);
+
+    for (Restriction restriction : restrictions) {
+      discipline.addRestriction(restriction);
+    }
 
     return discipline;
   }

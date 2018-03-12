@@ -36,7 +36,7 @@
            <join-column name="ID" referenced-column-name="ID"/>
            <inverse-join-column name="RESTRICTION_ID" referenced-column-name="ID" unique="true" />
          </join-table>
-         <cascade><cascade-all/></cascade>
+         <cascade><cascade-all /></cascade>
        </one-to-many>
        <transient name="rounds" />
      </attributes>
