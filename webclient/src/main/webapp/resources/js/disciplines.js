@@ -1,3 +1,5 @@
+/* global disciplinesResource, tournamentsResource, tournaments */
+
 class Disciplines {
   constructor() {
   }
@@ -22,8 +24,16 @@ class Disciplines {
   create(discipline) {
     disciplinesResource.createOrUpdate(discipline, "POST", this.createResolve, this.createReject);
   }
-  createResolve(json) { }
+  createResolve(json) {
+    var tournamentId = tournaments.getCurrentTournamentId();
+    var disciplineId = json.id;
+    tournamentsResource.addDiscipline(tournamentId, disciplineId, disciplines.addDisciplineResolve, disciplines.addDisciplineReject);
+  }
   createReject(json) { }
+  addDisciplineResolve(json) {
+    disciplines.cancel();
+  }
+  addDisciplineReject(json) {}
 
   update(discipline) {
     disciplinesResource.createOrUpdate(discipline, "PUT", this.createResolve, this.createReject);

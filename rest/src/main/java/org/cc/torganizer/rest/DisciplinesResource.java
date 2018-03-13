@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -65,6 +66,16 @@ public class DisciplinesResource extends AbstractResource {
     TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery(DISCIPLINE_FIND_BY_ID_QUERY_NAME, Discipline.class);
     namedQuery.setParameter("id", id);
     Discipline discipline = namedQuery.getSingleResult();
+
+    return converter.toJsonObject(discipline);
+  }
+
+  @PUT
+  public JsonObject update(JsonObject jsonObject) {
+
+    Discipline discipline = converter.toModel(jsonObject);
+    entityManager.persist(discipline);
+    entityManager.flush();
 
     return converter.toJsonObject(discipline);
   }

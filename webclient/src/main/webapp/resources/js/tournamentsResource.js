@@ -3,9 +3,9 @@
 class TournamentsResource {
   constructor() {
   }
-  
-  createOrUpdate(json, method, onSuccess, onFailure){
-    fetch('http://localhost:8080/rest/resources/tournaments',{
+
+  createOrUpdate(json, method, onSuccess, onFailure) {
+    fetch('http://localhost:8080/rest/resources/tournaments', {
       method: method,
       headers: {
         'Accept': 'application/json',
@@ -13,148 +13,208 @@ class TournamentsResource {
       },
       body: json
     })
-    .then(function(response){
-      if (response.ok)
-        return response.json();
-      else
-        throw new Error('Fehlerhandling noch nicht spezifiziert');
-    })
-    .then(function(json) { onSuccess(json); })
-    .catch(function(err) { onFailure("???"); });
+      .then(function (response) {
+        if (response.ok)
+          return response.json();
+        else
+          throw new Error('Fehlerhandling noch nicht spezifiziert');
+      })
+      .then(function (json) {
+        onSuccess(json);
+      })
+      .catch(function (err) {
+        onFailure("???");
+      });
   }
-  
-  readSingle(tournamentId, onSuccess, onFailure){
-    fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId)
-    .then(function(response){
-      if (response.ok)
-        return response.json();
-      else
-        throw new Error('Fehlerhandling noch nicht spezifiziert');
-    })
-    .then(function(json) { onSuccess(json); })
-    .catch(function(err) { onFailure("???"); });
+
+  readSingle(tournamentId, onSuccess, onFailure) {
+    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId)
+      .then(function (response) {
+        if (response.ok)
+          return response.json();
+        else
+          throw new Error('Fehlerhandling noch nicht spezifiziert');
+      })
+      .then(function (json) {
+        onSuccess(json);
+      })
+      .catch(function (err) {
+        onFailure("???");
+      });
   }
-  
-  readMultiple(offset, length, onSuccess, onFailure){
-    fetch('http://localhost:8080/rest/resources/tournaments?offset='+offset+'&length='+length, {
+
+  readMultiple(offset, length, onSuccess, onFailure) {
+    fetch('http://localhost:8080/rest/resources/tournaments?offset=' + offset + '&length=' + length, {
       method: "GET",
       headers: {
         'Accept': 'application/json'
       }
     })
-    .then(function(response) {
-      if (response.ok)
-        return response.json();
-      else
-        throw new Error('Fehlerhandling noch nicht spezifiziert');
-    })
-    .then(function(json) { onSuccess(json); })
-    .catch(function(err) { onFailure("???"); });
+      .then(function (response) {
+        if (response.ok)
+          return response.json();
+        else
+          throw new Error('Fehlerhandling noch nicht spezifiziert');
+      })
+      .then(function (json) {
+        onSuccess(json);
+      })
+      .catch(function (err) {
+        onFailure("???");
+      });
   }
-  
-  delete(json){    
+
+  delete(json) {
   }
-  
-  getPlayers(tournamentId, offset, length, onSuccess, onFailure){
-    fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/players?offset='+offset+'&length='+length)
-    .then(function(response) {
-      if (response.ok)
-        return response.json();
-      else
-        throw new Error('Fehlerhandling noch nicht spezifiziert');
-    })
-    .then(function(json) { onSuccess(json); })
-    .catch(function(err) { onFailure(err); });
+
+  getPlayers(tournamentId, offset, length, onSuccess, onFailure) {
+    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/players?offset=' + offset + '&length=' + length)
+      .then(function (response) {
+        if (response.ok)
+          return response.json();
+        else
+          throw new Error('Fehlerhandling noch nicht spezifiziert');
+      })
+      .then(function (json) {
+        onSuccess(json);
+      })
+      .catch(function (err) {
+        onFailure(err);
+      });
   }
-  
+
   addPlayer(tournamentId, playerId, onSuccess, onFailure) {
-    fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/players?pid='+playerId,{
+    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/players?pid=' + playerId, {
       method: "POST",
       headers: {
         'Accept': 'application/json'
       }
     })
-    .then(function(response) {
-      if (response.ok)
-        return response.json();
-      else
-        throw new Error('Fehlerhandling noch nicht spezifiziert');
-    })
-   .then(function(json) { onSuccess(json); })
-   .catch(function(err) { onFailure("???"); });
+      .then(function (response) {
+        if (response.ok)
+          return response.json();
+        else
+          throw new Error('Fehlerhandling noch nicht spezifiziert');
+      })
+      .then(function (json) {
+        onSuccess(json);
+      })
+      .catch(function (err) {
+        onFailure("???");
+      });
   }
-  
+
   removePlayer(tournamentId, playerId, onSuccess, onFailure) {
-    fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/players/'+playerId,{
+    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/players/' + playerId, {
       method: "DELETE",
       headers: {
         'Accept': 'application/json'
       }
     })
-    .then(function(response) {
-      if (response.ok)
-        return response.json();
-      else
-        throw new Error('Fehlerhandling noch nicht spezifiziert');
-    })
-   .then(function(json) { onSuccess(json); })
-   .catch(function(err) { onFailure("???"); });
-  }
-  
-  countPlayers(tournamentId, onSuccess, onFailure) {
-    fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/players/count')
-    .then(function(response) {
-      if (response.ok)
-        return response.json();
-      else
-        throw new Error('Fehlerhandling noch nicht spezifiziert');
-    })
-   .then(function(json) { onSuccess(json); })
-   .catch(function(err) { onFailure("???"); });    
+      .then(function (response) {
+        if (response.ok)
+          return response.json();
+        else
+          throw new Error('Fehlerhandling noch nicht spezifiziert');
+      })
+      .then(function (json) {
+        onSuccess(json);
+      })
+      .catch(function (err) {
+        onFailure("???");
+      });
   }
 
-  getSquads(tournamentId, offset, length, onSuccess, onFailure){
-    fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/squads?offset='+offset+'&length='+length)
-    .then(function(response) {
-      if (response.ok)
-        return response.json();
-      else
-        throw new Error('Fehlerhandling noch nicht spezifiziert');
-    })
-    .then(function(json) { onSuccess(json); })
-    .catch(function(err) { onFailure("???"); });
+  countPlayers(tournamentId, onSuccess, onFailure) {
+    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/players/count')
+      .then(function (response) {
+        if (response.ok)
+          return response.json();
+        else
+          throw new Error('Fehlerhandling noch nicht spezifiziert');
+      })
+      .then(function (json) {
+        onSuccess(json);
+      })
+      .catch(function (err) {
+        onFailure("???");
+      });
+  }
+
+  getSquads(tournamentId, offset, length, onSuccess, onFailure) {
+    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/squads?offset=' + offset + '&length=' + length)
+      .then(function (response) {
+        if (response.ok)
+          return response.json();
+        else
+          throw new Error('Fehlerhandling noch nicht spezifiziert');
+      })
+      .then(function (json) {
+        onSuccess(json);
+      })
+      .catch(function (err) {
+        onFailure("???");
+      });
   }
 
   addSquad(tournamentId, squadId, onSuccess, onFailure) {
-    fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/squads?sid='+squadId,{
+    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/squads?sid=' + squadId, {
       method: "POST",
       headers: {
         'Accept': 'application/json'
       }
     })
-    .then(function(response) {
-      if (response.ok)
-        return response.json();
-      else
-        throw new Error('Fehlerhandling noch nicht spezifiziert');
-    })
-   .then(function(json) { onSuccess(json); })
-   .catch(function(err) { onFailure("???"); });
+      .then(function (response) {
+        if (response.ok)
+          return response.json();
+        else
+          throw new Error('Fehlerhandling noch nicht spezifiziert');
+      })
+      .then(function (json) {
+        onSuccess(json);
+      })
+      .catch(function (err) {
+        onFailure("???");
+      });
   }
 
   countSquads(tournamentId, onSuccess, onFailure) {
-    fetch('http://localhost:8080/rest/resources/tournaments/'+tournamentId+'/squads/count')
-    .then(function(response) {
-      if (response.ok)
-        return response.json();
-      else
-        throw new Error('Fehlerhandling noch nicht spezifiziert');
-    })
-   .then(function(json) { onSuccess(json); })
-   .catch(function(err) { onFailure("???"); });    
+    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/squads/count')
+      .then(function (response) {
+        if (response.ok)
+          return response.json();
+        else
+          throw new Error('Fehlerhandling noch nicht spezifiziert');
+      })
+      .then(function (json) {
+        onSuccess(json);
+      })
+      .catch(function (err) {
+        onFailure("???");
+      });
   }
-  
-  
+
+  addDiscipline(tournamentId, disciplineId, onResolve, onReject) {
+    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/disciplines?did=' + disciplineId, {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+      .then(function (response) {
+        if (response.ok)
+          return response.json();
+        else
+          throw new Error('Fehlerhandling noch nicht spezifiziert');
+      })
+      .then(function (json) {
+        onResolve(json);
+      })
+      .catch(function (err) {
+        onReject("???");
+      });
+  }
+
 }
 
 var tournamentsResource = new TournamentsResource();

@@ -22,6 +22,7 @@ import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 import org.cc.torganizer.core.entities.Tournament;
+import org.cc.torganizer.rest.json.DisciplineJsonConverter;
 import org.cc.torganizer.rest.json.PlayerJsonConverter;
 import org.cc.torganizer.rest.json.SquadJsonConverter;
 import org.cc.torganizer.rest.json.TournamentJsonConverter;
@@ -33,18 +34,21 @@ import org.cc.torganizer.rest.json.TournamentJsonConverter;
 public class TournamentsResource extends AbstractResource {
 
   private static final String TOURNAMENT_FIND_BY_ID_QUERY_NAME = "Tournament.findById";
-  
+
   @PersistenceContext(name = "torganizer")
   EntityManager entityManager;
-  
+
   @Inject
   private TournamentJsonConverter tConverter;
-  
+
   @Inject
   private PlayerJsonConverter pConverter;
-  
+
   @Inject
   private SquadJsonConverter sConverter;
+
+  @Inject
+  private DisciplineJsonConverter dConverter;
 
   @POST
   public JsonObject create(JsonObject jsonObject) {
@@ -55,7 +59,7 @@ public class TournamentsResource extends AbstractResource {
 
     entityManager.persist(tournament);
     entityManager.flush();
-    
+
     return tConverter.toJsonObject(tournament);
   }
 
@@ -69,7 +73,7 @@ public class TournamentsResource extends AbstractResource {
 
     return tConverter.toJsonObject(tournament);
   }
-  
+
   @GET
   public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
 
@@ -85,20 +89,20 @@ public class TournamentsResource extends AbstractResource {
 
     return tConverter.toJsonArray(tournaments);
   }
-  
+
   @PUT
   public JsonObject update(JsonObject jsonObject) {
     Tournament tournament = tConverter.toModel(jsonObject);
     entityManager.merge(tournament);
-    
+
     return tConverter.toJsonObject(tournament);
   }
-  
+
   @DELETE
-  public JsonObject delete(JsonObject jsonObject){
+  public JsonObject delete(JsonObject jsonObject) {
     Tournament tournament = tConverter.toModel(jsonObject);
     entityManager.remove(tournament);
-    
+
     return tConverter.toJsonObject(tournament);
   }
 
@@ -109,12 +113,12 @@ public class TournamentsResource extends AbstractResource {
       offset = DEFAULT_OFFSET;
       length = DEFAULT_LENGTH;
     }
-            
+
     TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Tournament.findPlayers", Player.class);
     namedQuery.setParameter("id", tournamentId);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(length);
-    
+
     List<Player> players = namedQuery.getResultList();
 
     return pConverter.toJsonArray(players);
@@ -130,10 +134,10 @@ public class TournamentsResource extends AbstractResource {
 
     // load tournament
     TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME,
-        Tournament.class);
+      Tournament.class);
     namedTournamentQuery.setParameter("id", tournamentId);
     Tournament tournament = namedTournamentQuery.getSingleResult();
-    
+
     // persist tournament
     tournament.getOpponents().add(player);
     entityManager.persist(tournament);
@@ -142,12 +146,13 @@ public class TournamentsResource extends AbstractResource {
 
     return pConverter.toJsonObject(player);
   }
-  
+
   /**
    * Remove player from tournament. The player is not deleted at all.
+   *
    * @param tournamentId
    * @param playerId
-   * @return 
+   * @return
    */
   @DELETE
   @Path("/{tid}/players/{pid}")
@@ -159,10 +164,10 @@ public class TournamentsResource extends AbstractResource {
 
     // load tournament
     TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME,
-        Tournament.class);
+      Tournament.class);
     namedTournamentQuery.setParameter("id", tournamentId);
     Tournament tournament = namedTournamentQuery.getSingleResult();
-    
+
     // persist tournament
     tournament.getOpponents().remove(player);
     entityManager.persist(tournament);
@@ -171,16 +176,16 @@ public class TournamentsResource extends AbstractResource {
 
     return pConverter.toJsonObject(player);
   }
-  
+
   @GET
   @Path("/{id}/players/count")
   public Long playersCount(@PathParam("id") Long tournamentId) {
     Query query = entityManager.createNamedQuery("Tournament.countPlayers");
     query.setParameter("id", tournamentId);
-    
+
     return (long) query.getSingleResult();
   }
-  
+
   @GET
   @Path("/{id}/squads")
   public JsonArray squads(@PathParam("id") Long tournamentId, @QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
@@ -188,7 +193,7 @@ public class TournamentsResource extends AbstractResource {
       offset = DEFAULT_OFFSET;
       length = DEFAULT_LENGTH;
     }
-    
+
     TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Tournament.findSquads", Squad.class);
     namedQuery.setParameter("id", tournamentId);
     namedQuery.setFirstResult(offset);
@@ -205,26 +210,26 @@ public class TournamentsResource extends AbstractResource {
     TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Opponent.findById", Squad.class);
     namedQuery.setParameter("id", squadId);
     Squad squad = namedQuery.getSingleResult();
-    
+
     // load tournament
     TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME,
-        Tournament.class);
+      Tournament.class);
     namedTournamentQuery.setParameter("id", tournamentId);
     Tournament tournament = namedTournamentQuery.getSingleResult();
-    
+
     // persist tournament
     tournament.getOpponents().add(squad);
     entityManager.persist(tournament);
 
     return sConverter.toJsonObject(squad);
   }
-  
+
   @GET
   @Path("/{id}/squads/count")
   public Long squadsCount(@PathParam("id") Long tournamentId) {
     Query query = entityManager.createNamedQuery("Tournament.countSquads");
     query.setParameter("id", tournamentId);
-    
+
     return (long) query.getSingleResult();
   }
 
@@ -240,7 +245,7 @@ public class TournamentsResource extends AbstractResource {
 
   @POST
   @Path("/{id}/disciplines")
-  public JsonObject disciplines(@PathParam("id") Long tournamentId, @QueryParam("disciplineId") Long disciplineId) {
+  public JsonObject disciplines(@PathParam("id") Long tournamentId, @QueryParam("did") Long disciplineId) {
     // load discipline
     TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery("Discipline.findById", Discipline.class);
     namedQuery.setParameter("id", disciplineId);
@@ -249,7 +254,7 @@ public class TournamentsResource extends AbstractResource {
 
     // load tournament
     TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME,
-        Tournament.class);
+      Tournament.class);
     namedTournamentQuery.setParameter("id", tournamentId);
     List<Tournament> tournaments = namedTournamentQuery.getResultList();
     Tournament tournament = tournaments.get(0);
@@ -258,6 +263,6 @@ public class TournamentsResource extends AbstractResource {
     tournament.getDisciplines().add(disciplineToAdd);
     entityManager.persist(tournament);
 
-    return null;
+    return dConverter.toJsonObject(disciplineToAdd);
   }
 }
