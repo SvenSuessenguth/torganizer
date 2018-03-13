@@ -54,7 +54,7 @@ public class TournamentsResource extends AbstractResource {
   public JsonObject create(JsonObject jsonObject) {
 
     Tournament tournament = tConverter.toModel(jsonObject);
-    // vom client kann die id '0' geliefert werden, sodass eine detached-entity-Exception geworfen wird.
+    // client can send '0' with a detached object exception as the result
     tournament.setId(null);
 
     entityManager.persist(tournament);
