@@ -47,7 +47,7 @@ pipeline {
     }
 	stage('release') {
 	  when {
-        ${param.doRelease}
+        expression { params.doRelease }
       }
       steps {
         // Run the maven build
