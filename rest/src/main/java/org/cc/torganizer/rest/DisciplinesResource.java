@@ -16,6 +16,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.Restriction;
 import static org.cc.torganizer.rest.AbstractResource.DEFAULT_OFFSET;
 import org.cc.torganizer.rest.json.DisciplineJsonConverter;
 
@@ -40,9 +41,8 @@ public class DisciplinesResource extends AbstractResource {
 
     // client can send '0' with a detached object exception as the result
     discipline.setId(null);
-    discipline.getRestrictions().forEach(restriction -> {
-      restriction.setId(null);
-    });
+    discipline.getRestrictions().forEach((Restriction restriction) -> restriction.setId(null));
+    
 
     entityManager.persist(discipline);
     entityManager.flush();

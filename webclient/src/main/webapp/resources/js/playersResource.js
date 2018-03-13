@@ -6,7 +6,7 @@ class PlayersResource {
   
   // create a new or update an existing player
   // method must be one of "POST" (create) or "PUT" (update)
-  createOrUpdate(player, method, onSuccess, onFailure){
+  createOrUpdate(player, method, onResolve, onReject){
     fetch('http://localhost:8080/rest/resources/players',{
       method: method,
       headers: {
@@ -21,13 +21,13 @@ class PlayersResource {
       else
         throw new Error(response.status);
     })
-    .then(function(json) { onSuccess(json); })
-    .catch(function(err) { onFailure(err); });
+    .then(function(json) { onResolve(json); })
+    .catch(function(err) { onReject(err); });
   }
   
   // read or delete an existing player
   // method must be one of "GET" (read) or "DELETE" (delete)
-  readOrDelete(id, method, onSuccess, onFailure){
+  readOrDelete(id, method, onResolve, onReject){
     fetch('http://localhost:8080/rest/resources/players/'+id, {
       method: method,
       headers: {
@@ -40,8 +40,8 @@ class PlayersResource {
       } else
         throw new Error('Fehlerhandling noch nicht spezifiziert');
     })
-    .then(function(json) { onSuccess(json); })
-    .catch(function(err) { onFailure("???"); });
+    .then(function(json) { onResolve(json); })
+    .catch(function(err) { onReject("???"); });
   }
 }
 

@@ -4,7 +4,7 @@ class SquadsResource {
   constructor() {
   }
   
-  createOrUpdate(json, method, onSuccess, onFailure){
+  createOrUpdate(json, method, onResolve, onReject){
     fetch('http://localhost:8080/rest/resources/squads',{
       method: method,
       headers: {
@@ -19,19 +19,19 @@ class SquadsResource {
       else
         throw new Error(response.status);
     })
-    .then(function(json) { onSuccess(json); })
-    .catch(function(err) { onFailure(err); });
+    .then(function(json) { onResolve(json); })
+    .catch(function(err) { onReject(err); });
   }
   
-  readSingle(id, onSuccess, onFailure){
+  readSingle(id, onResolve, onReject){
     fetch('http://localhost:8080/rest/resources/squads/'+id).then(function(response) {
       if (response.ok)
         return response.json();
       else
         throw new Error('Fehlerhandling noch nicht spezifiziert');
     })
-    .then(function(json) { onSuccess(json); })
-    .catch(function(err) { onFailure("???"); });
+    .then(function(json) { onResolve(json); })
+    .catch(function(err) { onReject("???"); });
   }
 }
 

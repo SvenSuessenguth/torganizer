@@ -19,7 +19,7 @@ public class Discipline extends Entity {
    */
   public static final String NULL_DISCIPLINE_NAME = "-";
 
-  private String label;
+  private String name;
 
   private final Set<Opponent> opponents;
 
@@ -58,12 +58,12 @@ public class Discipline extends Entity {
     return currentRound;
   }
 
-  public String getLabel() {
-    return label;
+  public String getName() {
+    return name;
   }
 
-  public void setLabel(String newLabel) {
-    this.label = newLabel;
+  public void setName(String newName) {
+    this.name = newName;
   }
 
   public Set<Opponent> getOpponents() {

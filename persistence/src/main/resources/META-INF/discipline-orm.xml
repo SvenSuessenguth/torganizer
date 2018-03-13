@@ -23,7 +23,7 @@
   <entity class="org.cc.torganizer.core.entities.Discipline" access="FIELD">
     <table name="DISCIPLINES" />
     <attributes>    
-       <basic name="label"><column name="LABEL" nullable="false" /></basic>
+       <basic name="name"><column name="NAME" nullable="false" /></basic>
        <one-to-many name="opponents">
          <join-table name="DISCIPLINES_OPPONENTS">
            <join-column name="DISCIPLINE_ID" referenced-column-name="ID"/>

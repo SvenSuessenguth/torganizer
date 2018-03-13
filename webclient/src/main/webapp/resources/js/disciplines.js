@@ -71,7 +71,7 @@ class Disciplines {
   formToDiscipline() {
     var json = {
       "id": sessionStorage.getItem('disciplines.current-discipline-id'),
-      "label": document.getElementById("discipline-name").value,
+      "name": document.getElementById("name").value,
       "restrictions": [
         this.formToAgeRestriction(),
         this.formToGenderRestriction(),

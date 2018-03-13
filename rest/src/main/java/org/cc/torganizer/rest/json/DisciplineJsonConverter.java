@@ -17,7 +17,7 @@ import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Restriction;
 
 /**
- * A json-disciplines contains nothing but label and restrictions.
+ * A json-disciplines contains nothing but id, name and restrictions.
  *
  */
 @RequestScoped
@@ -39,7 +39,7 @@ public class DisciplineJsonConverter extends ModelJsonConverter<Discipline> {
     final JsonObjectBuilder objectBuilder = factory.createObjectBuilder();
 
     add(objectBuilder, "id", discipline.getId());
-    add(objectBuilder, "label", discipline.getLabel());
+    add(objectBuilder, "name", discipline.getName());
     objectBuilder.add("restrictions", restrictionConverter.toJsonArray(discipline.getRestrictions()));
 
     return objectBuilder.build();
@@ -64,8 +64,8 @@ public class DisciplineJsonConverter extends ModelJsonConverter<Discipline> {
     Long id = idString == null ? null : Long.valueOf(idString);
     discipline.setId(id);
 
-    String label = get(jsonObject, "label");
-    discipline.setLabel(label);
+    String name = get(jsonObject, "name");
+    discipline.setName(name);
 
     JsonArray restrictionsJson = jsonObject.getJsonArray("restrictions");
     Collection<Restriction> restrictions = restrictionConverter.toModels(restrictionsJson);

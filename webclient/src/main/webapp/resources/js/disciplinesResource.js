@@ -4,7 +4,7 @@ class DisciplinesResource {
   constructor() {
   }
 
-  createOrUpdate(json, method, onSuccess, onFailure) {
+  createOrUpdate(json, method, onResolve, onReject) {
     fetch('http://localhost:8080/rest/resources/disciplines', {
       method: method,
       headers: {
@@ -20,14 +20,14 @@ class DisciplinesResource {
           throw new Error(response.status);
       })
       .then(function (json) {
-        onSuccess(json);
+        onResolve(json);
       })
       .catch(function (err) {
-        onFailure(err);
+        onReject(err);
       });
   }
 
-  readSingle(id, onSuccess, onFailure) {
+  readSingle(id, onResolve, onReject) {
     fetch('http://localhost:8080/rest/resources/disciplines/' + id).then(function (response) {
       if (response.ok)
         return response.json();
@@ -35,10 +35,10 @@ class DisciplinesResource {
         throw new Error('Fehlerhandling noch nicht spezifiziert');
     })
       .then(function (json) {
-        onSuccess(json);
+        onResolve(json);
       })
       .catch(function (err) {
-        onFailure("???");
+        onReject("???");
       });
   }
 }

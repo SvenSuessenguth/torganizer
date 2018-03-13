@@ -27,14 +27,14 @@ public class DisciplineJsonConverterTest {
 
   @Test
   public void testToJsonObject() {
-    String expected = "{\"id\":null,\"label\":\"Damen-Einzel U50\","
+    String expected = "{\"id\":null,\"name\":\"Damen-Einzel U50\","
       + "\"restrictions\":"
       + "[{\"id\":null,\"discriminator\":\"A\",\"minDateOfBirth\":\"1968-01-12\",\"maxDateOfBirth\":\"1970-01-12\"},"
       + "{\"id\":null,\"discriminator\":\"G\",\"gender\":\"FEMALE\"},"
       + "{\"id\":null,\"discriminator\":\"O\",\"opponentType\":\"PLAYER\"}]}";
 
     Discipline discipline = new Discipline();
-    discipline.setLabel("Damen-Einzel U50");
+    discipline.setName("Damen-Einzel U50");
 
     AgeRestriction ageRestriction = new AgeRestriction();
     ageRestriction.setMinDateOfBirth(LocalDate.of(1968, Month.JANUARY, 12));
