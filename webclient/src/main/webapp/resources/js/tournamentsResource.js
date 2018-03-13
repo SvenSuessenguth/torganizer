@@ -4,7 +4,7 @@ class TournamentsResource {
   constructor() {
   }
 
-  createOrUpdate(json, method, onSuccess, onFailure) {
+  createOrUpdate(json, method, onResolve, onReject) {
     fetch('http://localhost:8080/rest/resources/tournaments', {
       method: method,
       headers: {
@@ -20,14 +20,14 @@ class TournamentsResource {
           throw new Error('Fehlerhandling noch nicht spezifiziert');
       })
       .then(function (json) {
-        onSuccess(json);
+        onResolve(json);
       })
       .catch(function (err) {
-        onFailure("???");
+        onReject("???");
       });
   }
 
-  readSingle(tournamentId, onSuccess, onFailure) {
+  readSingle(tournamentId, onResolve, onReject) {
     fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId)
       .then(function (response) {
         if (response.ok)
@@ -36,14 +36,14 @@ class TournamentsResource {
           throw new Error('Fehlerhandling noch nicht spezifiziert');
       })
       .then(function (json) {
-        onSuccess(json);
+        onResolve(json);
       })
       .catch(function (err) {
-        onFailure("???");
+        onReject("???");
       });
   }
 
-  readMultiple(offset, length, onSuccess, onFailure) {
+  readMultiple(offset, length, onResolve, onReject) {
     fetch('http://localhost:8080/rest/resources/tournaments?offset=' + offset + '&length=' + length, {
       method: "GET",
       headers: {
@@ -57,17 +57,17 @@ class TournamentsResource {
           throw new Error('Fehlerhandling noch nicht spezifiziert');
       })
       .then(function (json) {
-        onSuccess(json);
+        onResolve(json);
       })
       .catch(function (err) {
-        onFailure("???");
+        onReject("???");
       });
   }
 
   delete(json) {
   }
 
-  getPlayers(tournamentId, offset, length, onSuccess, onFailure) {
+  getPlayers(tournamentId, offset, length, onResolve, onReject) {
     fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/players?offset=' + offset + '&length=' + length)
       .then(function (response) {
         if (response.ok)
@@ -76,14 +76,14 @@ class TournamentsResource {
           throw new Error('Fehlerhandling noch nicht spezifiziert');
       })
       .then(function (json) {
-        onSuccess(json);
+        onResolve(json);
       })
       .catch(function (err) {
-        onFailure(err);
+        onReject(err);
       });
   }
 
-  addPlayer(tournamentId, playerId, onSuccess, onFailure) {
+  addPlayer(tournamentId, playerId, onResolve, onReject) {
     fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/players?pid=' + playerId, {
       method: "POST",
       headers: {
@@ -97,14 +97,14 @@ class TournamentsResource {
           throw new Error('Fehlerhandling noch nicht spezifiziert');
       })
       .then(function (json) {
-        onSuccess(json);
+        onResolve(json);
       })
       .catch(function (err) {
-        onFailure("???");
+        onReject("???");
       });
   }
 
-  removePlayer(tournamentId, playerId, onSuccess, onFailure) {
+  removePlayer(tournamentId, playerId, onResolve, onReject) {
     fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/players/' + playerId, {
       method: "DELETE",
       headers: {
@@ -118,14 +118,14 @@ class TournamentsResource {
           throw new Error('Fehlerhandling noch nicht spezifiziert');
       })
       .then(function (json) {
-        onSuccess(json);
+        onResolve(json);
       })
       .catch(function (err) {
-        onFailure("???");
+        onReject("???");
       });
   }
 
-  countPlayers(tournamentId, onSuccess, onFailure) {
+  countPlayers(tournamentId, onResolve, onReject) {
     fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/players/count')
       .then(function (response) {
         if (response.ok)
@@ -134,14 +134,14 @@ class TournamentsResource {
           throw new Error('Fehlerhandling noch nicht spezifiziert');
       })
       .then(function (json) {
-        onSuccess(json);
+        onResolve(json);
       })
       .catch(function (err) {
-        onFailure("???");
+        onReject("???");
       });
   }
 
-  getSquads(tournamentId, offset, length, onSuccess, onFailure) {
+  getSquads(tournamentId, offset, length, onResolve, onReject) {
     fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/squads?offset=' + offset + '&length=' + length)
       .then(function (response) {
         if (response.ok)
@@ -150,14 +150,14 @@ class TournamentsResource {
           throw new Error('Fehlerhandling noch nicht spezifiziert');
       })
       .then(function (json) {
-        onSuccess(json);
+        onResolve(json);
       })
       .catch(function (err) {
-        onFailure("???");
+        onReject("???");
       });
   }
 
-  addSquad(tournamentId, squadId, onSuccess, onFailure) {
+  addSquad(tournamentId, squadId, onResolve, onReject) {
     fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/squads?sid=' + squadId, {
       method: "POST",
       headers: {
@@ -171,14 +171,14 @@ class TournamentsResource {
           throw new Error('Fehlerhandling noch nicht spezifiziert');
       })
       .then(function (json) {
-        onSuccess(json);
+        onResolve(json);
       })
       .catch(function (err) {
-        onFailure("???");
+        onReject("???");
       });
   }
 
-  countSquads(tournamentId, onSuccess, onFailure) {
+  countSquads(tournamentId, onResolve, onReject) {
     fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/squads/count')
       .then(function (response) {
         if (response.ok)
@@ -187,10 +187,10 @@ class TournamentsResource {
           throw new Error('Fehlerhandling noch nicht spezifiziert');
       })
       .then(function (json) {
-        onSuccess(json);
+        onResolve(json);
       })
       .catch(function (err) {
-        onFailure("???");
+        onReject("???");
       });
   }
 
