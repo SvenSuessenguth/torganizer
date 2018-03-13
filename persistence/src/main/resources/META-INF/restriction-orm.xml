@@ -43,7 +43,7 @@
 
     <entity class="org.cc.torganizer.core.entities.OpponentTypeRestriction" access="FIELD">
         <table name="OPPONENTTYPERESTRICTIONS" />
-        <discriminator-value>T</discriminator-value>
+        <discriminator-value>O</discriminator-value>
         <attributes>
             <basic name="opponentType">
                 <column name="OPPONENTTYPE" nullable="true" />

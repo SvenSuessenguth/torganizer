@@ -2,6 +2,7 @@ package org.cc.torganizer.persistence;
 
 import java.util.List;
 import javax.persistence.Query;
+import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 import org.hamcrest.MatcherAssert;
@@ -24,62 +25,71 @@ public class TournamentsJpaTest extends AbstractDbUnitJpaTest {
     Query query = entityManager.createNamedQuery("Tournament.countPlayers");
     query.setParameter("id", 1L);
     long countSubscribers = (long) query.getSingleResult();
-    
+
     MatcherAssert.assertThat(countSubscribers, Matchers.is(2L));
   }
-  
+
   @Test
   public void testCountSubscribers_nonExistingTournament() {
     Query query = entityManager.createNamedQuery("Tournament.countPlayers");
     query.setParameter("id", 2L);
     long countSubscribers = (long) query.getSingleResult();
-    
+
     assertThat(countSubscribers, is(0L));
   }
-  
+
   @Test
   public void testCountSubscribers_nonExistingTournament_NullId() {
     Query query = entityManager.createNamedQuery("Tournament.countPlayers");
     query.setParameter("id", null);
     long countSubscribers = (long) query.getSingleResult();
-    
+
     assertThat(countSubscribers, is(0L));
   }
-  
+
   @Test
   public void testFindPlayers() {
     Query query = entityManager.createNamedQuery("Tournament.findPlayers");
     query.setParameter("id", 1L);
     List<Player> players = query.getResultList();
-    
+
     assertThat(players, hasSize(2));
   }
-  
+
   @Test
   public void testFindSquads() {
     Query query = entityManager.createNamedQuery("Tournament.findSquads");
     query.setParameter("id", 1L);
     List<Squad> squads = query.getResultList();
-    
+
     assertThat(squads, hasSize(1));
   }
-  
+
   @Test
   public void testFindPlayers_none() {
     Query query = entityManager.createNamedQuery("Tournament.findPlayers");
     query.setParameter("id", 2L);
     List<Player> players = query.getResultList();
-    
+
     assertThat(players, hasSize(0));
   }
-  
+
   @Test
   public void testFindSquads_none() {
     Query query = entityManager.createNamedQuery("Tournament.findSquads");
     query.setParameter("id", 2L);
     List<Squad> squads = query.getResultList();
-    
+
     assertThat(squads, hasSize(0));
   }
-  
+
+  @Test
+  public void testFindDisciplines() {
+    Query query = entityManager.createNamedQuery("Tournament.findDisciplines");
+    query.setParameter("id", 1L);
+    List<Discipline> disciplines = query.getResultList();
+
+    assertThat(disciplines, hasSize(1));
+  }
+
 }
