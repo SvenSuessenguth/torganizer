@@ -1,6 +1,10 @@
 pipeline {
   agent any
 
+  parameters {
+    boolean(name: 'doRelease', defaultValue: 'false', description: 'should a release be performed?')
+  }
+	
   options {
     buildDiscarder(logRotator(daysToKeepStr: '3', numToKeepStr: '3', artifactNumToKeepStr: '3'))
     durabilityHint('PERFORMANCE_OPTIMIZED')
@@ -39,6 +43,15 @@ pipeline {
       steps {
         // Run the maven build
         bat 'mvn deploy -DskipTests'
+      }
+    }
+	stage('release') {
+	  when {
+        ${param.doRelease}
+      }
+      steps {
+        // Run the maven build
+        bat 'mvn release:prepare release:perform -B'
       }
     }
     stage('report') {
