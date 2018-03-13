@@ -1,7 +1,9 @@
 pipeline {
   agent any
 
-  properties([parameters([booleanParam(defaultValue: false, description: '', name: 'doRelease')])])
+  parameters {
+    booleanParam(defaultValue: false, description: '', name: 'doRelease')
+  }
 	
   options {
     buildDiscarder(logRotator(daysToKeepStr: '3', numToKeepStr: '3', artifactNumToKeepStr: '3'))
