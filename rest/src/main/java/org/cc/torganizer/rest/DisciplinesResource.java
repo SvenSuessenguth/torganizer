@@ -40,7 +40,7 @@ public class DisciplinesResource extends AbstractResource {
 
     // client can send '0' with a detached object exception as the result
     discipline.setId(null);
-    discipline.getRestrictions().forEach((restriction) -> {
+    discipline.getRestrictions().forEach(restriction -> {
       restriction.setId(null);
     });
 
