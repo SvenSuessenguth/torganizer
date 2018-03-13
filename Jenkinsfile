@@ -47,6 +47,7 @@ pipeline {
     }
 	stage('release') {
 	  when {
+	    // https://jenkins.io/blog/2017/01/19/converting-conditional-to-pipeline/
         expression { return doRelease ==~ /(?i)(Y|YES|T|TRUE|ON|RUN)/ }
       }
       steps {
