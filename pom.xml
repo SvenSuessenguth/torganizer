@@ -12,7 +12,7 @@
     <connection>scm:git:https://github.com/SvenSuessenguth/torganizer</connection>
     <developerConnection>scm:git:git@github.com:SvenSuessenguth/torganizer</developerConnection>
     <url>https://github.com/SvenSuessenguth/torganizer</url>
-    <tag>HEAD</tag>    
+    <tag>master</tag>    
   </scm>
   
   <distributionManagement>
