@@ -9,10 +9,10 @@
   <url>http://localhost:8080/torganizer</url>
 
   <scm>
+    <connection>scm:git:https://github.com/SvenSuessenguth/torganizer</connection>
+    <developerConnection>scm:git:git@github.com:SvenSuessenguth/torganizer</developerConnection>
     <url>https://github.com/SvenSuessenguth/torganizer</url>
-    <connection>scm:git:git://github.com/SvenSuessenguth/torganizer.git</connection>
-    <developerConnection>scm:git:git@github.com:SvenSuessenguth/torganizer.git</developerConnection>
-	<tag>master</tag>
+    <tag>HEAD</tag>    
   </scm>
   
   <distributionManagement>
