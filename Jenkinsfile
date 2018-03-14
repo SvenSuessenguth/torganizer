@@ -53,7 +53,7 @@ pipeline {
       }
       steps {
         // Run the maven build
-        bat 'mvn release:prepare release:perform -B -DautoVersionSubmodules=true'
+        bat 'mvn release:prepare release:perform -B -DautoVersionSubmodules=true -DlocalCheckout=true'
       }
     }
     stage('report') {
