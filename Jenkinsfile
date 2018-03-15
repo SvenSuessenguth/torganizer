@@ -45,17 +45,6 @@ pipeline {
         bat 'mvn deploy -DskipTests'
       }
     }
-	stage('release') {
-	  when {
-	    // do release only with manual trigger and setting the parameter
-	    // https://jenkins.io/blog/2017/01/19/converting-conditional-to-pipeline/
-        expression { return doRelease ==~ /(?i)(Y|YES|T|TRUE|ON|RUN)/ }
-      }
-      steps {
-        // Run the maven build
-        bat 'mvn release:prepare release:perform -B -DautoVersionSubmodules=true -DlocalCheckout=true'
-      }
-    }
     stage('report') {
       steps {
         withSonarQubeEnv('SonarQube') {
