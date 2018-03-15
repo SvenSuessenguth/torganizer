@@ -1,10 +1,6 @@
 pipeline {
   agent any
 
-  parameters {
-    booleanParam(defaultValue: false, description: '', name: 'doRelease')
-  }
-	
   options {
     buildDiscarder(logRotator(daysToKeepStr: '3', numToKeepStr: '3', artifactNumToKeepStr: '3'))
     durabilityHint('PERFORMANCE_OPTIMIZED')
