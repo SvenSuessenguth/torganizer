@@ -6,7 +6,46 @@ class Disciplines {
 
   onload() {
     this.cancel();
+    this.init();
   }
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // init tables, selects... to show already persisted data
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  init() {
+    // remove previous data
+    // https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
+    var dSelect = document.getElementById("disciplines");
+    while (dSelect.firstChild) {
+      dSelect.removeChild(dSelect.firstChild);
+    }
+
+    // load and show new data
+    var tournamentId = tournaments.getCurrentTournamentId();
+    tournamentsResource.getDisciplines(tournamentId, this.initDisciplinesResolve, this.initDisciplinesReject);
+  }
+  initDisciplinesResolve(disciplines) {
+    var dSelect = document.getElementById("disciplines");
+    disciplines.forEach(function (discipline) {
+      var option = document.createElement("option");
+      option.text = discipline.name;
+      option.value = discipline.id;
+      dSelect.appendChild(option);
+    });
+
+    if (disciplines.length > 0) {
+      showSelectedDiscipline();
+    }
+  }
+  initDisciplinesReject(json) {}
+
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // other interactions
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  showSelectDiscipline() {}
 
   //--------------------------------------------------------------------------------------------------------------------
   //
@@ -32,6 +71,7 @@ class Disciplines {
   createReject(json) { }
   addDisciplineResolve(json) {
     disciplines.cancel();
+    disciplines.init();
   }
   addDisciplineReject(json) {}
 
@@ -48,7 +88,7 @@ class Disciplines {
   //--------------------------------------------------------------------------------------------------------------------
   cancel() {
     // cancel core data
-    document.getElementById("discipline-name").value = "";
+    document.getElementById("name").value = "";
 
     // cancel age-restriction
     document.getElementById("min-date-of-birth").valueAsDate = null;

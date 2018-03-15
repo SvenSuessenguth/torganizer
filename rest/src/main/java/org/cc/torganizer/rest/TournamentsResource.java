@@ -235,12 +235,12 @@ public class TournamentsResource extends AbstractResource {
 
   @GET
   @Path("/{id}/disciplines")
-  public JsonObject disciplines(@PathParam("id") Long tournamentId) {
+  public JsonArray disciplines(@PathParam("id") Long tournamentId) {
     TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery("Tournament.findDisciplines", Discipline.class);
     namedQuery.setParameter("id", tournamentId);
     List<Discipline> disciplines = namedQuery.getResultList();
 
-    return null;
+    return dConverter.toJsonArray(disciplines);
   }
 
   @POST
