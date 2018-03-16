@@ -235,7 +235,7 @@ public class TournamentsResource extends AbstractResource {
 
   @GET
   @Path("/{id}/disciplines")
-  public JsonArray disciplines(@PathParam("id") Long tournamentId) {
+  public JsonArray readDisciplines(@PathParam("id") Long tournamentId) {
     TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery("Tournament.findDisciplines", Discipline.class);
     namedQuery.setParameter("id", tournamentId);
     List<Discipline> disciplines = namedQuery.getResultList();
@@ -245,7 +245,7 @@ public class TournamentsResource extends AbstractResource {
 
   @POST
   @Path("/{id}/disciplines")
-  public JsonObject disciplines(@PathParam("id") Long tournamentId, @QueryParam("did") Long disciplineId) {
+  public JsonObject addDiscipline(@PathParam("id") Long tournamentId, @QueryParam("did") Long disciplineId) {
     // load discipline
     TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery("Discipline.findById", Discipline.class);
     namedQuery.setParameter("id", disciplineId);

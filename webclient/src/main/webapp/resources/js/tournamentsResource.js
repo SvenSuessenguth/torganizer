@@ -230,6 +230,21 @@ class TournamentsResource {
         onReject("???");
       });
   }
+  getDiscipline(tournamentId, disciplineId, onResolve, onReject) {
+    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/disciplines/' + disciplineId)
+      .then(function (response) {
+        if (response.ok)
+          return response.json();
+        else
+          throw new Error('Fehlerhandling noch nicht spezifiziert');
+      })
+      .then(function (json) {
+        onResolve(json);
+      })
+      .catch(function (err) {
+        onReject("???");
+      });
+  }
 
 }
 

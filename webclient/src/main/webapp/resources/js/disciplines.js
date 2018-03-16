@@ -45,7 +45,16 @@ class Disciplines {
   // other interactions
   //
   //--------------------------------------------------------------------------------------------------------------------
-  showSelectDiscipline() {}
+  showSelectDiscipline() {
+    var dSelect = document.getElementById("disciplines");
+    var disciplineId = dSelect.options[dSelect.selectedIndex].value;
+
+    disciplinesResource.readSingle(disciplineId, this.showSelectedDisciplineResolve, this.showSelectedDisciplineReject);
+  }
+  showSelectedDisciplineResolve(discipline) {
+    disciplines.disciplineToForm(discipline);
+  }
+  showSelectedDisciplineReject(json) {}
 
   //--------------------------------------------------------------------------------------------------------------------
   //
@@ -122,6 +131,22 @@ class Disciplines {
     return json;
   }
   disciplineToForm(discipline) {
+    sessionStorage.setItem('disciplines.current-discipline-id', discipline.id);
+    document.getElementById("name").value = discipline.name;
+
+    // call method by type of restriction
+    var restrictions = discipline.restrictions;
+    restrictions.forEach(function (restriction) {
+      if (restriction.discriminator === 'A') {
+        disciplines.ageRestrictionToForm(restriction);
+      }
+      if (restriction.discriminator === 'G') {
+        disciplines.genderRestrictionToForm(restriction);
+      }
+      if (restriction.discriminator === 'O') {
+        disciplines.opponentTypeRestrictionToForm(restriction);
+      }
+    });
   }
   formToAgeRestriction() {
     var json = {
