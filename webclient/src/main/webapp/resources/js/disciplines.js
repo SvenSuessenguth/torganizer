@@ -85,7 +85,7 @@ class Disciplines {
   addDisciplineReject(json) {}
 
   update(discipline) {
-    disciplinesResource.createOrUpdate(discipline, "PUT", this.createResolve, this.createReject);
+    disciplinesResource.createOrUpdate(discipline, "PUT", this.updateResolve, this.updateReject);
   }
   updateResolve(json) { }
   updateReject(json) { }

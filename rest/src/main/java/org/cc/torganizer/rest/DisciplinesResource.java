@@ -42,7 +42,6 @@ public class DisciplinesResource extends AbstractResource {
     // client can send '0' with a detached object exception as the result
     discipline.setId(null);
     discipline.getRestrictions().forEach((Restriction restriction) -> restriction.setId(null));
-    
 
     entityManager.persist(discipline);
     entityManager.flush();
@@ -81,8 +80,7 @@ public class DisciplinesResource extends AbstractResource {
   public JsonObject update(JsonObject jsonObject) {
 
     Discipline discipline = converter.toModel(jsonObject);
-    entityManager.persist(discipline);
-    entityManager.flush();
+    discipline = entityManager.merge(discipline);
 
     return converter.toJsonObject(discipline);
   }
