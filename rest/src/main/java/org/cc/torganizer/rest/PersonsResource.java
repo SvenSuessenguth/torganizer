@@ -43,7 +43,7 @@ public class PersonsResource extends AbstractResource {
   private PersonJsonConverter converter;
   
   @POST
-  public Response create(JsonObject jsonObject, @Context UriInfo uriInfo) throws Exception{
+  public Response create(JsonObject jsonObject, @Context UriInfo uriInfo) {
     Person person = converter.toModel(jsonObject);
     // Person wird als nicht-persistente entity betrachtet.
     // vom client kann die id '0' geliefert werden, sodass eine detached-entity-Exception geworfen wird.
