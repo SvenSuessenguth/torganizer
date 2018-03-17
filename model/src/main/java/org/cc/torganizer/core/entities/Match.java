@@ -160,7 +160,7 @@ public class Match extends Entity implements IPositional {
    */
   public Opponent getLoser() {
     Opponent winner = getWinner();
-    Opponent loser = null;
+    Opponent loser;
 
     // Wenn es keinen Gewinner gibt, gibt es auch keinen Verlierer
     if (winner == null) {

@@ -47,7 +47,7 @@ public class GenderRestriction
   protected boolean isGenderRestricted(Player player) {
     Gender playersGender = player.getPerson().getGender();
 
-    return !Gender.UNKNOWN.equals(playersGender) && !playersGender.equals(playersGender);
+    return !Gender.UNKNOWN.equals(playersGender) && !this.gender.equals(playersGender);
   }
 
   public Gender getGender() {

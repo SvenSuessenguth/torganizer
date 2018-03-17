@@ -23,7 +23,7 @@ public class PendingMatchDetectorFactory {
   public PendingMatchDetector getPendingMatchDetector(System system, Group group) {
     assert system != null;
 
-    PendingMatchDetector pendingMatchDetector = null;
+    PendingMatchDetector pendingMatchDetector;
 
     switch (system) {
       case ROUND_ROBIN:

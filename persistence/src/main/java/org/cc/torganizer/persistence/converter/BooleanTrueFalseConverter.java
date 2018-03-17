@@ -1,6 +1,7 @@
 package org.cc.torganizer.persistence.converter;
 
 import javax.persistence.AttributeConverter;
+import java.util.Objects;
 
 public class BooleanTrueFalseConverter implements
 		AttributeConverter<Boolean, Integer> {
@@ -19,7 +20,7 @@ public class BooleanTrueFalseConverter implements
 
 	@Override
 	public Boolean convertToEntityAttribute(Integer value) {
-		return value == TRUE;
+		return Objects.equals(value, TRUE);
 	}
 
 }
