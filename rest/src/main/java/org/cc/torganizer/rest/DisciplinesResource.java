@@ -3,6 +3,7 @@ package org.cc.torganizer.rest;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -50,7 +51,7 @@ public class DisciplinesResource extends AbstractResource {
   }
 
   @GET
-  public JsonObject readMultiple(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
+  public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
 
     if (offset == null || length == null) {
       offset = DEFAULT_OFFSET;
@@ -62,7 +63,7 @@ public class DisciplinesResource extends AbstractResource {
     namedQuery.setMaxResults(length);
     List<Discipline> disciplines = namedQuery.getResultList();
 
-    return null;
+    return converter.toJsonArray(disciplines);
   }
 
   @GET

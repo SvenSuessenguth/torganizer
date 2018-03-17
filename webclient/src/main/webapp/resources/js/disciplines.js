@@ -24,9 +24,18 @@ class Disciplines {
     // load and show new data
     var tournamentId = tournaments.getCurrentTournamentId();
     tournamentsResource.getDisciplines(tournamentId, this.initDisciplinesResolve, this.initDisciplinesReject);
+
+    document.getElementById("name").focus();
   }
   initDisciplinesResolve(disciplines) {
     var dSelect = document.getElementById("disciplines");
+
+    // add an empty option to force an onselect event
+    var option = document.createElement("option");
+    option.text = "select...";
+    option.value = "-";
+    dSelect.appendChild(option);
+
     disciplines.forEach(function (discipline) {
       var option = document.createElement("option");
       option.text = discipline.name;
@@ -87,7 +96,10 @@ class Disciplines {
   update(discipline) {
     disciplinesResource.createOrUpdate(discipline, "PUT", this.updateResolve, this.updateReject);
   }
-  updateResolve(json) { }
+  updateResolve(json) {
+    disciplines.cancel();
+    disciplines.init();
+  }
   updateReject(json) { }
 
   //--------------------------------------------------------------------------------------------------------------------
