@@ -172,7 +172,7 @@ class Squads {
   
   update(squad) {
     squadsResource.createOrUpdate(squad, "PUT", this.updateResolve, this.updateReject);
-    squads.canel();
+    squads.cancel();
   }
   updateResolve(json){ console.log("udpate resolved squad"); }
   updateReject(error) { console.log(error); }

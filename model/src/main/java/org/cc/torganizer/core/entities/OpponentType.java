@@ -14,9 +14,9 @@ public enum OpponentType {
   /** Players und/oder Squads. */
   TEAM(2, Team.class);
 
-  private int value;
+  private final int value;
 
-  private Class<? extends Opponent> opponentClass;
+  private final Class<? extends Opponent> opponentClass;
 
   /**
    * Konstruktor.
