@@ -122,6 +122,12 @@ class Disciplines {
     // cancel type-restriction
     var opponmentTypeElement = document.getElementById("opponent-type");
     selectItemByValue(opponmentTypeElement, "PLAYER");
+
+    // reset ids
+    sessionStorage.removeItem('disciplines.current-discipline-id');
+    sessionStorage.removeItem('disciplines.current-age-restriction-id');
+    sessionStorage.removeItem('disciplines.current-gender-restriction-id');
+    sessionStorage.removeItem('disciplines.current-opponent-type-restriction-id');
   }
 
   //--------------------------------------------------------------------------------------------------------------------
