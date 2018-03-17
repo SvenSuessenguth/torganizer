@@ -18,7 +18,7 @@
     </entity>
 
     <entity class="org.cc.torganizer.core.entities.AgeRestriction" access="FIELD">
-        <table name="AGERESTRICTIONS" />
+        <table name="AGE_RESTRICTIONS" />
         <discriminator-value>A</discriminator-value>
         <attributes>
             <basic name="maxDateOfBirth">
@@ -31,7 +31,7 @@
     </entity>
 
     <entity class="org.cc.torganizer.core.entities.GenderRestriction" access="FIELD">
-        <table name="GENDERRESTRICTIONS" />
+        <table name="GENDER_RESTRICTIONS" />
         <discriminator-value>G</discriminator-value>
         <attributes>
             <basic name="gender">
@@ -42,11 +42,11 @@
     </entity>
 
     <entity class="org.cc.torganizer.core.entities.OpponentTypeRestriction" access="FIELD">
-        <table name="OPPONENTTYPERESTRICTIONS" />
+        <table name="OPPONENT_TYPE_RESTRICTIONS" />
         <discriminator-value>O</discriminator-value>
         <attributes>
             <basic name="opponentType">
-                <column name="OPPONENTTYPE" nullable="true" />
+                <column name="OPPONENT_TYPE" nullable="true" />
                 <enumerated>STRING</enumerated>
             </basic>
         </attributes>
