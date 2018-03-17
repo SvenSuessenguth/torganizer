@@ -18,10 +18,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import org.cc.torganizer.core.entities.Discipline;
-import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.core.entities.Squad;
-import org.cc.torganizer.core.entities.Tournament;
+
+import org.cc.torganizer.core.entities.*;
 import org.cc.torganizer.rest.json.DisciplineJsonConverter;
 import org.cc.torganizer.rest.json.PlayerJsonConverter;
 import org.cc.torganizer.rest.json.SquadJsonConverter;
@@ -124,9 +122,28 @@ public class TournamentsResource extends AbstractResource {
     return pConverter.toJsonArray(players);
   }
 
+  /**
+   * Getting all opponents, which can be assigned to a given discipline for the tournament.   *
+   */
+  @GET
+  @Path("/{id}/assignable-opponents")
+  public JsonArray getAssignableOpponents(@PathParam("id") Long tournamentId, @QueryParam("disciplineId") Integer disciplineId) {
+    // load discipline with restrictions
+    TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery("Discipline.findById", Discipline.class);
+    namedQuery.setParameter("id", disciplineId);
+    Discipline discipline = namedQuery.getSingleResult();
+
+    // load opponents
+    // OpponentType opponentType = discipline.
+
+    // filter opponents
+
+    return null;
+  }
+
   @POST
   @Path("/{tid}/players")
-  public JsonObject players(@PathParam("tid") Long tournamentId, @QueryParam("pid") Long playerId) {
+  public JsonObject addPlayer(@PathParam("tid") Long tournamentId, @QueryParam("pid") Long playerId) {
     // load player
     TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
     namedQuery.setParameter("id", playerId);

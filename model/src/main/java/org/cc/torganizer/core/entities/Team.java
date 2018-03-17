@@ -50,4 +50,9 @@ public class Team extends Opponent {
 
     return players;
   }
+
+  @Override
+  public OpponentType getOpponentType() {
+    return OpponentType.TEAM;
+  }
 }

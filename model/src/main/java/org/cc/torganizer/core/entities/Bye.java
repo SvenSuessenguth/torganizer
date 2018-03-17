@@ -41,4 +41,9 @@ public class Bye
 
     return byes;
   }
+
+  @Override
+  public OpponentType getOpponentType() {
+    return null;
+  }
 }

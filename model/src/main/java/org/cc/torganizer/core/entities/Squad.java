@@ -39,4 +39,8 @@ public class Squad extends Opponent {
   public void setPlayers(Set<Player> newPlayers) {
     this.players = newPlayers;
   }
+
+  public OpponentType getOpponentType(){
+    return OpponentType.SQUAD;
+  }
 }

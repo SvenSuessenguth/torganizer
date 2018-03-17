@@ -2,9 +2,8 @@ package org.cc.torganizer.persistence;
 
 import java.util.List;
 import javax.persistence.Query;
-import org.cc.torganizer.core.entities.Discipline;
-import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.core.entities.Squad;
+
+import org.cc.torganizer.core.entities.*;
 import org.hamcrest.MatcherAssert;
 import static org.hamcrest.MatcherAssert.assertThat;
 import org.hamcrest.Matchers;
@@ -90,5 +89,24 @@ public class TournamentsJpaTest extends AbstractDbUnitJpaTest {
     List<Discipline> disciplines = query.getResultList();
 
     assertThat(disciplines, hasSize(1));
+  }
+
+  @Test
+  public void testFindByOpponentType_Player() {
+    Query query = entityManager.createNamedQuery("Tournament.findOpponentsByType", Opponent.class);
+    query.setParameter("id", 1L);
+    query.setParameter("opponentType", OpponentType.PLAYER.getOpponentClass());
+    List<Opponent> opponents = query.getResultList();
+
+    assertThat(opponents, hasSize(2));
+  }
+  @Test
+  public void testFindByOpponentType_Squad() {
+    Query query = entityManager.createNamedQuery("Tournament.findOpponentsByType", Opponent.class);
+    query.setParameter("id", 1L);
+    query.setParameter("opponentType", OpponentType.SQUAD.getOpponentClass());
+    List<Opponent> opponents = query.getResultList();
+
+    assertThat(opponents, hasSize(1));
   }
 }

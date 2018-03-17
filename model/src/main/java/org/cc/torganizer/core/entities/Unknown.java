@@ -20,4 +20,9 @@ public class Unknown extends Opponent {
   public Set<Player> getPlayers() {
     return Collections.emptySet();
   }
+
+  @Override
+  public OpponentType getOpponentType() {
+    return null;
+  }
 }

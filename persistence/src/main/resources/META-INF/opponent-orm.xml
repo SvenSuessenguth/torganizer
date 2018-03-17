@@ -71,4 +71,9 @@
     <discriminator-value>B</discriminator-value>
   </entity>
 
+  <entity class="org.cc.torganizer.core.entities.Unknown" access="FIELD">
+    <table name="UNKNOWNS" />
+    <discriminator-value>U</discriminator-value>
+  </entity>
+
 </entity-mappings>

@@ -16,6 +16,8 @@ public abstract class Opponent extends Entity {
 	 */  
 	public abstract Set<Player> getPlayers();
 
+	public abstract OpponentType getOpponentType();
+
 	public Status getStatus() {
 		return status;
 	}

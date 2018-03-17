@@ -22,6 +22,9 @@
   <named-query name="Tournament.countSquads">
     <query>SELECT count(s) FROM Squad s, Tournament t WHERE t.id = :id AND s MEMBER OF t.opponents</query>
   </named-query>
+  <named-query name="Tournament.findOpponentsByType">
+    <query>SELECT o FROM Opponent o, Tournament t WHERE t.id = :id AND o MEMBER OF t.opponents and TYPE(o) = :opponentType</query>
+  </named-query>
   <named-query name="Tournament.findDisciplines">
     <query>SELECT d FROM Discipline d, Tournament t WHERE t.id = :id AND d MEMBER OF t.disciplines</query>
   </named-query>

@@ -85,4 +85,8 @@ public class Player extends Opponent {
 
     return isGenderSet;
   }
+
+  public OpponentType getOpponentType(){
+    return OpponentType.PLAYER;
+  }
 }
