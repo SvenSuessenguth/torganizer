@@ -1,11 +1,9 @@
 package org.cc.torganizer.core.entities;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-
 import org.cc.torganizer.core.comparators.PositionalComparator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Eine Group sammelt Opponents zusammen. Innerhalb einer Group werden die
