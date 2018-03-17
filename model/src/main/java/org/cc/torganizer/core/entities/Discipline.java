@@ -1,12 +1,9 @@
 package org.cc.torganizer.core.entities;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
+
 import static java.util.Collections.unmodifiableList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+
 import org.cc.torganizer.core.exceptions.RestrictionException;
 
 /**
@@ -162,10 +159,9 @@ public class Discipline extends Entity {
     // 1. AgeRestriction
     // 2. GenderRestriction
     // 3. OpponentTypeRestriction
-    List<Restriction> orderedRestrictions = new ArrayList<>();
-    orderedRestrictions.addAll(this.restrictions);
+    List<Restriction> orderedRestrictions = new ArrayList<>(this.restrictions);
 
-    Collections.sort(orderedRestrictions, (Restriction o1, Restriction o2) -> o1.getDiscriminator().getId().compareTo(o2.getDiscriminator().getId()));
+    orderedRestrictions.sort(Comparator.comparing(o -> o.getDiscriminator().getId()));
 
     return orderedRestrictions;
   }

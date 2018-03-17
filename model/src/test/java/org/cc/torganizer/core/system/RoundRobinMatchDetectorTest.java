@@ -28,7 +28,7 @@ public class RoundRobinMatchDetectorTest {
     rrmd = new RoundRobinMatchDetector(group);
 
     // 5 player
-    players = new ArrayList<Opponent>();
+    players = new ArrayList<>();
     players.add(new Player("p0", "p0"));
     players.add(new Player("p1", "p1"));
     players.add(new Player("p2", "p2"));
@@ -36,7 +36,7 @@ public class RoundRobinMatchDetectorTest {
     players.add(new Player("p4", "p4"));
 
     // 5 Teams
-    teams = new ArrayList<Opponent>();
+    teams = new ArrayList<>();
     for (int i = 0; i < 5; i++) {
       Team team = new Team();
       for (int j = 0; j < 3; j++) {

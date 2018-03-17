@@ -49,7 +49,7 @@ public class TournamentsJpaTest extends AbstractDbUnitJpaTest {
 
   @Test
   public void testFindPlayers() {
-    Query query = entityManager.createNamedQuery("Tournament.findPlayers");
+    Query query = entityManager.createNamedQuery("Tournament.findPlayers", Player.class);
     query.setParameter("id", 1L);
     List<Player> players = query.getResultList();
 
@@ -58,7 +58,7 @@ public class TournamentsJpaTest extends AbstractDbUnitJpaTest {
 
   @Test
   public void testFindSquads() {
-    Query query = entityManager.createNamedQuery("Tournament.findSquads");
+    Query query = entityManager.createNamedQuery("Tournament.findSquads", Squad.class);
     query.setParameter("id", 1L);
     List<Squad> squads = query.getResultList();
 
@@ -67,7 +67,7 @@ public class TournamentsJpaTest extends AbstractDbUnitJpaTest {
 
   @Test
   public void testFindPlayers_none() {
-    Query query = entityManager.createNamedQuery("Tournament.findPlayers");
+    Query query = entityManager.createNamedQuery("Tournament.findPlayers", Player.class);
     query.setParameter("id", 2L);
     List<Player> players = query.getResultList();
 
@@ -76,7 +76,7 @@ public class TournamentsJpaTest extends AbstractDbUnitJpaTest {
 
   @Test
   public void testFindSquads_none() {
-    Query query = entityManager.createNamedQuery("Tournament.findSquads");
+    Query query = entityManager.createNamedQuery("Tournament.findSquads", Squad.class);
     query.setParameter("id", 2L);
     List<Squad> squads = query.getResultList();
 
@@ -85,11 +85,10 @@ public class TournamentsJpaTest extends AbstractDbUnitJpaTest {
 
   @Test
   public void testFindDisciplines() {
-    Query query = entityManager.createNamedQuery("Tournament.findDisciplines");
+    Query query = entityManager.createNamedQuery("Tournament.findDisciplines", Discipline.class);
     query.setParameter("id", 1L);
     List<Discipline> disciplines = query.getResultList();
 
     assertThat(disciplines, hasSize(1));
   }
-
 }

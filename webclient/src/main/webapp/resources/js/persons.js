@@ -18,7 +18,7 @@ function showPersonsTable(){
 	return response.json();
   }).then(function(data) {
     // [{"id":1,"firstName":"Marvin","lastName":"SÃ¼ssenguth","gender":"MALE","dateOfBirthISO":"2004-10-28"}, ]
-    showPersonsCount()
+    showPersonsCount();
     
     // bisherige Daten entfernen, damit keine doppelten Anzeigen erscheinen
     // https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript

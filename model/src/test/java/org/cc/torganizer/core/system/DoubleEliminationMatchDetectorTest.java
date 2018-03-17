@@ -56,14 +56,14 @@ public class DoubleEliminationMatchDetectorTest {
 
 	@Test
 	public void testAddMatchToListNull() {
-		List<Match> matches = new ArrayList<Match>();
+		List<Match> matches = new ArrayList<>();
 		demd.addMatchToList(matches, null);
 		assertTrue(matches.isEmpty());
 	}
 
 	@Test
 	public void testAddMatchToList() {
-		List<Match> matches = new ArrayList<Match>();
+		List<Match> matches = new ArrayList<>();
 		demd.addMatchToList(matches, new Match());
 		assertFalse(matches.isEmpty());
 	}
@@ -177,7 +177,7 @@ public class DoubleEliminationMatchDetectorTest {
 		int splitFactor = new Double(Math.pow(2.0, level - 1.0)).intValue();
 		int reverseFactor = (level + 1) % 2;
 
-		List<Opponent> losersOnLevel = new ArrayList<Opponent>();
+		List<Opponent> losersOnLevel = new ArrayList<>();
 		for (int i = 0; i < playersInRound; i++) {
 			losersOnLevel.add(new Player("" + i, ""));
 		}

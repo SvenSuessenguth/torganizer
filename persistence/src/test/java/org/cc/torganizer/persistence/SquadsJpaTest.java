@@ -49,7 +49,7 @@ public class SquadsJpaTest extends AbstractDbUnitJpaTest {
   
   @Test
   public void testFindPlayers() {
-    Query query = entityManager.createNamedQuery("Squad.findPlayers");
+    Query query = entityManager.createNamedQuery("Squad.findPlayers", Player.class);
     query.setParameter("id", 5L);
     List<Player> players = query.getResultList();
     

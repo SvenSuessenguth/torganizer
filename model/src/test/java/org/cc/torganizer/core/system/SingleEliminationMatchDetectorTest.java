@@ -89,7 +89,7 @@ public class SingleEliminationMatchDetectorTest {
 	@Test
 	public void testCountLevels8() {
 
-		List<Opponent> o = new ArrayList<Opponent>();
+		List<Opponent> o = new ArrayList<>();
 		for (int i = 0; i < 8; i += 1) {
 			o.add(new Player());
 		}
@@ -103,7 +103,7 @@ public class SingleEliminationMatchDetectorTest {
 	@Test
 	public void testCountLevels128() {
 
-		List<Opponent> o = new ArrayList<Opponent>();
+		List<Opponent> o = new ArrayList<>();
 		for (int i = 0; i < 128; i += 1) {
 			o.add(new Player());
 		}
@@ -117,7 +117,7 @@ public class SingleEliminationMatchDetectorTest {
 	@Test
 	public void testCountLevels0() {
 
-		List<Opponent> o = new ArrayList<Opponent>();
+		List<Opponent> o = new ArrayList<>();
 		for (int i = 0; i < 0; i += 1) {
 			o.add(new Player());
 		}
@@ -131,7 +131,7 @@ public class SingleEliminationMatchDetectorTest {
 	@Test
 	public void testCountLevels2() {
 
-		List<Opponent> o = new ArrayList<Opponent>();
+		List<Opponent> o = new ArrayList<>();
 		for (int i = 0; i < 2; i += 1) {
 			o.add(new Player());
 		}

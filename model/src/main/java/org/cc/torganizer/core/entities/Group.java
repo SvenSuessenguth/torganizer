@@ -39,7 +39,7 @@ public class Group extends Entity
    */
   public List<PositionalOpponent> getPositionalOpponents() {
     // sortieren nach Position
-    Collections.sort(positionalOpponents, new PositionalComparator());
+    positionalOpponents.sort(new PositionalComparator());
 
     return positionalOpponents;
   }
@@ -77,7 +77,7 @@ public class Group extends Entity
    */
   public List<Opponent> getOpponents() {
     List<Opponent> result = new ArrayList<>();
-    Collections.sort(getPositionalOpponents(), new PositionalComparator());
+    getPositionalOpponents().sort(new PositionalComparator());
 
     for (PositionalOpponent io : getPositionalOpponents()) {
       result.add(io.getOpponent());

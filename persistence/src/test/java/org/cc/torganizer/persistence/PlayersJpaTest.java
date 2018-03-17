@@ -23,9 +23,7 @@ public class PlayersJpaTest extends AbstractDbUnitJpaTest {
     assertThat(players, hasSize(2));
     
     // status von opponent 2 checken (inactive)
-    players.stream().filter((player) -> (player.getId()==2L)).forEachOrdered((player) -> {
-      assertThat(player.getStatus(), is(INACTIVE));
-    });
+    players.stream().filter((player) -> (player.getId()==2L)).forEachOrdered((player) -> assertThat(player.getStatus(), is(INACTIVE)));
     
   }
 }
