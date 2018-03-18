@@ -1,7 +1,13 @@
 package org.cc.torganizer.rest;
 
-import java.util.List;
-import java.util.Set;
+import org.cc.torganizer.core.entities.Discipline;
+import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.OpponentType;
+import org.cc.torganizer.core.entities.Restriction;
+import org.cc.torganizer.rest.json.DisciplineJsonConverter;
+import org.cc.torganizer.rest.json.ModelJsonConverter;
+import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -11,22 +17,9 @@ import javax.json.JsonObject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import org.cc.torganizer.core.entities.Discipline;
-import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.OpponentType;
-import org.cc.torganizer.core.entities.Restriction;
-import static org.cc.torganizer.rest.AbstractResource.DEFAULT_OFFSET;
-import org.cc.torganizer.rest.json.DisciplineJsonConverter;
-import org.cc.torganizer.rest.json.ModelJsonConverter;
-import org.cc.torganizer.rest.json.OpponentJsonConverter;
-import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
+import javax.ws.rs.*;
+import java.util.List;
+import java.util.Set;
 
 @Stateless
 @Path("/disciplines")
@@ -108,15 +101,15 @@ public class DisciplinesResource extends AbstractResource {
 
     // all opponents must have same type
     OpponentType opponentType = null;
-    if(opponents.size()>0){
+    if(opponents.isEmpty()){
+      JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+      result = arrayBuilder.build();
+    }
+    else{
       Opponent opponent = opponents.iterator().next();
       opponentType = opponent.getOpponentType();
       ModelJsonConverter oConverter = opponentJsonConverterProvider.getConverter(opponentType);
       result = oConverter.toJsonArray(opponents);
-    }
-    else{
-      JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-      result = arrayBuilder.build();
     }
 
     return result;
