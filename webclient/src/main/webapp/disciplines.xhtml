@@ -13,8 +13,19 @@
       <h:outputScript name="js/disciplinesResource.js" target="head" />
       <h:outputScript name="js/disciplines.js" target="head" />
 
+      <link rel="import" href="custom/opponents-table/opponents-table.html"></link>
 
       Disciplines <select id="disciplines" onchange="disciplines.showSelectDiscipline()"/><hr />
+      <hr />
+      assignable opponents
+      <opponents-table id="assignable-opponents-table" rows="10" data="[]" >
+      </opponents-table>
+      <hr />
+      opponents
+      <opponents-table id="opponents-table" rows="10" data="[]" >
+      </opponents-table>
+      <hr />
+
 
       <span id="disciplinesData">
         <label for="name">Name</label><input id="name" value="" />

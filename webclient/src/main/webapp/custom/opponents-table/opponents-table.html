@@ -1,0 +1,38 @@
+<template id="opponents-table-template">
+  <!--
+   | https://github.com/TakayoshiKochi/deprecate-style-in-html-imports
+   +-->
+  <style>
+    table{
+      border: 1px solid Gray;
+      border-collapse:collapse;  
+    }
+    tr:nth-child(odd){
+      background-color: #F4F4F4;
+    }
+    tr:nth-child(even){
+      background-color: #FFFFFF;
+    }
+    th{
+      background-color: #FECEA8;
+      border: 1px solid Gray;
+      padding: 2px 20px;
+    }
+    td{
+      border: 1px solid Gray;
+      padding: 2px 20px;
+    }
+  </style>
+  
+  <table id="opponents-table">
+    <thead>
+      <tr>
+        <th>Vornamen</th><th>Nachnamen</th><th>Vereine</th>
+      </tr>      
+    </thead>
+    <tbody id="opponents-table-body">
+    </tbody>
+  </table>
+</template>
+
+<script type="text/javascript" src="opponents-table.js"></script>

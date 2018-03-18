@@ -57,13 +57,20 @@ class Disciplines {
   showSelectDiscipline() {
     var dSelect = document.getElementById("disciplines");
     var disciplineId = dSelect.options[dSelect.selectedIndex].value;
+    var tournamentId = tournaments.getCurrentTournamentId();
 
     disciplinesResource.readSingle(disciplineId, this.showSelectedDisciplineResolve, this.showSelectedDisciplineReject);
+    tournamentsResource.assignableOpponents(tournamentId, disciplineId, this.showAssignableOpponentsResolve, this.showAssignableOpponentsReject);
   }
   showSelectedDisciplineResolve(discipline) {
     disciplines.disciplineToForm(discipline);
   }
   showSelectedDisciplineReject(json) {}
+
+  showAssignableOpponentsResolve(json){
+    document.getElementById("assignable-opponents-table").setAttribute("data", JSON.stringify(json));
+  }
+  showAssignableOpponentsReject(json){}
 
   //--------------------------------------------------------------------------------------------------------------------
   //
