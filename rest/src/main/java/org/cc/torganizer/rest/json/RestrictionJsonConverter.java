@@ -39,9 +39,6 @@ import org.cc.torganizer.core.entities.Restriction;
 @RequestScoped
 public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
 
-  public RestrictionJsonConverter() {
-  }
-
   @Override
   public JsonObject toJsonObject(Restriction restriction) {
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
