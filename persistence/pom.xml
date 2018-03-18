@@ -28,7 +28,8 @@
       <groupId>org.dbunit</groupId><artifactId>dbunit</artifactId>
       <version>2.5.4</version><scope>test</scope>
     </dependency>
-    <dependency>
+	
+	<dependency>
       <groupId>org.hibernate</groupId><artifactId>hibernate-core</artifactId>
       <version>5.2.15.Final</version><scope>test</scope>
     </dependency>
@@ -36,9 +37,10 @@
       <groupId>org.hibernate</groupId><artifactId>hibernate-entitymanager</artifactId>
       <version>5.2.15.Final</version><scope>test</scope>
     </dependency>
+	
     <!-- 
      | used for testing jpa
-     | @see persistence.xml under test
+     | @see persistence.xml
     <dependency>
       <groupId>org.apache.derby</groupId><artifactId>derby</artifactId>
       <version>10.14.1.0</version><scope>test</scope>

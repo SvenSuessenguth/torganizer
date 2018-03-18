@@ -165,4 +165,14 @@ public class Discipline extends Entity {
 
     return orderedRestrictions;
   }
+
+  public Restriction getRestriction(Restriction.Discriminator discriminator){
+    for (Restriction restriction : restrictions){
+      if(Objects.equals(discriminator, restriction.getDiscriminator())){
+        return restriction;
+      }
+    }
+
+    return null;
+  }
 }

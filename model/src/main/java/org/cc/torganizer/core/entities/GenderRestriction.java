@@ -17,6 +17,10 @@ public class GenderRestriction
     // gem. Bean-Spec.
   }
 
+  public GenderRestriction(Gender gender) {
+    this.gender = gender;
+  }
+
   /**
    * {@inheritDoc}
    */

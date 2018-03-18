@@ -18,6 +18,10 @@ public class OpponentTypeRestriction
     // gem. Bean-Spec.
   }
 
+  public OpponentTypeRestriction(OpponentType opponentType) {
+    this.opponentType = opponentType;
+  }
+
   /**
    * {@inheritDoc}
    */

@@ -93,20 +93,10 @@ public class TournamentsJpaTest extends AbstractDbUnitJpaTest {
 
   @Test
   public void testFindByOpponentType_Player() {
-    Query query = entityManager.createNamedQuery("Tournament.findOpponentsByType", Opponent.class);
+    Query query = entityManager.createNamedQuery("Tournament.findOpponents", Opponent.class);
     query.setParameter("id", 1L);
-    query.setParameter("opponentType", OpponentType.PLAYER.getOpponentClass());
     List<Opponent> opponents = query.getResultList();
 
-    assertThat(opponents, hasSize(2));
-  }
-  @Test
-  public void testFindByOpponentType_Squad() {
-    Query query = entityManager.createNamedQuery("Tournament.findOpponentsByType", Opponent.class);
-    query.setParameter("id", 1L);
-    query.setParameter("opponentType", OpponentType.SQUAD.getOpponentClass());
-    List<Opponent> opponents = query.getResultList();
-
-    assertThat(opponents, hasSize(1));
+    assertThat(opponents, hasSize(3));
   }
 }

@@ -1,6 +1,9 @@
 package org.cc.torganizer.rest;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.json.JsonArray;
@@ -20,10 +23,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
 import org.cc.torganizer.core.entities.*;
-import org.cc.torganizer.rest.json.DisciplineJsonConverter;
-import org.cc.torganizer.rest.json.PlayerJsonConverter;
-import org.cc.torganizer.rest.json.SquadJsonConverter;
-import org.cc.torganizer.rest.json.TournamentJsonConverter;
+import org.cc.torganizer.rest.json.*;
+
+import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
+import static org.cc.torganizer.core.entities.OpponentType.SQUAD;
+import static org.cc.torganizer.core.entities.Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION;
 
 @Stateless
 @Path("/tournaments")
@@ -123,7 +127,7 @@ public class TournamentsResource extends AbstractResource {
   }
 
   /**
-   * Getting all opponents, which can be assigned to a given discipline for the tournament.   *
+   * Getting all opponents, which can be assigned to a given discipline for the tournament.
    */
   @GET
   @Path("/{id}/assignable-opponents")
@@ -132,13 +136,50 @@ public class TournamentsResource extends AbstractResource {
     TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery("Discipline.findById", Discipline.class);
     namedQuery.setParameter("id", disciplineId);
     Discipline discipline = namedQuery.getSingleResult();
+    Set<Opponent> disciplineOpponents = discipline.getOpponents();
+    OpponentTypeRestriction otRestriction = (OpponentTypeRestriction) discipline.getRestriction(OPPONENT_TYPE_RESTRICTION);
 
-    // load opponents
-    // OpponentType opponentType = discipline.
+    // load tournaments opponents
+    TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME, Tournament.class);
+    namedTournamentQuery.setParameter("id", tournamentId);
+    Tournament tournament = namedTournamentQuery.getSingleResult();
+    Set<Opponent> opponents = tournament.getOpponents();
 
+    // TODO put logic to model/service
     // filter opponents
+    List<Opponent> assignableOpponents = new ArrayList<>();
+    Collection<Restriction> restrictions = discipline.getRestrictions();
+    for(Opponent opponent:opponents){
+      boolean restricted = false;
 
-    return null;
+      // restricted by restrition
+      for(Restriction restriction : restrictions){
+        if(restriction.isRestricted(opponent)){
+          restricted = true;
+          break;
+        }
+      }
+
+      // already in discipline
+      if(disciplineOpponents.contains(opponent)){
+        restricted = true;
+      }
+
+      if(!restricted){
+        assignableOpponents.add(opponent);
+      }
+    }
+
+    // TODO introduce OpponentConverter
+    ModelJsonConverter converter = null;
+    if(PLAYER.equals(otRestriction.getOpponentType())){
+      converter = pConverter;
+    }
+    if(SQUAD.equals(otRestriction.getOpponentType())){
+      converter = sConverter;
+    }
+
+    return converter.toJsonArray(assignableOpponents);
   }
 
   @POST

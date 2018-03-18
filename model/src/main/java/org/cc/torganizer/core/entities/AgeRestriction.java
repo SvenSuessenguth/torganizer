@@ -30,6 +30,11 @@ public class AgeRestriction extends Restriction {
     // gem. Bean-Spec.
   }
 
+  public AgeRestriction(LocalDate maxDateOfBirth, LocalDate minDateOfBirth) {
+    this.maxDateOfBirth = maxDateOfBirth;
+    this.minDateOfBirth = minDateOfBirth;
+  }
+
   public LocalDate getMaxDateOfBirth() {
     return maxDateOfBirth;
   }
