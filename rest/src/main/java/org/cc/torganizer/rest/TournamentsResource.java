@@ -1,10 +1,8 @@
 package org.cc.torganizer.rest;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import org.cc.torganizer.core.entities.*;
+import org.cc.torganizer.rest.json.*;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.json.JsonArray;
@@ -13,18 +11,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-
-import org.cc.torganizer.core.entities.*;
-import org.cc.torganizer.rest.json.*;
+import javax.ws.rs.*;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
 import static org.cc.torganizer.core.entities.OpponentType.SQUAD;
@@ -135,7 +125,6 @@ public class TournamentsResource extends AbstractResource {
     TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery("Discipline.findById", Discipline.class);
     namedQuery.setParameter("id", disciplineId);
     Discipline discipline = namedQuery.getSingleResult();
-    Set<Opponent> disciplineOpponents = discipline.getOpponents();
     OpponentTypeRestriction otRestriction = (OpponentTypeRestriction) discipline.getRestriction(OPPONENT_TYPE_RESTRICTION);
 
     // load tournaments opponents
@@ -147,7 +136,7 @@ public class TournamentsResource extends AbstractResource {
     // filter opponents
     List<Opponent> assignableOpponents = opponents
       .stream()
-      .filter(opponent -> discipline.isAssignable(opponent))
+      .filter(discipline::isAssignable)
       .collect(Collectors.toList());
 
     OpponentType opponentType = otRestriction.getOpponentType();
