@@ -91,7 +91,7 @@ public class DisciplinesResource extends AbstractResource {
 
   @GET
   @Path("/{id}/opponents")
-  public JsonArray opponents(@PathParam("id") Long id) {
+  public JsonArray getOpponents(@PathParam("id") Long id) {
     TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery(DISCIPLINE_FIND_BY_ID_QUERY_NAME, Discipline.class);
     namedQuery.setParameter("id", id);
     Discipline discipline = namedQuery.getSingleResult();
@@ -116,7 +116,7 @@ public class DisciplinesResource extends AbstractResource {
   }
 
   @POST
-  @Path("/{id}/opponents/add")
+  @Path("/{id}/opponents")
   public JsonObject addOpponent(@PathParam("id") Long disciplineId, @QueryParam("opponentId") Long opponentId) {
     // load Opponent
     TypedQuery<Opponent> namedQuery = entityManager.createNamedQuery("Opponent.findById", Opponent.class);

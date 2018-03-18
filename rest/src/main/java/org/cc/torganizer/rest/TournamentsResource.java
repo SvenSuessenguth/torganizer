@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.json.JsonArray;
@@ -44,10 +45,7 @@ public class TournamentsResource extends AbstractResource {
   private TournamentJsonConverter tConverter;
 
   @Inject
-  private PlayerJsonConverter pConverter;
-
-  @Inject
-  private SquadJsonConverter sConverter;
+  private OpponentJsonConverterProvider ocProvider;
 
   @Inject
   private DisciplineJsonConverter dConverter;
@@ -123,6 +121,7 @@ public class TournamentsResource extends AbstractResource {
 
     List<Player> players = namedQuery.getResultList();
 
+    PlayerJsonConverter pConverter = (PlayerJsonConverter) ocProvider.getConverter(PLAYER);
     return pConverter.toJsonArray(players);
   }
 
@@ -145,39 +144,14 @@ public class TournamentsResource extends AbstractResource {
     Tournament tournament = namedTournamentQuery.getSingleResult();
     Set<Opponent> opponents = tournament.getOpponents();
 
-    // TODO put logic to model/service
     // filter opponents
-    List<Opponent> assignableOpponents = new ArrayList<>();
-    Collection<Restriction> restrictions = discipline.getRestrictions();
-    for(Opponent opponent:opponents){
-      boolean restricted = false;
+    List<Opponent> assignableOpponents = opponents
+      .stream()
+      .filter(opponent -> discipline.isAssignable(opponent))
+      .collect(Collectors.toList());
 
-      // restricted by restrition
-      for(Restriction restriction : restrictions){
-        if(restriction.isRestricted(opponent)){
-          restricted = true;
-          break;
-        }
-      }
-
-      // already in discipline
-      if(disciplineOpponents.contains(opponent)){
-        restricted = true;
-      }
-
-      if(!restricted){
-        assignableOpponents.add(opponent);
-      }
-    }
-
-    // TODO introduce OpponentConverter
-    ModelJsonConverter converter = null;
-    if(PLAYER.equals(otRestriction.getOpponentType())){
-      converter = pConverter;
-    }
-    if(SQUAD.equals(otRestriction.getOpponentType())){
-      converter = sConverter;
-    }
+    OpponentType opponentType = otRestriction.getOpponentType();
+    ModelJsonConverter converter = ocProvider.getConverter(opponentType);
 
     return converter.toJsonArray(assignableOpponents);
   }
@@ -202,15 +176,12 @@ public class TournamentsResource extends AbstractResource {
     // to get the id
     entityManager.flush();
 
+    PlayerJsonConverter pConverter = (PlayerJsonConverter) ocProvider.getConverter(PLAYER);
     return pConverter.toJsonObject(player);
   }
 
   /**
    * Remove player from tournament. The player is not deleted at all.
-   *
-   * @param tournamentId
-   * @param playerId
-   * @return
    */
   @DELETE
   @Path("/{tid}/players/{pid}")
@@ -232,6 +203,7 @@ public class TournamentsResource extends AbstractResource {
     // to get the id
     entityManager.flush();
 
+    PlayerJsonConverter pConverter = (PlayerJsonConverter) ocProvider.getConverter(PLAYER);
     return pConverter.toJsonObject(player);
   }
 
@@ -258,6 +230,7 @@ public class TournamentsResource extends AbstractResource {
     namedQuery.setMaxResults(length);
     List<Squad> squads = namedQuery.getResultList();
 
+    SquadJsonConverter sConverter = (SquadJsonConverter) ocProvider.getConverter(SQUAD);
     return sConverter.toJsonArray(squads);
   }
 
@@ -279,6 +252,7 @@ public class TournamentsResource extends AbstractResource {
     tournament.getOpponents().add(squad);
     entityManager.persist(tournament);
 
+    SquadJsonConverter sConverter = (SquadJsonConverter) ocProvider.getConverter(SQUAD);
     return sConverter.toJsonObject(squad);
   }
 

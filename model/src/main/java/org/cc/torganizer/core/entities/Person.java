@@ -24,6 +24,13 @@ public class Person extends Entity {
     this.lastName = newLastName;
   }
 
+  public Person(String firstName, String lastName, LocalDate dateOfBirth, Gender gender) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.dateOfBirth = dateOfBirth;
+    this.gender = gender;
+  }
+
   public String getFirstName() {
     return firstName;
   }
