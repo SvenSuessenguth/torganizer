@@ -1,9 +1,12 @@
 package org.cc.torganizer.rest;
 
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.json.Json;
 import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,9 +20,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.OpponentType;
 import org.cc.torganizer.core.entities.Restriction;
 import static org.cc.torganizer.rest.AbstractResource.DEFAULT_OFFSET;
 import org.cc.torganizer.rest.json.DisciplineJsonConverter;
+import org.cc.torganizer.rest.json.ModelJsonConverter;
+import org.cc.torganizer.rest.json.OpponentJsonConverter;
+import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
 
 @Stateless
 @Path("/disciplines")
@@ -31,6 +38,9 @@ public class DisciplinesResource extends AbstractResource {
 
   @Inject
   private DisciplineJsonConverter converter;
+
+  @Inject
+  private OpponentJsonConverterProvider opponentJsonConverterProvider;
 
   @PersistenceContext(name = "torganizer")
   EntityManager entityManager;
@@ -88,17 +98,33 @@ public class DisciplinesResource extends AbstractResource {
 
   @GET
   @Path("/{id}/opponents")
-  public JsonObject opponents(@PathParam("id") Long id) {
-    TypedQuery<Opponent> namedQuery = entityManager.createNamedQuery("Discipline.findOpponents", Opponent.class);
+  public JsonArray opponents(@PathParam("id") Long id) {
+    TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery(DISCIPLINE_FIND_BY_ID_QUERY_NAME, Discipline.class);
     namedQuery.setParameter("id", id);
-    List<Opponent> opponents = namedQuery.getResultList();
+    Discipline discipline = namedQuery.getSingleResult();
+    Set<Opponent> opponents = discipline.getOpponents();
 
-    return null;
+    JsonArray result = null;
+
+    // all opponents must have same type
+    OpponentType opponentType = null;
+    if(opponents.size()>0){
+      Opponent opponent = opponents.iterator().next();
+      opponentType = opponent.getOpponentType();
+      ModelJsonConverter oConverter = opponentJsonConverterProvider.getConverter(opponentType);
+      result = oConverter.toJsonArray(opponents);
+    }
+    else{
+      JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+      result = arrayBuilder.build();
+    }
+
+    return result;
   }
 
-  @GET
+  @POST
   @Path("/{id}/opponents/add")
-  public JsonObject opponents(@PathParam("id") Long disciplineId, @QueryParam("opponentId") Long opponentId) {
+  public JsonObject addOpponent(@PathParam("id") Long disciplineId, @QueryParam("opponentId") Long opponentId) {
     // load Opponent
     TypedQuery<Opponent> namedQuery = entityManager.createNamedQuery("Opponent.findById", Opponent.class);
     namedQuery.setParameter("id", opponentId);
@@ -116,6 +142,6 @@ public class DisciplinesResource extends AbstractResource {
     discipline.getOpponents().add(opponentToAdd);
     entityManager.persist(discipline);
 
-    return null;
+    return converter.toJsonObject(discipline);
   }
 }

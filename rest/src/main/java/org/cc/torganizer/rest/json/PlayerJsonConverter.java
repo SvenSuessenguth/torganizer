@@ -14,15 +14,20 @@ import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
+
+import org.cc.torganizer.core.entities.OpponentType;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Status;
+
+import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
+import static org.cc.torganizer.core.entities.OpponentType.SQUAD;
 
 /**
  * @author svens
  */
 @RequestScoped
-public class PlayerJsonConverter extends ModelJsonConverter<Player>{
+public class PlayerJsonConverter extends ModelJsonConverter<Player> implements OpponentJsonConverter{
 
   @Inject  
   private PersonJsonConverter personConverter;
@@ -88,5 +93,10 @@ public class PlayerJsonConverter extends ModelJsonConverter<Player>{
     jsonArray.forEach((JsonValue arrayValue) -> players.add(toModel((JsonObject)arrayValue)));
     
     return players;
+  }
+
+  @Override
+  public OpponentType getOpponentType() {
+    return PLAYER;
   }
 }
