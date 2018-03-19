@@ -1,6 +1,5 @@
 package org.cc.torganizer.core.comparators;
 
-import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Player;
 
 import java.io.Serializable;
