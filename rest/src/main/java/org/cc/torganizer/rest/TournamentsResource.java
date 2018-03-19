@@ -1,5 +1,6 @@
 package org.cc.torganizer.rest;
 
+import org.cc.torganizer.core.comparators.OpponentByNameComparator;
 import org.cc.torganizer.core.entities.*;
 import org.cc.torganizer.rest.json.*;
 
@@ -12,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.*;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -120,7 +122,15 @@ public class TournamentsResource extends AbstractResource {
    */
   @GET
   @Path("/{id}/assignable-opponents")
-  public JsonArray getAssignableOpponents(@PathParam("id") Long tournamentId, @QueryParam("disciplineId") Integer disciplineId) {
+  public JsonArray getAssignableOpponents(@PathParam("id") Long tournamentId, @QueryParam("disciplineId") Integer disciplineId,
+                                          @QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
+
+    // JPQL in not using offset/length
+    if (offset == null || length == null) {
+      offset = DEFAULT_OFFSET;
+      length = DEFAULT_LENGTH;
+    }
+
     // load discipline with restrictions
     TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery("Discipline.findById", Discipline.class);
     namedQuery.setParameter("id", disciplineId);
@@ -138,6 +148,9 @@ public class TournamentsResource extends AbstractResource {
       .stream()
       .filter(discipline::isAssignable)
       .collect(Collectors.toList());
+
+    // sort and use offset/length
+    Collections.sort(assignableOpponents, new OpponentByNameComparator());
 
     OpponentType opponentType = otRestriction.getOpponentType();
     ModelJsonConverter converter = ocProvider.getConverter(opponentType);
