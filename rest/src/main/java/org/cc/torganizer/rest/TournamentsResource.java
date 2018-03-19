@@ -1,7 +1,6 @@
 package org.cc.torganizer.rest;
 
 import org.cc.torganizer.core.comparators.OpponentByNameComparator;
-import org.cc.torganizer.core.comparators.PlayerByNameComparator;
 import org.cc.torganizer.core.entities.*;
 import org.cc.torganizer.rest.json.*;
 
