@@ -1,5 +1,6 @@
 package org.cc.torganizer.rest;
 
+import java.util.Collections;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -19,6 +20,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+
+import org.cc.torganizer.core.comparators.PlayerByNameComparator;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 import static org.cc.torganizer.rest.AbstractResource.DEFAULT_LENGTH;

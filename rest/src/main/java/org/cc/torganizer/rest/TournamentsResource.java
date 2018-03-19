@@ -1,6 +1,7 @@
 package org.cc.torganizer.rest;
 
 import org.cc.torganizer.core.comparators.OpponentByNameComparator;
+import org.cc.torganizer.core.comparators.PlayerByNameComparator;
 import org.cc.torganizer.core.entities.*;
 import org.cc.torganizer.rest.json.*;
 
@@ -173,7 +174,8 @@ public class TournamentsResource extends AbstractResource {
     Tournament tournament = namedTournamentQuery.getSingleResult();
 
     // persist tournament
-    tournament.getOpponents().add(player);
+    Set<Opponent> opponents = tournament.getOpponents();
+    opponents.add(player);
     entityManager.persist(tournament);
     // to get the id
     entityManager.flush();
@@ -231,6 +233,7 @@ public class TournamentsResource extends AbstractResource {
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(length);
     List<Squad> squads = namedQuery.getResultList();
+    Collections.sort(squads, new OpponentByNameComparator());
 
     SquadJsonConverter sConverter = (SquadJsonConverter) ocProvider.getConverter(SQUAD);
     return sConverter.toJsonArray(squads);

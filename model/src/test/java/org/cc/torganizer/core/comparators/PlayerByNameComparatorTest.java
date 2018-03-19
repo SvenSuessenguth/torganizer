@@ -57,4 +57,13 @@ public class PlayerByNameComparatorTest {
 
     assertThat(c, is(1));
   }
+
+  @Test
+  public void compare_lowerAndUpperCase(){
+    Player p1 = new Player(new Person("A", "B"));
+    Player p2 = new Player(new Person("a", "b"));
+    int c = comparator.compare(p1, p2);
+
+    assertThat(c, is(0));
+  }
 }

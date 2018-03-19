@@ -1,10 +1,7 @@
 package org.cc.torganizer.rest.json;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -15,6 +12,7 @@ import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
 
+import org.cc.torganizer.core.comparators.PlayerByNameComparator;
 import org.cc.torganizer.core.entities.OpponentType;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
@@ -54,10 +52,13 @@ public class PlayerJsonConverter extends ModelJsonConverter<Player> implements O
 
   @Override
   public JsonArray toJsonArray(Collection<Player> players) {
+    List<Player> orderedPlayers = new ArrayList<>(players);
+    Collections.sort(orderedPlayers, new PlayerByNameComparator());
+
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonArrayBuilder arrayBuilder = factory.createArrayBuilder();
-    
-    players.forEach(player -> arrayBuilder.add(this.toJsonObject(player)) );
+
+    orderedPlayers.forEach(player -> arrayBuilder.add(this.toJsonObject(player)) );
     
     return arrayBuilder.build();
   }

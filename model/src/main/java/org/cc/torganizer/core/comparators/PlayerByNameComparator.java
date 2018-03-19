@@ -20,6 +20,9 @@ public class PlayerByNameComparator implements Comparator<Player>, Serializable 
       return 1;
     }
 
-    return o1.getPerson().getLastName().compareTo(o2.getPerson().getLastName());
+    String o1LastName = o1.getPerson().getLastName().toLowerCase();
+    String o2LastName = o2.getPerson().getLastName().toLowerCase();
+
+    return o1LastName.compareTo(o2LastName);
   }
 }
