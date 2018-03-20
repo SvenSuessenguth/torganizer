@@ -16,23 +16,24 @@
     
       <link rel="import" href="custom/players-table/players-table.html"></link>
       <link rel="import" href="custom/squads-table/squads-table.html"></link>
-      
+      <link rel="import" href="custom/opponents-table/opponents-table.html"></link>
+
         Alle Spieler:
-        <players-table id="all-players-table" rows="5" data="[]" > 
-        </players-table>
+        <opponents-table id="all-players-table" rows="5" data="[]" >
+        </opponents-table>
         <input type="submit" value="prev" onclick="squads.prevAllPlayers()" />
         <input type="submit" value="next" onclick="squads.nextAllPlayers()" />
         <hr />
         Spieler des Squad:
-        <players-table id="selected-players-table" rows="2" data="[]" > 
-        </players-table>
+        <opponents-table id="selected-players-table" rows="2" data="[]" >
+        </opponents-table>
         <input id="speichern" type="submit" value="save" onclick="squads.save()" />
         <input id="verwerfen" type="submit" value="cancel" onclick="squads.cancel()"/>
 
         <hr />
         Squads:
-        <squads-table id="all-squads-table" rows="10" data="[]" > 
-        </squads-table>
+        <opponents-table id="all-squads-table" rows="10" data="[]" >
+        </opponents-table>
         <input type="submit" value="prev" onclick="squads.prevAllSquads()" />
         <input type="submit" value="next" onclick="squads.nextAllSquads()" />
 
