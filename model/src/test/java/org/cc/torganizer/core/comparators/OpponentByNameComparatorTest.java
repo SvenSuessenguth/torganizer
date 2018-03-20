@@ -7,7 +7,9 @@ import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.*;
 
 public class OpponentByNameComparatorTest {
@@ -44,7 +46,7 @@ public class OpponentByNameComparatorTest {
 
     int c = comparator.compare(s1, s2);
 
-    assertThat(c, is(-1));
+    assertThat(c, is(greaterThan(0)));
   }
 
   @Test
@@ -55,7 +57,7 @@ public class OpponentByNameComparatorTest {
 
     int c = comparator.compare(s1, s2);
 
-    assertThat(c, is(1));
+    assertThat(c, is(lessThan(0)));
   }
 
   @Test
@@ -80,5 +82,19 @@ public class OpponentByNameComparatorTest {
     int c = comparator.compare(s1, s2);
 
     assertThat(c, is(1));
+  }
+
+  @Test
+  public void compare_firstIsNull(){
+    int actual = comparator.compare(null, new Squad());
+
+    assertThat(actual, is(greaterThan(0)));
+  }
+
+  @Test
+  public void compare_secondIsNull(){
+    int actual = comparator.compare(new Squad(), null);
+
+    assertThat(actual, is(lessThan(0)));
   }
 }
