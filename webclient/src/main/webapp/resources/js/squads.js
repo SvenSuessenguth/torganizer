@@ -17,22 +17,22 @@ class Squads {
   //
   //--------------------------------------------------------------------------------------------------------------------
   initSquads(){
-    var allSquadsLength = document.getElementById("all-squads-table").getAttribute("rows");
-    var tournamentId = tournaments.getCurrentTournamentId();    
-    sessionStorage.setItem("squads.all-squads-offset", 0);    
+    let allSquadsLength = document.getElementById("all-squads-table").getAttribute("rows");
+    let tournamentId = tournaments.getCurrentTournamentId();
+    sessionStorage.setItem("squads.all-squads-offset", "0");
     
     this.updateAllSquads(tournamentId, 0, allSquadsLength);
     
-    document.getElementById("all-squads-table").addEventListener("opponent-selected", this.squadSelectedFromAllSquads);
+    document.getElementById("all-squads-table").addEventListener("opponent-selected", Squads.squadSelectedFromAllSquads);
   }
 
-  squadSelectedFromAllSquads(event){
-    squadsResource.readSingle(event.detail, squads.showSquadResolve, squads.showSquadReject);
+  static squadSelectedFromAllSquads(event){
+    squadsResource.readSingle(event.detail, Squads.showSquadResolve, Squads.showSquadReject);
   }
-  showSquadResolve(json){
-    squads.squadToForm(json);
+  static showSquadResolve(json){
+    Squads.squadToForm(json);
   }
-  showSquadReject(json){}
+  static showSquadReject(json){}
 
   updateAllSquads(tournamentId, offset, rows){
     tournamentsResource.getSquads(tournamentId, offset, rows, this.updateAllSquadsResolve, this.updateAllSquadsReject);
@@ -43,9 +43,9 @@ class Squads {
   updateAllSquadsReject(json){ }
 
   prevAllSquads(){
-    var allSquadsRows = Number(document.getElementById("all-squads-table").getAttribute("rows"));
-    var tournamentId = tournaments.getCurrentTournamentId();
-    var allSquadsOffset = Number(sessionStorage.getItem("squads.all-squads-offset"));
+    let allSquadsRows = Number(document.getElementById("all-squads-table").getAttribute("rows"));
+    let tournamentId = tournaments.getCurrentTournamentId();
+    let allSquadsOffset = Number(sessionStorage.getItem("squads.all-squads-offset"));
     allSquadsOffset = allSquadsOffset - allSquadsRows;
     if(allSquadsOffset <0){
       allSquadsOffset = 0;
@@ -55,9 +55,9 @@ class Squads {
     this.updateAllSquads(tournamentId, allSquadsOffset, allSquadsRows);
   }
   nextAllSquads(){
-    var allSquadsRows = Number(document.getElementById("all-squads-table").getAttribute("rows"));
-    var tournamentId = tournaments.getCurrentTournamentId();
-    var allSquadsOffset = Number(sessionStorage.getItem("squads.all-squads-offset"));
+    let allSquadsRows = Number(document.getElementById("all-squads-table").getAttribute("rows"));
+    let tournamentId = tournaments.getCurrentTournamentId();
+    let allSquadsOffset = Number(sessionStorage.getItem("squads.all-squads-offset"));
     allSquadsOffset = allSquadsOffset + allSquadsRows;
     sessionStorage.setItem("squads.all-squads-offset", allSquadsOffset);
 
@@ -85,8 +85,8 @@ class Squads {
     playersResource.readOrDelete(event.detail, "GET", squads.addPlayerToSquadResolve, squads.addPlayerToSquadReject);
   }
   addPlayerToSquadResolve(json){
-    var retrievedData = sessionStorage.getItem("squads.selected-players-table");
-    var playersInSquad;
+    let retrievedData = sessionStorage.getItem("squads.selected-players-table");
+    let playersInSquad;
     if(retrievedData!==null && retrievedData.length!==0){
       playersInSquad = JSON.parse(retrievedData);
     }else{
@@ -105,9 +105,9 @@ class Squads {
   }
 
   prevAllPlayers(){
-    var allPlayersLength = Number(document.getElementById("all-players-table").getAttribute("rows"));
-    var allPlayersTournamentId = tournaments.getCurrentTournamentId();
-    var allPlayersOffset = Number(sessionStorage.getItem("squads.all-players-offset"));
+    let allPlayersLength = Number(document.getElementById("all-players-table").getAttribute("rows"));
+    let allPlayersTournamentId = tournaments.getCurrentTournamentId();
+    let allPlayersOffset = Number(sessionStorage.getItem("squads.all-players-offset"));
     allPlayersOffset = allPlayersOffset - allPlayersLength;
     if(allPlayersOffset<0){
       allPlayersOffset = 0;
@@ -131,15 +131,15 @@ class Squads {
   }
   updateAllPlayersResolve(json){
     // if json-array is empty and offset > 0, we are one step too far
-    var allPlayersOffset = Number(sessionStorage.getItem("squads.all-players-offset"));
-    var allPlayersLength = Number(document.getElementById("all-players-table").getAttribute("rows"));
+    let allPlayersOffset = Number(sessionStorage.getItem("squads.all-players-offset"));
+    let allPlayersLength = Number(document.getElementById("all-players-table").getAttribute("rows"));
     if(json.length===0 && allPlayersOffset>0){
       sessionStorage.setItem("squads.all-players-offset", allPlayersOffset-allPlayersLength);
       return;
     }
 
     // update custom element with data
-    var playersTable = document.getElementById("all-players-table");
+    let playersTable = document.getElementById("all-players-table");
     playersTable.setAttribute("data", JSON.stringify(json));
   }
   updateAllPlayersReject(json){ }
@@ -150,15 +150,24 @@ class Squads {
   //
   //--------------------------------------------------------------------------------------------------------------------
   initSquad(){
-    var sessionStorageData = sessionStorage.getItem("squads.selected-players-table");
-    var selectedPlayersTable = document.getElementById("selected-players-table");
+    let sessionStorageData = sessionStorage.getItem("squads.selected-players-table");
+    let selectedPlayersTable = document.getElementById("selected-players-table");
     
     selectedPlayersTable.setAttribute("data", sessionStorageData);
     document.getElementById("selected-players-table").addEventListener("opponent-selected", this.playerSelectedFromSelectedPlayer);
   }
 
   playerSelectedFromSelectedPlayer(event){
-    console.log("remove player from selected squad "+event.detail)
+    let playerId = event.detail;
+    let players = JSON.parse(sessionStorage.getItem("squads.selected-players-table"));
+
+    players = players.filter(function(player) {
+      return player.id !== playerId;
+    });
+    sessionStorage.setItem("squads.selected-players-table", JSON.stringify(players));
+
+    console.log("remove player from selected squad "+event.detail);
+    squads.initSquad();
   }
 
   cancel(){
