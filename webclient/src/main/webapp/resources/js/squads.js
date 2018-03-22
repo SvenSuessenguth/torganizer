@@ -23,16 +23,16 @@ class Squads {
     
     this.updateAllSquads(tournamentId, 0, allSquadsLength);
     
-    document.getElementById("all-squads-table").addEventListener("opponent-selected", Squads.squadSelectedFromAllSquads);
+    document.getElementById("all-squads-table").addEventListener("opponent-selected", this.squadSelectedFromAllSquads);
   }
 
-  static squadSelectedFromAllSquads(event){
-    squadsResource.readSingle(event.detail, Squads.showSquadResolve, Squads.showSquadReject);
+  squadSelectedFromAllSquads(event){
+    squadsResource.readSingle(event.detail, squads.showSquadResolve, squads.showSquadReject);
   }
-  static showSquadResolve(json){
-    Squads.squadToForm(json);
+  showSquadResolve(json){
+    squads.squadToForm(json);
   }
-  static showSquadReject(json){}
+  showSquadReject(json){}
 
   updateAllSquads(tournamentId, offset, rows){
     tournamentsResource.getSquads(tournamentId, offset, rows, this.updateAllSquadsResolve, this.updateAllSquadsReject);
@@ -171,6 +171,7 @@ class Squads {
   }
 
   cancel(){
+    sessionStorage.removeItem("squads.current-squad-id");
     sessionStorage.setItem("squads.selected-players-table", "[]");
     this.initSquad();
   }
@@ -209,7 +210,11 @@ class Squads {
     squadsResource.createOrUpdate(squad, "PUT", this.updateResolve, this.updateReject);
     squads.cancel();
   }
-  updateResolve(json){ console.log("udpate resolved squad"); }
+  updateResolve(json){
+    var tournamentId = tournaments.getCurrentTournamentId();
+    squads.updateAllSquads(tournamentId, 0, 10);
+    squads.cancel();
+  }
   updateReject(error) { console.log(error); }
   
   //--------------------------------------------------------------------------------------------------------------------
