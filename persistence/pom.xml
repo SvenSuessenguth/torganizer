@@ -31,11 +31,11 @@
 	
 	<dependency>
       <groupId>org.hibernate</groupId><artifactId>hibernate-core</artifactId>
-      <version>5.2.15.Final</version><scope>test</scope>
+      <version>5.2.16.Final</version><scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.hibernate</groupId><artifactId>hibernate-entitymanager</artifactId>
-      <version>5.2.15.Final</version><scope>test</scope>
+      <version>5.2.16.Final</version><scope>test</scope>
     </dependency>
 	
     <!-- 
