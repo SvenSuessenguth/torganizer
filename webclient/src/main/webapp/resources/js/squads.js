@@ -9,7 +9,13 @@ class Squads {
     this.initSquads();
     this.cancel();
   }
-  
+
+
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // initialize and actions for all-squads-table
+  //
+  //--------------------------------------------------------------------------------------------------------------------
   initSquads(){
     var allSquadsLength = document.getElementById("all-squads-table").getAttribute("rows");
     var tournamentId = tournaments.getCurrentTournamentId();    
@@ -19,6 +25,7 @@ class Squads {
     
     document.getElementById("all-squads-table").addEventListener("opponent-selected", this.squadSelectedFromAllSquads);
   }
+
   squadSelectedFromAllSquads(event){
     squadsResource.readSingle(event.detail, squads.showSquadResolve, squads.showSquadReject);
   }
@@ -27,7 +34,41 @@ class Squads {
   }
   showSquadReject(json){}
 
+  updateAllSquads(tournamentId, offset, rows){
+    tournamentsResource.getSquads(tournamentId, offset, rows, this.updateAllSquadsResolve, this.updateAllSquadsReject);
+  }
+  updateAllSquadsResolve(json){
+    document.getElementById("all-squads-table").setAttribute("data", JSON.stringify(json));
+  }
+  updateAllSquadsReject(json){ }
 
+  prevAllSquads(){
+    var allSquadsRows = Number(document.getElementById("all-squads-table").getAttribute("rows"));
+    var tournamentId = tournaments.getCurrentTournamentId();
+    var allSquadsOffset = Number(sessionStorage.getItem("squads.all-squads-offset"));
+    allSquadsOffset = allSquadsOffset - allSquadsRows;
+    if(allSquadsOffset <0){
+      allSquadsOffset = 0;
+    }
+    sessionStorage.setItem("squads.all-squads-offset", allSquadsOffset);
+
+    this.updateAllSquads(tournamentId, allSquadsOffset, allSquadsRows);
+  }
+  nextAllSquads(){
+    var allSquadsRows = Number(document.getElementById("all-squads-table").getAttribute("rows"));
+    var tournamentId = tournaments.getCurrentTournamentId();
+    var allSquadsOffset = Number(sessionStorage.getItem("squads.all-squads-offset"));
+    allSquadsOffset = allSquadsOffset + allSquadsRows;
+    sessionStorage.setItem("squads.all-squads-offset", allSquadsOffset);
+
+    this.updateAllSquads(tournamentId, allSquadsOffset, allSquadsRows);
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // initialize and actions for all-players-table
+  //
+  //--------------------------------------------------------------------------------------------------------------------
 
   initAllPlayers(){
     var allPlayersLength = document.getElementById("all-players-table").getAttribute("rows");
@@ -38,7 +79,8 @@ class Squads {
     
     document.getElementById("all-players-table").addEventListener("opponent-selected", this.playerSelectedFromAllPlayer);
   }
-  
+
+
   playerSelectedFromAllPlayer(event){    
     playersResource.readOrDelete(event.detail, "GET", squads.addPlayerToSquadResolve, squads.addPlayerToSquadReject);
   }
@@ -56,18 +98,12 @@ class Squads {
     
     playersInSquad.push(json);
     sessionStorage.setItem("squads.selected-players-table", JSON.stringify(playersInSquad));
-    squads.updateSquad();
-    
+    squads.initSquad();
   }
   addPlayerToSquadReject(json){
     console.log("add player to squad with failure");
   }
-  
-  //--------------------------------------------------------------------------------------------------------------------
-  //
-  // navigating the tables
-  //
-  //--------------------------------------------------------------------------------------------------------------------
+
   prevAllPlayers(){
     var allPlayersLength = Number(document.getElementById("all-players-table").getAttribute("rows"));
     var allPlayersTournamentId = tournaments.getCurrentTournamentId();
@@ -89,52 +125,10 @@ class Squads {
     
     this.updateAllPlayers(tournamentId, allPlayersOffset, allPlayersLength);
   }
-  prevAllSquads(){
-    var allSquadsRows = Number(document.getElementById("all-squads-table").getAttribute("rows"));
-    var tournamentId = tournaments.getCurrentTournamentId();
-    var allSquadsOffset = Number(sessionStorage.getItem("squads.all-squads-offset"));
-    allSquadsOffset = allSquadsOffset - allSquadsRows;
-    if(allSquadsOffset <0){
-      allSquadsOffset = 0;
-    }
-    sessionStorage.setItem("squads.all-squads-offset", allSquadsOffset);
-    
-    this.updateAllSquads(tournamentId, allSquadsOffset, allSquadsRows);
-  }  
-  nextAllSquads(){
-    var allSquadsRows = Number(document.getElementById("all-squads-table").getAttribute("rows"));
-    var tournamentId = tournaments.getCurrentTournamentId();
-    var allSquadsOffset = Number(sessionStorage.getItem("squads.all-squads-offset"));
-    allSquadsOffset = allSquadsOffset + allSquadsRows;
-    sessionStorage.setItem("squads.all-squads-offset", allSquadsOffset);
-    
-    this.updateAllSquads(tournamentId, allSquadsOffset, allSquadsRows);
-  }
-  
-  
-  updateSquad(){
-    var sessionStorageData = sessionStorage.getItem("squads.selected-players-table");
-    var selectedPlayersTable = document.getElementById("selected-players-table");
-    
-    selectedPlayersTable.setAttribute("data", sessionStorageData);
-  }
-  
-  cancel(){
-    sessionStorage.setItem("squads.selected-players-table", "[]");
-    this.updateSquad();
-  }
-  
-  updateAllSquads(tournamentId, offset, rows){
-    tournamentsResource.getSquads(tournamentId, offset, rows, this.updateAllSquadsResolve, this.updateAllSquadsReject);
-  }
-  updateAllSquadsResolve(json){ 
-    document.getElementById("all-squads-table").setAttribute("data", JSON.stringify(json));
-  }
-  updateAllSquadsReject(json){ }
-  
+
   updateAllPlayers(tournamentId, offset, rows){
     tournamentsResource.getPlayers(tournamentId, offset, rows, this.updateAllPlayersResolve, this.updateAllPlayersReject);
-  }  
+  }
   updateAllPlayersResolve(json){
     // if json-array is empty and offset > 0, we are one step too far
     var allPlayersOffset = Number(sessionStorage.getItem("squads.all-players-offset"));
@@ -143,12 +137,35 @@ class Squads {
       sessionStorage.setItem("squads.all-players-offset", allPlayersOffset-allPlayersLength);
       return;
     }
-    
+
     // update custom element with data
     var playersTable = document.getElementById("all-players-table");
-    playersTable.setAttribute("data", JSON.stringify(json));        
-  }  
+    playersTable.setAttribute("data", JSON.stringify(json));
+  }
   updateAllPlayersReject(json){ }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // init squad
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  initSquad(){
+    var sessionStorageData = sessionStorage.getItem("squads.selected-players-table");
+    var selectedPlayersTable = document.getElementById("selected-players-table");
+    
+    selectedPlayersTable.setAttribute("data", sessionStorageData);
+    document.getElementById("selected-players-table").addEventListener("opponent-selected", this.playerSelectedFromSelectedPlayer);
+  }
+
+  playerSelectedFromSelectedPlayer(event){
+    console.log("remove player from selected squad "+event.detail)
+  }
+
+  cancel(){
+    sessionStorage.setItem("squads.selected-players-table", "[]");
+    this.initSquad();
+  }
+
   
   //--------------------------------------------------------------------------------------------------------------------
   //
