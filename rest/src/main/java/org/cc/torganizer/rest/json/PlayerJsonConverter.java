@@ -52,13 +52,10 @@ public class PlayerJsonConverter extends ModelJsonConverter<Player> implements O
 
   @Override
   public JsonArray toJsonArray(Collection<Player> players) {
-    List<Player> orderedPlayers = new ArrayList<>(players);
-    Collections.sort(orderedPlayers, new PlayerByNameComparator());
-
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonArrayBuilder arrayBuilder = factory.createArrayBuilder();
 
-    orderedPlayers.forEach(player -> arrayBuilder.add(this.toJsonObject(player)) );
+    players.forEach(player -> arrayBuilder.add(this.toJsonObject(player)) );
     
     return arrayBuilder.build();
   }
