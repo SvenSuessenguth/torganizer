@@ -12,7 +12,7 @@
   </named-query>
   
   <named-query name="Player.findAll">
-    <query>SELECT p FROM Player p ORDER BY p.lastName</query>
+    <query>SELECT p FROM Player p</query>
   </named-query>
   <named-query name="Player.findById">
     <query>SELECT p FROM Player p WHERE p.id = :id</query>
