@@ -1,16 +1,21 @@
 package org.cc.torganizer.persistence;
 
-import java.util.List;
-import javax.persistence.Query;
-
 import org.cc.torganizer.core.entities.*;
-import org.hamcrest.MatcherAssert;
-import static org.hamcrest.MatcherAssert.assertThat;
 import org.hamcrest.Matchers;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
 import org.junit.Before;
 import org.junit.Test;
+
+import javax.persistence.Query;
+import javax.persistence.Tuple;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
+import java.lang.System;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 public class TournamentsJpaTest extends AbstractDbUnitJpaTest {
 
@@ -20,18 +25,36 @@ public class TournamentsJpaTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
+  public void testCriteria(){
+
+    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    CriteriaQuery<Tuple> cq = cb.createTupleQuery();
+    Root<Tournament> tournament = cq.from(Tournament.class);
+    Join<Tournament, Opponent> tournamentOpponentJoin = tournament.join("opponents", JoinType.LEFT);
+    cq.select(cb.tuple(tournament, cb.count(tournamentOpponentJoin)));
+    cq.where(cb.equal(tournament.get("id"), 1L));
+
+    List<Tuple> result = entityManager.createQuery(cq).getResultList();
+
+    for (Tuple tuple : result) {
+      Tournament t = (Tournament) tuple.get(0);
+      System.out.println("Turnier " + t.getName() + " with "+tuple.get(1)+" opponents");
+    }
+  }
+
+  @Test
   public void testCountPlayers_existingTournament() {
     Query query = entityManager.createNamedQuery("Tournament.countPlayers");
     query.setParameter("id", 1L);
     long countSubscribers = (long) query.getSingleResult();
 
-    MatcherAssert.assertThat(countSubscribers, Matchers.is(2L));
+    assertThat(countSubscribers, Matchers.is(2L));
   }
 
   @Test
   public void testCountSubscribers_nonExistingTournament() {
     Query query = entityManager.createNamedQuery("Tournament.countPlayers");
-    query.setParameter("id", 2L);
+    query.setParameter("id", 3L);
     long countSubscribers = (long) query.getSingleResult();
 
     assertThat(countSubscribers, is(0L));
@@ -67,7 +90,7 @@ public class TournamentsJpaTest extends AbstractDbUnitJpaTest {
   @Test
   public void testFindPlayers_none() {
     Query query = entityManager.createNamedQuery("Tournament.findPlayers", Player.class);
-    query.setParameter("id", 2L);
+    query.setParameter("id", 3L);
     List<Player> players = query.getResultList();
 
     assertThat(players, hasSize(0));

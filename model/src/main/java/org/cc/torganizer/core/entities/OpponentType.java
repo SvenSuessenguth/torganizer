@@ -37,6 +37,9 @@ public enum OpponentType {
   public int toInt() {
     return value;
   }
+  public int getValue() {
+    return value;
+  }
 
   /**
    * Gibt den OpponentType mit der angegebenen ID zurueck.

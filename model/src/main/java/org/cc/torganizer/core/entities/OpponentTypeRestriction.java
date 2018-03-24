@@ -26,7 +26,6 @@ public class OpponentTypeRestriction
    * {@inheritDoc}
    */
   @Override
-  @SuppressWarnings("unchecked")
   public boolean isRestricted(Opponent opponent) {
 
     Class<? extends Opponent> validOpponentClass = opponentType.getOpponentClass();

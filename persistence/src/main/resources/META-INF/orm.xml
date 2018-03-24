@@ -2,8 +2,8 @@
 <entity-mappings version="2.1" 
   xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" 
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">  
-  
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
+
   <mapped-superclass class="org.cc.torganizer.core.entities.Entity">
     <attributes>
       <id name="id" access="PROPERTY">
@@ -12,7 +12,5 @@
       </id>      
     </attributes>
   </mapped-superclass>
-  
-  <converter class="org.cc.torganizer.persistence.converter.BooleanTrueFalseConverter"/>
-  
+
 </entity-mappings>  
