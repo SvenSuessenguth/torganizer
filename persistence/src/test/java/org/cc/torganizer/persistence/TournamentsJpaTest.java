@@ -85,12 +85,12 @@ public class TournamentsJpaTest extends AbstractDbUnitJpaTest {
   @Test
   public void testCriteriaListPlayersOrderedByLastName(){
     CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-    CriteriaQuery<Tuple> cq = cb.createTupleQuery();
+    CriteriaQuery<Player> cq = cb.createQuery(Player.class);
     Root<Tournament> tournament = cq.from(Tournament.class);
     Root<Player> player = cq.from(Player.class);
     Join<Tournament, Player> tournamentOpponentJoin = tournament.join ("opponents");
 
-    cq.select(cb.tuple(tournament, tournamentOpponentJoin));
+    cq.select(player);
     cq.where(
       cb.and(
         cb.equal(tournament.get("id"), 1L),
@@ -104,15 +104,12 @@ public class TournamentsJpaTest extends AbstractDbUnitJpaTest {
       )
     );
 
-    TypedQuery<Tuple> query = entityManager.createQuery(cq);
+    TypedQuery<Player> query = entityManager.createQuery(cq);
     query.setFirstResult(0);
     query.setMaxResults(5);
-    List<Tuple> result = query.getResultList();
+    List<Player> result = query.getResultList();
 
-    for(Tuple t : result){
-      System.out.println(t.get(0)+ " / "+t.get(1));
-    }
-
+    assertThat(result.get(0).getPerson().getLastName(), is("Aöüß"));
   }
 
   @Test
