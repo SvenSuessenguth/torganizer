@@ -17,11 +17,15 @@ import java.util.Set;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-public class TournamentsJpaTest extends AbstractDbUnitJpaTest {
+public class TournamentRepositoryTest extends AbstractDbUnitJpaTest {
+
+  private TournamentRepository repository;
 
   @Before
   public void before() throws Exception {
     super.initDatabase("test-data-tournament.xml");
+
+    repository = new TournamentRepository(entityManager);
   }
 
   @Test
@@ -84,32 +88,9 @@ public class TournamentsJpaTest extends AbstractDbUnitJpaTest {
 
   @Test
   public void testCriteriaListPlayersOrderedByLastName(){
-    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-    CriteriaQuery<Player> cq = cb.createQuery(Player.class);
-    Root<Tournament> tournament = cq.from(Tournament.class);
-    Root<Player> player = cq.from(Player.class);
-    Join<Tournament, Player> tournamentOpponentJoin = tournament.join ("opponents");
+    List<Player> players = repository.getTournamentsPlayersOrderedByLastName(1L, 0, 5);
 
-    cq.select(player);
-    cq.where(
-      cb.and(
-        cb.equal(tournament.get("id"), 1L),
-        cb.equal(tournamentOpponentJoin.type(), Player.class),
-        cb.equal(player.get("id"), tournamentOpponentJoin.get("id"))
-      )
-    );
-    cq.orderBy(
-      cb.asc(
-        player.get("person").get("lastName")
-      )
-    );
-
-    TypedQuery<Player> query = entityManager.createQuery(cq);
-    query.setFirstResult(0);
-    query.setMaxResults(5);
-    List<Player> result = query.getResultList();
-
-    assertThat(result.get(0).getPerson().getLastName(), is("Aöüß"));
+    assertThat(players.get(0).getPerson().getLastName(), is("Aöüß"));
   }
 
   @Test
