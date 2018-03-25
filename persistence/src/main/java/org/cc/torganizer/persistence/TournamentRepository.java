@@ -1,6 +1,5 @@
 package org.cc.torganizer.persistence;
 
-import org.cc.torganizer.core.entities.Entity;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Tournament;
 
