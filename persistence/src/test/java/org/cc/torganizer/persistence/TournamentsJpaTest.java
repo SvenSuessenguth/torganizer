@@ -87,20 +87,22 @@ public class TournamentsJpaTest extends AbstractDbUnitJpaTest {
     CriteriaBuilder cb = entityManager.getCriteriaBuilder();
     CriteriaQuery<Tuple> cq = cb.createTupleQuery();
     Root<Tournament> tournament = cq.from(Tournament.class);
+    Root<Player> player = cq.from(Player.class);
     Join<Tournament, Player> tournamentOpponentJoin = tournament.join ("opponents");
 
     cq.select(cb.tuple(tournament, tournamentOpponentJoin));
     cq.where(
       cb.and(
         cb.equal(tournament.get("id"), 1L),
-        cb.equal(tournamentOpponentJoin.type(), Player.class)
+        cb.equal(tournamentOpponentJoin.type(), Player.class),
+        cb.equal(player.get("id"), tournamentOpponentJoin.get("id"))
       )
     );
-//    cq.orderBy(
-//      cb.asc(
-//
-//      )
-//    );
+    cq.orderBy(
+      cb.asc(
+        player.get("person").get("lastName")
+      )
+    );
 
     TypedQuery<Tuple> query = entityManager.createQuery(cq);
     query.setFirstResult(0);
