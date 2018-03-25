@@ -25,7 +25,7 @@ public class TournamentsJpaTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  public void testCriteria(){
+  public void testCriteriaCountOpponents(){
 
     CriteriaBuilder cb = entityManager.getCriteriaBuilder();
     CriteriaQuery<Tuple> cq = cb.createTupleQuery();
@@ -35,11 +35,82 @@ public class TournamentsJpaTest extends AbstractDbUnitJpaTest {
     cq.where(cb.equal(tournament.get("id"), 1L));
 
     List<Tuple> result = entityManager.createQuery(cq).getResultList();
+    Long count = (Long) result.get(0).get(1);
 
-    for (Tuple tuple : result) {
-      Tournament t = (Tournament) tuple.get(0);
-      System.out.println("Turnier " + t.getName() + " with "+tuple.get(1)+" opponents");
+    // 2 Player + 1 Squad
+    assertThat(count, is(3L));
+  }
+
+  @Test
+  public void testCriteriaCountPlayers(){
+
+    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    CriteriaQuery<Tuple> cq = cb.createTupleQuery();
+    Root<Tournament> tournament = cq.from(Tournament.class);
+    Join<Tournament, Opponent> tournamentOpponentJoin = tournament.join("opponents", JoinType.LEFT);
+    cq.select(cb.tuple(tournament, cb.count(tournamentOpponentJoin)));
+    cq.where(
+      cb.and(
+        cb.equal(tournament.get("id"), 1L),
+        cb.equal(tournamentOpponentJoin.type(), Player.class)
+      )
+    );
+
+    List<Tuple> result = entityManager.createQuery(cq).getResultList();
+    Long count = (Long) result.get(0).get(1);
+
+    assertThat(count, is(2L));
+  }
+
+  @Test
+  public void testCriteriaCountSquads(){
+    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    CriteriaQuery<Tuple> cq = cb.createTupleQuery();
+    Root<Tournament> tournament = cq.from(Tournament.class);
+    Join<Tournament, Opponent> tournamentOpponentJoin = tournament.join("opponents", JoinType.LEFT);
+    cq.select(cb.tuple(tournament, cb.count(tournamentOpponentJoin)));
+    cq.where(
+      cb.and(
+        cb.equal(tournament.get("id"), 1L),
+        cb.equal(tournamentOpponentJoin.type(), Squad.class)
+      )
+    );
+
+    List<Tuple> result = entityManager.createQuery(cq).getResultList();
+    Long count = (Long) result.get(0).get(1);
+
+    assertThat(count, is(1L));
+  }
+
+  @Test
+  public void testCriteriaListPlayersOrderedByLastName(){
+    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    CriteriaQuery<Tuple> cq = cb.createTupleQuery();
+    Root<Tournament> tournament = cq.from(Tournament.class);
+    Join<Tournament, Player> tournamentOpponentJoin = tournament.join ("opponents");
+
+    cq.select(cb.tuple(tournament, tournamentOpponentJoin));
+    cq.where(
+      cb.and(
+        cb.equal(tournament.get("id"), 1L),
+        cb.equal(tournamentOpponentJoin.type(), Player.class)
+      )
+    );
+//    cq.orderBy(
+//      cb.asc(
+//
+//      )
+//    );
+
+    TypedQuery<Tuple> query = entityManager.createQuery(cq);
+    query.setFirstResult(0);
+    query.setMaxResults(5);
+    List<Tuple> result = query.getResultList();
+
+    for(Tuple t : result){
+      System.out.println(t.get(0)+ " / "+t.get(1));
     }
+
   }
 
   @Test

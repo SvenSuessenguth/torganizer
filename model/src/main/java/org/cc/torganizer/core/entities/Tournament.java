@@ -108,4 +108,9 @@ public class Tournament extends Entity{
   public void setGymnasiums(Set<Gymnasium> gymnasiums) {
     this.gymnasiums = gymnasiums;
   }
+
+  @Override
+  public String toString(){
+    return "["+getId()+"] "+getName();
+  }
 }

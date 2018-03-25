@@ -89,4 +89,9 @@ public class Player extends Opponent {
   public OpponentType getOpponentType(){
     return OpponentType.PLAYER;
   }
+
+  @Override
+  public String toString(){
+    return "["+getId()+"] "+person.getLastName()+ ", "+person.getFirstName();
+  }
 }
