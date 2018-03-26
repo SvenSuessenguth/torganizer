@@ -9,7 +9,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Stateless
-public class PlayersRepository {
+public class PlayersRepository extends Repository{
 
   @PersistenceContext(name = "torganizer")
   EntityManager entityManager;

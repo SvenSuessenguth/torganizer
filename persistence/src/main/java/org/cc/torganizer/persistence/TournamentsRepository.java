@@ -1,23 +1,24 @@
 package org.cc.torganizer.persistence;
 
+import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.core.entities.Squad;
 import org.cc.torganizer.core.entities.Tournament;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.Set;
 
 @Stateless
-public class TournamentsRepository {
-
-  public static final Integer DEFAULT_OFFSET = 0;
-  public static final Integer DEFAULT_MAX_RESULTS = 10;
+public class TournamentsRepository extends Repository{
 
   private static final String TOURNAMENT_FIND_BY_ID_QUERY_NAME = "Tournament.findById";
 
@@ -35,6 +36,11 @@ public class TournamentsRepository {
   }
 
 
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // Tournaments
+  //
+  //--------------------------------------------------------------------------------------------------------------------
   public Tournament getTournament(Long tournamentId){
     TypedQuery<Tournament> namedQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME, Tournament.class);
     namedQuery.setParameter("id", tournamentId);
@@ -53,7 +59,17 @@ public class TournamentsRepository {
     return namedQuery.getResultList();
   }
 
-  public List<Player> getPlayersOrderedByLastName(Long tournamentId, int firstResult, int maxResults){
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // Tournaments players
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  public List<Player> getPlayersOrderedByLastName(Long tournamentId, Integer offset, Integer maxResults){
+    if (offset == null || maxResults == null) {
+      offset = DEFAULT_OFFSET;
+      maxResults = DEFAULT_MAX_RESULTS;
+    }
+
     CriteriaBuilder cb = entityManager.getCriteriaBuilder();
     CriteriaQuery<Player> cq = cb.createQuery(Player.class);
     Root<Tournament> tournament = cq.from(Tournament.class);
@@ -76,10 +92,62 @@ public class TournamentsRepository {
     );
 
     TypedQuery<Player> query = entityManager.createQuery(cq);
-    query.setFirstResult(firstResult);
+    query.setFirstResult(offset);
     query.setMaxResults(maxResults);
 
     return query.getResultList();
   }
 
+  public Player addPlayer(Long tournamentId, Long playerId){
+    // load player
+    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
+    namedQuery.setParameter("id", playerId);
+    Player player = namedQuery.getSingleResult();
+
+    // load tournament
+    TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME,
+            Tournament.class);
+    namedTournamentQuery.setParameter("id", tournamentId);
+    Tournament tournament = namedTournamentQuery.getSingleResult();
+
+    // persist tournament
+    Set<Opponent> opponents = tournament.getOpponents();
+    opponents.add(player);
+    entityManager.persist(tournament);
+    // to get the id
+    entityManager.flush();
+
+    return player;
+  }
+
+  public long countPlayers(Long tournamentId){
+    Query query = entityManager.createNamedQuery("Tournament.countPlayers");
+    query.setParameter("id", tournamentId);
+
+    return (long) query.getSingleResult();
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // Tournaments squads
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  public Squad addSquad(Long tournamentId, Long squadId){
+    // load player
+    TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Opponent.findById", Squad.class);
+    namedQuery.setParameter("id", squadId);
+    Squad squad = namedQuery.getSingleResult();
+
+    // load tournament
+    TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME,
+            Tournament.class);
+    namedTournamentQuery.setParameter("id", tournamentId);
+    Tournament tournament = namedTournamentQuery.getSingleResult();
+
+    // persist tournament
+    tournament.getOpponents().add(squad);
+    entityManager.persist(tournament);
+
+    return squad;
+  }
 }

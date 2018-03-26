@@ -111,6 +111,15 @@ public class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
+  public void testAddPlayer(){
+    long countBefore = repository.countPlayers(1L);
+    Player p = repository.addPlayer(1L, 6L);
+    long countAfter = repository.countPlayers(1L);
+
+    assertThat(countBefore, is(countAfter-1));
+  }
+
+  @Test
   public void testCountPlayers_existingTournament() {
     Query query = entityManager.createNamedQuery("Tournament.countPlayers");
     query.setParameter("id", 1L);
