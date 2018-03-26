@@ -27,6 +27,8 @@ import javax.ws.rs.core.MediaType;
 import org.cc.torganizer.core.entities.Player;
 import static org.cc.torganizer.rest.AbstractResource.DEFAULT_LENGTH;
 import static org.cc.torganizer.rest.AbstractResource.DEFAULT_OFFSET;
+
+import org.cc.torganizer.persistence.PlayersRepository;
 import org.cc.torganizer.rest.json.PlayerJsonConverter;
 
 @Stateless
@@ -37,7 +39,10 @@ public class PlayersResource {
 
   @PersistenceContext(name = "torganizer")
   EntityManager entityManager;
-  
+
+  @Inject
+  private PlayersRepository repository;
+
   @Inject
   private PlayerJsonConverter converter;
 
@@ -65,9 +70,7 @@ public class PlayersResource {
   @Path("{id}")
   public JsonObject readSingle(@PathParam("id") Long id) {
 
-    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
-    namedQuery.setParameter("id", id);
-    Player player = namedQuery.getSingleResult();
+    Player player = repository.getPlayer(id);
 
     return  converter.toJsonObject(player);
   }

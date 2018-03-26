@@ -40,14 +40,14 @@ public abstract class AbstractDbUnitJpaTest{
 
   @After
   public void closeTestFixture() {
-	entityManager.getTransaction().rollback();
-	entityManager.close();
+	  entityManager.getTransaction().rollback();
+	  entityManager.close();
     entityManagerFactory.close();
   }
   
   public void initDatabase(String testData) throws IOException, DatabaseUnitException, SQLException {
     // Connection aufbauen
-	IDatabaseConnection dbunitConn = new DatabaseConnection(connection);
+    IDatabaseConnection dbunitConn = new DatabaseConnection(connection);
     DatabaseConfig dbConfig = dbunitConn.getConfig();
     dbConfig.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MySqlDataTypeFactory());
     dbConfig.setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER, new MySqlMetadataHandler());
