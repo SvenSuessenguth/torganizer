@@ -1,6 +1,6 @@
 /* global fetch */
 
-class DisciplinesResource {
+class   DisciplinesResource {
   constructor() {
   }
 

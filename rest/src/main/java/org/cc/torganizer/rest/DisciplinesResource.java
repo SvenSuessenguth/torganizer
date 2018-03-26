@@ -25,9 +25,6 @@ import java.util.List;
 @Produces("application/json")
 public class DisciplinesResource extends AbstractResource {
 
-  private static final String DISCIPLINE_FIND_BY_ID_QUERY_NAME = "Discipline.findById";
-  private static final String DISCIPLINE_FIND_ALL_QUERY_NAME = "Discipline.findAll";
-
   private DisciplinesRepository dRepository;
 
   @Inject
