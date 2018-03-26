@@ -91,7 +91,7 @@ public class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
 
   @Test
   public void testGetTournament(){
-    Tournament t = repository.getTournament(1L);
+    Tournament t = repository.read(1L);
 
     assertThat(t, is(not(nullValue())));
   }

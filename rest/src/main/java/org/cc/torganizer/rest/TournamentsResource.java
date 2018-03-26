@@ -2,6 +2,7 @@ package org.cc.torganizer.rest;
 
 import org.cc.torganizer.core.comparators.OpponentByNameComparator;
 import org.cc.torganizer.core.entities.*;
+import org.cc.torganizer.persistence.DisciplinesRepository;
 import org.cc.torganizer.persistence.TournamentsRepository;
 import org.cc.torganizer.rest.json.*;
 
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 
 import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
 import static org.cc.torganizer.core.entities.OpponentType.SQUAD;
+import static org.cc.torganizer.core.entities.Restriction.Discriminator.AGE_RESTRICTION;
 import static org.cc.torganizer.core.entities.Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION;
 
 @Stateless
@@ -28,23 +30,20 @@ import static org.cc.torganizer.core.entities.Restriction.Discriminator.OPPONENT
 @Produces("application/json")
 @Consumes("application/json")
 public class TournamentsResource extends AbstractResource {
-
-  private static final String TOURNAMENT_FIND_BY_ID_QUERY_NAME = "Tournament.findById";
-
-  @PersistenceContext(name = "torganizer")
-  EntityManager entityManager;
-
   @Inject
   private TournamentsRepository tRepository;
+  @Inject
+  private DisciplinesRepository dRepository;
 
   @Inject
   private TournamentJsonConverter tConverter;
 
   @Inject
-  private OpponentJsonConverterProvider ocProvider;
+  private DisciplineJsonConverter dConverter;
 
   @Inject
-  private DisciplineJsonConverter dConverter;
+  private OpponentJsonConverterProvider ocProvider;
+
 
   @POST
   public JsonObject create(JsonObject jsonObject) {
@@ -53,16 +52,15 @@ public class TournamentsResource extends AbstractResource {
     // client can send '0' with a detached object exception as the result
     tournament.setId(null);
 
-    entityManager.persist(tournament);
-    entityManager.flush();
+    Tournament savedTournament = tRepository.create(tournament);
 
-    return tConverter.toJsonObject(tournament);
+    return tConverter.toJsonObject(savedTournament);
   }
 
   @GET
   @Path("{id}")
   public JsonObject readSingle(@PathParam("id") Long id) {
-    Tournament tournament = tRepository.getTournament(id);
+    Tournament tournament = tRepository.read(id);
     return tConverter.toJsonObject(tournament);
   }
 
@@ -75,7 +73,7 @@ public class TournamentsResource extends AbstractResource {
   @PUT
   public JsonObject update(JsonObject jsonObject) {
     Tournament tournament = tConverter.toModel(jsonObject);
-    entityManager.merge(tournament);
+    tRepository.update(tournament);
 
     return tConverter.toJsonObject(tournament);
   }
@@ -83,7 +81,7 @@ public class TournamentsResource extends AbstractResource {
   @DELETE
   public JsonObject delete(JsonObject jsonObject) {
     Tournament tournament = tConverter.toModel(jsonObject);
-    entityManager.remove(tournament);
+    tRepository.delete(tournament);
 
     return tConverter.toJsonObject(tournament);
   }
@@ -102,40 +100,17 @@ public class TournamentsResource extends AbstractResource {
    */
   @GET
   @Path("/{id}/assignable-opponents")
-  public JsonArray getAssignableOpponents(@PathParam("id") Long tournamentId, @QueryParam("disciplineId") Integer disciplineId,
+  public JsonArray getAssignableOpponents(@PathParam("id") Long tournamentId, @QueryParam("disciplineId") Long disciplineId,
                                           @QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
 
-    // JPQL in not using offset/length
-    if (offset == null || length == null) {
-      offset = DEFAULT_OFFSET;
-      length = DEFAULT_LENGTH;
-    }
+    Discipline discipline = dRepository.getDiscipline(disciplineId);
+    List<Opponent> opponents = tRepository.getOpponentsForDiscipline(tournamentId, discipline, offset, length);
 
-    // load discipline with restrictions
-    TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery("Discipline.findById", Discipline.class);
-    namedQuery.setParameter("id", disciplineId);
-    Discipline discipline = namedQuery.getSingleResult();
-    OpponentTypeRestriction otRestriction = (OpponentTypeRestriction) discipline.getRestriction(OPPONENT_TYPE_RESTRICTION);
-
-    // load tournaments opponents
-    TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME, Tournament.class);
-    namedTournamentQuery.setParameter("id", tournamentId);
-    Tournament tournament = namedTournamentQuery.getSingleResult();
-    Set<Opponent> opponents = tournament.getOpponents();
-
-    // filter opponents
-    List<Opponent> assignableOpponents = opponents
-      .stream()
-      .filter(discipline::isAssignable)
-      .collect(Collectors.toList());
-
-    // sort and use offset/length
-    Collections.sort(assignableOpponents, new OpponentByNameComparator());
-
+    OpponentTypeRestriction otRestriction = (OpponentTypeRestriction) discipline.getRestriction(AGE_RESTRICTION);
     OpponentType opponentType = otRestriction.getOpponentType();
     ModelJsonConverter converter = ocProvider.getConverter(opponentType);
 
-    return converter.toJsonArray(assignableOpponents);
+    return converter.toJsonArray(opponents);
   }
 
   @POST
@@ -153,22 +128,7 @@ public class TournamentsResource extends AbstractResource {
   @DELETE
   @Path("/{tid}/players/{pid}")
   public JsonObject removePlayer(@PathParam("tid") Long tournamentId, @PathParam("pid") Long playerId) {
-    // load player
-    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
-    namedQuery.setParameter("id", playerId);
-    Player player = namedQuery.getSingleResult();
-
-    // load tournament
-    TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME,
-      Tournament.class);
-    namedTournamentQuery.setParameter("id", tournamentId);
-    Tournament tournament = namedTournamentQuery.getSingleResult();
-
-    // persist tournament
-    tournament.getOpponents().remove(player);
-    entityManager.persist(tournament);
-    // to get the id
-    entityManager.flush();
+    Player player = tRepository.removePlayer(tournamentId, playerId);
 
     PlayerJsonConverter pConverter = (PlayerJsonConverter) ocProvider.getConverter(PLAYER);
     return pConverter.toJsonObject(player);
@@ -183,17 +143,7 @@ public class TournamentsResource extends AbstractResource {
   @GET
   @Path("/{id}/squads")
   public JsonArray squads(@PathParam("id") Long tournamentId, @QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
-    if (offset == null || length == null) {
-      offset = DEFAULT_OFFSET;
-      length = DEFAULT_LENGTH;
-    }
-
-    TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Tournament.findSquads", Squad.class);
-    namedQuery.setParameter("id", tournamentId);
-    namedQuery.setFirstResult(offset);
-    namedQuery.setMaxResults(length);
-    List<Squad> squads = namedQuery.getResultList();
-    Collections.sort(squads, new OpponentByNameComparator());
+    List<Squad> squads = tRepository.getSquads(tournamentId, offset, length);
 
     SquadJsonConverter sConverter = (SquadJsonConverter) ocProvider.getConverter(SQUAD);
     return sConverter.toJsonArray(squads);
@@ -211,18 +161,13 @@ public class TournamentsResource extends AbstractResource {
   @GET
   @Path("/{id}/squads/count")
   public Long squadsCount(@PathParam("id") Long tournamentId) {
-    Query query = entityManager.createNamedQuery("Tournament.countSquads");
-    query.setParameter("id", tournamentId);
-
-    return (long) query.getSingleResult();
+    return tRepository.countSquads(tournamentId);
   }
 
   @GET
   @Path("/{id}/disciplines")
   public JsonArray readDisciplines(@PathParam("id") Long tournamentId) {
-    TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery("Tournament.findDisciplines", Discipline.class);
-    namedQuery.setParameter("id", tournamentId);
-    List<Discipline> disciplines = namedQuery.getResultList();
+    List<Discipline> disciplines = tRepository.getDisciplines(tournamentId, null, null);
 
     return dConverter.toJsonArray(disciplines);
   }
@@ -230,23 +175,9 @@ public class TournamentsResource extends AbstractResource {
   @POST
   @Path("/{id}/disciplines")
   public JsonObject addDiscipline(@PathParam("id") Long tournamentId, @QueryParam("did") Long disciplineId) {
-    // load discipline
-    TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery("Discipline.findById", Discipline.class);
-    namedQuery.setParameter("id", disciplineId);
-    List<Discipline> disciplines = namedQuery.getResultList();
-    Discipline disciplineToAdd = disciplines.get(0);
+    Discipline discipline = dRepository.getDiscipline(disciplineId);
+    tRepository.addDiscipline(tournamentId, discipline);
 
-    // load tournament
-    TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME,
-      Tournament.class);
-    namedTournamentQuery.setParameter("id", tournamentId);
-    List<Tournament> tournaments = namedTournamentQuery.getResultList();
-    Tournament tournament = tournaments.get(0);
-
-    // persist tournament
-    tournament.getDisciplines().add(disciplineToAdd);
-    entityManager.persist(tournament);
-
-    return dConverter.toJsonObject(disciplineToAdd);
+    return dConverter.toJsonObject(discipline);
   }
 }

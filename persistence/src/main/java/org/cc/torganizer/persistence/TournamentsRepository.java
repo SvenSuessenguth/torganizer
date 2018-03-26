@@ -1,9 +1,7 @@
 package org.cc.torganizer.persistence;
 
-import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.core.entities.Squad;
-import org.cc.torganizer.core.entities.Tournament;
+import org.cc.torganizer.core.comparators.OpponentByNameComparator;
+import org.cc.torganizer.core.entities.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -14,8 +12,12 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
+import static org.cc.torganizer.core.entities.Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION;
 
 @Stateless
 public class TournamentsRepository extends Repository{
@@ -38,14 +40,33 @@ public class TournamentsRepository extends Repository{
 
   //--------------------------------------------------------------------------------------------------------------------
   //
-  // Tournaments
+  // Tournaments CRUD
   //
   //--------------------------------------------------------------------------------------------------------------------
-  public Tournament getTournament(Long tournamentId){
+  public Tournament create(Tournament tournament){
+    entityManager.persist(tournament);
+    entityManager.flush();
+
+    return tournament;
+  }
+
+  public Tournament read(Long tournamentId){
     TypedQuery<Tournament> namedQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME, Tournament.class);
     namedQuery.setParameter("id", tournamentId);
     return namedQuery.getSingleResult();
   }
+
+  public Tournament update(Tournament tournament){
+    entityManager.merge(tournament);
+
+    return tournament;
+  }
+  public Tournament delete(Tournament tournament){
+    entityManager.remove(tournament);
+
+    return tournament;
+  }
+
 
   public List<Tournament> getTournaments(Integer offset, Integer maxResults){
     if (offset == null || maxResults == null) {
@@ -120,6 +141,27 @@ public class TournamentsRepository extends Repository{
     return player;
   }
 
+  public Player removePlayer(Long tournamentId, Long playerId){
+    // load player
+    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
+    namedQuery.setParameter("id", playerId);
+    Player player = namedQuery.getSingleResult();
+
+    // load tournament
+    TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME,
+      Tournament.class);
+    namedTournamentQuery.setParameter("id", tournamentId);
+    Tournament tournament = namedTournamentQuery.getSingleResult();
+
+    // persist tournament
+    tournament.getOpponents().remove(player);
+    entityManager.persist(tournament);
+    // to get the id
+    entityManager.flush();
+
+    return player;
+  }
+
   public long countPlayers(Long tournamentId){
     Query query = entityManager.createNamedQuery("Tournament.countPlayers");
     query.setParameter("id", tournamentId);
@@ -149,5 +191,87 @@ public class TournamentsRepository extends Repository{
     entityManager.persist(tournament);
 
     return squad;
+  }
+
+  public List<Squad> getSquads(Long tournamentId, Integer offset, Integer maxResults){
+    if (offset == null || maxResults == null) {
+      offset = DEFAULT_OFFSET;
+      maxResults = DEFAULT_MAX_RESULTS;
+    }
+
+    TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Tournament.findSquads", Squad.class);
+    namedQuery.setParameter("id", tournamentId);
+    namedQuery.setFirstResult(offset);
+    namedQuery.setMaxResults(maxResults);
+    List<Squad> squads = namedQuery.getResultList();
+    Collections.sort(squads, new OpponentByNameComparator());
+
+    return squads;
+  }
+
+  public long countSquads(Long tournamentId){
+    Query query = entityManager.createNamedQuery("Tournament.countSquads");
+    query.setParameter("id", tournamentId);
+
+    return (long) query.getSingleResult();
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // Tournaments disciplines
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  public List<Discipline> getDisciplines(Long tournamentId, Integer offset, Integer maxResults){
+    if (offset == null || maxResults == null) {
+      offset = DEFAULT_OFFSET;
+      maxResults = DEFAULT_MAX_RESULTS;
+    }
+
+    TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery("Tournament.findDisciplines", Discipline.class);
+    namedQuery.setParameter("id", tournamentId);
+    namedQuery.setFirstResult(offset);
+    namedQuery.setMaxResults(maxResults);
+
+    return namedQuery.getResultList();
+  }
+
+  public Discipline addDiscipline(Long tournamentId, Discipline discipline){
+    // load tournament
+    TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME,
+      Tournament.class);
+    namedTournamentQuery.setParameter("id", tournamentId);
+    List<Tournament> tournaments = namedTournamentQuery.getResultList();
+    Tournament tournament = tournaments.get(0);
+
+    // persist tournament
+    tournament.getDisciplines().add(discipline);
+    entityManager.persist(tournament);
+
+    return discipline;
+  }
+
+  public List<Opponent> getOpponentsForDiscipline(Long tournamentId, Discipline discipline, Integer offset, Integer maxResults){
+    // JPQL in not using offset/length
+    if (offset == null || maxResults == null) {
+      offset = DEFAULT_OFFSET;
+      maxResults = DEFAULT_MAX_RESULTS;
+    }
+
+    // load tournaments opponents
+    TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME, Tournament.class);
+    namedTournamentQuery.setParameter("id", tournamentId);
+    Tournament tournament = namedTournamentQuery.getSingleResult();
+    Set<Opponent> opponents = tournament.getOpponents();
+
+    // filter opponents
+    List<Opponent> assignableOpponents = opponents
+      .stream()
+      .filter(discipline::isAssignable)
+      .collect(Collectors.toList());
+
+    // sort and use offset/length
+    Collections.sort(assignableOpponents, new OpponentByNameComparator());
+
+    return assignableOpponents;
   }
 }
