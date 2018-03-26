@@ -4,6 +4,7 @@ import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.OpponentType;
 import org.cc.torganizer.core.entities.Restriction;
+import org.cc.torganizer.persistence.DisciplinesRepository;
 import org.cc.torganizer.rest.json.DisciplineJsonConverter;
 import org.cc.torganizer.rest.json.ModelJsonConverter;
 import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
@@ -29,6 +30,8 @@ public class DisciplinesResource extends AbstractResource {
   private static final String DISCIPLINE_FIND_BY_ID_QUERY_NAME = "Discipline.findById";
   private static final String DISCIPLINE_FIND_ALL_QUERY_NAME = "Discipline.findAll";
 
+  private DisciplinesRepository dRepository;
+
   @Inject
   private DisciplineJsonConverter converter;
 
@@ -40,62 +43,39 @@ public class DisciplinesResource extends AbstractResource {
 
   @POST
   public JsonObject create(JsonObject jsonObject) {
-
     Discipline discipline = converter.toModel(jsonObject);
+    discipline = dRepository.create(discipline);
 
-    // client can send '0' with a detached object exception as the result
-    discipline.setId(null);
-    discipline.getRestrictions().forEach((Restriction restriction) -> restriction.setId(null));
+    return converter.toJsonObject(discipline);
+  }
 
-    entityManager.persist(discipline);
-    entityManager.flush();
+  @GET
+  @Path("{id}")
+  public JsonObject readSingle(@PathParam("id") Long disciplineId) {
+    Discipline discipline = dRepository.read(disciplineId);
 
     return converter.toJsonObject(discipline);
   }
 
   @GET
   public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
-
-    if (offset == null || length == null) {
-      offset = DEFAULT_OFFSET;
-      length = DEFAULT_LENGTH;
-    }
-
-    TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery(DISCIPLINE_FIND_ALL_QUERY_NAME, Discipline.class);
-    namedQuery.setFirstResult(offset);
-    namedQuery.setMaxResults(length);
-    List<Discipline> disciplines = namedQuery.getResultList();
+    List<Discipline> disciplines = dRepository.read(offset, length);
 
     return converter.toJsonArray(disciplines);
   }
 
-  @GET
-  @Path("{id}")
-  public JsonObject readSingle(@PathParam("id") Long id) {
-
-    TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery(DISCIPLINE_FIND_BY_ID_QUERY_NAME, Discipline.class);
-    namedQuery.setParameter("id", id);
-    Discipline discipline = namedQuery.getSingleResult();
-
-    return converter.toJsonObject(discipline);
-  }
-
   @PUT
   public JsonObject update(JsonObject jsonObject) {
-
     Discipline discipline = converter.toModel(jsonObject);
-    discipline = entityManager.merge(discipline);
+    discipline = dRepository.update(discipline);
 
     return converter.toJsonObject(discipline);
   }
 
   @GET
   @Path("/{id}/opponents")
-  public JsonArray getOpponents(@PathParam("id") Long id) {
-    TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery(DISCIPLINE_FIND_BY_ID_QUERY_NAME, Discipline.class);
-    namedQuery.setParameter("id", id);
-    Discipline discipline = namedQuery.getSingleResult();
-    Set<Opponent> opponents = discipline.getOpponents();
+  public JsonArray getOpponents(@PathParam("id") Long disciplineId) {
+    List<Opponent> opponents = dRepository.getOpponents(disciplineId);
 
     JsonArray result = null;
 

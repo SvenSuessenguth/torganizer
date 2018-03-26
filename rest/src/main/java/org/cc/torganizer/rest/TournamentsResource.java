@@ -1,6 +1,5 @@
 package org.cc.torganizer.rest;
 
-import org.cc.torganizer.core.comparators.OpponentByNameComparator;
 import org.cc.torganizer.core.entities.*;
 import org.cc.torganizer.persistence.DisciplinesRepository;
 import org.cc.torganizer.persistence.TournamentsRepository;
@@ -10,20 +9,12 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import javax.ws.rs.*;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
 import static org.cc.torganizer.core.entities.OpponentType.SQUAD;
 import static org.cc.torganizer.core.entities.Restriction.Discriminator.AGE_RESTRICTION;
-import static org.cc.torganizer.core.entities.Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION;
 
 @Stateless
 @Path("/tournaments")
@@ -103,7 +94,7 @@ public class TournamentsResource extends AbstractResource {
   public JsonArray getAssignableOpponents(@PathParam("id") Long tournamentId, @QueryParam("disciplineId") Long disciplineId,
                                           @QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
 
-    Discipline discipline = dRepository.getDiscipline(disciplineId);
+    Discipline discipline = dRepository.read(disciplineId);
     List<Opponent> opponents = tRepository.getOpponentsForDiscipline(tournamentId, discipline, offset, length);
 
     OpponentTypeRestriction otRestriction = (OpponentTypeRestriction) discipline.getRestriction(AGE_RESTRICTION);
@@ -175,7 +166,7 @@ public class TournamentsResource extends AbstractResource {
   @POST
   @Path("/{id}/disciplines")
   public JsonObject addDiscipline(@PathParam("id") Long tournamentId, @QueryParam("did") Long disciplineId) {
-    Discipline discipline = dRepository.getDiscipline(disciplineId);
+    Discipline discipline = dRepository.read(disciplineId);
     tRepository.addDiscipline(tournamentId, discipline);
 
     return dConverter.toJsonObject(discipline);
