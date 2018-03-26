@@ -3,7 +3,6 @@ package org.cc.torganizer.rest;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.OpponentType;
-import org.cc.torganizer.core.entities.Restriction;
 import org.cc.torganizer.persistence.DisciplinesRepository;
 import org.cc.torganizer.rest.json.DisciplineJsonConverter;
 import org.cc.torganizer.rest.json.ModelJsonConverter;
@@ -20,7 +19,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.*;
 import java.util.List;
-import java.util.Set;
 
 @Stateless
 @Path("/disciplines")
@@ -105,15 +103,7 @@ public class DisciplinesResource extends AbstractResource {
     Opponent opponentToAdd = opponents.get(0);
 
     // load discipline
-    TypedQuery<Discipline> namedDisciplineQuery = entityManager.createNamedQuery(DISCIPLINE_FIND_BY_ID_QUERY_NAME,
-      Discipline.class);
-    namedDisciplineQuery.setParameter("id", disciplineId);
-    List<Discipline> disciplines = namedDisciplineQuery.getResultList();
-    Discipline discipline = disciplines.get(0);
-
-    // persist discipline
-    discipline.getOpponents().add(opponentToAdd);
-    entityManager.persist(discipline);
+    Discipline discipline = dRepository.addOpponent(disciplineId, opponentToAdd);
 
     return converter.toJsonObject(discipline);
   }

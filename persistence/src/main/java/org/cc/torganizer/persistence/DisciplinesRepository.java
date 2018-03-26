@@ -1,6 +1,8 @@
 package org.cc.torganizer.persistence;
 
-import org.cc.torganizer.core.entities.*;
+import org.cc.torganizer.core.entities.Discipline;
+import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.Restriction;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -10,7 +12,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
@@ -49,7 +50,7 @@ public class DisciplinesRepository extends Repository{
   }
 
   public Discipline read(Long disciplineId){
-    TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery("Discipline.findById", Discipline.class);
+    TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery(DISCIPLINE_FIND_BY_ID_QUERY_NAME, Discipline.class);
     namedQuery.setParameter("id", disciplineId);
 
     return namedQuery.getSingleResult();
@@ -101,5 +102,13 @@ public class DisciplinesRepository extends Repository{
     query.setMaxResults(maxResults);
 
     return query.getResultList();
+  }
+
+  public Discipline addOpponent(Long disciplineId, Opponent opponent){
+    Discipline discipline = read(disciplineId);
+    discipline.getOpponents().add(opponent);
+    entityManager.persist(discipline);
+
+    return discipline;
   }
 }
