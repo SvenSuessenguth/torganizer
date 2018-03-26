@@ -14,22 +14,46 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Stateless
-public class TournamentRepository {
+public class TournamentsRepository {
+
+  public static final Integer DEFAULT_OFFSET = 0;
+  public static final Integer DEFAULT_MAX_RESULTS = 10;
+
+  private static final String TOURNAMENT_FIND_BY_ID_QUERY_NAME = "Tournament.findById";
 
   @PersistenceContext(name = "torganizer")
   EntityManager entityManager;
 
-  public TournamentRepository(){
+  public TournamentsRepository(){
   }
 
   /**
-   * Constructor for testing.
+   * Constructor for testing purpose.
    */
-  public TournamentRepository(EntityManager entityManager){
+  public TournamentsRepository(EntityManager entityManager){
     this.entityManager = entityManager;
   }
 
-  public List<Player> getTournamentsPlayersOrderedByLastName(Long tournamentId, int firstResult, int maxResults){
+
+  public Tournament getTournament(Long tournamentId){
+    TypedQuery<Tournament> namedQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME, Tournament.class);
+    namedQuery.setParameter("id", tournamentId);
+    return namedQuery.getSingleResult();
+  }
+
+  public List<Tournament> getTournaments(Integer offset, Integer maxResults){
+    if (offset == null || maxResults == null) {
+      offset = DEFAULT_OFFSET;
+      maxResults = DEFAULT_MAX_RESULTS;
+    }
+
+    TypedQuery<Tournament> namedQuery = entityManager.createNamedQuery("Tournament.findAll", Tournament.class);
+    namedQuery.setFirstResult(offset);
+    namedQuery.setMaxResults(maxResults);
+    return namedQuery.getResultList();
+  }
+
+  public List<Player> getPlayersOrderedByLastName(Long tournamentId, int firstResult, int maxResults){
     CriteriaBuilder cb = entityManager.getCriteriaBuilder();
     CriteriaQuery<Player> cq = cb.createQuery(Player.class);
     Root<Tournament> tournament = cq.from(Tournament.class);

@@ -2,6 +2,7 @@ package org.cc.torganizer.rest;
 
 import org.cc.torganizer.core.comparators.OpponentByNameComparator;
 import org.cc.torganizer.core.entities.*;
+import org.cc.torganizer.persistence.TournamentsRepository;
 import org.cc.torganizer.rest.json.*;
 
 import javax.ejb.Stateless;
@@ -34,6 +35,9 @@ public class TournamentsResource extends AbstractResource {
   EntityManager entityManager;
 
   @Inject
+  private TournamentsRepository tRepository;
+
+  @Inject
   private TournamentJsonConverter tConverter;
 
   @Inject
@@ -58,27 +62,13 @@ public class TournamentsResource extends AbstractResource {
   @GET
   @Path("{id}")
   public JsonObject readSingle(@PathParam("id") Long id) {
-
-    TypedQuery<Tournament> namedQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME, Tournament.class);
-    namedQuery.setParameter("id", id);
-    Tournament tournament = namedQuery.getSingleResult();
-
+    Tournament tournament = tRepository.getTournament(id);
     return tConverter.toJsonObject(tournament);
   }
 
   @GET
   public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
-
-    if (offset == null || length == null) {
-      offset = DEFAULT_OFFSET;
-      length = DEFAULT_LENGTH;
-    }
-
-    TypedQuery<Tournament> namedQuery = entityManager.createNamedQuery("Tournament.findAll", Tournament.class);
-    namedQuery.setFirstResult(offset);
-    namedQuery.setMaxResults(length);
-    List<Tournament> tournaments = namedQuery.getResultList();
-
+    List<Tournament> tournaments = tRepository.getTournaments(offset, length);
     return tConverter.toJsonArray(tournaments);
   }
 

@@ -7,25 +7,21 @@ import org.junit.Test;
 
 import javax.persistence.Query;
 import javax.persistence.Tuple;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
-import java.lang.System;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-public class TournamentRepositoryTest extends AbstractDbUnitJpaTest {
+public class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
 
-  private TournamentRepository repository;
+  private TournamentsRepository repository;
 
   @Before
   public void before() throws Exception {
     super.initDatabase("test-data-tournament.xml");
 
-    repository = new TournamentRepository(entityManager);
+    repository = new TournamentsRepository(entityManager);
   }
 
   @Test
@@ -88,9 +84,30 @@ public class TournamentRepositoryTest extends AbstractDbUnitJpaTest {
 
   @Test
   public void testCriteriaListPlayersOrderedByLastName(){
-    List<Player> players = repository.getTournamentsPlayersOrderedByLastName(1L, 0, 5);
+    List<Player> players = repository.getPlayersOrderedByLastName(1L, 0, 5);
 
     assertThat(players.get(0).getPerson().getLastName(), is("Aöüß"));
+  }
+
+  @Test
+  public void testGetTournament(){
+    Tournament t = repository.getTournament(1L);
+
+    assertThat(t, is(not(nullValue())));
+  }
+
+  @Test
+  public void testGetTournaments(){
+    List<Tournament> tournaments = repository.getTournaments(0,10);
+
+    assertThat(tournaments, hasSize(2));
+  }
+
+  @Test
+  public void testGetTournaments_usingMaxResults(){
+    List<Tournament> tournaments = repository.getTournaments(0,1);
+
+    assertThat(tournaments, hasSize(1));
   }
 
   @Test
