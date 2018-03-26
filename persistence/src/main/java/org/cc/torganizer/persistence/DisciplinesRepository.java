@@ -1,13 +1,15 @@
 package org.cc.torganizer.persistence;
 
-import org.cc.torganizer.core.entities.Discipline;
-import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.Restriction;
+import org.cc.torganizer.core.entities.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,11 +76,30 @@ public class DisciplinesRepository extends Repository{
   // Discipline opponents
   //
   //--------------------------------------------------------------------------------------------------------------------
-  public List<Opponent> getOpponents(Long disciplineId){
-    TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery(DISCIPLINE_FIND_BY_ID_QUERY_NAME, Discipline.class);
-    namedQuery.setParameter("id", disciplineId);
-    Discipline discipline = namedQuery.getSingleResult();
+  public List<Opponent> getOpponents(Long disciplineId, Integer offset, Integer maxResults){
+    if (offset == null || maxResults == null) {
+      offset = DEFAULT_OFFSET;
+      maxResults = DEFAULT_MAX_RESULTS;
+    }
 
-    return new ArrayList<>(discipline.getOpponents());
+    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    CriteriaQuery<Opponent> cq = cb.createQuery(Opponent.class);
+    Root<Discipline> discipline = cq.from(Discipline.class);
+    Root<Opponent> opponent = cq.from(Opponent.class);
+    Join<Discipline, Opponent> disciplineOpponentJoin = discipline.join ("opponents");
+
+    cq.select(opponent);
+    cq.where(
+      cb.and(
+        cb.equal(discipline.get("id"), disciplineId),
+        cb.equal(disciplineOpponentJoin.get("id"), opponent.get("id"))
+      )
+    );
+
+    TypedQuery<Opponent> query = entityManager.createQuery(cq);
+    query.setFirstResult(offset);
+    query.setMaxResults(maxResults);
+
+    return query.getResultList();
   }
 }
