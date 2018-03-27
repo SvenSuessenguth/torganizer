@@ -24,9 +24,6 @@ public class TournamentsRepository extends Repository{
 
   private static final String TOURNAMENT_FIND_BY_ID_QUERY_NAME = "Tournament.findById";
 
-  @PersistenceContext(name = "torganizer")
-  EntityManager entityManager;
-
   public TournamentsRepository(){
   }
 

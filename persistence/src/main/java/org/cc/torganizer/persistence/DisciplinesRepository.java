@@ -20,9 +20,6 @@ public class DisciplinesRepository extends Repository{
   private static final String DISCIPLINE_FIND_BY_ID_QUERY_NAME = "Discipline.findById";
   private static final String DISCIPLINE_FIND_ALL_QUERY_NAME = "Discipline.findAll";
 
-  @PersistenceContext(name = "torganizer")
-  EntityManager entityManager;
-
   public DisciplinesRepository() {
   }
 

@@ -12,9 +12,6 @@ import java.util.List;
 @Stateless
 public class PersonsRepository extends Repository{
 
-  @PersistenceContext(name = "torganizer")
-  EntityManager entityManager;
-
   public PersonsRepository() {
   }
 
