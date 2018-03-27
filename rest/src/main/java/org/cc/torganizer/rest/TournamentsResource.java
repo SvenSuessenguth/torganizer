@@ -38,7 +38,6 @@ public class TournamentsResource extends AbstractResource {
 
   @POST
   public JsonObject create(JsonObject jsonObject) {
-
     Tournament tournament = tConverter.toModel(jsonObject);
     // client can send '0' with a detached object exception as the result
     tournament.setId(null);
@@ -58,6 +57,7 @@ public class TournamentsResource extends AbstractResource {
   @GET
   public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
     List<Tournament> tournaments = tRepository.getTournaments(offset, length);
+
     return tConverter.toJsonArray(tournaments);
   }
 
@@ -93,7 +93,6 @@ public class TournamentsResource extends AbstractResource {
   @Path("/{id}/assignable-opponents")
   public JsonArray getAssignableOpponents(@PathParam("id") Long tournamentId, @QueryParam("disciplineId") Long disciplineId,
                                           @QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
-
     Discipline discipline = dRepository.read(disciplineId);
     List<Opponent> opponents = tRepository.getOpponentsForDiscipline(tournamentId, discipline, offset, length);
 
@@ -108,8 +107,8 @@ public class TournamentsResource extends AbstractResource {
   @Path("/{tid}/players")
   public JsonObject addPlayer(@PathParam("tid") Long tournamentId, @QueryParam("pid") Long playerId) {
     Player player = tRepository.addPlayer(tournamentId, playerId);
-
     PlayerJsonConverter pConverter = (PlayerJsonConverter) ocProvider.getConverter(PLAYER);
+
     return pConverter.toJsonObject(player);
   }
 
@@ -120,8 +119,8 @@ public class TournamentsResource extends AbstractResource {
   @Path("/{tid}/players/{pid}")
   public JsonObject removePlayer(@PathParam("tid") Long tournamentId, @PathParam("pid") Long playerId) {
     Player player = tRepository.removePlayer(tournamentId, playerId);
-
     PlayerJsonConverter pConverter = (PlayerJsonConverter) ocProvider.getConverter(PLAYER);
+
     return pConverter.toJsonObject(player);
   }
 
@@ -135,8 +134,8 @@ public class TournamentsResource extends AbstractResource {
   @Path("/{id}/squads")
   public JsonArray squads(@PathParam("id") Long tournamentId, @QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
     List<Squad> squads = tRepository.getSquads(tournamentId, offset, length);
-
     SquadJsonConverter sConverter = (SquadJsonConverter) ocProvider.getConverter(SQUAD);
+
     return sConverter.toJsonArray(squads);
   }
 
@@ -144,8 +143,8 @@ public class TournamentsResource extends AbstractResource {
   @Path("/{id}/squads")
   public JsonObject squads(@PathParam("id") Long tournamentId, @QueryParam("sid") Long squadId) {
     Squad squad = tRepository.addSquad(tournamentId, squadId);
-
     SquadJsonConverter sConverter = (SquadJsonConverter) ocProvider.getConverter(SQUAD);
+    
     return sConverter.toJsonObject(squad);
   }
 
