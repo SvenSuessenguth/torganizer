@@ -1,35 +1,21 @@
 package org.cc.torganizer.rest;
 
-import java.util.List;
-import java.util.Set;
+import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.persistence.PlayersRepository;
+import org.cc.torganizer.rest.json.PlayerJsonConverter;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import org.cc.torganizer.core.entities.Player;
-import static org.cc.torganizer.rest.AbstractResource.DEFAULT_LENGTH;
-import static org.cc.torganizer.rest.AbstractResource.DEFAULT_OFFSET;
-
-import org.cc.torganizer.persistence.PlayersRepository;
-import org.cc.torganizer.rest.json.PlayerJsonConverter;
+import java.util.List;
+import java.util.Set;
 
 @Stateless
 @Path("/players")
