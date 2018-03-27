@@ -1,9 +1,13 @@
 package org.cc.torganizer.persistence;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+
+import org.cc.torganizer.core.comparators.OpponentByNameComparator;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -14,11 +18,40 @@ import static org.hamcrest.Matchers.nullValue;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SquadsJpaTest extends AbstractDbUnitJpaTest {
+public class SquadsRepositoryTest extends AbstractDbUnitJpaTest {
+
+  private SquadsRepository repository;
 
   @Before
   public void before() throws Exception {
     super.initDatabase("test-data-squads.xml");
+    repository = new SquadsRepository(entityManager);
+  }
+
+  @Test
+  public void testReadOrderdByLastName_0(){
+    List<Squad> squads = repository.readOrderByLastName(0,1);
+
+    assertThat(squads, is(not(nullValue())));
+    assertThat(squads, hasSize(1));
+    Squad s = squads.get(0);
+    List<Player> players = new ArrayList<>(s.getPlayers());
+    Collections.sort(players, new OpponentByNameComparator());
+
+    assertThat(players.get(0).getPerson().getLastName(), is("Aöüß"));
+  }
+
+  @Test
+  public void testReadOrderdByLastName_1(){
+    List<Squad> squads = repository.readOrderByLastName(1,1);
+
+    assertThat(squads, is(not(nullValue())));
+    assertThat(squads, hasSize(1));
+    Squad s = squads.get(0);
+    List<Player> players = new ArrayList<>(s.getPlayers());
+    Collections.sort(players, new OpponentByNameComparator());
+
+    assertThat(players.get(0).getPerson().getLastName(), is("nn3"));
   }
 
   @Test

@@ -43,4 +43,14 @@ public class Squad extends Opponent {
   public OpponentType getOpponentType(){
     return OpponentType.SQUAD;
   }
+
+  @Override
+  public String toString(){
+    String playersString = "";
+    for(Player p:getPlayers()){
+      playersString+=p.toString();
+    }
+
+    return "Squad ["+getId()+"] players:{"+playersString+"}";
+  }
 }

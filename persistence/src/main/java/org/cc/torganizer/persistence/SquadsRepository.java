@@ -1,16 +1,21 @@
 package org.cc.torganizer.persistence;
 
+import org.cc.torganizer.core.comparators.OpponentByNameComparator;
+import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
+import org.cc.torganizer.core.entities.Tournament;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
+import java.util.Collections;
 import java.util.List;
 
 @Stateless
-public class SquadsRepository extends Repository{
+public class SquadsRepository extends Repository {
 
   public SquadsRepository() {
   }
@@ -27,20 +32,21 @@ public class SquadsRepository extends Repository{
   // Person CRUD
   //
   //--------------------------------------------------------------------------------------------------------------------
-  public Squad create(Squad squad){
+  public Squad create(Squad squad) {
     entityManager.persist(squad);
     entityManager.flush();
 
     return squad;
   }
-  public Squad read(Long squadId){
+
+  public Squad read(Long squadId) {
     TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Squad.findById", Squad.class);
     namedQuery.setParameter("id", squadId);
 
     return namedQuery.getSingleResult();
   }
 
-  public List<Squad> read(Integer offset, Integer maxResults){
+  public List<Squad> read(Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
@@ -52,12 +58,23 @@ public class SquadsRepository extends Repository{
     return namedQuery.getResultList();
   }
 
-  public Squad update(Squad squad){
+  public List<Squad> readOrderByLastName(Integer offset, Integer maxResults) {
+    offset = offset == null ? DEFAULT_OFFSET : offset;
+    maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
+
+    TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Squad.findAll", Squad.class);
+    List<Squad> squads = namedQuery.getResultList();
+
+    Collections.sort(squads, new OpponentByNameComparator());
+    return squads.subList(offset, offset + maxResults);
+  }
+
+  public Squad update(Squad squad) {
     entityManager.merge(squad);
     return squad;
   }
 
-  public Squad delete(Long squadId){
+  public Squad delete(Long squadId) {
     TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Squad.findById", Squad.class);
     namedQuery.setParameter("id", squadId);
     Squad squad = namedQuery.getSingleResult();
@@ -67,7 +84,7 @@ public class SquadsRepository extends Repository{
     return squad;
   }
 
-  public long count(){
+  public long count() {
     Query query = entityManager.createQuery("SELECT count(s) FROM Squad s");
     return (long) query.getSingleResult();
   }
@@ -77,7 +94,7 @@ public class SquadsRepository extends Repository{
   // Squads players
   //
   //--------------------------------------------------------------------------------------------------------------------
-  public List<Player> getPlayers(Long squadId){
+  public List<Player> getPlayers(Long squadId) {
     TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Squad.findPlayers", Player.class);
     namedQuery.setParameter("id", squadId);
 
