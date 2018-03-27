@@ -69,10 +69,8 @@ public class TournamentsRepository extends Repository{
 
 
   public List<Tournament> getTournaments(Integer offset, Integer maxResults){
-    if (offset == null || maxResults == null) {
-      offset = DEFAULT_OFFSET;
-      maxResults = DEFAULT_MAX_RESULTS;
-    }
+    offset = offset == null ? DEFAULT_OFFSET : offset;
+    maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
     TypedQuery<Tournament> namedQuery = entityManager.createNamedQuery("Tournament.findAll", Tournament.class);
     namedQuery.setFirstResult(offset);
@@ -86,10 +84,8 @@ public class TournamentsRepository extends Repository{
   //
   //--------------------------------------------------------------------------------------------------------------------
   public List<Player> getPlayersOrderedByLastName(Long tournamentId, Integer offset, Integer maxResults){
-    if (offset == null || maxResults == null) {
-      offset = DEFAULT_OFFSET;
-      maxResults = DEFAULT_MAX_RESULTS;
-    }
+    offset = offset == null ? DEFAULT_OFFSET : offset;
+    maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
     CriteriaBuilder cb = entityManager.getCriteriaBuilder();
     CriteriaQuery<Player> cq = cb.createQuery(Player.class);
@@ -194,10 +190,8 @@ public class TournamentsRepository extends Repository{
   }
 
   public List<Squad> getSquads(Long tournamentId, Integer offset, Integer maxResults){
-    if (offset == null || maxResults == null) {
-      offset = DEFAULT_OFFSET;
-      maxResults = DEFAULT_MAX_RESULTS;
-    }
+    offset = offset == null ? DEFAULT_OFFSET : offset;
+    maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
     TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Tournament.findSquads", Squad.class);
     namedQuery.setParameter("id", tournamentId);
@@ -222,10 +216,8 @@ public class TournamentsRepository extends Repository{
   //
   //--------------------------------------------------------------------------------------------------------------------
   public List<Discipline> getDisciplines(Long tournamentId, Integer offset, Integer maxResults){
-    if (offset == null || maxResults == null) {
-      offset = DEFAULT_OFFSET;
-      maxResults = DEFAULT_MAX_RESULTS;
-    }
+    offset = offset == null ? DEFAULT_OFFSET : offset;
+    maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
     TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery("Tournament.findDisciplines", Discipline.class);
     namedQuery.setParameter("id", tournamentId);
@@ -251,11 +243,8 @@ public class TournamentsRepository extends Repository{
   }
 
   public List<Opponent> getOpponentsForDiscipline(Long tournamentId, Discipline discipline, Integer offset, Integer maxResults){
-    // JPQL in not using offset/length
-    if (offset == null || maxResults == null) {
-      offset = DEFAULT_OFFSET;
-      maxResults = DEFAULT_MAX_RESULTS;
-    }
+    offset = offset == null ? DEFAULT_OFFSET : offset;
+    maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
     // load tournaments opponents
     TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME, Tournament.class);

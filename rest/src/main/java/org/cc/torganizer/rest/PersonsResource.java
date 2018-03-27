@@ -24,6 +24,7 @@ import javax.ws.rs.core.Response;
 import static javax.ws.rs.core.Response.created;
 import javax.ws.rs.core.UriInfo;
 import org.cc.torganizer.core.entities.Person;
+import org.cc.torganizer.persistence.PersonsRepository;
 import org.cc.torganizer.rest.json.PersonJsonConverter;
 
 /**
@@ -36,8 +37,8 @@ import org.cc.torganizer.rest.json.PersonJsonConverter;
 @Consumes("application/json")
 public class PersonsResource extends AbstractResource {
 
-  @PersistenceContext(name = "torganizer")
-  EntityManager entityManager;
+  @Inject
+  private PersonsRepository pRepository;
 
   @Inject
   private PersonJsonConverter converter;
@@ -45,10 +46,7 @@ public class PersonsResource extends AbstractResource {
   @POST
   public Response create(JsonObject jsonObject, @Context UriInfo uriInfo) {
     Person person = converter.toModel(jsonObject);
-    // Person wird als nicht-persistente entity betrachtet.
-    // vom client kann die id '0' geliefert werden, sodass eine detached-entity-Exception geworfen wird.
-    person.setId(null);
-    entityManager.persist(person);
+    pRepository.create(person);
 
     final JsonObject result = converter.toJsonObject(person);
     URI uri = uriInfo.getAbsolutePathBuilder().path(""+person.getId()).build();
@@ -59,11 +57,8 @@ public class PersonsResource extends AbstractResource {
   @GET
   @Path("/{id}")
   public JsonObject read(@PathParam("id") Long id) {
+    Person person = pRepository.read(id);
 
-    TypedQuery<Person> namedQuery = entityManager.createNamedQuery("Person.findById", Person.class);
-    namedQuery.setParameter("id", id);
-    Person person = namedQuery.getSingleResult();
-    
     return converter.toJsonObject(person);
   }
 
@@ -71,7 +66,7 @@ public class PersonsResource extends AbstractResource {
   @Path("/{id}")
   public JsonObject update(JsonObject jsonObject) {
     Person person = converter.toModel(jsonObject);
-    entityManager.merge(person);
+    pRepository.update(person);
 
     return converter.toJsonObject(person);
   }
@@ -79,29 +74,15 @@ public class PersonsResource extends AbstractResource {
   @DELETE
   @Path("/{id}")
   public JsonObject delete(@PathParam("id") Long id) {
-    TypedQuery<Person> namedQuery = entityManager.createNamedQuery("Person.findById", Person.class);
-    namedQuery.setParameter("id", id);
-    List<Person> persons = namedQuery.getResultList();
+    Person person = pRepository.delete(id);
 
-    Person personToDelete = persons.get(0);
-    entityManager.remove(personToDelete);
-
-    return converter.toJsonObject(personToDelete);
+    return converter.toJsonObject(person);
   }
 
   @GET
   @Path("/all")
   public JsonArray all(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
-
-    if (offset == null || length == null) {
-      offset = DEFAULT_OFFSET;
-      length = DEFAULT_LENGTH;
-    }
-
-    TypedQuery<Person> namedQuery = entityManager.createNamedQuery("Person.findAll", Person.class);
-    namedQuery.setFirstResult(offset);
-    namedQuery.setMaxResults(length);
-    List<Person> persons = namedQuery.getResultList();
+    List<Person> persons = pRepository.read(offset, length);
 
     return converter.toJsonArray(persons);
   }
@@ -109,7 +90,6 @@ public class PersonsResource extends AbstractResource {
   @GET
   @Path("/count")
   public long count() {
-    Query query = entityManager.createQuery("SELECT count(p) FROM Person p");
-    return (long) query.getSingleResult();
+    return pRepository.count();
   }
 }

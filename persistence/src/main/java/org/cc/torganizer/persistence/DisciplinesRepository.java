@@ -57,10 +57,8 @@ public class DisciplinesRepository extends Repository{
   }
 
   public List<Discipline> read(Integer offset, Integer maxResults){
-    if (offset == null || maxResults == null) {
-      offset = DEFAULT_OFFSET;
-      maxResults = DEFAULT_MAX_RESULTS;
-    }
+    offset = offset == null ? DEFAULT_OFFSET : offset;
+    maxResults = maxResults==null?DEFAULT_MAX_RESULTS:maxResults;
 
     TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery(DISCIPLINE_FIND_ALL_QUERY_NAME, Discipline.class);
     namedQuery.setFirstResult(offset);
@@ -78,10 +76,8 @@ public class DisciplinesRepository extends Repository{
   //
   //--------------------------------------------------------------------------------------------------------------------
   public List<Opponent> getOpponents(Long disciplineId, Integer offset, Integer maxResults){
-    if (offset == null || maxResults == null) {
-      offset = DEFAULT_OFFSET;
-      maxResults = DEFAULT_MAX_RESULTS;
-    }
+    offset = offset == null ? DEFAULT_OFFSET : offset;
+    maxResults = maxResults==null?DEFAULT_MAX_RESULTS:maxResults;
 
     CriteriaBuilder cb = entityManager.getCriteriaBuilder();
     CriteriaQuery<Opponent> cq = cb.createQuery(Opponent.class);
