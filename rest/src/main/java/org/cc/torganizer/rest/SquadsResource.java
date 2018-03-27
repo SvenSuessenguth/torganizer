@@ -10,16 +10,9 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
-
-import static org.cc.torganizer.rest.AbstractResource.DEFAULT_LENGTH;
-import static org.cc.torganizer.rest.AbstractResource.DEFAULT_OFFSET;
 
 @Stateless
 @Path("/squads")
@@ -27,9 +20,6 @@ import static org.cc.torganizer.rest.AbstractResource.DEFAULT_OFFSET;
 @Consumes(MediaType.APPLICATION_JSON)
 public class SquadsResource {
 
-  @PersistenceContext(name = "torganizer")
-  EntityManager entityManager;
-  
   @Inject
   private SquadJsonConverter converter;
   
@@ -41,7 +31,6 @@ public class SquadsResource {
 
   @POST
   public JsonObject create(JsonObject jsonObject) {
-    
     Squad squad = converter.toModel(jsonObject);
     squad = sRepository.create(squad);
 
@@ -65,8 +54,8 @@ public class SquadsResource {
 
   @PUT
   public JsonObject update(JsonObject jsonObject) {
-    final Squad squad = converter.toModel(jsonObject);
-    entityManager.merge(squad);
+    Squad squad = converter.toModel(jsonObject);
+    squad = sRepository.update(squad);
 
     return  converter.toJsonObject(squad);
   }
@@ -74,12 +63,7 @@ public class SquadsResource {
   @DELETE
   @Path("/{id}")
   public JsonObject delete(@PathParam("id") Long id) {
-
-    TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Squad.findById", Squad.class);
-    namedQuery.setParameter("id", id);
-    Squad squad = namedQuery.getSingleResult();
-    
-    entityManager.remove(squad);
+    Squad squad = sRepository.delete(id);
 
     return converter.toJsonObject(squad);
   }
@@ -87,18 +71,13 @@ public class SquadsResource {
   @GET
   @Path("/count")
   public long count() {
-    Query query = entityManager.createQuery("SELECT count(s) FROM Squad s");
-    return (long) query.getSingleResult();
+    return sRepository.count();
   }
   
   @GET
   @Path("/{id}/players")
   public JsonArray players(@PathParam("id") Long squadId) {
-            
-    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Squad.findPlayers", Player.class);
-    namedQuery.setParameter("id", squadId);
-    
-    List<Player> players = namedQuery.getResultList();
+    List<Player> players = sRepository.getPlayers(squadId);
 
     return pConverter.toJsonArray(players);
   }

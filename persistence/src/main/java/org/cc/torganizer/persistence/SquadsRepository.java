@@ -1,9 +1,11 @@
 package org.cc.torganizer.persistence;
 
+import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -46,6 +48,38 @@ public class SquadsRepository extends Repository{
     namedQuery.setFirstResult(offset);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
+
+    return namedQuery.getResultList();
+  }
+
+  public Squad update(Squad squad){
+    entityManager.merge(squad);
+    return squad;
+  }
+
+  public Squad delete(Long squadId){
+    TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Squad.findById", Squad.class);
+    namedQuery.setParameter("id", squadId);
+    Squad squad = namedQuery.getSingleResult();
+
+    entityManager.remove(squad);
+
+    return squad;
+  }
+
+  public long count(){
+    Query query = entityManager.createQuery("SELECT count(s) FROM Squad s");
+    return (long) query.getSingleResult();
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // Squads players
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  public List<Player> getPlayers(Long squadId){
+    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Squad.findPlayers", Player.class);
+    namedQuery.setParameter("id", squadId);
 
     return namedQuery.getResultList();
   }
