@@ -37,11 +37,8 @@ import org.cc.torganizer.rest.json.PlayerJsonConverter;
 @Consumes(MediaType.APPLICATION_JSON)
 public class PlayersResource {
 
-  @PersistenceContext(name = "torganizer")
-  EntityManager entityManager;
-
   @Inject
-  private PlayersRepository repository;
+  private PlayersRepository pRepository;
 
   @Inject
   private PlayerJsonConverter converter;
@@ -56,9 +53,7 @@ public class PlayersResource {
     Set<ConstraintViolation<Player>> violations = validator.validate( player );
     
     if(violations.isEmpty()){    
-      entityManager.persist(player);
-      // with no flush, the id is unknown
-      entityManager.flush();
+      pRepository.create(player);
   
       return converter.toJsonObject(player);
     }
@@ -70,23 +65,14 @@ public class PlayersResource {
   @Path("{id}")
   public JsonObject readSingle(@PathParam("id") Long id) {
 
-    Player player = repository.getPlayer(id);
+    Player player = pRepository.read(id);
 
     return  converter.toJsonObject(player);
   }
   
   @GET
   public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
-
-    if (offset == null || length == null) {
-      offset = DEFAULT_OFFSET;
-      length = DEFAULT_LENGTH;
-    }
-
-    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findAll", Player.class);
-    namedQuery.setFirstResult(offset);
-    namedQuery.setMaxResults(length);
-    List<Player> players = namedQuery.getResultList();
+    List<Player> players = pRepository.read(offset,length);
 
     return converter.toJsonArray(players);
   }
@@ -94,7 +80,7 @@ public class PlayersResource {
   @PUT
   public String update(JsonObject jsonObject) {
     final Player player = converter.toModel(jsonObject);
-    entityManager.merge(player);
+    pRepository.update(player);
 
     return  converter.toJsonObject(player).toString();
   }
@@ -102,12 +88,7 @@ public class PlayersResource {
   @DELETE
   @Path("/{id}")
   public JsonObject delete(@PathParam("id") Long id) {
-
-    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
-    namedQuery.setParameter("id", id);
-    Player player = namedQuery.getSingleResult();
-    
-    entityManager.remove(player);
+    Player player = pRepository.delete(id);
 
     return converter.toJsonObject(player);
   }
@@ -115,7 +96,6 @@ public class PlayersResource {
   @GET
   @Path("/count")
   public long count() {
-    Query query = entityManager.createQuery("SELECT count(p) FROM Player p");
-    return (long) query.getSingleResult();
+    return pRepository.count();
   }
 }

@@ -23,7 +23,7 @@ public class PlayersRepositoryTest extends AbstractDbUnitJpaTest {
   @Test
   public void testGetPlayers() {
 
-    List<Player> players = repository.getPlayers();
+    List<Player> players = repository.read(null, null);
 
     assertThat(players, hasSize(2));
     // status von opponent 2 checken (inactive)
@@ -33,7 +33,7 @@ public class PlayersRepositoryTest extends AbstractDbUnitJpaTest {
   @Test
   public void testGetPlayer() {
 
-    Player player = repository.getPlayer(2L);
+    Player player = repository.read(2L);
 
     assertThat(player, is(not(nullValue())));
     assertThat(player.getPerson().getFirstName(),is("Üöä"));
