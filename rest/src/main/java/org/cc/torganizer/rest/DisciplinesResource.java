@@ -14,9 +14,6 @@ import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.ws.rs.*;
 import java.util.List;
 
@@ -25,23 +22,21 @@ import java.util.List;
 @Produces("application/json")
 public class DisciplinesResource extends AbstractResource {
 
+  @Inject
   private DisciplinesRepository dRepository;
 
   @Inject
-  private DisciplineJsonConverter converter;
+  private DisciplineJsonConverter dConverter;
 
   @Inject
   private OpponentJsonConverterProvider opponentJsonConverterProvider;
 
-  @PersistenceContext(name = "torganizer")
-  EntityManager entityManager;
-
   @POST
   public JsonObject create(JsonObject jsonObject) {
-    Discipline discipline = converter.toModel(jsonObject);
+    Discipline discipline = dConverter.toModel(jsonObject);
     discipline = dRepository.create(discipline);
 
-    return converter.toJsonObject(discipline);
+    return dConverter.toJsonObject(discipline);
   }
 
   @GET
@@ -49,22 +44,22 @@ public class DisciplinesResource extends AbstractResource {
   public JsonObject readSingle(@PathParam("id") Long disciplineId) {
     Discipline discipline = dRepository.read(disciplineId);
 
-    return converter.toJsonObject(discipline);
+    return dConverter.toJsonObject(discipline);
   }
 
   @GET
   public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
     List<Discipline> disciplines = dRepository.read(offset, length);
 
-    return converter.toJsonArray(disciplines);
+    return dConverter.toJsonArray(disciplines);
   }
 
   @PUT
   public JsonObject update(JsonObject jsonObject) {
-    Discipline discipline = converter.toModel(jsonObject);
+    Discipline discipline = dConverter.toModel(jsonObject);
     discipline = dRepository.update(discipline);
 
-    return converter.toJsonObject(discipline);
+    return dConverter.toJsonObject(discipline);
   }
 
   @GET
@@ -93,15 +88,8 @@ public class DisciplinesResource extends AbstractResource {
   @POST
   @Path("/{id}/opponents")
   public JsonObject addOpponent(@PathParam("id") Long disciplineId, @QueryParam("opponentId") Long opponentId) {
-    // load Opponent
-    TypedQuery<Opponent> namedQuery = entityManager.createNamedQuery("Opponent.findById", Opponent.class);
-    namedQuery.setParameter("id", opponentId);
-    List<Opponent> opponents = namedQuery.getResultList();
-    Opponent opponentToAdd = opponents.get(0);
+    Discipline discipline = dRepository.addOpponent(disciplineId, opponentId);
 
-    // load discipline
-    Discipline discipline = dRepository.addOpponent(disciplineId, opponentToAdd);
-
-    return converter.toJsonObject(discipline);
+    return dConverter.toJsonObject(discipline);
   }
 }

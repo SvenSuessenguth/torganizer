@@ -104,7 +104,11 @@ public class DisciplinesRepository extends Repository{
     return query.getResultList();
   }
 
-  public Discipline addOpponent(Long disciplineId, Opponent opponent){
+  public Discipline addOpponent(Long disciplineId, Long opponentId){
+    TypedQuery<Opponent> namedQuery = entityManager.createNamedQuery("Opponent.findById", Opponent.class);
+    namedQuery.setParameter("id", opponentId);
+    Opponent opponent = namedQuery.getSingleResult();
+
     Discipline discipline = read(disciplineId);
     discipline.getOpponents().add(opponent);
     entityManager.persist(discipline);
