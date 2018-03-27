@@ -46,11 +46,11 @@ public class Squad extends Opponent {
 
   @Override
   public String toString(){
-    String playersString = "";
+    StringBuilder personsString = new StringBuilder("");
     for(Player p:getPlayers()){
-      playersString+=p.toString();
+      personsString.append(p.toString());
     }
 
-    return "Squad ["+getId()+"] players:{"+playersString+"}";
+    return "Squad ["+getId()+"] players:{"+personsString.toString()+"}";
   }
 }

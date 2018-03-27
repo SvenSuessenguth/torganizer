@@ -1,16 +1,13 @@
 package org.cc.torganizer.persistence;
 
 import org.cc.torganizer.core.comparators.OpponentByNameComparator;
-import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
-import org.cc.torganizer.core.entities.Tournament;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.*;
 import java.util.Collections;
 import java.util.List;
 
