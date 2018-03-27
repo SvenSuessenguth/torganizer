@@ -42,7 +42,7 @@ public class PlayersRepository extends Repository{
 
   public List<Player> read(Integer offset, Integer maxResults){
     offset = offset == null ? DEFAULT_OFFSET : offset;
-    maxResults = maxResults==null?DEFAULT_MAX_RESULTS:maxResults;
+    maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
     TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findAll", Player.class);
     namedQuery.setFirstResult(offset);

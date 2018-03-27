@@ -16,6 +16,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import org.cc.torganizer.core.entities.Restriction;
 import static org.cc.torganizer.rest.AbstractResource.DEFAULT_OFFSET;
+
+import org.cc.torganizer.persistence.RestrictionsRepository;
 import org.cc.torganizer.rest.json.RestrictionJsonConverter;
 
 @Stateless
@@ -24,17 +26,16 @@ import org.cc.torganizer.rest.json.RestrictionJsonConverter;
 public class RestrictionsResource extends AbstractResource {
 
   @Inject
-  private RestrictionJsonConverter converter;
+  private RestrictionsRepository rRepository;
 
-  @PersistenceContext(name = "torganizer")
-  EntityManager entityManager;
+  @Inject
+  private RestrictionJsonConverter converter;
 
   @POST
   public JsonObject create(JsonObject jsonObject) {
 
     Restriction restriction = converter.toModel(jsonObject);
-    entityManager.persist(restriction);
-    entityManager.flush();
+    rRepository.create(restriction);
 
     return converter.toJsonObject(restriction);
   }
@@ -42,26 +43,14 @@ public class RestrictionsResource extends AbstractResource {
   @GET
   @Path("{id}")
   public JsonObject readSingle(@PathParam("id") Long id) {
+    Restriction restriction = rRepository.read(id);
 
-    TypedQuery<Restriction> namedQuery = entityManager.createNamedQuery("Restriction.findById", Restriction.class);
-    namedQuery.setParameter("id", id);
-    Restriction restrictions = namedQuery.getSingleResult();
-
-    return converter.toJsonObject(restrictions);
+    return converter.toJsonObject(restriction);
   }
 
   @GET
   public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
-
-    if (offset == null || length == null) {
-      offset = DEFAULT_OFFSET;
-      length = DEFAULT_LENGTH;
-    }
-
-    TypedQuery<Restriction> namedQuery = entityManager.createNamedQuery("Restriction.findAll", Restriction.class);
-    namedQuery.setFirstResult(offset);
-    namedQuery.setMaxResults(length);
-    List<Restriction> restrictions = namedQuery.getResultList();
+    List<Restriction> restrictions = rRepository.read(offset, length);
 
     return converter.toJsonArray(restrictions);
   }
