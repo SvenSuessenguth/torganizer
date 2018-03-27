@@ -260,6 +260,7 @@ public class TournamentsRepository extends Repository{
     // load tournaments opponents
     TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME, Tournament.class);
     namedTournamentQuery.setParameter("id", tournamentId);
+
     Tournament tournament = namedTournamentQuery.getSingleResult();
     Set<Opponent> opponents = tournament.getOpponents();
 
@@ -272,6 +273,6 @@ public class TournamentsRepository extends Repository{
     // sort and use offset/length
     Collections.sort(assignableOpponents, new OpponentByNameComparator());
 
-    return assignableOpponents;
+    return assignableOpponents.subList(offset, offset + maxResults);
   }
 }
