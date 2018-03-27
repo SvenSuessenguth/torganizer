@@ -1,7 +1,6 @@
 package org.cc.torganizer.persistence;
 
 import org.cc.torganizer.core.entities.Person;
-import org.cc.torganizer.core.entities.Player;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
