@@ -1,11 +1,9 @@
 package org.cc.torganizer.persistence;
 
-import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Restriction;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 

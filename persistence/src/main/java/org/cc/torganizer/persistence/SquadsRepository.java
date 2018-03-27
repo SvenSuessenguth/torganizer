@@ -1,11 +1,9 @@
 package org.cc.torganizer.persistence;
 
-import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 

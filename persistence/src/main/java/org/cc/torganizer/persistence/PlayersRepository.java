@@ -47,9 +47,7 @@ public class PlayersRepository extends Repository{
     TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findAll", Player.class);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
-    List<Player> players = namedQuery.getResultList();
-
-    return players;
+    return namedQuery.getResultList();
   }
 
   public Player update(Player player){
