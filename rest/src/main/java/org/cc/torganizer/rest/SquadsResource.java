@@ -2,6 +2,7 @@ package org.cc.torganizer.rest;
 
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
+import org.cc.torganizer.persistence.SquadsRepository;
 import org.cc.torganizer.rest.json.PlayerJsonConverter;
 import org.cc.torganizer.rest.json.SquadJsonConverter;
 
@@ -35,13 +36,14 @@ public class SquadsResource {
   @Inject
   private PlayerJsonConverter pConverter;
 
+  @Inject
+  private SquadsRepository sRepository;
+
   @POST
   public JsonObject create(JsonObject jsonObject) {
     
     Squad squad = converter.toModel(jsonObject);
-    
-    entityManager.persist(squad);
-    entityManager.flush();
+    squad = sRepository.create(squad);
 
     return converter.toJsonObject(squad);
   }
@@ -49,27 +51,14 @@ public class SquadsResource {
   @GET
   @Path("{id}")
   public JsonObject readSingle(@PathParam("id") Long id) {
-
-    TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Squad.findById", Squad.class);
-    namedQuery.setParameter("id", id);
-    Squad squad = namedQuery.getSingleResult();
+    Squad squad = sRepository.read(id);
 
     return  converter.toJsonObject(squad);
   }
   
   @GET
   public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
-
-    if (offset == null || length == null) {
-      offset = DEFAULT_OFFSET;
-      length = DEFAULT_LENGTH;
-    }
-
-    TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Squad.findAll", Squad.class);
-    namedQuery.setFirstResult(offset);
-    namedQuery.setFirstResult(offset);
-    namedQuery.setMaxResults(length);
-    List<Squad> squads = namedQuery.getResultList();
+    List<Squad> squads = sRepository.read(offset, length);
 
     return converter.toJsonArray(squads);
   }
