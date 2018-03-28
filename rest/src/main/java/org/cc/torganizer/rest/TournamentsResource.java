@@ -15,6 +15,7 @@ import java.util.List;
 import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
 import static org.cc.torganizer.core.entities.OpponentType.SQUAD;
 import static org.cc.torganizer.core.entities.Restriction.Discriminator.AGE_RESTRICTION;
+import static org.cc.torganizer.core.entities.Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION;
 
 @Stateless
 @Path("/tournaments")
@@ -96,7 +97,7 @@ public class TournamentsResource extends AbstractResource {
     Discipline discipline = dRepository.read(disciplineId);
     List<Opponent> opponents = tRepository.getOpponentsForDiscipline(tournamentId, discipline, offset, length);
 
-    OpponentTypeRestriction otRestriction = (OpponentTypeRestriction) discipline.getRestriction(AGE_RESTRICTION);
+    OpponentTypeRestriction otRestriction = (OpponentTypeRestriction) discipline.getRestriction(OPPONENT_TYPE_RESTRICTION);
     OpponentType opponentType = otRestriction.getOpponentType();
     ModelJsonConverter converter = ocProvider.getConverter(opponentType);
 
