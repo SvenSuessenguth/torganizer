@@ -77,7 +77,13 @@ class Disciplines {
     console.log("add opponent "+event.detail+" to discipline "+sessionStorage.getItem('disciplines.current-discipline-id'));
     let disciplineId = sessionStorage.getItem('disciplines.current-discipline-id');
     let opponentId = event.detail;
-    disciplinesResource.addOpponent(disciplineId, opponentId);
+    disciplinesResource.addOpponent(disciplineId, opponentId, disciplines.addOpponentResolve, disciplines.addOpponentReject);
+  }
+  addOpponentResolve(json){
+    console.log("opponent added "+JSON.stringify(json));
+  }
+  addOpponentReject(text){
+    console.log("error while adding opponent");
   }
   //--------------------------------------------------------------------------------------------------------------------
   //
