@@ -26,6 +26,7 @@ class Disciplines {
     tournamentsResource.getDisciplines(tournamentId, this.initDisciplinesResolve, this.initDisciplinesReject);
 
     document.getElementById("name").focus();
+    document.getElementById("assignable-opponents-table").addEventListener("opponent-selected", this.opponentSelectedFromAssignableOpponents);
   }
   initDisciplinesResolve(disciplines) {
     var dSelect = document.getElementById("disciplines");
@@ -72,6 +73,12 @@ class Disciplines {
   }
   showAssignableOpponentsReject(json){}
 
+  opponentSelectedFromAssignableOpponents(event){
+    console.log("add opponent "+event.detail+" to discipline "+sessionStorage.getItem('disciplines.current-discipline-id'));
+    let disciplineId = sessionStorage.getItem('disciplines.current-discipline-id');
+    let opponentId = event.detail;
+    disciplinesResource.addOpponent(disciplineId, opponentId);
+  }
   //--------------------------------------------------------------------------------------------------------------------
   //
   // save

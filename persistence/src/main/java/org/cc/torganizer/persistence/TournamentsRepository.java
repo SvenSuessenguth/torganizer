@@ -11,7 +11,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
-import java.lang.System;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -266,13 +265,6 @@ public class TournamentsRepository extends Repository{
       maxResults = size-offset;
     }
 
-
-    List<Opponent> opponentsBulk = assignableOpponents.subList(offset, offset + maxResults);
-
-    for(Opponent o:opponentsBulk){
-      System.out.println(o);
-    }
-
-    return opponentsBulk;
+    return assignableOpponents.subList(offset, offset + maxResults);
   }
 }
