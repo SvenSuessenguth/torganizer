@@ -5,8 +5,8 @@ class Squads {
   }
   
   onLoad(){
-    this.initAllPlayers();
     this.initSquads();
+    this.initAllPlayers();
     this.cancel();
   }
 
@@ -71,8 +71,8 @@ class Squads {
   //--------------------------------------------------------------------------------------------------------------------
 
   initAllPlayers(){
-    var allPlayersLength = document.getElementById("all-players-table").getAttribute("rows");
-    var allPlayersTournamentId = tournaments.getCurrentTournamentId();    
+    let allPlayersLength = document.getElementById("all-players-table").getAttribute("rows");
+    let allPlayersTournamentId = tournaments.getCurrentTournamentId();
     sessionStorage.setItem("squads.all-players-offset", 0);    
     
     this.updateAllPlayers(allPlayersTournamentId, 0, allPlayersLength);
@@ -117,9 +117,9 @@ class Squads {
     this.updateAllPlayers(allPlayersTournamentId, allPlayersOffset, allPlayersLength);
   }
   nextAllPlayers(){
-    var allPlayersLength = Number(document.getElementById("all-players-table").getAttribute("rows"));
-    var tournamentId = tournaments.getCurrentTournamentId();
-    var allPlayersOffset = Number(sessionStorage.getItem("squads.all-players-offset"));
+    let allPlayersLength = Number(document.getElementById("all-players-table").getAttribute("rows"));
+    let tournamentId = tournaments.getCurrentTournamentId();
+    let allPlayersOffset = Number(sessionStorage.getItem("squads.all-players-offset"));
     allPlayersOffset = allPlayersOffset + allPlayersLength;    
     sessionStorage.setItem("squads.all-players-offset", allPlayersOffset);
     
@@ -183,7 +183,7 @@ class Squads {
   //
   //--------------------------------------------------------------------------------------------------------------------
   save(){
-    var squad = this.formToSquad();
+    let squad = this.formToSquad();
     if(squad===null || squad.id==='' || squad.id==='null' || squad.id===null) {
       this.create(squad);
     } else {
@@ -194,13 +194,13 @@ class Squads {
     squadsResource.createOrUpdate(squad, "POST", this.createResolve, this.createReject); 
   }
   createResolve(json){
-    var tournamentId = tournaments.getCurrentTournamentId();
-    var squadId = json.id;
+    let tournamentId = tournaments.getCurrentTournamentId();
+    let squadId = json.id;
     tournamentsResource.addSquad(tournamentId, squadId, squads.addSquadResolve, squads.addSquadReject);
   }
   createReject(error) { console.log(error); }
   addSquadResolve(json){
-    var tournamentId = tournaments.getCurrentTournamentId();
+    let tournamentId = tournaments.getCurrentTournamentId();
     squads.updateAllSquads(tournamentId, 0, 10);
     squads.cancel();
   }
@@ -211,7 +211,7 @@ class Squads {
     squads.cancel();
   }
   updateResolve(json){
-    var tournamentId = tournaments.getCurrentTournamentId();
+    let tournamentId = tournaments.getCurrentTournamentId();
     squads.updateAllSquads(tournamentId, 0, 10);
     squads.cancel();
   }
@@ -223,7 +223,7 @@ class Squads {
   //
   //--------------------------------------------------------------------------------------------------------------------
   formToSquad(){    
-    var json = {
+    let json = {
       "id": sessionStorage.getItem('squads.current-squad-id'),
       "players": JSON.parse(sessionStorage.getItem("squads.selected-players-table"))
     };

@@ -69,7 +69,7 @@ public class DisciplinesResource extends AbstractResource {
 
     JsonArray result = null;
 
-    // all opponents must have same type
+    // all opponents must have same type (see opponentTypeRestriction)
     OpponentType opponentType = null;
     if(opponents.isEmpty()){
       JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
@@ -89,6 +89,14 @@ public class DisciplinesResource extends AbstractResource {
   @Path("/{id}/opponents")
   public JsonObject addOpponent(@PathParam("id") Long disciplineId, @QueryParam("opponentId") Long opponentId) {
     Discipline discipline = dRepository.addOpponent(disciplineId, opponentId);
+
+    return dConverter.toJsonObject(discipline);
+  }
+
+  @DELETE
+  @Path("/{id}/opponents")
+  public JsonObject removeOpponent(@PathParam("id") Long disciplineId, @QueryParam("opponentId") Long opponentId) {
+    Discipline discipline = dRepository.removeOpponent(disciplineId, opponentId);
 
     return dConverter.toJsonObject(discipline);
   }

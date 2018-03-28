@@ -107,4 +107,16 @@ public class DisciplinesRepository extends Repository{
 
     return discipline;
   }
+
+  public Discipline removeOpponent(Long disciplineId, Long opponentId) {
+    TypedQuery<Opponent> namedQuery = entityManager.createNamedQuery("Opponent.findById", Opponent.class);
+    namedQuery.setParameter("id", opponentId);
+    Opponent opponent = namedQuery.getSingleResult();
+
+    Discipline discipline = read(disciplineId);
+    discipline.getOpponents().remove(opponent);
+    entityManager.persist(discipline);
+
+    return discipline;
+  }
 }

@@ -42,10 +42,46 @@ class   DisciplinesResource {
       });
   }
 
+  getOpponents(disciplineId, onResolve, onReject) {
+    fetch('http://localhost:8080/rest/resources/disciplines/' +disciplineId+"/opponents")
+    .then(function (response) {
+      if (response.ok)
+        return response.json();
+      else
+        throw new Error('Fehlerhandling noch nicht spezifiziert');
+    })
+    .then(function (json) {
+        onResolve(json);
+    })
+    .catch(function (err) {
+      onReject("???");
+    });
+  }
+
   addOpponent(disciplineId, opponentId, onResolve, onReject) {
     fetch('http://localhost:8080/rest/resources/disciplines/' +disciplineId+"/opponents?opponentId="+opponentId,{
       method: "POST",
         headers: {
+        'Accept': 'application/json'
+      }
+    }).then(function (response) {
+      if (response.ok)
+        return response.json();
+      else
+        throw new Error('Fehlerhandling noch nicht spezifiziert');
+    })
+      .then(function (json) {
+        onResolve(json);
+      })
+      .catch(function (err) {
+        onReject("???");
+      });
+  }
+
+  removeOpponent(disciplineId, opponentId, onResolve, onReject) {
+    fetch('http://localhost:8080/rest/resources/disciplines/' +disciplineId+"/opponents?opponentId="+opponentId,{
+      method: "DELETE",
+      headers: {
         'Accept': 'application/json'
       }
     }).then(function (response) {
