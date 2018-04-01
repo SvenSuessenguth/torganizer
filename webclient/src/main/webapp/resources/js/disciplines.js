@@ -105,13 +105,6 @@ class Disciplines {
   //
   //--------------------------------------------------------------------------------------------------------------------
   initOpponents(){
-    let disciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
-    if(disciplineId===null){
-      return;
-    }else{
-      disciplineId = Number(disciplineId);
-    }
-
     this.updateOpponents();
     document.getElementById("opponents-table").addEventListener("opponent-selected", this.opponentSelectedFromOpponents);
   }
@@ -147,12 +140,6 @@ class Disciplines {
   //
   //--------------------------------------------------------------------------------------------------------------------
   initAssignableOpponents() {
-    let disciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
-    if(disciplineId===null){
-      return;
-    }
-    disciplineId = Number(disciplineId);
-
     sessionStorage.setItem("disciplines.assignable-opponents-offset", 0);
     this.updateAssignableOpponents();
     document.getElementById("assignable-opponents-table").addEventListener("opponent-selected", this.opponentSelectedFromAssignableOpponents);
