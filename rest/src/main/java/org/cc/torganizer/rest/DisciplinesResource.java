@@ -64,8 +64,8 @@ public class DisciplinesResource extends AbstractResource {
 
   @GET
   @Path("/{id}/opponents")
-  public JsonArray getOpponents(@PathParam("id") Long disciplineId) {
-    List<Opponent> opponents = dRepository.getOpponents(disciplineId, null, null);
+  public JsonArray getOpponents(@PathParam("id") Long disciplineId, @QueryParam("offset") Integer offset, @QueryParam("maxResults") Integer maxResults) {
+    List<Opponent> opponents = dRepository.getOpponents(disciplineId, offset, maxResults);
 
     JsonArray result = null;
 

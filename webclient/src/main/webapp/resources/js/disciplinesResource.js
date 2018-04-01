@@ -42,7 +42,7 @@ class   DisciplinesResource {
       });
   }
 
-  getOpponents(disciplineId, onResolve, onReject) {
+  getOpponents(disciplineId, offset, maxResults, onResolve, onReject) {
     fetch('http://localhost:8080/rest/resources/disciplines/' +disciplineId+"/opponents")
     .then(function (response) {
       if (response.ok)
