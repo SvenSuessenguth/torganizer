@@ -164,7 +164,7 @@ class Disciplines {
     let maxResults = document.getElementById("opponents-table").getAttribute("rows");
     let offset = sessionStorage.getItem('disciplines.current-discipline.offset');
 
-    tournamentsResource.assignableOpponents(tournamentId, disciplineId, this.updateAssignableOpponentsResolve, this.updateAssignableOpponentsReject );
+    tournamentsResource.assignableOpponents(tournamentId, disciplineId, offset, maxResults, this.updateAssignableOpponentsResolve, this.updateAssignableOpponentsReject );
   }
   updateAssignableOpponentsResolve(json){
     document.getElementById("assignable-opponents-table").setAttribute("data", JSON.stringify(json));

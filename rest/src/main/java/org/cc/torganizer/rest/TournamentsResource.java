@@ -93,9 +93,9 @@ public class TournamentsResource extends AbstractResource {
   @GET
   @Path("/{id}/assignable-opponents")
   public JsonArray getAssignableOpponents(@PathParam("id") Long tournamentId, @QueryParam("disciplineId") Long disciplineId,
-                                          @QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
+                                          @QueryParam("offset") Integer offset, @QueryParam("maxResults") Integer maxResults) {
     Discipline discipline = dRepository.read(disciplineId);
-    List<Opponent> opponents = tRepository.getOpponentsForDiscipline(tournamentId, discipline, offset, length);
+    List<Opponent> opponents = tRepository.getOpponentsForDiscipline(tournamentId, discipline, offset, maxResults);
 
     OpponentTypeRestriction otRestriction = (OpponentTypeRestriction) discipline.getRestriction(OPPONENT_TYPE_RESTRICTION);
     OpponentType opponentType = otRestriction.getOpponentType();
