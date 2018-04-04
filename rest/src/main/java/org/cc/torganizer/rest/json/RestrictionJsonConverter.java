@@ -91,13 +91,13 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
 
     switch (discriminator) {
       case AGE_RESTRICTION:
-        restriction = toModel((AgeRestriction) restriction, jsonObject);
+        toModel((AgeRestriction) restriction, jsonObject);
         break;
       case GENDER_RESTRICTION:
-        restriction = toModel((GenderRestriction) restriction, jsonObject);
+        toModel((GenderRestriction) restriction, jsonObject);
         break;
       case OPPONENT_TYPE_RESTRICTION:
-        restriction = toModel((OpponentTypeRestriction) restriction, jsonObject);
+        toModel((OpponentTypeRestriction) restriction, jsonObject);
         break;
       default:
         throw new IllegalArgumentException("Can't convert json with discriminator-id " + restriction.getDiscriminator().getId() + " to model.");
