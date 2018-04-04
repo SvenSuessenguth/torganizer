@@ -13,8 +13,6 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 @Stateless

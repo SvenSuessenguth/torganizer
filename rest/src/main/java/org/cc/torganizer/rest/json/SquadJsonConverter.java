@@ -1,7 +1,6 @@
 package org.cc.torganizer.rest.json;
 
 import org.cc.torganizer.core.entities.OpponentType;
-import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 
 import javax.enterprise.context.RequestScoped;

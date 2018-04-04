@@ -1,6 +1,6 @@
 package org.cc.torganizer.rest;
 
-public abstract class AbstractResource<T> {
+public abstract class AbstractResource {
 
   /**
    * Menge der ausgegebenen Datensätze, wenn nichts anderes angefordert wurde.
@@ -15,5 +15,4 @@ public abstract class AbstractResource<T> {
     // Utility classes, which are collections of static members, are not meant to be instantiated. 
     // Even abstract utility classes, which can be extended, should not have public constructors.
   }
-
 }

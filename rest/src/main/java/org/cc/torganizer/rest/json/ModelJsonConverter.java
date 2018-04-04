@@ -3,6 +3,7 @@ package org.cc.torganizer.rest.json;
 import org.cc.torganizer.core.entities.Entity;
 
 import javax.json.*;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
@@ -35,7 +36,7 @@ public abstract class ModelJsonConverter<T extends Entity> {
       Class tClass = Class.forName(t.getTypeName());
 
       return (T)tClass.getConstructor().newInstance();
-    }catch(Exception exc){
+    }catch(ClassNotFoundException|NoSuchMethodException|InstantiationException|InvocationTargetException|IllegalAccessException exc ){
       throw new RuntimeException(exc);
     }
   }

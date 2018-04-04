@@ -1,25 +1,13 @@
 package org.cc.torganizer.rest.json;
 
+import org.cc.torganizer.core.entities.*;
+
+import javax.enterprise.context.RequestScoped;
+import javax.json.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
-import javax.enterprise.context.RequestScoped;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonBuilderFactory;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonValue;
-import org.cc.torganizer.core.entities.AgeRestriction;
-import org.cc.torganizer.core.entities.Gender;
-import org.cc.torganizer.core.entities.GenderRestriction;
-import org.cc.torganizer.core.entities.OpponentType;
-import org.cc.torganizer.core.entities.OpponentTypeRestriction;
-import org.cc.torganizer.core.entities.Restriction;
 
 /**
  * What does a restriction-json look like:
