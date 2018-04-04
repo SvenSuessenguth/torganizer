@@ -35,7 +35,7 @@ public class PersonsResource extends AbstractResource {
   
   @POST
   public Response create(JsonObject jsonObject, @Context UriInfo uriInfo) {
-    Person person = converter.toModel(jsonObject);
+    Person person = converter.toModel(jsonObject, new Person());
     pRepository.create(person);
 
     final JsonObject result = converter.toJsonObject(person);
@@ -55,7 +55,10 @@ public class PersonsResource extends AbstractResource {
   @PUT
   @Path("/{id}")
   public JsonObject update(JsonObject jsonObject) {
-    Person person = converter.toModel(jsonObject);
+    Long id = Long.valueOf(jsonObject.get("id").toString());
+    Person person = pRepository.read(id);
+
+    person = converter.toModel(jsonObject, person);
     pRepository.update(person);
 
     return converter.toJsonObject(person);

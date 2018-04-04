@@ -67,8 +67,10 @@ public class TournamentJsonConverterTest {
     
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonArray jsonArray = jsonReader.readArray();
+
+    Collection<Tournament> tournaments = Arrays.asList(new Tournament(1L), new Tournament(2L));
         
-    Collection<Tournament> tournaments = converter.toModels(jsonArray);
+    tournaments = converter.toModels(jsonArray, tournaments);
     
     assertThat(tournaments, is(notNullValue()));
     assertThat(tournaments.size(), is(2));

@@ -40,26 +40,21 @@ public class TournamentJsonConverter extends ModelJsonConverter<Tournament>{
   }
 
   @Override
-  public Tournament toModel(JsonObject jsonObject) {
-    Tournament tournament = new Tournament();
-    
+  public Tournament toModel(JsonObject jsonObject, Tournament tournament) {
     String name = jsonObject.getString("name");
     tournament.setName(name);
-    
-    String idString = get(jsonObject, "id");
-    Long id = idString==null?null:Long.valueOf(idString);
-    tournament.setId(id);
-    
+
     return tournament;
   }
 
   @Override
-  public Collection<Tournament> toModels(JsonArray jsonArray) {
-    List<Tournament> tournaments = new ArrayList<>();
-    
-    jsonArray.forEach((JsonValue arrayValue) -> tournaments.add(toModel((JsonObject)arrayValue)));
-    
+  public Collection<Tournament> toModels(JsonArray jsonArray, Collection<Tournament> tournaments) {
+    jsonArray.forEach(item -> {
+      JsonObject jsonObject = (JsonObject) item;
+      Tournament tournament = getProperModel(jsonObject, tournaments);
+      toModel(jsonObject, tournament);
+    });
+
     return tournaments;
   }
-  
 }

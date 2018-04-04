@@ -1,5 +1,6 @@
 package org.cc.torganizer.rest;
 
+import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.persistence.PlayersRepository;
 import org.cc.torganizer.rest.json.PlayerJsonConverter;
@@ -32,7 +33,7 @@ public class PlayersResource {
   @POST
   public JsonObject create(JsonObject jsonObject) {
     
-    Player player = converter.toModel(jsonObject);
+    Player player = converter.toModel(jsonObject, new Player(new Person()));
     
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     Validator validator = factory.getValidator();
@@ -65,7 +66,10 @@ public class PlayersResource {
 
   @PUT
   public String update(JsonObject jsonObject) {
-    final Player player = converter.toModel(jsonObject);
+    Long id = Long.valueOf(jsonObject.get("id").toString());
+    Player player = pRepository.read(id);
+
+    player = converter.toModel(jsonObject, player);
     pRepository.update(player);
 
     return  converter.toJsonObject(player).toString();

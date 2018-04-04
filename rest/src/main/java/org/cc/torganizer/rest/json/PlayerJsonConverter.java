@@ -56,14 +56,7 @@ public class PlayerJsonConverter extends ModelJsonConverter<Player> implements O
   }
 
   @Override
-  public Player toModel(JsonObject jsonObject) {
-    
-    Player player = new Player();
-    
-    String idString = get(jsonObject, "id");
-    Long id = idString==null?null:Long.valueOf(idString);
-    player.setId(id);
-    
+  public Player toModel(JsonObject jsonObject, Player player) {
     String lastMatchString = get(jsonObject, "lastMatch");
     LocalDateTime lastMatch = super.localDateTimeFromString(lastMatchString);
     player.setLastMatch(lastMatch);
@@ -73,18 +66,20 @@ public class PlayerJsonConverter extends ModelJsonConverter<Player> implements O
     player.setStatus(status);
    
     JsonObject personJsonObject = jsonObject.getJsonObject("person");
-    final Person person = personConverter.toModel(personJsonObject);
+    final Person person = personConverter.toModel(personJsonObject, player.getPerson());
     player.setPerson(person);
     
     return player;
   }
 
   @Override
-  public Collection<Player> toModels(JsonArray jsonArray) {
-    List<Player> players = new ArrayList<>();
-    
-    jsonArray.forEach((JsonValue arrayValue) -> players.add(toModel((JsonObject)arrayValue)));
-    
+  public Collection<Player> toModels(JsonArray jsonArray, Collection<Player> players) {
+    jsonArray.forEach(item -> {
+      JsonObject jsonObject = (JsonObject) item;
+      Player player = getProperModel(jsonObject, players);
+      toModel(jsonObject, player);
+    });
+
     return players;
   }
 

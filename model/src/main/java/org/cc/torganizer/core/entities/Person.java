@@ -19,6 +19,10 @@ public class Person extends Entity {
     // gem. Bean-Spec.
   }
 
+  public Person(Long id){
+    setId(id);
+  }
+
   public Person(String newFirstName, String newLastName) {
     this.firstName = newFirstName;
     this.lastName = newLastName;

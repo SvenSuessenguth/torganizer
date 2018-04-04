@@ -3,10 +3,12 @@ package org.cc.torganizer.rest;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.OpponentType;
+import org.cc.torganizer.core.entities.Restriction;
 import org.cc.torganizer.persistence.DisciplinesRepository;
 import org.cc.torganizer.rest.json.DisciplineJsonConverter;
 import org.cc.torganizer.rest.json.ModelJsonConverter;
 import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
+import org.cc.torganizer.rest.json.RestrictionJsonConverter;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -29,11 +31,24 @@ public class DisciplinesResource extends AbstractResource {
   private DisciplineJsonConverter dConverter;
 
   @Inject
+  private RestrictionJsonConverter rConverter;
+
+  @Inject
   private OpponentJsonConverterProvider opponentJsonConverterProvider;
 
   @POST
   public JsonObject create(JsonObject jsonObject) {
-    Discipline discipline = dConverter.toModel(jsonObject);
+    Discipline discipline = dConverter.toModel(jsonObject, new Discipline());
+
+    JsonArray jsonArray = jsonObject.getJsonArray("restrictions");
+    for(int i=0; i<jsonArray.size(); i++){
+      JsonObject r = jsonArray.getJsonObject(i);
+      Restriction restriction = Restriction.Discriminator.byId(r.getString("discriminator")).create();
+
+      restriction = rConverter.toModel(r, restriction);
+      discipline.addRestriction(restriction);
+    }
+
     discipline = dRepository.create(discipline);
 
     return dConverter.toJsonObject(discipline);
@@ -56,7 +71,12 @@ public class DisciplinesResource extends AbstractResource {
 
   @PUT
   public JsonObject update(JsonObject jsonObject) {
-    Discipline discipline = dConverter.toModel(jsonObject);
+    Long id = Long.valueOf(jsonObject.get("id").toString());
+    Discipline discipline = dRepository.read(id);
+
+    discipline = dConverter.toModel(jsonObject, discipline);
+    rConverter.toModels(jsonObject.getJsonArray("restrictions"), discipline.getRestrictions());
+
     discipline = dRepository.update(discipline);
 
     return dConverter.toJsonObject(discipline);
@@ -67,10 +87,10 @@ public class DisciplinesResource extends AbstractResource {
   public JsonArray getOpponents(@PathParam("id") Long disciplineId, @QueryParam("offset") Integer offset, @QueryParam("maxResults") Integer maxResults) {
     List<Opponent> opponents = dRepository.getOpponents(disciplineId, offset, maxResults);
 
-    JsonArray result = null;
+    JsonArray result;
 
     // all opponents must have same type (see opponentTypeRestriction)
-    OpponentType opponentType = null;
+    OpponentType opponentType;
     if(opponents.isEmpty()){
       JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
       result = arrayBuilder.build();

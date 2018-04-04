@@ -9,11 +9,19 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import static java.time.LocalDateTime.of;
 import java.time.Month;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import javax.json.Json;
 import javax.json.JsonArray;
+import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
+
+import org.cc.torganizer.core.entities.Entity;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -48,13 +56,24 @@ public class ModelJsonConverterTest {
     assertThat(converter.localDateToString(christmasEve), is(christmasEveString));
   }
 
-  private static class ModelJsonConverterImpl extends ModelJsonConverter {
+  @Test
+  public void testGetProper(){
+    JsonObject jsonObject = Json
+      .createObjectBuilder()
+      .add("id", 1)
+      .build();
+
+    Entity properModel = converter.getProperModel(jsonObject, Collections.emptyList());
+    assertThat(properModel, is(not(nullValue())));
+  }
+
+  private static class ModelJsonConverterImpl extends ModelJsonConverter<Entity> {
 
     public ModelJsonConverterImpl() {
     }
 
     @Override
-    public JsonObject toJsonObject(Object t) {
+    public JsonObject toJsonObject(Entity t) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -64,12 +83,12 @@ public class ModelJsonConverterTest {
     }
 
     @Override
-    public Object toModel(JsonObject jsonObject) {
+    public Entity toModel(JsonObject jsonObject, Entity entity) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public Collection toModels(JsonArray jsonArray) {
+    public Collection<Entity> toModels(JsonArray jsonArray, Collection<Entity> entities) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
   }

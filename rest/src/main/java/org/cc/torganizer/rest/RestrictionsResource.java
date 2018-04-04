@@ -24,8 +24,11 @@ public class RestrictionsResource extends AbstractResource {
 
   @POST
   public JsonObject create(JsonObject jsonObject) {
+    String discriminatorId = jsonObject.getString("discriminator");
+    Restriction.Discriminator discriminator = Restriction.Discriminator.byId(discriminatorId);
+    Restriction restriction = discriminator.create();
 
-    Restriction restriction = converter.toModel(jsonObject);
+    restriction = converter.toModel(jsonObject, restriction);
     rRepository.create(restriction);
 
     return converter.toJsonObject(restriction);

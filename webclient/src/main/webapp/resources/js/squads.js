@@ -222,9 +222,14 @@ class Squads {
   // converting the input-data (the squad-data in this case) to/from json
   //
   //--------------------------------------------------------------------------------------------------------------------
-  formToSquad(){    
+  formToSquad(){
+    let id = sessionStorage.getItem('squads.current-squad-id');
+    if(id!==null){
+      id = Number(id);
+    }
+
     let json = {
-      "id": sessionStorage.getItem('squads.current-squad-id'),
+      "id": id,
       "players": JSON.parse(sessionStorage.getItem("squads.selected-players-table"))
     };
     

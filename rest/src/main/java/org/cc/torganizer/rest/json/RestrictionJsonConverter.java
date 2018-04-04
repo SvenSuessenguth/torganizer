@@ -96,25 +96,20 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
   }
 
   @Override
-  public Restriction toModel(JsonObject jsonObject) {
+  public Restriction toModel(JsonObject jsonObject, Restriction restriction) {
 
     String discriminatorId = jsonObject.getString("discriminator");
     Restriction.Discriminator discriminator = Restriction.Discriminator.byId(discriminatorId);
-    Restriction restriction = discriminator.create();
-
-    String idString = get(jsonObject, "id");
-    Long id = idString == null ? null : Long.valueOf(idString);
-    restriction.setId(id);
 
     switch (discriminator) {
       case AGE_RESTRICTION:
-        toModel((AgeRestriction) restriction, jsonObject);
+        restriction = toModel((AgeRestriction) restriction, jsonObject);
         break;
       case GENDER_RESTRICTION:
-        toModel((GenderRestriction) restriction, jsonObject);
+        restriction = toModel((GenderRestriction) restriction, jsonObject);
         break;
       case OPPONENT_TYPE_RESTRICTION:
-        toModel((OpponentTypeRestriction) restriction, jsonObject);
+        restriction = toModel((OpponentTypeRestriction) restriction, jsonObject);
         break;
       default:
         throw new IllegalArgumentException("Can't convert json with discriminator-id " + restriction.getDiscriminator().getId() + " to model.");
@@ -152,10 +147,12 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
   }
 
   @Override
-  public Collection<Restriction> toModels(JsonArray jsonArray) {
-    List<Restriction> restrictions = new ArrayList<>();
-
-    jsonArray.forEach((JsonValue arrayValue) -> restrictions.add(toModel((JsonObject) arrayValue)));
+  public Collection<Restriction> toModels(JsonArray jsonArray, Collection<Restriction> restrictions) {
+    jsonArray.forEach(item -> {
+      JsonObject jsonObject = (JsonObject) item;
+      Restriction restriction = getProperModel(jsonObject, restrictions);
+      toModel(jsonObject, restriction);
+    });
 
     return restrictions;
   }

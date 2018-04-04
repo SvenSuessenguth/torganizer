@@ -77,7 +77,7 @@ public class SquadJsonConverterTest {
   
   @Test
   public void testToModel(){
-    String jsonString = "{\"id\":null,"
+    String jsonString = "{\"id\":1,"
             + "\"players\":["
             + "{\"id\":null,\"lastMatch\":null,\"status\":\"ACTIVE\","
             + "\"person\":{\"id\":null,\"firstName\":\"vorname_0\",\"lastName\":\"nachname_0\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}}"
@@ -86,7 +86,7 @@ public class SquadJsonConverterTest {
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonObject jsonObject = jsonReader.readObject();
     
-    final Squad squad = converter.toModel(jsonObject);
+    final Squad squad = converter.toModel(jsonObject, new Squad(1L));
     System.out.println(squad);
     assertThat(squad, is(notNullValue()));
     

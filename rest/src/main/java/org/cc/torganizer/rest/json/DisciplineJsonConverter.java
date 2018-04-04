@@ -1,20 +1,12 @@
 package org.cc.torganizer.rest.json;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
+import org.cc.torganizer.core.entities.Discipline;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonBuilderFactory;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonValue;
-import org.cc.torganizer.core.entities.Discipline;
-import org.cc.torganizer.core.entities.Restriction;
+import javax.json.*;
+import java.util.Collection;
+import java.util.HashMap;
 
 /**
  * A json-disciplines contains nothing but id, name and restrictions.
@@ -56,32 +48,20 @@ public class DisciplineJsonConverter extends ModelJsonConverter<Discipline> {
   }
 
   @Override
-  public Discipline toModel(JsonObject jsonObject) {
-
-    Discipline discipline = new Discipline();
-
-    String idString = get(jsonObject, "id");
-    Long id = idString == null ? null : Long.valueOf(idString);
-    discipline.setId(id);
-
+  public Discipline toModel(JsonObject jsonObject, Discipline discipline) {
     String name = get(jsonObject, "name");
     discipline.setName(name);
-
-    JsonArray restrictionsJson = jsonObject.getJsonArray("restrictions");
-    Collection<Restriction> restrictions = restrictionConverter.toModels(restrictionsJson);
-
-    for (Restriction restriction : restrictions) {
-      discipline.addRestriction(restriction);
-    }
 
     return discipline;
   }
 
   @Override
-  public Collection<Discipline> toModels(JsonArray jsonArray) {
-    List<Discipline> disciplines = new ArrayList<>();
-
-    jsonArray.forEach((JsonValue arrayValue) -> disciplines.add(toModel((JsonObject) arrayValue)));
+  public Collection<Discipline> toModels(JsonArray jsonArray, Collection<Discipline> disciplines) {
+    jsonArray.forEach(item -> {
+      JsonObject jsonObject = (JsonObject) item;
+      Discipline discipline = getProperModel(jsonObject, disciplines);
+      toModel(jsonObject, discipline);
+    });
 
     return disciplines;
   }

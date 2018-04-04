@@ -25,6 +25,10 @@ public class Tournament extends Entity{
     // gem. Bean-Spec.
   }
 
+  public Tournament(Long id){
+    setId(id);
+  }
+
   public String getName() {
     return name;
   }

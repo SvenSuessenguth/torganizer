@@ -1,23 +1,45 @@
 package org.cc.torganizer.rest.json;
 
+import org.cc.torganizer.core.entities.Entity;
+
+import javax.json.*;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
-import javax.json.JsonArray;
-import javax.json.JsonNumber;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonString;
-import javax.json.JsonValue;
+import java.util.Objects;
 
-public abstract class ModelJsonConverter<T> {
+public abstract class ModelJsonConverter<T extends Entity> {
   
   public abstract JsonObject toJsonObject(T t);
   public abstract JsonArray toJsonArray(Collection<T> ts);
-  public abstract T toModel(JsonObject jsonObject);
-  public abstract Collection<T> toModels(JsonArray jsonArray);
-  
+  public abstract T toModel(JsonObject jsonObject, T model);
+  public abstract Collection<T> toModels(JsonArray jsonArray, Collection<T> models);
+
+  // use existing object (update)
+  public T getProperModel(JsonObject jsonObject, Collection<T> models){
+    Long id = Long.valueOf(jsonObject.get("id").toString());
+    for(T model : models){
+      if(Objects.equals(model.getId(),id)){
+        return model;
+      }
+    }
+
+    // use new Object (create)
+    try{
+      Type sooper = getClass().getGenericSuperclass();
+      Type t = ((ParameterizedType)sooper).getActualTypeArguments()[ 0 ];
+
+      Class tClass = Class.forName(t.getTypeName());
+
+      return (T)tClass.getConstructor().newInstance();
+    }catch(Exception exc){
+      throw new RuntimeException(exc);
+    }
+  }
+
   public JsonObjectBuilder add(JsonObjectBuilder objectBuilder, String name, JsonObject value){
     if(value==null){
       return objectBuilder.add(name, JsonValue.NULL);

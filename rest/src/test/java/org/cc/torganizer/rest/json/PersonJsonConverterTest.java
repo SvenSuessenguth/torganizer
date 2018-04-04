@@ -5,24 +5,24 @@
  */
 package org.cc.torganizer.rest.json;
 
+import org.cc.torganizer.core.entities.Gender;
+import org.cc.torganizer.core.entities.Person;
+import org.junit.Before;
+import org.junit.Test;
+
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 import java.io.StringReader;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import org.cc.torganizer.core.entities.Gender;
-import org.cc.torganizer.core.entities.Person;
+
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
-import org.junit.Before;
-import org.junit.Test;
+import static org.hamcrest.Matchers.*;
 
 /**
  *
@@ -58,7 +58,7 @@ public class PersonJsonConverterTest {
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonObject jsonObject = jsonReader.readObject();     
     
-    Person person = converter.toModel(jsonObject);
+    Person person = converter.toModel(jsonObject, new Person());
     
     assertThat(person.getDateOfBirth(), is(nullValue()));
     assertThat(person.getGender(), is(Gender.UNKNOWN));
@@ -71,7 +71,7 @@ public class PersonJsonConverterTest {
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonObject jsonObject = jsonReader.readObject();     
     
-    Person person = converter.toModel(jsonObject);
+    Person person = converter.toModel(jsonObject, new Person(0L));
     
     assertThat(person.getId(), is(0L));
     assertThat(person.getDateOfBirth(), is(LocalDate.of(2017, Month.DECEMBER, 25)));
@@ -80,15 +80,16 @@ public class PersonJsonConverterTest {
   @Test
   public void testToModelObjects() {
     String jsonString = "["
-            + "{\"id\":null,\"firstName\":\"vornameA\",\"lastName\":\"nachnameA\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
-            + "{\"id\":null,\"firstName\":\"vornameB\",\"lastName\":\"nachnameB\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}"
+            + "{\"id\":1,\"firstName\":\"vornameA\",\"lastName\":\"nachnameA\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
+            + "{\"id\":2,\"firstName\":\"vornameB\",\"lastName\":\"nachnameB\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}"
             + "]";
     
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonArray jsonArray = jsonReader.readArray();
+    Collection<Person> persons = Arrays.asList(new Person(1L), new Person(2L));
     
     
-    Collection<Person> persons = converter.toModels(jsonArray);
+    persons = converter.toModels(jsonArray, persons);
     
     assertThat(persons, is(notNullValue()));
     assertThat(persons.size(), is(2));

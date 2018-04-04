@@ -5,22 +5,15 @@
  */
 package org.cc.torganizer.rest.json;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import javax.enterprise.context.RequestScoped;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonBuilderFactory;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonValue;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Person;
+
+import javax.enterprise.context.RequestScoped;
+import javax.json.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Collection;
+import java.util.HashMap;
 
 /**
  *
@@ -54,16 +47,12 @@ public class PersonJsonConverter extends ModelJsonConverter<Person>{
   }
   
   @Override
-  public Person toModel(JsonObject jsonObject) {
-    
+  public Person toModel(JsonObject jsonObject, Person person) {
     String firstName = jsonObject.getString("firstName");
     String lastName = jsonObject.getString("lastName");
-    Person person = new Person(firstName, lastName);
+    person.setFirstName(firstName);
+    person.setLastName(lastName);
 
-    String idString = get(jsonObject, "id");
-    Long id = idString==null?null:Long.valueOf(idString);
-    person.setId(id);
-    
     String genderString = get(jsonObject, "gender");
     Gender gender = Gender.valueOf(genderString);
     person.setGender(gender);
@@ -76,11 +65,13 @@ public class PersonJsonConverter extends ModelJsonConverter<Person>{
   }
 
   @Override
-  public Collection<Person> toModels(JsonArray jsonArray) {
-    List<Person> persons = new ArrayList<>();
-    
-    jsonArray.forEach((JsonValue arrayValue) -> persons.add(toModel((JsonObject)arrayValue)));
-    
+  public Collection<Person> toModels(JsonArray jsonArray, Collection<Person> persons) {
+    jsonArray.forEach(item -> {
+      JsonObject jsonObject = (JsonObject) item;
+      Person person = getProperModel(jsonObject, persons);
+      toModel(jsonObject, person);
+    });
+
     return persons;
   }
 }

@@ -85,12 +85,14 @@ class Disciplines {
     let tournamentId = tournaments.getCurrentTournamentId();
     let opponentsOffset = sessionStorage.getItem('disciplines.opponents-table.offset');
     let opponentsMaxResults = document.getElementById("opponents-table").getAttribute("rows");
+    let assignableOpponentsOffset = sessionStorage.getItem('disciplines.assignable-opponents-table.offset');
+    let assignableOpponentsMaxResults = document.getElementById("assignable-opponents-table").getAttribute("rows");
 
     sessionStorage.setItem('disciplines.current-discipline.id', disciplineId);
 
     disciplinesResource.readSingle(disciplineId, this.showSelectedDisciplineResolve, this.showSelectedDisciplineReject);
     disciplinesResource.getOpponents(disciplineId, opponentsOffset, opponentsMaxResults, disciplines.updateOpponentsResolve, disciplines.updateOpponentsReject);
-    tournamentsResource.assignableOpponents(tournamentId, disciplineId, this.updateAssignableOpponentsResolve, this.updateAssignableOpponentsReject);
+    tournamentsResource.assignableOpponents(tournamentId, disciplineId, assignableOpponentsOffset, assignableOpponentsMaxResults, this.updateAssignableOpponentsResolve, this.updateAssignableOpponentsReject);
   }
 
   showSelectedDisciplineResolve(json) {
@@ -140,16 +142,21 @@ class Disciplines {
   //
   //--------------------------------------------------------------------------------------------------------------------
   initAssignableOpponents() {
-    sessionStorage.setItem("disciplines.assignable-opponents-offset", 0);
+    sessionStorage.setItem("disciplines.assignable-opponents-table.offset", 0);
     this.updateAssignableOpponents();
     document.getElementById("assignable-opponents-table").addEventListener("opponent-selected", this.opponentSelectedFromAssignableOpponents);
   }
 
   updateAssignableOpponents(){
     let tournamentId = tournaments.getCurrentTournamentId();
-    let disciplineId = Number(sessionStorage.getItem('disciplines.current-discipline.id'));
-    let maxResults = document.getElementById("opponents-table").getAttribute("rows");
-    let offset = sessionStorage.getItem('disciplines.current-discipline.offset');
+    let disciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
+    let maxResults = document.getElementById("assignable-opponents-table").getAttribute("rows");
+    let offset = sessionStorage.getItem('disciplines.assignable-opponents-table.offset');
+
+    if(disciplineId===null){
+      return;
+    }
+    disciplineId = Number(disciplineId);
 
     tournamentsResource.assignableOpponents(tournamentId, disciplineId, offset, maxResults, this.updateAssignableOpponentsResolve, this.updateAssignableOpponentsReject );
   }
@@ -305,8 +312,11 @@ class Disciplines {
     });
   }
   formToAgeRestriction() {
+    let ageRestrictionId = sessionStorage.getItem('disciplines.current-age-restriction.id');
+    ageRestrictionId = ageRestrictionId===null?null:Number(ageRestrictionId);
+
     return {
-      "id": Number(sessionStorage.getItem('disciplines.current-age-restriction.id')),
+      "id": ageRestrictionId,
       "discriminator": "A",
       "minDateOfBirth": document.getElementById("min-date-of-birth").value,
       "maxDateOfBirth": document.getElementById("max-date-of-birth").value
@@ -319,9 +329,11 @@ class Disciplines {
   }
   formToGenderRestriction() {
     let genderElement = document.getElementById("gender");
+    let genderRestrictionId = sessionStorage.getItem('disciplines.current-gender-restriction.id');
+    genderRestrictionId = genderRestrictionId===null?null:Number(genderRestrictionId);
 
     return {
-      "id": Number(sessionStorage.getItem('disciplines.current-gender-restriction.id')),
+      "id": genderRestrictionId,
       "discriminator": "G",
       "gender": genderElement.options[genderElement.selectedIndex].value
     };
@@ -334,9 +346,11 @@ class Disciplines {
   }
   formToOpponentTypeRestriction() {
     let opponentTypeElement = document.getElementById("opponent-type");
+    let opponentTypeRestricionId = sessionStorage.getItem('disciplines.current-opponent-type-restriction.id');
+    opponentTypeRestricionId = opponentTypeRestricionId===null?null:Number(opponentTypeRestricionId);
 
     return {
-      "id": Number(sessionStorage.getItem('disciplines.current-opponent-type-restriction.id')),
+      "id": opponentTypeRestricionId,
       "discriminator": "O",
       "opponentType": opponentTypeElement.options[opponentTypeElement.selectedIndex].value
     };

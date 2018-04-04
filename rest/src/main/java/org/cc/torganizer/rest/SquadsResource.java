@@ -2,6 +2,7 @@ package org.cc.torganizer.rest;
 
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
+import org.cc.torganizer.persistence.PlayersRepository;
 import org.cc.torganizer.persistence.SquadsRepository;
 import org.cc.torganizer.rest.json.PlayerJsonConverter;
 import org.cc.torganizer.rest.json.SquadJsonConverter;
@@ -12,6 +13,8 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Stateless
@@ -29,11 +32,22 @@ public class SquadsResource {
   @Inject
   private SquadsRepository sRepository;
 
+  @Inject
+  private PlayersRepository pRepository;
+
   @POST
   public JsonObject create(JsonObject jsonObject) {
-    Squad squad = converter.toModel(jsonObject);
-    squad = sRepository.create(squad);
+    Squad squad = converter.toModel(jsonObject, new Squad());
 
+    JsonArray playerArray = jsonObject.getJsonArray("players");
+    for(int i=0; i<playerArray.size(); i++){
+      JsonObject playerObject = playerArray.getJsonObject(i);
+      Long playerId = Long.valueOf(playerObject.get("id").toString());
+      Player player = pRepository.read(playerId);
+      squad.addPlayer(player);
+    }
+
+    squad = sRepository.create(squad);
     return converter.toJsonObject(squad);
   }
 
@@ -54,9 +68,20 @@ public class SquadsResource {
 
   @PUT
   public JsonObject update(JsonObject jsonObject) {
-    Squad squad = converter.toModel(jsonObject);
-    squad = sRepository.update(squad);
+    Long id = Long.valueOf(jsonObject.get("id").toString());
+    Squad squad = sRepository.read(id);
+    squad = converter.toModel(jsonObject, squad);
+    squad.getPlayers().clear();
 
+    JsonArray playerArray = jsonObject.getJsonArray("players");
+    for(int i=0; i<playerArray.size(); i++){
+      JsonObject playerObject = playerArray.getJsonObject(i);
+      Long playerId = Long.valueOf(playerObject.get("id").toString());
+      Player player = pRepository.read(playerId);
+      squad.addPlayer(player);
+    }
+
+    squad = sRepository.update(squad);
     return  converter.toJsonObject(squad);
   }
 

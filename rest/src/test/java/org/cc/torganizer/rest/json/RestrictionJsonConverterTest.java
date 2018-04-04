@@ -41,7 +41,7 @@ public class RestrictionJsonConverterTest {
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonObject jsonObject = jsonReader.readObject();
 
-    Restriction restriction = converter.toModel(jsonObject);
+    Restriction restriction = converter.toModel(jsonObject, new AgeRestriction());
     MatcherAssert.assertThat(restriction, Matchers.is(Matchers.instanceOf(AgeRestriction.class)));
 
     AgeRestriction ageRestriction = (AgeRestriction) restriction;
@@ -76,7 +76,7 @@ public class RestrictionJsonConverterTest {
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonObject jsonObject = jsonReader.readObject();
 
-    Restriction restriction = converter.toModel(jsonObject);
+    Restriction restriction = converter.toModel(jsonObject, new GenderRestriction());
     MatcherAssert.assertThat(restriction, Matchers.is(Matchers.instanceOf(GenderRestriction.class)));
 
     GenderRestriction genderRestriction = (GenderRestriction) restriction;
@@ -109,7 +109,7 @@ public class RestrictionJsonConverterTest {
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonObject jsonObject = jsonReader.readObject();
 
-    Restriction restriction = converter.toModel(jsonObject);
+    Restriction restriction = converter.toModel(jsonObject, new OpponentTypeRestriction());
     MatcherAssert.assertThat(restriction, Matchers.is(Matchers.instanceOf(OpponentTypeRestriction.class)));
 
     OpponentTypeRestriction opponentTypeRestriction = (OpponentTypeRestriction) restriction;

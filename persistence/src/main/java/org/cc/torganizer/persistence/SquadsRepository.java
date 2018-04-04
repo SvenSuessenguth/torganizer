@@ -67,7 +67,7 @@ public class SquadsRepository extends Repository {
   }
 
   public Squad update(Squad squad) {
-    entityManager.merge(squad);
+    entityManager. merge(squad);
     return squad;
   }
 

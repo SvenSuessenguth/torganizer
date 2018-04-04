@@ -191,11 +191,16 @@ class Players {
   //
   //--------------------------------------------------------------------------------------------------------------------
   formToPlayer(){
-    var genderElement = document.getElementById("gender");
-    var statusElement = document.getElementById("status");
+    let genderElement = document.getElementById("gender");
+    let statusElement = document.getElementById("status");
+    let playerId = sessionStorage.getItem('players-current-player-id');
+    if(playerId !== null){
+      playerId = Number(playerId);
+    }
+
     
-    var json = {
-      "id": sessionStorage.getItem('players-current-player-id'),
+    let json = {
+      "id": playerId,
       "status": statusElement.options[statusElement.selectedIndex].value,
       "person":{
         "id": sessionStorage.getItem('players-current-player-person-id'),

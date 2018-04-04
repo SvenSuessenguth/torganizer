@@ -22,6 +22,10 @@ public class Squad extends Opponent {
     // gem. Bean-Spec.
   }
 
+  public Squad(Long id){
+    setId(id);
+  }
+
   public void addPlayer(Player player) {
     players.add(player);
   }

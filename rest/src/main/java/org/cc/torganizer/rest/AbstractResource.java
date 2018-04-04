@@ -1,6 +1,6 @@
 package org.cc.torganizer.rest;
 
-public abstract class AbstractResource {
+public abstract class AbstractResource<T> {
 
   /**
    * Menge der ausgegebenen Datensätze, wenn nichts anderes angefordert wurde.

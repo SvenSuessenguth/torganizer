@@ -247,7 +247,7 @@ class TournamentsResource {
   }
 
   assignableOpponents(tournamentId, disciplineId, offset, maxResults, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/assignable-opponents?disciplineId=' + disciplineId+"?offset="+offset+"&maxResults="+maxResults)
+    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/assignable-opponents?disciplineId=' + disciplineId+"&offset="+offset+"&maxResults="+maxResults)
       .then(function (response) {
         if (response.ok)
           return response.json();

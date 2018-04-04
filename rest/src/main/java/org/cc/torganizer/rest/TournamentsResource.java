@@ -39,7 +39,7 @@ public class TournamentsResource extends AbstractResource {
 
   @POST
   public JsonObject create(JsonObject jsonObject) {
-    Tournament tournament = tConverter.toModel(jsonObject);
+    Tournament tournament = tConverter.toModel(jsonObject, new Tournament());
     // client can send '0' with a detached object exception as the result
     tournament.setId(null);
 
@@ -64,7 +64,10 @@ public class TournamentsResource extends AbstractResource {
 
   @PUT
   public JsonObject update(JsonObject jsonObject) {
-    Tournament tournament = tConverter.toModel(jsonObject);
+    Long id = Long.valueOf(jsonObject.get("id").toString());
+    Tournament tournament = tRepository.read(id);
+
+    tournament = tConverter.toModel(jsonObject, tournament);
     tRepository.update(tournament);
 
     return tConverter.toJsonObject(tournament);
@@ -72,7 +75,9 @@ public class TournamentsResource extends AbstractResource {
 
   @DELETE
   public JsonObject delete(JsonObject jsonObject) {
-    Tournament tournament = tConverter.toModel(jsonObject);
+    Long id = Long.valueOf(jsonObject.get("id").toString());
+    Tournament tournament = tRepository.read(id);
+
     tRepository.delete(tournament);
 
     return tConverter.toJsonObject(tournament);

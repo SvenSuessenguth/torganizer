@@ -22,6 +22,10 @@ public class Player extends Opponent {
     // gem. Bean-Spec.
   }
 
+  public Player(Long id){
+    setId(id);
+  }
+
   /**
    * convenience constructor.
    *
