@@ -16,30 +16,35 @@
       <link rel="import" href="custom/opponents-table/opponents-table.html"></link>
 
       Disciplines <select id="disciplines" onchange="disciplines.showSelectDiscipline()"/><hr />
-      <hr />
+      <label for="name">Name</label><input id="name" value="" /><br /><hr />
+
+      <div style="float: left; padding-right: 10px;">
       assignable opponents
       <opponents-table id="assignable-opponents-table" rows="10" data="[]" >
       </opponents-table>
       <input type="submit" value="prev" onclick="disciplines.prevAssignableOpponents()" />
       <input type="submit" value="next" onclick="disciplines.nextAssignableOpponents()" />
-      <hr />
+      </div>
+
+      <div>
       opponents
       <opponents-table id="opponents-table" rows="10" data="[]" >
       </opponents-table>
       <input type="submit" value="prev" onclick="disciplines.prevOpponents()" />
       <input type="submit" value="next" onclick="disciplines.nextOpponents()" />
+      </div>
       <hr />
 
 
-      <span id="disciplinesData">
-        <label for="name">Name</label><input id="name" value="" />
-
+      <span id="restrictions">
         <!-- restrictions -->
-        <h3>Restrictions</h3>
+        <div style="float:left; padding-right: 10px;">
         <h4>Age</h4>
         <label for="min-date-of-birth">min</label><input id="min-date-of-birth" type="date" value="" />
         <label for="max-date-of-birth">max</label><input id="max-date-of-birth" type="date" value="" />
-        <hr />
+        </div>
+
+        <div style="float:left; padding-right: 10px;">
         <h4>Gender</h4>
         <label for="gender">gender
           <select id="gender">
@@ -48,7 +53,9 @@
             <option value="UNKNOWN">unknown</option>
           </select>
         </label>
-        <hr />
+        </div>
+
+        <div style="float:left;">
         <h4>Type</h4>
         <label for="opponent-type">type
           <select id="opponent-type">
@@ -57,10 +64,13 @@
             <option value="TEAM">team</option>
           </select>
         </label>
-        <hr />
+        </div>
 
+        <div style="clear:both;">
+        <br /><hr />
         <input type="button" value="save" onclick="disciplines.save()" />
         <input type="button" value="cancel" onclick="disciplines.cancel()" />
+        </div>
       </span>
       <script>disciplines.onload();</script>
     </ui:define>
