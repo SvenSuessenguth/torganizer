@@ -1,6 +1,8 @@
 package org.cc.torganizer.persistence;
 
 import java.util.List;
+
+import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Player;
 import static org.cc.torganizer.core.entities.Status.INACTIVE;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -38,5 +40,21 @@ public class PlayersRepositoryTest extends AbstractDbUnitJpaTest {
     assertThat(player, is(not(nullValue())));
     assertThat(player.getPerson().getFirstName(),is("Üöä"));
     assertThat(player.getPerson().getLastName(),is("Äöüß"));
+  }
+
+  @Test
+  public void testPlayersClubIsNotNull(){
+    Player player = repository.read(1L);
+    Club club = player.getClub();
+
+    assertThat(club, is(not(nullValue())));
+  }
+
+  @Test
+  public void testPlayersClubIsNull(){
+    Player player = repository.read(2L);
+    Club club = player.getClub();
+
+    assertThat(club, is(nullValue()));
   }
 }

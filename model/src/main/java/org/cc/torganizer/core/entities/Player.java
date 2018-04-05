@@ -13,6 +13,8 @@ public class Player extends Opponent {
 
   private Person person;
 
+  private Club club;
+
   private LocalDateTime lastMatch;
 
   /**
@@ -88,6 +90,14 @@ public class Player extends Opponent {
     }
 
     return isGenderSet;
+  }
+
+  public Club getClub() {
+    return club;
+  }
+
+  public void setClub(Club club) {
+    this.club = club;
   }
 
   public OpponentType getOpponentType(){
