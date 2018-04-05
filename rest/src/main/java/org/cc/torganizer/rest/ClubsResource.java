@@ -1,10 +1,8 @@
 package org.cc.torganizer.rest;
 
-import org.cc.torganizer.core.entities.*;
+import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.persistence.ClubsRepository;
-import org.cc.torganizer.persistence.DisciplinesRepository;
-import org.cc.torganizer.persistence.TournamentsRepository;
-import org.cc.torganizer.rest.json.*;
+import org.cc.torganizer.rest.json.ClubJsonConverter;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -12,10 +10,6 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.ws.rs.*;
 import java.util.List;
-
-import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
-import static org.cc.torganizer.core.entities.OpponentType.SQUAD;
-import static org.cc.torganizer.core.entities.Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION;
 
 @Stateless
 @Path("/clubs")
