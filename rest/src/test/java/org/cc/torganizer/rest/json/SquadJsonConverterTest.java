@@ -26,7 +26,7 @@ public class SquadJsonConverterTest {
   @Before
   public void before(){
     PersonJsonConverter personConverter = new PersonJsonConverter();
-    PlayerJsonConverter playerConverter = new PlayerJsonConverter(personConverter);
+    PlayerJsonConverter playerConverter = new PlayerJsonConverter(personConverter, new ClubJsonConverter());
     
     converter = new SquadJsonConverter(playerConverter);
   }
@@ -36,7 +36,8 @@ public class SquadJsonConverterTest {
     String expected = "{\"id\":null,"
             + "\"players\":["
             + "{\"id\":null,\"lastMatch\":null,\"status\":\"ACTIVE\","
-            + "\"person\":{\"id\":null,\"firstName\":\"vorname_0\",\"lastName\":\"nachname_0\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}}"
+            + "\"person\":{\"id\":null,\"firstName\":\"vorname_0\",\"lastName\":\"nachname_0\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
+            + "\"club\":{\"id\":null,\"name\":null}}"
             + "]}";
     
     Player player_0 = new Player("vorname_0", "nachname_0");
@@ -57,7 +58,8 @@ public class SquadJsonConverterTest {
             + "{\"id\":null,"
             + "\"players\":["
             + "{\"id\":null,\"lastMatch\":null,\"status\":\"ACTIVE\","
-            + "\"person\":{\"id\":null,\"firstName\":\"vorname_0\",\"lastName\":\"nachname_0\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}}"
+            + "\"person\":{\"id\":null,\"firstName\":\"vorname_0\",\"lastName\":\"nachname_0\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
+            + "\"club\":{\"id\":null,\"name\":null}}"
             + "]}"
             + "]";
     
@@ -69,9 +71,7 @@ public class SquadJsonConverterTest {
     Set<Squad> squads = Stream.of(squad_0).collect(Collectors.toSet());   
     
     final JsonArray jsonArray = converter.toJsonArray(squads);
-    
-    System.out.println(jsonArray.toString());
-    
+
     assertThat(jsonArray.toString(), is(expected));
   }
   
@@ -80,9 +80,10 @@ public class SquadJsonConverterTest {
     String jsonString = "{\"id\":1,"
             + "\"players\":["
             + "{\"id\":null,\"lastMatch\":null,\"status\":\"ACTIVE\","
-            + "\"person\":{\"id\":null,\"firstName\":\"vorname_0\",\"lastName\":\"nachname_0\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}}"
+            + "\"person\":{\"id\":null,\"firstName\":\"vorname_0\",\"lastName\":\"nachname_0\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
+            + "\"club\":{\"id\":null,\"name\":null}}"
             + "]}";
-    
+
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonObject jsonObject = jsonReader.readObject();
     

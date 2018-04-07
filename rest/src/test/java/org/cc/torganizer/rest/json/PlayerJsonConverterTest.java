@@ -36,6 +36,9 @@ public class PlayerJsonConverterTest {
   @Spy
   private PersonJsonConverter personConverter;
 
+  @Spy
+  private ClubJsonConverter clubJsonConverter;
+
   @InjectMocks
   private PlayerJsonConverter converter;
 
@@ -44,7 +47,8 @@ public class PlayerJsonConverterTest {
     String expected = "{\"id\":null,\"lastMatch\":null,\"status\":\"ACTIVE\","
       + "\"person\":{"
       + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
-      + "\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}}";
+      + "\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
+      + "\"club\":{\"id\":null,\"name\":null}}";
     Player player = new Player("vorname", "nachname");
 
     final JsonObject jsonObject = converter.toJsonObject(player);
@@ -57,7 +61,8 @@ public class PlayerJsonConverterTest {
     String expected = "{\"id\":null,\"lastMatch\":\"2017-12-24 18:00:00\",\"status\":\"ACTIVE\","
       + "\"person\":{"
       + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
-      + "\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}}";
+      + "\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
+      + "\"club\":{\"id\":null,\"name\":null}}";
     Player player = new Player("vorname", "nachname");
     LocalDateTime christmasEve = of(2017, Month.DECEMBER, 24, 18, 0, 0);
     player.setLastMatch(christmasEve);

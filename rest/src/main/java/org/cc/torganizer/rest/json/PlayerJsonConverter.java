@@ -1,9 +1,6 @@
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.OpponentType;
-import org.cc.torganizer.core.entities.Person;
-import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.core.entities.Status;
+import org.cc.torganizer.core.entities.*;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -23,10 +20,14 @@ public class PlayerJsonConverter extends ModelJsonConverter<Player> implements O
   @Inject  
   private PersonJsonConverter personConverter;
 
+  @Inject
+  private ClubJsonConverter clubConverter;
+
   public PlayerJsonConverter(){
   }
   
-  public PlayerJsonConverter(PersonJsonConverter personConverter){
+  public PlayerJsonConverter(PersonJsonConverter personConverter, ClubJsonConverter clubConverter){
+    this.clubConverter = clubConverter;
     this.personConverter = personConverter;
   }
   
@@ -39,6 +40,7 @@ public class PlayerJsonConverter extends ModelJsonConverter<Player> implements O
     add(objectBuilder, "lastMatch", player.getLastMatch());
     add(objectBuilder, "status", player.getStatus().toString());
     add(objectBuilder, "person", personConverter.toJsonObject(player.getPerson()));
+    add(objectBuilder, "club", clubConverter.toJsonObject(player.getClub()));
       
     return objectBuilder.build();
   }
@@ -66,7 +68,7 @@ public class PlayerJsonConverter extends ModelJsonConverter<Player> implements O
     JsonObject personJsonObject = jsonObject.getJsonObject("person");
     final Person person = personConverter.toModel(personJsonObject, player.getPerson());
     player.setPerson(person);
-    
+
     return player;
   }
 

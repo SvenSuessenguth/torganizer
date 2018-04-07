@@ -45,9 +45,8 @@
     <discriminator-value>P</discriminator-value>
     <attributes>
       <basic name="lastMatch"><column name="LAST_MATCH"/></basic>
-      <one-to-one name="club" fetch="LAZY">
+      <one-to-one name="club" fetch="EAGER">
         <join-column name="CLUB_ID" nullable="true"/>
-        <cascade><cascade-all/></cascade>
       </one-to-one>
       <one-to-one name="person" orphan-removal="true">
         <join-column name="PERSON_ID" nullable="false" />

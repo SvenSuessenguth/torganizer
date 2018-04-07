@@ -208,10 +208,14 @@ class Players {
         "lastName": document.getElementById("last-name").value,
         "dateOfBirth": document.getElementById("date-of-birth").value,
         "gender": genderElement.options[genderElement.selectedIndex].value
+      },
+      "club":{
+        "id":null,
+        "name:":null
       }
     };
     
-    console.log("player: "+json);
+    console.log("player: "+JSON.stringify(json));
     return json;
   }
   

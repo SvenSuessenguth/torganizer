@@ -15,9 +15,12 @@ public class ClubJsonConverter extends ModelJsonConverter<Club>{
   public JsonObject toJsonObject(Club club) {
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonObjectBuilder objectBuilder = factory.createObjectBuilder();
-    
-    add(objectBuilder, "id", club.getId());
-    add(objectBuilder, "name", club.getName());
+
+    Long clubId = club!=null?club.getId():null;
+    String clubName = club!=null?club.getName():null;
+
+    add(objectBuilder, "id", clubId);
+    add(objectBuilder, "name", clubName);
       
     return objectBuilder.build();
   }

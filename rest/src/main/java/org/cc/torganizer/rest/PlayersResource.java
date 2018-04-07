@@ -1,14 +1,18 @@
 package org.cc.torganizer.rest;
 
+import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.persistence.ClubsRepository;
 import org.cc.torganizer.persistence.PlayersRepository;
+import org.cc.torganizer.rest.json.ClubJsonConverter;
 import org.cc.torganizer.rest.json.PlayerJsonConverter;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
+import javax.json.JsonValue;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -28,13 +32,29 @@ public class PlayersResource {
   private PlayersRepository pRepository;
 
   @Inject
-  private PlayerJsonConverter converter;
+  private ClubsRepository cRepository;
+
+  @Inject
+  private PlayerJsonConverter pConverter;
+
+  @Inject
+  private ClubJsonConverter clubJsonConverter;
 
   @POST
   public JsonObject create(JsonObject jsonObject) {
     
-    Player player = converter.toModel(jsonObject, new Player(new Person()));
-    
+    Player player = pConverter.toModel(jsonObject, new Player(new Person()));
+
+    // use existing club instead of creating a new one
+    Club club = null;
+    JsonValue jsonValue = jsonObject.getJsonObject("club").get("id");
+    if(jsonValue != JsonValue.NULL){
+      Long id = Long.valueOf(jsonValue.toString());
+      club = cRepository.read(id);
+    }
+    player.setClub(club);
+
+
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     Validator validator = factory.getValidator();
     Set<ConstraintViolation<Player>> violations = validator.validate( player );
@@ -42,7 +62,7 @@ public class PlayersResource {
     if(violations.isEmpty()){    
       pRepository.create(player);
   
-      return converter.toJsonObject(player);
+      return pConverter.toJsonObject(player);
     }
     
     return null;
@@ -54,25 +74,34 @@ public class PlayersResource {
 
     Player player = pRepository.read(id);
 
-    return  converter.toJsonObject(player);
+    return  pConverter.toJsonObject(player);
   }
   
   @GET
   public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
     List<Player> players = pRepository.read(offset,length);
 
-    return converter.toJsonArray(players);
+    return pConverter.toJsonArray(players);
   }
 
   @PUT
-  public String update(JsonObject jsonObject) {
+  public JsonObject update(JsonObject jsonObject) {
     Long id = Long.valueOf(jsonObject.get("id").toString());
     Player player = pRepository.read(id);
 
-    player = converter.toModel(jsonObject, player);
+    // use existing club instead of creating a new one
+    Club club = null;
+    JsonValue jsonValue = jsonObject.getJsonObject("club").get("id");
+    if(jsonValue != null){
+      Long clubId = Long.valueOf(jsonValue.toString());
+      club = cRepository.read(clubId);
+    }
+    player.setClub(club);
+
+    player = pConverter.toModel(jsonObject, player);
     pRepository.update(player);
 
-    return  converter.toJsonObject(player).toString();
+    return  pConverter.toJsonObject(player);
   }
 
   @DELETE
@@ -80,7 +109,7 @@ public class PlayersResource {
   public JsonObject delete(@PathParam("id") Long id) {
     Player player = pRepository.delete(id);
 
-    return converter.toJsonObject(player);
+    return pConverter.toJsonObject(player);
   }
 
   @GET
