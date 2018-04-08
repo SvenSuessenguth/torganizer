@@ -18,7 +18,7 @@ class Players {
   //
   // ---------------------------------------------------------------------------
   save(){
-    if(sessionStorage.getItem('players-current-player-id')===null){
+    if(sessionStorage.getItem('players.player.id')===null){
       this.create();      
     }else{
       this.update();
@@ -75,14 +75,14 @@ class Players {
   //
   //--------------------------------------------------------------------------------------------------------------------
   cancel(){
-    let currentPlayerId = sessionStorage.getItem('players-current-player-id');
-    console.log("players-current-player-id to cancel : "+currentPlayerId);
+    let currentPlayerId = sessionStorage.getItem('players.player.id');
+    console.log("players.player.id to cancel : "+currentPlayerId);
     if(currentPlayerId!==null){
-      sessionStorage.removeItem('players-current-player-id');
+      sessionStorage.removeItem('players.player.id');
     }
-    let currentPersonId = sessionStorage.getItem('players-current-player-person-id');
+    let currentPersonId = sessionStorage.getItem('players.player.person.id');
     if(currentPersonId!== null){
-      sessionStorage.removeItem('players-current-player-person-id');
+      sessionStorage.removeItem('players.player.person.id');
     }
 
     document.getElementById("first-name").value = '';
@@ -95,7 +95,7 @@ class Players {
     document.getElementById("first-name").focus();
 
     let clubsElement = document.getElementById("clubs");
-    sessionStorage.removeItem('players.current-player.club.id');
+    sessionStorage.removeItem('players.player.club.id');
     selectItemByValue(clubsElement, "select");
   }
 
@@ -109,7 +109,7 @@ class Players {
   }
   updateClubsSelectBoxResolve(json){
     let dSelect = document.getElementById("clubs");
-    let clubId = sessionStorage.getItem('disciplines.current-club.id');
+    let clubId = sessionStorage.getItem('players.club.id');
 
     // remove all optione before adding new ones
     while (dSelect.options.length > 0) {
@@ -250,7 +250,7 @@ class Players {
   formToPlayer(){
     let genderElement = document.getElementById("gender");
     let statusElement = document.getElementById("status");
-    let playerId = sessionStorage.getItem('players-current-player-id');
+    let playerId = sessionStorage.getItem('players.player.id');
     if(playerId !== null){
       playerId = Number(playerId);
     }
@@ -266,7 +266,7 @@ class Players {
       "id": playerId,
       "status": statusElement.options[statusElement.selectedIndex].value,
       "person":{
-        "id": sessionStorage.getItem('players-current-player-person-id'),
+        "id": sessionStorage.getItem('players.player.person.id'),
         "firstName": document.getElementById("first-name").value,
         "lastName": document.getElementById("last-name").value,
         "dateOfBirth": document.getElementById("date-of-birth").value,
@@ -283,8 +283,8 @@ class Players {
   }
   
   playerToForm(json){
-    sessionStorage.setItem('players-current-player-id', json.id);
-    sessionStorage.setItem('players-current-player-person-id', json.person.id);
+    sessionStorage.setItem('players.player.id', json.id);
+    sessionStorage.setItem('players.player.person.id', json.person.id);
     sessionStorage.setItem('players.player.club.id', json.club.id);
 
     document.getElementById("first-name").value = json.person.firstName;
