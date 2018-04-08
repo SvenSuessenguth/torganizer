@@ -105,7 +105,7 @@ class Players {
   //
   // ---------------------------------------------------------------------------
   updateClubsSelectBox(){
-    clubsResource.readMultiple(players.updateClubsSelectBoxResolve, players.updateClubsSelectBoxReject);
+    clubsResource.readMultiple(0,100, players.updateClubsSelectBoxResolve, players.updateClubsSelectBoxReject);
   }
   updateClubsSelectBoxResolve(json){
     let dSelect = document.getElementById("clubs");

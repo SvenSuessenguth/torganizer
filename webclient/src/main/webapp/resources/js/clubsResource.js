@@ -43,8 +43,8 @@ class ClubsResource {
       });
   }
 
-  readMultiple(onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/clubs', {
+  readMultiple(offset, maxResults, onResolve, onReject) {
+    fetch('http://localhost:8080/rest/resources/clubs?offset='+offset+"&maxResults="+maxResults, {
       method: "GET",
       headers: {
         'Accept': 'application/json'
