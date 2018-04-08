@@ -22,6 +22,8 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.Set;
 
+import static javax.json.JsonValue.NULL;
+
 @Stateless
 @Path("/players")
 @Produces(MediaType.APPLICATION_JSON)
@@ -48,7 +50,7 @@ public class PlayersResource {
     // use existing club instead of creating a new one
     Club club = null;
     JsonValue jsonValue = jsonObject.getJsonObject("club").get("id");
-    if(jsonValue != JsonValue.NULL){
+    if(jsonValue != NULL){
       Long id = Long.valueOf(jsonValue.toString());
       club = cRepository.read(id);
     }
@@ -92,7 +94,7 @@ public class PlayersResource {
     // use existing club instead of creating a new one
     Club club = null;
     JsonValue jsonValue = jsonObject.getJsonObject("club").get("id");
-    if(jsonValue != null){
+    if(jsonValue != NULL){
       Long clubId = Long.valueOf(jsonValue.toString());
       club = cRepository.read(clubId);
     }

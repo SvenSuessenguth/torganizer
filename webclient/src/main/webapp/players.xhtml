@@ -10,6 +10,10 @@
     <ui:define name="content">
       <h:outputScript name="js/tournamentsResource.js" target="head" />
       <h:outputScript name="js/tournaments.js" target="head" />
+
+      <h:outputScript name="js/clubsResource.js" target="head" />
+      <h:outputScript name="js/clubs.js" target="head" />
+
       <h:outputScript name="js/playersResource.js" target="head" />
       <h:outputScript name="js/players.js" target="head" />
 
@@ -56,6 +60,10 @@
           <select id="status">
             <option value="ACTIVE">aktive</option>
             <option value="INACTIVE">inactive</option>
+          </select>
+        </label>
+        <label for="clubs">
+          <select id="clubs" onchange="players.changeClub()">
           </select>
         </label>
 

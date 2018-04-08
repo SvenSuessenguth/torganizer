@@ -8,6 +8,7 @@ class Players {
   
   onLoad(){
     this.updatePlayersTable();
+    this.updateClubsSelectBox();
     this.cancel();
   }
 
@@ -74,12 +75,12 @@ class Players {
   //
   //--------------------------------------------------------------------------------------------------------------------
   cancel(){
-    var currentPlayerId = sessionStorage.getItem('players-current-player-id');
+    let currentPlayerId = sessionStorage.getItem('players-current-player-id');
     console.log("players-current-player-id to cancel : "+currentPlayerId);
     if(currentPlayerId!==null){
       sessionStorage.removeItem('players-current-player-id');
     }
-    var currentPersonId = sessionStorage.getItem('players-current-player-person-id'); 
+    let currentPersonId = sessionStorage.getItem('players-current-player-person-id');
     if(currentPersonId!== null){
       sessionStorage.removeItem('players-current-player-person-id');
     }
@@ -87,12 +88,68 @@ class Players {
     document.getElementById("first-name").value = '';
     document.getElementById("last-name").value = '';
     document.getElementById("date-of-birth").valueAsDate = null;
-    var genderElement = document.getElementById("gender");
+    let genderElement = document.getElementById("gender");
     selectItemByValue(genderElement, "MALE");
-    var statusElement = document.getElementById("status");
+    let statusElement = document.getElementById("status");
     selectItemByValue(statusElement, "ACTIVE");
     document.getElementById("first-name").focus();
+
+    let clubsElement = document.getElementById("clubs");
+    sessionStorage.removeItem('players.current-player.club.id');
+    selectItemByValue(clubsElement, "select");
   }
+
+  // ---------------------------------------------------------------------------
+  //
+  // update selectbox for clubs
+  //
+  // ---------------------------------------------------------------------------
+  updateClubsSelectBox(){
+    clubsResource.readMultiple(players.updateClubsSelectBoxResolve, players.updateClubsSelectBoxReject);
+  }
+  updateClubsSelectBoxResolve(json){
+    let dSelect = document.getElementById("clubs");
+    let clubId = sessionStorage.getItem('disciplines.current-club.id');
+
+    // remove all optione before adding new ones
+    while (dSelect.options.length > 0) {
+      dSelect.remove(0);
+    }
+
+    // add an empty option to force an onselect event
+    let option = document.createElement("option");
+    option.text = "select...";
+    option.value = "select";
+    option.id= "select";
+    if(clubId===null){
+      option.selected = 'selected';
+    }
+    dSelect.appendChild(option);
+
+
+    // add an option for every discipline
+    json.forEach(function (club) {
+      let option = document.createElement("option");
+      option.text = club.name;
+      option.value = club.id;
+      option.id = club.id;
+      dSelect.appendChild(option);
+
+      if(clubId===club.id.toString()){
+        option.selected = "selected";
+      }
+    });
+  }
+  updateClubsSelectBoxReject(json){}
+
+  changeClub(){
+    let dSelect = document.getElementById("clubs");
+    let disciplineId = dSelect.options[dSelect.selectedIndex].value;
+
+    sessionStorage.setItem('players.player.club.id', disciplineId);
+  }
+
+
 
   // ---------------------------------------------------------------------------
   //
@@ -197,8 +254,14 @@ class Players {
     if(playerId !== null){
       playerId = Number(playerId);
     }
+    let clubId =  sessionStorage.getItem('players.player.club.id');
+    if(clubId=="select"){
+      clubId = null;
+    }else{
+      clubId = Number(clubId);
+    }
 
-    
+
     let json = {
       "id": playerId,
       "status": statusElement.options[statusElement.selectedIndex].value,
@@ -210,7 +273,7 @@ class Players {
         "gender": genderElement.options[genderElement.selectedIndex].value
       },
       "club":{
-        "id":null,
+        "id":clubId,
         "name:":null
       }
     };
@@ -222,6 +285,7 @@ class Players {
   playerToForm(json){
     sessionStorage.setItem('players-current-player-id', json.id);
     sessionStorage.setItem('players-current-player-person-id', json.person.id);
+    sessionStorage.setItem('players.player.club.id', json.club.id);
 
     document.getElementById("first-name").value = json.person.firstName;
     document.getElementById("last-name").value = json.person.lastName;
@@ -232,6 +296,15 @@ class Players {
     
     var statusElement = document.getElementById("status");
     selectItemByValue(statusElement, json.status);
+
+    let clubElement = document.getElementById("clubs")
+    let clubId = json.club.id;
+    if(clubId===null){
+      clubId = "select";
+    }else{
+      clubId = clubId.toString();
+    }
+    selectItemByValue(clubElement, clubId);
   }
 }
 
