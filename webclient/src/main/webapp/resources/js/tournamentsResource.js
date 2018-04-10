@@ -1,67 +1,20 @@
 /* global fetch */
 
-class TournamentsResource {
+class TournamentsResource extends Resource{
   constructor() {
+    super();
   }
 
   createOrUpdate(json, method, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/tournaments', {
-      method: method,
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: json
-    })
-      .then(function (response) {
-        if (response.ok)
-          return response.json();
-        else
-          throw new Error('Fehlerhandling noch nicht spezifiziert');
-      })
-      .then(function (json) {
-        onResolve(json);
-      })
-      .catch(function (err) {
-        onReject("???");
-      });
+    super.createOrUpdate("tournaments", json, onResolve, onReject);
   }
 
   readSingle(tournamentId, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId)
-      .then(function (response) {
-        if (response.ok)
-          return response.json();
-        else
-          throw new Error('Fehlerhandling noch nicht spezifiziert');
-      })
-      .then(function (json) {
-        onResolve(json);
-      })
-      .catch(function (err) {
-        onReject("???");
-      });
+    super.readSingle("tournaments", tournamentId, onResolve, onReject);
   }
 
   readMultiple(offset, length, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/tournaments?offset=' + offset + '&length=' + length, {
-      method: "GET",
-      headers: {
-        'Accept': 'application/json'
-      }
-    })
-      .then(function (response) {
-        if (response.ok)
-          return response.json();
-        else
-          throw new Error('Fehlerhandling noch nicht spezifiziert');
-      })
-      .then(function (json) {
-        onResolve(json);
-      })
-      .catch(function (err) {
-        onReject("???");
-      });
+    super.readMultiple("tournaments", offset, length, onResolve, onReject);
   }
 
   delete(json) {
