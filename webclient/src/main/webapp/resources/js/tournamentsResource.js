@@ -1,12 +1,12 @@
 /* global fetch */
 
-class TournamentsResource extends Resource{
+class TournamentsResource extends CrudResource{
   constructor() {
     super();
   }
 
   createOrUpdate(json, method, onResolve, onReject) {
-    super.createOrUpdate("tournaments", json, onResolve, onReject);
+    super.createOrUpdate("tournaments", json, method, onResolve, onReject);
   }
 
   readSingle(tournamentId, onResolve, onReject) {
@@ -18,6 +18,7 @@ class TournamentsResource extends Resource{
   }
 
   delete(json) {
+    super.delete(json);
   }
 
   getPlayers(tournamentId, offset, length, onResolve, onReject) {

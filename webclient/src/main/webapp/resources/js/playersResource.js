@@ -1,14 +1,28 @@
 /* global fetch */
 
-class PlayersResource extends Resource{
+class PlayersResource {
   constructor() {
-    super();
   }
   
   // create a new or update an existing player
   // method must be one of "POST" (create) or "PUT" (update)
   createOrUpdate(player, method, onResolve, onReject){
-    super.createOrUpdate("players", player, method, onResolve, onReject);
+    fetch('http://localhost:8080/rest/resources/players',{
+      method: method,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(player)
+    })
+    .then(function(response) {
+      if (response.ok)
+        return response.json();
+      else
+        throw new Error(response.status);
+    })
+    .then(function(json) { onResolve(json); })
+    .catch(function(err) { onReject(err); });
   }
   
   // read or delete an existing player

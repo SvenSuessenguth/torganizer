@@ -1,11 +1,11 @@
 /* global fetch */
 
-class ClubsResource {
+class CrudResource {
   constructor() {
   }
 
-  createOrUpdate(json, method, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/clubs', {
+  createOrUpdate(resource, json, method, onResolve, onReject) {
+    fetch('http://localhost:8080/rest/resources/'+resource, {
       method: method,
       headers: {
         'Accept': 'application/json',
@@ -27,8 +27,8 @@ class ClubsResource {
       });
   }
 
-  readSingle(clubId, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/clubs/' + clubId)
+  readSingle(resource, tournamentId, onResolve, onReject) {
+    fetch('http://localhost:8080/rest/resources/'+resource+'/' + tournamentId)
       .then(function (response) {
         if (response.ok)
           return response.json();
@@ -43,8 +43,8 @@ class ClubsResource {
       });
   }
 
-  readMultiple(offset, maxResults, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/clubs?offset='+offset+"&maxResults="+maxResults, {
+  readMultiple(resource, offset, maxLength, onResolve, onReject) {
+    fetch('http://localhost:8080/rest/resources/'+resource+'?offset=' + offset + '&length=' + maxLength, {
       method: "GET",
       headers: {
         'Accept': 'application/json'
@@ -63,6 +63,7 @@ class ClubsResource {
         onReject("???");
       });
   }
-}
 
-var clubsResource = new ClubsResource();
+  delete(json) {
+  }
+}
