@@ -87,13 +87,14 @@ class Tournaments {
   }
   
   inputToJSon(){
-    var id= tournaments.getCurrentTournamentId();
-    var name = document.getElementById("tournamentName").value;
+    let id= tournaments.getCurrentTournamentId();
+    let name = document.getElementById("tournamentName").value;
   
-    var json = JSON.stringify({
+    let json = {
       "id": id,
       "name": name
-    });  
+    };
+
     return json;  
   }
 }

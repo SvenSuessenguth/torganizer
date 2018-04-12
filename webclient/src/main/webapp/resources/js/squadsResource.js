@@ -1,37 +1,16 @@
 /* global fetch */
 
-class SquadsResource {
+class SquadsResource extends CrudResource{
   constructor() {
+    super();
   }
   
   createOrUpdate(json, method, onResolve, onReject){
-    fetch('http://localhost:8080/rest/resources/squads',{
-      method: method,
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(json)
-    })
-    .then(function(response) {
-      if (response.ok)
-        return response.json();
-      else
-        throw new Error(response.status);
-    })
-    .then(function(json) { onResolve(json); })
-    .catch(function(err) { onReject(err); });
+    super.createOrUpdate("squads", json, method, onResolve, onReject);
   }
   
   readSingle(id, onResolve, onReject){
-    fetch('http://localhost:8080/rest/resources/squads/'+id).then(function(response) {
-      if (response.ok)
-        return response.json();
-      else
-        throw new Error('Fehlerhandling noch nicht spezifiziert');
-    })
-    .then(function(json) { onResolve(json); })
-    .catch(function(err) { onReject("???"); });
+    super.readSingle("squads", id, onResolve, onReject);
   }
 }
 

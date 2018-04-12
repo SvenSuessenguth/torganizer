@@ -11,7 +11,7 @@ class CrudResource {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: json
+      body: JSON.stringify(json)
     })
       .then(function (response) {
         if (response.ok)
@@ -27,8 +27,8 @@ class CrudResource {
       });
   }
 
-  readSingle(resource, tournamentId, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/'+resource+'/' + tournamentId)
+  readSingle(resource, id, onResolve, onReject) {
+    fetch('http://localhost:8080/rest/resources/'+resource+'/' + id)
       .then(function (response) {
         if (response.ok)
           return response.json();
