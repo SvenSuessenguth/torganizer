@@ -5,6 +5,9 @@ class CrudResource {
   }
 
   createOrUpdate(resource, json, method, onResolve, onReject) {
+
+    console.log(JSON.stringify(json));
+
     fetch('http://localhost:8080/rest/resources/'+resource, {
       method: method,
       headers: {
