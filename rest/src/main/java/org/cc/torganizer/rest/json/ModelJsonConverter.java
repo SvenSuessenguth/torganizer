@@ -37,7 +37,7 @@ public abstract class ModelJsonConverter<T extends Entity> {
 
       return (T)tClass.getConstructor().newInstance();
     }catch(ClassNotFoundException|NoSuchMethodException|InstantiationException|InvocationTargetException|IllegalAccessException exc ){
-      throw new RuntimeException(exc);
+      throw new ModelJsonConverterException(exc);
     }
   }
 
