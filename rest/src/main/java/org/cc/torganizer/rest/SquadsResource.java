@@ -58,8 +58,8 @@ public class SquadsResource {
   }
   
   @GET
-  public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
-    List<Squad> squads = sRepository.read(offset, length);
+  public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("maxResults") Integer maxResults) {
+    List<Squad> squads = sRepository.read(offset, maxResults);
 
     return converter.toJsonArray(squads);
   }

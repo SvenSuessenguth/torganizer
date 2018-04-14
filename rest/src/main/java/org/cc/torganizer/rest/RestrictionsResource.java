@@ -43,8 +43,8 @@ public class RestrictionsResource extends AbstractResource {
   }
 
   @GET
-  public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
-    List<Restriction> restrictions = rRepository.read(offset, length);
+  public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("maxResults") Integer maxResults) {
+    List<Restriction> restrictions = rRepository.read(offset, maxResults);
 
     return converter.toJsonArray(restrictions);
   }

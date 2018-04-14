@@ -63,8 +63,8 @@ public class DisciplinesResource extends AbstractResource {
   }
 
   @GET
-  public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
-    List<Discipline> disciplines = dRepository.read(offset, length);
+  public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("maxResults") Integer maxResults) {
+    List<Discipline> disciplines = dRepository.read(offset, maxResults);
 
     return dConverter.toJsonArray(disciplines);
   }

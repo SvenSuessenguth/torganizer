@@ -1,67 +1,20 @@
 /* global fetch */
 
-class ClubsResource {
+class ClubsResource extends CrudResource{
   constructor() {
+    super();
   }
 
   createOrUpdate(json, method, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/clubs', {
-      method: method,
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: json
-    })
-      .then(function (response) {
-        if (response.ok)
-          return response.json();
-        else
-          throw new Error('Fehlerhandling noch nicht spezifiziert');
-      })
-      .then(function (json) {
-        onResolve(json);
-      })
-      .catch(function (err) {
-        onReject("???");
-      });
+    super.createOrUpdate("clubs", json, method, onResolve, onReject);
   }
 
   readSingle(clubId, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/clubs/' + clubId)
-      .then(function (response) {
-        if (response.ok)
-          return response.json();
-        else
-          throw new Error('Fehlerhandling noch nicht spezifiziert');
-      })
-      .then(function (json) {
-        onResolve(json);
-      })
-      .catch(function (err) {
-        onReject("???");
-      });
+    super.readSingle("clubs", clubId, onResolve, onReject);
   }
 
   readMultiple(offset, maxResults, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/clubs?offset='+offset+"&maxResults="+maxResults, {
-      method: "GET",
-      headers: {
-        'Accept': 'application/json'
-      }
-    })
-      .then(function (response) {
-        if (response.ok)
-          return response.json();
-        else
-          throw new Error('Fehlerhandling noch nicht spezifiziert');
-      })
-      .then(function (json) {
-        onResolve(json);
-      })
-      .catch(function (err) {
-        onReject("???");
-      });
+    super.readMultiple("clubs", offset, maxResults, onResolve, onReject);
   }
 }
 

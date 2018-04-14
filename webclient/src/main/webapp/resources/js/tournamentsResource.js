@@ -13,16 +13,16 @@ class TournamentsResource extends CrudResource{
     super.readSingle("tournaments", tournamentId, onResolve, onReject);
   }
 
-  readMultiple(offset, length, onResolve, onReject) {
-    super.readMultiple("tournaments", offset, length, onResolve, onReject);
+  readMultiple(offset, maxResults, onResolve, onReject) {
+    super.readMultiple("tournaments", offset, maxResults, onResolve, onReject);
   }
 
   delete(json) {
     super.delete(json);
   }
 
-  getPlayers(tournamentId, offset, length, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/players?offset=' + offset + '&length=' + length)
+  getPlayers(tournamentId, offset, maxResults, onResolve, onReject) {
+    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/players?offset=' + offset + '&maxResults=' + maxResults)
       .then(function (response) {
         if (response.ok)
           return response.json();
@@ -95,8 +95,8 @@ class TournamentsResource extends CrudResource{
       });
   }
 
-  getSquads(tournamentId, offset, length, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/squads?offset=' + offset + '&length=' + length)
+  getSquads(tournamentId, offset, maxResults, onResolve, onReject) {
+    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/squads?offset=' + offset + '&maxResults=' + maxResults)
       .then(function (response) {
         if (response.ok)
           return response.json();

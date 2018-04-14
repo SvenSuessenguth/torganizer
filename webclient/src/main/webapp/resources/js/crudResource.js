@@ -46,8 +46,8 @@ class CrudResource {
       });
   }
 
-  readMultiple(resource, offset, maxLength, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/'+resource+'?offset=' + offset + '&length=' + maxLength, {
+  readMultiple(resource, offset, maxResults, onResolve, onReject) {
+    fetch('http://localhost:8080/rest/resources/'+resource+'?offset=' + offset + '&maxResults=' + maxResults, {
       method: "GET",
       headers: {
         'Accept': 'application/json'

@@ -69,6 +69,7 @@ class Clubs {
     sessionStorage.setItem('clubs-current-club-id', json.id);
     sessionStorage.setItem('clubs-current-club-name', json.name);
     window.location.reload(true);
+    clubs.cancel();
   }
   createFailure(json){}
 
@@ -76,6 +77,7 @@ class Clubs {
     sessionStorage.setItem('clubs-current-club-id', json.id);
     sessionStorage.setItem('clubs-current-club-name', json.name);
     window.location.reload(true);
+    clubs.cancel();
   }
   updateFailure(json){}
   
@@ -90,10 +92,10 @@ class Clubs {
     var id= clubs.getCurrentClubId();
     var name = document.getElementById("clubName").value;
   
-    var json = JSON.stringify({
+    var json = {
       "id": id,
       "name": name
-    });  
+    };
     return json;  
   }
 }

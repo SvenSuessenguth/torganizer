@@ -80,8 +80,8 @@ public class PlayersResource {
   }
   
   @GET
-  public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
-    List<Player> players = pRepository.read(offset,length);
+  public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("maxResults") Integer maxResults) {
+    List<Player> players = pRepository.read(offset,maxResults);
 
     return pConverter.toJsonArray(players);
   }

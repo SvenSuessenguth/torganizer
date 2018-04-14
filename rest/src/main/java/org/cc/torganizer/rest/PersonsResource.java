@@ -74,8 +74,8 @@ public class PersonsResource extends AbstractResource {
 
   @GET
   @Path("/all")
-  public JsonArray all(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
-    List<Person> persons = pRepository.read(offset, length);
+  public JsonArray all(@QueryParam("offset") Integer offset, @QueryParam("maxResults") Integer maxResults) {
+    List<Person> persons = pRepository.read(offset, maxResults);
 
     return converter.toJsonArray(persons);
   }

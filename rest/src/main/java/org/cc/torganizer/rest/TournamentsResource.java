@@ -56,8 +56,8 @@ public class TournamentsResource extends AbstractResource {
   }
 
   @GET
-  public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
-    List<Tournament> tournaments = tRepository.getTournaments(offset, length);
+  public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("maxResults") Integer maxResults) {
+    List<Tournament> tournaments = tRepository.getTournaments(offset, maxResults);
 
     return tConverter.toJsonArray(tournaments);
   }
@@ -85,8 +85,8 @@ public class TournamentsResource extends AbstractResource {
 
   @GET
   @Path("/{id}/players")
-  public JsonArray players(@PathParam("id") Long tournamentId, @QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
-    List<Player> players = tRepository.getPlayersOrderedByLastName(tournamentId, offset, length);
+  public JsonArray players(@PathParam("id") Long tournamentId, @QueryParam("offset") Integer offset, @QueryParam("maxResults") Integer maxResults) {
+    List<Player> players = tRepository.getPlayersOrderedByLastName(tournamentId, offset, maxResults);
 
     PlayerJsonConverter pConverter = (PlayerJsonConverter) ocProvider.getConverter(PLAYER);
     return pConverter.toJsonArray(players);
@@ -138,8 +138,8 @@ public class TournamentsResource extends AbstractResource {
 
   @GET
   @Path("/{id}/squads")
-  public JsonArray squads(@PathParam("id") Long tournamentId, @QueryParam("offset") Integer offset, @QueryParam("length") Integer length) {
-    List<Squad> squads = tRepository.getSquads(tournamentId, offset, length);
+  public JsonArray squads(@PathParam("id") Long tournamentId, @QueryParam("offset") Integer offset, @QueryParam("maxResults") Integer maxResults) {
+    List<Squad> squads = tRepository.getSquads(tournamentId, offset, maxResults);
     SquadJsonConverter sConverter = (SquadJsonConverter) ocProvider.getConverter(SQUAD);
 
     return sConverter.toJsonArray(squads);
