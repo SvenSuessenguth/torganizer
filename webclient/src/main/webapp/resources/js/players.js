@@ -144,9 +144,9 @@ class Players {
 
   changeClub(){
     let dSelect = document.getElementById("clubs");
-    let disciplineId = dSelect.options[dSelect.selectedIndex].value;
+    let clubId = dSelect.options[dSelect.selectedIndex].value;
 
-    sessionStorage.setItem('players.player.club.id', disciplineId);
+    sessionStorage.setItem('players.player.club.id', clubId);
   }
 
 
@@ -255,13 +255,11 @@ class Players {
       playerId = Number(playerId);
     }
     let clubId =  sessionStorage.getItem('players.player.club.id');
-    if(clubId=="select"){
-      clubId = null;
-    }else{
+    if(clubId !== null) {
       clubId = Number(clubId);
     }
 
-
+    // association between club and player is done by clubId, threfore the name of the club is irrelevant and can be NULL
     let json = {
       "id": playerId,
       "status": statusElement.options[statusElement.selectedIndex].value,
@@ -278,7 +276,6 @@ class Players {
       }
     };
     
-    console.log("player: "+JSON.stringify(json));
     return json;
   }
   
