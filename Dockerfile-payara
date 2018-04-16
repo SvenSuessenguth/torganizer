@@ -1,1 +1,0 @@
-FROM payara/server-full

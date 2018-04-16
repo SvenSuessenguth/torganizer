@@ -1,0 +1,21 @@
+IP der virtuellen Maschine http://192.168.99.100
+
+mysql
+docker build -f Dockerfile-mysql -t "torganizer/mysql" .
+docker run -d -p 3306:3306 --name mysql torganizer/mysql:latest
+
+nexus
+docker pull sonatype/nexus3
+docker run -d -p 8081:8081 --name nexus3 sonatype/nexus3
+
+jenkins
+Liste aller Plugin von einem bestehenden Jenkins:
+curl -sSL "http://localhost:8282/pluginManager/api/xml?depth=1&xpath=/*/*/shortName|/*/*/version&wrapper=plugins" | perl -pe 's/.*?<shortName>([\w-]+).*?<version>([^<]+)()(<\/\w+>)+/\1 \2\n/g'|sed 's/ /:/'
+
+Wie komme ich an das initialAdminPassword?
+docker exec <CONTAINER-ID> cat /var/jenkins_home/secrets/initialAdminPassword
+
+docker pull jenkins/jenkins
+docker run -d -p 8282:8282 -p 50000:50000 --name jenkins jenkins/jenkins
+
+
