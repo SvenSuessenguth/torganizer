@@ -8,6 +8,10 @@ nexus
 docker pull sonatype/nexus3
 docker run -d -p 8081:8081 --name nexus3 sonatype/nexus3
 
+sonarqube
+docker pull sonarqube
+docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube
+
 jenkins
 Liste aller Plugin von einem bestehenden Jenkins:
 curl -sSL "http://localhost:8282/pluginManager/api/xml?depth=1&xpath=/*/*/shortName|/*/*/version&wrapper=plugins" | perl -pe 's/.*?<shortName>([\w-]+).*?<version>([^<]+)()(<\/\w+>)+/\1 \2\n/g'|sed 's/ /:/'
@@ -19,3 +23,8 @@ docker pull jenkins/jenkins
 docker run -d -p 8282:8282 -p 50000:50000 --name jenkins jenkins/jenkins
 
 
+etc/hosts
+192.168.99.100      qs.docker
+192.168.99.100      ci.docker
+192.168.99.100      m2repo.docker
+192.168.99.100      db.docker
