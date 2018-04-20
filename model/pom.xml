@@ -15,4 +15,22 @@
   <packaging>jar</packaging>
   <name>model</name>
 
+  <dependencies>
+	<!--
+	 | Dependencies gemaess
+	 | https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#validator-gettingstarted-createproject
+	 +-->
+	<dependency>
+      <groupId>org.hibernate.validator</groupId><artifactId>hibernate-validator</artifactId>
+      <version>6.0.9.Final</version><scope>test</scope>
+    </dependency>
+	<dependency>
+      <groupId>org.hibernate.validator</groupId><artifactId>hibernate-validator-cdi</artifactId>
+      <version>6.0.9.Final</version><scope>test</scope>
+    </dependency>
+	<dependency>
+      <groupId>org.glassfish</groupId><artifactId>javax.el</artifactId>
+      <version>3.0.1-b10</version><scope>test</scope>
+    </dependency>	
+  </dependencies>  
 </project>

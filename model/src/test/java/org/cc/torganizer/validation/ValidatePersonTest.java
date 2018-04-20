@@ -50,12 +50,6 @@ public class ValidatePersonTest {
     
     Set<ConstraintViolation<Person>> violations = validator.validate( p );
     
-    for (ConstraintViolation<Person> violation : violations) {
-      System.out.println(violation.getPropertyPath());
-      System.out.println(violation.getInvalidValue());
-      System.out.println(violation.getMessage());
-    }
-    
     // notNull, notBlank
     assertThat(violations.size(), is(2));
   }
