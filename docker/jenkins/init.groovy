@@ -27,13 +27,6 @@ instance.save()
 //final String userName = "techuser"
 //final String password = "gF5!aL"
 //final String noProxyHost = "*.system.local \n*.system-a.local \nlocalhost \n127.0.0.1"
-
 // final def pc = new hudson.ProxyConfiguration(name, port, userName, password, noProxyHost)
 // instance.proxy = pc
 // instance.save()
-
-// ---------------------------------------------------------------------------------------------------------------------------------
-// Disable Setup Wizard
-// http://www.riptutorial.com/jenkins/example/24925/disable-setup-wizard
-// ---------------------------------------------------------------------------------------------------------------------------------
-instance.setInstallState(InstallState.INITIAL_SETUP_COMPLETED)
