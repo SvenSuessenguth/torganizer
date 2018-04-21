@@ -1,8 +1,16 @@
 IP der virtuellen Maschine http://192.168.99.100
 
-mysql
-docker build -f Dockerfile-mysql -t "torganizer/mysql" .
-docker run -d -p 3306:3306 --name mysql torganizer/mysql:latest
+Allgemein:
+stoppen und löschen aller Container
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+
+löschen aller Images
+docker rmi -f $(docker images -q)
+
+mysql-8
+docker build -t "torganizer/mysql" .
+docker run -d -p 3306:3306 --name mysql torganizer/mysql:latest --default-authentication-plugin=mysql_native_password
 
 nexus
 docker pull sonatype/nexus3
@@ -13,14 +21,8 @@ docker pull sonarqube
 docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube
 
 jenkins
-Liste aller Plugin von einem bestehenden Jenkins:
-curl -sSL "http://localhost:8282/pluginManager/api/xml?depth=1&xpath=/*/*/shortName|/*/*/version&wrapper=plugins" | perl -pe 's/.*?<shortName>([\w-]+).*?<version>([^<]+)()(<\/\w+>)+/\1 \2\n/g'|sed 's/ /:/'
-
-Wie komme ich an das initialAdminPassword?
-docker exec <CONTAINER-ID> cat /var/jenkins_home/secrets/initialAdminPassword
-
-docker pull jenkins/jenkins
-docker run -d -p 8282:8282 -p 50000:50000 --name jenkins jenkins/jenkins
+docker build -t "torganizer/jenkins" .
+docker run -d -p 8282:8080 -p 50000:50000 --name jenkins torganizer/jenkins:latest
 
 
 etc/hosts

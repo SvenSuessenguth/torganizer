@@ -15,15 +15,7 @@
   <packaging>jar</packaging>
   <name>model</name>
 
-<<<<<<< HEAD
-  <dependencies>    
-=======
   <dependencies>
-	<!--
-	 | Dependencies gemaess
-	 | https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#validator-gettingstarted-createproject
-	 +-->
->>>>>>> 12916464b86fb041202d618000f341404ed4f7d0
 	<dependency>
       <groupId>org.hibernate.validator</groupId><artifactId>hibernate-validator</artifactId>
       <version>6.0.9.Final</version><scope>test</scope>
@@ -36,9 +28,5 @@
       <groupId>org.glassfish</groupId><artifactId>javax.el</artifactId>
       <version>3.0.1-b10</version><scope>test</scope>
     </dependency>	
-<<<<<<< HEAD
   </dependencies>
-=======
-  </dependencies>  
->>>>>>> 12916464b86fb041202d618000f341404ed4f7d0
 </project>
