@@ -18,11 +18,11 @@
   <distributionManagement>
     <snapshotRepository>
       <id>maven-snapshots</id>
-      <url>http://m2repo.docker:8081/repository/maven-snapshots/</url>
+      <url>http://nexus3:8081/repository/maven-snapshots/</url>
     </snapshotRepository>
 	<repository>
       <id>maven-releaes</id>      
-      <url>http://m2repo.docker:8081/repository/maven-releases/</url>
+      <url>http://nexus3:8081/repository/maven-releases/</url>
     </repository>
   </distributionManagement>
   
