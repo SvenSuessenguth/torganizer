@@ -19,13 +19,13 @@ pipeline {
     stage('compile') {
       steps {
         // Run the maven build
-        bat 'mvn clean compile'
+        sh 'mvn clean compile'
       }
     }
     stage('test') {
       steps {
         // Run the maven build
-        bat 'mvn test'
+        sh 'mvn test'
       }
 			
       // @see https://jenkins.io/blog/2017/02/07/declarative-maven-project/
@@ -38,13 +38,13 @@ pipeline {
     stage('deploy') {
       steps {
         // Run the maven build
-        bat 'mvn deploy -DskipTests'
+        sh 'mvn deploy -DskipTests'
       }
     }
     stage('report') {
       steps {
         withSonarQubeEnv('SonarQube') {
-          bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.4.0.905:sonar'
+          sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.4.0.905:sonar'
         }        
       } 
     }    
