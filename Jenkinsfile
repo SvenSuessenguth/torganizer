@@ -19,13 +19,13 @@ pipeline {
     stage('compile') {
       steps {
         // Run the maven build
-        sh 'mvn clean compile'
+        bat 'mvn clean compile'
       }
     }
     stage('test') {
       steps {
         // Run the maven build
-        sh 'mvn test'
+        bat 'mvn test'
       }
 			
       // @see https://jenkins.io/blog/2017/02/07/declarative-maven-project/
@@ -38,7 +38,7 @@ pipeline {
     stage('deploy') {
       steps {
         // Run the maven build
-        sh 'mvn deploy -DskipTests'
+        bat 'mvn deploy -DskipTests'
       }
     }
     stage('report') {
