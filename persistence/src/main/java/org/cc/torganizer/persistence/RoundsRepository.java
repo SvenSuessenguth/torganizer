@@ -1,17 +1,10 @@
 package org.cc.torganizer.persistence;
 
-import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.Restriction;
 import org.cc.torganizer.core.entities.Round;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Stateless
