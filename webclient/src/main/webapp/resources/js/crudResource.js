@@ -8,7 +8,7 @@ class CrudResource {
 
     console.log(JSON.stringify(json));
 
-    fetch('http://localhost:8080/rest/resources/'+resource, {
+    fetch(resourcesUrl()+resource, {
       method: method,
       headers: {
         'Accept': 'application/json',
@@ -31,7 +31,7 @@ class CrudResource {
   }
 
   readSingle(resource, id, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/'+resource+'/' + id)
+    fetch(resourcesUrl()+resource+'/' + id)
       .then(function (response) {
         if (response.ok)
           return response.json();
@@ -47,7 +47,7 @@ class CrudResource {
   }
 
   readMultiple(resource, offset, maxResults, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/'+resource+'?offset=' + offset + '&maxResults=' + maxResults, {
+    fetch(resourcesUrl()+resource+'?offset=' + offset + '&maxResults=' + maxResults, {
       method: "GET",
       headers: {
         'Accept': 'application/json'

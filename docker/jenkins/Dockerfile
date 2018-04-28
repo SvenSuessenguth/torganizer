@@ -7,7 +7,7 @@ RUN install-plugins.sh \
       jdk-tool:latest \
       script-security:latest \
       command-launcher:latest \
-	# suggested plugins
+    # suggested plugins
       cloudbees-folder:latest \
       antisamy-markup-formatter:latest \
       build-timeout:latest \
@@ -28,7 +28,7 @@ RUN install-plugins.sh \
       ldap:latest \
       email-ext:latest \
       mailer:latest \
-	# torganizer
+    # torganizer
       sonar:latest
 
 COPY init.groovy /usr/share/jenkins/ref/init.groovy.d/init.groovy

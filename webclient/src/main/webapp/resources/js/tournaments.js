@@ -43,7 +43,7 @@ class Tournaments {
   showTournamentsTableFailure(data){console.log(data);}
   
   showTournamentDetails(id) {
-    fetch('http://localhost:8080/rest/resources/tournaments/'+id).then(function(response) {
+    fetch(resourcesUrl()+'tournaments/'+id).then(function(response) {
       return response.json();
     }).then(function(data) {
       // {"id":1,"name":"dings"}

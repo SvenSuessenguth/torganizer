@@ -22,7 +22,7 @@ class TournamentsResource extends CrudResource{
   }
 
   getPlayers(tournamentId, offset, maxResults, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/players?offset=' + offset + '&maxResults=' + maxResults)
+    fetch(resourcesUrl()+'tournaments/' + tournamentId + '/players?offset=' + offset + '&maxResults=' + maxResults)
       .then(function (response) {
         if (response.ok)
           return response.json();
@@ -38,7 +38,7 @@ class TournamentsResource extends CrudResource{
   }
 
   addPlayer(tournamentId, playerId, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/players?pid=' + playerId, {
+    fetch(resourcesUrl()+'tournaments/' + tournamentId + '/players?pid=' + playerId, {
       method: "POST",
       headers: {
         'Accept': 'application/json'
@@ -59,7 +59,7 @@ class TournamentsResource extends CrudResource{
   }
 
   removePlayer(tournamentId, playerId, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/players/' + playerId, {
+    fetch(resourcesUrl()+'tournaments/' + tournamentId + '/players/' + playerId, {
       method: "DELETE",
       headers: {
         'Accept': 'application/json'
@@ -80,7 +80,7 @@ class TournamentsResource extends CrudResource{
   }
 
   countPlayers(tournamentId, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/players/count')
+    fetch(resourcesUrl()+'tournaments/' + tournamentId + '/players/count')
       .then(function (response) {
         if (response.ok)
           return response.json();
@@ -96,7 +96,7 @@ class TournamentsResource extends CrudResource{
   }
 
   getSquads(tournamentId, offset, maxResults, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/squads?offset=' + offset + '&maxResults=' + maxResults)
+    fetch(resourcesUrl()+'tournaments/' + tournamentId + '/squads?offset=' + offset + '&maxResults=' + maxResults)
       .then(function (response) {
         if (response.ok)
           return response.json();
@@ -112,7 +112,7 @@ class TournamentsResource extends CrudResource{
   }
 
   addSquad(tournamentId, squadId, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/squads?sid=' + squadId, {
+    fetch(resourcesUrl()+'tournaments/' + tournamentId + '/squads?sid=' + squadId, {
       method: "POST",
       headers: {
         'Accept': 'application/json'
@@ -133,7 +133,7 @@ class TournamentsResource extends CrudResource{
   }
 
   countSquads(tournamentId, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/squads/count')
+    fetch(resourcesUrl()+'tournaments/' + tournamentId + '/squads/count')
       .then(function (response) {
         if (response.ok)
           return response.json();
@@ -149,7 +149,7 @@ class TournamentsResource extends CrudResource{
   }
 
   addDiscipline(tournamentId, disciplineId, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/disciplines?did=' + disciplineId, {
+    fetch(resourcesUrl()+'tournaments/' + tournamentId + '/disciplines?did=' + disciplineId, {
       method: "POST",
       headers: {
         'Accept': 'application/json'
@@ -170,7 +170,7 @@ class TournamentsResource extends CrudResource{
   }
 
   getDisciplines(tournamentId, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/disciplines')
+    fetch(resourcesUrl()+'tournaments/' + tournamentId + '/disciplines')
       .then(function (response) {
         if (response.ok)
           return response.json();
@@ -185,7 +185,7 @@ class TournamentsResource extends CrudResource{
       });
   }
   getDiscipline(tournamentId, disciplineId, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/disciplines/' + disciplineId)
+    fetch(resourcesUrl()+'tournaments/' + tournamentId + '/disciplines/' + disciplineId)
       .then(function (response) {
         if (response.ok)
           return response.json();
@@ -201,7 +201,7 @@ class TournamentsResource extends CrudResource{
   }
 
   assignableOpponents(tournamentId, disciplineId, offset, maxResults, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/tournaments/' + tournamentId + '/assignable-opponents?disciplineId=' + disciplineId+"&offset="+offset+"&maxResults="+maxResults)
+    fetch(resourcesUrl()+'tournaments/' + tournamentId + '/assignable-opponents?disciplineId=' + disciplineId+"&offset="+offset+"&maxResults="+maxResults)
       .then(function (response) {
         if (response.ok)
           return response.json();

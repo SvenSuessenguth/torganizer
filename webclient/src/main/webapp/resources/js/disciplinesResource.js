@@ -5,7 +5,7 @@ class   DisciplinesResource {
   }
 
   createOrUpdate(json, method, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/disciplines', {
+    fetch(resourcesUrl()+'disciplines', {
       method: method,
       headers: {
         'Accept': 'application/json',
@@ -28,7 +28,7 @@ class   DisciplinesResource {
   }
 
   readSingle(id, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/disciplines/' + id).then(function (response) {
+    fetch(resourcesUrl()+'disciplines/' + id).then(function (response) {
       if (response.ok)
         return response.json();
       else
@@ -43,7 +43,7 @@ class   DisciplinesResource {
   }
 
   getOpponents(disciplineId, offset, maxResults, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/disciplines/' +disciplineId+"/opponents")
+    fetch(resourcesUrl()+'disciplines/' +disciplineId+"/opponents")
     .then(function (response) {
       if (response.ok)
         return response.json();
@@ -59,7 +59,7 @@ class   DisciplinesResource {
   }
 
   addOpponent(disciplineId, opponentId, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/disciplines/' +disciplineId+"/opponents?opponentId="+opponentId,{
+    fetch(resourcesUrl()+'disciplines/' +disciplineId+"/opponents?opponentId="+opponentId,{
       method: "POST",
         headers: {
         'Accept': 'application/json'
@@ -79,7 +79,7 @@ class   DisciplinesResource {
   }
 
   removeOpponent(disciplineId, opponentId, onResolve, onReject) {
-    fetch('http://localhost:8080/rest/resources/disciplines/' +disciplineId+"/opponents?opponentId="+opponentId,{
+    fetch(resourcesUrl()+'disciplines/' +disciplineId+"/opponents?opponentId="+opponentId,{
       method: "DELETE",
       headers: {
         'Accept': 'application/json'

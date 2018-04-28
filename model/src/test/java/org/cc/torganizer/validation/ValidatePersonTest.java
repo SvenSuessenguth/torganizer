@@ -9,6 +9,7 @@ import org.cc.torganizer.core.entities.Person;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class ValidatePersonTest {
@@ -33,6 +34,7 @@ public class ValidatePersonTest {
   }
   
   @Test
+  @Ignore("NotBlank is jee-8 (beanvalildation-2.0)")
   public void testValidatePerson_firstNameBlank() {
     String tooShortFirstName = "   ";
     Person p = new Person(tooShortFirstName, "ok");

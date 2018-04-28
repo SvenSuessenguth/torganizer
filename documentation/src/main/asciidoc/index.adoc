@@ -4,9 +4,12 @@ Allgemein:
 stoppen und löschen aller Container
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
-
-löschen aller Images
 docker rmi -f $(docker images -q)
+docker exec -it [name] bash
+
+docker network create torganizer
+docker network connect torganizer [name]
+docker network inspect torganizer
 
 mysql-8
 docker build -t "torganizer/mysql" .
@@ -20,9 +23,15 @@ sonarqube
 docker pull sonarqube
 docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube
 
+nginx
+docker build -t "torganizer/nginx" .
+docker run -d --name nginx -p 80:80 torganizer/nginx:latest
+
 jenkins
 docker build -t "torganizer/jenkins" .
 docker run -d -p 8282:8080 -p 50000:50000 --name jenkins torganizer/jenkins:latest
+
+
 
 
 etc/hosts

@@ -7,7 +7,7 @@ class PlayersResource {
   // create a new or update an existing player
   // method must be one of "POST" (create) or "PUT" (update)
   createOrUpdate(player, method, onResolve, onReject){
-    fetch('http://localhost:8080/rest/resources/players',{
+    fetch(resourcesUrl()+'players',{
       method: method,
       headers: {
         'Accept': 'application/json',
@@ -28,7 +28,7 @@ class PlayersResource {
   // read or delete an existing player
   // method must be one of "GET" (read) or "DELETE" (delete)
   readOrDelete(id, method, onResolve, onReject){
-    fetch('http://localhost:8080/rest/resources/players/'+id, {
+    fetch(resourcesUrl()+'players/'+id, {
       method: method,
       headers: {
         'Accept': 'application/json'

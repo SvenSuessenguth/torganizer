@@ -30,3 +30,4 @@ instance.save()
 // final def pc = new hudson.ProxyConfiguration(name, port, userName, password, noProxyHost)
 // instance.proxy = pc
 // instance.save()
+

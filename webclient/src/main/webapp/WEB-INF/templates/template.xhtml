@@ -18,7 +18,10 @@
     <meta http-equiv="pragma" content="no-cache" />
     
     <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon.ico']}"/>
-    
+    <script type="text/javascript" language="javascript">
+      function resourcesUrl() { return '#{config.resourcesUrl}'; }
+    </script>
+
     <h:outputScript name="js/global.js" target="head" />
     <h:outputStylesheet name="css/ui.css" />
     <h:outputStylesheet name="css/layout.css" />
@@ -31,4 +34,5 @@
     <ui:include src="/WEB-INF/templates/footer.xhtml" />
   </h:body>
   </f:view>
+
 </html>
