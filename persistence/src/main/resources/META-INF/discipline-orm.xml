@@ -21,20 +21,20 @@
   </named-query>
   
   <entity class="org.cc.torganizer.core.entities.Discipline" access="FIELD">
-    <table name="DISCIPLINES" />
+    <table name="_DISCIPLINES" />
     <attributes>    
-       <basic name="name"><column name="NAME" nullable="false" /></basic>
+       <basic name="name"><column name="_NAME" nullable="false" /></basic>
        <one-to-many name="opponents">
-         <join-table name="DISCIPLINES_OPPONENTS">
-           <join-column name="DISCIPLINE_ID" referenced-column-name="ID"/>
-           <inverse-join-column name="OPPONENT_ID" referenced-column-name="ID" unique="true" />
+         <join-table name="_DISCIPLINES_OPPONENTS">
+           <join-column name="_DISCIPLINE_ID" referenced-column-name="_ID"/>
+           <inverse-join-column name="_OPPONENT_ID" referenced-column-name="_ID" unique="true" />
          </join-table>
          <cascade><cascade-all/></cascade>
        </one-to-many>
        <one-to-many name="restrictions" fetch="EAGER">
-         <join-table name="DISCIPLINES_RESTRICTIONS">
-           <join-column name="ID" referenced-column-name="ID"/>
-           <inverse-join-column name="RESTRICTION_ID" referenced-column-name="ID" unique="true" />
+         <join-table name="_DISCIPLINES_RESTRICTIONS">
+           <join-column name="_DISCIPLINE_ID" referenced-column-name="_ID"/>
+           <inverse-join-column name="_RESTRICTION_ID" referenced-column-name="_ID" unique="true" />
          </join-table>
          <cascade><cascade-all /></cascade>
        </one-to-many>

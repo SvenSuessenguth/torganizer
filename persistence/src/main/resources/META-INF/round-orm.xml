@@ -7,15 +7,7 @@
   <!--
   copied annotations from java-source
   
-  @Entity
-@Table(name = "ROUNDS")
 
-@Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "ROUND_ID")
-  
-  @Column(name = "INDEX")
-  
   @OneToMany(cascade = CascadeType.ALL)
   @JoinTable(name = "ROUNDS_GROUPS", joinColumns = {
       @JoinColumn(name = "ROUND_ID") }, inverseJoinColumns = @JoinColumn(name = "GROUP_ID"))
@@ -25,5 +17,24 @@
   
   @Column(name = "FORWARD_PLAYERS_COUNT")
   -->
+
+  <entity class="org.cc.torganizer.core.entities.Round" access="FIELD">
+    <table name="_ROUNDS" />
+    <attributes>
+      <basic name="index"><column name="_POSITION" /></basic>
+      <basic name="qualified"><column name="_QUALIFIED" /></basic>
+      <basic name="system">
+        <column name="_SYSTEM" nullable="false" />
+        <enumerated>STRING</enumerated>
+      </basic>
+      <one-to-many name="groups">
+        <join-table name="_ROUNDS_GROUPS">
+          <join-column name="_ROUND_ID" referenced-column-name="_ID"/>
+          <inverse-join-column name="_GROUP_ID" referenced-column-name="_ID" unique="true" />
+        </join-table>
+        <cascade><cascade-all/></cascade>
+      </one-to-many>
+    </attributes>
+  </entity>
 
 </entity-mappings>  

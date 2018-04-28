@@ -12,11 +12,11 @@
   </named-query>
   
   <entity class="org.cc.torganizer.core.entities.PositionalOpponent" access="FIELD">
-    <table name="POSITIONAL_OPPONENTS" />
+    <table name="_POSITIONAL_OPPONENTS" />
     <attributes>
-      <basic name="position"><column name="POSITION" nullable="false"/></basic>
+      <basic name="position"><column name="_POSITION" nullable="false"/></basic>
       <one-to-one name="opponent" orphan-removal="true">
-        <join-column name="OPPONENT_ID" nullable="false" />
+        <join-column name="_OPPONENT_ID" nullable="false" />
         <cascade><cascade-all/></cascade>
       </one-to-one>
     </attributes>  

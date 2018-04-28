@@ -12,11 +12,11 @@
   </named-query>
   
   <entity class="org.cc.torganizer.core.entities.Result" access="FIELD">
-    <table name="RESULTS" />
+    <table name="_RESULTS" />
     <attributes>    
-      <basic name="homeScore"><column name="HOME_SCORE" nullable="false"/></basic>
-      <basic name="guestScore"><column name="GUEST_SCORE" nullable="false"/></basic>
-      <basic name="position"><column name="POSITION" nullable="false"/></basic>       
+      <basic name="homeScore"><column name="_HOME_SCORE" nullable="false"/></basic>
+      <basic name="guestScore"><column name="_GUEST_SCORE" nullable="false"/></basic>
+      <basic name="position"><column name="_POSITION" nullable="false"/></basic>
     </attributes>
   </entity>
 

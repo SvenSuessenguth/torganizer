@@ -7,7 +7,7 @@
   <mapped-superclass class="org.cc.torganizer.core.entities.Entity">
     <attributes>
       <id name="id" access="PROPERTY">
-        <column name="ID"/>
+        <column name="_ID"/>
         <generated-value strategy="IDENTITY"/>
       </id>      
     </attributes>

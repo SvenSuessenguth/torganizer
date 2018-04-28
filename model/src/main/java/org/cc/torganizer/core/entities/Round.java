@@ -23,7 +23,7 @@ public class Round extends Entity implements IPositional {
   /**
    * Anzahl der Spieler, die in die n\u00e4chste Runde kommen.
    */  
-  private Integer forwardPlayersCount = 0;
+  private Integer qualified = 0;
 
   /**
    * Default.
@@ -73,20 +73,20 @@ public class Round extends Entity implements IPositional {
     return getGroups().size();
   }
 
-  public System getSystem() {
+  public System getScheduling() {
     return system;
   }
 
-  public void setSystem(System newSystem) {
-    this.system = newSystem;
+  public void setSystem(System system) {
+    this.system = system;
   }
 
-  public Integer getForwardPlayersCount() {
-    return forwardPlayersCount;
+  public Integer getQualified() {
+    return qualified;
   }
 
-  public void setForwardPlayersCount(Integer newForwardPlayersCount) {
-    this.forwardPlayersCount = newForwardPlayersCount;
+  public void setQualified(Integer qualified) {
+    this.qualified = qualified;
   }
 
   /** {@inheritDoc} */

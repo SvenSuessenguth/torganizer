@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-  <CLUBS ID="1" NAME="Dings" />
-  <CLUBS ID="2" NAME="Bums" />
+  <_CLUBS _ID="1" _NAME="Dings" />
+  <_CLUBS _ID="2" _NAME="Bums" />
 </dataset>

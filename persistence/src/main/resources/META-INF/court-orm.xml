@@ -12,13 +12,13 @@
   </named-query>
   
   <entity class="org.cc.torganizer.core.entities.Court" access="FIELD">
-    <table name="COURTS" />
+    <table name="_COURTS" />
     <attributes>    
       <basic name="nr">
-        <column name="NR" nullable="false" />        
+        <column name="_NR" nullable="false" />
       </basic>
       <one-to-one name="match">
-         <join-column name="MATCH_ID" />         
+         <join-column name="_MATCH_ID" />
        </one-to-one>
     </attributes>
   </entity>

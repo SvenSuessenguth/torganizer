@@ -15,13 +15,13 @@
   </named-query>
   
   <entity class="org.cc.torganizer.core.entities.Person" access="FIELD" >
-    <table name="PERSONS" />
+    <table name="_PERSONS" />
     <attributes>
-      <basic name="firstName"><column name="FIRST_NAME"/></basic>
-      <basic name="lastName"><column name="LAST_NAME"/></basic>
-      <basic name="dateOfBirth"><column name="DATE_OF_BIRTH"/></basic>
+      <basic name="firstName"><column name="_FIRST_NAME"/></basic>
+      <basic name="lastName"><column name="_LAST_NAME"/></basic>
+      <basic name="dateOfBirth"><column name="_DATE_OF_BIRTH"/></basic>
       <basic name="gender">
-        <column name="GENDER" nullable="false" />
+        <column name="_GENDER" nullable="false" />
         <enumerated>STRING</enumerated>        
       </basic>      
     </attributes>
