@@ -34,7 +34,6 @@ public class ValidatePersonTest {
   }
   
   @Test
-  @Ignore("NotBlank is jee-8 (beanvalildation-2.0)")
   public void testValidatePerson_firstNameBlank() {
     String tooShortFirstName = "   ";
     Person p = new Person(tooShortFirstName, "ok");
