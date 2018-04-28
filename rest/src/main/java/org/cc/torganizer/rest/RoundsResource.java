@@ -18,7 +18,7 @@ import javax.ws.rs.*;
 import java.util.List;
 
 @Stateless
-@Path("/disciplines")
+@Path("/rounds")
 @Produces("application/json")
 public class RoundsResource extends AbstractResource {
 

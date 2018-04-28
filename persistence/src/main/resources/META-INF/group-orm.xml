@@ -12,7 +12,8 @@
   </named-query>
   
   <entity class="org.cc.torganizer.core.entities.Group" access="FIELD">
-    <table name="GROUPS" />
+    <!-- GROUPS is a mysql keyword -->
+    <table name="SIMPLE_GROUPS" />
     <attributes>    
        <basic name="position"><column name="POSITION" /></basic>
        <one-to-many name="positionalOpponents">
