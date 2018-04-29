@@ -32,7 +32,7 @@ public class Discipline extends Entity {
     this.restrictions = new HashSet<>();
     this.rounds = new ArrayList<>();
     Round round = new Round();
-    round.setIndex(0);
+    round.setPosition(0);
     addRound(round);
   }
 
@@ -100,7 +100,7 @@ public class Discipline extends Entity {
    * @param round Runde.
    */
   public final void addRound(Round round) {
-    round.setIndex(rounds.size());
+    round.setPosition(rounds.size());
     rounds.add(round);
   }
 

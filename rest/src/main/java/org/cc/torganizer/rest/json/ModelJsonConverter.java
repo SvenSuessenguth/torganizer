@@ -88,6 +88,14 @@ public abstract class ModelJsonConverter<T extends Entity> {
       return objectBuilder.add(name, value);
     }
   }
+
+  public JsonObjectBuilder add(JsonObjectBuilder objectBuilder, String name, Integer integer){
+    if(integer==null){
+      return objectBuilder.add(name, JsonValue.NULL);
+    }else {
+      return objectBuilder.add(name, integer);
+    }
+  }
   
   public JsonObjectBuilder add(JsonObjectBuilder objectBuilder, String name, String value){
     if(value==null){

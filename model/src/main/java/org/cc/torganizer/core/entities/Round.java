@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Round extends Entity implements IPositional {
 
-  private Integer index;
+  private Integer position;
 
   private List<Group> groups = new ArrayList<>();
 
@@ -21,7 +21,7 @@ public class Round extends Entity implements IPositional {
   private System system = System.ROUND_ROBIN;
 
   /**
-   * Anzahl der Spieler, die in die n\u00e4chste Runde kommen.
+   * Number of players, which are qualified for the next round.
    */  
   private Integer qualified = 0;
 
@@ -30,6 +30,10 @@ public class Round extends Entity implements IPositional {
    */
   public Round() {
     // gem. Bean-Spec.
+  }
+
+  public Round(Long id){
+    setId(id);
   }
 
   /**
@@ -92,10 +96,10 @@ public class Round extends Entity implements IPositional {
   /** {@inheritDoc} */
   @Override
   public Integer getPosition() {
-    return index;
+    return position;
   }
 
-  public void setIndex(Integer newIndex) {
-    this.index = newIndex;
+  public void setPosition(Integer position) {
+    this.position = position;
   }
 }

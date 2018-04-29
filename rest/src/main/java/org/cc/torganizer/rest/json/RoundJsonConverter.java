@@ -1,11 +1,14 @@
 package org.cc.torganizer.rest.json;
 
+import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Round;
 
 import javax.enterprise.context.RequestScoped;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
+import javax.json.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
+import java.util.HashMap;
 
 /**
  * A json-disciplines contains nothing but id, name and restrictions.
@@ -19,17 +22,42 @@ public class RoundJsonConverter extends ModelJsonConverter<Round> {
 
   @Override
   public JsonObject toJsonObject(Round round) {
-    return null;
+    JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
+    final JsonObjectBuilder objectBuilder = factory.createObjectBuilder();
+
+    add(objectBuilder, "id", round.getId());
+    add(objectBuilder, "qualified", round.getQualified());
+    add(objectBuilder, "position", round.getPosition());
+
+    return objectBuilder.build();
   }
 
   @Override
   public JsonArray toJsonArray(Collection<Round> rounds) {
-    return null;
+    JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
+    final JsonArrayBuilder arrayBuilder = factory.createArrayBuilder();
+
+    rounds.forEach(round -> arrayBuilder.add(this.toJsonObject(round)));
+
+    return arrayBuilder.build();
   }
 
   @Override
   public Round toModel(JsonObject jsonObject, Round round) {
-    return null;
+    Integer qualified = jsonObject.getInt("qualified", 0);
+    if(qualified==null){
+      qualified = 0;
+    }
+    round.setQualified(qualified);
+
+    JsonValue positionValue = jsonObject.get("position");
+    Integer position = null;
+    if(!JsonValue.NULL.equals(positionValue)){
+      position = Integer.valueOf(positionValue.toString());
+    }
+    round.setPosition(position);
+
+    return round;
   }
 
   @Override
