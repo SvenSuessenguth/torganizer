@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
+  <_GROUPS _ID="1" />
+  <_GROUPS _ID="2" />
+  <_GROUPS _ID="3" />
+  <_GROUPS _ID="4" />
+  <_GROUPS _ID="5" />
+  <_GROUPS _ID="6" />
+
   <_ROUNDS _ID="1" _POSITION="1" _QUALIFIED="4" _SYSTEM="DOUBLE_ELIMINATION"/>
   <_ROUNDS _ID="2" _POSITION="2" _QUALIFIED="4" _SYSTEM="DOUBLE_ELIMINATION"/>
+
+  <_ROUNDS_GROUPS _ROUND_ID="1" _GROUP_ID="1" />
+  <_ROUNDS_GROUPS _ROUND_ID="1" _GROUP_ID="2" />
+  <_ROUNDS_GROUPS _ROUND_ID="1" _GROUP_ID="3" />
+  <_ROUNDS_GROUPS _ROUND_ID="1" _GROUP_ID="4" />
 </dataset>

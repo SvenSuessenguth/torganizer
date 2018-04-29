@@ -1,5 +1,6 @@
 package org.cc.torganizer.persistence;
 
+import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.core.entities.System;
 import org.junit.Before;
@@ -57,5 +58,19 @@ public class RoundsRepositoryTest extends AbstractDbUnitJpaTest {
     List<Round> rounds = repository.read(0, 3);
     assertThat(rounds, is(not(nullValue())));
     assertThat(rounds, hasSize(2));
+  }
+
+  @Test
+  public void testGetGroups_existing(){
+    List<Group> groups = repository.getGroups(1L, 0, 10);
+
+    assertThat(groups, hasSize(4));
+  }
+
+  @Test
+  public void testGetGroups_notExisting(){
+    List<Group> groups = repository.getGroups(2L, 0, 10);
+
+    assertThat(groups, is(empty()));
   }
 }

@@ -1,12 +1,14 @@
 package org.cc.torganizer.persistence;
 
-import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.core.entities.Round;
+import org.cc.torganizer.core.entities.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Stateless
@@ -58,11 +60,33 @@ public class RoundsRepository extends Repository{
 
   //--------------------------------------------------------------------------------------------------------------------
   //
-  // Discipline opponents
+  // Round groups
   //
   //--------------------------------------------------------------------------------------------------------------------
-  public List<Opponent> getOpponents(Long roundId, Integer offset, Integer maxResults){
-    return null;
+  public List<Group> getGroups(Long roundId, Integer offset, Integer maxResults){
+    offset = offset == null ? DEFAULT_OFFSET : offset;
+    maxResults = maxResults==null?DEFAULT_MAX_RESULTS:maxResults;
+
+    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    CriteriaQuery<Group> cq = cb.createQuery(Group.class);
+    Root<Round> round = cq.from(Round.class);
+    Root<Group> group = cq.from(Group.class);
+    Join<Round, Group> roundGroupJoin = round.join ("groups");
+
+    cq.select(group);
+    cq.where(
+      cb.and(
+        cb.equal(round.get("id"), roundId),
+        cb.equal(roundGroupJoin.get("id"), group.get("id"))
+      )
+    );
+
+    TypedQuery<Group> query = entityManager.createQuery(cq);
+    query.setFirstResult(offset);
+    query.setMaxResults(maxResults);
+
+    return query.getResultList();
+
   }
 
   public Round addOpponent(Long roundId, Long opponentId){
