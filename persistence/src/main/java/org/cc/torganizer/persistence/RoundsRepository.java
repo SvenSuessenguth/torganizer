@@ -90,11 +90,23 @@ public class RoundsRepository extends Repository{
 
   }
 
-  public Round addOpponent(Long roundId, Long opponentId){
-    return null;
+  public Round addGroup(Long roundId, Long groupId){
+    Group group = entityManager.find(Group.class, groupId);
+    Round round = read(roundId);
+
+    round.getGroups().add(group);
+    entityManager.persist(round);
+
+    return round;
   }
 
-  public Round removeOpponent(Long roundId, Long opponentId) {
-    return null;
+  public Round removeGroup(Long roundId, Long groupId) {
+    Group group = entityManager.find(Group.class, groupId);
+    Round round = read(roundId);
+
+    round.getGroups().remove(group);
+    entityManager.persist(round);
+
+    return round;
   }
 }
