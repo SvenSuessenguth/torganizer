@@ -1,6 +1,5 @@
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Round;
 
 import javax.enterprise.context.RequestScoped;
@@ -14,9 +13,6 @@ import java.util.HashMap;
  */
 @RequestScoped
 public class RoundJsonConverter extends ModelJsonConverter<Round> {
-
-  public RoundJsonConverter() {
-  }
 
   @Override
   public JsonObject toJsonObject(Round round) {
