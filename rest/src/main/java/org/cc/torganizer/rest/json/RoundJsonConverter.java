@@ -1,5 +1,6 @@
 package org.cc.torganizer.rest.json;
 
+import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Round;
 
 import javax.enterprise.context.RequestScoped;
@@ -59,6 +60,12 @@ public class RoundJsonConverter extends ModelJsonConverter<Round> {
 
   @Override
   public Collection<Round> toModels(JsonArray jsonArray, Collection<Round> rounds) {
-    return null;
+    jsonArray.forEach(item -> {
+      JsonObject jsonObject = (JsonObject) item;
+      Round round = getProperModel(jsonObject, rounds);
+      toModel(jsonObject, round);
+    });
+
+    return rounds;
   }
 }
