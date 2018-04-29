@@ -60,8 +60,8 @@ public class Round extends Entity implements IPositional {
     return getGroups().get(inIndex);
   }
 
-  public List<Opponent> getForwardPlayers() {
-    // TODO: die besten 'forwardPlayersCount' Opponents einer Runde bestimmen
+  public List<Opponent> getQualifiedPlayers() {
+    // TODO: calculate qualified opponents for the next rouond
     return Collections.emptyList();
   }
 

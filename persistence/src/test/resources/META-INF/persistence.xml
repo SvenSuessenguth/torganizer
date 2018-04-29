@@ -21,6 +21,7 @@
     <mapping-file>META-INF/positional-opponent-orm.xml</mapping-file>
     <mapping-file>META-INF/restriction-orm.xml</mapping-file>
     <mapping-file>META-INF/result-orm.xml</mapping-file>
+    <mapping-file>META-INF/round-orm.xml</mapping-file>
     <mapping-file>META-INF/tournament-orm.xml</mapping-file>
 
     <properties>

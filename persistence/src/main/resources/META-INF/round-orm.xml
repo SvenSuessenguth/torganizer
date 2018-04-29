@@ -21,7 +21,7 @@
   <entity class="org.cc.torganizer.core.entities.Round" access="FIELD">
     <table name="_ROUNDS" />
     <attributes>
-      <basic name="index"><column name="_POSITION" /></basic>
+      <basic name="position"><column name="_POSITION" /></basic>
       <basic name="qualified"><column name="_QUALIFIED" /></basic>
       <basic name="system">
         <column name="_SYSTEM" nullable="false" />

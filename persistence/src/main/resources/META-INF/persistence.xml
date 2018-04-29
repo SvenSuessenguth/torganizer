@@ -36,10 +36,12 @@
     <mapping-file>META-INF/tournament-orm.xml</mapping-file>
     
     <properties>
+      <!--
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://mysql:3306/torganizer"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.password" value=""/>
+      -->
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
 
       <!-- Hibernate in Wildfly

@@ -13,13 +13,4 @@ public enum Gender {
 
   /** Unbekannt. */
   UNKNOWN;
-
-  /** Position von MALE. */
-  public static final int MALE_ORDINAL = 0;
-
-  /** Position von FEMALE. */
-  public static final int FEMALE_ORDINAL = 1;
-
-  /** Position von UNKNOWN. */
-  public static final int UNKNOWN_ORDINAL = 2;
 }

@@ -19,24 +19,4 @@ public enum System {
 
   /** Gruppenspiele. */
   ROUND_ROBIN;
-  /**
-   * Name wird formatiert, wobei die jeweils ersten Buchstaben (aller erster und
-   * die Buchstaben nach einem Unterstrich) gro\u00df geschrieben werden und alle
-   * anderen klein.
-   *
-   * @return Name des Enums.
-   */
-  public String getFormattedName() {
-    StringTokenizer st = new StringTokenizer(this.name(), "_");
-    StringBuilder formattedName = new StringBuilder();
-
-    while (st.hasMoreTokens()) {
-      String s = st.nextToken();
-      s = s.toLowerCase(Locale.getDefault());
-      s = capitalize(s);
-      formattedName.append(s);
-    }
-
-    return formattedName.toString();
-  }
 }

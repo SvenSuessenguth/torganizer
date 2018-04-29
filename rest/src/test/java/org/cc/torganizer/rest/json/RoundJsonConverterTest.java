@@ -117,7 +117,7 @@ public class RoundJsonConverterTest {
   }
 
   @Test
-  public void testToModelObjects() {
+  public void testToModels() {
     String jsonString = "["
       + "{\"id\":1,\"qualified\":4,\"position\":1},"
       + "{\"id\":2,\"qualified\":2,\"position\":2}"
