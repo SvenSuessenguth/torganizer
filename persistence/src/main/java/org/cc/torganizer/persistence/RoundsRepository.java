@@ -1,10 +1,12 @@
 package org.cc.torganizer.persistence;
 
 import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Round;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Stateless
@@ -40,7 +42,14 @@ public class RoundsRepository extends Repository{
   }
 
   public List<Round> read(Integer offset, Integer maxResults){
-    return null;
+    offset = offset == null ? DEFAULT_OFFSET : offset;
+    maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
+
+    TypedQuery<Round> namedQuery = entityManager.createNamedQuery("Round.findAll", Round.class);
+    namedQuery.setFirstResult(offset);
+    namedQuery.setMaxResults(maxResults);
+
+    return namedQuery.getResultList();
   }
 
   public Round update(Round round){

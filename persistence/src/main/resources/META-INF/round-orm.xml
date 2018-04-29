@@ -2,21 +2,11 @@
 <entity-mappings version="2.1" 
   xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" 
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">  
-  
-  <!--
-  copied annotations from java-source
-  
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
 
-  @OneToMany(cascade = CascadeType.ALL)
-  @JoinTable(name = "ROUNDS_GROUPS", joinColumns = {
-      @JoinColumn(name = "ROUND_ID") }, inverseJoinColumns = @JoinColumn(name = "GROUP_ID"))
-      
-      @Enumerated(EnumType.STRING)
-  @Column(name = "SYSTEM", nullable = true)
-  
-  @Column(name = "FORWARD_PLAYERS_COUNT")
-  -->
+  <named-query name="Round.findAll">
+    <query>SELECT r FROM Round r</query>
+  </named-query>
 
   <entity class="org.cc.torganizer.core.entities.Round" access="FIELD">
     <table name="_ROUNDS" />
