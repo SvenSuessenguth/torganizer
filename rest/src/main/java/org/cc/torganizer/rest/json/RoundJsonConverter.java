@@ -1,12 +1,9 @@
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Round;
 
 import javax.enterprise.context.RequestScoped;
 import javax.json.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashMap;
 
