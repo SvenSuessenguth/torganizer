@@ -1,6 +1,7 @@
 package org.cc.torganizer.persistence;
 
-import org.cc.torganizer.core.entities.*;
+import org.cc.torganizer.core.entities.Group;
+import org.cc.torganizer.core.entities.Round;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
