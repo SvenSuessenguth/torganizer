@@ -3,6 +3,7 @@ package org.cc.torganizer.persistence;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Restriction;
+import org.cc.torganizer.core.entities.Round;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -46,10 +47,7 @@ public class DisciplinesRepository extends Repository{
   }
 
   public Discipline read(Long disciplineId){
-    TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery(DISCIPLINE_FIND_BY_ID_QUERY_NAME, Discipline.class);
-    namedQuery.setParameter("id", disciplineId);
-
-    return namedQuery.getSingleResult();
+    return entityManager.find(Discipline.class, disciplineId);
   }
 
   public List<Discipline> read(Integer offset, Integer maxResults){
@@ -115,6 +113,56 @@ public class DisciplinesRepository extends Repository{
 
     Discipline discipline = read(disciplineId);
     discipline.getOpponents().remove(opponent);
+    entityManager.persist(discipline);
+
+    return discipline;
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // Discipline rounds
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  public List<Round> getRounds(Long disciplineId, Integer offset, Integer maxResults){
+    offset = offset == null ? DEFAULT_OFFSET : offset;
+    maxResults = maxResults==null?DEFAULT_MAX_RESULTS:maxResults;
+
+    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    CriteriaQuery<Round> cq = cb.createQuery(Round.class);
+    Root<Discipline> discipline = cq.from(Discipline.class);
+    Root<Round> round = cq.from(Round.class);
+    Join<Discipline, Round> disciplineRoundJoin = discipline.join ("rounds");
+
+    cq.select(round);
+    cq.where(
+      cb.and(
+        cb.equal(discipline.get("id"), disciplineId),
+        cb.equal(disciplineRoundJoin.get("id"), round.get("id"))
+      )
+    );
+
+    TypedQuery<Round> query = entityManager.createQuery(cq);
+    query.setFirstResult(offset);
+    query.setMaxResults(maxResults);
+
+    return query.getResultList();
+  }
+
+  public Discipline addRound(Long disciplineId, Long roundId){
+    Round round = entityManager.find(Round.class, roundId);
+
+    Discipline discipline = read(disciplineId);
+    discipline.getRounds().add(round);
+    entityManager.persist(discipline);
+
+    return discipline;
+  }
+
+  public Discipline removeRound(Long disciplineId, Long roundId) {
+    Round round = entityManager.find(Round.class, roundId);
+
+    Discipline discipline = read(disciplineId);
+    discipline.getRounds().remove(round);
     entityManager.persist(discipline);
 
     return discipline;

@@ -1,14 +1,8 @@
 package org.cc.torganizer.rest;
 
-import org.cc.torganizer.core.entities.Discipline;
-import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.OpponentType;
-import org.cc.torganizer.core.entities.Restriction;
+import org.cc.torganizer.core.entities.*;
 import org.cc.torganizer.persistence.DisciplinesRepository;
-import org.cc.torganizer.rest.json.DisciplineJsonConverter;
-import org.cc.torganizer.rest.json.ModelJsonConverter;
-import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
-import org.cc.torganizer.rest.json.RestrictionJsonConverter;
+import org.cc.torganizer.rest.json.*;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -34,7 +28,16 @@ public class DisciplinesResource extends AbstractResource {
   private RestrictionJsonConverter rConverter;
 
   @Inject
+  private RoundJsonConverter roundConverter;
+
+  @Inject
   private OpponentJsonConverterProvider opponentJsonConverterProvider;
+
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // CRUD
+  //
+  //--------------------------------------------------------------------------------------------------------------------
 
   @POST
   public JsonObject create(JsonObject jsonObject) {
@@ -82,6 +85,11 @@ public class DisciplinesResource extends AbstractResource {
     return dConverter.toJsonObject(discipline);
   }
 
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // Opponents
+  //
+  //--------------------------------------------------------------------------------------------------------------------
   @GET
   @Path("/{id}/opponents")
   public JsonArray getOpponents(@PathParam("id") Long disciplineId, @QueryParam("offset") Integer offset, @QueryParam("maxResults") Integer maxResults) {
@@ -118,6 +126,32 @@ public class DisciplinesResource extends AbstractResource {
   public JsonObject removeOpponent(@PathParam("id") Long disciplineId, @QueryParam("opponentId") Long opponentId) {
     Discipline discipline = dRepository.removeOpponent(disciplineId, opponentId);
 
+    return dConverter.toJsonObject(discipline);
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // Rounds
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  @GET
+  @Path("/{id}/rounds")
+  public JsonArray getRounds(@PathParam("id") Long disciplineId, @QueryParam("offset") Integer offset, @QueryParam("maxResults") Integer maxResults) {
+    List<Round> rounds = dRepository.getRounds(disciplineId, offset, maxResults);
+    return roundConverter.toJsonArray(rounds);
+  }
+
+  @POST
+  @Path("/{id}/round")
+  public JsonObject addRound(@PathParam("id") Long disciplineId, @QueryParam("roundId") Long roundId) {
+    Discipline discipline = dRepository.addRound(disciplineId, roundId);
+    return dConverter.toJsonObject(discipline);
+  }
+
+  @DELETE
+  @Path("/{id}/rounds")
+  public JsonObject removeRound(@PathParam("id") Long disciplineId, @QueryParam("roundId") Long roundId) {
+    Discipline discipline = dRepository.removeRound(disciplineId, roundId);
     return dConverter.toJsonObject(discipline);
   }
 }
