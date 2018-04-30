@@ -42,7 +42,7 @@ public class ClubsResource extends AbstractResource {
 
   @GET
   public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("maxResults") Integer maxResults) {
-    List<Club> clubs = cRepository.getClubs(offset, maxResults);
+    List<Club> clubs = cRepository.read(offset, maxResults);
 
     return cConverter.toJsonArray(clubs);
   }

@@ -41,7 +41,6 @@ public class ClubsRepository extends Repository{
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-
     TypedQuery<Club> namedQuery = entityManager.createNamedQuery("Club.findAll", Club.class);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
@@ -57,16 +56,5 @@ public class ClubsRepository extends Repository{
     entityManager.remove(club);
 
     return club;
-  }
-
-  public List<Club> getClubs(Integer offset, Integer maxResults){
-    offset = offset == null ? DEFAULT_OFFSET : offset;
-    maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
-
-    TypedQuery<Club> namedQuery = entityManager.createNamedQuery("Club.findAll", Club.class);
-    namedQuery.setFirstResult(offset);
-    namedQuery.setMaxResults(maxResults);
-
-    return namedQuery.getResultList();
   }
 }
