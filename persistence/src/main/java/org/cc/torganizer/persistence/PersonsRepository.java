@@ -1,5 +1,6 @@
 package org.cc.torganizer.persistence;
 
+import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Person;
 
 import javax.ejb.Stateless;
@@ -47,6 +48,19 @@ public class PersonsRepository extends Repository{
     TypedQuery<Person> namedQuery = entityManager.createNamedQuery("Person.findAll", Person.class);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
+    return namedQuery.getResultList();
+  }
+
+  public List<Person> read(Integer offset, Integer maxResults, Gender gender){
+    offset = offset == null ? DEFAULT_OFFSET : offset;
+    maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
+
+
+    TypedQuery<Person> namedQuery = entityManager.createNamedQuery("Person.findByGender", Person.class);
+    namedQuery.setFirstResult(offset);
+    namedQuery.setMaxResults(maxResults);
+    namedQuery.setParameter("gender", gender);
+
     return namedQuery.getResultList();
   }
 
