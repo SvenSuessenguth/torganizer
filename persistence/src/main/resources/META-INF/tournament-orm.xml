@@ -7,9 +7,6 @@
   <named-query name="Tournament.findAll">
     <query>SELECT t FROM Tournament t</query>
   </named-query>
-  <named-query name="Tournament.findById">
-    <query>SELECT t FROM Tournament t WHERE t.id = :id</query>
-  </named-query>
   <named-query name="Tournament.findPlayers">
     <query>SELECT p FROM Player p, Tournament t WHERE t.id = :id AND p MEMBER OF t.opponents</query>
   </named-query>

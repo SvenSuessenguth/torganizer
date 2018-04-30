@@ -34,10 +34,7 @@ public class PlayersRepository extends Repository{
     return player;
   }
   public Player read(Long playerId) {
-    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
-      namedQuery.setParameter("id",playerId);
-
-    return namedQuery.getSingleResult();
+    return entityManager.find(Player.class, playerId);
   }
 
   public List<Player> read(Integer offset, Integer maxResults){
@@ -57,9 +54,7 @@ public class PlayersRepository extends Repository{
   }
 
   public Player delete(Long playerId){
-    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
-    namedQuery.setParameter("id", playerId);
-    Player player = namedQuery.getSingleResult();
+    Player player = entityManager.find(Player.class, playerId);
 
     entityManager.remove(player);
 

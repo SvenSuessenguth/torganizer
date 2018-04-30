@@ -7,22 +7,11 @@
   <named-query name="Opponent.findAll">
     <query>SELECT o FROM Opponent o</query>
   </named-query>
-  <named-query name="Opponent.findById">
-    <query>SELECT o FROM Opponent o WHERE o.id = :id</query>
-  </named-query>
-  
   <named-query name="Player.findAll">
     <query>SELECT p FROM Player p</query>
   </named-query>
-  <named-query name="Player.findById">
-    <query>SELECT p FROM Player p WHERE p.id = :id</query>
-  </named-query>
-  
   <named-query name="Squad.findAll">
     <query>SELECT s FROM Squad s</query>
-  </named-query>
-  <named-query name="Squad.findById">
-    <query>SELECT s FROM Squad s WHERE s.id = :id</query>
   </named-query>
   <named-query name="Squad.findPlayers">
     <query>SELECT p FROM Player p, Squad s WHERE s.id = :id AND p MEMBER OF s.players</query>

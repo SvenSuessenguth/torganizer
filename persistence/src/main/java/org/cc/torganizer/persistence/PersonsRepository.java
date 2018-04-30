@@ -36,9 +36,7 @@ public class PersonsRepository extends Repository{
   }
 
   public Person read(Long personId){
-    TypedQuery<Person> namedQuery = entityManager.createNamedQuery("Person.findById", Person.class);
-    namedQuery.setParameter("id", personId);
-    return namedQuery.getSingleResult();
+    return entityManager.find(Person.class, personId);
   }
 
   public List<Person> read(Integer offset, Integer maxResults){
@@ -59,9 +57,7 @@ public class PersonsRepository extends Repository{
   }
 
   public Person delete(Long personId){
-    TypedQuery<Person> namedQuery = entityManager.createNamedQuery("Person.findById", Person.class);
-    namedQuery.setParameter("id", personId);
-    Person person = namedQuery.getSingleResult();
+    Person person = entityManager.find(Person.class, personId);
 
     entityManager.remove(person);
 

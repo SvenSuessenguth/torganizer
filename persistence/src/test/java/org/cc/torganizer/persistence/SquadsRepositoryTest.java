@@ -61,20 +61,15 @@ public class SquadsRepositoryTest extends AbstractDbUnitJpaTest {
     assertThat(squads, hasSize(2));
   }
   
-  @Test(expected = NoResultException.class)
+  @Test
   public void testById_notExisting() {
-    final TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Squad.findById", Squad.class);
-    namedQuery.setParameter("id", -1L);
-    
-    namedQuery.getSingleResult();
+    Squad squad = repository.read(-1L);
+    assertThat(squad,is(nullValue()));
   }
   
   @Test
   public void testById_existing() {
-    final TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Squad.findById", Squad.class);
-    namedQuery.setParameter("id", 5L);
-    
-    Squad squad = namedQuery.getSingleResult();
+    Squad squad = repository.read(5L);
     
     assertThat(squad, is(not(nullValue())));
     assertThat(squad.getPlayers(), hasSize(2));

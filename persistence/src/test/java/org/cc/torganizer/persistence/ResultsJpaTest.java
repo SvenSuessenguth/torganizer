@@ -22,13 +22,4 @@ public class ResultsJpaTest extends AbstractDbUnitJpaTest {
     List<Result> results = entityManager.createNamedQuery("Result.findAll", Result.class).getResultList();
     assertThat(results, hasSize(3));
   }
-  
-  @Test
-  public void testFindById() {
-    List<Result> results = entityManager.createNamedQuery("Result.findById", Result.class).setParameter("id", 3L).getResultList();
-    assertThat(results, hasSize(1));
-    Result r = results.get(0);
-    assertThat(r.isDraw(), is(true));
-    assertThat(r.getPosition(), is(3));
-  }
 }

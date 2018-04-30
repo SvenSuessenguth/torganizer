@@ -34,10 +34,7 @@ public class RestrictionsRepository extends Repository{
   }
 
   public Restriction read(Long restrictionId) {
-    TypedQuery<Restriction> namedQuery = entityManager.createNamedQuery("Restriction.findById", Restriction.class);
-    namedQuery.setParameter("id", restrictionId);
-
-    return namedQuery.getSingleResult();
+    return entityManager.find(Restriction.class, restrictionId);
   }
 
   public List<Restriction> read(Integer offset, Integer maxResults){

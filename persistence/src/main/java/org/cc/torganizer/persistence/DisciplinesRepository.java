@@ -17,7 +17,6 @@ import java.util.List;
 @Stateless
 public class DisciplinesRepository extends Repository{
 
-  private static final String DISCIPLINE_FIND_BY_ID_QUERY_NAME = "Discipline.findById";
   private static final String DISCIPLINE_FIND_ALL_QUERY_NAME = "Discipline.findAll";
 
   public DisciplinesRepository() {
@@ -95,9 +94,7 @@ public class DisciplinesRepository extends Repository{
   }
 
   public Discipline addOpponent(Long disciplineId, Long opponentId){
-    TypedQuery<Opponent> namedQuery = entityManager.createNamedQuery("Opponent.findById", Opponent.class);
-    namedQuery.setParameter("id", opponentId);
-    Opponent opponent = namedQuery.getSingleResult();
+    Opponent opponent = entityManager.find(Opponent.class, opponentId);
 
     Discipline discipline = read(disciplineId);
     discipline.getOpponents().add(opponent);
@@ -107,9 +104,7 @@ public class DisciplinesRepository extends Repository{
   }
 
   public Discipline removeOpponent(Long disciplineId, Long opponentId) {
-    TypedQuery<Opponent> namedQuery = entityManager.createNamedQuery("Opponent.findById", Opponent.class);
-    namedQuery.setParameter("id", opponentId);
-    Opponent opponent = namedQuery.getSingleResult();
+    Opponent opponent = entityManager.find(Opponent.class, opponentId);
 
     Discipline discipline = read(disciplineId);
     discipline.getOpponents().remove(opponent);

@@ -4,9 +4,6 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">  
   
-  <named-query name="Court.findById">
-    <query>SELECT c FROM Court c WHERE c.id = :id</query>
-  </named-query>
   <named-query name="Court.findAll">
     <query>SELECT c FROM Court c</query>
   </named-query>

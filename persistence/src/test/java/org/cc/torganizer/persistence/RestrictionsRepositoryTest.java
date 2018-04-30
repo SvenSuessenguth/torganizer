@@ -19,11 +19,14 @@ import org.cc.torganizer.core.entities.Restriction;
 import org.junit.Before;
 import org.junit.Test;
 
-public class RestrictionsJpaTest extends AbstractDbUnitJpaTest {
+public class RestrictionsRepositoryTest extends AbstractDbUnitJpaTest {
+
+  private RestrictionsRepository repository;
 
   @Before
   public void before() throws Exception {
     super.initDatabase("test-data-restrictions.xml");
+    repository = new RestrictionsRepository(entityManager);
   }
 
   @Test
@@ -35,8 +38,7 @@ public class RestrictionsJpaTest extends AbstractDbUnitJpaTest {
 
   @Test
   public void testFindById_GenderRestriction() {
-    Restriction restriction = entityManager.createNamedQuery("Restriction.findById", Restriction.class)
-        .setParameter("id", 1L).getSingleResult();
+    Restriction restriction = repository.read(1L);
 
     assertThat(restriction, is(instanceOf(GenderRestriction.class)));
     GenderRestriction genderRestriction = (GenderRestriction) restriction;
@@ -45,8 +47,7 @@ public class RestrictionsJpaTest extends AbstractDbUnitJpaTest {
 
   @Test
   public void testFindById_AgeRestriction() {
-    Restriction restriction = entityManager.createNamedQuery("Restriction.findById", Restriction.class)
-        .setParameter("id", 3L).getSingleResult();
+    Restriction restriction = repository.read(3L);
 
     assertThat(restriction, is(instanceOf(AgeRestriction.class)));
     AgeRestriction ageRestriction = (AgeRestriction) restriction;
@@ -57,8 +58,7 @@ public class RestrictionsJpaTest extends AbstractDbUnitJpaTest {
 
   @Test
   public void testFindById_OpponentTypeRestriction() {
-    Restriction restriction = entityManager.createNamedQuery("Restriction.findById", Restriction.class)
-        .setParameter("id", 4L).getSingleResult();
+    Restriction restriction = repository.read(4L);
 
     assertThat(restriction, is(instanceOf(OpponentTypeRestriction.class)));
     OpponentTypeRestriction otRestriction = (OpponentTypeRestriction) restriction;

@@ -7,9 +7,6 @@
   <named-query name="Discipline.findAll">
     <query>SELECT d FROM Discipline d</query>
   </named-query>
-  <named-query name="Discipline.findById">
-    <query>SELECT d FROM Discipline d WHERE d.id = :id</query>
-  </named-query>
   <named-query name="Discipline.findOpponents">
     <query>SELECT o FROM Opponent o, Discipline d WHERE d.id = :id AND o MEMBER OF d.opponents</query>
   </named-query>

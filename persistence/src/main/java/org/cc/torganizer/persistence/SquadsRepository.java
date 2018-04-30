@@ -37,10 +37,7 @@ public class SquadsRepository extends Repository {
   }
 
   public Squad read(Long squadId) {
-    TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Squad.findById", Squad.class);
-    namedQuery.setParameter("id", squadId);
-
-    return namedQuery.getSingleResult();
+    return entityManager.find(Squad.class, squadId);
   }
 
   public List<Squad> read(Integer offset, Integer maxResults) {
@@ -72,9 +69,7 @@ public class SquadsRepository extends Repository {
   }
 
   public Squad delete(Long squadId) {
-    TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Squad.findById", Squad.class);
-    namedQuery.setParameter("id", squadId);
-    Squad squad = namedQuery.getSingleResult();
+    Squad squad = entityManager.find(Squad.class, squadId);
 
     entityManager.remove(squad);
 

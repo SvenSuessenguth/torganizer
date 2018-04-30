@@ -10,8 +10,6 @@ import java.util.List;
 @Stateless
 public class ClubsRepository extends Repository{
 
-  private static final String CLUB_FIND_BY_ID_QUERY_NAME = "Club.findById";
-
   public ClubsRepository(){
   }
 
@@ -36,9 +34,7 @@ public class ClubsRepository extends Repository{
   }
 
   public Club read(Long clubId){
-    TypedQuery<Club> namedQuery = entityManager.createNamedQuery(CLUB_FIND_BY_ID_QUERY_NAME, Club.class);
-    namedQuery.setParameter("id", clubId);
-    return namedQuery.getSingleResult();
+    return entityManager.find(Club.class, clubId);
   }
 
   public Club update(Club club){

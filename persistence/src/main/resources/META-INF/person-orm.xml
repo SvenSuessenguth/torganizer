@@ -7,9 +7,6 @@
   <named-query name="Person.findAll">
     <query>SELECT p FROM Person p</query>
   </named-query>
-  <named-query name="Person.findById">
-    <query>SELECT p FROM Person p WHERE p.id = :id</query>
-  </named-query>
   <named-query name="Person.findByGender">
     <query>SELECT p FROM Person p WHERE p.gender = :gender</query>
   </named-query>

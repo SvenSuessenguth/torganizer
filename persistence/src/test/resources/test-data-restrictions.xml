@@ -8,9 +8,6 @@
   <_GENDER_RESTRICTIONS _ID="1" _GENDER="FEMALE" />
   <_GENDER_RESTRICTIONS _ID="2" _GENDER="MALE" />
   
-  <!-- 
-   | JPA speichert java.time.LocalDate mit einem Tag Versatz?  
-   +-->
   <_AGE_RESTRICTIONS _ID="3" _MAX_DATE_OF_BIRTH="1999-01-02" _MIN_DATE_OF_BIRTH="1998-06-06"/>
     
   <_OPPONENT_TYPE_RESTRICTIONS _ID="4" _OPPONENT_TYPE="PLAYER" />

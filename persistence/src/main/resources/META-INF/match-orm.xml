@@ -4,10 +4,6 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">  
   
-  <named-query name="Match.findById">
-    <query>SELECT m FROM Match m WHERE m.id = :id</query>
-  </named-query>
-  
   <entity class="org.cc.torganizer.core.entities.Match" access="FIELD">
     <table name="_MATCHES" />
     <attributes>    

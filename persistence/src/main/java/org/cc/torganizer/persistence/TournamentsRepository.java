@@ -19,8 +19,6 @@ import java.util.stream.Collectors;
 @Stateless
 public class TournamentsRepository extends Repository{
 
-  private static final String TOURNAMENT_FIND_BY_ID_QUERY_NAME = "Tournament.findById";
-
   public TournamentsRepository(){
   }
 
@@ -45,9 +43,7 @@ public class TournamentsRepository extends Repository{
   }
 
   public Tournament read(Long tournamentId){
-    TypedQuery<Tournament> namedQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME, Tournament.class);
-    namedQuery.setParameter("id", tournamentId);
-    return namedQuery.getSingleResult();
+    return entityManager.find(Tournament.class, tournamentId);
   }
 
   public Tournament update(Tournament tournament){
@@ -110,16 +106,8 @@ public class TournamentsRepository extends Repository{
   }
 
   public Player addPlayer(Long tournamentId, Long playerId){
-    // load player
-    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
-    namedQuery.setParameter("id", playerId);
-    Player player = namedQuery.getSingleResult();
-
-    // load tournament
-    TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME,
-            Tournament.class);
-    namedTournamentQuery.setParameter("id", tournamentId);
-    Tournament tournament = namedTournamentQuery.getSingleResult();
+    Player player = entityManager.find(Player.class, (Object) playerId);
+    Tournament tournament = entityManager.find(Tournament.class, tournamentId);
 
     // persist tournament
     Set<Opponent> opponents = tournament.getOpponents();
@@ -132,16 +120,8 @@ public class TournamentsRepository extends Repository{
   }
 
   public Player removePlayer(Long tournamentId, Long playerId){
-    // load player
-    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findById", Player.class);
-    namedQuery.setParameter("id", playerId);
-    Player player = namedQuery.getSingleResult();
-
-    // load tournament
-    TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME,
-      Tournament.class);
-    namedTournamentQuery.setParameter("id", tournamentId);
-    Tournament tournament = namedTournamentQuery.getSingleResult();
+    Player player = entityManager.find(Player.class, playerId);
+    Tournament tournament = entityManager.find(Tournament.class, tournamentId);
 
     // persist tournament
     tournament.getOpponents().remove(player);
@@ -165,16 +145,8 @@ public class TournamentsRepository extends Repository{
   //
   //--------------------------------------------------------------------------------------------------------------------
   public Squad addSquad(Long tournamentId, Long squadId){
-    // load player
-    TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Opponent.findById", Squad.class);
-    namedQuery.setParameter("id", squadId);
-    Squad squad = namedQuery.getSingleResult();
-
-    // load tournament
-    TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME,
-            Tournament.class);
-    namedTournamentQuery.setParameter("id", tournamentId);
-    Tournament tournament = namedTournamentQuery.getSingleResult();
+    Squad squad = entityManager.find(Squad.class, squadId);
+    Tournament tournament = entityManager.find(Tournament.class, tournamentId);
 
     // persist tournament
     tournament.getOpponents().add(squad);
@@ -222,12 +194,7 @@ public class TournamentsRepository extends Repository{
   }
 
   public Discipline addDiscipline(Long tournamentId, Discipline discipline){
-    // load tournament
-    TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME,
-      Tournament.class);
-    namedTournamentQuery.setParameter("id", tournamentId);
-    List<Tournament> tournaments = namedTournamentQuery.getResultList();
-    Tournament tournament = tournaments.get(0);
+    Tournament tournament = entityManager.find(Tournament.class, tournamentId);
 
     // persist tournament
     tournament.getDisciplines().add(discipline);
@@ -241,10 +208,7 @@ public class TournamentsRepository extends Repository{
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
     // load tournaments opponents
-    TypedQuery<Tournament> namedTournamentQuery = entityManager.createNamedQuery(TOURNAMENT_FIND_BY_ID_QUERY_NAME, Tournament.class);
-    namedTournamentQuery.setParameter("id", tournamentId);
-
-    Tournament tournament = namedTournamentQuery.getSingleResult();
+    Tournament tournament = entityManager.find(Tournament.class, tournamentId);
     Set<Opponent> opponents = tournament.getOpponents();
 
     // filter opponents
