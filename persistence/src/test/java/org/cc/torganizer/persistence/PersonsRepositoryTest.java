@@ -1,13 +1,14 @@
 package org.cc.torganizer.persistence;
 
-import java.util.List;
-import javax.persistence.TypedQuery;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Person;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 
 public class PersonsRepositoryTest extends AbstractDbUnitJpaTest {
 

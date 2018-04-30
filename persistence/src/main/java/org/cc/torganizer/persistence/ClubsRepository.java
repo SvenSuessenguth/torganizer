@@ -37,6 +37,17 @@ public class ClubsRepository extends Repository{
     return entityManager.find(Club.class, clubId);
   }
 
+  public List<Club> read(Integer offset, Integer maxResults){
+    offset = offset == null ? DEFAULT_OFFSET : offset;
+    maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
+
+
+    TypedQuery<Club> namedQuery = entityManager.createNamedQuery("Club.findAll", Club.class);
+    namedQuery.setFirstResult(offset);
+    namedQuery.setMaxResults(maxResults);
+    return namedQuery.getResultList();
+  }
+
   public Club update(Club club){
     entityManager.merge(club);
 

@@ -4,24 +4,24 @@ import org.cc.torganizer.core.entities.Club;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 
-public class ClubsJpaTest extends AbstractDbUnitJpaTest {
+public class ClubsRepositoryTest extends AbstractDbUnitJpaTest {
+
+  private ClubsRepository repository;
 
   @Before
   public void before() throws Exception {
     super.initDatabase("test-data-clubs.xml");
+    repository = new ClubsRepository(entityManager);
   }
 
   @Test
   public void testFindByAll() {
-    TypedQuery<Club> namedQuery = entityManager.createNamedQuery("Club.findAll", Club.class);
-    
-    List<Club> allClubs = namedQuery.getResultList();
+    List<Club> allClubs = repository.read(0, 10);
     assertThat(allClubs, hasSize(2));
   }
 }
