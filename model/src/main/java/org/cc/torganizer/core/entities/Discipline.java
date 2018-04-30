@@ -1,10 +1,10 @@
 package org.cc.torganizer.core.entities;
 
+import org.cc.torganizer.core.exceptions.RestrictionException;
+
 import java.util.*;
 
 import static java.util.Collections.unmodifiableList;
-
-import org.cc.torganizer.core.exceptions.RestrictionException;
 
 /**
  * Auszufuehrende Disziplin innerhalb eines Turnieres (z.B. HE-A)
@@ -19,9 +19,6 @@ public class Discipline extends Entity {
 
   private final Set<Restriction> restrictions;
 
-  /**
-   * in einer Discipline wird mindestens eine Round gespielt.
-   */
   public Discipline() {
     this.opponents = new HashSet<>();
     this.restrictions = new HashSet<>();
