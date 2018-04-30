@@ -11,11 +11,6 @@ import org.cc.torganizer.core.exceptions.RestrictionException;
  */
 public class Discipline extends Entity {
 
-  /**
-   * Darzustellender Name, wenn noch keine Disziplin zugewiesen wurde.
-   */
-  public static final String NULL_DISCIPLINE_NAME = "-";
-
   private String name;
 
   private final Set<Opponent> opponents;
@@ -31,9 +26,6 @@ public class Discipline extends Entity {
     this.opponents = new HashSet<>();
     this.restrictions = new HashSet<>();
     this.rounds = new ArrayList<>();
-    Round round = new Round();
-    round.setPosition(0);
-    addRound(round);
   }
 
   /**
