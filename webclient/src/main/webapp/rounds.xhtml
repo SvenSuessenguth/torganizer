@@ -18,7 +18,22 @@
 
       <link rel="import" href="custom/opponents-table/opponents-table.html"></link>
 
-      <label for="disciplineName">Name</label> <span id="disciplineName">huhu</span><br /><hr />
+      <label for="disciplineName">Discipline</label> <span id="disciplineName">huhu</span>
+      <br /><br />
+
+      Round
+      <input type="button" value="&#9664;" onclick="rounds.prev()" /> <span id="round">1</span> <input type="button" value="&#9654;" onclick="rounds.next()" />
+      <label for="systems">system<select id="systems" onchange="rounds.changeSystem()"></select></label>
+      <label for="qualified">qualified<input id="qualified" value="" size="2" /></label>
+      <br /><br />
+
+      Group
+      <br /><br />
+
+      Groups
+      <br />
+
+
 
       <script>rounds.onload();</script>
     </ui:define>
