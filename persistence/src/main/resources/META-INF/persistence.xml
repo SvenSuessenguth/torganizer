@@ -16,8 +16,10 @@
     <!--
      | Glassfish, OpenLiberty, WLP     
      +--> 
-    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>	     
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <!--
     <jta-data-source>jdbc/torganizerDS</jta-data-source>
+    -->
     
     <mapping-file>META-INF/orm.xml</mapping-file>
     
