@@ -1,9 +1,7 @@
 package org.cc.torganizer.rest;
 
 import org.cc.torganizer.persistence.GroupsRepository;
-import org.cc.torganizer.persistence.RoundsRepository;
 import org.cc.torganizer.rest.json.GroupJsonConverter;
-import org.cc.torganizer.rest.json.RoundJsonConverter;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
