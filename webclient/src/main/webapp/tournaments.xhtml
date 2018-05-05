@@ -18,16 +18,16 @@
         </tr>
       </template>
 
-      Anzahl <span id="tournamentsCount"></span>
+      #{text.count} <span id="tournamentsCount"></span>
       <table id="tournamentsTable">
         <tbody id="tournamentsTableBody"></tbody>
       </table>
 
       <span id="tournamentData"> 
-        <label for="tournamentName">Name</label><input id="tournamentName" value="" />
+        <label for="tournamentName">#{text.name}</label><input id="tournamentName" value="" />
 
-        <input type="button" value="save" onclick="tournaments.save()" />
-        <input type="button" value="cancel" onclick="tournaments.cancel()" />
+        <input type="button" value="#{text.save}" onclick="tournaments.save()" />
+        <input type="button" value="#{text.cancel}" onclick="tournaments.cancel()" />
       </span>
 
       <script>tournaments.onload();</script>

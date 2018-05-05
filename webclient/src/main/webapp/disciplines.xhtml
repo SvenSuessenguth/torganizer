@@ -16,23 +16,23 @@
 
       <link rel="import" href="custom/opponents-table/opponents-table.html"></link>
 
-      Disciplines <select id="disciplines" onchange="disciplines.showSelectDiscipline()"/><hr />
-      <label for="name">Name</label><input id="name" value="" /><br /><hr />
+      #{text.disciplines} <select id="disciplines" onchange="disciplines.showSelectDiscipline()"/><hr />
+      <label for="name">#{text.name}</label><input id="name" value="" /><br /><hr />
       <span id="restrictions">
         <!-- restrictions -->
         <div style="float:left; padding-right: 10px;">
-        <h4>Age</h4>
-        <label for="min-date-of-birth">min</label><input id="min-date-of-birth" type="date" value="" />
-        <label for="max-date-of-birth">max</label><input id="max-date-of-birth" type="date" value="" />
+        <h4>#{text.age}</h4>
+        <label for="min-date-of-birth">#{text.min}</label><input id="min-date-of-birth" type="date" value="" />
+        <label for="max-date-of-birth">#{text.max}</label><input id="max-date-of-birth" type="date" value="" />
         </div>
 
         <div style="float:left; padding-right: 10px;">
-        <h4>Gender</h4>
-        <label for="gender">gender
+        <h4>#{text.gender}</h4>
+        <label for="gender">#{text.gender}
           <select id="gender">
-            <option value="MALE">male</option>
-            <option value="FEMALE">female</option>
-            <option value="UNKNOWN">unknown</option>
+            <option value="MALE">#{text.male}</option>
+            <option value="FEMALE">#{text.female}</option>
+            <option value="UNKNOWN">#{text.unknown}</option>
           </select>
         </label>
         </div>
@@ -51,26 +51,26 @@
 
         <div style="clear: both; padding-top: 10px;">
 
-        <input type="button" value="save" onclick="disciplines.save()" />
-        <input type="button" value="cancel" onclick="disciplines.cancel()" />
+        <input type="button" value="#{text.save}" onclick="disciplines.save()" />
+        <input type="button" value="#{text.cancel}" onclick="disciplines.cancel()" />
         </div>
       </span>
       <hr />
 
       <div style="float:left; padding-right: 10px;">
-      assignable opponents
-      <opponents-table id="assignable-opponents-table" rows="10" data="[]" >
-      </opponents-table>
-      <input type="submit" value="prev" onclick="disciplines.prevAssignableOpponents()" />
-      <input type="submit" value="next" onclick="disciplines.nextAssignableOpponents()" />
+        #{text.assignable_players}
+        <opponents-table id="assignable-opponents-table" rows="10" data="[]" >
+        </opponents-table>
+        <input type="submit" value="#{text.prev}" onclick="disciplines.prevAssignableOpponents()" />
+        <input type="submit" value="#{text.next}" onclick="disciplines.nextAssignableOpponents()" />
       </div>
 
       <div>
-      opponents
-      <opponents-table id="opponents-table" rows="10" data="[]" >
-      </opponents-table>
-      <input type="submit" value="prev" onclick="disciplines.prevOpponents()" />
-      <input type="submit" value="next" onclick="disciplines.nextOpponents()" />
+        #{text.players}
+        <opponents-table id="opponents-table" rows="10" data="[]" >
+        </opponents-table>
+        <input type="submit" value="#{text.prev}" onclick="disciplines.prevOpponents()" />
+        <input type="submit" value="#{text.next}" onclick="disciplines.nextOpponents()" />
       </div>
       <hr />
 

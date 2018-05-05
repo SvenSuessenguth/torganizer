@@ -17,24 +17,24 @@
 
       <link rel="import" href="custom/opponents-table/opponents-table.html"></link>
 
-        Alle Spieler:
+        #{text.all_players}
         <opponents-table id="all-players-table" rows="5" data="[]" >
         </opponents-table>
-        <input type="submit" value="prev" onclick="squads.prevAllPlayers()" />
-        <input type="submit" value="next" onclick="squads.nextAllPlayers()" />
+        <input type="submit" value="#{text.prev}" onclick="squads.prevAllPlayers()" />
+        <input type="submit" value="#{text.next}" onclick="squads.nextAllPlayers()" />
         <hr />
-        Spieler des Squad:
+        #{text.squads_players}
         <opponents-table id="selected-players-table" rows="2" data="[]" >
         </opponents-table>
-        <input id="speichern" type="submit" value="save" onclick="squads.save()" />
-        <input id="verwerfen" type="submit" value="cancel" onclick="squads.cancel()"/>
+        <input id="speichern" type="submit" value="#{text.save}" onclick="squads.save()" />
+        <input id="verwerfen" type="submit" value="#{text.cancel}" onclick="squads.cancel()"/>
 
         <hr />
-        Squads:
+        #{text.squads}
         <opponents-table id="all-squads-table" rows="10" data="[]" >
         </opponents-table>
-        <input type="submit" value="prev" onclick="squads.prevAllSquads()" />
-        <input type="submit" value="next" onclick="squads.nextAllSquads()" />
+        <input type="submit" value="#{text.prev}" onclick="squads.prevAllSquads()" />
+        <input type="submit" value="#{text.next}" onclick="squads.nextAllSquads()" />
 
       <script>squads.onLoad();</script>
     </ui:define>

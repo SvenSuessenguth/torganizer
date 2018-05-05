@@ -23,7 +23,7 @@
 
       Round
       <input type="button" value="&#9664;" onclick="rounds.prevRound()" /> <span id="round">1</span> <input type="button" value="&#9654;" onclick="rounds.nextRound()" />
-      <input type="button" value="&#128465;" style="font-weight: bolder;" onclick="rounds.deleteRound()" title="delete" />
+      <input type="button" value="&#128465;" style="font-weight: bolder;" onclick="rounds.deleteRound()" title="#{text.delete}" />
       <label for="system">system
         <select id="system">
           <option value="DOUBLE_ELIMINATION">double ko</option>
@@ -39,8 +39,8 @@
         </opponents-table>
       </div>
       <div style="float:left; padding-right: 10px;">
-        <input type="button" value="&#9664;" onclick="rounds.prevGroup()" /> <span id="round">1</span> <input type="button" value="&#9654;" onclick="rounds.nextGroup()" />
-        <input type="button" value="&#128465;" style="font-weight: bolder;" onclick="rounds.deleteGroup()" title="delete" />
+        <input type="button" value="&#9664;" onclick="rounds.prevGroup()" /> <span id="group">1</span> <input type="button" value="&#9654;" onclick="rounds.nextGroup()" />
+        <input type="button" value="&#128465;" style="font-weight: bolder;" onclick="rounds.deleteGroup()" title="#{text.delete}" />
       </div>
       <opponents-table id="group-players-table" rows="5" data="[]" >
       </opponents-table>

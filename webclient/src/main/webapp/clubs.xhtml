@@ -18,16 +18,16 @@
         </tr>
       </template>
 
-      Anzahl <span id="clubsCount"></span>
+      #{text.count} <span id="clubsCount"></span>
       <table id="clubsTable">
         <tbody id="clubsTableBody"></tbody>
       </table>
 
       <span id="clubData">
-        <label for="clubName">Name</label><input id="clubName" value="" />
+        <label for="clubName">#{text.name}</label><input id="clubName" value="" />
 
-        <input type="button" value="save" onclick="clubs.save()" />
-        <input type="button" value="cancel" onclick="clubs.cancel()" />
+        <input type="button" value="#{text.save}" onclick="clubs.save()" />
+        <input type="button" value="#{text.cancel}" onclick="clubs.cancel()" />
       </span>
 
       <script>clubs.onload();</script>
