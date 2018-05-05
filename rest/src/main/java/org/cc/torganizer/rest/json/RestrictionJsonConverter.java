@@ -138,7 +138,7 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
   public Collection<Restriction> toModels(JsonArray jsonArray, Collection<Restriction> restrictions) {
     jsonArray.forEach(item -> {
       JsonObject jsonObject = (JsonObject) item;
-      Restriction restriction = getProperModel(jsonObject, restrictions);
+      Restriction restriction = getProperEntity(jsonObject, restrictions);
       toModel(jsonObject, restriction);
     });
 

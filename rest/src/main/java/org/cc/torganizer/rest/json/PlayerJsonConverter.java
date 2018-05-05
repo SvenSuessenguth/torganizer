@@ -76,7 +76,7 @@ public class PlayerJsonConverter extends ModelJsonConverter<Player> implements O
   public Collection<Player> toModels(JsonArray jsonArray, Collection<Player> players) {
     jsonArray.forEach(item -> {
       JsonObject jsonObject = (JsonObject) item;
-      Player player = getProperModel(jsonObject, players);
+      Player player = getProperEntity(jsonObject, players);
       toModel(jsonObject, player);
     });
 

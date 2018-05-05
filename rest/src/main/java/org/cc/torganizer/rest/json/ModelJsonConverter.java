@@ -20,7 +20,7 @@ public abstract class ModelJsonConverter<T extends Entity> {
   public abstract Collection<T> toModels(JsonArray jsonArray, Collection<T> models);
 
   // use existing object (update)
-  public T getProperModel(JsonObject jsonObject, Collection<T> models){
+  public T getProperEntity(JsonObject jsonObject, Collection<T> models){
     Long id = Long.valueOf(jsonObject.get("id").toString());
     for(T model : models){
       if(Objects.equals(model.getId(),id)){

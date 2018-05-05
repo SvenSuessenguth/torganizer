@@ -44,7 +44,7 @@ public class TournamentJsonConverter extends ModelJsonConverter<Tournament>{
   public Collection<Tournament> toModels(JsonArray jsonArray, Collection<Tournament> tournaments) {
     jsonArray.forEach(item -> {
       JsonObject jsonObject = (JsonObject) item;
-      Tournament tournament = getProperModel(jsonObject, tournaments);
+      Tournament tournament = getProperEntity(jsonObject, tournaments);
       toModel(jsonObject, tournament);
     });
 

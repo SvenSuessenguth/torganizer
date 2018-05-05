@@ -9,12 +9,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import static java.time.LocalDateTime.of;
 import java.time.Month;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import javax.json.Json;
 import javax.json.JsonArray;
-import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -63,7 +61,7 @@ public class ModelJsonConverterTest {
       .add("id", 1)
       .build();
 
-    Entity properModel = converter.getProperModel(jsonObject, Collections.emptyList());
+    Entity properModel = converter.getProperEntity(jsonObject, Collections.emptyList());
     assertThat(properModel, is(not(nullValue())));
   }
 

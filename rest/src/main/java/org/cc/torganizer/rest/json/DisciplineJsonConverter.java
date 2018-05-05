@@ -59,7 +59,7 @@ public class DisciplineJsonConverter extends ModelJsonConverter<Discipline> {
   public Collection<Discipline> toModels(JsonArray jsonArray, Collection<Discipline> disciplines) {
     jsonArray.forEach(item -> {
       JsonObject jsonObject = (JsonObject) item;
-      Discipline discipline = getProperModel(jsonObject, disciplines);
+      Discipline discipline = getProperEntity(jsonObject, disciplines);
       toModel(jsonObject, discipline);
     });
 

@@ -68,7 +68,7 @@ public class PersonJsonConverter extends ModelJsonConverter<Person>{
   public Collection<Person> toModels(JsonArray jsonArray, Collection<Person> persons) {
     jsonArray.forEach(item -> {
       JsonObject jsonObject = (JsonObject) item;
-      Person person = getProperModel(jsonObject, persons);
+      Person person = getProperEntity(jsonObject, persons);
       toModel(jsonObject, person);
     });
 

@@ -58,7 +58,7 @@ public class RoundJsonConverter extends ModelJsonConverter<Round> {
   public Collection<Round> toModels(JsonArray jsonArray, Collection<Round> rounds) {
     jsonArray.forEach(item -> {
       JsonObject jsonObject = (JsonObject) item;
-      Round round = getProperModel(jsonObject, rounds);
+      Round round = getProperEntity(jsonObject, rounds);
       toModel(jsonObject, round);
     });
 

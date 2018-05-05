@@ -47,7 +47,7 @@ public class ClubJsonConverter extends ModelJsonConverter<Club>{
   public Collection<Club> toModels(JsonArray jsonArray, Collection<Club> clubs) {
     jsonArray.forEach(item -> {
       JsonObject jsonObject = (JsonObject) item;
-      Club club = getProperModel(jsonObject, clubs);
+      Club club = getProperEntity(jsonObject, clubs);
       toModel(jsonObject, club);
     });
 
