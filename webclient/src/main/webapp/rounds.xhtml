@@ -22,18 +22,29 @@
       <br /><br />
 
       Round
-      <input type="button" value="&#9664;" onclick="rounds.prev()" /> <span id="round">1</span> <input type="button" value="&#9654;" onclick="rounds.next()" />
-      <label for="systems">system<select id="systems" onchange="rounds.changeSystem()"></select></label>
+      <input type="button" value="&#9664;" onclick="rounds.prevRound()" /> <span id="round">1</span> <input type="button" value="&#9654;" onclick="rounds.nextRound()" />
+      <label for="system">system
+        <select id="system">
+          <option value="DOUBLE_ELIMINATION">double ko</option>
+          <option value="SINGLE_ELIMINATION">single ko</option>
+          <option value="ROUND_ROBIN">round robin</option>
+        </select>
+      </label>
       <label for="qualified">qualified<input id="qualified" value="" size="2" /></label>
       <br /><br />
 
-      Group
-      <br /><br />
-
-      Groups
-      <br />
-
-
+      <div style="float:left; padding-right: 10px;">
+        <opponents-table id="all-players-table" rows="10" data="[]" >
+        </opponents-table>
+      </div>
+      <div style="float:left; padding-right: 10px;">
+      <input type="button" value="&#9664;" onclick="rounds.prevGroup()" /> <span id="round">1</span> <input type="button" value="&#9654;" onclick="rounds.nextGroup()" />
+      </div>
+      <opponents-table id="group-players-table" rows="5" data="[]" >
+      </opponents-table>
+      <div style="clear:both;"></div>
+      <hr />
+      all groups
 
       <script>rounds.onload();</script>
     </ui:define>

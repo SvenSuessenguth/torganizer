@@ -20,7 +20,7 @@
     <!--
     <jta-data-source>jdbc/torganizerDS</jta-data-source>
     -->
-    
+
     <mapping-file>META-INF/orm.xml</mapping-file>
     
     <mapping-file>META-INF/club-orm.xml</mapping-file>
