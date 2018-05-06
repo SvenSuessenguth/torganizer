@@ -1,5 +1,6 @@
 package org.cc.torganizer.rest;
 
+import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.persistence.RoundsRepository;
 import org.cc.torganizer.rest.json.RoundJsonConverter;
 
@@ -8,6 +9,7 @@ import javax.inject.Inject;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.ws.rs.*;
+import java.util.List;
 
 @Stateless
 @Path("/rounds")
@@ -18,7 +20,7 @@ public class RoundsResource extends AbstractResource {
   private RoundsRepository rRepository;
 
   @Inject
-  private RoundJsonConverter dConverter;
+  private RoundJsonConverter rConverter;
 
   @POST
   public JsonObject create(JsonObject jsonObject) {
@@ -27,13 +29,16 @@ public class RoundsResource extends AbstractResource {
 
   @GET
   @Path("{id}")
-  public JsonObject readSingle(@PathParam("id") Long disciplineId) {
-    return null;
+  public JsonObject readSingle(@PathParam("id") Long roundId) {
+    Round round = rRepository.read(roundId);
+
+    return rConverter.toJsonObject(round);
   }
 
   @GET
   public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("maxResults") Integer maxResults) {
-    return null;
+    List<Round> roounds = rRepository.read(offset, maxResults);
+    return rConverter.toJsonArray(roounds);
   }
 
   @PUT

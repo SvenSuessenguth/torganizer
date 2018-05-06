@@ -22,9 +22,8 @@
       <br /><br />
 
       Round
-      <input type="button" value="&#9664;" onclick="rounds.prevRound()" /> <span id="round">1</span> <input type="button" value="&#9654;" onclick="rounds.nextRound()" />
-      <input type="button" value="&#43;" style="font-weight: bolder;" onclick="rounds.newRound()" title="#{text.new}" />
-      <input type="button" value="&#8722;" style="font-weight: bolder;" onclick="rounds.deleteRound()" title="#{text.delete}" />
+      <input type="button" id="prevRound" disabled="disabled" value="&#9664;" onclick="rounds.prevRound()" /> <span id="round"></span> <input type="button" value="&#9654;" onclick="rounds.nextRound()" />
+      <br />
       <label for="system">system
         <select id="system">
           <option value="DOUBLE_ELIMINATION">double ko</option>
@@ -33,6 +32,9 @@
         </select>
       </label>
       <label for="qualified">qualified<input id="qualified" value="" size="2" /></label>
+      <input type="button" value="#{text.save}" onclick="rounds.saveRound()" />
+      <input type="button" value="#{text.delete}" onclick="rounds.deleteRound()" />
+      <input type="button" value="#{text.cancel}" onclick="rounds.cancelRound()" />
       <br /><br />
 
       <div style="float:left; padding-right: 10px;">

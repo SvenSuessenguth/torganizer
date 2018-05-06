@@ -1,6 +1,6 @@
 /* global playersResource, tournamentsResource, tournaments */
 
-var tableSize = Number(10);
+let tableSize = Number(10);
 
 class Players {
   constructor() {    
@@ -26,11 +26,11 @@ class Players {
   }
   //--------------------------------------------------------------------------------------------------------------------
   create(){
-    var json = this.formToPlayer();
+    let json = this.formToPlayer();
     playersResource.createOrUpdate(json, "POST", this.createResolve, this.createReject);
   }
   createResolve(json){
-    var tournamentId = tournaments.getCurrentTournamentId();
+    let tournamentId = tournaments.getCurrentTournamentId();
     // this can't be used inside a promise
     // https://stackoverflow.com/questions/32547735/javascript-promises-how-to-access-variable-this-inside-a-then-scope
     tournamentsResource.addPlayer(tournamentId, json.id, players.addPlayerResolve, players.addPlayerReject);    
@@ -44,7 +44,7 @@ class Players {
   addPlayerReject(error){console.log(error);}
   //--------------------------------------------------------------------------------------------------------------------
   update() {
-    var json = this.formToPlayer();
+    let json = this.formToPlayer();
     playersResource.createOrUpdate(json, "PUT", this.updateResolve, this.updateReject);    
   }
   updateResolve(json){
@@ -59,8 +59,8 @@ class Players {
   //
   //--------------------------------------------------------------------------------------------------------------------
   delete(){
-    var player = this.formToPlayer();
-    var tournamentId = tournaments.getCurrentTournamentId();
+    let player = this.formToPlayer();
+    let tournamentId = tournaments.getCurrentTournamentId();
     tournamentsResource.removePlayer(tournamentId, player.id, this.deleteResolve, this.deleteReject);    
   }
   deleteResolve(json){
@@ -157,8 +157,8 @@ class Players {
   //
   // ---------------------------------------------------------------------------
   updatePlayersTable() {
-    var offset = Number(sessionStorage.getItem('players.players-table.offset'));
-    var tournamentId = tournaments.getCurrentTournamentId();
+    let offset = Number(sessionStorage.getItem('players.players-table.offset'));
+    let tournamentId = tournaments.getCurrentTournamentId();
     
     document.getElementById("players-offset").innerHTML = offset;
     document.getElementById("players-length").innerHTML = offset + tableSize;
@@ -174,24 +174,24 @@ class Players {
   updatePlayersTableInternal(json){
     // bisherige Daten entfernen, damit keine doppelten Anzeigen erscheinen
     // https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
-    var tableBody = document.querySelector('#players-table-body');
+    let tableBody = document.querySelector('#players-table-body');
     while (tableBody.firstChild) {
       tableBody.removeChild(tableBody.firstChild);
     }
       
     // daten in die tabelle einfuegen
     json.forEach(function(player){
-      var t = document.querySelector("#player-record").cloneNode(true);
-      var template = t.content;
+      let t = document.querySelector("#player-record").cloneNode(true);
+      let template = t.content;
      
-      var playerRow = template.querySelector("#player-row");
+      let playerRow = template.querySelector("#player-row");
       playerRow.onclick = function(e){ new Players().showDetails(player.id); };
       
-      var firstNameElement = template.querySelector("#first-name");
+      let firstNameElement = template.querySelector("#first-name");
       firstNameElement.innerHTML = player.person.firstName;
       firstNameElement.setAttribute("id", "first-name"+player.id);      
       
-      var lastNameElement = template.querySelector("#last-name"); 
+      let lastNameElement = template.querySelector("#last-name");
       lastNameElement.innerHTML = player.person.lastName;
       lastNameElement.setAttribute("id", "last-name"+player.id);
       
@@ -205,8 +205,8 @@ class Players {
   //
   //--------------------------------------------------------------------------------------------------------------------
   prev(){
-    var currOffset = Number(sessionStorage.getItem('players.players-table.offset'));
-    var newOffset = currOffset - tableSize;
+    let currOffset = Number(sessionStorage.getItem('players.players-table.offset'));
+    let newOffset = currOffset - tableSize;
       
     if(newOffset<0){
       newOffset = 0;
@@ -219,9 +219,9 @@ class Players {
   }
   
   next(){
-    var playersCount = Number(document.getElementById("players-count").innerHTML);
-    var currOffset = Number(sessionStorage.getItem('players.players-table.offset'));
-    var newOffset = currOffset + tableSize;
+    let playersCount = Number(document.getElementById("players-count").innerHTML);
+    let currOffset = Number(sessionStorage.getItem('players.players-table.offset'));
+    let newOffset = currOffset + tableSize;
       
     if(newOffset>=playersCount){
       return;
@@ -288,13 +288,13 @@ class Players {
     document.getElementById("last-name").value = json.person.lastName;
     document.getElementById("date-of-birth").value = json.person.dateOfBirth;
       
-    var genderElement = document.getElementById("gender");
+    let genderElement = document.getElementById("gender");
     selectItemByValue(genderElement, json.person.gender);
     
-    var statusElement = document.getElementById("status");
+    let statusElement = document.getElementById("status");
     selectItemByValue(statusElement, json.status);
 
-    let clubElement = document.getElementById("clubs")
+    let clubElement = document.getElementById("clubs");
     let clubId = json.club.id;
     if(clubId===null){
       clubId = "select";

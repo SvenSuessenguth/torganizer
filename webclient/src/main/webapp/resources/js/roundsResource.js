@@ -1,7 +1,12 @@
 /* global fetch */
 
-class   RoundsResource {
+class   RoundsResource extends CrudResource {
   constructor() {
+    super();
+  }
+
+  createOrUpdate(json, method, onResolve, onReject){
+    super.createOrUpdate("rounds", json, method, onResolve, onReject);
   }
 }
 
