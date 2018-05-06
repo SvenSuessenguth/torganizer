@@ -147,7 +147,7 @@ public class DisciplinesRepository extends Repository{
     Round round = entityManager.find(Round.class, roundId);
 
     Discipline discipline = read(disciplineId);
-    discipline.getRounds().add(round);
+    discipline.addRound(round);
     entityManager.persist(discipline);
 
     return discipline;

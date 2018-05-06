@@ -1,45 +1,16 @@
 /* global fetch */
 
-class   DisciplinesResource {
+class   DisciplinesResource extends CrudResource{
   constructor() {
+    super();
   }
 
   createOrUpdate(json, method, onResolve, onReject) {
-    fetch(resourcesUrl()+'disciplines', {
-      method: method,
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(json)
-    })
-      .then(function (response) {
-        if (response.ok)
-          return response.json();
-        else
-          throw new Error(response.status);
-      })
-      .then(function (json) {
-        onResolve(json);
-      })
-      .catch(function (err) {
-        onReject(err);
-      });
+    super.createOrUpdate("disciplines", json, method, onResolve, onReject);
   }
 
   readSingle(id, onResolve, onReject) {
-    fetch(resourcesUrl()+'disciplines/' + id).then(function (response) {
-      if (response.ok)
-        return response.json();
-      else
-        throw new Error('Fehlerhandling noch nicht spezifiziert');
-    })
-      .then(function (json) {
-        onResolve(json);
-      })
-      .catch(function (err) {
-        onReject("???");
-      });
+    super.readSingle("disciplines", id, onResolve, onReject);
   }
 
   getOpponents(disciplineId, offset, maxResults, onResolve, onReject) {
@@ -80,6 +51,64 @@ class   DisciplinesResource {
 
   removeOpponent(disciplineId, opponentId, onResolve, onReject) {
     fetch(resourcesUrl()+'disciplines/' +disciplineId+"/opponents?opponentId="+opponentId,{
+      method: "DELETE",
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then(function (response) {
+      if (response.ok)
+        return response.json();
+      else
+        throw new Error('Fehlerhandling noch nicht spezifiziert');
+    })
+      .then(function (json) {
+        onResolve(json);
+      })
+      .catch(function (err) {
+        onReject("???");
+      });
+  }
+
+  getRounds(disciplineId, onResolve, onReject){
+    fetch(resourcesUrl()+'disciplines/' +disciplineId+"/rounds",{
+      method: "GET",
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then(function (response) {
+      if (response.ok)
+        return response.json();
+      else
+        throw new Error('Fehlerhandling noch nicht spezifiziert');
+    })
+      .then(function (json) {
+        onResolve(json);
+      })
+      .catch(function (err) {
+        onReject("???");
+      });
+  }
+  addRound(disciplineId, roundId, onResolve, onReject){
+    fetch(resourcesUrl()+'disciplines/' +disciplineId+"/rounds?roundId="+roundId,{
+      method: "POST",
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then(function (response) {
+      if (response.ok)
+        return response.json();
+      else
+        throw new Error('Fehlerhandling noch nicht spezifiziert');
+    })
+      .then(function (json) {
+        onResolve(json);
+      })
+      .catch(function (err) {
+        onReject("???");
+      });
+  }
+  removeRound(disciplineId, roundId, onResolve, onReject){
+    fetch(resourcesUrl()+'disciplines/' +disciplineId+"/rounds?roundId="+roundId,{
       method: "DELETE",
       headers: {
         'Accept': 'application/json'

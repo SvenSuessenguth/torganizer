@@ -68,11 +68,15 @@ class Rounds {
     roundsResource.createOrUpdate(roundJson, method, this.saveRoundResolve, this.saveRoundReject);
   }
   saveRoundResolve(round){
-    console.log("round saved with id: "+round.id);
+    sessionStorage.setItem("rounds.current-round.id", round.id);
+    let currentDisciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
+    disciplinesResource.addRound(currentDisciplineId, round.id, rounds.addRoundResolve, rounds.addRoundReject);
   }
-  saveRoundReject(error){
-
+  saveRoundReject(error){ }
+  addRoundResolve(json){
+    console.log("round added to discipline "+json.id);
   }
+  addRoundReject(error){}
 
   deleteRound(){
 

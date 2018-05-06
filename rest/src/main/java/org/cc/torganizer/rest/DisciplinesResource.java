@@ -142,7 +142,7 @@ public class DisciplinesResource extends AbstractResource {
   }
 
   @POST
-  @Path("/{id}/round")
+  @Path("/{id}/rounds")
   public JsonObject addRound(@PathParam("id") Long disciplineId, @QueryParam("roundId") Long roundId) {
     Discipline discipline = dRepository.addRound(disciplineId, roundId);
     return dConverter.toJsonObject(discipline);
