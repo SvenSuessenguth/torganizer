@@ -24,7 +24,10 @@ public class RoundsResource extends AbstractResource {
 
   @POST
   public JsonObject create(JsonObject jsonObject) {
-    return null;
+    Round round = rConverter.toModel(jsonObject, new Round());
+    round = rRepository.create(round);
+
+    return rConverter.toJsonObject(round);
   }
 
   @GET

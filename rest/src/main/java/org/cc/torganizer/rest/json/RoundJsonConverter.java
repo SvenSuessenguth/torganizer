@@ -46,7 +46,7 @@ public class RoundJsonConverter extends ModelJsonConverter<Round> {
 
     JsonValue positionValue = jsonObject.get("position");
     Integer position = null;
-    if(!JsonValue.NULL.equals(positionValue)){
+    if(!JsonValue.NULL.equals(positionValue) && positionValue!=null){
       position = Integer.valueOf(positionValue.toString());
     }
     round.setPosition(position);

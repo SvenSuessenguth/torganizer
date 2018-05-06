@@ -1,6 +1,6 @@
 /* global fetch */
 
-class   RoundsResource extends CrudResource {
+class RoundsResource extends CrudResource {
   constructor() {
     super();
   }

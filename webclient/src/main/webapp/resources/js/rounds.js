@@ -65,7 +65,7 @@ class Rounds {
       method = "POST" // create
     }
 
-    roundsResource.createOrUpdate(roundJson, method, this.saveRoundResolve(), this.saveRoundReject());
+    roundsResource.createOrUpdate(roundJson, method, this.saveRoundResolve, this.saveRoundReject);
   }
   saveRoundResolve(round){
     console.log("round saved with id: "+round.id);
@@ -89,15 +89,21 @@ class Rounds {
   //--------------------------------------------------------------------------------------------------------------------
   formToRound(){
     let id = sessionStorage.getItem('rounds.current-round-id');
-    
+    let systemElement = document.getElementById("system");
+    let qualified = document.getElementById("qualified").value;
+
     if(id!==null){
       id = Number(id);
+    }
+
+    if(qualified !== null && qualified.length>0) {
+      qualified = Number(qualified);
     }
 
     let json = {
       "id": id,
       "system": systemElement.options[systemElement.selectedIndex].value,
-      "qualified":document.getElementById("qualified").value,
+      "qualified":qualified
     };
 
     return json;

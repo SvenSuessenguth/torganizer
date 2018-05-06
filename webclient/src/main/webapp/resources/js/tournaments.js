@@ -62,15 +62,15 @@ class Tournaments {
     if(tournamentId===null){ method = "POST"; }
     else{ method = "PUT"; }
     
-    tournamentsResource.createOrUpdate(json, method, this.createSuccess, this.createFailure);
+    tournamentsResource.createOrUpdate(json, method, this.createResolve, this.createReject);
   }
   
-  createSuccess(json){
+  createResolve(json){
     sessionStorage.setItem('tournaments-current-tournament-id', json.id);
     sessionStorage.setItem('tournaments-current-tournament-name', json.name);
     window.location.reload(true);
   }
-  createFailure(json){}
+  createReject(json){}
 
   updateSuccess(json){
     sessionStorage.setItem('tournaments-current-tournament-id', json.id);
