@@ -89,9 +89,7 @@ class Rounds {
   //--------------------------------------------------------------------------------------------------------------------
   formToRound(){
     let id = sessionStorage.getItem('rounds.current-round-id');
-    let systemElement = document.getElementById("system");
-    let qualifiedElement = document.getElementById("qualified");
-
+    
     if(id!==null){
       id = Number(id);
     }
