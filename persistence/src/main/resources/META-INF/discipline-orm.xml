@@ -28,6 +28,13 @@
          </join-table>
          <cascade><cascade-all/></cascade>
        </one-to-many>
+      <one-to-many name="rounds">
+        <join-table name="_DISCIPLINES_ROUNDS">
+          <join-column name="_DISCIPLINE_ID" referenced-column-name="_ID"/>
+          <inverse-join-column name="_ROUND_ID" referenced-column-name="_ID" unique="true" />
+        </join-table>
+        <cascade><cascade-all/></cascade>
+      </one-to-many>
        <one-to-many name="restrictions" fetch="EAGER">
          <join-table name="_DISCIPLINES_RESTRICTIONS">
            <join-column name="_DISCIPLINE_ID" referenced-column-name="_ID"/>
@@ -35,7 +42,6 @@
          </join-table>
          <cascade><cascade-all /></cascade>
        </one-to-many>
-       <transient name="rounds" />
      </attributes>
   </entity>
   
