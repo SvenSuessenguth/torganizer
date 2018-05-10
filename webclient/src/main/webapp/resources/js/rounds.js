@@ -38,24 +38,40 @@ class Rounds {
   //
   //--------------------------------------------------------------------------------------------------------------------
   initRound() {
-    sessionStorage.removeItem("rounds.current-round.id");
-    this.updateRound();
+    // set current round to first round of discipline or null otherwise
+    let currentDisciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
+    disciplinesResource.getRounds(currentDisciplineId, this.setFirstRoundResolve, this.setFirstRoundReject);
   }
+  setFirstRoundResolve(jsonRounds){
+    sessionStorage.removeItem("rounds.current-round.id");
+    sessionStorage.removeItem("rounds.current-round.position");
+    sessionStorage.setItem("rounds.count", 0);
+    if(jsonRounds.length>0){
+      let id = jsonRounds[0].id;
+      let position = jsonRounds[0].position;
+      sessionStorage.setItem("rounds.current-round.id", id);
+      sessionStorage.setItem("rounds.current-round.position", position);
+      sessionStorage.setItem("rounds.count", jsonRounds.length);
+
+    }
+    rounds.updateRound();
+  }
+  setFirstRoundReject(error){}
+
 
   updateRound(){
-    // round-id
-    let currentRoundId = sessionStorage.getItem("rounds.current-round.id");
+    let roundsCount = Number(sessionStorage.getItem("rounds.count"));
+    let currentRoundPosition = Number(sessionStorage.getItem("rounds.current-round.position"));
     let rElement = document.getElementById("round");
-    if(currentRoundId===null){
+    if(currentRoundPosition===null){
       rElement.innerHTML = '-';
       return;
     }
-    rElement.innerHTML = currentRoundId;
+    rElement.innerHTML = currentRoundPosition;
 
     // enable or disable the next/prev-buttons
-    if(currentRoundId>0){
-      document.getElementById("prevRound").setAttribute("disabled", "enabled");
-    }
+    document.getElementById("prevRound").disabled = currentRoundPosition<=0;
+    document.getElementById("nextRound").disabled = currentRoundPosition>=roundsCount-1;
   }
 
   saveRound(){
