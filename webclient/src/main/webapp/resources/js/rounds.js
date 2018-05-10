@@ -63,7 +63,8 @@ class Rounds {
     let roundsCount = Number(sessionStorage.getItem("rounds.count"));
     let currentRoundPosition = Number(sessionStorage.getItem("rounds.current-round.position"));
     let rElement = document.getElementById("round");
-    if(currentRoundPosition===null){
+
+    if(currentRoundPosition==null){
       rElement.innerHTML = '-';
       return;
     }
