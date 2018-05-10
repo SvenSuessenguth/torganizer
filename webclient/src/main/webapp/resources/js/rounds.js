@@ -90,7 +90,9 @@ class Rounds {
   }
   saveRoundReject(error){ }
   addRoundResolve(json){
-    console.log("round added to discipline "+json.id);
+    let count = Number(sessionStorage.getItem("rounds.count"))+1;
+
+    sessionStorage.setItem("rounds.count", count);
   }
   addRoundReject(error){}
 
