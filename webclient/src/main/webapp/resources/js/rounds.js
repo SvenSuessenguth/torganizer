@@ -61,18 +61,18 @@ class Rounds {
 
   updateRound(){
     let roundsCount = Number(sessionStorage.getItem("rounds.count"));
-    let currentRoundPosition = Number(sessionStorage.getItem("rounds.current-round.position"));
+    let currentRoundPosition = sessionStorage.getItem("rounds.current-round.position");
     let rElement = document.getElementById("round");
 
-    if(currentRoundPosition==null){
+    if(currentRoundPosition===null){
       rElement.innerHTML = '-';
       return;
     }
     rElement.innerHTML = currentRoundPosition;
 
     // enable or disable the next/prev-buttons
-    document.getElementById("prevRound").disabled = currentRoundPosition<=0;
-    document.getElementById("nextRound").disabled = currentRoundPosition>=roundsCount-1;
+    document.getElementById("prevRound").disabled = Number(currentRoundPosition)<=0;
+    document.getElementById("nextRound").disabled = Number(currentRoundPosition)>=roundsCount-1;
   }
 
   saveRound(){
