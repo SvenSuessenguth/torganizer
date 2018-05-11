@@ -64,15 +64,15 @@ class Rounds {
     let currentRoundPosition = sessionStorage.getItem("rounds.current-round.position");
     let rElement = document.getElementById("round");
 
-    if(currentRoundPosition===null){
+    // enable or disable the next/prev-buttons
+    document.getElementById("prevRound").disabled = Number(currentRoundPosition)<=0;
+    document.getElementById("nextRound").disabled = Number(currentRoundPosition)>=roundsCount-1;
+
+    if(currentRoundPosition===null || roundsCount===0){
       rElement.innerHTML = '-';
       return;
     }
     rElement.innerHTML = currentRoundPosition;
-
-    // enable or disable the next/prev-buttons
-    document.getElementById("prevRound").disabled = Number(currentRoundPosition)<=0;
-    document.getElementById("nextRound").disabled = Number(currentRoundPosition)>=roundsCount-1;
   }
 
   saveRound(){
