@@ -94,6 +94,7 @@ class Rounds {
     let count = Number(sessionStorage.getItem("rounds.count"))+1;
 
     sessionStorage.setItem("rounds.count", count);
+    rounds.initRound();
   }
   addRoundReject(error){}
 
