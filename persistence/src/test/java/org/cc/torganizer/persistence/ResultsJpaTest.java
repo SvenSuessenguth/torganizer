@@ -1,18 +1,17 @@
 package org.cc.torganizer.persistence;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
+import org.cc.torganizer.core.entities.Result;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import org.cc.torganizer.core.entities.Result;
-import org.junit.Before;
-import org.junit.Test;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 
 public class ResultsJpaTest extends AbstractDbUnitJpaTest {
 
-  @Before
+  @BeforeEach
   public void before() throws Exception {
     super.initDatabase("test-data-results.xml");
   }

@@ -6,12 +6,12 @@ import static org.hamcrest.Matchers.hasSize;
 import java.util.List;
 
 import org.cc.torganizer.core.entities.Opponent;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class OpponentsJpaTest extends AbstractDbUnitJpaTest {
 
-  @Before
+  @BeforeEach
   public void before() throws Exception {
     super.initDatabase("test-data-opponents.xml");
   }

@@ -7,22 +7,22 @@ package org.cc.torganizer.core.entities;
 
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
- *
  * @author svens
  */
 public class OpponentTypeTest {
 
-  public OpponentTypeTest() {
-  }
-
-  @Test(expected = NullPointerException.class)
+  @Test
   public void testValueOf_NULL() {
-    OpponentType expResult = null;
-    OpponentType result = OpponentType.valueOf(null);
-    MatcherAssert.assertThat(expResult, Matchers.is(result));
+    assertThrows(NullPointerException.class, ()-> {
+      OpponentType expResult = null;
+      OpponentType result = OpponentType.valueOf(null);
+      MatcherAssert.assertThat(expResult, Matchers.is(result));
+    });
   }
 
   @Test

@@ -1,15 +1,5 @@
 package org.cc.torganizer.persistence;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.SQLException;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
@@ -20,8 +10,17 @@ import org.dbunit.ext.mysql.MySqlDataTypeFactory;
 import org.dbunit.ext.mysql.MySqlMetadataHandler;
 import org.dbunit.operation.DatabaseOperation;
 import org.hibernate.internal.SessionImpl;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public abstract class AbstractDbUnitJpaTest{
 
@@ -29,7 +28,7 @@ public abstract class AbstractDbUnitJpaTest{
   protected EntityManager entityManager;
   protected Connection connection;
   
-  @Before
+  @BeforeEach
   public void initTestFixture() throws Exception {
     // Get the entity manager for the tests.
     entityManagerFactory = Persistence.createEntityManagerFactory("torganizerTest");
@@ -38,7 +37,7 @@ public abstract class AbstractDbUnitJpaTest{
     entityManager.getTransaction().begin();
   }
 
-  @After
+  @AfterEach
   public void closeTestFixture() {
 	  entityManager.getTransaction().rollback();
 	  entityManager.close();

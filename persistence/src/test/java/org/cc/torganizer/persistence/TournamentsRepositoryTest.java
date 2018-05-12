@@ -2,8 +2,8 @@ package org.cc.torganizer.persistence;
 
 import org.cc.torganizer.core.entities.*;
 import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javax.persistence.Query;
 import javax.persistence.Tuple;
@@ -17,7 +17,7 @@ public class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
 
   private TournamentsRepository repository;
 
-  @Before
+  @BeforeEach
   public void before() throws Exception {
     super.initDatabase("test-data-tournament.xml");
 

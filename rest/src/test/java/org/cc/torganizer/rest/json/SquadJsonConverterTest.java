@@ -1,20 +1,22 @@
 package org.cc.torganizer.rest.json;
 
-import java.io.StringReader;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.core.entities.Squad;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.core.entities.Squad;
+import java.io.StringReader;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import org.junit.Before;
-import org.junit.Test;
 
 /**
  * @author svens
@@ -23,7 +25,7 @@ public class SquadJsonConverterTest {
   
   private SquadJsonConverter converter;
   
-  @Before
+  @BeforeEach
   public void before(){
     PersonJsonConverter personConverter = new PersonJsonConverter();
     PlayerJsonConverter playerConverter = new PlayerJsonConverter(personConverter, new ClubJsonConverter());

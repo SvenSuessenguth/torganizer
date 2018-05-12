@@ -1,21 +1,17 @@
 package org.cc.torganizer.persistence;
 
 import org.cc.torganizer.core.entities.Group;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.*;
 
 public class GroupsRepositoryTest extends AbstractDbUnitJpaTest {
 
   private GroupsRepository repository;
 
-  @Before
+  @BeforeEach
   public void before() throws Exception {
     super.initDatabase("test-data-groups.xml");
     repository = new GroupsRepository(entityManager);

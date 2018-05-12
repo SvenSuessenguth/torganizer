@@ -4,18 +4,18 @@ import java.util.List;
 
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Player;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import static org.cc.torganizer.core.entities.Status.INACTIVE;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-
-import org.junit.Before;
-import org.junit.Test;
 
 public class PlayersRepositoryTest extends AbstractDbUnitJpaTest {
 
   private PlayersRepository repository;
 
-  @Before
+  @BeforeEach
   public void before() throws Exception {
     super.initDatabase("test-data-players.xml");
 

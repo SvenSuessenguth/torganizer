@@ -5,12 +5,13 @@
  */
 package org.cc.torganizer.core.entities;
 
-import java.util.Arrays;
-import java.util.Collection;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
  *
@@ -20,14 +21,11 @@ public class SquadTest {
   
   private Squad squad;
   
-  @Before
+  @BeforeEach
   public void before(){
     squad = new Squad();
   }
 
-  /**
-   * Test of addPlayers method, of class Squad.
-   */
   @Test
   public void testAddPlayers() {
     Collection<Player> players = Arrays.asList(new Player(), new Player());

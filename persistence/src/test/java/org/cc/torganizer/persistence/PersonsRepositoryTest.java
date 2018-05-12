@@ -2,8 +2,8 @@ package org.cc.torganizer.persistence;
 
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Person;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class PersonsRepositoryTest extends AbstractDbUnitJpaTest {
 
   private PersonsRepository repository;
 
-  @Before
+  @BeforeEach
   public void before() throws Exception {
     super.initDatabase("test-data-persons.xml");
     repository = new PersonsRepository(entityManager);

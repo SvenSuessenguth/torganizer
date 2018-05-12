@@ -1,18 +1,18 @@
 package org.cc.torganizer.core.entities.aggregates;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-
 import org.cc.torganizer.core.entities.Match;
 import org.cc.torganizer.core.entities.Result;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 public class AbstractAggregateTest {
   
   private AbstractAggregate aa;
 
-  @Before
+  @BeforeEach
   public void before() throws Exception {
     aa = new ResultAggregate();
   }

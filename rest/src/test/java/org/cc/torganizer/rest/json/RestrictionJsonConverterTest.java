@@ -5,28 +5,24 @@
  */
 package org.cc.torganizer.rest.json;
 
-import java.io.StringReader;
-import java.time.LocalDate;
-import java.time.Month;
+import org.cc.torganizer.core.entities.*;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import org.cc.torganizer.core.entities.AgeRestriction;
-import org.cc.torganizer.core.entities.Gender;
-import org.cc.torganizer.core.entities.GenderRestriction;
-import org.cc.torganizer.core.entities.OpponentType;
-import org.cc.torganizer.core.entities.OpponentTypeRestriction;
-import org.cc.torganizer.core.entities.Restriction;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.Test;
+import java.io.StringReader;
+import java.time.LocalDate;
+import java.time.Month;
 
 public class RestrictionJsonConverterTest {
 
   private RestrictionJsonConverter converter;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     converter = new RestrictionJsonConverter();
   }

@@ -1,28 +1,24 @@
 package org.cc.torganizer.persistence;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-
 import org.cc.torganizer.core.comparators.OpponentByNameComparator;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import javax.persistence.Query;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.nullValue;
-import org.junit.Before;
-import org.junit.Test;
+import static org.hamcrest.Matchers.*;
 
 public class SquadsRepositoryTest extends AbstractDbUnitJpaTest {
 
   private SquadsRepository repository;
 
-  @Before
+  @BeforeEach
   public void before() throws Exception {
     super.initDatabase("test-data-squads.xml");
     repository = new SquadsRepository(entityManager);

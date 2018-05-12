@@ -1,8 +1,8 @@
 package org.cc.torganizer.rest.json;
 
 import org.cc.torganizer.core.entities.Group;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -20,7 +20,7 @@ public class GroupJsonConverterTest {
 
   private GroupJsonConverter converter;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     this.converter = new GroupJsonConverter();
   }

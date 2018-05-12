@@ -1,22 +1,18 @@
 package org.cc.torganizer.rest.json;
 
-import java.time.LocalDate;
-import java.time.Month;
-import org.cc.torganizer.core.entities.AgeRestriction;
-import org.cc.torganizer.core.entities.Discipline;
-import org.cc.torganizer.core.entities.Gender;
-import org.cc.torganizer.core.entities.GenderRestriction;
-import org.cc.torganizer.core.entities.OpponentType;
-import org.cc.torganizer.core.entities.OpponentTypeRestriction;
+import org.cc.torganizer.core.entities.*;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@RunWith(MockitoJUnitRunner.class)
+import java.time.LocalDate;
+import java.time.Month;
+
+@ExtendWith(MockitoExtension.class)
 public class DisciplineJsonConverterTest {
 
   @Spy

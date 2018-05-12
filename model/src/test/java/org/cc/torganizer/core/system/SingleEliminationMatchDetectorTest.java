@@ -1,35 +1,30 @@
 package org.cc.torganizer.core.system;
 
+import org.cc.torganizer.core.entities.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.cc.torganizer.core.entities.Group;
-import org.cc.torganizer.core.entities.Match;
-import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.Person;
-import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.core.entities.Result;
-import org.hamcrest.MatcherAssert;
-import static org.hamcrest.Matchers.is;
-import org.junit.After;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import org.junit.Before;
-import org.junit.Test;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.stub;
+import static org.mockito.Mockito.when;
 
 public class SingleEliminationMatchDetectorTest {
 
 	private SingleEliminationMatchDetector semd;
 
-	@Before
+	@BeforeEach
 	public void before() {
 		semd = new SingleEliminationMatchDetector(null);
 	}
 
-	@After
+	@AfterEach
 	public void after() {
 		semd = null;
 	}
@@ -58,7 +53,7 @@ public class SingleEliminationMatchDetectorTest {
 		group.getMatches().add(m1);
 
 		semd.setGroup(group);
-		assertEquals(1, semd.getPendingMatches().size());
+		assertThat(semd.getPendingMatches(), hasSize(1));
 	}
 
 	@Test
@@ -74,15 +69,15 @@ public class SingleEliminationMatchDetectorTest {
 		group.addOpponent(new Player());
 		semd.setGroup(group);
 
-		assertEquals(8, group.getPositionalOpponents().size());
+		assertThat(group.getPositionalOpponents(), hasSize(8));
 
 		// Wenn noch keine Matches gespielt wurden, werden alle Matches als pending
 		// gefunden
 		// Grundsaetzlich muessen alle Matches Opponents haben
 		List<Match> matchesUpperBracket = semd.getPendingMatches();
-		assertEquals(7, matchesUpperBracket.size());
+		assertThat(matchesUpperBracket, hasSize(7));
 		for (Match match : matchesUpperBracket) {
-			assertTrue(match.getOpponents().size() > 0);
+			assertThat(match.getOpponents(), hasSize(greaterThan(0)));
 		}
 	}
 
@@ -97,7 +92,7 @@ public class SingleEliminationMatchDetectorTest {
 		g.setOpponents(o);
 		semd.setGroup(g);
 
-		assertEquals(3, semd.getNumberOfLevels());
+		assertThat(semd.getNumberOfLevels(), is(3));
 	}
 
 	@Test
@@ -111,7 +106,7 @@ public class SingleEliminationMatchDetectorTest {
 		g.setOpponents(o);
 		semd.setGroup(g);
 
-		assertEquals(7, semd.getNumberOfLevels());
+		assertThat(semd.getNumberOfLevels(), is(7));
 	}
 
 	@Test
@@ -125,7 +120,7 @@ public class SingleEliminationMatchDetectorTest {
 		g.setOpponents(o);
 		semd.setGroup(g);
 
-		assertEquals(0, semd.getNumberOfLevels());
+		assertThat(semd.getNumberOfLevels(), is(0));
 	}
 
 	@Test
@@ -139,7 +134,7 @@ public class SingleEliminationMatchDetectorTest {
 		g.setOpponents(o);
 		semd.setGroup(g);
 
-		assertEquals(1, semd.getNumberOfLevels());
+		assertThat(semd.getNumberOfLevels(), is(1));
 	}
 
 	@Test
@@ -166,7 +161,7 @@ public class SingleEliminationMatchDetectorTest {
 		semd.setGroup(group);
 
 		List<Match> pendingMatches = semd.getPendingMatches();
-		assertEquals(2, pendingMatches.size());
+		assertThat(pendingMatches, hasSize(2));
 	}
 
 	@Test
@@ -191,24 +186,24 @@ public class SingleEliminationMatchDetectorTest {
 		semd.setGroup(group);
 
 		// Level 0 -> Matches mit Index 31 bis 62
-		List<Match> l0 = semd.getMatchesOnLevel(0);
-		assertEquals(32, l0.size());
+		List<Match> level0 = semd.getMatchesOnLevel(0);
+		assertThat(level0, hasSize(32));
 		for (int index = 31; index <= 62; index += 1) {
-			MatcherAssert.assertThat(listContainsMatchWithIndex(l0, index), is(true));
+			assertThat(listContainsMatchWithIndex(level0, index), is(true));
 		}
 
 		// Level 1 -> Matches mit Index 15 bis 30
-		List<Match> l1 = semd.getMatchesOnLevel(1);
-		assertEquals(16, l1.size());
+		List<Match> level1 = semd.getMatchesOnLevel(1);
+		assertThat(level1, hasSize(16));
 		for (int index = 15; index <= 30; index += 1) {
-			MatcherAssert.assertThat(listContainsMatchWithIndex(l1, index), is(true));
+			assertThat(listContainsMatchWithIndex(level1, index), is(true));
 		}
 
 		// Level 2 -> Matches mit Index 7 bis 14
-		List<Match> l2 = semd.getMatchesOnLevel(2);
-		assertEquals(8, l2.size());
+		List<Match> level2 = semd.getMatchesOnLevel(2);
+		assertThat(level2, hasSize(8));
 		for (int index = 7; index <= 14; index += 1) {
-			MatcherAssert.assertThat(listContainsMatchWithIndex(l2, index), is(true));
+			assertThat(listContainsMatchWithIndex(level2, index), is(true));
 		}
 	}
 
@@ -288,22 +283,24 @@ public class SingleEliminationMatchDetectorTest {
 
 		// Verlierer auf Level 0 sind: 1, 3, 4, null
 		List<Opponent> losersOnLevel0 = semd.getLosersOnLevel(0);
-		assertEquals(4, losersOnLevel0.size());
-		assertEquals("1", ((Player) losersOnLevel0.get(0)).getPerson().getFirstName());
-		assertEquals("3", ((Player) losersOnLevel0.get(1)).getPerson().getFirstName());
-		assertEquals("4", ((Player) losersOnLevel0.get(2)).getPerson().getFirstName());
-		assertEquals(null, losersOnLevel0.get(3));
+
+		assertThat(losersOnLevel0, hasSize(4));
+		assertThat(((Player) losersOnLevel0.get(0)).getPerson().getFirstName(), is("1"));
+		assertThat(((Player) losersOnLevel0.get(1)).getPerson().getFirstName(), is("3"));
+		assertThat(((Player) losersOnLevel0.get(2)).getPerson().getFirstName(), is("4"));
+		assertThat(losersOnLevel0.get(3), is(nullValue()));
+
 
 		// Verlierer auf Level 1 sind: 0, null
 		List<Opponent> losersOnLevel1 = semd.getLosersOnLevel(1);
-		assertEquals(2, losersOnLevel1.size());
-		assertEquals("0", ((Player) losersOnLevel1.get(0)).getPerson().getFirstName());
-		assertEquals(null, losersOnLevel1.get(1));
+		assertThat(losersOnLevel1, hasSize(2));
+		assertThat(((Player) losersOnLevel1.get(0)).getPerson().getFirstName(), is("0"));
+		assertThat(losersOnLevel1.get(1), is(nullValue()));
 
 		// Verlierer auf Level 2 sind: null
 		List<Opponent> losersOnLevel2 = semd.getLosersOnLevel(2);
-		assertEquals(1, losersOnLevel2.size());
-		assertEquals(null, losersOnLevel2.get(0));
+		assertThat(losersOnLevel2, hasSize(1));
+		assertThat(losersOnLevel2.get(0), is(nullValue()));
 	}
 
 	@Test
@@ -311,13 +308,13 @@ public class SingleEliminationMatchDetectorTest {
 		// Gruppe mit 16 Opponents vortaeuschen
 		List<Opponent> list = Arrays.asList(new Opponent[16]);
 		Group group = mock(Group.class);
-		stub(group.getOpponents()).toReturn(list);
+		when(group.getOpponents()).thenReturn(list);
 		semd.setGroup(group);
 
-		assertEquals(7, semd.getStartIndex(0));
-		assertEquals(3, semd.getStartIndex(1));
-		assertEquals(1, semd.getStartIndex(2));
-		assertEquals(0, semd.getStartIndex(3));
+		assertThat(semd.getStartIndex(0), is(7));
+		assertThat(semd.getStartIndex(1), is(3));
+		assertThat(semd.getStartIndex(2), is(1));
+		assertThat(semd.getStartIndex(3),is(0));
 	}
 
 	@Test
@@ -325,12 +322,12 @@ public class SingleEliminationMatchDetectorTest {
 		// Gruppe mit 16 Opponents vortaeuschen
 		List<Opponent> list = Arrays.asList(new Opponent[16]);
 		Group group = mock(Group.class);
-		stub(group.getOpponents()).toReturn(list);
+		when(group.getOpponents()).thenReturn(list);
 		semd.setGroup(group);
 
-		assertEquals(14, semd.getEndIndex(0));
-		assertEquals(6, semd.getEndIndex(1));
-		assertEquals(2, semd.getEndIndex(2));
-		assertEquals(0, semd.getEndIndex(3));
+		assertThat(semd.getEndIndex(0), is(14));
+		assertThat(semd.getEndIndex(1), is(6));
+		assertThat(semd.getEndIndex(2), is(2));
+		assertThat(semd.getEndIndex(3),is(0));
 	}
 }

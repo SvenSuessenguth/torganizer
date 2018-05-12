@@ -7,8 +7,8 @@ package org.cc.torganizer.rest.json;
 
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Person;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -32,7 +32,7 @@ public class PersonJsonConverterTest {
   
   private PersonJsonConverter converter;
   
-  @Before
+  @BeforeEach
   public void setUp() {
     converter = new PersonJsonConverter();
   }

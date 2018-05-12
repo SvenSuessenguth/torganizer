@@ -1,8 +1,8 @@
 package org.cc.torganizer.persistence;
 
 import org.cc.torganizer.core.entities.Court;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.hasSize;
 
 public class CourtsJpaTest extends AbstractDbUnitJpaTest {
 
-  @Before
+  @BeforeEach
   public void before() throws Exception {
     super.initDatabase("test-data-courts.xml");
   }

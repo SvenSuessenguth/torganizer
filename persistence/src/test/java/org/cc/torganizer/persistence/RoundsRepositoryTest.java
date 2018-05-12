@@ -3,8 +3,8 @@ package org.cc.torganizer.persistence;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.core.entities.System;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class RoundsRepositoryTest extends AbstractDbUnitJpaTest {
 
   private RoundsRepository repository;
 
-  @Before
+  @BeforeEach
   public void before() throws Exception {
     super.initDatabase("test-data-round.xml");
 

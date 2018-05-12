@@ -1,8 +1,8 @@
 package org.cc.torganizer.persistence;
 
 import org.cc.torganizer.core.entities.Club;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class ClubsRepositoryTest extends AbstractDbUnitJpaTest {
 
   private ClubsRepository repository;
 
-  @Before
+  @BeforeEach
   public void before() throws Exception {
     super.initDatabase("test-data-clubs.xml");
     repository = new ClubsRepository(entityManager);

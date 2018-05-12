@@ -3,20 +3,17 @@ package org.cc.torganizer.core.comparators;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
-import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.lessThan;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 public class OpponentByNameComparatorTest {
 
   private OpponentByNameComparator comparator;
 
-  @Before
+  @BeforeEach
   public void before(){
     comparator = new OpponentByNameComparator();
   }

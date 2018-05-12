@@ -3,11 +3,11 @@ package org.cc.torganizer.rest.json;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -30,7 +30,7 @@ import static org.hamcrest.Matchers.notNullValue;
 /**
  * @author svens
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class PlayerJsonConverterTest {
 
   @Spy

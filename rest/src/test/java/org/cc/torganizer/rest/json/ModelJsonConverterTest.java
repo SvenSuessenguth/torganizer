@@ -5,23 +5,22 @@
  */
 package org.cc.torganizer.rest.json;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import static java.time.LocalDateTime.of;
-import java.time.Month;
-import java.util.Collection;
-import java.util.Collections;
+import org.cc.torganizer.core.entities.Entity;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.nullValue;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.Collection;
+import java.util.Collections;
 
-import org.cc.torganizer.core.entities.Entity;
-import org.junit.Before;
-import org.junit.Test;
+import static java.time.LocalDateTime.of;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 /**
  *
@@ -31,7 +30,7 @@ public class ModelJsonConverterTest {
   
   private ModelJsonConverter converter;
   
-  @Before
+  @BeforeEach
   public void before(){
     converter = new ModelJsonConverterImpl();
   }

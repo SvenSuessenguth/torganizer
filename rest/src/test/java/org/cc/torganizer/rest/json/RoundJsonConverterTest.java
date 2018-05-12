@@ -1,8 +1,8 @@
 package org.cc.torganizer.rest.json;
 
 import org.cc.torganizer.core.entities.Round;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -22,7 +22,7 @@ public class RoundJsonConverterTest {
 
   private RoundJsonConverter converter;
 
-  @Before
+  @BeforeEach
   public void before(){
     converter = new RoundJsonConverter();
   }

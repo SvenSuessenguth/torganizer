@@ -1,22 +1,23 @@
 package org.cc.torganizer.validation;
 
-import java.util.Set;
+import org.cc.torganizer.core.entities.Person;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import org.cc.torganizer.core.entities.Person;
+import java.util.Set;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
 
 public class ValidatePersonTest {
   
   private static Validator validator;
   
-  @BeforeClass
+  @BeforeAll
   public static void beforeClass() {
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     validator = factory.getValidator();

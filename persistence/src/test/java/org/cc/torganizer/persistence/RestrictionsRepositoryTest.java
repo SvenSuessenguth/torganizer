@@ -16,14 +16,14 @@ import org.cc.torganizer.core.entities.GenderRestriction;
 import org.cc.torganizer.core.entities.OpponentType;
 import org.cc.torganizer.core.entities.OpponentTypeRestriction;
 import org.cc.torganizer.core.entities.Restriction;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class RestrictionsRepositoryTest extends AbstractDbUnitJpaTest {
 
   private RestrictionsRepository repository;
 
-  @Before
+  @BeforeEach
   public void before() throws Exception {
     super.initDatabase("test-data-restrictions.xml");
     repository = new RestrictionsRepository(entityManager);
