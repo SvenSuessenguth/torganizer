@@ -8,18 +8,8 @@
     http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 
   <persistence-unit name="torganizer" transaction-type="JTA">
-    <!--
-     | Wildfly     
-    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-     +-->
-     
-    <!--
-     | Glassfish, OpenLiberty, WLP     
-     +--> 
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <!--
     <jta-data-source>jdbc/torganizerDS</jta-data-source>
-    -->
 
     <mapping-file>META-INF/orm.xml</mapping-file>
     
@@ -38,21 +28,8 @@
     <mapping-file>META-INF/tournament-orm.xml</mapping-file>
     
     <properties>
-
-      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/torganizer"/>
-      <property name="javax.persistence.jdbc.user" value="developer"/>
-      <property name="javax.persistence.jdbc.password" value="developer"/>
-
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
-
-      <!-- Hibernate in Wildfly
-      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>      
-      <property name="hibernate.hbm2ddl.auto" value="create"/>
-      <property name="hibernate.show_sql" value="true"/>      
-      <property name="hibernate.format_sql" value="true"/>
-      -->
-    </properties>    
+    </properties>
   </persistence-unit>
   
 </persistence>
