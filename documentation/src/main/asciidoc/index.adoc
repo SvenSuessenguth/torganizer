@@ -31,9 +31,6 @@ jenkins
 docker build -t "torganizer/jenkins" .
 docker run -d -p 8282:8080 -p 50000:50000 --name jenkins torganizer/jenkins:latest
 
-
-
-
 etc/hosts
 c:\Windows\System32\drivers\etc\hosts 
 192.168.99.100      qs.docker
