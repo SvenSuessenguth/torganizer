@@ -43,7 +43,7 @@
 	<mockito-junit-jupiter.version>2.18.3</mockito-junit-jupiter.version>
 	
 	<!-- plugin versions -->
-	<jacoco-maven-plugin.version>0.8.0</jacoco-maven-plugin.version>
+	<jacoco-maven-plugin.version>0.8.1</jacoco-maven-plugin.version>
 	<maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
   </properties>
   
