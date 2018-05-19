@@ -1,14 +1,14 @@
-= Installation and configuration
+== Installation and configuration
 
-== Applicationserver
+=== Applicationserver
 
-=== Glassfish 5 / Payara
+==== Glassfish 5 / Payara
 
 https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-usagenotes-glassfish-config.html</para>
 
-=== Wildfly 11</title>
-* Anlegen von "${WILDFLY_HOME}/modules/system/layers/base/com/mysql/main"</para>
-* Kopieren des jdbc-Treibers in diesen Ordner</para>
+=== Wildfly 11
+* Anlegen von "${WILDFLY_HOME}/modules/system/layers/base/com/mysql/main"
+* Kopieren des jdbc-Treibers in diesen Ordner
 * Anlegen einer Datei "module.xml" in diesem Ordner und dem Inhalt
 ====
 [source,xml]
@@ -51,7 +51,7 @@ https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-usagenotes-glassfish-co
 ====
 * ausführen von ${WILDFLY_HOME}\bin\add-user mit user 'admin'
 
-== DataBase
+=== DataBase
 
 === Mysql
 * my.ini nach c:\Windows kopieren
