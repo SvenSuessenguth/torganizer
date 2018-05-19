@@ -1,8 +1,8 @@
-== Installation and configuration
+= Installation and configuration
 
-=== Applicationserver
+== Applicationserver
 
-==== Glassfish 5 / Payara
+=== Glassfish 5 / Payara
 
 https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-usagenotes-glassfish-config.html</para>
 
@@ -51,7 +51,7 @@ https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-usagenotes-glassfish-co
 ====
 * ausführen von ${WILDFLY_HOME}\bin\add-user mit user 'admin'
 
-=== DataBase
+== DataBase
 
 === Mysql
 * my.ini nach c:\Windows kopieren

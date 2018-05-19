@@ -1,4 +1,10 @@
-== How to use init or update in JavaScript
+= How to use init or update in JavaScript
 
-=== init
+== init
+
+how to use init
+
+== update
+
+how to use update
 
