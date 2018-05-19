@@ -34,23 +34,7 @@
           </goals>
         </execution>
       </executions>
-      </plugin>
-      <plugin>
-        <groupId>com.agilejava.docbkx</groupId>
-        <artifactId>docbkx-maven-plugin</artifactId>
-        <version>2.0.17</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>generate-html</goal>              
-            </goals>
-            <phase>pre-site</phase>
-          </execution>
-        </executions>
-        <configuration>
-          <includes>howto.xml</includes>
-        </configuration>
-      </plugin>
+      </plugin>      
     </plugins>
   </build>
   
