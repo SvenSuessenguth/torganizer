@@ -4,7 +4,7 @@
 
 === Glassfish 5 / Payara
 
-https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-usagenotes-glassfish-config.html</para>
+https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-usagenotes-glassfish-config.html
 
 === Wildfly 11
 * Anlegen von "${WILDFLY_HOME}/modules/system/layers/base/com/mysql/main"
