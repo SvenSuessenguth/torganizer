@@ -1,12 +1,12 @@
-= Development
+== Development
 
-== JavaScript
+=== JavaScript
 
-=== init
+==== init
 
 how to use init
 
-=== update
+==== update
 
 how to use update
 

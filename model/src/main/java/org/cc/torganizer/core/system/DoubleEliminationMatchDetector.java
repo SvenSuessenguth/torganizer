@@ -11,8 +11,8 @@ import org.cc.torganizer.core.util.Checker;
 /**
  * Aufbau einer Turnierstruktur. In der ersten Spalte stehen die Opponents In
  * allen weiteren Spalten die Matches/deren Index fuer das Upper Bracket
- * (identisch zu SingelElimination) <br />
- * <br />
+ * (identisch zu SingelElimination) <br>
+ * <br>
  * Beispiel eines Tournaments mit 16 Opponents:
  * 
  * <pre>

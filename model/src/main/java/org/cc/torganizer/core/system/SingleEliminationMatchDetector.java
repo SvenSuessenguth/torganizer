@@ -34,6 +34,7 @@ import org.cc.torganizer.core.entities.Unknown;
  * 14:15 14 -/
  * </pre>
  * <table style="text-align: left;" border="0" cellpadding="0" cellspacing="0">
+ * <caption>Sample</caption>
  * <tbody>
  * <tr>
  * <td style="vertical-align: middle; width: 1em;" rowspan="2">A <br>
@@ -261,12 +262,12 @@ public class SingleEliminationMatchDetector
    * 
    * <pre>
    * 64 Opponents (Indizes 0-63):
-   * Level 0 -> Matches 31 - 62
-   * Level 1 -> Matches 15 - 30
-   * Level 2 -> Matches 7 - 14
-   * Level 3 -> Matches 3 - 6
-   * Level 4 -> Matches 1 - 2
-   * Level 5 -> Matches 0 (Finale)
+   * Level 0 -&gt; Matches 31 - 62
+   * Level 1 -&gt; Matches 15 - 30
+   * Level 2 -&gt; Matches 7 - 14
+   * Level 3 -&gt; Matches 3 - 6
+   * Level 4 -&gt; Matches 1 - 2
+   * Level 5 -&gt; Matches 0 (Finale)
    * </pre>
    * 
    * @param level Level

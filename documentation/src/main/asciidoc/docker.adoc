@@ -1,4 +1,4 @@
-= Tips for using Docker
+== Tips for using Docker
 
 IP der virtuellen Maschine http://192.168.99.100
 
