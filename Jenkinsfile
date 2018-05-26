@@ -47,7 +47,12 @@ pipeline {
           bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.4.0.905:sonar'
         }        
       } 
-    }    
+    }
+    stage('doc') {
+      steps {
+        bat 'mvn javadoc:javadoc org.asciidoctor:asciidoctor-maven-plugin:process-asciidoc -Dbackend=html'
+      }
+    }
   }
 	
   post {
