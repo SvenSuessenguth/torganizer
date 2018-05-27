@@ -23,6 +23,7 @@
     </script>
 
     <h:outputScript name="js/global.js" target="head" />
+    <h:outputScript name="js/menue.js" target="head" />
     <h:outputStylesheet name="css/ui.css" />
     <h:outputStylesheet name="css/layout.css" />
   </h:head>
@@ -32,6 +33,8 @@
     <ui:include src="/WEB-INF/templates/menue.xhtml" />
     <ui:insert name="content">page content</ui:insert>
     <ui:include src="/WEB-INF/templates/footer.xhtml" />
+
+    <script type="text/javascript">menue.onLoad();</script>
   </h:body>
   </f:view>
 

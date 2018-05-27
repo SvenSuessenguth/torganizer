@@ -84,6 +84,7 @@ class Tournaments {
     sessionStorage.removeItem('tournaments-current-tournament-name');
     document.getElementById("tournamentName").value = "";
     document.getElementById("tournamentName").focus();
+    new Menue().update();
   }
   
   inputToJSon(){
