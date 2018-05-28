@@ -5,7 +5,7 @@ class Tournaments {
   }
   
   onload(){
-    this.showTournamentsTable();    
+    this.showTournamentsTable();
   }
  
   getCurrentTournamentId(){
@@ -50,7 +50,9 @@ class Tournaments {
       document.getElementById("tournamentName").setAttribute('value', data.name);
       sessionStorage.setItem('tournaments-current-tournament-id', data.id);
       sessionStorage.setItem('tournaments-current-tournament-name', data.name);
+      menue.update();
     }).catch(function(err) {
+      console.log("Error: "+err);
     });
   }
   
@@ -69,6 +71,7 @@ class Tournaments {
     sessionStorage.setItem('tournaments-current-tournament-id', json.id);
     sessionStorage.setItem('tournaments-current-tournament-name', json.name);
     window.location.reload(true);
+    menue.update();
   }
   createReject(json){}
 
@@ -84,7 +87,7 @@ class Tournaments {
     sessionStorage.removeItem('tournaments-current-tournament-name');
     document.getElementById("tournamentName").value = "";
     document.getElementById("tournamentName").focus();
-    new Menue().update();
+    menue.update();
   }
   
   inputToJSon(){
