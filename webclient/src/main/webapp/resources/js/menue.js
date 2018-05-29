@@ -16,18 +16,36 @@ class Menue {
     // https://stackoverflow.com/questions/13955667/disabled-href-tag
     // no selected tournament -> no further actions
     if(tournaments.getCurrentTournamentId()===null){
-      document.getElementById("menueDisciplines").removeAttribute("href");
-      document.getElementById("menueRounds").removeAttribute("href");
-      document.getElementById("menuePlayers").removeAttribute("href");
-      document.getElementById("menueSquads").removeAttribute("href");
-      document.getElementById("menueClubs").removeAttribute("href");
-      document.getElementById("menueMatches").removeAttribute("href");
+      this.disableLink("menueDisciplines");
+      this.disableLink("menueRounds");
+      this.disableLink("menuePlayers");
+      this.disableLink("menueSquads");
+      this.disableLink("menueClubs");
+      this.disableLink("menueMatches");
+    }else{
+      this.enableLink("menueDisciplines");
+      this.enableLink("menueRounds");
+      this.enableLink("menuePlayers");
+      this.enableLink("menueSquads");
+      this.enableLink("menueClubs");
+      this.enableLink("menueMatches");
     }
 
     let currentDisciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
     if(currentDisciplineId===null){
-      document.getElementById("menueRounds").removeAttribute("href");
+      this.disableLink("menueRounds");
+    }else {
+      this.enableLink("menueRounds");
     }
+  }
+
+  disableLink(linkId){
+    document.getElementById(linkId).setAttribute("onclick", "return false;");
+    document.getElementById(linkId).setAttribute("class", "disabledLink");
+  }
+  enableLink(linkId){
+    document.getElementById(linkId).removeAttribute("onclick");
+    document.getElementById(linkId).removeAttribute("class");
   }
 }
 

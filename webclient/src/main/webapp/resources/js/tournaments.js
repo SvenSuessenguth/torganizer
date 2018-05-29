@@ -5,26 +5,18 @@ class Tournaments {
   }
   
   onload(){
-    this.showTournamentsTable();
+    this.updateTournamentsTable();
   }
- 
-  getCurrentTournamentId(){
-    var tournamentId = sessionStorage.getItem('tournaments-current-tournament-id');
-    
-    // do not convert NULL to '0'
-    if(tournamentId !== null){
-    return Number(sessionStorage.getItem('tournaments-current-tournament-id'));
-    }
-    return tournamentId;
+
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // initialize and actions for tournaments table
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  updateTournamentsTable(){
+    tournamentsResource.readMultiple(0, 100, this.updateTournamentsTableResolve, this.updateTournamentsTableReject);
   }
-  isActiveTournament(){
-    return this.getCurrentTournamentId() !== null;
-  }
-  
-  showTournamentsTable(){
-    tournamentsResource.readMultiple(0, 100, this.showTournamentsTableSuccess, this.showTournamentsTableFailure);
-  }
-  showTournamentsTableSuccess(data){    
+  updateTournamentsTableResolve(data){
     document.getElementById("tournamentsCount").innerHTML=data.length;
     var tableBody = document.querySelector('#tournamentsTableBody');
     
@@ -35,29 +27,29 @@ class Tournaments {
       var nameElement = template.querySelector("#name");
       nameElement.innerHTML = tournament.name;
       nameElement.setAttribute("id", "tournament-"+tournament.id);
-      nameElement.onclick = function(e){ tournaments.showTournamentDetails(tournament.id); };
+      nameElement.onclick = function(e){ tournaments.tournamentSelected(tournament.id); };
         
       tableBody.appendChild(template);
     });
   }
-  showTournamentsTableFailure(data){console.log(data);}
+  updateTournamentsTableReject(data){console.log(data);}
   
-  showTournamentDetails(id) {
-    fetch(resourcesUrl()+'tournaments/'+id).then(function(response) {
-      return response.json();
-    }).then(function(data) {
-      // {"id":1,"name":"dings"}
-      document.getElementById("tournamentName").setAttribute('value', data.name);
-      sessionStorage.setItem('tournaments-current-tournament-id', data.id);
-      sessionStorage.setItem('tournaments-current-tournament-name', data.name);
-      menue.update();
-    }).catch(function(err) {
-      console.log("Error: "+err);
-    });
+  tournamentSelected(id) {
+    tournamentsResource.readSingle(id, this.showTournamentDetailsResolve, this.showTournamentDetailsReject);
   }
-  
+  showTournamentDetailsResolve(data){
+    // {"id":1,"name":"dings"}
+    document.getElementById("tournamentName").value = data.name;
+    sessionStorage.setItem('tournaments-current-tournament-id', data.id);
+    sessionStorage.setItem('tournaments-current-tournament-name', data.name);
+    menue.update();
+  }
+  showTournamentDetailsReject(err){
+  }
+
+
   save(){
-    var json = this.inputToJSon();
+    var json = this.formToJSon();
     var tournamentId = this.getCurrentTournamentId();
     var method;
     
@@ -81,7 +73,12 @@ class Tournaments {
     window.location.reload(true);
   }
   updateFailure(json){}
-  
+
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // cancel
+  //
+  //--------------------------------------------------------------------------------------------------------------------
   cancel(){
     sessionStorage.removeItem('tournaments-current-tournament-id');
     sessionStorage.removeItem('tournaments-current-tournament-name');
@@ -89,8 +86,13 @@ class Tournaments {
     document.getElementById("tournamentName").focus();
     menue.update();
   }
-  
-  inputToJSon(){
+
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // convert to/from json/form
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  formToJSon(){
     let id= tournaments.getCurrentTournamentId();
     let name = document.getElementById("tournamentName").value;
   
@@ -100,6 +102,19 @@ class Tournaments {
     };
 
     return json;  
+  }
+
+  getCurrentTournamentId(){
+    var tournamentId = sessionStorage.getItem('tournaments-current-tournament-id');
+
+    // do not convert NULL to '0'
+    if(tournamentId !== null){
+      return Number(sessionStorage.getItem('tournaments-current-tournament-id'));
+    }
+    return tournamentId;
+  }
+  isActiveTournament(){
+    return this.getCurrentTournamentId() !== null;
   }
 }
 
