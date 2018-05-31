@@ -18,13 +18,13 @@ class Tournaments {
   }
   updateTournamentsTableResolve(data){
     document.getElementById("tournamentsCount").innerHTML=data.length;
-    var tableBody = document.querySelector('#tournamentsTableBody');
-    
+    let tableBody = document.querySelector('#tournamentsTableBody');
+
     data.forEach(function(tournament){
-      var t = document.querySelector("#tournamentRecord").cloneNode(true);
-      var template = t.content;
+      let t = document.querySelector("#tournamentRecord").cloneNode(true);
+      let template = t.content;
   
-      var nameElement = template.querySelector("#name");
+      let nameElement = template.querySelector("#name");
       nameElement.innerHTML = tournament.name;
       nameElement.setAttribute("id", "tournament-"+tournament.id);
       nameElement.onclick = function(e){ tournaments.tournamentSelected(tournament.id); };
@@ -49,9 +49,9 @@ class Tournaments {
 
 
   save(){
-    var json = this.formToJSon();
-    var tournamentId = this.getCurrentTournamentId();
-    var method;
+    let json = this.formToJSon();
+    let tournamentId = this.getCurrentTournamentId();
+    let method;
     
     if(tournamentId===null){ method = "POST"; }
     else{ method = "PUT"; }
@@ -66,13 +66,6 @@ class Tournaments {
     menue.update();
   }
   createReject(json){}
-
-  updateSuccess(json){
-    sessionStorage.setItem('tournaments-current-tournament-id', json.id);
-    sessionStorage.setItem('tournaments-current-tournament-name', json.name);
-    window.location.reload(true);
-  }
-  updateFailure(json){}
 
   //--------------------------------------------------------------------------------------------------------------------
   //
@@ -95,17 +88,15 @@ class Tournaments {
   formToJSon(){
     let id= tournaments.getCurrentTournamentId();
     let name = document.getElementById("tournamentName").value;
-  
-    let json = {
+
+  return {
       "id": id,
       "name": name
     };
-
-    return json;  
   }
 
   getCurrentTournamentId(){
-    var tournamentId = sessionStorage.getItem('tournaments-current-tournament-id');
+    let tournamentId = sessionStorage.getItem('tournaments-current-tournament-id');
 
     // do not convert NULL to '0'
     if(tournamentId !== null){
@@ -118,4 +109,4 @@ class Tournaments {
   }
 }
 
-var tournaments = new Tournaments();
+let tournaments = new Tournaments();
