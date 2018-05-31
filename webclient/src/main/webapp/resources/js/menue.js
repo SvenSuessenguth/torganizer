@@ -17,14 +17,12 @@ class Menue {
     // no selected tournament -> no further actions
     if(tournaments.getCurrentTournamentId()===null){
       this.disableLink("menueDisciplines");
-      this.disableLink("menueRounds");
       this.disableLink("menuePlayers");
       this.disableLink("menueSquads");
       this.disableLink("menueClubs");
       this.disableLink("menueMatches");
     }else{
       this.enableLink("menueDisciplines");
-      this.enableLink("menueRounds");
       this.enableLink("menuePlayers");
       this.enableLink("menueSquads");
       this.enableLink("menueClubs");
