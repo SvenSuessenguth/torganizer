@@ -15,6 +15,7 @@ import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.ws.rs.*;
 import java.util.List;
+import java.util.Set;
 
 @Stateless
 @Path("/groups")
@@ -74,7 +75,7 @@ public class GroupsResource extends AbstractResource {
   public JsonArray getAssignableOpponents(@PathParam("id") Long groupId){
     JsonArray result = null;
 
-    List<Opponent> opponents = gRepository.getAssignableOpponents(groupId);
+    Set<Opponent> opponents = gRepository.getAssignableOpponents(groupId);
 
     // all opponents must have same type (see opponentTypeRestriction)
     OpponentType opponentType;

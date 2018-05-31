@@ -1,7 +1,9 @@
 package org.cc.torganizer.persistence;
 
+import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.Round;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -9,8 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
-
-import static java.lang.Integer.MAX_VALUE;
+import java.util.Set;
 
 @Stateless
 public class GroupsRepository extends Repository{
@@ -80,15 +81,30 @@ public class GroupsRepository extends Repository{
     return (long) query.getSingleResult();
   }
 
-  public List<Opponent> getAssignableOpponents(Long groupId){
-    List<Opponent> assignableOpponents = null;
+  public Set<Opponent> getAssignableOpponents(Long groupId){
+    Set<Opponent> assignableOpponents = null;
+    Set<Opponent> opponentsInRound = null;
 
     // an opponent is assignable, if he
     // - passed the previous round
     // - is not already assigned to a group in the current round
     Long roundId = rRepository.getRoundId(groupId);
+    Round round = rRepository.read(roundId);
     Long disciplineId = dRepository.getDisciplineId(roundId);
-    
+    Discipline discipline = dRepository.read(disciplineId);
+
+    // opponents passed the previous round
+    if(round.getPosition()==0) {
+      opponentsInRound = discipline.getOpponents();
+    }else{
+      Round previousRound = discipline.getRound(round.getPosition()-1);
+      opponentsInRound = previousRound.getQualifiedOpponents();
+    }
+
+    // opponents not already assigned to group
+
+
+
     return assignableOpponents;
   }
 }

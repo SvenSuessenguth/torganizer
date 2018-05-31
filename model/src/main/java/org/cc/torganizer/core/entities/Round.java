@@ -3,6 +3,7 @@ package org.cc.torganizer.core.entities;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Runde in einer Disziplin. Alle Runden m\u00fcssen in einer definierten
@@ -60,9 +61,9 @@ public class Round extends Entity implements IPositional {
     return getGroups().get(inIndex);
   }
 
-  public List<Opponent> getQualifiedPlayers() {
+  public Set<Opponent> getQualifiedOpponents() {
     // TODO: calculate qualified opponents for the next rouond
-    return Collections.emptyList();
+    return Collections.emptySet();
   }
 
   public Group getFirstGroup() {
