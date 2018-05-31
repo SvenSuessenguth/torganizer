@@ -1,6 +1,7 @@
 package org.cc.torganizer.persistence;
 
-import org.cc.torganizer.core.entities.*;
+import org.cc.torganizer.core.entities.Group;
+import org.cc.torganizer.core.entities.Opponent;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -11,6 +12,12 @@ import java.util.List;
 
 @Stateless
 public class GroupsRepository extends Repository{
+
+  @Inject
+  private RoundsRepository rRepository;
+
+  @Inject
+  private DisciplinesRepository dRepository;
 
   public GroupsRepository() {
   }
@@ -77,8 +84,8 @@ public class GroupsRepository extends Repository{
     // an opponent is assignable, if he
     // - passed the previous round
     // - is not already assigned to a group in the current round
-    Long roundId = null;
-    Long disciplineId = null;
+    Long roundId = rRepository.getRoundId(groupId);
+    Long disciplineId = dRepository.getDisciplineId(roundId);
 
     return assignableOpponents;
   }
