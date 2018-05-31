@@ -7,6 +7,7 @@ import org.cc.torganizer.core.entities.Round;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -161,5 +162,18 @@ public class DisciplinesRepository extends Repository{
     entityManager.persist(discipline);
 
     return discipline;
+  }
+
+  public Long getDisciplineId(Long roundId){
+    Long disciplineId = null;
+
+    try {
+      TypedQuery<Long> query = entityManager.createQuery("SELECT d.id FROM Discipline d, Round r WHERE r.id = :roundId AND r MEMBER OF d.rounds", Long.class);
+      query.setParameter("roundId", roundId);
+      disciplineId = query.getSingleResult();
+    }catch(NoResultException nrExc){
+    }
+
+    return disciplineId;
   }
 }

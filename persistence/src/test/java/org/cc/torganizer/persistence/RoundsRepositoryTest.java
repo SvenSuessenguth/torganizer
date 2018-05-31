@@ -73,4 +73,22 @@ public class RoundsRepositoryTest extends AbstractDbUnitJpaTest {
 
     assertThat(groups, is(empty()));
   }
+
+  @Test
+  public void testGetRoundId_existing(){
+    // testdata:
+    // <_ROUNDS_GROUPS _ROUND_ID="1" _GROUP_ID="3" />
+    Long id = repository.getRoundId(3L);
+
+    assertThat(id, is(1L));
+  }
+
+  @Test
+  public void testGetRoundId_groupDoesNotExist(){
+    // testdata:
+    // <_ROUNDS_GROUPS _ROUND_ID="1" _GROUP_ID="3" />
+    Long id = repository.getRoundId(-1L);
+
+    assertThat(id, is(nullValue()));
+  }
 }

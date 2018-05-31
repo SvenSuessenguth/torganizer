@@ -1,10 +1,13 @@
 package org.cc.torganizer.persistence;
 
 import org.cc.torganizer.core.entities.Group;
+import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Round;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -108,5 +111,18 @@ public class RoundsRepository extends Repository{
     entityManager.persist(round);
 
     return round;
+  }
+
+  public Long getRoundId(Long groupId){
+    Long roundId = null;
+
+    try {
+      TypedQuery<Long> query = entityManager.createQuery("SELECT r.id FROM Round r, Group g WHERE g.id = :groupId AND g MEMBER OF r.groups", Long.class);
+      query.setParameter("groupId", groupId);
+      roundId = query.getSingleResult();
+    }catch(NoResultException nrExc){
+    }
+
+    return roundId;
   }
 }

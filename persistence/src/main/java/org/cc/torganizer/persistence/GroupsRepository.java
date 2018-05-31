@@ -1,9 +1,9 @@
 package org.cc.torganizer.persistence;
 
-import org.cc.torganizer.core.entities.Group;
-import org.cc.torganizer.core.entities.Person;
+import org.cc.torganizer.core.entities.*;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -69,5 +69,17 @@ public class GroupsRepository extends Repository{
   public long count() {
     Query query = entityManager.createQuery("SELECT count(g) FROM Group g");
     return (long) query.getSingleResult();
+  }
+
+  public List<Opponent> getAssignableOpponents(Long groupId){
+    List<Opponent> assignableOpponents = null;
+
+    // an opponent is assignable, if he
+    // - passed the previous round
+    // - is not already assigned to a group in the current round
+    Long roundId = null;
+    Long disciplineId = null;
+
+    return assignableOpponents;
   }
 }

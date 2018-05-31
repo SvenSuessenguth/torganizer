@@ -1,13 +1,20 @@
 package org.cc.torganizer.rest;
 
+import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.OpponentType;
 import org.cc.torganizer.persistence.GroupsRepository;
 import org.cc.torganizer.rest.json.GroupJsonConverter;
+import org.cc.torganizer.rest.json.ModelJsonConverter;
+import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.json.Json;
 import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.ws.rs.*;
+import java.util.List;
 
 @Stateless
 @Path("/groups")
@@ -19,6 +26,9 @@ public class GroupsResource extends AbstractResource {
 
   @Inject
   private GroupJsonConverter gConverter;
+
+  @Inject
+  private OpponentJsonConverterProvider opponentJsonConverterProvider;
 
   @POST
   public JsonObject create(JsonObject jsonObject) {
@@ -57,5 +67,28 @@ public class GroupsResource extends AbstractResource {
   @Path("/{id}/opponents")
   public JsonObject removeOpponent(@PathParam("id") Long groupId, @QueryParam("opponentId") Long opponentId) {
     return null;
+  }
+
+  @GET
+  @Path("/{id}/assignableOpponents")
+  public JsonArray getAssignableOpponents(@PathParam("id") Long groupId){
+    JsonArray result = null;
+
+    List<Opponent> opponents = gRepository.getAssignableOpponents(groupId);
+
+    // all opponents must have same type (see opponentTypeRestriction)
+    OpponentType opponentType;
+    if(opponents.isEmpty()){
+      JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+      result = arrayBuilder.build();
+    }
+    else{
+      Opponent opponent = opponents.iterator().next();
+      opponentType = opponent.getOpponentType();
+      ModelJsonConverter oConverter = opponentJsonConverterProvider.getConverter(opponentType);
+      result = oConverter.toJsonArray(opponents);
+    }
+
+    return result;
   }
 }

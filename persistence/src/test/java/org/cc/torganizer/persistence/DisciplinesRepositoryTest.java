@@ -27,4 +27,22 @@ public class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
     assertThat(opponents, is(not(nullValue())));
     assertThat(opponents, hasSize(2));
   }
+
+  @Test
+  public void testGetDisciplineId_existing(){
+    // testdata:
+    // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="1" />
+    Long id = repository.getDisciplineId(1L);
+
+    assertThat(id, is(1L));
+  }
+
+  @Test
+  public void testGetRoundId_roundDoesNotExist(){
+    // testdata:
+    // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="1" />
+    Long id = repository.getDisciplineId(-1L);
+
+    assertThat(id, is(nullValue()));
+  }
 }
