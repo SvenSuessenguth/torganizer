@@ -172,6 +172,7 @@ public class DisciplinesRepository extends Repository{
       query.setParameter("roundId", roundId);
       disciplineId = query.getSingleResult();
     }catch(NoResultException nrExc){
+      return null;
     }
 
     return disciplineId;

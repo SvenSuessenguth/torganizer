@@ -10,6 +10,8 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+import static java.lang.Integer.MAX_VALUE;
+
 @Stateless
 public class GroupsRepository extends Repository{
 
@@ -86,7 +88,7 @@ public class GroupsRepository extends Repository{
     // - is not already assigned to a group in the current round
     Long roundId = rRepository.getRoundId(groupId);
     Long disciplineId = dRepository.getDisciplineId(roundId);
-
+    
     return assignableOpponents;
   }
 }
