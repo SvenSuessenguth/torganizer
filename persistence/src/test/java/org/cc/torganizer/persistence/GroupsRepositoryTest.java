@@ -54,7 +54,7 @@ public class GroupsRepositoryTest extends AbstractDbUnitJpaTest {
   @Test
   public void testFilterAlreadyAssignedOpponents(){
     // round with one group and two Players
-    // one player is already assigned
+    // player one is already assigned
     Player p1 = new Player("a", "b");
     Player p2 = new Player("b", "b");
 
