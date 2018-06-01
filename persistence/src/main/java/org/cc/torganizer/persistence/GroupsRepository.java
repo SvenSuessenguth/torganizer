@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -82,9 +83,6 @@ public class GroupsRepository extends Repository{
   }
 
   public Set<Opponent> getAssignableOpponents(Long groupId){
-    Set<Opponent> assignableOpponents = null;
-    Set<Opponent> opponentsInRound = null;
-
     // an opponent is assignable, if he
     // - passed the previous round
     // - is not already assigned to a group in the current round
@@ -93,7 +91,8 @@ public class GroupsRepository extends Repository{
     Long disciplineId = dRepository.getDisciplineId(roundId);
     Discipline discipline = dRepository.read(disciplineId);
 
-    // opponents passed the previous round
+    // opponents in round of group (passed the previous round)
+    Set<Opponent> opponentsInRound = null;
     if(round.getPosition()==0) {
       opponentsInRound = discipline.getOpponents();
     }else{
@@ -101,10 +100,26 @@ public class GroupsRepository extends Repository{
       opponentsInRound = previousRound.getQualifiedOpponents();
     }
 
-    // opponents not already assigned to group
+    // opponents not already assigned to group are assignable
+    return filterAlreadyAssignedOpponents(round, opponentsInRound);
+  }
 
+  protected Set<Opponent> filterAlreadyAssignedOpponents(Round round, Set<Opponent> opponentsInRound) {
+    Set<Opponent> assignableOpponents = new HashSet<>();
+    List<Group> groups = round.getGroups();
+    for(Opponent candidate : opponentsInRound) {
+      boolean isAssignable = true;
+      for (Group group:groups) {
+        if(group.getOpponents().contains(candidate)){
+          isAssignable = false;
+          break;
+        }
+      }
 
-
+      if(isAssignable){
+        assignableOpponents.add(candidate);
+      }
+    }
     return assignableOpponents;
   }
 }
