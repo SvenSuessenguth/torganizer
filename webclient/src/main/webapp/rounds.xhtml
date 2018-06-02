@@ -21,6 +21,14 @@
       <label for="disciplineName">Discipline</label> <span id="disciplineName">huhu</span>
       <br /><br />
 
+      Round
+      <input type="button" id="prevRound" disabled="disabled" value="&#9664;" onclick="rounds.prevRound()" />
+      <span id="round"></span>
+      <input type="button" id="nextRound" value="&#9654;" onclick="rounds.nextRound()" />
+      <input type="button" value="#{text.new}" onclick="rounds.cancelRound()" />
+
+      <br /><br />
+
       <label for="system">system
         <select id="system">
           <option value="DOUBLE_ELIMINATION">double ko</option>
@@ -30,14 +38,8 @@
       </label>
       <label for="qualified">qualified<input id="qualified" value="" size="2" /></label>
       <input type="button" value="#{text.save}" onclick="rounds.saveRound()" />
-      <input type="button" value="#{text.cancel}" onclick="rounds.cancelRound()" />
-      <br /><br />
-
-      Round
-      <input type="button" id="prevRound" disabled="disabled" value="&#9664;" onclick="rounds.prevRound()" />
-      <span id="round"></span>
-      <input type="button" id="nextRound" value="&#9654;" onclick="rounds.nextRound()" />
       <input type="button" value="#{text.delete}" onclick="rounds.deleteRound()" />
+      <input type="button" value="#{text.cancel}" onclick="rounds.cancelRound()" />
       <br /><br />
 
       <div style="float:left; padding-right: 10px;">

@@ -14,7 +14,6 @@ import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.ws.rs.*;
-import java.util.List;
 import java.util.Set;
 
 @Stateless
