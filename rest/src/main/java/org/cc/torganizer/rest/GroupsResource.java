@@ -1,7 +1,6 @@
 package org.cc.torganizer.rest;
 
 import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.OpponentType;
 import org.cc.torganizer.persistence.GroupsRepository;
 import org.cc.torganizer.rest.json.GroupJsonConverter;
 import org.cc.torganizer.rest.json.ModelJsonConverter;
@@ -9,9 +8,7 @@ import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.json.Json;
 import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.ws.rs.*;
 import java.util.Set;

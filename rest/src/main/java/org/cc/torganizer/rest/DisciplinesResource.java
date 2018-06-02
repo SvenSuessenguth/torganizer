@@ -1,14 +1,15 @@
 package org.cc.torganizer.rest;
 
-import org.cc.torganizer.core.entities.*;
+import org.cc.torganizer.core.entities.Discipline;
+import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.Restriction;
+import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.persistence.DisciplinesRepository;
 import org.cc.torganizer.rest.json.*;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.json.Json;
 import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.ws.rs.*;
 import java.util.List;

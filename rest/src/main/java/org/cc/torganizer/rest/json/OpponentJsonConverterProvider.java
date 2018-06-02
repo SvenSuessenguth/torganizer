@@ -31,7 +31,6 @@ public class OpponentJsonConverterProvider{
 
     OpponentType opponentType;
     if(opponents.isEmpty()){
-      JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
       return null;
     }
     else{
