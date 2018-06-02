@@ -16,6 +16,8 @@ import javax.json.JsonObject;
 import javax.ws.rs.*;
 import java.util.Set;
 
+import static org.cc.torganizer.rest.json.ModelJsonConverter.emptyArray;
+
 @Stateless
 @Path("/groups")
 @Produces("application/json")
@@ -77,15 +79,10 @@ public class GroupsResource extends AbstractResource {
     Set<Opponent> opponents = gRepository.getAssignableOpponents(groupId);
 
     // all opponents must have same type (see opponentTypeRestriction)
-    OpponentType opponentType;
     if(opponents.isEmpty()){
-      JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-      result = arrayBuilder.build();
+      return emptyArray();
     }
-    else{
-      Opponent opponent = opponents.iterator().next();
-      opponentType = opponent.getOpponentType();
-      ModelJsonConverter oConverter = opponentJsonConverterProvider.getConverter(opponentType);
+    else{ ModelJsonConverter oConverter = opponentJsonConverterProvider.getConverter(opponents);
       result = oConverter.toJsonArray(opponents);
     }
 

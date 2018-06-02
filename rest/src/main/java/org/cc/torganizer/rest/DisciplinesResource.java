@@ -13,6 +13,8 @@ import javax.json.JsonObject;
 import javax.ws.rs.*;
 import java.util.List;
 
+import static org.cc.torganizer.rest.json.ModelJsonConverter.emptyArray;
+
 @Stateless
 @Path("/disciplines")
 @Produces("application/json")
@@ -98,15 +100,11 @@ public class DisciplinesResource extends AbstractResource {
     JsonArray result;
 
     // all opponents must have same type (see opponentTypeRestriction)
-    OpponentType opponentType;
     if(opponents.isEmpty()){
-      JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-      result = arrayBuilder.build();
+      return emptyArray();
     }
     else{
-      Opponent opponent = opponents.iterator().next();
-      opponentType = opponent.getOpponentType();
-      ModelJsonConverter oConverter = opponentJsonConverterProvider.getConverter(opponentType);
+      ModelJsonConverter oConverter = opponentJsonConverterProvider.getConverter(opponents);
       result = oConverter.toJsonArray(opponents);
     }
 

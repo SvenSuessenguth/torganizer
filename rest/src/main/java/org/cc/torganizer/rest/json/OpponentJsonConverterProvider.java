@@ -1,11 +1,15 @@
 package org.cc.torganizer.rest.json;
 
+import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.OpponentType;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import java.util.Collection;
 import java.util.Objects;
 
 @RequestScoped
@@ -21,5 +25,19 @@ public class OpponentJsonConverterProvider{
       }
     }
     return null;
+  }
+
+  public ModelJsonConverter getConverter(Collection<Opponent> opponents){
+
+    OpponentType opponentType;
+    if(opponents.isEmpty()){
+      JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+      return null;
+    }
+    else{
+      Opponent opponent = opponents.iterator().next();
+      opponentType = opponent.getOpponentType();
+      return getConverter(opponentType);
+    }
   }
 }

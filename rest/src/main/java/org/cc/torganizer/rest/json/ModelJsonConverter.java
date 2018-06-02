@@ -121,9 +121,13 @@ public abstract class ModelJsonConverter<T extends Entity> {
         int number = ((JsonNumber) jsonValue).intValue();
         return Integer.toString(number);
       }
-      
     }
     
     return null;
+  }
+
+  public static final JsonArray emptyArray(){
+    JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+    return arrayBuilder.build();
   }
 }
