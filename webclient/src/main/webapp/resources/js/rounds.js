@@ -5,19 +5,28 @@ class Rounds {
   }
 
   onload() {
-    this.initSessionStorage(null);
+    this.initSessionStorage(sessionStorage.getItem('disciplines.current-discipline.id'));
     this.initDisciplineName();
     this.initRound();
   }
 
   //--------------------------------------------------------------------------------------------------------------------
   //
-  // initialize with values from sessionStorage
+  // initialize sessionStorage with latest values
   //
   //--------------------------------------------------------------------------------------------------------------------
-  // initilize with default values only if nothing is already in sessionStorage
-  initSessionStorage(selectedDisciplineId){
+  initSessionStorage(disciplineId){
+    // getting ids for highest round and group (of highest round)
+    if(disciplineId!==null){
+      disciplinesResource.getRounds(disciplineId, initSessionStorageWithLatestRoundResolve, initSessionStorageWithLatestRoundReject);
+    }
   }
+  initSessionStorageWithLatestRoundResolve(json){
+
+  }
+  initSessionStorageWithLatestRoundReject(error){}
+
+
   initDisciplineName(){
     let currentDisciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
     if(currentDisciplineId===null){return;}

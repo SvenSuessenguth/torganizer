@@ -78,7 +78,7 @@ public class Round extends Entity implements IPositional {
     return getGroups().size();
   }
 
-  public System getScheduling() {
+  public System getSystem() {
     return system;
   }
 

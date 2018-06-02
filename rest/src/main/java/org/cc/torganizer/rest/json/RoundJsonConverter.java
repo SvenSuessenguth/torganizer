@@ -23,6 +23,9 @@ public class RoundJsonConverter extends ModelJsonConverter<Round> {
     add(objectBuilder, "qualified", round.getQualified());
     add(objectBuilder, "position", round.getPosition());
 
+    String systemName = round.getSystem()==null?null:round.getSystem().name();
+    add(objectBuilder, "system", systemName);
+
     return objectBuilder.build();
   }
 

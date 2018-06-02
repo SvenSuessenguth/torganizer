@@ -1,6 +1,7 @@
 package org.cc.torganizer.rest.json;
 
 import org.cc.torganizer.core.entities.Round;
+import org.cc.torganizer.core.entities.System;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,9 +30,10 @@ public class RoundJsonConverterTest {
 
   @Test
   public void testToJsonObject_empty(){
-    String expected = "{\"id\":null,\"qualified\":0,\"position\":null}";
+    String expected = "{\"id\":null,\"qualified\":0,\"position\":null,\"system\":\"DOUBLE_ELIMINATION\"}";
 
     Round round = new Round();
+    round.setSystem(System.DOUBLE_ELIMINATION);
     String actual = converter.toJsonObject(round).toString();
 
     assertThat(actual, is(expected));
@@ -39,11 +41,12 @@ public class RoundJsonConverterTest {
 
   @Test
   public void testToJsonObject_full(){
-    String expected = "{\"id\":1,\"qualified\":4,\"position\":1}";
+    String expected = "{\"id\":1,\"qualified\":4,\"position\":1,\"system\":\"DOUBLE_ELIMINATION\"}";
 
     Round round = new Round();
     round.setId(1L);
     round.setPosition(1);
+    round.setSystem(System.DOUBLE_ELIMINATION);
     round.setQualified(4);
 
     String actual = converter.toJsonObject(round).toString();
@@ -63,8 +66,8 @@ public class RoundJsonConverterTest {
   @Test
   public void testToJsonArray_full(){
     String expected = "["+
-      "{\"id\":1,\"qualified\":4,\"position\":1}," +
-      "{\"id\":2,\"qualified\":2,\"position\":2}" +
+      "{\"id\":1,\"qualified\":4,\"position\":1,\"system\":\"ROUND_ROBIN\"}," +
+      "{\"id\":2,\"qualified\":2,\"position\":2,\"system\":null}" +
       "]";
 
     Collection<Round> rounds = new ArrayList<>(2);
@@ -73,12 +76,14 @@ public class RoundJsonConverterTest {
     round1.setId(1L);
     round1.setQualified(4);
     round1.setPosition(1);
+    round1.setSystem(System.ROUND_ROBIN);
     rounds.add(round1);
 
     Round round2 = new Round();
     round2.setId(2L);
     round2.setQualified(2);
     round2.setPosition(2);
+    round2.setSystem(null);
     rounds.add(round2);
 
     String actual = converter.toJsonArray(rounds).toString();
@@ -88,7 +93,7 @@ public class RoundJsonConverterTest {
 
   @Test
   public void testToModel_withId(){
-    String jsonString = "{\"id\":1,\"qualified\":4,\"position\":1}";
+    String jsonString = "{\"id\":1,\"qualified\":4,\"position\":1,\"system\":null}";
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonObject jsonObject = jsonReader.readObject();
 
