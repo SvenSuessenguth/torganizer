@@ -1,6 +1,7 @@
 package org.cc.torganizer.persistence;
 
 import org.cc.torganizer.core.entities.Group;
+import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Round;
 
 import javax.ejb.Stateless;
@@ -58,6 +59,14 @@ public class RoundsRepository extends Repository{
 
   public Round update(Round round){
     return entityManager.merge(round);
+  }
+
+  public Round delete(Long roundId){
+    Round round = entityManager.find(Round.class, roundId);
+
+    entityManager.remove(round);
+
+    return round;
   }
 
   //--------------------------------------------------------------------------------------------------------------------

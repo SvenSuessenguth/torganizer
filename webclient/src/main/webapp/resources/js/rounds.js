@@ -1,32 +1,26 @@
 /* global disciplinesResource, tournamentsResource, tournaments */
+/*
+rounds.current-round.id           ID of the current round
+rounds.current-round.position     position of the current round
+rounds.current-round.system       system of the current round
+rounds.current-round.qualified    qualified opponents in the current round
+rounds.count                      number of rounds
+ */
 
 class Rounds {
   constructor() {
   }
 
   onload() {
-    this.initSessionStorage(sessionStorage.getItem('disciplines.current-discipline.id'));
     this.initDisciplineName();
     this.initRound();
   }
 
   //--------------------------------------------------------------------------------------------------------------------
   //
-  // initialize sessionStorage with latest values
+  // initialize discipline
   //
   //--------------------------------------------------------------------------------------------------------------------
-  initSessionStorage(disciplineId){
-    // getting ids for highest round and group (of highest round)
-    if(disciplineId!==null){
-      disciplinesResource.getRounds(disciplineId, initSessionStorageWithLatestRoundResolve, initSessionStorageWithLatestRoundReject);
-    }
-  }
-  initSessionStorageWithLatestRoundResolve(json){
-
-  }
-  initSessionStorageWithLatestRoundReject(error){}
-
-
   initDisciplineName(){
     let currentDisciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
     if(currentDisciplineId===null){return;}
@@ -40,33 +34,45 @@ class Rounds {
   }
   initDisciplineNameReject(json){ }
 
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // initialize round
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  initRound(){
+    let disciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
 
-  //--------------------------------------------------------------------------------------------------------------------
-  //
-  // initialize and actions for selection and configuration of a round
-  //
-  //--------------------------------------------------------------------------------------------------------------------
-  initRound() {
-    // set current round to first round of discipline or null otherwise
-    let currentDisciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
-    disciplinesResource.getRounds(currentDisciplineId, this.setFirstRoundResolve, this.setFirstRoundReject);
+    // getting ids for highest round and group (of highest round)
+    disciplinesResource.getRounds(disciplineId, this.initRoundResolve, this.initRoundReject);
+
   }
-  setFirstRoundResolve(jsonRounds){
-    sessionStorage.removeItem("rounds.current-round.id");
-    sessionStorage.removeItem("rounds.current-round.position");
-    sessionStorage.setItem("rounds.count", 0);
-    if(jsonRounds.length>0){
-      let id = jsonRounds[0].id;
-      let position = jsonRounds[0].position;
-      sessionStorage.setItem("rounds.current-round.id", id);
-      sessionStorage.setItem("rounds.current-round.position", position);
-      sessionStorage.setItem("rounds.count", jsonRounds.length);
+  initRoundResolve(json){
+    // find round with highest position
+    let roundWithHighestPostion = null;
+    json.forEach(function(round){
+      if(roundWithHighestPostion===null || roundWithHighestPostion.position<round.position){
+        roundWithHighestPostion = round;
+      }
+    });
 
+    if(roundWithHighestPostion!==null) {
+      sessionStorage.setItem('rounds.current-round.id', roundWithHighestPostion.id);
+      sessionStorage.setItem('rounds.current-round.position', roundWithHighestPostion.position);
+      sessionStorage.setItem('rounds.current-round.system', roundWithHighestPostion.system);
+      sessionStorage.setItem('rounds.current-round.qualified', roundWithHighestPostion.qualified);
+      sessionStorage.setItem('rounds.count', json.length);
+    }else{
+      sessionStorage.removeItem('rounds.current-round.id');
+      sessionStorage.removeItem('rounds.current-round.position');
+      sessionStorage.removeItem('rounds.current-round.system');
+      sessionStorage.removeItem('rounds.current-round.qualified');
+      sessionStorage.removeItem('rounds.count');
     }
-    rounds.updateRound();
-  }
-  setFirstRoundReject(error){}
 
+    rounds.updateRound();
+    rounds.roundToForm(roundWithHighestPostion);
+  }
+  initRoundReject(error){}
 
   updateRound(){
     let roundsCount = Number(sessionStorage.getItem("rounds.count"));

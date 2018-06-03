@@ -46,7 +46,21 @@ public class RoundsResource extends AbstractResource {
 
   @PUT
   public JsonObject update(JsonObject jsonObject) {
-    return null;
+    Long id = Long.valueOf(jsonObject.get("id").toString());
+    Round round = rRepository.read(id);
+
+    round = rConverter.toModel(jsonObject, round);
+    rRepository.update(round);
+
+    return  rConverter.toJsonObject(round);
+  }
+
+  @DELETE
+  @Path("/{id}")
+  public JsonObject delete(@PathParam("id") Long id) {
+    Round round = rRepository.delete(id);
+
+    return rConverter.toJsonObject(round);
   }
 
   @GET
