@@ -1,6 +1,7 @@
 package org.cc.torganizer.rest.json;
 
 import org.cc.torganizer.core.entities.Round;
+import org.cc.torganizer.core.entities.System;
 
 import javax.enterprise.context.RequestScoped;
 import javax.json.*;
@@ -53,6 +54,14 @@ public class RoundJsonConverter extends ModelJsonConverter<Round> {
       position = Integer.valueOf(positionValue.toString());
     }
     round.setPosition(position);
+
+    JsonValue systemValue = jsonObject.get("system");
+    System system = System.ROUND_ROBIN;
+    if(!JsonValue.NULL.equals(systemValue) && systemValue!=null){
+      String systemName = get(jsonObject, "system");
+      system = System.valueOf(systemName);
+    }
+    round.setSystem(system);
 
     return round;
   }

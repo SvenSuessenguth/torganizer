@@ -18,6 +18,7 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 
 public class RoundJsonConverterTest {
 
@@ -92,8 +93,8 @@ public class RoundJsonConverterTest {
   }
 
   @Test
-  public void testToModel_withId(){
-    String jsonString = "{\"id\":1,\"qualified\":4,\"position\":1,\"system\":null}";
+  public void testToModel_withValues(){
+    String jsonString = "{\"id\":1,\"qualified\":4,\"position\":1,\"system\":\"SINGLE_ELIMINATION\"}";
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonObject jsonObject = jsonReader.readObject();
 
@@ -104,11 +105,12 @@ public class RoundJsonConverterTest {
     assertThat(1L, is(round.getId()));
     assertThat(4, is(round.getQualified()));
     assertThat(1, is(round.getPosition()));
+    assertThat(round.getSystem(), is(System.SINGLE_ELIMINATION));
   }
 
   @Test
   public void testToModel_withNullValues(){
-    String jsonString = "{\"id\":null,\"qualified\":null,\"position\":null}";
+    String jsonString = "{\"id\":null,\"qualified\":null,\"position\":null,\"system\":null}";
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonObject jsonObject = jsonReader.readObject();
 
@@ -116,9 +118,10 @@ public class RoundJsonConverterTest {
 
     converter.toModel(jsonObject, round);
 
-    assertThat(null, is(round.getId()));
-    assertThat(0, is(round.getQualified()));
-    assertThat(null, is(round.getPosition()));
+    assertThat(round.getId(), is(nullValue()));
+    assertThat(round.getQualified(), is(0));
+    assertThat(round.getPosition(), is(nullValue()));
+    assertThat(round.getSystem(), is(System.ROUND_ROBIN));
   }
 
   @Test
