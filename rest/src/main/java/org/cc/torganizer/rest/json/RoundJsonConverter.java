@@ -15,6 +15,8 @@ import java.util.HashMap;
 @RequestScoped
 public class RoundJsonConverter extends ModelJsonConverter<Round> {
 
+  public static final String PROPERTY_SYSTEM_NAME = "system";
+
   @Override
   public JsonObject toJsonObject(Round round) {
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
@@ -25,7 +27,7 @@ public class RoundJsonConverter extends ModelJsonConverter<Round> {
     add(objectBuilder, "position", round.getPosition());
 
     String systemName = round.getSystem()==null?null:round.getSystem().name();
-    add(objectBuilder, "system", systemName);
+    add(objectBuilder, PROPERTY_SYSTEM_NAME, systemName);
 
     return objectBuilder.build();
   }
@@ -55,10 +57,10 @@ public class RoundJsonConverter extends ModelJsonConverter<Round> {
     }
     round.setPosition(position);
 
-    JsonValue systemValue = jsonObject.get("system");
+    JsonValue systemValue = jsonObject.get(PROPERTY_SYSTEM_NAME);
     System system = System.ROUND_ROBIN;
     if(!JsonValue.NULL.equals(systemValue) && systemValue!=null){
-      String systemName = get(jsonObject, "system");
+      String systemName = get(jsonObject, PROPERTY_SYSTEM_NAME);
       system = System.valueOf(systemName);
     }
     round.setSystem(system);
