@@ -117,7 +117,16 @@ class Rounds {
 
   }
   cancelRound(){
+    let defaultRound = {
+      "id": null,
+      "system": "ROUND_ROBIN",
+      "qualified":null
+    };
+    this.roundToForm(defaultRound);
 
+    sessionStorage.removeItem("rounds.current-round.position");
+    sessionStorage.removeItem("rounds.current-round.id");
+    this.updateRound();
   }
 
 
@@ -153,7 +162,13 @@ class Rounds {
     let systemElement = document.getElementById("system");
     selectItemByValue(systemElement, round.system);
 
-    document.getElementById("qualified").setAttribute("value", round.qualified);
+    let qualifiedElement = document.getElementById("qualified");
+    qualifiedElement.value = '';
+    let qualified = round.qualified;
+    if(qualified !== null && qualified.length>0) {
+      qualified = Number(qualified);
+      qualifiedElement.setAttribute("value", qualified);
+    }
   }
 }
 
