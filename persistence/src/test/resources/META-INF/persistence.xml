@@ -51,8 +51,6 @@
 
       <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
       <property name="hibernate.hbm2ddl.auto" value="update"/>
-      <property name="hibernate.discriminator.ignore_explicit_for_joined" value="true" />
-      <property name="hibernate.connection.autocommit" value="true" />
     </properties>
   </persistence-unit>
 
