@@ -39,8 +39,8 @@
 	<junit-jupiter-params.version>5.2.0</junit-jupiter-params.version>
 	<junit-platform-surefire-provider.version>1.2.0</junit-platform-surefire-provider.version>
 	<hamcrest-all.version>1.3</hamcrest-all.version>
-	<mockito-core.version>2.18.3</mockito-core.version>
-	<mockito-junit-jupiter.version>2.18.3</mockito-junit-jupiter.version>
+	<mockito-core.version>2.19.0</mockito-core.version>
+	<mockito-junit-jupiter.version>2.19.0</mockito-junit-jupiter.version>
 	
 	<!-- plugin versions -->
 	<jacoco-maven-plugin.version>0.8.1</jacoco-maven-plugin.version>
