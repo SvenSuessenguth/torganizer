@@ -25,7 +25,9 @@ public class AggregationComparator
 
   @Override
   public int compare(Aggregation o1, Aggregation o2) {
-    assert o1 != null && o2 != null;
+    if(o1 == null || o2 == null){
+      throw new IllegalArgumentException("compare only non null values");
+    }
 
     int result = 0;
 

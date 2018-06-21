@@ -88,8 +88,10 @@ public class Match extends Entity implements IPositional {
    *          Result
    */
   public void addResult(Result result) {
-    assert result != null;
-
+    if(result == null){
+      throw new IllegalArgumentException("can add only non null results");
+    }
+    
     results.add(result);
   }
 
