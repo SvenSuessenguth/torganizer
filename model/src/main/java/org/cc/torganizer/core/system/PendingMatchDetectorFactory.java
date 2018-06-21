@@ -21,8 +21,10 @@ public class PendingMatchDetectorFactory {
    * @return PendingMatchDetector
    */
   public PendingMatchDetector getPendingMatchDetector(System system, Group group) {
-    assert system != null;
-
+    if(system==null){
+      throw new IllegalArgumentException("system can not be null");
+    }
+    
     PendingMatchDetector pendingMatchDetector;
 
     switch (system) {
