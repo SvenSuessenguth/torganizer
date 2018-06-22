@@ -16,15 +16,13 @@ public class MatchAggregate
 
   @Override
   public void aggregate(Match match, Opponent opponent) {
-    if (!match.getOpponents().contains(opponent)) {
+    if (!match.getOpponents().contains(opponent) || match.getWinner() instanceof Unknown) {
       return;
     }
 
-    if (match.getWinner() instanceof Unknown) {
-      return;
-    } else if (opponent.equals(match.getWinner())) {
+    if (opponent.equals(match.getWinner())) {
       increaseWins(1);
-    } else if (opponent.equals(match.getLoser())) {
+    }else if (opponent.equals(match.getLoser())) {
       increaseLose(1);
     }
   }
