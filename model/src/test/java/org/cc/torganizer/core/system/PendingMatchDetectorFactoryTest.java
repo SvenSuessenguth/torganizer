@@ -31,7 +31,7 @@ public class PendingMatchDetectorFactoryTest {
 
   @Test
   public void testGetMatchMakerNull() {
-    assertThrows(AssertionError.class, ()-> {
+    assertThrows(IllegalArgumentException.class, ()-> {
       factory.getPendingMatchDetector(null, null);
     });
   }
