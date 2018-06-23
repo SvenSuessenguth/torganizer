@@ -77,13 +77,11 @@ public class DisciplineTest {
     opponents.add(new Player(new Person("C", "C", LocalDate.of(1970, JANUARY, 1), MALE)));
     opponents.add(new Player(new Person("D", "D", LocalDate.of(1970, JANUARY, 1), MALE)));
 
-    opponents.add(new Player(new Person("D", "D", LocalDate.of(1970, JANUARY, 1), FEMALE)));
-    opponents.add(new Player(new Person("D", "D", LocalDate.of(2000, JANUARY, 1), MALE)));
+    opponents.add(new Player(new Person("E", "D", LocalDate.of(1970, JANUARY, 1), FEMALE)));
+    opponents.add(new Player(new Person("F", "D", LocalDate.of(2000, JANUARY, 1), MALE)));
     opponents.add(new Squad());
 
-
     List<Opponent> assignableOpponents = opponents.stream().filter(opponent -> discipline.isAssignable(opponent)).collect(Collectors.toList());
-
     assertThat(assignableOpponents, hasSize(4));
   }
 }

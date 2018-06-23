@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import static java.util.Collections.EMPTY_SET;
-
 /**
  * Runde in einer Disziplin. Alle Runden m\u00fcssen in einer definierten
  * Reihenfolge gespielt werden, daher der INDEX. Analog im Fussball gibt eine
@@ -64,7 +62,7 @@ public class Round extends Entity implements IPositional {
   }
 
   public Set<Opponent> getQualifiedOpponents() {
-    return EMPTY_SET;
+    return Collections.<Opponent>emptySet();
   }
 
   public Group getFirstGroup() {

@@ -27,11 +27,12 @@ public class OpponentTypeRestriction
    */
   @Override
   public boolean isRestricted(Opponent opponent) {
+    if(opponent==null){
+      return false;
+    }
 
-    Class<? extends Opponent> validOpponentClass = opponentType.getOpponentClass();
-    Class<Opponent> opponentClass = (Class<Opponent>) opponent.getClass();
-
-    return !validOpponentClass.equals(opponentClass);
+    OpponentType ot = OpponentType.fromClass(opponent.getClass());
+    return !opponentType.equals(ot);
   }
 
   public OpponentType getOpponentType() {
