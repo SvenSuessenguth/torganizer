@@ -33,7 +33,11 @@
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	
 	<!-- dependency versions -->
+	<activation.version>1.1.1</activation.version>
 	<javaee-api.version>8.0</javaee-api.version>
+	<jaxb-api.version>2.3.0</jaxb-api.version>
+	<jaxb-core.version>2.3.0.1</jaxb-core.version>
+	<jaxb-impl.version>2.3.0.1</jaxb-impl.version>
 	<junit-jupiter-api.version>5.2.0</junit-jupiter-api.version>
 	<junit-jupiter-engine.version>5.2.0</junit-jupiter-engine.version>
 	<junit-jupiter-params.version>5.2.0</junit-jupiter-params.version>
@@ -45,7 +49,6 @@
 	<!-- plugin versions -->
 	<jacoco-maven-plugin.version>0.8.1</jacoco-maven-plugin.version>
 	<maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
-	<maven-enforcer-plugin.version>3.0.0-M1</maven-enforcer-plugin.version>
   </properties>
   
   <dependencyManagement>
@@ -83,6 +86,26 @@
         <groupId>org.mockito</groupId><artifactId>mockito-junit-jupiter</artifactId>
 		<version>${mockito-junit-jupiter.version}</version><scope>test</scope>
       </dependency>
+	  
+	  <!--
+	   | https://stackoverflow.com/questions/43574426/how-to-resolve-java-lang-noclassdeffounderror-javax-xml-bind-jaxbexception-in-j
+       +-->
+	  <dependency>
+        <groupId>javax.xml.bind</groupId><artifactId>jaxb-api</artifactId>
+        <version>${jaxb-api.version}</version><scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.sun.xml.bind</groupId><artifactId>jaxb-core</artifactId>
+        <version>${jaxb-core.version}</version><scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.sun.xml.bind</groupId><artifactId>jaxb-impl</artifactId>
+        <version>${jaxb-impl.version}</version><scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>javax.activation</groupId><artifactId>activation</artifactId>
+        <version>${activation.version}</version><scope>test</scope>
+      </dependency>	  
     </dependencies>
   </dependencyManagement>
   
@@ -108,6 +131,21 @@
     </dependency>
 	<dependency>
       <groupId>org.mockito</groupId><artifactId>mockito-junit-jupiter</artifactId>
+    </dependency>
+	<!--
+	 | dependencies for the new module-system
+	 +-->
+	<dependency>
+      <groupId>javax.xml.bind</groupId><artifactId>jaxb-api</artifactId>
+    </dependency>
+      <dependency>
+      <groupId>com.sun.xml.bind</groupId><artifactId>jaxb-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.xml.bind</groupId><artifactId>jaxb-impl</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>javax.activation</groupId><artifactId>activation</artifactId>
     </dependency>
   </dependencies>
   
@@ -136,32 +174,10 @@
           <groupId>org.apache.maven.plugins</groupId><artifactId>maven-surefire-plugin</artifactId>
           <version>${maven-surefire-plugin.version}</version>
 		</plugin>
-		
-		<plugin>
-          <groupId>org.apache.maven.plugins</groupId><artifactId>maven-enforcer-plugin</artifactId>
-          <version>${maven-enforcer-plugin.version}</version>		  
-        </plugin>
       </plugins>
     </pluginManagement>
 	
-    <plugins>
-	  <plugin>
-        <groupId>org.apache.maven.plugins</groupId><artifactId>maven-enforcer-plugin</artifactId>
-		<executions>
-          <execution>
-            <id>enforce-versions</id>
-            <goals><goal>enforce</goal></goals>
-			<phase>validate</phase>
-            <configuration>
-              <rules>
-                <requireMavenVersion><version>3.5.2</version></requireMavenVersion>
-                <requireJavaVersion><version>1.8</version></requireJavaVersion>                
-              </rules>
-            </configuration>
-          </execution>
-        </executions>		
-      </plugin>
-	  
+    <plugins>	  
 	  <!--
        | https://blog.codecentric.de/2017/10/junit5-junit-5/
        +-->

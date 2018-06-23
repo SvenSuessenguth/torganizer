@@ -33,6 +33,6 @@
 	<dependency>
       <groupId>org.glassfish</groupId><artifactId>javax.el</artifactId>
       <version>${javax.el.version}</version><scope>test</scope>
-    </dependency>	
+    </dependency>
   </dependencies>
 </project>
