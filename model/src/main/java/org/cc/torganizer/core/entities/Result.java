@@ -21,7 +21,6 @@ public class Result extends Entity implements IPositional {
    */
   public Result() {
     position = -1;
-
   }
 
   /**

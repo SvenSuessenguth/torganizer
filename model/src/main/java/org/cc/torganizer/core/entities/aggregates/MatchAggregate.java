@@ -10,10 +10,6 @@ import org.cc.torganizer.core.entities.Unknown;
 public class MatchAggregate
   extends AbstractAggregate {
 
-  public MatchAggregate() {
-    // gem. Bean-Spec.
-  }
-
   @Override
   public void aggregate(Match match, Opponent opponent) {
     if (!match.getOpponents().contains(opponent) || match.getWinner() instanceof Unknown) {
