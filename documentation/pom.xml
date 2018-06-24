@@ -5,7 +5,7 @@
 
   <!--
    | mvn org.asciidoctor:asciidoctor-maven-plugin:process-asciidoc -Dbackend=html
-   +-->   
+   +-->
   <parent>
     <groupId>org.cc.torganizer</groupId>
     <artifactId>torganizer</artifactId>

@@ -3,7 +3,7 @@
   xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" 
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">  
-  
+
   <named-query name="Discipline.findAll">
     <query>SELECT d FROM Discipline d</query>
   </named-query>
@@ -19,7 +19,7 @@
   
   <entity class="org.cc.torganizer.core.entities.Discipline" access="FIELD">
     <table name="_DISCIPLINES" />
-    <attributes>    
+    <attributes>
        <basic name="name"><column name="_NAME" nullable="false" /></basic>
        <one-to-many name="opponents">
          <join-table name="_DISCIPLINES_OPPONENTS">

@@ -9,7 +9,7 @@
       <id name="id" access="PROPERTY">
         <column name="_ID"/>
         <generated-value strategy="IDENTITY"/>
-      </id>      
+      </id>
     </attributes>
   </mapped-superclass>
 

@@ -3,7 +3,7 @@
   xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" 
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">  
-  
+
   <named-query name="Tournament.findAll">
     <query>SELECT t FROM Tournament t</query>
   </named-query>
@@ -25,7 +25,7 @@
   <named-query name="Tournament.findDisciplines">
     <query>SELECT d FROM Discipline d, Tournament t WHERE t.id = :id AND d MEMBER OF t.disciplines</query>
   </named-query>
-  
+
   <entity class="org.cc.torganizer.core.entities.Tournament" access="FIELD">
     <table name="_TOURNAMENTS" />
     <attributes>
@@ -44,7 +44,7 @@
          </join-table>
          <cascade><cascade-all/></cascade>
        </one-to-many>
-       
+
        <one-to-many name="gymnasiums">
          <join-table name="_TOURNAMENT_GYMNASIUMS">
            <join-column name="_TOURNAMENT_ID" referenced-column-name="_ID"/>
@@ -54,5 +54,5 @@
        </one-to-many>
      </attributes>
   </entity>
-   
-</entity-mappings>  
+
+</entity-mappings>
