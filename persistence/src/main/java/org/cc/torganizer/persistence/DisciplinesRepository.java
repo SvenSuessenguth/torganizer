@@ -9,10 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.List;
 
 @Stateless
@@ -142,6 +139,30 @@ public class DisciplinesRepository extends Repository{
     query.setMaxResults(maxResults);
 
     return query.getResultList();
+  }
+
+  public Round getLatestRound(Long disciplineId){
+    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    CriteriaQuery<Round> cq = cb.createQuery(Round.class);
+    Root<Discipline> discipline = cq.from(Discipline.class);
+    Root<Round> round = cq.from(Round.class);
+    Join<Discipline, Round> disciplineRoundJoin = discipline.join ("rounds");
+
+
+    cq.where(
+      cb.and(
+        cb.equal(discipline.get("id"), disciplineId),
+        cb.equal(disciplineRoundJoin.get("id"), round.get("id"))
+      )
+    );
+    cq.select(round);
+    cq.orderBy(cb.desc(round.get("position")));
+
+    TypedQuery<Round> query = entityManager.createQuery(cq);
+    List<Round> rounds = query.setMaxResults(1).getResultList();
+
+    // javax.persistence.NoResultException if getSingleResult() did not retrieve any entities
+    return rounds.isEmpty()?null:rounds.get(0);
   }
 
   public Discipline addRound(Long disciplineId, Long roundId){

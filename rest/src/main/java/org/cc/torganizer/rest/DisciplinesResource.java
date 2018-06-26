@@ -140,6 +140,14 @@ public class DisciplinesResource extends AbstractResource {
     return roundConverter.toJsonArray(rounds);
   }
 
+  @GET
+  @Path("/{id}/rounds/latest")
+  public JsonObject getLatestRound(@PathParam("id") Long disciplineId){
+    Round round = dRepository.getLatestRound(disciplineId);
+
+    return roundConverter.toJsonObject(round);
+  }
+
   @POST
   @Path("/{id}/rounds")
   public JsonObject addRound(@PathParam("id") Long disciplineId, @QueryParam("roundId") Long roundId) {
