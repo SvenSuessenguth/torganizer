@@ -46,17 +46,4 @@ public class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
 
     assertThat(id, is(nullValue()));
   }
-
-  @Test
-  public void testGetLatestRound_existing(){
-    Round latestRound = repository.getLatestRound(1L);
-    assertThat(latestRound, is(not(nullValue())));
-    assertThat(latestRound.getPosition(), is(3));
-  }
-
-  @Test
-  public void testGetLatestRound_notExisting(){
-    Round latestRound = repository.getLatestRound(100L);
-    assertThat(latestRound, is(nullValue()));
-  }
 }

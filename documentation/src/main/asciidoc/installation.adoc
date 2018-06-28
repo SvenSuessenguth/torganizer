@@ -6,6 +6,11 @@
 
 https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-usagenotes-glassfish-config.html
 
+https://github.com/payara/docker-payaraserver-full/issues/13
+
+create-jdbc-connection-pool --datasourceclassname com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource --restype javax.sql.DataSource --property user=newuser:password=newuser:DatabaseName=torganizer:ServerName=localhost:PortNumber=3306 MySQLConnPool
+create-jdbc-resource --connectionpoolid MySQLConnPool jdbc/torganizerDS
+
 ==== Wildfly 11
 * Anlegen von "${WILDFLY_HOME}/modules/system/layers/base/com/mysql/main"
 * Kopieren des jdbc-Treibers in diesen Ordner
