@@ -23,10 +23,10 @@ class CrudResource {
           throw new Error('Fehlerhandling noch nicht spezifiziert');
       })
       .then(function (json) {
-        onResolve(json);
+          onResolve(json);
       })
       .catch(function (err) {
-        onReject("???");
+          onReject("???");
       });
   }
 

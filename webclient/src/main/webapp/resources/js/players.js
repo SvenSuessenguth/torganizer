@@ -36,7 +36,6 @@ class Players {
     tournamentsResource.addPlayer(tournamentId, json.id, players.addPlayerResolve, resourceReject);
   }
   addPlayerResolve(json){
-    console.log("successfully added player to tournament");
     players.updatePlayersTable();
     players.cancel();
   }
@@ -153,8 +152,8 @@ class Players {
     let offset = Number(sessionStorage.getItem('players.players-table.offset'));
     let tournamentId = tournaments.getCurrentTournamentId();
     
-    document.getElementById("players-offset").innerHTML = offset;
-    document.getElementById("players-length").innerHTML = offset + tableSize;
+    document.getElementById("players-offset").innerHTML = offset.toString();
+    document.getElementById("players-length").innerHTML = offset.toString() + tableSize;
 
     tournamentsResource.getPlayers(tournamentId, offset, tableSize, this.updatePlayersTableResolve, resourceReject);
     tournamentsResource.countPlayers(tournamentId, this.countPlayersTableResolve, resourceReject);
@@ -176,7 +175,7 @@ class Players {
       let template = t.content;
      
       let playerRow = template.querySelector("#player-row");
-      playerRow.onclick = function(e){ new Players().showDetails(player.id); };
+      playerRow.onclick = function(){ new Players().showDetails(player.id); };
       
       let firstNameElement = template.querySelector("#first-name");
       firstNameElement.innerHTML = player.person.firstName;
@@ -203,9 +202,9 @@ class Players {
       newOffset = 0;
     }
       
-    document.getElementById("players-offset").innerHTML = newOffset;
-    document.getElementById("players-length").innerHTML = newOffset + tableSize;
-    sessionStorage.setItem('players.players-table.offset', newOffset);
+    document.getElementById("players-offset").innerHTML = newOffset.toString();
+    document.getElementById("players-length").innerHTML = newOffset.toString() + tableSize;
+    sessionStorage.setItem('players.players-table.offset', newOffset.toString());
     this.updatePlayersTable();
   }
   
@@ -218,8 +217,8 @@ class Players {
       return;
     }
       
-    document.getElementById("players-offset").innerHTML = newOffset;
-    sessionStorage.setItem('players.players-table.offset', newOffset);
+    document.getElementById("players-offset").innerHTML = newOffset.toString();
+    sessionStorage.setItem('players.players-table.offset', newOffset.toString());
     this.updatePlayersTable();
   }
 
@@ -251,7 +250,7 @@ class Players {
     }
 
     // association between club and player is done by clubId, threfore the name of the club is irrelevant and can be NULL
-    let json = {
+    return {
       "id": playerId,
       "status": statusElement.options[statusElement.selectedIndex].value,
       "person":{
@@ -266,8 +265,6 @@ class Players {
         "name:":null
       }
     };
-    
-    return json;
   }
   
   playerToForm(json){
@@ -296,4 +293,4 @@ class Players {
   }
 }
 
-var players = new Players();
+let players = new Players();
