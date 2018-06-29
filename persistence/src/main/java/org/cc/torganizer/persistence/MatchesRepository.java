@@ -16,8 +16,9 @@ public class MatchesRepository extends Repository{
 
   /**
    * Constructor for testing.
+   * @param entityManager EntityManager
    */
-  public MatchesRepository(EntityManager entityManager) {
+  MatchesRepository(EntityManager entityManager) {
     this.entityManager = entityManager;
   }
 

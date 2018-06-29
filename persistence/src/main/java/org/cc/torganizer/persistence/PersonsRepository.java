@@ -17,8 +17,9 @@ public class PersonsRepository extends Repository{
 
   /**
    * Constructor for testing.
+   * @param entityManager EntityManager
    */
-  public PersonsRepository(EntityManager entityManager) {
+  PersonsRepository(EntityManager entityManager) {
     this.entityManager = entityManager;
   }
 

@@ -15,8 +15,9 @@ public class RestrictionsRepository extends Repository{
 
   /**
    * Constructor for testing.
+   * @param entityManager EntityManager
    */
-  public RestrictionsRepository(EntityManager entityManager) {
+  RestrictionsRepository(EntityManager entityManager) {
     this.entityManager = entityManager;
   }
 

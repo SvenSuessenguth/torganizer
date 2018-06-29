@@ -22,8 +22,9 @@ public class DisciplinesRepository extends Repository{
 
   /**
    * Constructor for testing.
+   * @param entityManager EntityManager
    */
-  public DisciplinesRepository(EntityManager entityManager) {
+  DisciplinesRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 

@@ -15,8 +15,9 @@ public class ClubsRepository extends Repository{
 
   /**
    * Constructor for testing purpose.
+   * @param entityManager EntityManager
    */
-  public ClubsRepository(EntityManager entityManager){
+  ClubsRepository(EntityManager entityManager){
     this.entityManager = entityManager;
   }
 

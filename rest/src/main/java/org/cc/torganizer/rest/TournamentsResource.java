@@ -94,6 +94,11 @@ public class TournamentsResource extends AbstractResource {
 
   /**
    * Getting all opponents, which can be assigned to a given discipline for the tournament.
+   * @param tournamentId ID of the tournament
+   * @param disciplineId ID of the discipline
+   * @param offset offset
+   * @param maxResults max results
+   * @return JasonArray with the assignable opponents
    */
   @GET
   @Path("/{id}/assignable-opponents")
@@ -120,6 +125,9 @@ public class TournamentsResource extends AbstractResource {
 
   /**
    * Remove player from tournament. The player is not deleted at all.
+   * @param tournamentId ID of the tournament
+   * @param playerId ID of the player to remove
+   * @return JsonObject of the removed player
    */
   @DELETE
   @Path("/{tid}/players/{pid}")

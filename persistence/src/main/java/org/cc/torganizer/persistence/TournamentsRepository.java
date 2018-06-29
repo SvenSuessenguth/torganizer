@@ -24,8 +24,9 @@ public class TournamentsRepository extends Repository{
 
   /**
    * Constructor for testing purpose.
+   * @param entityManager EntityManager
    */
-  public TournamentsRepository(EntityManager entityManager){
+  TournamentsRepository(EntityManager entityManager){
     this.entityManager = entityManager;
   }
 

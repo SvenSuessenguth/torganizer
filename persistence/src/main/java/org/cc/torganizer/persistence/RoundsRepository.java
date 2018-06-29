@@ -21,8 +21,9 @@ public class RoundsRepository extends Repository{
 
   /**
    * Constructor for testing.
+   * @param entityManager EntityManager
    */
-  public RoundsRepository(EntityManager entityManager) {
+  RoundsRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 

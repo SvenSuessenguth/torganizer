@@ -28,8 +28,9 @@ public class GroupsRepository extends Repository{
 
   /**
    * Constructor for testing.
+   * @param entityManager EntityManager
    */
-  public GroupsRepository(EntityManager entityManager) {
+  GroupsRepository(EntityManager entityManager) {
     this.entityManager = entityManager;
   }
 
