@@ -44,13 +44,13 @@ pipeline {
     stage('report') {
       steps {
         withSonarQubeEnv('SonarQube') {
-          bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.4.0.905:sonar'
+          bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
         }        
       } 
     }
     stage('doc') {
       steps {
-        bat 'mvn javadoc:javadoc org.asciidoctor:asciidoctor-maven-plugin:process-asciidoc -Dbackend=html'
+        bat 'mvn javadoc:javadoc org.asciidoctor:asciidoctor-maven-plugin:process-asciidoc'
       }
     }
   }
