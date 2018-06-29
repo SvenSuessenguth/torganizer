@@ -70,3 +70,10 @@ class CrudResource {
   delete(json) {
   }
 }
+
+//
+// default for rejecting a resource-call
+//
+function resourceReject(json){
+    console.log(json);
+}

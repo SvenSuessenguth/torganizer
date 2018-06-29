@@ -13,7 +13,7 @@ class Rounds {
 
   onload() {
     this.initDisciplineName();
-    this.initRound();
+    this.initRounds();
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -25,14 +25,13 @@ class Rounds {
     let currentDisciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
     if(currentDisciplineId===null){return;}
 
-    disciplinesResource.readSingle(currentDisciplineId, this.initDisciplineNameResolve, this.initDisciplineNameReject);
+    disciplinesResource.readSingle(currentDisciplineId, this.initDisciplineNameResolve, resourceReject);
   }
   initDisciplineNameResolve(discipline){
     let name = discipline.name;
     let dnElement = document.getElementById("disciplineName");
     dnElement.innerHTML = name;
   }
-  initDisciplineNameReject(json){ }
 
   //--------------------------------------------------------------------------------------------------------------------
   //
@@ -43,8 +42,7 @@ class Rounds {
     let disciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
 
     // getting ids for highest round and group (of highest round)
-    disciplinesResource.getRounds(disciplineId, this.initRoundResolve, this.initRoundReject);
-
+    disciplinesResource.getRounds(disciplineId, this.initRoundResolve, resourceReject);
   }
   initRoundResolve(json){
     // find round with highest position
@@ -72,7 +70,6 @@ class Rounds {
     rounds.updateRound();
     rounds.roundToForm(roundWithHighestPostion);
   }
-  initRoundReject(error){}
 
   updateRound(){
     let roundsCount = Number(sessionStorage.getItem("rounds.count"));
@@ -97,21 +94,19 @@ class Rounds {
       method = "POST" // create
     }
 
-    roundsResource.createOrUpdate(roundJson, method, this.saveRoundResolve, this.saveRoundReject);
+    roundsResource.createOrUpdate(roundJson, method, this.saveRoundResolve, resourceReject);
   }
   saveRoundResolve(round){
     sessionStorage.setItem("rounds.current-round.id", round.id);
     let currentDisciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
-    disciplinesResource.addRound(currentDisciplineId, round.id, rounds.addRoundResolve, rounds.addRoundReject);
+    disciplinesResource.addRound(currentDisciplineId, round.id, rounds.addRoundResolve, resourceReject);
   }
-  saveRoundReject(error){ }
   addRoundResolve(json){
     let count = Number(sessionStorage.getItem("rounds.count"))+1;
 
     sessionStorage.setItem("rounds.count", count);
     rounds.initRound();
   }
-  addRoundReject(error){}
 
   deleteRound(){
 
@@ -128,7 +123,6 @@ class Rounds {
     sessionStorage.removeItem("rounds.current-round.id");
     this.updateRound();
   }
-
 
   //--------------------------------------------------------------------------------------------------------------------
   //
@@ -172,4 +166,4 @@ class Rounds {
   }
 }
 
-var rounds = new Rounds();
+let rounds = new Rounds();

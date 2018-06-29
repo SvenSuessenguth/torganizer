@@ -27,32 +27,29 @@ class Players {
   //--------------------------------------------------------------------------------------------------------------------
   create(){
     let json = this.formToPlayer();
-    playersResource.createOrUpdate(json, "POST", this.createResolve, this.createReject);
+    playersResource.createOrUpdate(json, "POST", this.createResolve, resourceReject);
   }
   createResolve(json){
     let tournamentId = tournaments.getCurrentTournamentId();
     // this can't be used inside a promise
     // https://stackoverflow.com/questions/32547735/javascript-promises-how-to-access-variable-this-inside-a-then-scope
-    tournamentsResource.addPlayer(tournamentId, json.id, players.addPlayerResolve, players.addPlayerReject);    
+    tournamentsResource.addPlayer(tournamentId, json.id, players.addPlayerResolve, resourceReject);
   }
-  createReject(error){ console.log(error); }
   addPlayerResolve(json){
     console.log("successfully added player to tournament");
     players.updatePlayersTable();
     players.cancel();
   }
-  addPlayerReject(error){console.log(error);}
   //--------------------------------------------------------------------------------------------------------------------
   update() {
     let json = this.formToPlayer();
-    playersResource.createOrUpdate(json, "PUT", this.updateResolve, this.updateReject);    
+    playersResource.createOrUpdate(json, "PUT", this.updateResolve, resourceReject);
   }
   updateResolve(json){
     players.updatePlayersTable();
     players.cancel();
   }
-  updateReject(json){}
-  
+
   //--------------------------------------------------------------------------------------------------------------------
   //
   // delete
@@ -61,13 +58,12 @@ class Players {
   delete(){
     let player = this.formToPlayer();
     let tournamentId = tournaments.getCurrentTournamentId();
-    tournamentsResource.removePlayer(tournamentId, player.id, this.deleteResolve, this.deleteReject);    
+    tournamentsResource.removePlayer(tournamentId, player.id, this.deleteResolve, resourceReject);
   }
   deleteResolve(json){
     players.updatePlayersTable();
     players.cancel();
   }
-  deleteReject(json){}
 
   //--------------------------------------------------------------------------------------------------------------------
   //
@@ -105,7 +101,7 @@ class Players {
   //
   // ---------------------------------------------------------------------------
   updateClubsSelectBox(){
-    clubsResource.readMultiple(0,100, players.updateClubsSelectBoxResolve, players.updateClubsSelectBoxReject);
+    clubsResource.readMultiple(0,100, players.updateClubsSelectBoxResolve, resourceReject);
   }
   updateClubsSelectBoxResolve(json){
     let dSelect = document.getElementById("clubs");
@@ -140,7 +136,6 @@ class Players {
       }
     });
   }
-  updateClubsSelectBoxReject(json){}
 
   changeClub(){
     let dSelect = document.getElementById("clubs");
@@ -148,8 +143,6 @@ class Players {
 
     sessionStorage.setItem('players.player.club.id', clubId);
   }
-
-
 
   // ---------------------------------------------------------------------------
   //
@@ -163,14 +156,12 @@ class Players {
     document.getElementById("players-offset").innerHTML = offset;
     document.getElementById("players-length").innerHTML = offset + tableSize;
 
-    tournamentsResource.getPlayers(tournamentId, offset, tableSize, this.updatePlayersTableResolve, this.updatePlayersTableReject);
-    tournamentsResource.countPlayers(tournamentId, this.countPlayersTableResolve, this.countPlayersTableReject);
+    tournamentsResource.getPlayers(tournamentId, offset, tableSize, this.updatePlayersTableResolve, resourceReject);
+    tournamentsResource.countPlayers(tournamentId, this.countPlayersTableResolve, resourceReject);
   }  
   updatePlayersTableResolve(json){ players.updatePlayersTableInternal(json); }
-  updatePlayersTableReject(json){ console.log(json); }
   countPlayersTableResolve(json){ document.getElementById("players-count").innerHTML = json; }
-  countPlayersTableReject(json){ console.log(json); }
-  
+
   updatePlayersTableInternal(json){
     // bisherige Daten entfernen, damit keine doppelten Anzeigen erscheinen
     // https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
