@@ -8,8 +8,13 @@ https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-usagenotes-glassfish-co
 
 https://github.com/payara/docker-payaraserver-full/issues/13
 
-create-jdbc-connection-pool --datasourceclassname com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource --restype javax.sql.DataSource --property user=newuser:password=newuser:DatabaseName=torganizer:ServerName=localhost:PortNumber=3306 MySQLConnPool
-create-jdbc-resource --connectionpoolid MySQLConnPool jdbc/torganizerDS
+Creating a datasource via commandline/asadmin for Glassfish/Payara
+[source]
+----
+ create-jdbc-connection-pool --datasourceclassname com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource --restype javax.sql.DataSource --property user=newuser:password=newuser:DatabaseName=torganizer:ServerName=localhost:PortNumber=3306 MySQLConnPool
+
+ create-jdbc-resource --connectionpoolid MySQLConnPool jdbc/torganizerDS
+----
 
 ==== Wildfly 11
 * Anlegen von "${WILDFLY_HOME}/modules/system/layers/base/com/mysql/main"
@@ -20,7 +25,7 @@ create-jdbc-resource --connectionpoolid MySQLConnPool jdbc/torganizerDS
 ----
 <module xmlns="urn:jboss:module:1.3" name="com.mysql">
   <resources>
-    <resource-root path="mysql-connector-java-5.1.44-bin.jar"/>
+    <resource-root path="mysql-connector-java-5.1.46-bin.jar"/>
   </resources>
   <dependencies>
     <module name="javax.api"/>
