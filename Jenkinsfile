@@ -50,7 +50,7 @@ pipeline {
     }
     stage('doc') {
       steps {
-        bat 'mvn javadoc:javadoc org.asciidoctor:asciidoctor-maven-plugin:process-asciidoc'
+        bat 'mvn javadoc:aggregate org.asciidoctor:asciidoctor-maven-plugin:process-asciidoc'
       }
     }
   }
