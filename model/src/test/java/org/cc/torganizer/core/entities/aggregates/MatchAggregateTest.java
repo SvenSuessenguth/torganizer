@@ -1,12 +1,9 @@
 package org.cc.torganizer.core.entities.aggregates;
 
 import org.cc.torganizer.core.entities.*;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.hamcrest.MatcherAssert.assertThat;

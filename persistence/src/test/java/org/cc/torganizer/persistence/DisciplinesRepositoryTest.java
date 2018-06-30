@@ -1,7 +1,6 @@
 package org.cc.torganizer.persistence;
 
 import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.Round;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

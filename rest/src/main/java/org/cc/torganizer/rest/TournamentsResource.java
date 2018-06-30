@@ -14,7 +14,6 @@ import java.util.List;
 
 import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
 import static org.cc.torganizer.core.entities.OpponentType.SQUAD;
-import static org.cc.torganizer.core.entities.Restriction.Discriminator.AGE_RESTRICTION;
 import static org.cc.torganizer.core.entities.Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION;
 
 @Stateless
