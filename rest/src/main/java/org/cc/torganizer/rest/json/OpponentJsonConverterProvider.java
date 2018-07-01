@@ -16,16 +16,16 @@ public class OpponentJsonConverterProvider{
   @Inject @Any
   private Instance<OpponentJsonConverter> opponentConverters;
 
-  public ModelJsonConverter<? extends Opponent> getConverter(OpponentType opponentType){
+  public ModelJsonConverter<?> getConverter(OpponentType opponentType){
     for(OpponentJsonConverter converter:opponentConverters){
       if(Objects.equals(opponentType, converter.getOpponentType())){
-        return (ModelJsonConverter<? extends Opponent>) converter;
+        return (ModelJsonConverter) converter;
       }
     }
     return null;
   }
 
-  public ModelJsonConverter<? extends Opponent> getConverter(Collection<Opponent> opponents){
+  public ModelJsonConverter<?> getConverter(Collection<Opponent> opponents){
 
     OpponentType opponentType;
     if(opponents.isEmpty()){
