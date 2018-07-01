@@ -45,9 +45,6 @@ public class RoundJsonConverter extends ModelJsonConverter<Round> {
   @Override
   public Round toModel(JsonObject jsonObject, Round round) {
     Integer qualified = jsonObject.getInt("qualified", 0);
-    if(qualified==null){
-      qualified = 0;
-    }
     round.setQualified(qualified);
 
     JsonValue positionValue = jsonObject.get("position");

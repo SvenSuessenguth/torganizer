@@ -28,7 +28,7 @@ import static org.hamcrest.Matchers.*;
  */
 public class ModelJsonConverterTest {
   
-  private ModelJsonConverter converter;
+  private ModelJsonConverter<?> converter;
   
   @BeforeEach
   public void before(){
@@ -41,7 +41,7 @@ public class ModelJsonConverterTest {
     String christmasEveString = "2017-12-24 18:00:00";
     final String localDateTimeToString = converter.localDateTimeToString(christmasEve);
     
-    assertThat(converter.localDateTimeToString(christmasEve), is(christmasEveString));
+    assertThat(localDateTimeToString, is(christmasEveString));
   }
   
   @Test
@@ -50,7 +50,7 @@ public class ModelJsonConverterTest {
     String christmasEveString = "2017-12-24";
     final String localDateTimeToString = converter.localDateToString(christmasEve);
     
-    assertThat(converter.localDateToString(christmasEve), is(christmasEveString));
+    assertThat(localDateTimeToString, is(christmasEveString));
   }
 
   @Test
@@ -64,7 +64,7 @@ public class ModelJsonConverterTest {
     assertThat(properModel, is(not(nullValue())));
   }
 
-  private static class ModelJsonConverterImpl extends ModelJsonConverter<Entity> {
+  private static class ModelJsonConverterImpl<T extends Entity> extends ModelJsonConverter<Entity> {
 
     public ModelJsonConverterImpl() {
     }
