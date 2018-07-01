@@ -33,7 +33,7 @@ public abstract class ModelJsonConverter<T extends Entity> {
       Type sooper = getClass().getGenericSuperclass();
       Type t = ((ParameterizedType)sooper).getActualTypeArguments()[ 0 ];
 
-      Class tClass = Class.forName(t.getTypeName());
+      Class<?> tClass = Class.forName(t.getTypeName());
 
       return (T)tClass.getConstructor().newInstance();
     }catch(ClassNotFoundException|NoSuchMethodException|InstantiationException|InvocationTargetException|IllegalAccessException exc ){
