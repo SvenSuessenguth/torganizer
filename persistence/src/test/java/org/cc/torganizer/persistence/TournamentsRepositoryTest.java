@@ -14,19 +14,19 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-public class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
+class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
 
   private TournamentsRepository repository;
 
   @BeforeEach
-  public void before() throws Exception {
+  void before() throws Exception {
     super.initDatabase("test-data-tournament.xml");
 
     repository = new TournamentsRepository(entityManager);
   }
 
   @Test
-  public void testCriteriaCountOpponents(){
+  void testCriteriaCountOpponents(){
 
     CriteriaBuilder cb = entityManager.getCriteriaBuilder();
     CriteriaQuery<Tuple> cq = cb.createTupleQuery();
@@ -43,7 +43,7 @@ public class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  public void testCriteriaCountPlayers(){
+  void testCriteriaCountPlayers(){
 
     CriteriaBuilder cb = entityManager.getCriteriaBuilder();
     CriteriaQuery<Tuple> cq = cb.createTupleQuery();
@@ -64,7 +64,7 @@ public class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  public void testCriteriaCountSquads(){
+  void testCriteriaCountSquads(){
     CriteriaBuilder cb = entityManager.getCriteriaBuilder();
     CriteriaQuery<Tuple> cq = cb.createTupleQuery();
     Root<Tournament> tournament = cq.from(Tournament.class);
@@ -84,35 +84,35 @@ public class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  public void testCriteriaListPlayersOrderedByLastName(){
+  void testCriteriaListPlayersOrderedByLastName(){
     List<Player> players = repository.getPlayersOrderedByLastName(1L, 0, 5);
 
     assertThat(players.get(0).getPerson().getLastName(), is("Aöüß"));
   }
 
   @Test
-  public void testGetTournament(){
+  void testGetTournament(){
     Tournament t = repository.read(1L);
 
     assertThat(t, is(not(nullValue())));
   }
 
   @Test
-  public void testGetTournaments(){
+  void testGetTournaments(){
     List<Tournament> tournaments = repository.getTournaments(0,10);
 
     assertThat(tournaments, hasSize(2));
   }
 
   @Test
-  public void testGetTournaments_usingMaxResults(){
+  void testGetTournaments_usingMaxResults(){
     List<Tournament> tournaments = repository.getTournaments(0,1);
 
     assertThat(tournaments, hasSize(1));
   }
 
   @Test
-  public void testAddPlayer(){
+  void testAddPlayer(){
     long countBefore = repository.countPlayers(1L);
     repository.addPlayer(1L, 6L);
     long countAfter = repository.countPlayers(1L);
@@ -121,7 +121,7 @@ public class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  public void testCountPlayers_existingTournament() {
+  void testCountPlayers_existingTournament() {
     Query query = entityManager.createNamedQuery("Tournament.countPlayers");
     query.setParameter("id", 1L);
     long countSubscribers = (long) query.getSingleResult();
@@ -130,7 +130,7 @@ public class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  public void testCountSubscribers_nonExistingTournament() {
+  void testCountSubscribers_nonExistingTournament() {
     Query query = entityManager.createNamedQuery("Tournament.countPlayers");
     query.setParameter("id", 3L);
     long countSubscribers = (long) query.getSingleResult();
@@ -139,7 +139,7 @@ public class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  public void testCountSubscribers_nonExistingTournament_NullId() {
+  void testCountSubscribers_nonExistingTournament_NullId() {
     Query query = entityManager.createNamedQuery("Tournament.countPlayers");
     query.setParameter("id", null);
     long countSubscribers = (long) query.getSingleResult();
@@ -148,7 +148,7 @@ public class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  public void testFindPlayers() {
+  void testFindPlayers() {
     TypedQuery<Player> query = entityManager.createNamedQuery("Tournament.findPlayers", Player.class);
     query.setParameter("id", 1L);
     List<Player> players = query.getResultList();
@@ -157,7 +157,7 @@ public class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  public void testFindSquads() {
+  void testFindSquads() {
     TypedQuery<Squad> query = entityManager.createNamedQuery("Tournament.findSquads", Squad.class);
     query.setParameter("id", 1L);
     List<Squad> squads = query.getResultList();
@@ -166,7 +166,7 @@ public class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  public void testFindPlayers_none() {
+  void testFindPlayers_none() {
     TypedQuery<Player> query = entityManager.createNamedQuery("Tournament.findPlayers", Player.class);
     query.setParameter("id", 3L);
     List<Player> players = query.getResultList();
@@ -175,7 +175,7 @@ public class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  public void testFindSquads_none() {
+  void testFindSquads_none() {
     TypedQuery<Squad> query = entityManager.createNamedQuery("Tournament.findSquads", Squad.class);
     query.setParameter("id", 2L);
     List<Squad> squads = query.getResultList();
@@ -184,7 +184,7 @@ public class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  public void testFindDisciplines() {
+  void testFindDisciplines() {
     TypedQuery<Discipline> query = entityManager.createNamedQuery("Tournament.findDisciplines", Discipline.class);
     query.setParameter("id", 1L);
     List<Discipline> disciplines = query.getResultList();
@@ -193,7 +193,7 @@ public class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  public void testFindByOpponentType_Player() {
+  void testFindByOpponentType_Player() {
     TypedQuery<Opponent> query = entityManager.createNamedQuery("Tournament.findOpponents", Opponent.class);
     query.setParameter("id", 1L);
     List<Opponent> opponents = query.getResultList();
