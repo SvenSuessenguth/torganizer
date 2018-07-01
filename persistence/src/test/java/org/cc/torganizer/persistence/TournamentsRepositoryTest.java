@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.persistence.Query;
 import javax.persistence.Tuple;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.List;
 
@@ -148,7 +149,7 @@ public class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
 
   @Test
   public void testFindPlayers() {
-    Query query = entityManager.createNamedQuery("Tournament.findPlayers", Player.class);
+    TypedQuery<Player> query = entityManager.createNamedQuery("Tournament.findPlayers", Player.class);
     query.setParameter("id", 1L);
     List<Player> players = query.getResultList();
 
@@ -157,7 +158,7 @@ public class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
 
   @Test
   public void testFindSquads() {
-    Query query = entityManager.createNamedQuery("Tournament.findSquads", Squad.class);
+    TypedQuery<Squad> query = entityManager.createNamedQuery("Tournament.findSquads", Squad.class);
     query.setParameter("id", 1L);
     List<Squad> squads = query.getResultList();
 
@@ -166,7 +167,7 @@ public class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
 
   @Test
   public void testFindPlayers_none() {
-    Query query = entityManager.createNamedQuery("Tournament.findPlayers", Player.class);
+    TypedQuery<Player> query = entityManager.createNamedQuery("Tournament.findPlayers", Player.class);
     query.setParameter("id", 3L);
     List<Player> players = query.getResultList();
 
@@ -175,7 +176,7 @@ public class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
 
   @Test
   public void testFindSquads_none() {
-    Query query = entityManager.createNamedQuery("Tournament.findSquads", Squad.class);
+    TypedQuery<Squad> query = entityManager.createNamedQuery("Tournament.findSquads", Squad.class);
     query.setParameter("id", 2L);
     List<Squad> squads = query.getResultList();
 
@@ -184,7 +185,7 @@ public class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
 
   @Test
   public void testFindDisciplines() {
-    Query query = entityManager.createNamedQuery("Tournament.findDisciplines", Discipline.class);
+    TypedQuery<Discipline> query = entityManager.createNamedQuery("Tournament.findDisciplines", Discipline.class);
     query.setParameter("id", 1L);
     List<Discipline> disciplines = query.getResultList();
 
@@ -193,7 +194,7 @@ public class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
 
   @Test
   public void testFindByOpponentType_Player() {
-    Query query = entityManager.createNamedQuery("Tournament.findOpponents", Opponent.class);
+    TypedQuery<Opponent> query = entityManager.createNamedQuery("Tournament.findOpponents", Opponent.class);
     query.setParameter("id", 1L);
     List<Opponent> opponents = query.getResultList();
 
