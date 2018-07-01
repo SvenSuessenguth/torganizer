@@ -32,7 +32,7 @@ public class ModelJsonConverterTest {
   
   @BeforeEach
   public void before(){
-    converter = new ModelJsonConverterImpl();
+    converter = new ModelJsonConverterImpl<>();
   }
   
   @Test
@@ -75,7 +75,7 @@ public class ModelJsonConverterTest {
     }
 
     @Override
-    public JsonArray toJsonArray(Collection ts) {
+    public JsonArray toJsonArray(Collection<Entity> ts) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
 

@@ -83,7 +83,8 @@ public class GroupsResource extends AbstractResource {
     if(opponents.isEmpty()){
       return emptyArray();
     }
-    else{ ModelJsonConverter oConverter = opponentJsonConverterProvider.getConverter(opponents);
+    else{ 
+      ModelJsonConverter<Opponent> oConverter = opponentJsonConverterProvider.getConverter(opponents);
       result = oConverter.toJsonArray(opponents);
     }
 

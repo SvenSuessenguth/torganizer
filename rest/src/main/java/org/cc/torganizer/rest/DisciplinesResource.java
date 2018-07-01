@@ -34,7 +34,7 @@ public class DisciplinesResource extends AbstractResource {
   private RoundJsonConverter roundConverter;
 
   @Inject
-  private OpponentJsonConverterProvider opponentJsonConverterProvider;
+  private OpponentJsonConverterProvider<Opponent> opponentJsonConverterProvider;
 
   //--------------------------------------------------------------------------------------------------------------------
   //
@@ -105,7 +105,7 @@ public class DisciplinesResource extends AbstractResource {
       return emptyArray();
     }
     else{
-      ModelJsonConverter oConverter = opponentJsonConverterProvider.getConverter(opponents);
+      ModelJsonConverter<Opponent> oConverter = opponentJsonConverterProvider.getConverter(opponents);
       result = oConverter.toJsonArray(opponents);
     }
 
