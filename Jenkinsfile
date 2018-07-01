@@ -5,11 +5,11 @@ pipeline {
     buildDiscarder(logRotator(daysToKeepStr: '3', numToKeepStr: '3', artifactNumToKeepStr: '3'))
     durabilityHint('PERFORMANCE_OPTIMIZED')
   }
-	
+
   triggers {
     pollSCM('* * * * *')
   }
-	
+
   tools {
     maven 'apache-maven-3.5.4'
     jdk 'jdk-10.0.1'
@@ -27,11 +27,11 @@ pipeline {
         // Run the maven build
         bat 'mvn test'
       }
-			
+
       // @see https://jenkins.io/blog/2017/02/07/declarative-maven-project/
       post {
         success {
-          junit '**/target/surefire-reports/TEST-*.xml' 
+          junit '**/target/surefire-reports/TEST-*.xml'
         }
       }
     }
@@ -45,8 +45,8 @@ pipeline {
       steps {
         withSonarQubeEnv('SonarQube') {
           bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
-        }        
-      } 
+        }
+      }
     }
     stage('doc') {
       steps {
@@ -54,7 +54,7 @@ pipeline {
       }
     }
   }
-	
+
   post {
     always {
       archiveArtifacts artifacts: '*/target/*.war', fingerprint: true
