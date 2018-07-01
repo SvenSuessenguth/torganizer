@@ -14,18 +14,18 @@ import java.util.Objects;
 public class OpponentJsonConverterProvider{
 
   @Inject @Any
-  private Instance<OpponentJsonConverter> opponentConverters;
+  private Instance<OpponentJsonConverter<?>> opponentConverters;
 
-  public ModelJsonConverter getConverter(OpponentType opponentType){
-    for(OpponentJsonConverter converter:opponentConverters){
+  public ModelJsonConverter<? extends Opponent> getConverter(OpponentType opponentType){
+    for(OpponentJsonConverter<?> converter:opponentConverters){
       if(Objects.equals(opponentType, converter.getOpponentType())){
-        return (ModelJsonConverter)converter;
+        return (ModelJsonConverter<? extends Opponent>)converter;
       }
     }
     return null;
   }
 
-  public ModelJsonConverter getConverter(Collection<Opponent> opponents){
+  public ModelJsonConverter<? extends Opponent> getConverter(Collection<Opponent> opponents){
 
     OpponentType opponentType;
     if(opponents.isEmpty()){
