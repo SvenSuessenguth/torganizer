@@ -14,12 +14,12 @@ import java.util.Objects;
 public class OpponentJsonConverterProvider{
 
   @Inject @Any
-  private Instance<OpponentJsonConverter<?>> opponentConverters;
+  private Instance<OpponentJsonConverter> opponentConverters;
 
   public ModelJsonConverter<? extends Opponent> getConverter(OpponentType opponentType){
-    for(OpponentJsonConverter<?> converter:opponentConverters){
+    for(OpponentJsonConverter converter:opponentConverters){
       if(Objects.equals(opponentType, converter.getOpponentType())){
-        return (ModelJsonConverter<? extends Opponent>)converter;
+        return (ModelJsonConverter<? extends Opponent>) converter;
       }
     }
     return null;
