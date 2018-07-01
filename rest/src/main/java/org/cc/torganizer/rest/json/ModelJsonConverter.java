@@ -1,8 +1,5 @@
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.Entity;
-
-import javax.json.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -11,6 +8,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Objects;
+
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonNumber;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.json.JsonString;
+import javax.json.JsonValue;
+
+import org.cc.torganizer.core.entities.Entity;
 
 public abstract class ModelJsonConverter<T extends Entity> {
   
@@ -35,7 +43,7 @@ public abstract class ModelJsonConverter<T extends Entity> {
 
       Class<?> tClass = Class.forName(t.getTypeName());
 
-      return (T)tClass.getConstructor().newInstance();
+      return (T) tClass.getConstructor().newInstance();
     }catch(ClassNotFoundException|NoSuchMethodException|InstantiationException|InvocationTargetException|IllegalAccessException exc ){
       throw new ModelJsonConverterException(exc);
     }

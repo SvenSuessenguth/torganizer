@@ -1,21 +1,29 @@
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.*;
-
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.json.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashMap;
 
-import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonBuilderFactory;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+
+import org.cc.torganizer.core.entities.OpponentType;
+import org.cc.torganizer.core.entities.Person;
+import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.core.entities.Status;
 
 /**
  * @author svens
  */
 @RequestScoped
-public class PlayerJsonConverter extends ModelJsonConverter<Player> implements OpponentJsonConverter{
+@OpponentJsonConverter(type=OpponentType.PLAYER)
+public class PlayerJsonConverter extends ModelJsonConverter<Player>{
 
   @Inject  
   private PersonJsonConverter personConverter;
@@ -81,10 +89,5 @@ public class PlayerJsonConverter extends ModelJsonConverter<Player> implements O
     });
 
     return players;
-  }
-
-  @Override
-  public OpponentType getOpponentType() {
-    return PLAYER;
   }
 }

@@ -1,21 +1,26 @@
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.OpponentType;
-import org.cc.torganizer.core.entities.Squad;
-
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.json.*;
 import java.util.Collection;
 import java.util.HashMap;
 
-import static org.cc.torganizer.core.entities.OpponentType.SQUAD;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonBuilderFactory;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+
+import org.cc.torganizer.core.entities.OpponentType;
+import org.cc.torganizer.core.entities.Squad;
 
 /**
  * @author svens
  */
 @RequestScoped
-public class SquadJsonConverter extends ModelJsonConverter<Squad> implements OpponentJsonConverter{
+@OpponentJsonConverter(type=OpponentType.SQUAD)
+public class SquadJsonConverter extends ModelJsonConverter<Squad>{
 
   @Inject  
   private PlayerJsonConverter playerConverter;
@@ -56,10 +61,5 @@ public class SquadJsonConverter extends ModelJsonConverter<Squad> implements Opp
   @Override
   public Collection<Squad> toModels(JsonArray jsonArray, Collection<Squad> squads) {
     return squads;
-  }
-
-  @Override
-  public OpponentType getOpponentType() {
-    return SQUAD;
   }
 }

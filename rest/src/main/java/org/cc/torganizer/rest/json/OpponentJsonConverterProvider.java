@@ -1,25 +1,30 @@
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.OpponentType;
-
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Any;
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
 import java.util.Collection;
 import java.util.Objects;
+
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+
+import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.OpponentType;
 
 @RequestScoped
 public class OpponentJsonConverterProvider{
 
-  @Inject @Any
-  private Instance<OpponentJsonConverter> opponentConverters;
+  @Inject @OpponentJsonConverter
+  private Instance<ModelJsonConverter<?>> opponentConverters;
 
   public ModelJsonConverter<?> getConverter(OpponentType opponentType){
-    for(OpponentJsonConverter converter:opponentConverters){
-      if(Objects.equals(opponentType, converter.getOpponentType())){
-        return (ModelJsonConverter) converter;
+    for(ModelJsonConverter<?>converter:opponentConverters){
+      
+      Class<? extends ModelJsonConverter> c = converter.getClass();
+      OpponentJsonConverter a = c.getAnnotation(OpponentJsonConverter.class);
+      OpponentType convertersOpponentType = a.type();
+      
+      if(Objects.equals(opponentType, convertersOpponentType)){
+        return converter;
       }
     }
     return null;
