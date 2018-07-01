@@ -108,7 +108,7 @@ public class TournamentsResource extends AbstractResource {
 
     OpponentTypeRestriction otRestriction = (OpponentTypeRestriction) discipline.getRestriction(OPPONENT_TYPE_RESTRICTION);
     OpponentType opponentType = otRestriction.getOpponentType();
-    ModelJsonConverter converter = ocProvider.getConverter(opponentType);
+    ModelJsonConverter<Opponent> converter = ocProvider.getConverter(opponentType);
 
     return converter.toJsonArray(opponents);
   }
