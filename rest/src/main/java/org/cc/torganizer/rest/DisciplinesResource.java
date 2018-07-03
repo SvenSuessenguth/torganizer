@@ -34,7 +34,7 @@ public class DisciplinesResource extends AbstractResource {
   private RoundJsonConverter roundConverter;
 
   @Inject
-  private OpponentJsonConverterProvider<Opponent> opponentJsonConverterProvider;
+  private OpponentJsonConverterProvider opponentJsonConverterProvider;
 
   //--------------------------------------------------------------------------------------------------------------------
   //

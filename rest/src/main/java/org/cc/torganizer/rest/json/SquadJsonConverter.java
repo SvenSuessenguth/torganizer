@@ -19,8 +19,7 @@ import org.cc.torganizer.core.entities.Squad;
  * @author svens
  */
 @RequestScoped
-@OpponentJsonConverter(type=OpponentType.SQUAD)
-public class SquadJsonConverter extends ModelJsonConverter<Squad>{
+public class SquadJsonConverter extends OpponentJsonConverter<Squad>{
 
   @Inject  
   private PlayerJsonConverter playerConverter;
@@ -61,5 +60,10 @@ public class SquadJsonConverter extends ModelJsonConverter<Squad>{
   @Override
   public Collection<Squad> toModels(JsonArray jsonArray, Collection<Squad> squads) {
     return squads;
+  }
+
+  @Override
+  public OpponentType getOpponentType() {
+    return OpponentType.SQUAD;
   }
 }

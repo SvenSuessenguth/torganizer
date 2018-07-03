@@ -31,7 +31,7 @@ public class GroupsResource extends AbstractResource {
   private GroupsRepository gRepository;
 
   @Inject
-  private OpponentJsonConverterProvider<Opponent> opponentJsonConverterProvider;
+  private OpponentJsonConverterProvider opponentJsonConverterProvider;
 
   @POST
   public JsonObject create(JsonObject jsonObject) {

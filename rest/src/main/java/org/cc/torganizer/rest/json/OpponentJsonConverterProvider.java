@@ -11,26 +11,21 @@ import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.OpponentType;
 
 @RequestScoped
-public class OpponentJsonConverterProvider<T extends Opponent>{
+public class OpponentJsonConverterProvider{
 
-  @Inject @OpponentJsonConverter
-  private Instance<ModelJsonConverter<T>> opponentConverters;
+  @Inject
+  private Instance<OpponentJsonConverter> opponentConverters;
 
-  public ModelJsonConverter<T> getConverter(OpponentType opponentType){
-    for(ModelJsonConverter<T> converter : opponentConverters){
-      
-      Class<? extends ModelJsonConverter> c = converter.getClass();
-      OpponentJsonConverter a = c.getAnnotation(OpponentJsonConverter.class);
-      OpponentType convertersOpponentType = a.type();
-      
-      if(Objects.equals(opponentType, convertersOpponentType)){
+  public OpponentJsonConverter getConverter(OpponentType opponentType){
+    for(OpponentJsonConverter converter : opponentConverters){
+      if(Objects.equals(opponentType, converter.getOpponentType())){
         return converter;
       }
     }
     return null;
   }
 
-  public ModelJsonConverter<T> getConverter(Collection<Opponent> opponents){
+  public ModelJsonConverter getConverter(Collection<Opponent> opponents){
 
     OpponentType opponentType;
     if(opponents.isEmpty()){

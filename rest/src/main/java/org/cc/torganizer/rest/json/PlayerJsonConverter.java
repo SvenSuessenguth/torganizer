@@ -22,8 +22,7 @@ import org.cc.torganizer.core.entities.Status;
  * @author svens
  */
 @RequestScoped
-@OpponentJsonConverter(type=OpponentType.PLAYER)
-public class PlayerJsonConverter extends ModelJsonConverter<Player>{
+public class PlayerJsonConverter extends OpponentJsonConverter<Player>{
 
   @Inject  
   private PersonJsonConverter personConverter;
@@ -89,5 +88,10 @@ public class PlayerJsonConverter extends ModelJsonConverter<Player>{
     });
 
     return players;
+  }
+
+  @Override
+  public OpponentType getOpponentType() {
+    return OpponentType.PLAYER;
   }
 }
