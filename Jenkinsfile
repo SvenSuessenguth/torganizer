@@ -35,12 +35,6 @@ pipeline {
         }
       }
     }
-    stage('deploy') {
-      steps {
-        // Run the maven build
-        bat 'mvn deploy -DskipTests'
-      }
-    }
     stage('report') {
       steps {
         withSonarQubeEnv('SonarQube') {
@@ -51,6 +45,14 @@ pipeline {
     stage('doc') {
       steps {
         bat 'mvn javadoc:aggregate org.asciidoctor:asciidoctor-maven-plugin:process-asciidoc'
+      }
+    }
+    // on master-branch only
+    stage('deploy') {
+      when { branch 'master' }
+      steps {
+        // Run the maven build
+        bat 'mvn deploy -DskipTests'
       }
     }
   }
