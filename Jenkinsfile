@@ -42,11 +42,13 @@ pipeline {
         }
       }
     }
-    stage('doc') {
-      steps {
-        bat 'mvn javadoc:aggregate org.asciidoctor:asciidoctor-maven-plugin:process-asciidoc'
-      }
-    }
+
+//    stage('doc') {
+//      steps {
+//        bat 'mvn javadoc:aggregate org.asciidoctor:asciidoctor-maven-plugin:process-asciidoc'
+//      }
+//    }
+
     // on master-branch only
     stage('deploy') {
       when { branch 'master' }
