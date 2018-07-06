@@ -55,13 +55,16 @@ pipeline {
       steps {
         // Run the maven build
         bat 'mvn deploy -DskipTests'
+
+        // archive artifacts in jenkins
+        archiveArtifacts artifacts: '*/target/*.war', fingerprint: true
       }
     }
   }
 
-  post {
-    always {
-      archiveArtifacts artifacts: '*/target/*.war', fingerprint: true
-    }
-  }
+//  post {
+//    always {
+//      archiveArtifacts artifacts: '*/target/*.war', fingerprint: true
+//    }
+//  }
 }
