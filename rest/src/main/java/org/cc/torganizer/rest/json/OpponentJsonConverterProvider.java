@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
@@ -16,10 +17,10 @@ public class OpponentJsonConverterProvider{
   @Inject
   private Instance<OpponentJsonConverter> opponentConverters;
 
-  public OpponentJsonConverter getConverter(OpponentType opponentType){
+  public ModelJsonConverter getConverter(OpponentType opponentType){
     for(OpponentJsonConverter converter : opponentConverters){
       if(Objects.equals(opponentType, converter.getOpponentType())){
-        return converter;
+        return (ModelJsonConverter)converter;
       }
     }
     return null;

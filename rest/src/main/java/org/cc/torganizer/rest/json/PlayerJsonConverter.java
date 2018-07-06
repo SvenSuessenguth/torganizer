@@ -22,7 +22,7 @@ import org.cc.torganizer.core.entities.Status;
  * @author svens
  */
 @RequestScoped
-public class PlayerJsonConverter extends OpponentJsonConverter<Player>{
+public class PlayerJsonConverter extends ModelJsonConverter<Player> implements OpponentJsonConverter{
 
   @Inject  
   private PersonJsonConverter personConverter;

@@ -19,7 +19,7 @@ import org.cc.torganizer.core.entities.Squad;
  * @author svens
  */
 @RequestScoped
-public class SquadJsonConverter extends OpponentJsonConverter<Squad>{
+public class SquadJsonConverter extends ModelJsonConverter<Squad> implements OpponentJsonConverter{
 
   @Inject  
   private PlayerJsonConverter playerConverter;
