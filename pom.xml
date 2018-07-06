@@ -1,5 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.cc.torganizer</groupId>
   <artifactId>torganizer</artifactId>
@@ -10,7 +11,7 @@
 
   <scm>
     <connection>scm:git:https://github.com/SvenSuessenguth/torganizer.git</connection>
-    <developerConnection>scm:git:git@github.com:SvenSuessenguth/torganizer.git</developerConnection>	
+    <developerConnection>scm:git:git@github.com:SvenSuessenguth/torganizer.git</developerConnection>
     <url>https://github.com/SvenSuessenguth/torganizer</url>
     <tag>master</tag>    
   </scm>
@@ -21,7 +22,7 @@
       <url>http://nexus:8081/repository/maven-snapshots/</url>
     </snapshotRepository>
     <repository>
-      <id>maven-releaes</id>      
+      <id>maven-releaes</id>
       <url>http://nexus:8081/repository/maven-releases/</url>
     </repository>
   </distributionManagement>
@@ -29,7 +30,6 @@
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <failOnMissingWebXml>false</failOnMissingWebXml>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <!-- dependency versions -->
