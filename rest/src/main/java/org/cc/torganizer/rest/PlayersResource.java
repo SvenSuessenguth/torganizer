@@ -40,7 +40,7 @@ public class PlayersResource {
 
   @POST
   public JsonObject create(JsonObject jsonObject) {
-    JsonObject jsonOnObject = null;
+    JsonObject result = null;
     Player player = pConverter.toModel(jsonObject, new Player(new Person()));
 
     // use existing club instead of creating a new one
@@ -60,10 +60,10 @@ public class PlayersResource {
     if(violations.isEmpty()){    
       pRepository.create(player);
   
-      jsonObject = pConverter.toJsonObject(player);
+      result = pConverter.toJsonObject(player);
     }
     
-    return jsonObject;
+    return result;
   }
 
   @GET
