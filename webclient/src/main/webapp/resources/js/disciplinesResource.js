@@ -25,7 +25,7 @@ class   DisciplinesResource extends CrudResource{
         onResolve(json);
     })
     .catch(function (err) {
-      onReject("???");
+      onReject(err);
     });
   }
 
@@ -45,7 +45,7 @@ class   DisciplinesResource extends CrudResource{
         onResolve(json);
       })
       .catch(function (err) {
-        onReject("???");
+        onReject(err);
       });
   }
 
@@ -65,29 +65,14 @@ class   DisciplinesResource extends CrudResource{
         onResolve(json);
       })
       .catch(function (err) {
-        onReject("???");
+        onReject(err);
       });
   }
 
   getRounds(disciplineId, onResolve, onReject){
-    fetch(resourcesUrl()+'disciplines/' +disciplineId+"/rounds",{
-      method: "GET",
-      headers: {
-        'Accept': 'application/json'
-      }
-    }).then(function (response) {
-      if (response.ok)
-        return response.json();
-      else
-        throw new Error('Fehlerhandling noch nicht spezifiziert');
-    })
-      .then(function (json) {
-        onResolve(json);
-      })
-      .catch(function (err) {
-        onReject("???");
-      });
+    super.readMultiple('disciplines/' +disciplineId+"/rounds", 0, 100, onResolve, onReject);
   }
+
   addRound(disciplineId, roundId, onResolve, onReject){
     fetch(resourcesUrl()+'disciplines/' +disciplineId+"/rounds?roundId="+roundId,{
       method: "POST",
@@ -104,7 +89,7 @@ class   DisciplinesResource extends CrudResource{
         onResolve(json);
       })
       .catch(function (err) {
-        onReject("???");
+        onReject(err);
       });
   }
   removeRound(disciplineId, roundId, onResolve, onReject){
@@ -123,7 +108,7 @@ class   DisciplinesResource extends CrudResource{
         onResolve(json);
       })
       .catch(function (err) {
-        onReject("???");
+        onReject(err);
       });
   }
 }

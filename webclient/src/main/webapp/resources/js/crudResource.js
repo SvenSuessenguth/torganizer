@@ -6,6 +6,7 @@ class CrudResource {
 
   createOrUpdate(resource, json, method, onResolve, onReject) {
 
+    console.log("create:");
     console.log(JSON.stringify(json));
 
     fetch(resourcesUrl()+resource, {
@@ -26,7 +27,7 @@ class CrudResource {
           onResolve(json);
       })
       .catch(function (err) {
-          onReject("???");
+          onReject(err);
       });
   }
 
@@ -42,7 +43,7 @@ class CrudResource {
         onResolve(json);
       })
       .catch(function (err) {
-        onReject("???");
+        onReject(err);
       });
   }
 
@@ -63,7 +64,7 @@ class CrudResource {
         onResolve(json);
       })
       .catch(function (err) {
-        onReject("???");
+        onReject(err);
       });
   }
 

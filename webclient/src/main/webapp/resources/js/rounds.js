@@ -38,13 +38,13 @@ class Rounds {
   // initialize round
   //
   //--------------------------------------------------------------------------------------------------------------------
-  initRound(){
+  initRounds(){
     let disciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
 
     // getting ids for highest round and group (of highest round)
-    disciplinesResource.getRounds(disciplineId, this.initRoundResolve, resourceReject);
+    disciplinesResource.getRounds(disciplineId, this.initRoundsResolve, resourceReject);
   }
-  initRoundResolve(json){
+  initRoundsResolve(json){
     // find round with highest position
     let roundWithHighestPostion = null;
     json.forEach(function(round){
@@ -54,12 +54,14 @@ class Rounds {
     });
 
     if(roundWithHighestPostion!==null) {
+      // discipline has at least on round
       sessionStorage.setItem('rounds.current-round.id', roundWithHighestPostion.id);
       sessionStorage.setItem('rounds.current-round.position', roundWithHighestPostion.position);
       sessionStorage.setItem('rounds.current-round.system', roundWithHighestPostion.system);
       sessionStorage.setItem('rounds.current-round.qualified', roundWithHighestPostion.qualified);
       sessionStorage.setItem('rounds.count', json.length);
     }else{
+      // discipline does not have any round
       sessionStorage.removeItem('rounds.current-round.id');
       sessionStorage.removeItem('rounds.current-round.position');
       sessionStorage.removeItem('rounds.current-round.system');
@@ -151,15 +153,23 @@ class Rounds {
     return json;
   }
   roundToForm(round){
-    sessionStorage.setItem("rounds.current-round-id", round.id);
 
-    let systemElement = document.getElementById("system");
-    selectItemByValue(systemElement, round.system);
-
+    // reset all ui-elements
     let qualifiedElement = document.getElementById("qualified");
     qualifiedElement.value = '';
+
+    let systemElement = document.getElementById("system");
+    systemElement.selectedIndex = 0;
+
+    if(round===null){
+      sessionStorage.removeItem("rounds.current-round-id");
+      return;
+    }
+
+    sessionStorage.setItem("rounds.current-round-id", round.id);
+
     let qualified = round.qualified;
-    if(qualified !== null && qualified.length>0) {
+    if(qualified !== null) {
       qualified = Number(qualified);
       qualifiedElement.setAttribute("value", qualified);
     }
