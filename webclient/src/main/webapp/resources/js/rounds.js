@@ -101,13 +101,13 @@ class Rounds {
   saveRoundResolve(round){
     sessionStorage.setItem("rounds.current-round.id", round.id);
     let currentDisciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
-    disciplinesResource.addRound(currentDisciplineId, round.id, rounds.addRoundResolve, resourceReject);
+    disciplinesResource.addRound(currentDisciplineId, round.id, rounds.saveRoundResolve, resourceReject);
   }
-  addRoundResolve(json){
+  saveRoundResolve(json){
     let count = Number(sessionStorage.getItem("rounds.count"))+1;
 
     sessionStorage.setItem("rounds.count", count);
-    rounds.initRound();
+    rounds.initRounds();
   }
 
   deleteRound(){
@@ -132,7 +132,7 @@ class Rounds {
   //
   //--------------------------------------------------------------------------------------------------------------------
   formToRound(){
-    let id = sessionStorage.getItem('rounds.current-round-id');
+    let id = sessionStorage.getItem('rounds.current-round.id');
     let systemElement = document.getElementById("system");
     let qualified = document.getElementById("qualified").value;
 
@@ -140,7 +140,7 @@ class Rounds {
       id = Number(id);
     }
 
-    if(qualified !== null && qualified.length>0) {
+    if(qualified !== null) {
       qualified = Number(qualified);
     }
 
@@ -162,11 +162,11 @@ class Rounds {
     systemElement.selectedIndex = 0;
 
     if(round===null){
-      sessionStorage.removeItem("rounds.current-round-id");
+      sessionStorage.removeItem("rounds.current-round.id");
       return;
     }
 
-    sessionStorage.setItem("rounds.current-round-id", round.id);
+    sessionStorage.setItem("rounds.current-round.id", round.id);
 
     let qualified = round.qualified;
     if(qualified !== null) {
