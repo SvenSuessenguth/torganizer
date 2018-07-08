@@ -45,6 +45,10 @@ class Rounds {
     disciplinesResource.getRounds(disciplineId, this.initRoundsResolve, resourceReject);
   }
   initRoundsResolve(json){
+    // show number of rounds
+    let numberOfRoundsElem = document.getElementById("numberOfRounds");
+    numberOfRoundsElem.innerHTML = json.length;
+
     // find round with highest position
     let roundWithHighestPostion = null;
     json.forEach(function(round){
@@ -101,9 +105,9 @@ class Rounds {
   saveRoundResolve(round){
     sessionStorage.setItem("rounds.current-round.id", round.id);
     let currentDisciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
-    disciplinesResource.addRound(currentDisciplineId, round.id, rounds.saveRoundResolve, resourceReject);
+    disciplinesResource.addRound(currentDisciplineId, round.id, rounds.addRoundResolve, resourceReject);
   }
-  saveRoundResolve(json){
+  addRoundResolve(json){
     let count = Number(sessionStorage.getItem("rounds.count"))+1;
 
     sessionStorage.setItem("rounds.count", count);
