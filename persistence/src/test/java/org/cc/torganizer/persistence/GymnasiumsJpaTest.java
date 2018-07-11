@@ -26,7 +26,7 @@ public class GymnasiumsJpaTest extends AbstractDbUnitJpaTest {
 
     @Test
     public void testFindByTournament_withoutGymnasiums() {
-        List<Gymnasium> allGymnasiums = entityManager.cSreateNamedQuery("Gymnasium.findByTournament", Gymnasium.class)
+        List<Gymnasium> allGymnasiums = entityManager.createNamedQuery("Gymnasium.findByTournament", Gymnasium.class)
                 .setParameter("tournamentId", 2L)
                 .getResultList();
         assertThat(allGymnasiums, hasSize(0));
