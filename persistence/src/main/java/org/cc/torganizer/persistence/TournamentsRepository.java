@@ -18,6 +18,9 @@ import java.util.stream.Collectors;
 @Stateless
 public class TournamentsRepository extends Repository {
 
+    public TournamentsRepository() {
+    }
+
     /**
      * Constructor for testing purpose.
      *
