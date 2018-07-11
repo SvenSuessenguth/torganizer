@@ -11,16 +11,12 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Stateless
 public class TournamentsRepository extends Repository {
-
-    public TournamentsRepository() {
-    }
 
     /**
      * Constructor for testing purpose.
@@ -109,7 +105,7 @@ public class TournamentsRepository extends Repository {
     }
 
     public final Player addPlayer(final Long tournamentId, final Long playerId) {
-        Player player = getEntityManager().find(Player.class, (Object) playerId);
+        Player player = getEntityManager().find(Player.class, playerId);
         Tournament tournament = getEntityManager().find(Tournament.class, tournamentId);
 
         // persist tournament
@@ -167,7 +163,7 @@ public class TournamentsRepository extends Repository {
         namedQuery.setFirstResult(offset);
         namedQuery.setMaxResults(maxResults);
         List<Squad> squads = namedQuery.getResultList();
-        Collections.sort(squads, new OpponentByNameComparator());
+        squads.sort(new OpponentByNameComparator());
 
         return squads;
     }
@@ -221,7 +217,7 @@ public class TournamentsRepository extends Repository {
                 .collect(Collectors.toList());
 
         // sort and use offset/length
-        Collections.sort(assignableOpponents, new OpponentByNameComparator());
+        assignableOpponents.sort(new OpponentByNameComparator());
 
         // check offset/maxResults
         int size = assignableOpponents.size();

@@ -179,7 +179,7 @@ public class TournamentsResource extends AbstractResource {
   @Path("/{id}/disciplines")
   public JsonObject addDiscipline(@PathParam("id") Long tournamentId, @QueryParam("did") Long disciplineId) {
     Discipline discipline = dRepository.read(disciplineId);
-    tRepository.addDiscipline(tournamentId, discipline);
+    discipline = tRepository.addDiscipline(tournamentId, discipline);
 
     return dConverter.toJsonObject(discipline);
   }
