@@ -11,17 +11,17 @@ import static org.hamcrest.Matchers.hasSize;
 
 public class ClubsRepositoryTest extends AbstractDbUnitJpaTest {
 
-    private ClubsRepository repository;
+  private ClubsRepository repository;
 
-    @BeforeEach
-    public void before() throws Exception {
-        super.initDatabase("test-data-clubs.xml");
-        repository = new ClubsRepository(entityManager);
-    }
+  @BeforeEach
+  public void before() throws Exception {
+    super.initDatabase("test-data-clubs.xml");
+    repository = new ClubsRepository(entityManager);
+  }
 
-    @Test
-    public void testFindByAll() {
-        List<Club> allClubs = repository.read(0, 10);
-        assertThat(allClubs, hasSize(2));
-    }
+  @Test
+  public void testFindByAll() {
+    List<Club> allClubs = repository.read(0, 10);
+    assertThat(allClubs, hasSize(2));
+  }
 }

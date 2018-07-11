@@ -14,124 +14,125 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Stateless
-public class RoundsRepository extends Repository {
+public class RoundsRepository extends Repository{
 
-    public RoundsRepository() {
+  public RoundsRepository() {
+  }
+
+  /**
+   * Constructor for testing.
+   * @param entityManager EntityManager
+   */
+  RoundsRepository(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
-    /**
-     * Constructor for testing.
-     *
-     * @param entityManager EntityManager
-     */
-    RoundsRepository(final EntityManager entityManager) {
-        super(entityManager);
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // Round CRUD
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  public Round create(Round round){
+    // client can send '0' with a detached object exception as the result
+    round.setId(null);
+
+    entityManager.persist(round);
+    entityManager.flush();
+
+    return round;
+  }
+
+  public Round read(Long roundId){
+    return entityManager.find(Round.class, roundId);
+  }
+
+  public List<Round> read(Integer offset, Integer maxResults){
+    offset = offset == null ? DEFAULT_OFFSET : offset;
+    maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
+
+    TypedQuery<Round> namedQuery = entityManager.createNamedQuery("Round.findAll", Round.class);
+    namedQuery.setFirstResult(offset);
+    namedQuery.setMaxResults(maxResults);
+
+    return namedQuery.getResultList();
+  }
+
+  public Round update(Round round){
+    return entityManager.merge(round);
+  }
+
+  public Round delete(Long roundId){
+    Round round = entityManager.find(Round.class, roundId);
+
+    entityManager.remove(round);
+
+    return round;
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // Round groups
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  public List<Group> getGroups(Long roundId, Integer offset, Integer maxResults){
+    offset = offset == null ? DEFAULT_OFFSET : offset;
+    maxResults = maxResults==null?DEFAULT_MAX_RESULTS:maxResults;
+
+    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    CriteriaQuery<Group> cq = cb.createQuery(Group.class);
+    Root<Round> round = cq.from(Round.class);
+    Root<Group> group = cq.from(Group.class);
+    Join<Round, Group> roundGroupJoin = round.join ("groups");
+
+    cq.select(group);
+    cq.where(
+      cb.and(
+        cb.equal(round.get("id"), roundId),
+        cb.equal(roundGroupJoin.get("id"), group.get("id"))
+      )
+    );
+
+    TypedQuery<Group> query = entityManager.createQuery(cq);
+    query.setFirstResult(offset);
+    query.setMaxResults(maxResults);
+
+    return query.getResultList();
+
+  }
+
+  public Round addGroup(Long roundId, Long groupId){
+    Group group = entityManager.find(Group.class, groupId);
+    Round round = read(roundId);
+
+    round.getGroups().add(group);
+    entityManager.persist(round);
+
+    return round;
+  }
+
+  public Round removeGroup(Long roundId, Long groupId) {
+    Group group = entityManager.find(Group.class, groupId);
+    Round round = read(roundId);
+
+    round.getGroups().remove(group);
+    entityManager.persist(round);
+
+    return round;
+  }
+
+  public Long getRoundId(Long groupId){
+    Long roundId = null;
+
+    try {
+      TypedQuery<Long> query = entityManager.createQuery("SELECT r.id FROM Round r, Group g WHERE g.id = :groupId AND g MEMBER OF r.groups", Long.class);
+      query.setParameter("groupId", groupId);
+      roundId = query.getSingleResult();
+    }catch(NoResultException nrExc){
+      return null;
     }
 
-    //--------------------------------------------------------------------------------------------------------------------
-    //
-    // Round CRUD
-    //
-    //--------------------------------------------------------------------------------------------------------------------
-    public final Round create(final Round round) {
-        // client can send '0' with a detached object exception as the result
-        round.setId(null);
+    return roundId;
+  }
 
-        getEntityManager().persist(round);
-        getEntityManager().flush();
 
-        return round;
-    }
-
-    public final Round read(final Long roundId) {
-        return getEntityManager().find(Round.class, roundId);
-    }
-
-    public final List<Round> read(Integer offset, Integer maxResults) {
-        offset = getOffsetToUse(offset);
-        maxResults = getMaxResultsToUse(maxResults);
-
-        TypedQuery<Round> namedQuery = getEntityManager().createNamedQuery("Round.findAll", Round.class);
-        namedQuery.setFirstResult(offset);
-        namedQuery.setMaxResults(maxResults);
-
-        return namedQuery.getResultList();
-    }
-
-    public final Round update(final Round round) {
-        return getEntityManager().merge(round);
-    }
-
-    public final Round delete(final Long roundId) {
-        Round round = getEntityManager().find(Round.class, roundId);
-
-        getEntityManager().remove(round);
-
-        return round;
-    }
-
-    //--------------------------------------------------------------------------------------------------------------------
-    //
-    // Round groups
-    //
-    //--------------------------------------------------------------------------------------------------------------------
-    public final List<Group> getGroups(Long roundId, Integer offset, Integer maxResults) {
-        offset = getOffsetToUse(offset);
-        maxResults = getMaxResultsToUse(maxResults);
-
-        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<Group> cq = cb.createQuery(Group.class);
-        Root<Round> round = cq.from(Round.class);
-        Root<Group> group = cq.from(Group.class);
-        Join<Round, Group> roundGroupJoin = round.join("groups");
-
-        cq.select(group);
-        cq.where(
-                cb.and(
-                        cb.equal(round.get("id"), roundId),
-                        cb.equal(roundGroupJoin.get("id"), group.get("id"))
-                )
-        );
-
-        TypedQuery<Group> query = getEntityManager().createQuery(cq);
-        query.setFirstResult(offset);
-        query.setMaxResults(maxResults);
-
-        return query.getResultList();
-
-    }
-
-    public final Round addGroup(final Long roundId, final Long groupId) {
-        Group group = getEntityManager().find(Group.class, groupId);
-        Round round = read(roundId);
-
-        round.getGroups().add(group);
-        getEntityManager().persist(round);
-
-        return round;
-    }
-
-    public final Round removeGroup(final Long roundId, final Long groupId) {
-        Group group = getEntityManager().find(Group.class, groupId);
-        Round round = read(roundId);
-
-        round.getGroups().remove(group);
-        getEntityManager().persist(round);
-
-        return round;
-    }
-
-    public final Long getRoundId(final Long groupId) {
-        Long roundId = null;
-
-        try {
-            TypedQuery<Long> query = getEntityManager().createQuery("SELECT r.id FROM Round r, Group g WHERE g.id = :groupId AND g MEMBER OF r.groups", Long.class);
-            query.setParameter("groupId", groupId);
-            roundId = query.getSingleResult();
-        } catch (NoResultException nrExc) {
-            return null;
-        }
-
-        return roundId;
-    }
 }

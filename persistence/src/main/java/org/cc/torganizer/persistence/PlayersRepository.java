@@ -9,63 +9,61 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Stateless
-public class PlayersRepository extends Repository {
+public class PlayersRepository extends Repository{
 
-    public PlayersRepository() {
-    }
+  public PlayersRepository() {
+  }
 
-    /**
-     * Constructor for testing.
-     *
-     * @param entityManager EntityManager
-     */
-    PlayersRepository(final EntityManager entityManager) {
-        super(entityManager);
-    }
+  /**
+   * Constructor for testing.
+   * @param entityManager EntityManager
+   */
+  PlayersRepository(EntityManager entityManager) {
+    this.entityManager = entityManager;
+  }
 
-    //--------------------------------------------------------------------------------------------------------------------
-    //
-    // Person CRUD
-    //
-    //--------------------------------------------------------------------------------------------------------------------
-    public final Player create(final Player player) {
-        getEntityManager().persist(player);
-        // with no flush, the id is unknown
-        getEntityManager().flush();
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // Person CRUD
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  public Player create(Player player){
+    entityManager.persist(player);
+    // with no flush, the id is unknown
+    entityManager.flush();
 
-        return player;
-    }
+    return player;
+  }
+  public Player read(Long playerId) {
+    return entityManager.find(Player.class, playerId);
+  }
 
-    public final Player read(final Long playerId) {
-        return getEntityManager().find(Player.class, playerId);
-    }
+  public List<Player> read(Integer offset, Integer maxResults){
+    offset = offset == null ? DEFAULT_OFFSET : offset;
+    maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    public final List<Player> read(Integer offset, Integer maxResults) {
-        offset = getOffsetToUse(offset);
-        maxResults = getMaxResultsToUse(maxResults);
+    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findAll", Player.class);
+    namedQuery.setFirstResult(offset);
+    namedQuery.setMaxResults(maxResults);
+    return namedQuery.getResultList();
+  }
 
-        TypedQuery<Player> namedQuery = getEntityManager().createNamedQuery("Player.findAll", Player.class);
-        namedQuery.setFirstResult(offset);
-        namedQuery.setMaxResults(maxResults);
-        return namedQuery.getResultList();
-    }
+  public Player update(Player player){
+    entityManager.merge(player);
 
-    public final Player update(final Player player) {
-        getEntityManager().merge(player);
+    return player;
+  }
 
-        return player;
-    }
+  public Player delete(Long playerId){
+    Player player = entityManager.find(Player.class, playerId);
 
-    public final Player delete(final Long playerId) {
-        Player player = getEntityManager().find(Player.class, playerId);
+    entityManager.remove(player);
 
-        getEntityManager().remove(player);
+    return player;
+  }
 
-        return player;
-    }
-
-    public final long count() {
-        Query query = getEntityManager().createQuery("SELECT count(p) FROM Player p");
-        return (long) query.getSingleResult();
-    }
+  public long count(){
+    Query query = entityManager.createQuery("SELECT count(p) FROM Player p");
+    return (long) query.getSingleResult();
+  }
 }

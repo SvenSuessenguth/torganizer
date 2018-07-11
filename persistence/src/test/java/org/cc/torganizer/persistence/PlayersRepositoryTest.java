@@ -13,48 +13,48 @@ import static org.hamcrest.Matchers.*;
 
 public class PlayersRepositoryTest extends AbstractDbUnitJpaTest {
 
-    private PlayersRepository repository;
+  private PlayersRepository repository;
 
-    @BeforeEach
-    public void before() throws Exception {
-        super.initDatabase("test-data-players.xml");
+  @BeforeEach
+  public void before() throws Exception {
+    super.initDatabase("test-data-players.xml");
 
-        repository = new PlayersRepository(entityManager);
-    }
+    repository = new PlayersRepository(entityManager);
+  }
 
-    @Test
-    public void testGetPlayers() {
+  @Test
+  public void testGetPlayers() {
 
-        List<Player> players = repository.read(null, null);
+    List<Player> players = repository.read(null, null);
 
-        assertThat(players, hasSize(2));
-        // status von opponent 2 checken (inactive)
-        players.stream().filter((player) -> (player.getId() == 2L)).forEachOrdered((player) -> assertThat(player.getStatus(), is(INACTIVE)));
-    }
+    assertThat(players, hasSize(2));
+    // status von opponent 2 checken (inactive)
+    players.stream().filter((player) -> (player.getId()==2L)).forEachOrdered((player) -> assertThat(player.getStatus(), is(INACTIVE)));
+  }
 
-    @Test
-    public void testGetPlayer() {
+  @Test
+  public void testGetPlayer() {
 
-        Player player = repository.read(2L);
+    Player player = repository.read(2L);
 
-        assertThat(player, is(not(nullValue())));
-        assertThat(player.getPerson().getFirstName(), is("Üöä"));
-        assertThat(player.getPerson().getLastName(), is("Äöüß"));
-    }
+    assertThat(player, is(not(nullValue())));
+    assertThat(player.getPerson().getFirstName(),is("Üöä"));
+    assertThat(player.getPerson().getLastName(),is("Äöüß"));
+  }
 
-    @Test
-    public void testPlayersClubIsNotNull() {
-        Player player = repository.read(1L);
-        Club club = player.getClub();
+  @Test
+  public void testPlayersClubIsNotNull(){
+    Player player = repository.read(1L);
+    Club club = player.getClub();
 
-        assertThat(club, is(not(nullValue())));
-    }
+    assertThat(club, is(not(nullValue())));
+  }
 
-    @Test
-    public void testPlayersClubIsNull() {
-        Player player = repository.read(2L);
-        Club club = player.getClub();
+  @Test
+  public void testPlayersClubIsNull(){
+    Player player = repository.read(2L);
+    Club club = player.getClub();
 
-        assertThat(club, is(nullValue()));
-    }
+    assertThat(club, is(nullValue()));
+  }
 }

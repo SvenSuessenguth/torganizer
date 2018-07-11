@@ -21,47 +21,47 @@ import org.junit.jupiter.api.Test;
 
 public class RestrictionsRepositoryTest extends AbstractDbUnitJpaTest {
 
-    private RestrictionsRepository repository;
+  private RestrictionsRepository repository;
 
-    @BeforeEach
-    public void before() throws Exception {
-        super.initDatabase("test-data-restrictions.xml");
-        repository = new RestrictionsRepository(entityManager);
-    }
+  @BeforeEach
+  public void before() throws Exception {
+    super.initDatabase("test-data-restrictions.xml");
+    repository = new RestrictionsRepository(entityManager);
+  }
 
-    @Test
-    public void testFindAll() {
-        List<Restriction> restrictions = entityManager.createNamedQuery("Restriction.findAll", Restriction.class)
-                .getResultList();
-        assertThat(restrictions, hasSize(4));
-    }
+  @Test
+  public void testFindAll() {
+    List<Restriction> restrictions = entityManager.createNamedQuery("Restriction.findAll", Restriction.class)
+        .getResultList();
+    assertThat(restrictions, hasSize(4));
+  }
 
-    @Test
-    public void testFindById_GenderRestriction() {
-        Restriction restriction = repository.read(1L);
+  @Test
+  public void testFindById_GenderRestriction() {
+    Restriction restriction = repository.read(1L);
 
-        assertThat(restriction, is(instanceOf(GenderRestriction.class)));
-        GenderRestriction genderRestriction = (GenderRestriction) restriction;
-        assertThat(genderRestriction.getGender(), is(Gender.FEMALE));
-    }
+    assertThat(restriction, is(instanceOf(GenderRestriction.class)));
+    GenderRestriction genderRestriction = (GenderRestriction) restriction;
+    assertThat(genderRestriction.getGender(), is(Gender.FEMALE));
+  }
 
-    @Test
-    public void testFindById_AgeRestriction() {
-        Restriction restriction = repository.read(3L);
+  @Test
+  public void testFindById_AgeRestriction() {
+    Restriction restriction = repository.read(3L);
 
-        assertThat(restriction, is(instanceOf(AgeRestriction.class)));
-        AgeRestriction ageRestriction = (AgeRestriction) restriction;
-        assertThat(ageRestriction, is(notNullValue()));
-        assertThat(ageRestriction.getMaxDateOfBirth(), is(equalTo(LocalDate.of(1999, 1, 2))));
-        assertThat(ageRestriction.getMinDateOfBirth(), is(equalTo(LocalDate.of(1998, 6, 6))));
-    }
+    assertThat(restriction, is(instanceOf(AgeRestriction.class)));
+    AgeRestriction ageRestriction = (AgeRestriction) restriction;
+    assertThat(ageRestriction, is(notNullValue()));
+    assertThat(ageRestriction.getMaxDateOfBirth(), is(equalTo(LocalDate.of(1999, 1, 2))));
+    assertThat(ageRestriction.getMinDateOfBirth(), is(equalTo(LocalDate.of(1998, 6, 6))));
+  }
 
-    @Test
-    public void testFindById_OpponentTypeRestriction() {
-        Restriction restriction = repository.read(4L);
+  @Test
+  public void testFindById_OpponentTypeRestriction() {
+    Restriction restriction = repository.read(4L);
 
-        assertThat(restriction, is(instanceOf(OpponentTypeRestriction.class)));
-        OpponentTypeRestriction otRestriction = (OpponentTypeRestriction) restriction;
-        assertThat(otRestriction.getOpponentType(), is(OpponentType.PLAYER));
-    }
+    assertThat(restriction, is(instanceOf(OpponentTypeRestriction.class)));
+    OpponentTypeRestriction otRestriction = (OpponentTypeRestriction) restriction;
+    assertThat(otRestriction.getOpponentType(), is(OpponentType.PLAYER));
+  }
 }

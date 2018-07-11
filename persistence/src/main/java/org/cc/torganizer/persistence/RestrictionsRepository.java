@@ -8,44 +8,44 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Stateless
-public class RestrictionsRepository extends Repository {
+public class RestrictionsRepository extends Repository{
 
-    public RestrictionsRepository() {
-    }
+  public RestrictionsRepository() {
+  }
 
-    /**
-     * Constructor for testing.
-     *
-     * @param entityManager EntityManager
-     */
-    RestrictionsRepository(final EntityManager entityManager) {
-        super(entityManager);
-    }
+  /**
+   * Constructor for testing.
+   * @param entityManager EntityManager
+   */
+  RestrictionsRepository(EntityManager entityManager) {
+    this.entityManager = entityManager;
+  }
 
-    //--------------------------------------------------------------------------------------------------------------------
-    //
-    // Person CRUD
-    //
-    //--------------------------------------------------------------------------------------------------------------------
-    public final Restriction create(final Restriction restriction) {
-        getEntityManager().persist(restriction);
-        getEntityManager().flush();
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // Person CRUD
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  public Restriction create(Restriction restriction)
+  {
+    entityManager.persist(restriction);
+    entityManager.flush();
 
-        return restriction;
-    }
+    return restriction;
+  }
 
-    public final Restriction read(final Long restrictionId) {
-        return getEntityManager().find(Restriction.class, restrictionId);
-    }
+  public Restriction read(Long restrictionId) {
+    return entityManager.find(Restriction.class, restrictionId);
+  }
 
-    public final List<Restriction> read(Integer offset, Integer maxResults) {
-        offset = getOffsetToUse(offset);
-        maxResults = getMaxResultsToUse(maxResults);
+  public List<Restriction> read(Integer offset, Integer maxResults){
+    offset = offset == null ? DEFAULT_OFFSET : offset;
+    maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-        TypedQuery<Restriction> namedQuery = getEntityManager().createNamedQuery("Restriction.findAll", Restriction.class);
-        namedQuery.setFirstResult(offset);
-        namedQuery.setMaxResults(maxResults);
+    TypedQuery<Restriction> namedQuery = entityManager.createNamedQuery("Restriction.findAll", Restriction.class);
+    namedQuery.setFirstResult(offset);
+    namedQuery.setMaxResults(maxResults);
 
-        return namedQuery.getResultList();
-    }
+    return namedQuery.getResultList();
+  }
 }

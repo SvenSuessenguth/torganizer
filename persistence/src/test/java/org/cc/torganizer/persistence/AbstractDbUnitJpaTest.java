@@ -22,45 +22,45 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public abstract class AbstractDbUnitJpaTest {
+public abstract class AbstractDbUnitJpaTest{
 
-    protected EntityManagerFactory entityManagerFactory;
-    protected EntityManager entityManager;
-    protected Connection connection;
+  protected EntityManagerFactory entityManagerFactory;
+  protected EntityManager entityManager;
+  protected Connection connection;
+  
+  @BeforeEach
+  public void initTestFixture() throws Exception {
+    // Get the entity manager for the tests.
+    entityManagerFactory = Persistence.createEntityManagerFactory("torganizerTest");
+    entityManager = entityManagerFactory.createEntityManager();    
+    connection = ((SessionImpl) (entityManager.getDelegate())).connection();
+    entityManager.getTransaction().begin();
+  }
 
-    @BeforeEach
-    public void initTestFixture() throws Exception {
-        // Get the entity manager for the tests.
-        entityManagerFactory = Persistence.createEntityManagerFactory("torganizerTest");
-        entityManager = entityManagerFactory.createEntityManager();
-        connection = ((SessionImpl) (entityManager.getDelegate())).connection();
-        entityManager.getTransaction().begin();
-    }
+  @AfterEach
+  public void closeTestFixture() {
+	  entityManager.getTransaction().rollback();
+	  entityManager.close();
+    entityManagerFactory.close();
+  }
+  
+  public void initDatabase(String testData) throws IOException, DatabaseUnitException, SQLException {
+    // Connection aufbauen
+    IDatabaseConnection dbunitConn = new DatabaseConnection(connection);
+    DatabaseConfig dbConfig = dbunitConn.getConfig();
+    dbConfig.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MySqlDataTypeFactory());
+    dbConfig.setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER, new MySqlMetadataHandler());
+    dbConfig.setProperty(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, Boolean.TRUE);
 
-    @AfterEach
-    public void closeTestFixture() {
-        entityManager.getTransaction().rollback();
-        entityManager.close();
-        entityManagerFactory.close();
-    }
+    // Testdaten laden und [NULL] durch null-Value ersetzen
+    URL url = getClass().getClassLoader().getResource(testData);
+    InputStream is = url.openStream();
+    ReplacementDataSet dataSet = new ReplacementDataSet(new FlatXmlDataSetBuilder().build(is));
+    dataSet.addReplacementObject("[NULL]", null);
+    
 
-    public void initDatabase(String testData) throws IOException, DatabaseUnitException, SQLException {
-        // Connection aufbauen
-        IDatabaseConnection dbunitConn = new DatabaseConnection(connection);
-        DatabaseConfig dbConfig = dbunitConn.getConfig();
-        dbConfig.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MySqlDataTypeFactory());
-        dbConfig.setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER, new MySqlMetadataHandler());
-        dbConfig.setProperty(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, Boolean.TRUE);
-
-        // Testdaten laden und [NULL] durch null-Value ersetzen
-        URL url = getClass().getClassLoader().getResource(testData);
-        InputStream is = url.openStream();
-        ReplacementDataSet dataSet = new ReplacementDataSet(new FlatXmlDataSetBuilder().build(is));
-        dataSet.addReplacementObject("[NULL]", null);
-
-
-        // Daten in Datenbank eintragen
-        DatabaseOperation.DELETE_ALL.execute(dbunitConn, dataSet);
-        DatabaseOperation.CLEAN_INSERT.execute(dbunitConn, dataSet);
-    }
+    // Daten in Datenbank eintragen
+    DatabaseOperation.DELETE_ALL.execute(dbunitConn, dataSet);
+    DatabaseOperation.CLEAN_INSERT.execute(dbunitConn, dataSet);
+  }
 }

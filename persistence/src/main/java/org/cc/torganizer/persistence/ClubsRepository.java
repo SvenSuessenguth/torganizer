@@ -8,56 +8,54 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Stateless
-public class ClubsRepository extends Repository {
+public class ClubsRepository extends Repository{
 
-    public ClubsRepository() {
-    }
+  public ClubsRepository(){
+  }
 
-    /**
-     * Constructor for testing purpose.
-     *
-     * @param entityManager EntityManager
-     */
-    ClubsRepository(final EntityManager entityManager) {
-        super(entityManager);
-    }
+  /**
+   * Constructor for testing purpose.
+   * @param entityManager EntityManager
+   */
+  ClubsRepository(EntityManager entityManager){
+    this.entityManager = entityManager;
+  }
 
 
-    //--------------------------------------------------------------------------------------------------------------------
-    //
-    // Tournaments CRUD
-    //
-    //--------------------------------------------------------------------------------------------------------------------
-    public final Club create(final Club club) {
-        getEntityManager().persist(club);
-        getEntityManager().flush();
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // Tournaments CRUD
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  public Club create(Club club){
+    entityManager.persist(club);
+    entityManager.flush();
 
-        return club;
-    }
+    return club;
+  }
 
-    public final Club read(final Long clubId) {
-        return getEntityManager().find(Club.class, clubId);
-    }
+  public Club read(Long clubId){
+    return entityManager.find(Club.class, clubId);
+  }
 
-    public final List<Club> read(Integer offset, Integer maxResults) {
-        offset = getOffsetToUse(offset);
-        maxResults = getMaxResultsToUse(maxResults);
+  public List<Club> read(Integer offset, Integer maxResults){
+    offset = offset == null ? DEFAULT_OFFSET : offset;
+    maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-        TypedQuery<Club> namedQuery = getEntityManager().createNamedQuery("Club.findAll", Club.class);
-        namedQuery.setFirstResult(offset);
-        namedQuery.setMaxResults(maxResults);
-        return namedQuery.getResultList();
-    }
+    TypedQuery<Club> namedQuery = entityManager.createNamedQuery("Club.findAll", Club.class);
+    namedQuery.setFirstResult(offset);
+    namedQuery.setMaxResults(maxResults);
+    return namedQuery.getResultList();
+  }
 
-    public final Club update(final Club club) {
-        getEntityManager().merge(club);
+  public Club update(Club club){
+    entityManager.merge(club);
 
-        return club;
-    }
+    return club;
+  }
+  public Club delete(Club club){
+    entityManager.remove(club);
 
-    public final Club delete(final Club club) {
-        getEntityManager().remove(club);
-
-        return club;
-    }
+    return club;
+  }
 }
