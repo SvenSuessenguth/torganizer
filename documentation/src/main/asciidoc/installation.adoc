@@ -12,8 +12,10 @@ Creating a datasource via commandline/asadmin for Glassfish/Payara
 [source]
 ----
  create-jdbc-connection-pool --datasourceclassname com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource --restype javax.sql.DataSource --property user=newuser:password=newuser:DatabaseName=torganizer:ServerName=localhost:PortNumber=3306 MySQLConnPool
-
  create-jdbc-resource --connectionpoolid MySQLConnPool jdbc/torganizerDS
+ 
+ create-custom-resource --restype=java.lang.String --factoryclass=org.glassfish.resources.custom.factory.PrimitivesAndStringFactory --property value=Development jsf/ProjectStage
+ create-custom-resource --restype=java.lang.String --factoryclass=org.glassfish.resources.custom.factory.PrimitivesAndStringFactory --property value="http\://localhost\:8080/rest/resources/" torganizer/resourcesUrl
 ----
 
 ==== Wildfly 11
