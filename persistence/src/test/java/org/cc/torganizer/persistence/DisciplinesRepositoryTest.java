@@ -11,38 +11,38 @@ import static org.hamcrest.Matchers.*;
 
 public class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
 
-  private DisciplinesRepository repository;
+    private DisciplinesRepository repository;
 
-  @BeforeEach
-  public void before() throws Exception {
-    super.initDatabase("test-data-tournament.xml");
+    @BeforeEach
+    public void before() throws Exception {
+        super.initDatabase("test-data-tournament.xml");
 
-    repository = new DisciplinesRepository(entityManager);
-  }
+        repository = new DisciplinesRepository(entityManager);
+    }
 
-  @Test
-  public void testGetOpponents() {
-    List<Opponent> opponents = repository.getOpponents(1L, null, null);
+    @Test
+    public void testGetOpponents() {
+        List<Opponent> opponents = repository.getOpponents(1L, null, null);
 
-    assertThat(opponents, is(not(nullValue())));
-    assertThat(opponents, hasSize(2));
-  }
+        assertThat(opponents, is(not(nullValue())));
+        assertThat(opponents, hasSize(2));
+    }
 
-  @Test
-  public void testGetDisciplineId_existing(){
-    // testdata:
-    // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="1" />
-    Long id = repository.getDisciplineId(1L);
+    @Test
+    public void testGetDisciplineId_existing() {
+        // testdata:
+        // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="1" />
+        Long id = repository.getDisciplineId(1L);
 
-    assertThat(id, is(1L));
-  }
+        assertThat(id, is(1L));
+    }
 
-  @Test
-  public void testGetRoundId_roundDoesNotExist(){
-    // testdata:
-    // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="1" />
-    Long id = repository.getDisciplineId(-1L);
+    @Test
+    public void testGetRoundId_roundDoesNotExist() {
+        // testdata:
+        // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="1" />
+        Long id = repository.getDisciplineId(-1L);
 
-    assertThat(id, is(nullValue()));
-  }
+        assertThat(id, is(nullValue()));
+    }
 }

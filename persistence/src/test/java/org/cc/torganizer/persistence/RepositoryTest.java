@@ -13,7 +13,7 @@ class RepositoryTest {
     private Repository repository;
 
     @BeforeEach
-    public void before(){
+    public void before() {
         repository = new Repository();
     }
 

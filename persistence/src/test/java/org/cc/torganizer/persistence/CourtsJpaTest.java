@@ -12,17 +12,16 @@ import static org.hamcrest.Matchers.hasSize;
 
 public class CourtsJpaTest extends AbstractDbUnitJpaTest {
 
-  @BeforeEach
-  public void before() throws Exception {
-    super.initDatabase("test-data-courts.xml");
-  }
+    @BeforeEach
+    public void before() throws Exception {
+        super.initDatabase("test-data-courts.xml");
+    }
 
-  @Test
-  public void testFindAll() {
-    TypedQuery<Court> namedQuery = entityManager.createNamedQuery("Court.findAll", Court.class);
-    
-    List<Court> allCourts = namedQuery.getResultList();
-    assertThat(allCourts, hasSize(2));
-  }
+    @Test
+    public void testFindAll() {
+        TypedQuery<Court> namedQuery = entityManager.createNamedQuery("Court.findAll", Court.class);
 
+        List<Court> allCourts = namedQuery.getResultList();
+        assertThat(allCourts, hasSize(2));
+    }
 }

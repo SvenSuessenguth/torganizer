@@ -11,15 +11,15 @@ import org.junit.jupiter.api.Test;
 
 public class OpponentsJpaTest extends AbstractDbUnitJpaTest {
 
-  @BeforeEach
-  public void before() throws Exception {
-    super.initDatabase("test-data-opponents.xml");
-  }
+    @BeforeEach
+    public void before() throws Exception {
+        super.initDatabase("test-data-opponents.xml");
+    }
 
-  @Test
-  public void testFindAll() {
-    List<Opponent> opponents = entityManager.createNamedQuery("Opponent.findAll", Opponent.class)
-        .getResultList();
-    assertThat(opponents, hasSize(2));
-  }
+    @Test
+    public void testFindAll() {
+        List<Opponent> opponents = entityManager.createNamedQuery("Opponent.findAll", Opponent.class)
+                .getResultList();
+        assertThat(opponents, hasSize(2));
+    }
 }

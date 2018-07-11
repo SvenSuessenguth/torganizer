@@ -11,14 +11,14 @@ import static org.hamcrest.Matchers.hasSize;
 
 public class ResultsJpaTest extends AbstractDbUnitJpaTest {
 
-  @BeforeEach
-  public void before() throws Exception {
-    super.initDatabase("test-data-results.xml");
-  }
+    @BeforeEach
+    public void before() throws Exception {
+        super.initDatabase("test-data-results.xml");
+    }
 
-  @Test
-  public void testFindAll() {
-    List<Result> results = entityManager.createNamedQuery("Result.findAll", Result.class).getResultList();
-    assertThat(results, hasSize(3));
-  }
+    @Test
+    public void testFindAll() {
+        List<Result> results = entityManager.createNamedQuery("Result.findAll", Result.class).getResultList();
+        assertThat(results, hasSize(3));
+    }
 }
