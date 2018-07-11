@@ -32,7 +32,7 @@ public class GroupsRepository extends Repository {
      * @param entityManager EntityManager
      */
     GroupsRepository(final EntityManager entityManager) {
-        this.entityManager = entityManager;
+        super(entityManager);
     }
 
     //--------------------------------------------------------------------------------------------------------------------
@@ -44,13 +44,13 @@ public class GroupsRepository extends Repository {
         // Group wird als nicht-persistente entity betrachtet.
         // vom client kann die id '0' geliefert werden, sodass eine detached-entity-Exception geworfen wird.
         group.setId(null);
-        entityManager.persist(group);
+        getEntityManager().persist(group);
 
         return group;
     }
 
     public final Group read(final Long groupId) {
-        return entityManager.find(Group.class, groupId);
+        return getEntityManager().find(Group.class, groupId);
     }
 
     public final List<Group> read(Integer offset, Integer maxResults) {
@@ -58,29 +58,29 @@ public class GroupsRepository extends Repository {
         maxResults = getMaxResultsToUse(maxResults);
 
 
-        TypedQuery<Group> namedQuery = entityManager.createNamedQuery("Group.findAll", Group.class);
+        TypedQuery<Group> namedQuery = getEntityManager().createNamedQuery("Group.findAll", Group.class);
         namedQuery.setFirstResult(offset);
         namedQuery.setMaxResults(maxResults);
         return namedQuery.getResultList();
     }
 
     public final Group update(final Group group) {
-        entityManager.merge(group);
+        getEntityManager().merge(group);
 
         return group;
     }
 
     public final Group delete(final Long groupId) {
-        Group group = entityManager.find(Group.class, groupId);
+        Group group = getEntityManager().find(Group.class, groupId);
 
-        entityManager.remove(group);
+        getEntityManager().remove(group);
 
         return group;
     }
 
 
     public final long count() {
-        Query query = entityManager.createQuery("SELECT count(g) FROM Group g");
+        Query query = getEntityManager().createQuery("SELECT count(g) FROM Group g");
         return (long) query.getSingleResult();
     }
 

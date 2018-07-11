@@ -29,7 +29,7 @@ public class DisciplinesRepository extends Repository {
      * @param entityManager EntityManager
      */
     DisciplinesRepository(final EntityManager entityManager) {
-        this.entityManager = entityManager;
+        super(entityManager);
     }
 
     //--------------------------------------------------------------------------------------------------------------------
@@ -42,28 +42,28 @@ public class DisciplinesRepository extends Repository {
         discipline.setId(null);
         discipline.getRestrictions().forEach((Restriction restriction) -> restriction.setId(null));
 
-        entityManager.persist(discipline);
-        entityManager.flush();
+        getEntityManager().persist(discipline);
+        getEntityManager().flush();
 
         return discipline;
     }
 
     public final Discipline read(final Long disciplineId) {
-        return entityManager.find(Discipline.class, disciplineId);
+        return getEntityManager().find(Discipline.class, disciplineId);
     }
 
     public final List<Discipline> read(Integer offset, Integer maxResults) {
         offset = getOffsetToUse(offset);
         maxResults = getMaxResultsToUse(maxResults);
 
-        TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery(DISCIPLINE_FIND_ALL_QUERY_NAME, Discipline.class);
+        TypedQuery<Discipline> namedQuery = getEntityManager().createNamedQuery(DISCIPLINE_FIND_ALL_QUERY_NAME, Discipline.class);
         namedQuery.setFirstResult(offset);
         namedQuery.setMaxResults(maxResults);
         return namedQuery.getResultList();
     }
 
     public final Discipline update(final Discipline discipline) {
-        return entityManager.merge(discipline);
+        return getEntityManager().merge(discipline);
     }
 
     //--------------------------------------------------------------------------------------------------------------------
@@ -75,7 +75,7 @@ public class DisciplinesRepository extends Repository {
         offset = getOffsetToUse(offset);
         maxResults = getMaxResultsToUse(maxResults);
 
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Opponent> cq = cb.createQuery(Opponent.class);
         Root<Discipline> discipline = cq.from(Discipline.class);
         Root<Opponent> opponent = cq.from(Opponent.class);
@@ -89,7 +89,7 @@ public class DisciplinesRepository extends Repository {
                 )
         );
 
-        TypedQuery<Opponent> query = entityManager.createQuery(cq);
+        TypedQuery<Opponent> query = getEntityManager().createQuery(cq);
         query.setFirstResult(offset);
         query.setMaxResults(maxResults);
 
@@ -97,21 +97,21 @@ public class DisciplinesRepository extends Repository {
     }
 
     public final Discipline addOpponent(final Long disciplineId, final Long opponentId) {
-        Opponent opponent = entityManager.find(Opponent.class, opponentId);
+        Opponent opponent = getEntityManager().find(Opponent.class, opponentId);
 
         Discipline discipline = read(disciplineId);
         discipline.getOpponents().add(opponent);
-        entityManager.persist(discipline);
+        getEntityManager().persist(discipline);
 
         return discipline;
     }
 
     public final Discipline removeOpponent(final Long disciplineId, final Long opponentId) {
-        Opponent opponent = entityManager.find(Opponent.class, opponentId);
+        Opponent opponent = getEntityManager().find(Opponent.class, opponentId);
 
         Discipline discipline = read(disciplineId);
         discipline.getOpponents().remove(opponent);
-        entityManager.persist(discipline);
+        getEntityManager().persist(discipline);
 
         return discipline;
     }
@@ -125,7 +125,7 @@ public class DisciplinesRepository extends Repository {
         offset = getOffsetToUse(offset);
         maxResults = getMaxResultsToUse(maxResults);
 
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Round> cq = cb.createQuery(Round.class);
         Root<Discipline> discipline = cq.from(Discipline.class);
         Root<Round> round = cq.from(Round.class);
@@ -139,7 +139,7 @@ public class DisciplinesRepository extends Repository {
                 )
         );
 
-        TypedQuery<Round> query = entityManager.createQuery(cq);
+        TypedQuery<Round> query = getEntityManager().createQuery(cq);
         query.setFirstResult(offset);
         query.setMaxResults(maxResults);
 
@@ -147,21 +147,21 @@ public class DisciplinesRepository extends Repository {
     }
 
     public final Discipline addRound(final Long disciplineId, final Long roundId) {
-        Round round = entityManager.find(Round.class, roundId);
+        Round round = getEntityManager().find(Round.class, roundId);
 
         Discipline discipline = read(disciplineId);
         discipline.addRound(round);
-        entityManager.persist(discipline);
+        getEntityManager().persist(discipline);
 
         return discipline;
     }
 
     public final Discipline removeRound(final Long disciplineId, final Long roundId) {
-        Round round = entityManager.find(Round.class, roundId);
+        Round round = getEntityManager().find(Round.class, roundId);
 
         Discipline discipline = read(disciplineId);
         discipline.getRounds().remove(round);
-        entityManager.persist(discipline);
+        getEntityManager().persist(discipline);
 
         return discipline;
     }
@@ -170,7 +170,7 @@ public class DisciplinesRepository extends Repository {
         Long disciplineId = null;
 
         try {
-            TypedQuery<Long> query = entityManager.createQuery("SELECT d.id FROM Discipline d, Round r WHERE r.id = :roundId AND r MEMBER OF d.rounds", Long.class);
+            TypedQuery<Long> query = getEntityManager().createQuery("SELECT d.id FROM Discipline d, Round r WHERE r.id = :roundId AND r MEMBER OF d.rounds", Long.class);
             query.setParameter("roundId", roundId);
             disciplineId = query.getSingleResult();
         } catch (NoResultException nrExc) {

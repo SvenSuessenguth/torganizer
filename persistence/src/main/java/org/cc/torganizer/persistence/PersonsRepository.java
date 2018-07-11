@@ -21,7 +21,7 @@ public class PersonsRepository extends Repository {
      * @param entityManager EntityManager
      */
     PersonsRepository(final EntityManager entityManager) {
-        this.entityManager = entityManager;
+        super(entityManager);
     }
 
     //--------------------------------------------------------------------------------------------------------------------
@@ -33,13 +33,13 @@ public class PersonsRepository extends Repository {
         // Person wird als nicht-persistente entity betrachtet.
         // vom client kann die id '0' geliefert werden, sodass eine detached-entity-Exception geworfen wird.
         person.setId(null);
-        entityManager.persist(person);
+        getEntityManager().persist(person);
 
         return person;
     }
 
     public final Person read(final Long personId) {
-        return entityManager.find(Person.class, personId);
+        return getEntityManager().find(Person.class, personId);
     }
 
     public final List<Person> read(Integer offset, Integer maxResults) {
@@ -47,18 +47,18 @@ public class PersonsRepository extends Repository {
         maxResults = getMaxResultsToUse(maxResults);
 
 
-        TypedQuery<Person> namedQuery = entityManager.createNamedQuery("Person.findAll", Person.class);
+        TypedQuery<Person> namedQuery = getEntityManager().createNamedQuery("Person.findAll", Person.class);
         namedQuery.setFirstResult(offset);
         namedQuery.setMaxResults(maxResults);
         return namedQuery.getResultList();
     }
 
-    public final List<Person> read(Integer offset, Integer maxResults, Gender gender) {
+    public final List<Person> read(Integer offset, Integer maxResults, final Gender gender) {
         offset = getOffsetToUse(offset);
         maxResults = getMaxResultsToUse(maxResults);
 
 
-        TypedQuery<Person> namedQuery = entityManager.createNamedQuery("Person.findByGender", Person.class);
+        TypedQuery<Person> namedQuery = getEntityManager().createNamedQuery("Person.findByGender", Person.class);
         namedQuery.setFirstResult(offset);
         namedQuery.setMaxResults(maxResults);
         namedQuery.setParameter("gender", gender);
@@ -67,22 +67,22 @@ public class PersonsRepository extends Repository {
     }
 
     public final Person update(final Person person) {
-        entityManager.merge(person);
+        getEntityManager().merge(person);
 
         return person;
     }
 
     public final Person delete(final Long personId) {
-        Person person = entityManager.find(Person.class, personId);
+        Person person = getEntityManager().find(Person.class, personId);
 
-        entityManager.remove(person);
+        getEntityManager().remove(person);
 
         return person;
     }
 
 
     public final long count() {
-        Query query = entityManager.createQuery("SELECT count(p) FROM Person p");
+        Query query = getEntityManager().createQuery("SELECT count(p) FROM Person p");
         return (long) query.getSingleResult();
     }
 }

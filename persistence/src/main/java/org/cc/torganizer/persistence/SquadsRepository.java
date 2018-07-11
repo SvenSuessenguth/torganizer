@@ -14,83 +14,84 @@ import java.util.List;
 @Stateless
 public class SquadsRepository extends Repository {
 
-  public SquadsRepository() {
-  }
+    public SquadsRepository() {
+    }
 
-  /**
-   * Constructor for testing.
-   * @param entityManager EntityManager
-   */
-  SquadsRepository(EntityManager entityManager) {
-    this.entityManager = entityManager;
-  }
+    /**
+     * Constructor for testing.
+     *
+     * @param entityManager EntityManager
+     */
+    SquadsRepository(final EntityManager entityManager) {
+        super(entityManager);
+    }
 
-  //--------------------------------------------------------------------------------------------------------------------
-  //
-  // Person CRUD
-  //
-  //--------------------------------------------------------------------------------------------------------------------
-  public Squad create(Squad squad) {
-    entityManager.persist(squad);
-    entityManager.flush();
+    //--------------------------------------------------------------------------------------------------------------------
+    //
+    // Person CRUD
+    //
+    //--------------------------------------------------------------------------------------------------------------------
+    public final Squad create(final Squad squad) {
+        getEntityManager().persist(squad);
+        getEntityManager().flush();
 
-    return squad;
-  }
+        return squad;
+    }
 
-  public Squad read(Long squadId) {
-    return entityManager.find(Squad.class, squadId);
-  }
+    public final Squad read(final Long squadId) {
+        return getEntityManager().find(Squad.class, squadId);
+    }
 
-  public List<Squad> read(Integer offset, Integer maxResults) {
-    offset = offset == null ? DEFAULT_OFFSET : offset;
-    maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
+    public final List<Squad> read(Integer offset, Integer maxResults) {
+        offset = getOffsetToUse(offset);
+        maxResults = getMaxResultsToUse(maxResults);
 
-    TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Squad.findAll", Squad.class);
-    namedQuery.setFirstResult(offset);
-    namedQuery.setFirstResult(offset);
-    namedQuery.setMaxResults(maxResults);
+        TypedQuery<Squad> namedQuery = getEntityManager().createNamedQuery("Squad.findAll", Squad.class);
+        namedQuery.setFirstResult(offset);
+        namedQuery.setFirstResult(offset);
+        namedQuery.setMaxResults(maxResults);
 
-    return namedQuery.getResultList();
-  }
+        return namedQuery.getResultList();
+    }
 
-  public List<Squad> readOrderByLastName(Integer offset, Integer maxResults) {
-    offset = offset == null ? DEFAULT_OFFSET : offset;
-    maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
+    public final List<Squad> readOrderByLastName(Integer offset, Integer maxResults) {
+        offset = getOffsetToUse(offset);
+        maxResults = getMaxResultsToUse(maxResults);
 
-    TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Squad.findAll", Squad.class);
-    List<Squad> squads = namedQuery.getResultList();
+        TypedQuery<Squad> namedQuery = getEntityManager().createNamedQuery("Squad.findAll", Squad.class);
+        List<Squad> squads = namedQuery.getResultList();
 
-    Collections.sort(squads, new OpponentByNameComparator());
-    return squads.subList(offset, offset + maxResults);
-  }
+        Collections.sort(squads, new OpponentByNameComparator());
+        return squads.subList(offset, offset + maxResults);
+    }
 
-  public Squad update(Squad squad) {
-    entityManager. merge(squad);
-    return squad;
-  }
+    public final Squad update(final Squad squad) {
+        getEntityManager().merge(squad);
+        return squad;
+    }
 
-  public Squad delete(Long squadId) {
-    Squad squad = entityManager.find(Squad.class, squadId);
+    public final Squad delete(final Long squadId) {
+        Squad squad = getEntityManager().find(Squad.class, squadId);
 
-    entityManager.remove(squad);
+        getEntityManager().remove(squad);
 
-    return squad;
-  }
+        return squad;
+    }
 
-  public long count() {
-    Query query = entityManager.createQuery("SELECT count(s) FROM Squad s");
-    return (long) query.getSingleResult();
-  }
+    public final long count() {
+        Query query = getEntityManager().createQuery("SELECT count(s) FROM Squad s");
+        return (long) query.getSingleResult();
+    }
 
-  //--------------------------------------------------------------------------------------------------------------------
-  //
-  // Squads players
-  //
-  //--------------------------------------------------------------------------------------------------------------------
-  public List<Player> getPlayers(Long squadId) {
-    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Squad.findPlayers", Player.class);
-    namedQuery.setParameter("id", squadId);
+    //--------------------------------------------------------------------------------------------------------------------
+    //
+    // Squads players
+    //
+    //--------------------------------------------------------------------------------------------------------------------
+    public final List<Player> getPlayers(final Long squadId) {
+        TypedQuery<Player> namedQuery = getEntityManager().createNamedQuery("Squad.findPlayers", Player.class);
+        namedQuery.setParameter("id", squadId);
 
-    return namedQuery.getResultList();
-  }
+        return namedQuery.getResultList();
+    }
 }

@@ -19,7 +19,7 @@ public class ClubsRepository extends Repository {
      * @param entityManager EntityManager
      */
     ClubsRepository(final EntityManager entityManager) {
-        this.entityManager = entityManager;
+        super(entityManager);
     }
 
 
@@ -29,34 +29,34 @@ public class ClubsRepository extends Repository {
     //
     //--------------------------------------------------------------------------------------------------------------------
     public final Club create(final Club club) {
-        entityManager.persist(club);
-        entityManager.flush();
+        getEntityManager().persist(club);
+        getEntityManager().flush();
 
         return club;
     }
 
     public final Club read(final Long clubId) {
-        return entityManager.find(Club.class, clubId);
+        return getEntityManager().find(Club.class, clubId);
     }
 
     public final List<Club> read(Integer offset, Integer maxResults) {
         offset = getOffsetToUse(offset);
         maxResults = getMaxResultsToUse(maxResults);
 
-        TypedQuery<Club> namedQuery = entityManager.createNamedQuery("Club.findAll", Club.class);
+        TypedQuery<Club> namedQuery = getEntityManager().createNamedQuery("Club.findAll", Club.class);
         namedQuery.setFirstResult(offset);
         namedQuery.setMaxResults(maxResults);
         return namedQuery.getResultList();
     }
 
     public final Club update(final Club club) {
-        entityManager.merge(club);
+        getEntityManager().merge(club);
 
         return club;
     }
 
     public final Club delete(final Club club) {
-        entityManager.remove(club);
+        getEntityManager().remove(club);
 
         return club;
     }

@@ -20,7 +20,7 @@ public class MatchesRepository extends Repository {
      * @param entityManager EntityManager
      */
     MatchesRepository(final EntityManager entityManager) {
-        this.entityManager = entityManager;
+        super(entityManager);
     }
 
     //--------------------------------------------------------------------------------------------------------------------
@@ -29,43 +29,43 @@ public class MatchesRepository extends Repository {
     //
     //--------------------------------------------------------------------------------------------------------------------
     public final Match create(final Match match) {
-        entityManager.persist(match);
+        getEntityManager().persist(match);
         // with no flush, the id is unknown
-        entityManager.flush();
+        getEntityManager().flush();
 
         return match;
     }
 
     public final Match read(final Long matchId) {
-        return entityManager.find(Match.class, matchId);
+        return getEntityManager().find(Match.class, matchId);
     }
 
-    public List<Match> read(Integer offset, Integer maxResults) {
+    public final List<Match> read(Integer offset, Integer maxResults) {
         offset = getOffsetToUse(offset);
         maxResults = getMaxResultsToUse(maxResults);
 
-        TypedQuery<Match> namedQuery = entityManager.createNamedQuery("Match.findAll", Match.class);
+        TypedQuery<Match> namedQuery = getEntityManager().createNamedQuery("Match.findAll", Match.class);
         namedQuery.setFirstResult(offset);
         namedQuery.setMaxResults(maxResults);
         return namedQuery.getResultList();
     }
 
     public final Match update(final Match match) {
-        entityManager.merge(match);
+        getEntityManager().merge(match);
 
         return match;
     }
 
     public final Match delete(final Long matchId) {
-        Match match = entityManager.find(Match.class, matchId);
+        Match match = getEntityManager().find(Match.class, matchId);
 
-        entityManager.remove(match);
+        getEntityManager().remove(match);
 
         return match;
     }
 
     public final long count() {
-        Query query = entityManager.createQuery("SELECT count(m) FROM Match m");
+        Query query = getEntityManager().createQuery("SELECT count(m) FROM Match m");
         return (long) query.getSingleResult();
     }
 }

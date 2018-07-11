@@ -9,9 +9,13 @@ public class Repository {
     protected static final int DEFAULT_OFFSET = 0;
 
     @PersistenceContext(name = "torganizer")
-    protected EntityManager entityManager;
+    private EntityManager entityManager;
 
     protected Repository() {
+    }
+
+    protected Repository(EntityManager newEntityManager) {
+        this.entityManager = newEntityManager;
     }
 
     public final Integer getOffsetToUse(final Integer offset) {
@@ -28,5 +32,9 @@ public class Repository {
         }
 
         return maxResults;
+    }
+
+    public final EntityManager getEntityManager() {
+        return entityManager;
     }
 }
