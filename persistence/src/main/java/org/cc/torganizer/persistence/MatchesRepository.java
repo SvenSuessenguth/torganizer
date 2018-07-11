@@ -9,61 +9,63 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Stateless
-public class MatchesRepository extends Repository{
+public class MatchesRepository extends Repository {
 
-  public MatchesRepository() {
-  }
+    public MatchesRepository() {
+    }
 
-  /**
-   * Constructor for testing.
-   * @param entityManager EntityManager
-   */
-  MatchesRepository(EntityManager entityManager) {
-    this.entityManager = entityManager;
-  }
+    /**
+     * Constructor for testing.
+     *
+     * @param entityManager EntityManager
+     */
+    MatchesRepository(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
-  //--------------------------------------------------------------------------------------------------------------------
-  //
-  // Person CRUD
-  //
-  //--------------------------------------------------------------------------------------------------------------------
-  public Match create(Match match){
-    entityManager.persist(match);
-    // with no flush, the id is unknown
-    entityManager.flush();
+    //--------------------------------------------------------------------------------------------------------------------
+    //
+    // Person CRUD
+    //
+    //--------------------------------------------------------------------------------------------------------------------
+    public Match create(Match match) {
+        entityManager.persist(match);
+        // with no flush, the id is unknown
+        entityManager.flush();
 
-    return match;
-  }
-  public Match read(Long matchId) {
-    return entityManager.find(Match.class, matchId);
-  }
+        return match;
+    }
 
-  public List<Match> read(Integer offset, Integer maxResults){
-    offset = offset == null ? DEFAULT_OFFSET : offset;
-    maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
+    public Match read(Long matchId) {
+        return entityManager.find(Match.class, matchId);
+    }
 
-    TypedQuery<Match> namedQuery = entityManager.createNamedQuery("Match.findAll", Match.class);
-    namedQuery.setFirstResult(offset);
-    namedQuery.setMaxResults(maxResults);
-    return namedQuery.getResultList();
-  }
+    public List<Match> read(Integer offset, Integer maxResults) {
+        offset = offset == null ? DEFAULT_OFFSET : offset;
+        maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-  public Match update(Match match){
-    entityManager.merge(match);
+        TypedQuery<Match> namedQuery = entityManager.createNamedQuery("Match.findAll", Match.class);
+        namedQuery.setFirstResult(offset);
+        namedQuery.setMaxResults(maxResults);
+        return namedQuery.getResultList();
+    }
 
-    return match;
-  }
+    public Match update(Match match) {
+        entityManager.merge(match);
 
-  public Match delete(Long matchId){
-    Match match = entityManager.find(Match.class, matchId);
+        return match;
+    }
 
-    entityManager.remove(match);
+    public Match delete(Long matchId) {
+        Match match = entityManager.find(Match.class, matchId);
 
-    return match;
-  }
+        entityManager.remove(match);
 
-  public long count(){
-    Query query = entityManager.createQuery("SELECT count(m) FROM Match m");
-    return (long) query.getSingleResult();
-  }
+        return match;
+    }
+
+    public long count() {
+        Query query = entityManager.createQuery("SELECT count(m) FROM Match m");
+        return (long) query.getSingleResult();
+    }
 }
