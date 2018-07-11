@@ -37,7 +37,7 @@ public class GroupsRepositoryTest extends AbstractDbUnitJpaTest {
 
     @Test
     public void testCount() {
-        long count = repository.count();S
+        long count = repository.count();
         assertThat(count, is(1L));
     }
 
