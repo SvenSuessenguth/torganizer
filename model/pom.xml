@@ -16,8 +16,8 @@
   <name>model</name>
 
   <properties>
-    <hibernate-validator.version>6.0.10.Final</hibernate-validator.version>
-    <hibernate-validator-cdi.version>6.0.10.Final</hibernate-validator-cdi.version>
+    <hibernate-validator.version>6.0.11.Final</hibernate-validator.version>
+    <hibernate-validator-cdi.version>6.0.11.Final</hibernate-validator-cdi.version>
     <javax.el.version>3.0.1-b10</javax.el.version>
   </properties>
 
