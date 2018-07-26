@@ -73,11 +73,12 @@ class Rounds {
       sessionStorage.removeItem('rounds.count');
     }
 
-    rounds.updateRound();
+    rounds.updateRoundElement();
     rounds.roundToForm(roundWithHighestPostion);
   }
 
-  updateRound(){
+  // show current round data from sessionStorage
+  updateRoundElement(){
     let roundsCount = Number(sessionStorage.getItem("rounds.count"));
     let currentRoundPosition = sessionStorage.getItem("rounds.current-round.position");
     let rElement = document.getElementById("round");
@@ -115,7 +116,6 @@ class Rounds {
   }
 
   deleteRound(){
-
   }
   cancelRound(){
     let defaultRound = {
@@ -127,7 +127,7 @@ class Rounds {
 
     sessionStorage.removeItem("rounds.current-round.position");
     sessionStorage.removeItem("rounds.current-round.id");
-    this.updateRound();
+    this.updateRoundElement();
   }
 
   //--------------------------------------------------------------------------------------------------------------------
