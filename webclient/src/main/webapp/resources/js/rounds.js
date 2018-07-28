@@ -77,6 +77,10 @@ class Rounds {
     rounds.roundToForm(roundWithHighestPostion);
   }
 
+  updateRoundElement(round){
+
+  }
+
   // show current round data from sessionStorage
   updateRoundElement(){
     let roundsCount = Number(sessionStorage.getItem("rounds.count"));
@@ -91,7 +95,7 @@ class Rounds {
       rElement.innerHTML = '-';
       return;
     }
-    rElement.innerHTML = currentRoundPosition;
+    rElement.innerHTML = Number(currentRoundPosition) + 1;
   }
 
   saveRound(){
@@ -108,11 +112,14 @@ class Rounds {
     let currentDisciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
     disciplinesResource.addRound(currentDisciplineId, round.id, rounds.addRoundResolve, resourceReject);
   }
-  addRoundResolve(json){
+  addRoundResolve(round){
+      console.log("add rounds resolve");
     let count = Number(sessionStorage.getItem("rounds.count"))+1;
 
     sessionStorage.setItem("rounds.count", count);
     rounds.initRounds();
+    console.log("jetzt soll die neue Form erneut angezeigt werden");
+    rounds.roundToForm(round);
   }
 
   deleteRound(){
@@ -157,11 +164,13 @@ class Rounds {
     return json;
   }
   roundToForm(round){
-
+    if(round===null){
+      return;
+    }
+    console.log("jetzt wird die Form angezeigt: "+JSON.stringify(round));
     // reset all ui-elements
     let qualifiedElement = document.getElementById("qualified");
     qualifiedElement.value = '';
-
     let systemElement = document.getElementById("system");
     systemElement.selectedIndex = 0;
 
@@ -175,7 +184,7 @@ class Rounds {
     let qualified = round.qualified;
     if(qualified !== null) {
       qualified = Number(qualified);
-      qualifiedElement.setAttribute("value", qualified);
+      qualifiedElement.value= qualified;
     }
   }
 }
