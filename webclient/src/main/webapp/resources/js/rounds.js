@@ -77,10 +77,6 @@ class Rounds {
     rounds.roundToForm(roundWithHighestPostion);
   }
 
-  updateRoundElement(round){
-
-  }
-
   // show current round data from sessionStorage
   updateRoundElement(){
     let roundsCount = Number(sessionStorage.getItem("rounds.count"));
@@ -118,7 +114,6 @@ class Rounds {
 
     sessionStorage.setItem("rounds.count", count);
     rounds.initRounds();
-    console.log("jetzt soll die neue Form erneut angezeigt werden");
     rounds.roundToForm(round);
   }
 
@@ -135,6 +130,81 @@ class Rounds {
     sessionStorage.removeItem("rounds.current-round.position");
     sessionStorage.removeItem("rounds.current-round.id");
     this.updateRoundElement();
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // selecting/showing previous round (if possible)
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  prevRound(){
+    let currentPosition = Number(sessionStorage.getItem("rounds.current-round.position"));
+    if(currentPosition <= 0){
+      return;
+    }
+
+    let currentDisciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
+    disciplinesResource.getRounds(currentDisciplineId, this.prevRoundResolve, resourceReject);
+  }
+  prevRoundResolve(json){
+    let currentPosition = sessionStorage.getItem("rounds.current-round.position");
+
+    // find round with previous position
+    let roundWithPreviousPostion = null;
+    json.forEach(function(round){
+      if(round.position === currentPosition-1){
+        roundWithPreviousPostion = round;
+      }
+    });
+
+    rounds.updatePage(roundWithPreviousPostion);
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // selecting/showing next round (if possible)
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  nextRound(){
+    let currentPosition = sessionStorage.getItem("rounds.current-round.position");
+    let roundsCount = sessionStorage.getItem('rounds.count');
+    if(currentPosition >= roundsCount-1){
+      return;
+    }
+
+    let currentDisciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
+    disciplinesResource.getRounds(currentDisciplineId, this.nextRoundResolve, resourceReject);
+  }
+  nextRoundResolve(json){
+    let currentPosition = Number(sessionStorage.getItem("rounds.current-round.position"));
+
+    // find round with next position
+    let roundWithNextPostion = null;
+    let nextPosition = currentPosition+1;
+    json.forEach(function(round){
+      if(round.position === nextPosition){
+        roundWithNextPostion = round;
+      }
+    });
+
+    rounds.updatePage(roundWithNextPostion);
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // update view/sessionStorage with data
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  updatePage(round){
+    rounds.updateSessionStorage(round);
+    rounds.updateRoundElement();
+    rounds.roundToForm(round);
+  }
+  updateSessionStorage(round){
+    sessionStorage.setItem('rounds.current-round.id', round.id);
+    sessionStorage.setItem('rounds.current-round.position', round.position);
+    sessionStorage.setItem('rounds.current-round.system', round.system);
+    sessionStorage.setItem('rounds.current-round.qualified', round.qualified);
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -167,7 +237,7 @@ class Rounds {
     if(round===null){
       return;
     }
-    console.log("jetzt wird die Form angezeigt: "+JSON.stringify(round));
+
     // reset all ui-elements
     let qualifiedElement = document.getElementById("qualified");
     qualifiedElement.value = '';
@@ -186,6 +256,9 @@ class Rounds {
       qualified = Number(qualified);
       qualifiedElement.value= qualified;
     }
+
+    let systemName = round.system;
+    selectItemByValue(systemElement, systemName);
   }
 }
 
