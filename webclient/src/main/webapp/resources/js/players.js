@@ -2,6 +2,10 @@
 
 let tableSize = Number(10);
 
+window.onload = function(){
+  players.onLoad();
+}
+
 class Players {
   constructor() {    
   }

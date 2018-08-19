@@ -29,7 +29,7 @@
       <!--
        | Tabelle aller Spieler  
        +-->
-      <span id="players-offset"></span> to <span id="players-length"></span> out of <span id="players-count"></span>
+      <span id="players-offset"></span> #{text.to} <span id="players-length"></span> (#{text.overall} <span id="players-count"></span>)
       <table id="players-table">
         <thead>
           <tr><th>#{text.first_name}</th><th>#{text.last_name}</th></tr>
@@ -71,8 +71,6 @@
         <input type="button" value="#{text.delete}" onclick="players.delete()" />
         <input type="button" value="#{text.cancel}" onclick="players.cancel()" />
       </span>
-
-      <script>players.onLoad();</script>
     </ui:define>
   </ui:composition>
 </html>
