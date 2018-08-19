@@ -244,7 +244,7 @@ class Rounds {
     let systemElement = document.getElementById("system");
     systemElement.selectedIndex = 0;
 
-    if(round===null){
+    if(round==null){
       sessionStorage.removeItem("rounds.current-round.id");
       return;
     }
