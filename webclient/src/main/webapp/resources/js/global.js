@@ -1,3 +1,11 @@
+const getHeader = {
+  method: "GET",
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  }
+}
+
 //
 // Validating the form to show client side errors.
 // no business logic is called, just formal errors.
@@ -38,6 +46,13 @@ function activateNavigation() {
       navOptional[i].removeAttribute("href");
     }
   }
+}
+
+//
+// default for rejecting a resource-call
+//
+function resourceReject(json) {
+  console.log(json);
 }
 
 //https://stackoverflow.com/questions/979975/how-to-get-the-value-from-the-get-parameters

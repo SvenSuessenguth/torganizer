@@ -10,19 +10,18 @@
   <ui:composition template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="content">
-      <h:outputScript name="js/crudResource.js" target="head" />
-      <h:outputScript name="js/tournamentsResource.js" target="head" />
+        <h:outputScript name="js/restResourcesAdapter.js" target="head" />
       <h:outputScript name="js/tournaments.js" target="head" />
 
       <template id="tournamentRecord">
         <tr>
-          <td id="name"></td>
+          <td id="name" />
         </tr>
       </template>
 
-      #{text.count} <span id="tournamentsCount"></span>
+      #{text.count} <span id="tournamentsCount" />
       <table id="tournamentsTable">
-        <tbody id="tournamentsTableBody"></tbody>
+        <tbody id="tournamentsTableBody" />
       </table>
 
       <span id="tournamentData"> 
