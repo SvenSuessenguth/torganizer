@@ -15,28 +15,25 @@ var tournaments = {
   },
 
   updateTableResolve: function updateTournamentsTableResolve(data) {
-    document.getElementById("tournamentsCount").innerHTML = data.length;
-    let tableBody = document.querySelector('#tournamentsTableBody');
+    document.getElementById("count").innerHTML = data.length;
+    let table = document.getElementById("tournaments");
+    let tbody = table.getElementsByTagName("tbody")[0];
 
     // clear old ui
     // https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
-    while (tableBody.firstChild) {
-      tableBody.removeChild(tableBody.firstChild);
+    while (tbody.firstChild) {
+      tbody.removeChild(tbody.firstChild);
     }
 
     // show new ui
     data.forEach(function (tournament) {
-      let t = document.querySelector("#tournamentRecord").cloneNode(true);
-      let template = t.content;
-
-      let nameElement = template.querySelector("#name");
-      nameElement.innerHTML = tournament.name;
-      nameElement.setAttribute("id", "tournament-" + tournament.id);
-      nameElement.onclick = function (e) {
+      let row = tbody.insertRow(tbody.rows.length);
+      let cell = row.insertCell(0);
+      cell.innerHTML = tournament.name;
+      cell.setAttribute("id", "tournament-" + tournament.id);
+      cell.onclick = function (e) {
         tournaments.select(tournament.id);
       };
-
-      tableBody.appendChild(template);
     });
   },
 
@@ -46,7 +43,7 @@ var tournaments = {
 
   selectResolve: function showTournamentDetailsResolve(data) {
     // {"id":1,"name":"dings"}
-    document.getElementById("tournamentName").value = data.name;
+    document.getElementById("name").value = data.name;
     sessionStorage.setItem('tournaments-current-tournament-id', data.id);
     sessionStorage.setItem('tournaments-current-tournament-name', data.name);
     menue.update();
@@ -77,8 +74,8 @@ var tournaments = {
   cancel: function cancel() {
     sessionStorage.removeItem('tournaments-current-tournament-id');
     sessionStorage.removeItem('tournaments-current-tournament-name');
-    document.getElementById("tournamentName").value = "";
-    document.getElementById("tournamentName").focus();
+    document.getElementById("name").value = "";
+    document.getElementById("name").focus();
     menue.update();
   },
 
@@ -91,7 +88,7 @@ var tournaments = {
 
     return {
       "id": tournaments.getCurrentTournamentId(),
-      "name": document.getElementById("tournamentName").value
+      "name": document.getElementById("name").value
     };
   },
 

@@ -13,19 +13,14 @@
         <h:outputScript name="js/restResourcesAdapter.js" target="head" />
       <h:outputScript name="js/tournaments.js" target="head" />
 
-      <template id="tournamentRecord">
-        <tr>
-          <td id="name" />
-        </tr>
-      </template>
-
-      #{text.count} <span id="tournamentsCount" />
-      <table id="tournamentsTable">
-        <tbody id="tournamentsTableBody" />
+      #{text.count} <span id="count" />
+      <table id="tournaments">
+        <thead><tr><td>Name</td></tr></thead>
+        <tbody></tbody>
       </table>
 
-      <span id="tournamentData"> 
-        <label for="tournamentName">#{text.name}</label><input id="tournamentName" value="" />
+      <span id="tournament">
+        <label for="name">#{text.name}</label><input id="name" value="" />
 
         <input type="button" value="#{text.save}" onclick="tournaments.save()" />
         <input type="button" value="#{text.cancel}" onclick="tournaments.cancel()" />
