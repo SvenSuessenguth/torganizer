@@ -2,19 +2,19 @@
 
 var tournaments = {
   onload: function onload() {
-    tournaments.updateTournamentsTable();
+    tournaments.updateTable();
   },
 
 //--------------------------------------------------------------------------------------------------------------------
 //
-// initialize and actions for tournaments table
+// initialize
 //
 //--------------------------------------------------------------------------------------------------------------------
-  updateTournamentsTable: function updateTournamentsTable() {
-    getMultiple("tournaments", 0, 100, tournaments.updateTournamentsTableResolve);
+  updateTable: function updateTournamentsTable() {
+    getMultiple("tournaments", 0, 100, tournaments.updateTableResolve);
   },
 
-  updateTournamentsTableResolve: function updateTournamentsTableResolve(data) {
+  updateTableResolve: function updateTournamentsTableResolve(data) {
     document.getElementById("tournamentsCount").innerHTML = data.length;
     let tableBody = document.querySelector('#tournamentsTableBody');
 
@@ -33,18 +33,18 @@ var tournaments = {
       nameElement.innerHTML = tournament.name;
       nameElement.setAttribute("id", "tournament-" + tournament.id);
       nameElement.onclick = function (e) {
-        tournaments.tournamentSelected(tournament.id);
+        tournaments.select(tournament.id);
       };
 
       tableBody.appendChild(template);
     });
   },
 
-  tournamentSelected: function tournamentSelected(id) {
-    getSingle("tournaments", id, tournaments.showTournamentDetailsResolve);
+  select: function tournamentSelected(id) {
+    getSingle("tournaments", id, tournaments.selectResolve);
   },
 
-  showTournamentDetailsResolve: function showTournamentDetailsResolve(data) {
+  selectResolve: function showTournamentDetailsResolve(data) {
     // {"id":1,"name":"dings"}
     document.getElementById("tournamentName").value = data.name;
     sessionStorage.setItem('tournaments-current-tournament-id', data.id);
@@ -65,7 +65,7 @@ var tournaments = {
   createResolve: function createResolve(json) {
     sessionStorage.setItem('tournaments-current-tournament-id', json.id);
     sessionStorage.setItem('tournaments-current-tournament-name', json.name);
-    tournaments.updateTournamentsTable();
+    tournaments.updateTable();
     menue.update();
   },
 
