@@ -17,8 +17,7 @@
   
   <properties>
     <dbunit.version>2.5.4</dbunit.version>
-    <hibernate-core.version>5.3.5.Final</hibernate-core.version>
-    <hibernate-entitymanager.version>5.3.5.Final</hibernate-entitymanager.version>
+    <hibernate.version>5.3.6.Final</hibernate.version>
     <h2.version>1.4.197</h2.version>
   </properties>
 
@@ -38,11 +37,11 @@
 
     <dependency>
       <groupId>org.hibernate</groupId><artifactId>hibernate-core</artifactId>
-      <version>${hibernate-core.version}</version><scope>test</scope>
+      <version>${hibernate.version}</version><scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.hibernate</groupId><artifactId>hibernate-entitymanager</artifactId>
-      <version>${hibernate-entitymanager.version}</version><scope>test</scope>
+      <version>${hibernate.version}</version><scope>test</scope>
     </dependency>
 
     <!-- 

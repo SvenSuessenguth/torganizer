@@ -11,21 +11,7 @@ var tournaments = {
 //
 //--------------------------------------------------------------------------------------------------------------------
   updateTournamentsTable: function updateTournamentsTable() {
-    fetch(resourcesUrl() + "tournaments?offset=0&maxResults=100", {getHeader})
-      .then(function (response) {
-        if (response.ok) {
-          return response.json();
-        }
-        else {
-          throw new Error('Fehlerhandling noch nicht spezifiziert');
-        }
-      })
-      .then(function (json) {
-        tournaments.updateTournamentsTableResolve(json);
-      })
-      .catch(function (err) {
-        resourceReject(err);
-      });
+    getMultiple("tournaments", 0, 100, tournaments.updateTournamentsTableResolve);
   },
 
   updateTournamentsTableResolve: function updateTournamentsTableResolve(data) {
@@ -55,21 +41,7 @@ var tournaments = {
   },
 
   tournamentSelected: function tournamentSelected(id) {
-    fetch(resourcesUrl() + "tournaments/" + id, {
-      getHeader
-    }).then(function (response) {
-      if (response.ok) {
-        return response.json();
-      }
-      else {
-        throw new Error('no error handling specified...');
-      }
-    }).then(function (json) {
-      tournaments.showTournamentDetailsResolve(json);
-    })
-      .catch(function (err) {
-        resourceReject(err);
-      });
+    getSingle("tournaments", id, tournaments.showTournamentDetailsResolve);
   },
 
   showTournamentDetailsResolve: function showTournamentDetailsResolve(data) {

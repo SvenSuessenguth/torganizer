@@ -34,7 +34,7 @@ function createOrUpdate(resource, json, onResolve) {
     });
 }
 
-function readSingle(resource, id, onResolve) {
+function getSingle(resource, id, onResolve) {
   fetch(resourcesUrl() + resource + '/' + id, {
     method: "GET",
     headers: {
@@ -55,7 +55,7 @@ function readSingle(resource, id, onResolve) {
     });
 }
 
-function readMultiple(resource, offset, maxResults, onResolve) {
+function getMultiple(resource, offset, maxResults, onResolve) {
   fetch(resourcesUrl() + resource + '?offset=' + offset + '&maxResults=' + maxResults, {
     method: "GET",
     headers: {
