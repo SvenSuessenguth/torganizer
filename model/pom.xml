@@ -16,8 +16,7 @@
   <name>model</name>
 
   <properties>
-    <hibernate-validator.version>6.0.12.Final</hibernate-validator.version>
-    <hibernate-validator-cdi.version>6.0.12.Final</hibernate-validator-cdi.version>
+    <hibernate-validator.version>6.0.13.Final</hibernate-validator.version>    
     <javax.el.version>3.0.1-b10</javax.el.version>
   </properties>
 
@@ -28,7 +27,7 @@
     </dependency>
     <dependency>
       <groupId>org.hibernate.validator</groupId><artifactId>hibernate-validator-cdi</artifactId>
-      <version>${hibernate-validator-cdi.version}</version><scope>test</scope>
+      <version>${hibernate-validator.version}</version><scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.glassfish</groupId><artifactId>javax.el</artifactId>
