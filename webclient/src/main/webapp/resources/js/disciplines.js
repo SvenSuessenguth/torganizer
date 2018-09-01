@@ -33,7 +33,7 @@ class Disciplines {
     }
   }
   initSelect(){
-    let tournamentId = tournaments.getCurrentTournamentId();
+    let tournamentId = tournaments.getId();
     tournamentsResource.getDisciplines(tournamentId, this.initSelectResolve, this.initSelectReject)
   }
   initSelectResolve(json) {
@@ -82,7 +82,7 @@ class Disciplines {
       return;
     }
 
-    let tournamentId = tournaments.getCurrentTournamentId();
+    let tournamentId = tournaments.getId();
     let opponentsOffset = sessionStorage.getItem('disciplines.opponents-table.offset');
     let opponentsMaxResults = document.getElementById("opponents-table").getAttribute("rows");
     let assignableOpponentsOffset = sessionStorage.getItem('disciplines.assignable-opponents-table.offset');
@@ -148,7 +148,7 @@ class Disciplines {
   }
 
   updateAssignableOpponents(){
-    let tournamentId = tournaments.getCurrentTournamentId();
+    let tournamentId = tournaments.getId();
     let disciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
     let maxResults = document.getElementById("assignable-opponents-table").getAttribute("rows");
     let offset = sessionStorage.getItem('disciplines.assignable-opponents-table.offset');
@@ -212,7 +212,7 @@ class Disciplines {
     disciplinesResource.createOrUpdate(discipline, "POST", disciplines.createResolve, disciplines.createReject);
   }
   createResolve(json) {
-    let tournamentId = tournaments.getCurrentTournamentId();
+    let tournamentId = tournaments.getId();
     let disciplineId = json.id;
     sessionStorage.setItem('disciplines.current-discipline.id', disciplineId);
 

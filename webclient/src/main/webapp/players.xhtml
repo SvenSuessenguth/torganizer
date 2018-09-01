@@ -9,6 +9,7 @@
   <ui:composition template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="content">
+      <h:outputScript name="js/restResourcesAdapter.js" target="head" />
       <h:outputScript name="js/crudResource.js" target="head" />
       <h:outputScript name="js/tournamentsResource.js" target="head" />
       <h:outputScript name="js/tournaments.js" target="head" />
@@ -17,13 +18,6 @@
       <h:outputScript name="js/playersResource.js" target="head" />
       <h:outputScript name="js/players.js" target="head" />
 
-      <template id="player-record">
-        <tr id="player-row">
-          <td id="first-name" />
-          <td id="last-name" />
-        </tr>
-      </template>
-    
       <input type="submit" id="validateFormButton" value="validate" style="display: none;" />
       
       <!--
@@ -41,7 +35,7 @@
     
       <span id="players-data"> 
         <label for="first-name">#{text.first_name}
-          <input id="first-name" value="" autofocus="autofocus" required="required" />
+          <input id="first-name" value="" type="text" autofocus="autofocus" required="required" />
         </label>
         <label for="last-name">#{text.last_name}
           <input id="last-name" value="" required="required" />
@@ -68,9 +62,11 @@
         </label>
 
         <input type="button" value="#{text.save}" onclick="players.save()" />
-        <input type="button" value="#{text.delete}" onclick="players.delete()" />
+        <input type="button" value="#{text.delete}" onclick="players.deletePlayer()" />
         <input type="button" value="#{text.cancel}" onclick="players.cancel()" />
       </span>
+
+      <script type="text/javascript">players.onload();</script>
     </ui:define>
   </ui:composition>
 </html>

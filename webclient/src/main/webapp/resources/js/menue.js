@@ -15,7 +15,7 @@ class Menue {
   update(){
     // https://stackoverflow.com/questions/13955667/disabled-href-tag
     // no selected tournament -> no further actions
-    if(tournaments.getCurrentTournamentId()===null){
+    if(tournaments.getId()===null){
       this.disableLink("menueDisciplines");
       this.disableLink("menuePlayers");
       this.disableLink("menueSquads");

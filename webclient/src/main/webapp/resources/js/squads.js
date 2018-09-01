@@ -18,7 +18,7 @@ class Squads {
   //--------------------------------------------------------------------------------------------------------------------
   initSquads(){
     let allSquadsLength = document.getElementById("all-squads-table").getAttribute("rows");
-    let tournamentId = tournaments.getCurrentTournamentId();
+    let tournamentId = tournaments.getId();
     sessionStorage.setItem("squads.all-squads-offset", "0");
     
     this.updateAllSquads(tournamentId, 0, allSquadsLength);
@@ -44,7 +44,7 @@ class Squads {
 
   prevAllSquads(){
     let allSquadsRows = Number(document.getElementById("all-squads-table").getAttribute("rows"));
-    let tournamentId = tournaments.getCurrentTournamentId();
+    let tournamentId = tournaments.getId();
     let allSquadsOffset = Number(sessionStorage.getItem("squads.all-squads-offset"));
     allSquadsOffset = allSquadsOffset - allSquadsRows;
     if(allSquadsOffset <0){
@@ -56,7 +56,7 @@ class Squads {
   }
   nextAllSquads(){
     let allSquadsRows = Number(document.getElementById("all-squads-table").getAttribute("rows"));
-    let tournamentId = tournaments.getCurrentTournamentId();
+    let tournamentId = tournaments.getId();
     let allSquadsOffset = Number(sessionStorage.getItem("squads.all-squads-offset"));
     allSquadsOffset = allSquadsOffset + allSquadsRows;
     sessionStorage.setItem("squads.all-squads-offset", allSquadsOffset);
@@ -72,7 +72,7 @@ class Squads {
 
   initAllPlayers(){
     let allPlayersLength = document.getElementById("all-players-table").getAttribute("rows");
-    let allPlayersTournamentId = tournaments.getCurrentTournamentId();
+    let allPlayersTournamentId = tournaments.getId();
     sessionStorage.setItem("squads.all-players-offset", 0);    
     
     this.updateAllPlayers(allPlayersTournamentId, 0, allPlayersLength);
@@ -106,7 +106,7 @@ class Squads {
 
   prevAllPlayers(){
     let allPlayersLength = Number(document.getElementById("all-players-table").getAttribute("rows"));
-    let allPlayersTournamentId = tournaments.getCurrentTournamentId();
+    let allPlayersTournamentId = tournaments.getId();
     let allPlayersOffset = Number(sessionStorage.getItem("squads.all-players-offset"));
     allPlayersOffset = allPlayersOffset - allPlayersLength;
     if(allPlayersOffset<0){
@@ -118,7 +118,7 @@ class Squads {
   }
   nextAllPlayers(){
     let allPlayersLength = Number(document.getElementById("all-players-table").getAttribute("rows"));
-    let tournamentId = tournaments.getCurrentTournamentId();
+    let tournamentId = tournaments.getId();
     let allPlayersOffset = Number(sessionStorage.getItem("squads.all-players-offset"));
     allPlayersOffset = allPlayersOffset + allPlayersLength;    
     sessionStorage.setItem("squads.all-players-offset", allPlayersOffset);
@@ -194,13 +194,13 @@ class Squads {
     squadsResource.createOrUpdate(squad, "POST", this.createResolve, this.createReject); 
   }
   createResolve(json){
-    let tournamentId = tournaments.getCurrentTournamentId();
+    let tournamentId = tournaments.getId();
     let squadId = json.id;
     tournamentsResource.addSquad(tournamentId, squadId, squads.addSquadResolve, squads.addSquadReject);
   }
   createReject(error) { console.log(error); }
   addSquadResolve(json){
-    let tournamentId = tournaments.getCurrentTournamentId();
+    let tournamentId = tournaments.getId();
     squads.updateAllSquads(tournamentId, 0, 10);
     squads.cancel();
   }
@@ -211,7 +211,7 @@ class Squads {
     squads.cancel();
   }
   updateResolve(json){
-    let tournamentId = tournaments.getCurrentTournamentId();
+    let tournamentId = tournaments.getId();
     squads.updateAllSquads(tournamentId, 0, 10);
     squads.cancel();
   }

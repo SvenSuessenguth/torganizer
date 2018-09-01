@@ -1,5 +1,13 @@
 /* global fetch, tournamentsResource */
 
+/*
+variables in sessions-storage:
+------------------------------------------------------------------------------------------------------------------------
+tournaments.tournament.id
+
+tournaments.tournament.name
+
+*/
 var tournaments = {
   onload: function onload() {
     tournaments.updateTable();
@@ -44,8 +52,8 @@ var tournaments = {
   selectResolve: function showTournamentDetailsResolve(data) {
     // {"id":1,"name":"dings"}
     document.getElementById("name").value = data.name;
-    sessionStorage.setItem('tournaments-current-tournament-id', data.id);
-    sessionStorage.setItem('tournaments-current-tournament-name', data.name);
+    sessionStorage.setItem('tournaments.tournament.id', data.id);
+    sessionStorage.setItem('tournaments.tournament.name', data.name);
     menue.update();
   },
 
@@ -56,12 +64,12 @@ var tournaments = {
 //--------------------------------------------------------------------------------------------------------------------
   save: function save() {
     let json = tournaments.formToJSon();
-    createOrUpdate("tournaments", json, tournaments.createResolve);
+    createOrUpdate("tournaments", json, tournaments.saveResolve);
   },
 
-  createResolve: function createResolve(json) {
-    sessionStorage.setItem('tournaments-current-tournament-id', json.id);
-    sessionStorage.setItem('tournaments-current-tournament-name', json.name);
+  saveResolve: function saveResolve(json) {
+    sessionStorage.setItem('tournaments.tournament.id', json.id);
+    sessionStorage.setItem('tournaments.tournament.name', json.name);
     tournaments.updateTable();
     menue.update();
   },
@@ -72,8 +80,8 @@ var tournaments = {
 //
 //--------------------------------------------------------------------------------------------------------------------
   cancel: function cancel() {
-    sessionStorage.removeItem('tournaments-current-tournament-id');
-    sessionStorage.removeItem('tournaments-current-tournament-name');
+    sessionStorage.removeItem('tournaments.tournament.id');
+    sessionStorage.removeItem('tournaments.tournament.name');
     document.getElementById("name").value = "";
     document.getElementById("name").focus();
     menue.update();
@@ -87,17 +95,17 @@ var tournaments = {
   formToJSon: function formToJSon() {
 
     return {
-      "id": tournaments.getCurrentTournamentId(),
+      "id": tournaments.getId(),
       "name": document.getElementById("name").value
     };
   },
 
-  getCurrentTournamentId: function getCurrentTournamentId() {
-    let tournamentId = sessionStorage.getItem('tournaments-current-tournament-id');
+  getId: function getId() {
+    let tournamentId = sessionStorage.getItem('tournaments.tournament.id');
 
     // do not convert NULL to '0'
     if (tournamentId !== null) {
-      return Number(sessionStorage.getItem('tournaments-current-tournament-id'));
+      return Number(sessionStorage.getItem('tournaments.tournament.id'));
     }
     return tournamentId;
   }
