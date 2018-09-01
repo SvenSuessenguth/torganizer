@@ -24,32 +24,27 @@
         <!-- restrictions -->
         <div style="float:left; padding-right: 10px;">
         <h4>#{text.age}</h4>
-        <label for="min-date-of-birth">#{text.min}</label><input id="min-date-of-birth" type="date" value="" />
-        <label for="max-date-of-birth">#{text.max}</label><input id="max-date-of-birth" type="date" value="" />
+        <label for="min-date-of-birth">#{text.from}</label><input id="min-date-of-birth" type="date" value="" />
+        <label for="max-date-of-birth">#{text.to}</label><input id="max-date-of-birth" type="date" value="" />
         </div>
 
         <div style="float:left; padding-right: 10px;">
         <h4>#{text.gender}</h4>
-        <label for="gender">#{text.gender}
-          <select id="gender">
-            <option value="MALE">#{text.male}</option>
-            <option value="FEMALE">#{text.female}</option>
-            <option value="UNKNOWN">#{text.unknown}</option>
-          </select>
-        </label>
+        <select id="gender">
+          <option value="MALE">#{text.male}</option>
+          <option value="FEMALE">#{text.female}</option>
+          <option value="UNKNOWN">#{text.unknown}</option>
+        </select>
         </div>
 
         <div style="float:left;">
         <h4>Type</h4>
-        <label for="opponent-type">type
-          <select id="opponent-type">
-            <option value="PLAYER">player</option>
-            <option value="SQUAD">squad</option>
-            <option value="TEAM">team</option>
+        <select id="opponent-type">
+          <option value="PLAYER">player</option>
+          <option value="SQUAD">squad</option>
+          <option value="TEAM">team</option>
           </select>
-        </label>
         </div>
-
 
         <div style="clear: both; padding-top: 10px;">
 
