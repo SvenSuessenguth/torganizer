@@ -19,13 +19,11 @@ public class ValidationExceptionMapper implements ExceptionMapper<ConstraintViol
 
     JsonObject jsonObject = toJsonObject(violations);
 
-    Response response = Response
+    return Response
       .status(Response.Status.BAD_REQUEST)
       .entity(jsonObject)
       .type(MediaType.APPLICATION_JSON)
       .build();
-
-    return response;
   }
 
   protected JsonObject toJsonObject(Set<ConstraintViolation<?>> constraintViolations){
@@ -37,7 +35,7 @@ public class ValidationExceptionMapper implements ExceptionMapper<ConstraintViol
       for(ConstraintViolation violation : constraintViolations){
           arrayBuilder.add(
                   Json.createObjectBuilder()
-                          .add("message", violation.getMessage().toString())
+                          .add("message", violation.getMessage())
                           .add("property-path", violation.getPropertyPath().toString())
                           .add("invalild-value", violation.getInvalidValue().toString()));
       }

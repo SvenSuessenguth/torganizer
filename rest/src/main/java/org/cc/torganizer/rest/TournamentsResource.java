@@ -191,7 +191,7 @@ public class TournamentsResource extends AbstractResource {
     return dConverter.toJsonObject(discipline);
   }
 
-  private void validate(Tournament tournament) throws ConstraintViolationException{
+  private void validate(Tournament tournament) {
       ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
       Validator validator = factory.getValidator();
       Set<ConstraintViolation<Tournament>> violations = validator.validate( tournament );
