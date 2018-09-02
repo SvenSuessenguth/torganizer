@@ -9,8 +9,12 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
+import javax.validation.*;
 import javax.ws.rs.*;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.Set;
 
 import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
 import static org.cc.torganizer.core.entities.OpponentType.SQUAD;
@@ -37,14 +41,15 @@ public class TournamentsResource extends AbstractResource {
 
 
   @POST
-  public JsonObject create(JsonObject jsonObject) {
+  public Response create(JsonObject jsonObject) {
     Tournament tournament = tConverter.toModel(jsonObject, new Tournament());
     // client can send '0' with a detached object exception as the result
     tournament.setId(null);
 
-    Tournament savedTournament = tRepository.create(tournament);
+    validate(tournament);
 
-    return tConverter.toJsonObject(savedTournament);
+    Tournament savedTournament = tRepository.create(tournament);
+    return Response.ok(tConverter.toJsonObject(savedTournament)).build();
   }
 
   @GET
@@ -67,6 +72,8 @@ public class TournamentsResource extends AbstractResource {
     Tournament tournament = tRepository.read(id);
 
     tournament = tConverter.toModel(jsonObject, tournament);
+    validate(tournament);
+
     tRepository.update(tournament);
 
     return tConverter.toJsonObject(tournament);
@@ -182,5 +189,14 @@ public class TournamentsResource extends AbstractResource {
     tRepository.addDiscipline(tournamentId, discipline);
 
     return dConverter.toJsonObject(discipline);
+  }
+
+  private void validate(Tournament tournament) throws ConstraintViolationException{
+      ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+      Validator validator = factory.getValidator();
+      Set<ConstraintViolation<Tournament>> violations = validator.validate( tournament );
+      if(!violations.isEmpty()){
+          throw new ConstraintViolationException(violations);
+      }
   }
 }

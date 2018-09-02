@@ -14,10 +14,15 @@
   
   <bean class="Tournament" ignore-annotations="true">
     <field name="name">
+      <constraint annotation="javax.validation.constraints.Pattern">
+        <message>{tournament.name.pattern}</message>
+        <element name="regexp">^[A-Z].*</element>
+      </constraint>
       <constraint annotation="javax.validation.constraints.NotBlank" />
       <constraint annotation="javax.validation.constraints.NotNull"/>
       <constraint annotation="javax.validation.constraints.Size">
-        <element name="min">1</element>
+        <message>{tournament.name.size}</message>
+        <element name="min">2</element>
         <element name="max">20</element>
       </constraint>
     </field>

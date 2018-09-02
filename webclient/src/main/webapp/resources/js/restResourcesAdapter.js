@@ -21,17 +21,15 @@ function createOrUpdate(resource, json, onResolve) {
     body: JSON.stringify(json)
   })
     .then(function (response) {
+      // text is a stream and therefore on-time-readable only
+      // https://github.com/whatwg/fetch/issues/196
+      let text = response.text();
       if (response.ok)
-        return response.json();
+        text.then(function (respJson) { onResolve(JSON.parse(respJson)); })
       else
-        throw new Error('error while creating/updating ${resource} with method ${method} and json ${json}');
+        text.then(function (respJson) { resourceReject(JSON.parse(respJson)); })
     })
-    .then(function (json) {
-      onResolve(json);
-    })
-    .catch(function (err) {
-      resourceReject(err);
-    });
+    .catch(function (err) { resourceError(err); });
 }
 
 function getSingle(resource, id, onResolve) {
@@ -42,17 +40,15 @@ function getSingle(resource, id, onResolve) {
     }
   })
     .then(function (response) {
+      // text is a stream and therefore on-time-readable only
+      // https://github.com/whatwg/fetch/issues/196
+      let text = response.text();
       if (response.ok)
-        return response.json();
+        text.then(function (respJson) { onResolve(JSON.parse(respJson)); })
       else
-        throw new Error('error while reading ${resource} with id ${id}');
+        text.then(function (respJson) { resourceReject(JSON.parse(respJson)); })
     })
-    .then(function (json) {
-      onResolve(json);
-    })
-    .catch(function (err) {
-      resourceReject(err);
-    });
+    .catch(function (err) { resourceError(err); });
 }
 
 function getMultiple(resource, offset, maxResults, onResolve) {
@@ -63,23 +59,27 @@ function getMultiple(resource, offset, maxResults, onResolve) {
     }
   })
     .then(function (response) {
+      // text is a stream and therefore on-time-readable only
+      // https://github.com/whatwg/fetch/issues/196
+      let text = response.text();
       if (response.ok)
-        return response.json();
+        text.then(function (respJson) { onResolve(JSON.parse(respJson)); })
       else
-        throw new Error('error while reading multiple ${resource} with offset ${offset} and maxResult ${maxResult}');
+        text.then(function (respJson) { resourceReject(JSON.parse(respJson)); })
     })
-    .then(function (json) {
-      onResolve(json);
-    })
-    .catch(function (err) {
-      resourceReject(err);
-    });
+    .catch(function (err) { resourceError(err); });
 }
-
 
 //
 // default for rejecting a resource-call
 //
 function resourceReject(json) {
   console.log(json);
+}
+
+//
+//  handling errrs
+//
+function resourceError(err){
+  console.log(err);
 }
