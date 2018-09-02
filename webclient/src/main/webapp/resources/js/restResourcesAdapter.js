@@ -74,7 +74,14 @@ function getMultiple(resource, offset, maxResults, onResolve) {
 // default for rejecting a resource-call
 //
 function resourceReject(json) {
-  console.log(json);
+  let ul = document.getElementById("violations");
+
+  json.violations.forEach(violation =>{
+    let li = document.createElement("li");
+    li.setAttribute("class", "violation");
+    li.appendChild(document.createTextNode(violation.message));
+    ul.appendChild(li);
+  });
 }
 
 //
