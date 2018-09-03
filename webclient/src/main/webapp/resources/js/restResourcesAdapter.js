@@ -25,7 +25,7 @@ function createOrUpdate(resource, json, onResolve) {
       if (response.ok)
         text.then(function (respJson) { onResolve(JSON.parse(respJson)); })
       else
-        text.then(function (respJson) { showMessages(JSON.parse(respJson)); })
+        text.then(function (respJson) { processMessages(JSON.parse(respJson)); })
     })
     .catch(function (err) { resourceError(err); });
 }
@@ -46,7 +46,7 @@ function getSingle(resource, id, onResolve) {
       if (response.ok)
         text.then(function (respJson) { onResolve(JSON.parse(respJson)); })
       else
-        text.then(function (respJson) { showMessages(JSON.parse(respJson)); })
+        text.then(function (respJson) { processMessages(JSON.parse(respJson)); })
     })
     .catch(function (err) { resourceError(err); });
 }
@@ -67,12 +67,18 @@ function getMultiple(resource, offset, maxResults, onResolve) {
       if (response.ok)
         text.then(function (respJson) { onResolve(JSON.parse(respJson)); })
       else
-        text.then(function (respJson) { showMessages(JSON.parse(respJson)); })
+        text.then(function (respJson) { processMessages(JSON.parse(respJson)); })
     })
     .catch(function (err) { resourceError(err); });
 }
 
 function clearMessages(){
+  // unmark elements
+  let elements = document.querySelectorAll(".violation");
+  elements.forEach(element =>{
+    element.classList.remove("violation");
+  });
+
   // https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
   let ul = document.getElementById("violations");
   while (ul.firstChild) {
@@ -80,13 +86,24 @@ function clearMessages(){
   }
 }
 
-function showMessages(json) {
+function processMessages(json) {
+  showMessages(json);
+  markElements(json);
+}
+
+function showMessages(json){
   let ul = document.getElementById("violations");
   json.violations.forEach(violation =>{
     let li = document.createElement("li");
     li.setAttribute("class", "violation");
     li.appendChild(document.createTextNode(violation.message));
     ul.appendChild(li);
+  });
+}
+function markElements(json){
+  json.violations.forEach(violation =>{
+    let element = document.getElementById(violation.propertyPath);
+    element.classList.add("violation");
   });
 }
 

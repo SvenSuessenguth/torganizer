@@ -36,6 +36,9 @@ input{
   text-decoration: none;
 }
 
-.violation {
+li.violation {
   color: red;
+}
+input.violation {
+  border-color: red;
 }
