@@ -25,7 +25,7 @@ class Rounds {
     let currentDisciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
     if(currentDisciplineId===null){return;}
 
-    disciplinesResource.readSingle(currentDisciplineId, this.initDisciplineNameResolve, resourceReject);
+    disciplinesResource.readSingle(currentDisciplineId, this.initDisciplineNameResolve, showMessages);
   }
   initDisciplineNameResolve(discipline){
     let name = discipline.name;
@@ -42,7 +42,7 @@ class Rounds {
     let disciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
 
     // getting ids for highest round and group (of highest round)
-    disciplinesResource.getRounds(disciplineId, this.initRoundsResolve, resourceReject);
+    disciplinesResource.getRounds(disciplineId, this.initRoundsResolve, showMessages);
   }
   initRoundsResolve(json){
     // show number of rounds
@@ -101,12 +101,12 @@ class Rounds {
       method = "POST" // create
     }
 
-    roundsResource.createOrUpdate(roundJson, method, this.saveRoundResolve, resourceReject);
+    roundsResource.createOrUpdate(roundJson, method, this.saveRoundResolve, showMessages);
   }
   saveRoundResolve(round){
     sessionStorage.setItem("rounds.current-round.id", round.id);
     let currentDisciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
-    disciplinesResource.addRound(currentDisciplineId, round.id, rounds.addRoundResolve, resourceReject);
+    disciplinesResource.addRound(currentDisciplineId, round.id, rounds.addRoundResolve, showMessages);
   }
   addRoundResolve(round){
       console.log("add rounds resolve");
@@ -144,7 +144,7 @@ class Rounds {
     }
 
     let currentDisciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
-    disciplinesResource.getRounds(currentDisciplineId, this.prevRoundResolve, resourceReject);
+    disciplinesResource.getRounds(currentDisciplineId, this.prevRoundResolve, showMessages);
   }
   prevRoundResolve(json){
     let currentPosition = sessionStorage.getItem("rounds.current-round.position");
@@ -173,7 +173,7 @@ class Rounds {
     }
 
     let currentDisciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
-    disciplinesResource.getRounds(currentDisciplineId, this.nextRoundResolve, resourceReject);
+    disciplinesResource.getRounds(currentDisciplineId, this.nextRoundResolve, showMessages);
   }
   nextRoundResolve(json){
     let currentPosition = Number(sessionStorage.getItem("rounds.current-round.position"));

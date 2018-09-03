@@ -51,7 +51,7 @@ var players = {
     let tournamentId = tournaments.getId();
     // this can't be used inside a promise
     // https://stackoverflow.com/questions/32547735/javascript-promises-how-to-access-variable-this-inside-a-then-scope
-    tournamentsResource.addPlayer(tournamentId, json.id, players.addPlayerResolve, resourceReject);
+    tournamentsResource.addPlayer(tournamentId, json.id, players.addPlayerResolve, showMessages);
   },
   addPlayerResolve : function addPlayerResolve(json){
     players.updatePlayersTable();
@@ -74,7 +74,7 @@ var players = {
   deletePlayer : function deletePlayer(){
     let player = this.formToPlayer();
     let tournamentId = tournaments.getId();
-    tournamentsResource.removePlayer(tournamentId, player.id, players.deleteResolve, resourceReject);
+    tournamentsResource.removePlayer(tournamentId, player.id, players.deleteResolve, showMessages);
   },
   deleteResolve : function deleteResolve(json){
     players.updatePlayersTable();
@@ -172,8 +172,8 @@ var players = {
     document.getElementById("players-offset").innerHTML = offset.toString();
     document.getElementById("players-length").innerHTML = offset.toString() + defaultTableSize;
 
-    tournamentsResource.getPlayers(tournamentId, offset, defaultTableSize, players.updatePlayersTableResolve, resourceReject);
-    tournamentsResource.countPlayers(tournamentId, players.countPlayersTableResolve, resourceReject);
+    tournamentsResource.getPlayers(tournamentId, offset, defaultTableSize, players.updatePlayersTableResolve, showMessages);
+    tournamentsResource.countPlayers(tournamentId, players.countPlayersTableResolve, showMessages);
   },
 
   updatePlayersTableResolve : function updatePlayersTableResolve(json){ players.updatePlayersTableInternal(json); },
@@ -241,7 +241,7 @@ var players = {
   //
   //--------------------------------------------------------------------------------------------------------------------
   showDetails : function showDetails(id) {
-    playersResource.readOrDelete(id, "GET", players.playerToForm, resourceReject);
+    playersResource.readOrDelete(id, "GET", players.playerToForm, showMessages);
   },
 
   //--------------------------------------------------------------------------------------------------------------------

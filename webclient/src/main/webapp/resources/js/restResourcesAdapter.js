@@ -1,9 +1,7 @@
 /* global fetch */
 
 function createOrUpdate(resource, json, onResolve) {
-
-  console.log("create:");
-  console.log(JSON.stringify(json));
+  clearMessages();
 
   // if json has an id there is an already persisted instance
   // so using "PUT" for updating the data, otherwise using "POST" for creating
@@ -27,12 +25,14 @@ function createOrUpdate(resource, json, onResolve) {
       if (response.ok)
         text.then(function (respJson) { onResolve(JSON.parse(respJson)); })
       else
-        text.then(function (respJson) { resourceReject(JSON.parse(respJson)); })
+        text.then(function (respJson) { showMessages(JSON.parse(respJson)); })
     })
     .catch(function (err) { resourceError(err); });
 }
 
 function getSingle(resource, id, onResolve) {
+  clearMessages();
+
   fetch(resourcesUrl() + resource + '/' + id, {
     method: "GET",
     headers: {
@@ -46,12 +46,14 @@ function getSingle(resource, id, onResolve) {
       if (response.ok)
         text.then(function (respJson) { onResolve(JSON.parse(respJson)); })
       else
-        text.then(function (respJson) { resourceReject(JSON.parse(respJson)); })
+        text.then(function (respJson) { showMessages(JSON.parse(respJson)); })
     })
     .catch(function (err) { resourceError(err); });
 }
 
 function getMultiple(resource, offset, maxResults, onResolve) {
+  clearMessages();
+
   fetch(resourcesUrl() + resource + '?offset=' + offset + '&maxResults=' + maxResults, {
     method: "GET",
     headers: {
@@ -65,17 +67,21 @@ function getMultiple(resource, offset, maxResults, onResolve) {
       if (response.ok)
         text.then(function (respJson) { onResolve(JSON.parse(respJson)); })
       else
-        text.then(function (respJson) { resourceReject(JSON.parse(respJson)); })
+        text.then(function (respJson) { showMessages(JSON.parse(respJson)); })
     })
     .catch(function (err) { resourceError(err); });
 }
 
-//
-// default for rejecting a resource-call
-//
-function resourceReject(json) {
+function clearMessages(){
+  // https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
   let ul = document.getElementById("violations");
+  while (ul.firstChild) {
+    ul.removeChild(ul.firstChild);
+  }
+}
 
+function showMessages(json) {
+  let ul = document.getElementById("violations");
   json.violations.forEach(violation =>{
     let li = document.createElement("li");
     li.setAttribute("class", "violation");
@@ -84,9 +90,6 @@ function resourceReject(json) {
   });
 }
 
-//
-//  handling errrs
-//
 function resourceError(err){
   console.log(err);
 }
