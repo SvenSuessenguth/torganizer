@@ -1,9 +1,8 @@
 /* global fetch */
 
-class   DisciplinesResource extends CrudResource{
+class   DisciplinesResource{
   constructor() {
-    super();
-  }
+ }
 
   getOpponents(disciplineId, offset, maxResults, onResolve) {
     fetch(resourcesUrl()+'disciplines/' +disciplineId+"/opponents")

@@ -102,7 +102,7 @@ let disciplines = {
 
     sessionStorage.setItem('disciplines.current-discipline.id', disciplineId);
 
-    disciplinesResource.readSingle(disciplineId, disciplines.showSelectedDisciplineResolve);
+    getSingle("disciplines", disciplineId, disciplines.showSelectedDisciplineResolve);
     disciplinesResource.getOpponents(disciplineId, opponentsOffset, opponentsMaxResults, disciplines.updateOpponentsResolve);
     tournamentsResource.assignableOpponents(tournamentId, disciplineId, assignableOpponentsOffset, assignableOpponentsMaxResults, disciplines.updateAssignableOpponentsResolve);
   },
@@ -191,7 +191,7 @@ let disciplines = {
     if(disciplineId===null){ return;}
     else{ disciplineId = Number(disciplineId); }
 
-    disciplinesResource.readSingle(disciplineId, disciplines.initRestrictionsResolve);
+    getSingle("disciplines", disciplineId, disciplines.initRestrictionsResolve);
   },
   initRestrictionsResolve : function initRestrictionsResolve(json){
     disciplines.disciplineToForm(json);
@@ -211,13 +211,12 @@ let disciplines = {
     }
   },
   create : function create(discipline) {
-    createOrUpdate(discipline, disciplines.createResolve);
+    createOrUpdate("disciplines", discipline, disciplines.createResolve);
   },
   createResolve : function createResolve(json) {
     let tournamentId = tournaments.getId();
     let disciplineId = json.id;
     sessionStorage.setItem('disciplines.discipline.id', disciplineId);
-
     tournamentsResource.addDiscipline(tournamentId, disciplineId, disciplines.addDisciplineResolve);
   },
   addDisciplineResolve : function addDisciplineResolve(json) {
@@ -225,7 +224,7 @@ let disciplines = {
   },
 
   update : function update(discipline) {
-    disciplinesResource.createOrUpdate(discipline, "PUT", disciplines.updateResolve);
+    createOrUpdate("disciplines", discipline, disciplines.updateResolve);
   },
   updateResolve : function updateResolve(json) {
     disciplines.initUI();

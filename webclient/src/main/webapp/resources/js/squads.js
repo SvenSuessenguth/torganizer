@@ -27,20 +27,18 @@ class Squads {
   }
 
   squadSelectedFromAllSquads(event){
-    squadsResource.readSingle(event.detail, squads.showSquadResolve, squads.showSquadReject);
+    getSingle("squads", event.detail, squads.showSquadResolve);
   }
   showSquadResolve(json){
     squads.squadToForm(json);
   }
-  showSquadReject(json){}
 
   updateAllSquads(tournamentId, offset, rows){
-    tournamentsResource.getSquads(tournamentId, offset, rows, this.updateAllSquadsResolve, this.updateAllSquadsReject);
+    tournamentsResource.getSquads(tournamentId, offset, rows, this.updateAllSquadsResolve);
   }
   updateAllSquadsResolve(json){
     document.getElementById("all-squads-table").setAttribute("data", JSON.stringify(json));
   }
-  updateAllSquadsReject(json){ }
 
   prevAllSquads(){
     let allSquadsRows = Number(document.getElementById("all-squads-table").getAttribute("rows"));
@@ -80,9 +78,8 @@ class Squads {
     document.getElementById("all-players-table").addEventListener("opponent-selected", this.playerSelectedFromAllPlayer);
   }
 
-
   playerSelectedFromAllPlayer(event){    
-    playersResource.readOrDelete(event.detail, "GET", squads.addPlayerToSquadResolve, squads.addPlayerToSquadReject);
+    getSingle("players", event.detail, squads.addPlayerToSquadResolve);
   }
   addPlayerToSquadResolve(json){
     let retrievedData = sessionStorage.getItem("squads.selected-players-table");
@@ -184,28 +181,19 @@ class Squads {
   //--------------------------------------------------------------------------------------------------------------------
   save(){
     let squad = this.formToSquad();
-    if(squad===null || squad.id==='' || squad.id==='null' || squad.id===null) {
-      this.create(squad);
-    } else {
-      this.update(squad);
-    }
-  }
-  create(squad){
-    squadsResource.createOrUpdate(squad, "POST", this.createResolve, this.createReject); 
+    createOrUpdate("squads", squad, squads.createResolve);
   }
   createResolve(json){
     let tournamentId = tournaments.getId();
     let squadId = json.id;
-    tournamentsResource.addSquad(tournamentId, squadId, squads.addSquadResolve, squads.addSquadReject);
+    tournamentsResource.addSquad(tournamentId, squadId, squads.addSquadResolve);
   }
-  createReject(error) { console.log(error); }
   addSquadResolve(json){
     let tournamentId = tournaments.getId();
     squads.updateAllSquads(tournamentId, 0, 10);
     squads.cancel();
   }
-  addSquadReject(error){ console.log(error); }
-  
+
   update(squad) {
     squadsResource.createOrUpdate(squad, "PUT", this.updateResolve, this.updateReject);
     squads.cancel();
