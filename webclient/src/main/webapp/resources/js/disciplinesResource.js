@@ -5,15 +5,7 @@ class   DisciplinesResource extends CrudResource{
     super();
   }
 
-  createOrUpdate(json, method, onResolve, onReject) {
-    super.createOrUpdate("disciplines", json, method, onResolve, onReject);
-  }
-
-  readSingle(id, onResolve, onReject) {
-    super.readSingle("disciplines", id, onResolve, onReject);
-  }
-
-  getOpponents(disciplineId, offset, maxResults, onResolve, onReject) {
+  getOpponents(disciplineId, offset, maxResults, onResolve) {
     fetch(resourcesUrl()+'disciplines/' +disciplineId+"/opponents")
     .then(function (response) {
       if (response.ok)
@@ -25,11 +17,11 @@ class   DisciplinesResource extends CrudResource{
         onResolve(json);
     })
     .catch(function (err) {
-      onReject(err);
+      resourceError(err);
     });
   }
 
-  addOpponent(disciplineId, opponentId, onResolve, onReject) {
+  addOpponent(disciplineId, opponentId, onResolve) {
     fetch(resourcesUrl()+'disciplines/' +disciplineId+"/opponents?opponentId="+opponentId,{
       method: "POST",
         headers: {
@@ -45,11 +37,11 @@ class   DisciplinesResource extends CrudResource{
         onResolve(json);
       })
       .catch(function (err) {
-        onReject(err);
+        resourceError(err);
       });
   }
 
-  removeOpponent(disciplineId, opponentId, onResolve, onReject) {
+  removeOpponent(disciplineId, opponentId, onResolve) {
     fetch(resourcesUrl()+'disciplines/' +disciplineId+"/opponents?opponentId="+opponentId,{
       method: "DELETE",
       headers: {
@@ -65,15 +57,15 @@ class   DisciplinesResource extends CrudResource{
         onResolve(json);
       })
       .catch(function (err) {
-        onReject(err);
+        resourceError(err);
       });
   }
 
-  getRounds(disciplineId, onResolve, onReject){
-    super.readMultiple('disciplines/' +disciplineId+"/rounds", 0, 100, onResolve, onReject);
+  getRounds(disciplineId, onResolve){
+    super.readMultiple('disciplines/' +disciplineId+"/rounds", 0, 100, onResolve);
   }
 
-  addRound(disciplineId, roundId, onResolve, onReject){
+  addRound(disciplineId, roundId, onResolve){
     fetch(resourcesUrl()+'disciplines/' +disciplineId+"/rounds?roundId="+roundId,{
       method: "POST",
       headers: {
@@ -89,10 +81,10 @@ class   DisciplinesResource extends CrudResource{
         onResolve(json);
       })
       .catch(function (err) {
-        onReject(err);
+        resourceError(err);
       });
   }
-  removeRound(disciplineId, roundId, onResolve, onReject){
+  removeRound(disciplineId, roundId, onResolve){
     fetch(resourcesUrl()+'disciplines/' +disciplineId+"/rounds?roundId="+roundId,{
       method: "DELETE",
       headers: {
@@ -108,7 +100,7 @@ class   DisciplinesResource extends CrudResource{
         onResolve(json);
       })
       .catch(function (err) {
-        onReject(err);
+        resourceError(err);
       });
   }
 }

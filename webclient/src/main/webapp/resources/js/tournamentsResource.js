@@ -5,22 +5,6 @@ class TournamentsResource extends CrudResource{
     super();
   }
 
-  createOrUpdate(json, method, onResolve) {
-    super.createOrUpdate("tournaments", json, method, onResolve);
-  }
-
-  readSingle(tournamentId, onResolve, onReject) {
-    super.readSingle("tournaments", tournamentId, onResolve);
-  }
-
-  readMultiple(offset, maxResults, onResolve, onReject) {
-    super.readMultiple("tournaments", offset, maxResults, onResolve);
-  }
-
-  delete(json) {
-    super.delete(json);
-  }
-
   getPlayers(tournamentId, offset, maxResults, onResolve) {
     fetch(resourcesUrl()+'tournaments/' + tournamentId + '/players?offset=' + offset + '&maxResults=' + maxResults)
       .then(function (response) {

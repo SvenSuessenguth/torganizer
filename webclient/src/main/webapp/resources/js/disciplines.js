@@ -1,16 +1,29 @@
 /* global disciplinesResource, tournamentsResource, tournaments */
 
-class Disciplines {
-  constructor() {
-  }
+/*
+variables in sessions-storage:
+------------------------------------------------------------------------------------------------------------------------
+disciplines.discipline.id
+disciplines.opponents-table.offset
+disciplines.assignable-opponents-table.offset
+disciplines.age-restriction.id
+disciplines.gender-restriction.id
+disciplines.opponent-type-restriction.id
 
-  onload() {
-    this.initSessionStorage(null);
-    this.initSelect();
-    this.initOpponents();
-    this.initAssignableOpponents();
-    this.initRestrictions();
-  }
+*/
+let disciplines = {
+
+  onload : function onload() {
+    disciplines.initSessionStorage(null);
+    disciplines.initUI();
+  },
+
+  initUI : function initUI(){
+    disciplines.initSelect();
+    disciplines.initOpponents();
+    disciplines.initAssignableOpponents();
+    disciplines.initRestrictions();
+  },
 
   //--------------------------------------------------------------------------------------------------------------------
   //
@@ -18,27 +31,27 @@ class Disciplines {
   //
   //--------------------------------------------------------------------------------------------------------------------
   // initilize with default values only if nothing is already in sessionStorage
-  initSessionStorage(selectedDisciplineId){
-    let currentDisciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
+  initSessionStorage : function initSessionStorage(selectedDisciplineId){
+    let currentDisciplineId = sessionStorage.getItem('disciplines.discipline.id');
 
     if(currentDisciplineId===null) {
-      sessionStorage.removeItem('disciplines.current-discipline.id');
+      sessionStorage.removeItem('disciplines.discipline.id');
 
       sessionStorage.setItem('disciplines.opponents-table.offset', 0);
       sessionStorage.setItem('disciplines.assignable-opponents-table.offset', 0);
 
-      sessionStorage.removeItem('disciplines.current-age-restriction.id');
-      sessionStorage.removeItem('disciplines.current-gender-restriction.id');
-      sessionStorage.removeItem('disciplines.current-opponent-type-restriction.id');
+      sessionStorage.removeItem('disciplines.age-restriction.id');
+      sessionStorage.removeItem('disciplines.gender-restriction.id');
+      sessionStorage.removeItem('disciplines.opponent-type-restriction.id');
     }
-  }
-  initSelect(){
+  },
+  initSelect : function initSelect(){
     let tournamentId = tournaments.getId();
-    tournamentsResource.getDisciplines(tournamentId, this.initSelectResolve, this.initSelectReject)
-  }
-  initSelectResolve(json) {
+    tournamentsResource.getDisciplines(tournamentId, disciplines.initSelectResolve)
+  },
+  initSelectResolve : function initSelectResolve(json) {
     let dSelect = document.getElementById("disciplines");
-    let disciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
+    let disciplineId = sessionStorage.getItem('disciplines.discipline.id');
 
     // remove all optione before adding new ones
     while (dSelect.options.length > 0) {
@@ -68,15 +81,14 @@ class Disciplines {
         option.selected = "selected";
       }
     });
-  }
-  initSelectReject(json) {}
+  },
 
-  showSelectDiscipline() {
+  showSelectDiscipline : function showSelectDiscipline() {
     let dSelect = document.getElementById("disciplines");
     let disciplineId = dSelect.options[dSelect.selectedIndex].value;
-    this.showDiscipline(disciplineId);
-  }
-  showDiscipline(disciplineId){
+    disciplines.showDiscipline(disciplineId);
+  },
+  showDiscipline : function showDiscipline(disciplineId){
     if(disciplineId==="select"){
       disciplines.cancel();
       return;
@@ -90,66 +102,60 @@ class Disciplines {
 
     sessionStorage.setItem('disciplines.current-discipline.id', disciplineId);
 
-    disciplinesResource.readSingle(disciplineId, this.showSelectedDisciplineResolve, this.showSelectedDisciplineReject);
-    disciplinesResource.getOpponents(disciplineId, opponentsOffset, opponentsMaxResults, disciplines.updateOpponentsResolve, disciplines.updateOpponentsReject);
-    tournamentsResource.assignableOpponents(tournamentId, disciplineId, assignableOpponentsOffset, assignableOpponentsMaxResults, this.updateAssignableOpponentsResolve, this.updateAssignableOpponentsReject);
-  }
-
-  showSelectedDisciplineResolve(json) {
+    disciplinesResource.readSingle(disciplineId, disciplines.showSelectedDisciplineResolve);
+    disciplinesResource.getOpponents(disciplineId, opponentsOffset, opponentsMaxResults, disciplines.updateOpponentsResolve);
+    tournamentsResource.assignableOpponents(tournamentId, disciplineId, assignableOpponentsOffset, assignableOpponentsMaxResults, disciplines.updateAssignableOpponentsResolve);
+  },
+  showSelectedDisciplineResolve : function showSelectedDisciplineResolve(json) {
     disciplines.disciplineToForm(json);
-  }
-  showSelectedDisciplineReject(json) {}
-
+  },
 
   //--------------------------------------------------------------------------------------------------------------------
   //
   // initialize and actions for opponents
   //
   //--------------------------------------------------------------------------------------------------------------------
-  initOpponents(){
-    this.updateOpponents();
-    document.getElementById("opponents-table").addEventListener("opponent-selected", this.opponentSelectedFromOpponents);
-  }
+  initOpponents : function initOpponents(){
+    disciplines.updateOpponents();
+    document.getElementById("opponents-table").addEventListener("opponent-selected", disciplines.opponentSelectedFromOpponents);
+  },
 
-  opponentSelectedFromOpponents(event){
-    console.log("remove opponent "+event.detail+" from discipline "+sessionStorage.getItem('disciplines.current-discipline.id'));
+  opponentSelectedFromOpponents : function opponentSelectedFromOpponents(event){
+    console.log("remove opponent "+event.detail+" from discipline "+sessionStorage.getItem('disciplines..discipline.id'));
     let disciplineId = Number(sessionStorage.getItem('disciplines.current-discipline.id'));
     let opponentId = event.detail;
-    disciplinesResource.removeOpponent(disciplineId, opponentId, disciplines.removeOpponentResolve, disciplines.removeOpponentReject);
-  }
-  removeOpponentResolve(json){
+    disciplinesResource.removeOpponent(disciplineId, opponentId, disciplines.removeOpponentResolve);
+  },
+  removeOpponentResolve : function removeOpponentResolve(json){
     disciplines.updateOpponents();
     disciplines.initAssignableOpponents();
-  }
-  removeOpponentReject(json){}
+  },
 
-  updateOpponents(){
-    let disciplineId = Number(sessionStorage.getItem('disciplines.current-discipline.id'));
+  updateOpponents : function updateOpponents(){
+    let disciplineId = Number(sessionStorage.getItem('disciplines.discipline.id'));
     let maxResults = document.getElementById("opponents-table").getAttribute("rows");
-    let offset = sessionStorage.getItem('disciplines.current-discipline.offset');
+    let offset = sessionStorage.getItem('disciplines.discipline.offset');
 
-    disciplinesResource.getOpponents(disciplineId, offset, maxResults, disciplines.updateOpponentsResolve, disciplines.updateOpponentsReject);
-  }
-  updateOpponentsResolve(json){
+    disciplinesResource.getOpponents(disciplineId, offset, maxResults, disciplines.updateOpponentsResolve);
+  },
+  updateOpponentsResolve : function updateOpponentsResolve(json){
     document.getElementById("opponents-table").setAttribute("data", JSON.stringify(json));
-  }
-  updateOpponentsReject(text){ }
-
+  },
 
   //--------------------------------------------------------------------------------------------------------------------
   //
   // initialize and actions for assignableOpponents
   //
   //--------------------------------------------------------------------------------------------------------------------
-  initAssignableOpponents() {
+  initAssignableOpponents : function initAssignableOpponents() {
     sessionStorage.setItem("disciplines.assignable-opponents-table.offset", 0);
-    this.updateAssignableOpponents();
-    document.getElementById("assignable-opponents-table").addEventListener("opponent-selected", this.opponentSelectedFromAssignableOpponents);
-  }
+    disciplines.updateAssignableOpponents();
+    document.getElementById("assignable-opponents-table").addEventListener("opponent-selected", disciplines.opponentSelectedFromAssignableOpponents);
+  },
 
-  updateAssignableOpponents(){
+  updateAssignableOpponents : function updateAssignableOpponents(){
     let tournamentId = tournaments.getId();
-    let disciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
+    let disciplineId = sessionStorage.getItem('disciplines.discipline.id');
     let maxResults = document.getElementById("assignable-opponents-table").getAttribute("rows");
     let offset = sessionStorage.getItem('disciplines.assignable-opponents-table.offset');
 
@@ -158,95 +164,82 @@ class Disciplines {
     }
     disciplineId = Number(disciplineId);
 
-    tournamentsResource.assignableOpponents(tournamentId, disciplineId, offset, maxResults, this.updateAssignableOpponentsResolve, this.updateAssignableOpponentsReject );
-  }
-  updateAssignableOpponentsResolve(json){
+    tournamentsResource.assignableOpponents(tournamentId, disciplineId, offset, maxResults, disciplines.updateAssignableOpponentsResolve);
+  },
+  updateAssignableOpponentsResolve : function updateAssignableOpponentsResolve(json){
     document.getElementById("assignable-opponents-table").setAttribute("data", JSON.stringify(json));
-  }
-  updateAssignableOpponentsReject(json){}
+  },
 
-
-  opponentSelectedFromAssignableOpponents(event){
-    console.log("add opponent "+event.detail+" to discipline "+Number(sessionStorage.getItem('disciplines.current-discipline.id')));
-    let disciplineId = Number(sessionStorage.getItem('disciplines.current-discipline.id'));
+  opponentSelectedFromAssignableOpponents : function opponentSelectedFromAssignableOpponents(event){
+    let disciplineId = Number(sessionStorage.getItem('disciplines.discipline.id'));
+    console.log("add opponent "+event.detail+" to discipline "+ disciplineId);
     let opponentId = event.detail;
-    disciplinesResource.addOpponent(disciplineId, opponentId, disciplines.addOpponentResolve, disciplines.addOpponentReject);
-  }
-  addOpponentResolve(json){
+    disciplinesResource.addOpponent(disciplineId, opponentId, disciplines.addOpponentResolve);
+  },
+  addOpponentResolve : function addOpponentResolve(json){
     disciplines.initAssignableOpponents();
     disciplines.initOpponents();
-  }
-  addOpponentReject(text){ console.log("error while adding opponent"); }
+  },
 
   //--------------------------------------------------------------------------------------------------------------------
   //
   // initialize restrictions
   //
   //--------------------------------------------------------------------------------------------------------------------
-  initRestrictions(){
-    let disciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
+  initRestrictions : function initRestrictions(){
+    let disciplineId = sessionStorage.getItem('disciplines.discipline.id');
     if(disciplineId===null){ return;}
     else{ disciplineId = Number(disciplineId); }
 
-    disciplinesResource.readSingle(disciplineId, this.initRestrictionsResolve, this.initRestrictionsReject);
-  }
-  initRestrictionsResolve(json){
+    disciplinesResource.readSingle(disciplineId, disciplines.initRestrictionsResolve);
+  },
+  initRestrictionsResolve : function initRestrictionsResolve(json){
     disciplines.disciplineToForm(json);
-  }
-  initRestrictionsReject(json){}
+  },
 
   //--------------------------------------------------------------------------------------------------------------------
   //
   // save
   //
   //--------------------------------------------------------------------------------------------------------------------
-  save() {
-    let discipline = this.formToDiscipline();
+  save : function save() {
+    let discipline = disciplines.formToDiscipline();
     if (discipline.id === null) {
-      this.create(discipline);
+      disciplines.create(discipline);
     } else {
-      this.update(discipline);
+      disciplines.update(discipline);
     }
-  }
-  create(discipline) {
-    disciplinesResource.createOrUpdate(discipline, "POST", disciplines.createResolve, disciplines.createReject);
-  }
-  createResolve(json) {
+  },
+  create : function create(discipline) {
+    createOrUpdate(discipline, disciplines.createResolve);
+  },
+  createResolve : function createResolve(json) {
     let tournamentId = tournaments.getId();
     let disciplineId = json.id;
-    sessionStorage.setItem('disciplines.current-discipline.id', disciplineId);
+    sessionStorage.setItem('disciplines.discipline.id', disciplineId);
 
-    tournamentsResource.addDiscipline(tournamentId, disciplineId, disciplines.addDisciplineResolve, disciplines.addDisciplineReject);
-  }
-  createReject(json) { }
-  addDisciplineResolve(json) {
-    disciplines.initSelect();
-    disciplines.initOpponents();
-    disciplines.initAssignableOpponents();
-    disciplines.initRestrictions();
-  }
-  addDisciplineReject(json) {}
+    tournamentsResource.addDiscipline(tournamentId, disciplineId, disciplines.addDisciplineResolve);
+  },
+  addDisciplineResolve : function addDisciplineResolve(json) {
+    disciplines.initUI();
+  },
 
-  update(discipline) {
-    disciplinesResource.createOrUpdate(discipline, "PUT", disciplines.updateResolve, disciplines.updateReject);
-  }
-  updateResolve(json) {
-    disciplines.initSelect();
-    disciplines.initOpponents();
-    disciplines.initAssignableOpponents();
-    disciplines.initRestrictions();
-  }
-  updateReject(json) { }
+  update : function update(discipline) {
+    disciplinesResource.createOrUpdate(discipline, "PUT", disciplines.updateResolve);
+  },
+  updateResolve : function updateResolve(json) {
+    disciplines.initUI();
+  },
 
   //--------------------------------------------------------------------------------------------------------------------
   //
   // cancel
   //
   //--------------------------------------------------------------------------------------------------------------------
-  cancel() {
+  cancel : function cancel() {
     // cancel core data
     document.getElementById("name").value = "";
-    sessionStorage.removeItem('disciplines.current-discipline.id');
+    sessionStorage.removeItem('disciplines.discipline.id');
     sessionStorage.setItem('disciplines.opponents-table.offset', 0);
     sessionStorage.setItem('disciplines.assignable-opponents-table.offset', 0);
 
@@ -256,30 +249,30 @@ class Disciplines {
     // cancel age-restriction
     document.getElementById("min-date-of-birth").valueAsDate = null;
     document.getElementById("max-date-of-birth").valueAsDate = null;
-    sessionStorage.removeItem('disciplines.current-age-restriction.id');
+    sessionStorage.removeItem('disciplines.age-restriction.id');
 
     // cancel gender-restriction
     let genderElement = document.getElementById("gender");
     selectItemByValue(genderElement, "MALE");
-    sessionStorage.removeItem('disciplines.current-gender-restriction.id');
+    sessionStorage.removeItem('disciplines.gender-restriction.id');
 
     // cancel type-restriction
     let opponmentTypeElement = document.getElementById("opponent-type");
     selectItemByValue(opponmentTypeElement, "PLAYER");
-    sessionStorage.removeItem('disciplines.current-opponent-type-restriction.id');
+    sessionStorage.removeItem('disciplines.opponent-type-restriction.id');
 
     // clear tables
     document.getElementById("opponents-table").setAttribute("data", "[]");
     document.getElementById("assignable-opponents-table").setAttribute("data", "[]");
-  }
+  },
 
   //--------------------------------------------------------------------------------------------------------------------
   //
   // converting from/to json/form
   //
   //--------------------------------------------------------------------------------------------------------------------
-  formToDiscipline() {
-    let disciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
+  formToDiscipline : function formToDiscipline() {
+    let disciplineId = sessionStorage.getItem('disciplines.discipline.id');
     if(disciplineId!==null){
       disciplineId = Number(disciplineId);
     }
@@ -287,14 +280,14 @@ class Disciplines {
       "id": disciplineId,
       "name": document.getElementById("name").value,
       "restrictions": [
-        this.formToAgeRestriction(),
-        this.formToGenderRestriction(),
-        this.formToOpponentTypeRestriction()
+        disciplines.formToAgeRestriction(),
+        disciplines.formToGenderRestriction(),
+        disciplines.formToOpponentTypeRestriction()
       ]
     };
-  }
-  disciplineToForm(discipline) {
-    sessionStorage.setItem('disciplines.current-discipline.id', discipline.id);
+  },
+  disciplineToForm : function disciplineToForm(discipline) {
+    sessionStorage.setItem('disciplines.discipline.id', discipline.id);
     document.getElementById("name").value = discipline.name;
 
     // call method by type of restriction
@@ -310,9 +303,9 @@ class Disciplines {
         disciplines.opponentTypeRestrictionToForm(restriction);
       }
     });
-  }
-  formToAgeRestriction() {
-    let ageRestrictionId = sessionStorage.getItem('disciplines.current-age-restriction.id');
+  },
+  formToAgeRestriction : function formToAgeRestriction() {
+    let ageRestrictionId = sessionStorage.getItem('disciplines.age-restriction.id');
     ageRestrictionId = ageRestrictionId===null?null:Number(ageRestrictionId);
 
     return {
@@ -321,15 +314,15 @@ class Disciplines {
       "minDateOfBirth": document.getElementById("min-date-of-birth").value,
       "maxDateOfBirth": document.getElementById("max-date-of-birth").value
     };
-  }
-  ageRestrictionToForm(ageRestriction) {
-    sessionStorage.setItem('disciplines.current-age-restriction.id', ageRestriction.id);
+  },
+  ageRestrictionToForm : function ageRestrictionToForm(ageRestriction) {
+    sessionStorage.setItem('disciplines.age-restriction.id', ageRestriction.id);
     document.getElementById("min-date-of-birth").value = ageRestriction.minDateOfBirth;
     document.getElementById("max-date-of-birth").value = ageRestriction.maxDateOfBirth;
-  }
-  formToGenderRestriction() {
+  },
+  formToGenderRestriction : function formToGenderRestriction() {
     let genderElement = document.getElementById("gender");
-    let genderRestrictionId = sessionStorage.getItem('disciplines.current-gender-restriction.id');
+    let genderRestrictionId = sessionStorage.getItem('disciplines.gender-restriction.id');
     genderRestrictionId = genderRestrictionId===null?null:Number(genderRestrictionId);
 
     return {
@@ -337,16 +330,16 @@ class Disciplines {
       "discriminator": "G",
       "gender": genderElement.options[genderElement.selectedIndex].value
     };
-  }
-  genderRestrictionToForm(genderRestriction) {
-    sessionStorage.setItem('disciplines.current-gender-restriction.id', genderRestriction.id);
+  },
+  genderRestrictionToForm : function genderRestrictionToForm(genderRestriction) {
+    sessionStorage.setItem('disciplines.gender-restriction.id', genderRestriction.id);
 
     let genderElement = document.getElementById("gender");
     selectItemByValue(genderElement, genderRestriction.gender);
-  }
-  formToOpponentTypeRestriction() {
+  },
+  formToOpponentTypeRestriction : function formToOpponentTypeRestriction() {
     let opponentTypeElement = document.getElementById("opponent-type");
-    let opponentTypeRestricionId = sessionStorage.getItem('disciplines.current-opponent-type-restriction.id');
+    let opponentTypeRestricionId = sessionStorage.getItem('disciplines.opponent-type-restriction.id');
     opponentTypeRestricionId = opponentTypeRestricionId===null?null:Number(opponentTypeRestricionId);
 
     return {
@@ -354,13 +347,12 @@ class Disciplines {
       "discriminator": "O",
       "opponentType": opponentTypeElement.options[opponentTypeElement.selectedIndex].value
     };
-  }
-  opponentTypeRestrictionToForm(opponentTypeRestriction) {
-    sessionStorage.setItem('disciplines.current-opponent-type-restriction.id', opponentTypeRestriction.id);
+  },
+  opponentTypeRestrictionToForm : function opponentTypeRestrictionToForm(opponentTypeRestriction) {
+    sessionStorage.setItem('disciplines.opponent-type-restriction.id', opponentTypeRestriction.id);
 
     let opponentTypeElement = document.getElementById("opponent-type");
     selectItemByValue(opponentTypeElement, opponentTypeRestriction.opponentType);
-  }
-}
+  },
+};
 
-var disciplines = new Disciplines();
