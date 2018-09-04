@@ -4,7 +4,7 @@ class CrudResource {
   constructor() {
   }
 
-  createOrUpdate(resource, json, method, onResolve, onReject) {
+  createOrUpdate(resource, json, method, onResolve) {
 
     console.log("create:");
     console.log(JSON.stringify(json));
@@ -27,11 +27,11 @@ class CrudResource {
           onResolve(json);
       })
       .catch(function (err) {
-          onReject(err);
+        resourceError(err);
       });
   }
 
-  readSingle(resource, id, onResolve, onReject) {
+  readSingle(resource, id, onResolve) {
     fetch(resourcesUrl()+resource+'/' + id)
       .then(function (response) {
         if (response.ok)
@@ -43,11 +43,11 @@ class CrudResource {
         onResolve(json);
       })
       .catch(function (err) {
-        onReject(err);
+        resourceError(err);
       });
   }
 
-  readMultiple(resource, offset, maxResults, onResolve, onReject) {
+  readMultiple(resource, offset, maxResults, onResolve) {
     fetch(resourcesUrl()+resource+'?offset=' + offset + '&maxResults=' + maxResults, {
       method: "GET",
       headers: {
@@ -64,17 +64,10 @@ class CrudResource {
         onResolve(json);
       })
       .catch(function (err) {
-        onReject(err);
+        resourceError(err);
       });
   }
 
   delete(json) {
   }
-}
-
-//
-// default for rejecting a resource-call
-//
-function resourceReject(json){
-    console.log(json);
 }

@@ -5,23 +5,23 @@ class TournamentsResource extends CrudResource{
     super();
   }
 
-  createOrUpdate(json, method, onResolve, onReject) {
-    super.createOrUpdate("tournaments", json, method, onResolve, onReject);
+  createOrUpdate(json, method, onResolve) {
+    super.createOrUpdate("tournaments", json, method, onResolve);
   }
 
   readSingle(tournamentId, onResolve, onReject) {
-    super.readSingle("tournaments", tournamentId, onResolve, onReject);
+    super.readSingle("tournaments", tournamentId, onResolve);
   }
 
   readMultiple(offset, maxResults, onResolve, onReject) {
-    super.readMultiple("tournaments", offset, maxResults, onResolve, onReject);
+    super.readMultiple("tournaments", offset, maxResults, onResolve);
   }
 
   delete(json) {
     super.delete(json);
   }
 
-  getPlayers(tournamentId, offset, maxResults, onResolve, onReject) {
+  getPlayers(tournamentId, offset, maxResults, onResolve) {
     fetch(resourcesUrl()+'tournaments/' + tournamentId + '/players?offset=' + offset + '&maxResults=' + maxResults)
       .then(function (response) {
         if (response.ok)
@@ -33,11 +33,11 @@ class TournamentsResource extends CrudResource{
         onResolve(json);
       })
       .catch(function (err) {
-        onReject(err);
+        resourceError(err);
       });
   }
 
-  addPlayer(tournamentId, playerId, onResolve, onReject) {
+  addPlayer(tournamentId, playerId, onResolve) {
     fetch(resourcesUrl()+'tournaments/' + tournamentId + '/players?pid=' + playerId, {
       method: "POST",
       headers: {
@@ -54,11 +54,11 @@ class TournamentsResource extends CrudResource{
         onResolve(json);
       })
       .catch(function (err) {
-        onReject("???");
+        resourceError(err);
       });
   }
 
-  removePlayer(tournamentId, playerId, onResolve, onReject) {
+  removePlayer(tournamentId, playerId, onResolve) {
     fetch(resourcesUrl()+'tournaments/' + tournamentId + '/players/' + playerId, {
       method: "DELETE",
       headers: {
@@ -75,11 +75,11 @@ class TournamentsResource extends CrudResource{
         onResolve(json);
       })
       .catch(function (err) {
-        onReject("???");
+        resourceError(err);
       });
   }
 
-  countPlayers(tournamentId, onResolve, onReject) {
+  countPlayers(tournamentId, onResolve) {
     fetch(resourcesUrl()+'tournaments/' + tournamentId + '/players/count')
       .then(function (response) {
         if (response.ok)
@@ -91,11 +91,11 @@ class TournamentsResource extends CrudResource{
         onResolve(json);
       })
       .catch(function (err) {
-        onReject("???");
+        resourceError(err);
       });
   }
 
-  getSquads(tournamentId, offset, maxResults, onResolve, onReject) {
+  getSquads(tournamentId, offset, maxResults, onResolve) {
     fetch(resourcesUrl()+'tournaments/' + tournamentId + '/squads?offset=' + offset + '&maxResults=' + maxResults)
       .then(function (response) {
         if (response.ok)
@@ -107,11 +107,11 @@ class TournamentsResource extends CrudResource{
         onResolve(json);
       })
       .catch(function (err) {
-        onReject("???");
+        resourceError(err);
       });
   }
 
-  addSquad(tournamentId, squadId, onResolve, onReject) {
+  addSquad(tournamentId, squadId, onResolve) {
     fetch(resourcesUrl()+'tournaments/' + tournamentId + '/squads?sid=' + squadId, {
       method: "POST",
       headers: {
@@ -128,11 +128,11 @@ class TournamentsResource extends CrudResource{
         onResolve(json);
       })
       .catch(function (err) {
-        onReject("???");
+        resourceError(err);
       });
   }
 
-  countSquads(tournamentId, onResolve, onReject) {
+  countSquads(tournamentId, onResolve) {
     fetch(resourcesUrl()+'tournaments/' + tournamentId + '/squads/count')
       .then(function (response) {
         if (response.ok)
@@ -144,11 +144,11 @@ class TournamentsResource extends CrudResource{
         onResolve(json);
       })
       .catch(function (err) {
-        onReject("???");
+        resourceError(err);
       });
   }
 
-  addDiscipline(tournamentId, disciplineId, onResolve, onReject) {
+  addDiscipline(tournamentId, disciplineId, onResolve) {
     fetch(resourcesUrl()+'tournaments/' + tournamentId + '/disciplines?did=' + disciplineId, {
       method: "POST",
       headers: {
@@ -165,11 +165,11 @@ class TournamentsResource extends CrudResource{
         onResolve(json);
       })
       .catch(function (err) {
-        onReject("???");
+        resourceError(err);
       });
   }
 
-  getDisciplines(tournamentId, onResolve, onReject) {
+  getDisciplines(tournamentId, onResolve) {
     fetch(resourcesUrl()+'tournaments/' + tournamentId + '/disciplines')
       .then(function (response) {
         if (response.ok)
@@ -181,10 +181,10 @@ class TournamentsResource extends CrudResource{
         onResolve(json);
       })
       .catch(function (err) {
-        onReject("???");
+        resourceError(err);
       });
   }
-  getDiscipline(tournamentId, disciplineId, onResolve, onReject) {
+  getDiscipline(tournamentId, disciplineId, onResolve) {
     fetch(resourcesUrl()+'tournaments/' + tournamentId + '/disciplines/' + disciplineId)
       .then(function (response) {
         if (response.ok)
@@ -196,11 +196,11 @@ class TournamentsResource extends CrudResource{
         onResolve(json);
       })
       .catch(function (err) {
-        onReject("???");
+        resourceError(err);
       });
   }
 
-  assignableOpponents(tournamentId, disciplineId, offset, maxResults, onResolve, onReject) {
+  assignableOpponents(tournamentId, disciplineId, offset, maxResults, onResolve) {
     fetch(resourcesUrl()+'tournaments/' + tournamentId + '/assignable-opponents?disciplineId=' + disciplineId+"&offset="+offset+"&maxResults="+maxResults)
       .then(function (response) {
         if (response.ok)
@@ -212,7 +212,7 @@ class TournamentsResource extends CrudResource{
         onResolve(json);
       })
       .catch(function (err) {
-        onReject("???");
+        resourceError(err);
       });
   }
 
