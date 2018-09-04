@@ -9,7 +9,7 @@ https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-usagenotes-glassfish-co
 https://github.com/payara/docker-payaraserver-full/issues/13
 
 Creating a datasource via commandline/asadmin for Glassfish/Payara
-[source]
+[source,dos,options="nowrap"]
 ----
  add-library /path/to/mysql-connector-java-bin.jar
 
