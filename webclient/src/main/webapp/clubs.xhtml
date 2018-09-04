@@ -10,23 +10,25 @@
   <ui:composition template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="content">
+      <h:outputScript name="js/restResourcesAdapter.js" target="head" />
       <h:outputScript name="js/crudResource.js" target="head" />
+      <h:outputScript name="js/tournaments.js" target="head" />
       <h:outputScript name="js/clubsResource.js" target="head" />
       <h:outputScript name="js/clubs.js" target="head" />
 
       <template id="clubRecord">
         <tr>
-          <td id="name"></td>
+          <td id="tdName"></td>
         </tr>
       </template>
 
-      #{text.count} <span id="clubsCount"></span>
+      #{text.count} <span id="count"></span>
       <table id="clubsTable">
         <tbody id="clubsTableBody"></tbody>
       </table>
 
       <span id="clubData">
-        <label for="clubName">#{text.name}</label><input id="clubName" value="" />
+        <label for="name">#{text.name}</label><input id="name" value="" />
 
         <input type="button" value="#{text.save}" onclick="clubs.save()" />
         <input type="button" value="#{text.cancel}" onclick="clubs.cancel()" />

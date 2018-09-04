@@ -1,96 +1,89 @@
 /* global fetch, clubsResource */
 
-class Clubs {
-  constructor() {
-  }
-  
-  onload(){
-    this.showClubsTable();    
-  }
- 
-  getCurrentClubId(){
-    var clubId = sessionStorage.getItem('clubs-current-club-id');
-    
+/*
+variables in sessions-storage:
+------------------------------------------------------------------------------------------------------------------------
+
+clubs.club.id
+
+clubs.club.name
+
+ */
+let clubs = {
+
+  onload : function onload(){
+    this.showTable();
+  },
+
+  getCurrentClubId : function getCurrentClubId(){
+    var clubId = sessionStorage.getItem('clubs.club.id');
+
     // do not convert NULL to '0'
     if(clubId !== null){
-    return Number(sessionStorage.getItem('clubs-current-club-id'));
+      return Number(sessionStorage.getItem('clubs.club.id'));
     }
+
     return clubId;
-  }
-  isActiveClub(){
-    return this.getCurrentClubId() !== null;
-  }
-  
-  showClubsTable(){
-    clubsResource.readMultiple(0, 100, this.showClubsTableSuccess, this.showClubsTableFailure);
-  }
-  showClubsTableSuccess(data){    
-    document.getElementById("clubsCount").innerHTML=data.length;
+  },
+
+  showTable : function showTable(){
+    getMultiple("clubs", 0, 100, clubs.showTableResolve);
+  },
+
+  showTableResolve : function showTableResolve(data){
+    document.getElementById("count").innerHTML=data.length;
     var tableBody = document.querySelector('#clubsTableBody');
-    
+
+    // clear old ui
+    // https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
+    while (tableBody.firstChild) {
+      tableBody.removeChild(tableBody.firstChild);
+    }
+
     data.forEach(function(club){
       var t = document.querySelector("#clubRecord").cloneNode(true);
       var template = t.content;
   
-      var nameElement = template.querySelector("#name");
-      nameElement.innerHTML = club.name;
-      nameElement.setAttribute("id", "club-"+club.id);
-      nameElement.onclick = function(e){ clubs.showClubDetails(club.id); };
+      var tdName = template.querySelector("#tdName");
+      tdName.innerHTML = club.name;
+      tdName.setAttribute("id", "club-"+club.id);
+      tdName.onclick = function(e){ clubs.showDetails(club.id); };
         
       tableBody.appendChild(template);
     });
-  }
-  showClubsTableFailure(data){console.log(data);}
-  
-  showClubDetails(id) {
-    fetch('http://localhost:8080/rest/resources/clubs/'+id).then(function(response) {
-      return response.json();
-    }).then(function(data) {
-      // {"id":1,"name":"dings"}
-      document.getElementById("clubName").setAttribute('value', data.name);
-      sessionStorage.setItem('clubs-current-club-id', data.id);
-      sessionStorage.setItem('clubs-current-club-name', data.name);
-    }).catch(function(err) {
-    });
-  }
-  
-  save(){
-    var json = this.inputToJSon();
-    var clubId = this.getCurrentClubId();
-    var method;
-    
-    if(clubId===null){ method = "POST"; }
-    else{ method = "PUT"; }
-    
-    clubsResource.createOrUpdate(json, method, this.createSuccess, this.createFailure);
-  }
-  
-  createSuccess(json){
-    sessionStorage.setItem('clubs-current-club-id', json.id);
-    sessionStorage.setItem('clubs-current-club-name', json.name);
-    window.location.reload(true);
-    clubs.cancel();
-  }
-  createFailure(json){}
+  },
 
-  updateSuccess(json){
-    sessionStorage.setItem('clubs-current-club-id', json.id);
-    sessionStorage.setItem('clubs-current-club-name', json.name);
-    window.location.reload(true);
-    clubs.cancel();
-  }
-  updateFailure(json){}
-  
-  cancel(){
-    sessionStorage.removeItem('clubs-current-club-id');
-    sessionStorage.removeItem('clubs-current-club-name');
-    document.getElementById("clubName").value = "";
-    document.getElementById("clubName").focus();
-  }
-  
-  inputToJSon(){
+  showDetails : function showDetails(id) {
+    getSingle("clubs", id, clubs.showDetailResolve);
+  },
+
+  showDetailResolve : function showDetailResolve(data){
+    document.getElementById("name").setAttribute('value', data.name);
+    sessionStorage.setItem('clubs.club.id', data.id);
+    sessionStorage.setItem('clubs.club.name', data.name);
+  },
+
+  save : function save(){
+    var json = this.formToClub();
+    createOrUpdate("clubs", json, clubs.saveSuccess);
+  },
+
+  saveSuccess : function saveSuccess(json){
+    sessionStorage.setItem('clubs.club.id', json.id);
+    sessionStorage.setItem('clubs.club.name', json.name);
+    clubs.showTable();
+  },
+
+  cancel : function cancel(){
+    sessionStorage.removeItem('clubs.club.id');
+    sessionStorage.removeItem('clubs.club.name');
+    document.getElementById("name").value = "";
+    document.getElementById("name").focus();
+  },
+
+  formToClub : function formToClub(){
     var id= clubs.getCurrentClubId();
-    var name = document.getElementById("clubName").value;
+    var name = document.getElementById("name").value;
   
     var json = {
       "id": id,
@@ -100,4 +93,3 @@ class Clubs {
   }
 }
 
-var clubs = new Clubs();

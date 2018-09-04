@@ -8,7 +8,7 @@ tournaments.tournament.id
 tournaments.tournament.name
 
 */
-var tournaments = {
+let tournaments = {
   onload: function onload() {
     tournaments.updateTable();
   },
@@ -39,7 +39,7 @@ var tournaments = {
       let cell = row.insertCell(0);
       cell.innerHTML = tournament.name;
       cell.setAttribute("id", "tournament-" + tournament.id);
-      cell.onclick = function (e) {
+      cell.onclick = function () {
         tournaments.select(tournament.id);
       };
     });
@@ -50,7 +50,6 @@ var tournaments = {
   },
 
   selectResolve: function showTournamentDetailsResolve(data) {
-    // {"id":1,"name":"dings"}
     document.getElementById("name").value = data.name;
     sessionStorage.setItem('tournaments.tournament.id', data.id);
     sessionStorage.setItem('tournaments.tournament.name', data.name);
