@@ -172,8 +172,8 @@ var players = {
     document.getElementById("players-offset").innerHTML = offset.toString();
     document.getElementById("players-length").innerHTML = offset.toString() + defaultTableSize;
 
-    tournamentsResource.getPlayers(tournamentId, offset, defaultTableSize, players.updatePlayersTableResolve, processMessages);
-    tournamentsResource.countPlayers(tournamentId, players.countPlayersTableResolve, processMessages);
+    tournamentsResource.getPlayers(tournamentId, offset, defaultTableSize, players.updatePlayersTableResolve);
+    tournamentsResource.countPlayers(tournamentId, players.countPlayersTableResolve);
   },
 
   updatePlayersTableResolve : function updatePlayersTableResolve(json){ players.updatePlayersTableInternal(json); },
@@ -241,7 +241,7 @@ var players = {
   //
   //--------------------------------------------------------------------------------------------------------------------
   showDetails : function showDetails(id) {
-    playersResource.readOrDelete(id, "GET", players.playerToForm, processMessages);
+    getSingle("players", id, players.playerToForm);
   },
 
   //--------------------------------------------------------------------------------------------------------------------

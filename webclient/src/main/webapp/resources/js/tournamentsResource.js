@@ -1,8 +1,7 @@
 /* global fetch */
 
-class TournamentsResource extends CrudResource{
+class TournamentsResource {
   constructor() {
-    super();
   }
 
   getPlayers(tournamentId, offset, maxResults, onResolve) {
