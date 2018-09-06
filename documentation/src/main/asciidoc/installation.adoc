@@ -74,14 +74,14 @@ Creating a datasource via commandline/asadmin for Glassfish/Payara
 ----
 [mysqld]
 # set basedir to your installation path
-basedir=c:\\dev\\server\\mysql-5.7.22-win32
+basedir=c:\\dev\\server\\mysql-5.7.23-win32
 # set datadir to the location of your data directory
-datadir=c:\\dev\\server\\mysql-5.7.22-win32\\data
+datadir=c:\\dev\\server\\mysql-5.7.23-win32\\data
 # https://stackoverflow.com/questions/5359495/how-to-change-a-mysql-database-to-utc
 default-time-zone = '+00:00'
 ----
 ====
-* mysql-5.7.20-winx64 nach c:\dev\server kopieren
+* mysql-5.7.23-winx64 nach c:\dev\server kopieren
 * c:\dev\server\mysql-5.7.20-winx64\data anlegen
 * mysqld --initialize-insecure
 * mysqld --console
