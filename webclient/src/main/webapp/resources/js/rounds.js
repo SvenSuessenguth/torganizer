@@ -4,7 +4,7 @@ rounds.round.id           ID of the current round
 rounds.round.position     position of the current round
 rounds.round.system       system of the current round
 rounds.round.qualified    qualified opponents in the current round
-rounds.count                      number of rounds
+rounds.count              number of rounds
  */
 
 let rounds =  {
@@ -23,7 +23,7 @@ let rounds =  {
     let currentDisciplineId = sessionStorage.getItem('disciplines.discipline.id');
     if(currentDisciplineId===null){return;}
 
-    getSingle("disciplines", currentDisciplineId, initDisciplineNameResolve);
+    getSingle("disciplines", currentDisciplineId, rounds.initDisciplineNameResolve);
   },
   initDisciplineNameResolve : function initDisciplineNameResolve(discipline){
     let name = discipline.name;
@@ -93,7 +93,7 @@ let rounds =  {
   },
 
   saveRound : function saveRound(){
-    let round = this.formToRound();
+    let round = rounds.formToRound();
     createOrUpdate("rounds", round, rounds.saveRoundResolve);
   },
   saveRoundResolve : function saveRoundResolve(round){
@@ -158,18 +158,18 @@ let rounds =  {
   // selecting/showing next round (if possible)
   //
   //--------------------------------------------------------------------------------------------------------------------
-  nextRound(){
-    let currentPosition = sessionStorage.getItem("rounds.current-round.position");
+  nextRound : function nextRound(){
+    let currentPosition = sessionStorage.getItem("rounds.round.position");
     let roundsCount = sessionStorage.getItem('rounds.count');
     if(currentPosition >= roundsCount-1){
       return;
     }
 
-    let currentDisciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
-    disciplinesResource.getRounds(currentDisciplineId, this.nextRoundResolve, processMessages);
-  }
-  nextRoundResolve(json){
-    let currentPosition = Number(sessionStorage.getItem("rounds.current-round.position"));
+    let currentDisciplineId = sessionStorage.getItem('disciplines.discipline.id');
+    disciplinesResource.getRounds(currentDisciplineId, rounds.nextRoundResolve);
+  },
+  nextRoundResolve : function nextRoundResolve(json){
+    let currentPosition = Number(sessionStorage.getItem("rounds.round.position"));
 
     // find round with next position
     let roundWithNextPostion = null;
@@ -181,32 +181,32 @@ let rounds =  {
     });
 
     rounds.updatePage(roundWithNextPostion);
-  }
+  },
 
   //--------------------------------------------------------------------------------------------------------------------
   //
   // update view/sessionStorage with data
   //
   //--------------------------------------------------------------------------------------------------------------------
-  updatePage(round){
+  updatePage : function updatePage(round){
     rounds.updateSessionStorage(round);
     rounds.updateRoundElement();
     rounds.roundToForm(round);
-  }
-  updateSessionStorage(round){
-    sessionStorage.setItem('rounds.current-round.id', round.id);
-    sessionStorage.setItem('rounds.current-round.position', round.position);
-    sessionStorage.setItem('rounds.current-round.system', round.system);
-    sessionStorage.setItem('rounds.current-round.qualified', round.qualified);
-  }
+  },
+  updateSessionStorage : function updateSessionStorage(round){
+    sessionStorage.setItem('rounds.round.id', round.id);
+    sessionStorage.setItem('rounds.round.position', round.position);
+    sessionStorage.setItem('rounds.round.system', round.system);
+    sessionStorage.setItem('rounds.round.qualified', round.qualified);
+  },
 
   //--------------------------------------------------------------------------------------------------------------------
   //
   // converting the input-data (round-data) to/from json
   //
   //--------------------------------------------------------------------------------------------------------------------
-  formToRound(){
-    let id = sessionStorage.getItem('rounds.current-round.id');
+  formToRound : function formToRound(){
+    let id = sessionStorage.getItem('rounds.round.id');
     let systemElement = document.getElementById("system");
     let qualified = document.getElementById("qualified").value;
 
@@ -225,8 +225,8 @@ let rounds =  {
     };
 
     return json;
-  }
-  roundToForm(round){
+  },
+  roundToForm : function roundToForm(round){
     if(round===null){
       return;
     }
@@ -238,11 +238,11 @@ let rounds =  {
     systemElement.selectedIndex = 0;
 
     if(round==null){
-      sessionStorage.removeItem("rounds.current-round.id");
+      sessionStorage.removeItem("rounds.current.id");
       return;
     }
 
-    sessionStorage.setItem("rounds.current-round.id", round.id);
+    sessionStorage.setItem("rounds.round.id", round.id);
 
     let qualified = round.qualified;
     if(qualified !== null) {
@@ -252,7 +252,5 @@ let rounds =  {
 
     let systemName = round.system;
     selectItemByValue(systemElement, systemName);
-  }
+  },
 }
-
-let rounds = new Rounds();

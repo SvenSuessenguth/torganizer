@@ -72,6 +72,48 @@ function getMultiple(resource, offset, maxResults, onResolve) {
     .catch(function (err) { resourceError(err); });
 }
 
+function getMultipleResources(url, offset, maxResults, onResolve) {
+    clearMessages();
+
+    fetch(url + '?offset=' + offset + '&maxResults=' + maxResults, {
+        method: "GET",
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+        .then(function (response) {
+            // text is a stream and therefore on-time-readable only
+            // https://github.com/whatwg/fetch/issues/196
+            let text = response.text();
+            if (response.ok)
+                text.then(function (respJson) { onResolve(JSON.parse(respJson)); })
+            else
+                text.then(function (respJson) { processMessages(JSON.parse(respJson)); })
+        })
+        .catch(function (err) { resourceError(err); });
+}
+
+function getResources(url, onResolve){
+  clearMessages();
+
+  fetch(url, {
+    method: "GET",
+    headers: {
+      'Accept': 'application/json'
+    }
+  })
+  .then(function (response) {
+    // text is a stream and therefore on-time-readable only
+    // https://github.com/whatwg/fetch/issues/196
+    let text = response.text();
+    if (response.ok)
+      text.then(function (respJson) { onResolve(JSON.parse(respJson)); })
+    else
+      text.then(function (respJson) { processMessages(JSON.parse(respJson)); })
+    })
+  .catch(function (err) { resourceError(err); });
+}
+
 function clearMessages(){
   // unmark elements
   let elements = document.querySelectorAll(".violation");
