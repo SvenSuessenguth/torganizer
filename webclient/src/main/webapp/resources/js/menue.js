@@ -1,50 +1,42 @@
 /* global squadsResource, playersResource, tournamentsResource, tournaments */
 
-class Menue {
-  constructor() {
-  }
-  
-  onLoad(){
-    this.init();
-  }
+menue = {
 
-  init(){
-    this.update();
-  }
+  onload : function onload(){
+    menue.update();
+  },
 
-  update(){
+  update : function update(){
     // https://stackoverflow.com/questions/13955667/disabled-href-tag
     // no selected tournament -> no further actions
     if(tournaments.getId()===null){
-      this.disableLink("menueDisciplines");
-      this.disableLink("menuePlayers");
-      this.disableLink("menueSquads");
-      this.disableLink("menueClubs");
-      this.disableLink("menueMatches");
+      menue.disableLink("menueDisciplines");
+      menue.disableLink("menuePlayers");
+      menue.disableLink("menueSquads");
+      menue.disableLink("menueClubs");
+      menue.disableLink("menueMatches");
     }else{
-      this.enableLink("menueDisciplines");
-      this.enableLink("menuePlayers");
-      this.enableLink("menueSquads");
-      this.enableLink("menueClubs");
-      this.enableLink("menueMatches");
+      menue.enableLink("menueDisciplines");
+      menue.enableLink("menuePlayers");
+      menue.enableLink("menueSquads");
+      menue.enableLink("menueClubs");
+      menue.enableLink("menueMatches");
     }
 
-    let currentDisciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
+    let currentDisciplineId = sessionStorage.getItem('disciplines.discipline.id');
     if(currentDisciplineId===null){
       this.disableLink("menueRounds");
     }else {
       this.enableLink("menueRounds");
     }
-  }
+  },
 
-  disableLink(linkId){
+  disableLink : function disableLink(linkId){
     document.getElementById(linkId).setAttribute("onclick", "return false;");
     document.getElementById(linkId).setAttribute("class", "disabledLink");
-  }
-  enableLink(linkId){
+  },
+  enableLink : function enableLink(linkId){
     document.getElementById(linkId).removeAttribute("onclick");
     document.getElementById(linkId).removeAttribute("class");
-  }
+  },
 }
-
-var menue = new Menue();
