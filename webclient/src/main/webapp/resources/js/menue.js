@@ -29,7 +29,7 @@ class Menue {
       this.enableLink("menueMatches");
     }
 
-    let currentDisciplineId = sessionStorage.getItem('disciplines.current-discipline.id');
+    let currentDisciplineId = sessionStorage.getItem('disciplines.discipline.id');
     if(currentDisciplineId===null){
       this.disableLink("menueRounds");
     }else {

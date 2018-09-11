@@ -92,7 +92,7 @@ let rounds =  {
     rElement.innerHTML = Number(currentRoundPosition) + 1;
   },
 
-  saveRound : function saveRound(){
+  save : function save(){
     let round = rounds.formToRound();
     createOrUpdate("rounds", round, rounds.saveRoundResolve);
   },
@@ -110,9 +110,7 @@ let rounds =  {
     rounds.roundToForm(round);
   },
 
-  deleteRound : function deleteRound(){
-  },
-  cancelRound : function cancelRound(){
+  cancel : function cancel(){
     let defaultRound = {
       "id": null,
       "system": "ROUND_ROBIN",

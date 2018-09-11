@@ -4,9 +4,7 @@
 variables in sessions-storage:
 ------------------------------------------------------------------------------------------------------------------------
 tournaments.tournament.id
-
 tournaments.tournament.name
-
 */
 let tournaments = {
   onload: function onload() {
