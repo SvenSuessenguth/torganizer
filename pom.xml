@@ -44,9 +44,10 @@
     <mockito.version>2.22.0</mockito.version>
     
     <!-- plugin versions -->
-    <jacoco-maven-plugin.version>0.8.1</jacoco-maven-plugin.version>
+    <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
+	<maven-enforcer-plugin.version>3.0.0-M2</maven-enforcer-plugin.version>
     <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
-    <sonar-maven-plugin.version>3.4.1.1168</sonar-maven-plugin.version>
+    <sonar-maven-plugin.version>3.5.0.1254</sonar-maven-plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -210,6 +211,26 @@
             <jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
           </systemPropertyVariables>
         </configuration>
+      </plugin>
+	  
+	  <!--
+	   | https://maven.apache.org/enforcer/enforcer-rules/requireMavenVersion.html
+	   +-->
+	  <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>${maven-enforcer-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>enforce-maven</id>
+            <goals><goal>enforce</goal></goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion><version>3.5.4</version></requireMavenVersion>
+              </rules>    
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
