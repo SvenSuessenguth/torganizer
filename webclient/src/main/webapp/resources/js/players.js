@@ -303,4 +303,4 @@ var players = {
     }
     selectItemByValue(clubElement, clubId);
   },
-}
+};

@@ -39,4 +39,4 @@ menue = {
     document.getElementById(linkId).removeAttribute("onclick");
     document.getElementById(linkId).removeAttribute("class");
   },
-}
+};

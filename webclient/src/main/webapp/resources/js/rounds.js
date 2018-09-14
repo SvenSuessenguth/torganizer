@@ -27,7 +27,7 @@ let rounds =  {
   },
   initDisciplineNameResolve : function initDisciplineNameResolve(discipline){
     let name = discipline.name;
-    let dnElement = document.getElementById("disciplineName");
+    let dnElement = document.getElementById("discipline");
     dnElement.innerHTML = name;
   },
 
@@ -216,13 +216,11 @@ let rounds =  {
       qualified = Number(qualified);
     }
 
-    let json = {
+    return {
       "id": id,
       "system": systemElement.options[systemElement.selectedIndex].value,
       "qualified":qualified
     };
-
-    return json;
   },
   roundToForm : function roundToForm(round){
     if(round===null){
@@ -251,4 +249,4 @@ let rounds =  {
     let systemName = round.system;
     selectItemByValue(systemElement, systemName);
   },
-}
+};

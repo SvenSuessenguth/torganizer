@@ -16,7 +16,7 @@ let clubs = {
   },
 
   getCurrentClubId : function getCurrentClubId(){
-    var clubId = sessionStorage.getItem('clubs.club.id');
+    let clubId = sessionStorage.getItem('clubs.club.id');
 
     // do not convert NULL to '0'
     if(clubId !== null){
@@ -32,7 +32,7 @@ let clubs = {
 
   showTableResolve : function showTableResolve(data){
     document.getElementById("count").innerHTML=data.length;
-    var tableBody = document.querySelector('#clubsTableBody');
+    let tableBody = document.querySelector('#clubsTableBody');
 
     // clear old ui
     // https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
@@ -41,10 +41,10 @@ let clubs = {
     }
 
     data.forEach(function(club){
-      var t = document.querySelector("#clubRecord").cloneNode(true);
-      var template = t.content;
+      let t = document.querySelector("#clubRecord").cloneNode(true);
+      let template = t.content;
   
-      var tdName = template.querySelector("#tdName");
+      let tdName = template.querySelector("#tdName");
       tdName.innerHTML = club.name;
       tdName.setAttribute("id", "club-"+club.id);
       tdName.onclick = function(e){ clubs.showDetails(club.id); };
@@ -64,7 +64,7 @@ let clubs = {
   },
 
   save : function save(){
-    var json = this.formToClub();
+    let json = this.formToClub();
     createOrUpdate("clubs", json, clubs.saveSuccess);
   },
 
@@ -82,14 +82,13 @@ let clubs = {
   },
 
   formToClub : function formToClub(){
-    var id= clubs.getCurrentClubId();
-    var name = document.getElementById("name").value;
+    let id= clubs.getCurrentClubId();
+    let name = document.getElementById("name").value;
   
-    var json = {
+    return  {
       "id": id,
       "name": name
     };
-    return json;  
   }
-}
+};
 
