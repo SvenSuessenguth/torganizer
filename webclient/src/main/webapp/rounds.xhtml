@@ -17,12 +17,14 @@
 
       <link rel="import" href="custom/opponents-table/opponents-table.html" />
 
-      <label for="discipline">Discipline</label> <span id="discipline"></span>
+      <label for="disciplines">#{text.disciplines}</label>
+      <select id="disciplines" onchange="rounds.showDisciplineSelected()"/>
+
       <br />
       <label for="round">Round</label>
       <input type="button" id="prevRound" disabled="disabled" value="&#9664;" onclick="rounds.prevRound()" />
       <span id="round" />
-      <input type="button" id="nextRound" value="&#9654;" onclick="rounds.nextRound()" />
+      <input type="button" id="nextRound" disabled="disabled" value="&#9654;" onclick="rounds.nextRound()" />
       <h:outputText value="#{text.from}" />
       <span id="numberOfRounds" />
       <br /><br />
