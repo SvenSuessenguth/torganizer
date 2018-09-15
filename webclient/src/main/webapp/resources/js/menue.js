@@ -15,19 +15,14 @@ menue = {
       menue.disableLink("menueSquads");
       menue.disableLink("menueClubs");
       menue.disableLink("menueMatches");
+      menue.disableLink("menueRounds");
     }else{
       menue.enableLink("menueDisciplines");
       menue.enableLink("menuePlayers");
       menue.enableLink("menueSquads");
       menue.enableLink("menueClubs");
       menue.enableLink("menueMatches");
-    }
-
-    let currentDisciplineId = sessionStorage.getItem('disciplines.discipline.id');
-    if(currentDisciplineId===null){
-      this.disableLink("menueRounds");
-    }else {
-      this.enableLink("menueRounds");
+      menue.enableLink("menueRounds");
     }
   },
 

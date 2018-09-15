@@ -97,10 +97,89 @@ let rounds =  {
     if(numberOfRounds==0 ){
       roundElement.innerText = "-"
       return;
+    }else{
+      // if there is any round, but none is selected, then select the first round
+      if(roundPosition===null){
+        sessionStorage.setItem("rounds.round.position", "0");
+      }
     }
 
     // enable/disable prev/next round
+    let prevRoundElement = document.getElementById("prevRound");
+    let nextRoundElement = document.getElementById("nextRound");
+    if(numberOfRounds>0){
+      if(roundPosition<=0){ prevRoundElement.setAttribute("disabled", "disabled"); }
+      else { prevRoundElement.removeAttribute("disabled"); }
 
+      if(roundPosition>=numberOfRounds){ nextRoundElement.setAttribute("disabled", "disabled"); }
+      else { nextRoundElement.removeAttribute("disabled"); }
+    }
+  },
 
-  }
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // save, delete, cancel
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  save : function save(){
+    let json = rounds.formToRound();
+    createOrUpdate("rounds", json, rounds.saveResolve);
+  },
+  saveResolve : function saveResolve(json){
+    let disciplineId = sessionStorage.getItem("rounds.discipline.id");
+    let roundId = json.id;
+    disciplinesResource.addRound(disciplineId, roundId, rounds.addRoundToDisciplineResolve);
+    sessionStorage.setItem("rounds.round.id", roundId);
+  },
+  addRoundToDisciplineResolve : function addRoundToDisciplineResolve(){
+  },
+
+  cancel : function cancel(){
+    // reset all ui-elements
+    let qualifiedElement = document.getElementById("qualified");
+    qualifiedElement.value = '';
+    let systemElement = document.getElementById("system");
+    systemElement.selectedIndex = 0;
+
+    sessionStorage.removeItem("rounds.round.id");
+  },
+
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // converting round form/to json/form
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  roundToForm : function roundToForm(json){
+    rounds.cancel();
+
+    if(json==null){ return; }
+
+    sessionStorage.setItem("rounds.round.id", json.id);
+
+    let qualifiedElement = document.getElementById("qualified");
+    let qualified = json.qualified;
+    if(qualified !== null) {
+      qualified = Number(qualified);
+      qualifiedElement.value= qualified;
+    }
+
+    let systemElement = document.getElementById("system");
+    let systemName = json.system;
+    selectItemByValue(systemElement, systemName);
+  },
+
+  formToRound : function formToRound(){
+    let id = sessionStorage.getItem('rounds.round.id');
+    let systemElement = document.getElementById("system");
+    let qualified = document.getElementById("qualified").value;
+
+    if(id!==null){ id = Number(id); }
+    if(qualified !== null) { qualified = Number(qualified); }
+
+    return {
+      "id": id,
+      "system": systemElement.options[systemElement.selectedIndex].value,
+      "qualified":qualified
+    };
+  },
 };
