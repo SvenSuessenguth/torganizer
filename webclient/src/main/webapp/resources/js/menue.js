@@ -1,6 +1,6 @@
 /* global squadsResource, playersResource, tournamentsResource, tournaments */
 
-menue = {
+let menue = {
 
   onload : function onload(){
     menue.update();
