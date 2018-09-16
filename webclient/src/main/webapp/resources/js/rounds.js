@@ -70,6 +70,8 @@ let rounds =  {
       sessionStorage.removeItem("rounds.discipline.id");
     }
 
+    sessionStorage.removeItem("rounds.round.id");
+    sessionStorage.removeItem("rounds.round.position");
     rounds.initRoundsSelection();
   },
 
@@ -91,36 +93,67 @@ let rounds =  {
     let norElement = document.getElementById("numberOfRounds");
     norElement.innerText = numberOfRounds;
 
+
     // update rounds.round.position
     let roundPosition = sessionStorage.getItem("rounds.round.position");
     let roundElement = document.getElementById("round");
     if(numberOfRounds==0 ){
-      roundElement.innerText = "-"
-      return;
+      roundElement.innerText = "-";
     }else{
       // if there is any round, but none is selected, then select the first round
       if(roundPosition===null){
-        sessionStorage.setItem("rounds.round.position", "0");
+        roundPosition = "0";
       }
+      sessionStorage.setItem("rounds.round.position", roundPosition);
+      roundElement.innerText = roundPosition;
     }
+
+    // update rounds.round.id
+    sessionStorage.removeItem("rounds.round.id");
+    json.forEach(function(round){
+        if(round.position==roundPosition){
+          sessionStorage.setItem("rounds.round.id", round.id);
+        }
+      }
+    );
 
     // enable/disable prev/next round
     let prevRoundElement = document.getElementById("prevRound");
     let nextRoundElement = document.getElementById("nextRound");
-    if(numberOfRounds>0){
-      if(roundPosition<=0){ prevRoundElement.setAttribute("disabled", "disabled"); }
-      else { prevRoundElement.removeAttribute("disabled"); }
-
-      if(roundPosition>=numberOfRounds){ nextRoundElement.setAttribute("disabled", "disabled"); }
-      else { nextRoundElement.removeAttribute("disabled"); }
+    prevRoundElement.setAttribute("disabled", "disabled");
+    nextRoundElement.setAttribute("disabled", "disabled");
+    if(numberOfRounds>0 && roundPosition!==null){
+      if(roundPosition>0 ){ prevRoundElement.removeAttribute("disabled"); }
+      if(roundPosition<(numberOfRounds-1)){ nextRoundElement.removeAttribute("disabled"); }
     }
+  },
+
+  prevRound : function prevRound(){
+    let roundPosition = Number(sessionStorage.getItem("rounds.round.position"));
+    sessionStorage.setItem("rounds.round.position", roundPosition - 1);
+    rounds.initRoundsSelection();
+  },
+
+  nextRound : function nextRound(){
+    let roundPosition = Number(sessionStorage.getItem("rounds.round.position"));
+    sessionStorage.setItem("rounds.round.position", roundPosition + 1);
+    rounds.initRoundsSelection();
   },
 
   //--------------------------------------------------------------------------------------------------------------------
   //
+  // initialize round data
   // save, delete, cancel
   //
   //--------------------------------------------------------------------------------------------------------------------
+  initRoundsDetails : function initRoundsDetails(){
+    let disciplineId = sessionStorage.getItem("rounds.discipline.id");
+    if(disciplineId==null){
+      return;
+    }
+    disciplinesResource.getRounds(disciplineId, rounds.initRoundsSelectionResolve);
+  },
+
   save : function save(){
     let json = rounds.formToRound();
     createOrUpdate("rounds", json, rounds.saveResolve);
