@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.ws.rs.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.cc.torganizer.rest.json.ModelJsonConverter.emptyArray;
@@ -126,6 +127,25 @@ public class DisciplinesResource extends AbstractResource {
     Discipline discipline = dRepository.removeOpponent(disciplineId, opponentId);
 
     return dConverter.toJsonObject(discipline);
+  }
+
+  @GET
+  @Path("/{id}/opponents-assignable-to-round")
+  public JsonArray getOpponentsAssignableToRound(@PathParam("id") Long disciplineId){
+    JsonArray result = null;
+
+    List<Opponent> opponents = dRepository.getOpponentsAssignableToRound(disciplineId);
+
+    // all opponents must have same type (see opponentTypeRestriction)
+    if(opponents.isEmpty()){
+      result = emptyArray();
+    }
+    else{
+      ModelJsonConverter<Opponent> oConverter = opponentJsonConverterProvider.getConverter(opponents);
+      result = oConverter.toJsonArray(opponents);
+    }
+
+    return result;
   }
 
   //--------------------------------------------------------------------------------------------------------------------
