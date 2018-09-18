@@ -8,12 +8,12 @@ https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-usagenotes-glassfish-co
 
 https://github.com/payara/docker-payaraserver-full/issues/13
 
-Creating a datasource via commandline/asadmin for Glassfish/Payara
+Creating a MySQL-5.7-datasource via commandline/asadmin for Glassfish/Payara
 [source,dos,options="nowrap"]
 ----
  add-library /path/to/mysql-connector-java-bin.jar
 
- create-jdbc-connection-pool --datasourceclassname com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource --restype javax.sql.DataSource --property user=newuser:password=newuser:DatabaseName=torganizer:ServerName=localhost:PortNumber=3306 MySQLConnPool
+ create-jdbc-connection-pool --datasourceclassname com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource --restype javax.sql.DataSource --property user=newuser:password=newuser:DatabaseName=torganizer:ServerName=localhost:PortNumber=3306:useSSL=false MySQLConnPool
  create-jdbc-resource --connectionpoolid MySQLConnPool jdbc/torganizerDS
  
  create-custom-resource --restype=java.lang.String --factoryclass=org.glassfish.resources.custom.factory.PrimitivesAndStringFactory --property value=Development jsf/ProjectStage

@@ -1,9 +1,12 @@
 package org.cc.torganizer.persistence;
 
 import org.cc.torganizer.core.entities.Group;
+import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.PositionalOpponent;
 import org.cc.torganizer.core.entities.Round;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
@@ -11,10 +14,15 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Stateless
 public class RoundsRepository extends Repository{
+
+  @Inject
+  private DisciplinesRepository dRepository;
 
   public RoundsRepository() {
   }
@@ -23,9 +31,10 @@ public class RoundsRepository extends Repository{
    * Constructor for testing.
    * @param entityManager EntityManager
    */
-  RoundsRepository(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
+  RoundsRepository(EntityManager entityManager, DisciplinesRepository dRepository) {
+    this.entityManager = entityManager;
+    this.dRepository = dRepository;
+  }
 
   //--------------------------------------------------------------------------------------------------------------------
   //
@@ -67,6 +76,52 @@ public class RoundsRepository extends Repository{
     entityManager.remove(round);
 
     return round;
+  }
+
+  public Set<Opponent> getOpponents(Long roundId){
+    Long prevRoundId = getPrevRoundId(roundId);
+    Set<Opponent> opponents;
+
+    if(prevRoundId!=null) {
+      Round prevRound = read(prevRoundId);
+      opponents = prevRound.getQualifiedOpponents();
+    }else{
+      Long disciplineId = dRepository.getDisciplineId(roundId);
+      opponents = new HashSet<>(dRepository.getOpponents(disciplineId, 0, 999));
+    }
+
+    return opponents;
+  }
+
+  /**
+   * Find all opponents, which are not already assigned to a group of the round.
+   */
+  public Set<Opponent> getOpponentsAssignableToGroup(Long roundId) {
+    Set<Opponent> opponents = getOpponents(roundId);
+    Set<Opponent> alreadyAssignedOpponents = getAlreadyAssignedOpponents(roundId);
+
+    Set<Opponent> assignableOpponents = opponents;
+    assignableOpponents.removeAll(alreadyAssignedOpponents);
+
+    return assignableOpponents;
+  }
+
+  public Set<Opponent> getAlreadyAssignedOpponents(Long roundId){
+    TypedQuery<PositionalOpponent> query = entityManager.createQuery("SELECT po " +
+      "FROM Round r, Group g , PositionalOpponent po " +
+      "WHERE r.id = :roundId " +
+      "AND g MEMBER OF r.groups " +
+      "AND po MEMBER OF g.positionalOpponents",
+      PositionalOpponent.class);
+    query.setParameter("roundId", roundId);
+    List<PositionalOpponent> resultList = query.getResultList();
+
+    Set<Opponent> alreadyAssignedOpponents = new HashSet<>(resultList.size());
+    for(PositionalOpponent po : resultList){
+      alreadyAssignedOpponents.add(po.getOpponent());
+    }
+
+    return alreadyAssignedOpponents;
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -134,5 +189,35 @@ public class RoundsRepository extends Repository{
     return roundId;
   }
 
+  public Long getRoundId(Long disciplineId, Integer roundPosition){
+    Long roundId = null;
 
+    try {
+      TypedQuery<Long> query = entityManager.createQuery("SELECT r.id FROM Round r, Discipline d WHERE d.id = :disciplineId AND r MEMBER OF d.rounds AND r.position = :roundPosition", Long.class);
+      query.setParameter("disciplineId", disciplineId);
+      query.setParameter("roundPosition", roundPosition);
+      roundId = query.getSingleResult();
+    }catch(NoResultException nrExc){
+      return null;
+    }
+
+    return roundId;
+  }
+
+  public Long getPrevRoundId(Long roundId) {
+    Integer roundPosition = getPosition(roundId);
+    Integer prevRoundPosition = roundPosition - 1;
+    Long disciplineId = dRepository.getDisciplineId(roundId);
+    return getRoundId(disciplineId, prevRoundPosition);
+  }
+
+  public Integer getPosition(Long roundId){
+    try {
+      TypedQuery<Integer> query = entityManager.createQuery("SELECT r.position FROM Round r WHERE r.id = :roundId", Integer.class);
+      query.setParameter("roundId", roundId);
+      return query.getSingleResult();
+    }catch(NoResultException nrExc){
+      return null;
+    }
+  }
 }

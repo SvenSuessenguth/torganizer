@@ -3,6 +3,7 @@ package org.cc.torganizer.persistence;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.core.entities.System;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +20,7 @@ public class RoundsRepositoryTest extends AbstractDbUnitJpaTest {
   public void before() throws Exception {
     super.initDatabase("test-data-round.xml");
 
-    repository = new RoundsRepository(entityManager);
+    repository = new RoundsRepository(entityManager, new DisciplinesRepository(entityManager));
   }
 
   @Test
@@ -90,5 +91,29 @@ public class RoundsRepositoryTest extends AbstractDbUnitJpaTest {
     Long id = repository.getRoundId(-1L);
 
     assertThat(id, is(nullValue()));
+  }
+
+  @Test
+  public void testGetPosition(){
+    Integer position = repository.getPosition(1L);
+    assertThat(position, is(1));
+
+    position = repository.getPosition(2L);
+    assertThat(position, is(2));
+  }
+
+  @Test
+  public void testGetRoundId_ByDisciplineAndPosition(){
+    Long roundId = repository.getRoundId(1L, 2);
+    assertThat(roundId, is(2L));
+
+    roundId = repository.getRoundId(1L, 1);
+    assertThat(roundId, is(1L));
+  }
+
+  @Test
+  public void testGetPreviousRound(){
+    Long prevRoundId = repository.getPrevRoundId(2L);
+    assertThat(1L, is(prevRoundId));
   }
 }

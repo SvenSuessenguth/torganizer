@@ -129,25 +129,6 @@ public class DisciplinesResource extends AbstractResource {
     return dConverter.toJsonObject(discipline);
   }
 
-  @GET
-  @Path("/{id}/opponents-assignable-to-round")
-  public JsonArray getOpponentsAssignableToRound(@PathParam("id") Long disciplineId){
-    JsonArray result = null;
-
-    List<Opponent> opponents = dRepository.getOpponentsAssignableToRound(disciplineId);
-
-    // all opponents must have same type (see opponentTypeRestriction)
-    if(opponents.isEmpty()){
-      result = emptyArray();
-    }
-    else{
-      ModelJsonConverter<Opponent> oConverter = opponentJsonConverterProvider.getConverter(opponents);
-      result = oConverter.toJsonArray(opponents);
-    }
-
-    return result;
-  }
-
   //--------------------------------------------------------------------------------------------------------------------
   //
   // Rounds

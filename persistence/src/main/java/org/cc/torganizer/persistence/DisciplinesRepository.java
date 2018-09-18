@@ -113,30 +113,6 @@ public class DisciplinesRepository extends Repository{
     return discipline;
   }
 
-  /**
-   * Find all opponents, which are not already assigned to a round.
-   */
-  public List<Opponent> getOpponentsAssignableToRound(Long disciplineId) {
-
-    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-    CriteriaQuery<Opponent> cq = cb.createQuery(Opponent.class);
-    Root<Discipline> discipline = cq.from(Discipline.class);
-    Root<Opponent> opponent = cq.from(Opponent.class);
-    Join<Discipline, Opponent> disciplineOpponentJoin = discipline.join ("opponents");
-
-    cq.select(opponent);
-    cq.where(
-      cb.and(
-        cb.equal(discipline.get("id"), disciplineId),
-        cb.equal(disciplineOpponentJoin.get("id"), opponent.get("id"))
-      )
-    );
-
-    TypedQuery<Opponent> query = entityManager.createQuery(cq);
-
-    return query.getResultList();
-  }
-
   //--------------------------------------------------------------------------------------------------------------------
   //
   // Discipline rounds

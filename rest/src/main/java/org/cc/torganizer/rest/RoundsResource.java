@@ -1,7 +1,10 @@
 package org.cc.torganizer.rest;
 
+import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.persistence.RoundsRepository;
+import org.cc.torganizer.rest.json.ModelJsonConverter;
+import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
 import org.cc.torganizer.rest.json.RoundJsonConverter;
 
 import javax.ejb.Stateless;
@@ -10,6 +13,9 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.ws.rs.*;
 import java.util.List;
+import java.util.Set;
+
+import static org.cc.torganizer.rest.json.ModelJsonConverter.emptyArray;
 
 @Stateless
 @Path("/rounds")
@@ -21,6 +27,9 @@ public class RoundsResource extends AbstractResource {
 
   @Inject
   private RoundJsonConverter rConverter;
+
+  @Inject
+  private OpponentJsonConverterProvider opponentJsonConverterProvider;
 
   @POST
   public JsonObject create(JsonObject jsonObject) {
@@ -79,5 +88,24 @@ public class RoundsResource extends AbstractResource {
   @Path("/{id}/opponents")
   public JsonObject removeOpponent(@PathParam("id") Long disciplineId, @QueryParam("opponentId") Long opponentId) {
     return null;
+  }
+
+  @GET
+  @Path("/{id}/opponents-assignable-to-group")
+  public JsonArray getOpponentsAssignableToGroup(@PathParam("id") Long disciplineId){
+    JsonArray result = null;
+
+    Set<Opponent> opponents = rRepository.getOpponentsAssignableToGroup(disciplineId);
+
+    // all opponents must have same type (see opponentTypeRestriction)
+    if(opponents.isEmpty()){
+      result = emptyArray();
+    }
+    else{
+      ModelJsonConverter<Opponent> oConverter = opponentJsonConverterProvider.getConverter(opponents);
+      result = oConverter.toJsonArray(opponents);
+    }
+
+    return result;
   }
 }

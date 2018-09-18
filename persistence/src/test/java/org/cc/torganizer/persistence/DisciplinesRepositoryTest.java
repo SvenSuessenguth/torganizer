@@ -31,8 +31,8 @@ public class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
   @Test
   public void testGetDisciplineId_existing(){
     // testdata:
-    // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="1" />
-    Long id = repository.getDisciplineId(1L);
+    // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="3" />
+    Long id = repository.getDisciplineId(3L);
 
     assertThat(id, is(1L));
   }
