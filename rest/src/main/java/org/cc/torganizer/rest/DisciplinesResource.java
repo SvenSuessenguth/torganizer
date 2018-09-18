@@ -12,7 +12,6 @@ import javax.inject.Inject;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.ws.rs.*;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.cc.torganizer.rest.json.ModelJsonConverter.emptyArray;
