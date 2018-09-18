@@ -14,7 +14,7 @@ let rounds =  {
     rounds.initDisciplinesSelection();
     rounds.initRoundsSelection();
     // rounds.initRoundsDetails();
-    //rounds.initRoundsGroup();
+    rounds.initRoundsGroup();
     //rounds.initRoundsGroups();
   },
 
@@ -181,6 +181,29 @@ let rounds =  {
     systemElement.selectedIndex = 0;
 
     sessionStorage.removeItem("rounds.round.id");
+  },
+
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // init assignable opponents and group to whis opponents can be assigned
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  initRoundsGroup : function initRoundsGroup(){
+    rounds.initAssignableOpponents();
+    rounds.initGroup();
+  },
+  initAssignableOpponents(){
+    let roundId = sessionStorage.getItem("rounds.round.id");
+    let url = resourcesUrl()+`rounds/${roundId}/opponents-assignable-to-group`;
+    getResources(url, rounds.initAssignableOpponentsResolve);
+  },
+  initAssignableOpponentsResolve : function initAssignableOpponentsResolve(json){
+    let assignableOpponentsTable = document.getElementById("assignable-opponents-table");
+    assignableOpponentsTable.setAttribute("data", JSON.stringify(json));
+  },
+
+  initGroup(){
+
   },
 
   //--------------------------------------------------------------------------------------------------------------------

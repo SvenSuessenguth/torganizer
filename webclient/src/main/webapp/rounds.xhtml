@@ -43,10 +43,10 @@
       <br /><br />
 
       <div style="float:left; padding-right: 10px;">
-        <opponents-table id="all-opponents-table" rows="10" data="[]" >
+        <opponents-table id="assignable-opponents-table" rows="2" data="[]" >
         </opponents-table>
-        <input type="submit" value="#{text.prev}" onclick="squads.prevAllOpponents()" />
-        <input type="submit" value="#{text.next}" onclick="squads.nextAllOpponents()" />
+        <input type="submit" value="#{text.prev}" onclick="rounds.prevAssignableOpponents()" />
+        <input type="submit" value="#{text.next}" onclick="rounds.nextAssignableOpponents()" />
       </div>
       <div style="float:left; padding-right: 10px;">
         <input type="button" value="&#9664;" onclick="rounds.prevGroup()" /> <span id="group">1</span> <input type="button" value="&#9654;" onclick="rounds.nextGroup()" />
@@ -54,10 +54,10 @@
         <input type="button" value="&#8722;" style="font-weight: bolder;" onclick="rounds.deleteGroup()" title="#{text.delete}" />
       </div>
       <div style="float:left; padding-right: 10px;">
-        <opponents-table id="group-players-table" rows="5" data="[]" >
+        <opponents-table id="group-opponents-table" rows="5" data="[]" >
         </opponents-table>
-        <input type="submit" value="#{text.prev}" onclick="squads.prevGroupOpponents()" />
-        <input type="submit" value="#{text.next}" onclick="squads.nextGroupOpponents()" />
+        <input type="submit" value="#{text.prev}" onclick="rounds.prevGroupOpponents()" />
+        <input type="submit" value="#{text.next}" onclick="rounds.nextGroupOpponents()" />
       </div>
       <div style="clear:both;" />
       <hr />
