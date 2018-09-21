@@ -6,17 +6,21 @@ import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Objects;
 
-public class PlayerByNameComparator implements Comparator<Player>, Serializable {
+/**
+ * Comparing players by last name.
+ */
+public class PlayerByNameComparator implements Comparator<Player>,
+  Serializable {
 
   @Override
-  public int compare(Player o1, Player o2) {
-    if(Objects.equals(o1, o2)){
+  public final int compare(final Player o1, final Player o2) {
+    if (Objects.equals(o1, o2)) {
       return 0;
     }
 
-    if(o1==null){
+    if (o1 == null) {
       return -1;
-    }else if(o2==null){
+    } else if (o2 == null) {
       return 1;
     }
 
