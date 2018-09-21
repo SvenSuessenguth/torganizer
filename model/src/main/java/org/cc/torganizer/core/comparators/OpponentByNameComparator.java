@@ -4,11 +4,17 @@ import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Player;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
 
-public class OpponentByNameComparator implements Comparator<Opponent>, Serializable {
-
-  private PlayerByNameComparator pbnComparator = new PlayerByNameComparator();
+/**
+ * Comparing Opponents by Name.
+ */
+public class OpponentByNameComparator implements Comparator<Opponent>,
+  Serializable {
 
   @Override
   public final int compare(final Opponent o1, final Opponent o2) {
@@ -34,6 +40,7 @@ public class OpponentByNameComparator implements Comparator<Opponent>, Serializa
       return -1;
     }
 
+    PlayerByNameComparator pbnComparator = new PlayerByNameComparator();
     Collections.sort(o1Players, pbnComparator);
     Collections.sort(o2Players, pbnComparator);
 
