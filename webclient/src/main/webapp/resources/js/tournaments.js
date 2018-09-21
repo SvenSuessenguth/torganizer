@@ -51,6 +51,7 @@ let tournaments = {
     document.getElementById("name").value = data.name;
     sessionStorage.setItem('tournaments.tournament.id', data.id);
     sessionStorage.setItem('tournaments.tournament.name', data.name);
+    header.update();
     menue.update();
   },
 

@@ -8,9 +8,6 @@
   xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-  <!--
-   | for stateless views see https://www.oracle.com/us/assets/lad-2015-ses16315-riem-en-2620916.pdf
-   +-->
   <f:view transient="true">
   <h:head id="template-head">
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -24,6 +21,7 @@
     </script>
 
     <h:outputScript name="js/global.js" target="head" />
+    <h:outputScript name="js/header.js" target="head" />
     <h:outputScript name="js/menue.js" target="head" />
     <h:outputStylesheet name="css/ui.css" />
     <h:outputStylesheet name="css/layout.css" />
@@ -35,7 +33,10 @@
     <ui:insert name="content">page content</ui:insert>
     <ui:include src="/WEB-INF/templates/footer.xhtml" />
 
-    <script type="text/javascript">menue.onload();</script>
+    <script type="text/javascript">
+      header.onload();
+      menue.onload();
+    </script>
   </h:body>
   </f:view>
 

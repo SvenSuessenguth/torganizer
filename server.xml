@@ -1,0 +1,27 @@
+<!--
+ | JNDI
+ | https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/twlp_dep_jndi.html
+ |
+ | DataSource
+ | https://www.ibm.com/support/knowledgecenter/en/SS7K4U_liberty/com.ibm.websphere.wlp.zseries.doc/ae/twlp_dep_configuring_ds.html
+ |
+ | includes
+ | https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/twlp_setup_includes.html
+ +-->
+<server>  
+  <featureManager>
+    <feature>jndi-1.0</feature>
+  </featureManager>
+  
+  <jndiEntry jndiName="torganizer/resourcesUrl" value="http://localhost:9080/rest_war_exploded/resources/" />
+  <jndiEntry jndiName="jsf/ProjectStage" value="Production" />
+  
+  <dataSource id="DefaultDataSource" jndiName="jdbc/torganizerDS">
+    <jdbcDriver libraryRef="MySQLLib" />
+    <properties databaseName="torganizer" serverName="localhost" portNumber="3306" user="root" password="root" useSSL="false" />
+  </dataSource>
+  
+  <library id="MySQLLib">
+    <file name="c:/dev/tools/mysql-connector-java-5.1.47/mysql-connector-java-5.1.47-bin.jar" />
+  </library>
+</server>
