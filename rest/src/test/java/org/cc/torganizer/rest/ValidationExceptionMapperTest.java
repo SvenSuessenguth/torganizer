@@ -1,15 +1,11 @@
 package org.cc.torganizer.rest;
 
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import javax.json.JsonObject;
 import javax.validation.ConstraintViolation;
 import javax.validation.Path;
-import javax.validation.metadata.ConstraintDescriptor;
 import java.util.HashSet;
 import java.util.Set;
 
