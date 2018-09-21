@@ -19,18 +19,18 @@ public class Bye
   }
 
   @Override
-  public Set<Player> getPlayers() {
+  public final Set<Player> getPlayers() {
     return Collections.emptySet();
   }
 
   /**
    * Hilfsmethode zur Erzeugung einer Liste von Freilosen, die eine Assoziation
    * zum Turnier halten.
-   * 
+   *
    * @param size Anzahl der zu erzeugenden Freilose
    * @return Liste von Freilosen
    */
-  public static List<Opponent> createByes(int size) {
+  public static List<Opponent> createByes(final int size) {
 
     // fehlenden Byes generieren
     List<Opponent> byes = new ArrayList<>();
@@ -43,7 +43,7 @@ public class Bye
   }
 
   @Override
-  public OpponentType getOpponentType() {
+  public final OpponentType getOpponentType() {
     return null;
   }
 }

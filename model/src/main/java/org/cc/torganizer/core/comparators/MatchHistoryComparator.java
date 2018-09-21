@@ -24,9 +24,9 @@ public class MatchHistoryComparator
 
   /** {@inheritDoc} */
   @Override
-  public int compare(Match m1, Match m2) {
+  public final int compare(final Match m1, final Match m2) {
 
-    // durchschnittliche Wartezeit der Player ermitteln    
+    // durchschnittliche Wartezeit der Player ermitteln
     Long idleTimeMatch1 = m1.getIdleTime();
     Long idleTimeMatch2 = m2.getIdleTime();
 

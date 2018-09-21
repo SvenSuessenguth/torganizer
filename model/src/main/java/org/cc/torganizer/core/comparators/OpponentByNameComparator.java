@@ -11,14 +11,14 @@ public class OpponentByNameComparator implements Comparator<Opponent>, Serializa
   private PlayerByNameComparator pbnComparator = new PlayerByNameComparator();
 
   @Override
-  public int compare(Opponent o1, Opponent o2) {
+  public final int compare(final Opponent o1, final Opponent o2) {
 
-    if(Objects.equals(o1, o2)){
+    if (Objects.equals(o1, o2)) {
       return 0;
     }
-    if(o1==null){
+    if (o1 == null) {
       return 1;
-    }else if(o2==null){
+    } else if (o2 == null) {
       return -1;
     }
 
@@ -26,11 +26,11 @@ public class OpponentByNameComparator implements Comparator<Opponent>, Serializa
     List<Player> o1Players = new ArrayList<>(o1.getPlayers());
     List<Player> o2Players = new ArrayList<>(o2.getPlayers());
 
-    if(o1Players.isEmpty() && o2Players.isEmpty()){
+    if (o1Players.isEmpty() && o2Players.isEmpty()) {
       return 0;
-    }else if(o1Players.isEmpty()){
+    } else if (o1Players.isEmpty()) {
       return 1;
-    }else if(o2Players.isEmpty()){
+    } else if (o2Players.isEmpty()) {
       return -1;
     }
 
