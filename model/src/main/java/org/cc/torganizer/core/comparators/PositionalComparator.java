@@ -8,19 +8,10 @@ import org.cc.torganizer.core.util.Checker;
 /**
  * Sortieren nach der Position.
  */
-public class PositionalComparator
-  implements Comparator<IPositional>{
+public class PositionalComparator implements Comparator<IPositional> {
 
-  /**
-   * Default.
-   */
-  public PositionalComparator() {
-    // gem. Bean-Spec.
-  }
-
-  /** {@inheritDoc} */
   @Override
-  public int compare(IPositional p0, IPositional p1) {
+  public final int compare(final IPositional p0, final IPositional p1) {
 
     // beide NULL = 0
     if (new Checker().allIsNull(p0, p1)) {
@@ -29,7 +20,14 @@ public class PositionalComparator
 
     // genau einer ist NULL
     if (new Checker().onlyOneIsNull(p0, p1)) {
-      return p0 == null ? 1 : -1;
+      int result = 0;
+      if (p0 == null) {
+        result = 1;
+      } else {
+        result = -1;
+      }
+
+      return result;
     }
 
     // keiner ist NULL
