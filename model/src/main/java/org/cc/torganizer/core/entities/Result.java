@@ -25,7 +25,7 @@ public class Result extends Entity implements IPositional {
 
   /**
    * Konstruktor.
-   * 
+   *
    * @param newPosition Index
    */
   public Result(Integer newPosition) {
@@ -34,9 +34,9 @@ public class Result extends Entity implements IPositional {
 
   /**
    * Bequemlichkeitskonstruktor.
-   * 
-   * @param newPosition Index des Results
-   * @param newHomeScore Score des Homes
+   *
+   * @param newPosition   Index des Results
+   * @param newHomeScore  Score des Homes
    * @param newGuestScore Score des Guests
    */
   public Result(Integer newPosition, Integer newHomeScore, Integer newGuestScore) {
@@ -47,9 +47,9 @@ public class Result extends Entity implements IPositional {
 
   /**
    * Prueft, ob beide Scores gesetzt sind.
-   * 
+   *
    * @return <code>true</code>, wenn beide Scores gesetzt sind, sonst
-   *         <code>false</code>
+   * <code>false</code>
    */
   public boolean areScoresSet() {
     return homeScore != null && guestScore != null;
@@ -58,15 +58,17 @@ public class Result extends Entity implements IPositional {
   /**
    * Das Result gilt als unentschieden, wenn home und guest den gleichen Score
    * erreicht haben.
-   * 
+   *
    * @return <code>true</code>, wenn das Match unentschieden ist, sonst
-   *         <code>false</code>
+   * <code>false</code>
    */
   public boolean isDraw() {
     return homeScore.equals(guestScore);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Integer getPosition() {
     return position;

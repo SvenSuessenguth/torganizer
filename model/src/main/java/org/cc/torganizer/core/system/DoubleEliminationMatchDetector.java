@@ -14,12 +14,12 @@ import org.cc.torganizer.core.util.Checker;
  * (identisch zu SingelElimination) <br>
  * <br>
  * Beispiel eines Tournaments mit 16 Opponents:
- * 
+ *
  * <pre>
  * Matches im Upper Bracket
- * 
+ *
  * 0       1      2      3  Level
- * 
+ *
  * 7  -\
  *      |- 3 -\
  * 8  -/       |
@@ -36,17 +36,17 @@ import org.cc.torganizer.core.util.Checker;
  *      |- 6 -/
  * 14 -/
  * </pre>
- * 
+ *
  * <pre>
  * Matches im Lower Bracket mit den Loser des Upper Bracket
  * In der Liste aller Matches haben die Matches im Lower Bracket einen Index,
  * der um die Anzahl der Matches im Upper Bracket hoeher liegt.
- * 
- * 
+ *
+ *
  * Prefix L meint den (neu sortierten) Verlierer aus dem Upper Bracket
- * 
+ *
  *         0               1           2               3            4               5   Level
- * 
+ *
  *                 L6 -\
  * L7 -\                |- 4 (19) -\           L1 -\
  *      |- 0 (15) -----/            |               |- 10 (25) -\
@@ -64,12 +64,12 @@ import org.cc.torganizer.core.util.Checker;
  *      |- 3 (18) -----/
  * L14-/
  * </pre>
- * 
+ * <p>
  * Das Finale wird nur einfach gespielt, auch wenn der Verlierer des Finales aus
  * dem Upper-Bracket stammt und bisher nich nicht verloren hat.
  *
  * @see <a
- *      href="https://groups.google.com/forum/?fromgroups#!topic/rec.sport.table-soccer/CCUadSrQymk">rec.sport.table-soccer</a>
+ * href="https://groups.google.com/forum/?fromgroups#!topic/rec.sport.table-soccer/CCUadSrQymk">rec.sport.table-soccer</a>
  */
 public class DoubleEliminationMatchDetector
   extends AbstractPendingMatchDetector
@@ -79,16 +79,18 @@ public class DoubleEliminationMatchDetector
 
   /**
    * Konstruktor mit Angabe zur Group.
-   * 
+   *
    * @param group Group, zu der die noch ausstehenden Matches ermittelt werden
-   *          sollen.
+   *              sollen.
    */
   public DoubleEliminationMatchDetector(Group group) {
     super(group);
     semd = new SingleEliminationMatchDetector(group);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public List<Match> getPendingMatches() {
 
@@ -112,7 +114,7 @@ public class DoubleEliminationMatchDetector
   /**
    * Das Finale wird aus dem Sieger des Upper Brackets und dem Sieger des Lower
    * Bracktes ermittelt.
-   * 
+   *
    * @return Finale, wenn noch nicht gespielt/beendet
    */
   protected Match getPendingFinalMatch() {
@@ -137,7 +139,7 @@ public class DoubleEliminationMatchDetector
   /**
    * Für das Lower-Bracket sind alle bereits gespielten Matches relevant (Upper
    * und Lower Bracket).
-   * 
+   *
    * @return Liste der noch ausstehenden Matches aus dem Lower Bracket
    */
   protected List<Match> getPendingMatchesLowerBracket() {
@@ -162,7 +164,7 @@ public class DoubleEliminationMatchDetector
   /**
    * Gibt die Matches auf einem bestimmten Level im DoubleElimination-System
    * zurueck.
-   * 
+   *
    * @param level Level
    * @return Matches auf dem gegebenen Level
    */
@@ -204,7 +206,7 @@ public class DoubleEliminationMatchDetector
   /**
    * Gibt die Matches auf Level-0 zurueck. Diese werden ausschliesslich aus den
    * Verlierern des Levels-0 aus dem Upper Bracket gebildet.
-   * 
+   *
    * @return Liste der Matches auf Level-0
    */
   protected List<Match> getFirstLevelMatches() {
@@ -224,10 +226,10 @@ public class DoubleEliminationMatchDetector
   /**
    * Erzeugen eines pending Matches, wenn home und guest ungleich
    * <code>null</code> sind und das Match mit dem Index noch nicht existiert.
-   * 
+   *
    * @param level Level
-   * @param i Index des Matches auf dem Level
-   * @param home Heim
+   * @param i     Index des Matches auf dem Level
+   * @param home  Heim
    * @param guest Gast
    * @return Match mit allen erforderlichen Parametern
    */
@@ -244,10 +246,10 @@ public class DoubleEliminationMatchDetector
 
   /**
    * Das erste Level im Lower Bracket hat den Wert 0.
-   * 
+   *
    * @param level Level
    * @return <code>true</code>, wenn der uebergebene Wert 0 ist, sonst
-   *         <code>false</code>
+   * <code>false</code>
    */
   protected boolean isFirstLevel(int level) {
     return level == 0;
@@ -256,10 +258,10 @@ public class DoubleEliminationMatchDetector
   /**
    * Bei jedem zweiten, ungraden Level werden die Loser des Upper Brackets mit
    * den Winnern des Lower Brackets gemischt.
-   * 
+   *
    * @param level Level
    * @return <code>true</code>, wenn Oppoenents des Upper und des Lower Brackets
-   *         gemischt werden.
+   * gemischt werden.
    */
   protected boolean hasToMixUpperLowerBracket(int level) {
     return level % 2 != 0;
@@ -268,9 +270,9 @@ public class DoubleEliminationMatchDetector
   /**
    * Hinzufuegen eines Matches zu einer Liste von Matches, wenn das Match nicht
    * <code>null</code> ist.
-   * 
+   *
    * @param matches Liste von Matches
-   * @param match Match
+   * @param match   Match
    */
   public void addMatchToList(List<Match> matches, Match match) {
     if (match != null) {
@@ -280,8 +282,8 @@ public class DoubleEliminationMatchDetector
 
   /**
    * Gibt den Index eines Matches zurueck.
-   * 
-   * @param level Level, auf dem das Match stattfindet
+   *
+   * @param level      Level, auf dem das Match stattfindet
    * @param levelIndex Index innerhalb des Levels
    * @return Index des Matches unter Beruecksichtigung des Upper Brackets
    */
@@ -302,7 +304,7 @@ public class DoubleEliminationMatchDetector
   /**
    * Anzahl der Matches im Upper Bracket als Ausgangspunkt fuer die Indizes der
    * Matches im Lower Bracket.
-   * 
+   *
    * @return Anzahl der Matches im Upper Bracket
    */
   protected int countMatchesUpperBracket() {
@@ -313,7 +315,7 @@ public class DoubleEliminationMatchDetector
   /**
    * Anzahl der Matches bis zum angegebenen Level (einschliesslich). Diese
    * Anzahl bezieht sich nur auf die Matches im Lower Bracket.
-   * 
+   *
    * @param level Level
    * @return Anzahl der Matches im Lower Bracket
    */
@@ -330,7 +332,7 @@ public class DoubleEliminationMatchDetector
 
   /**
    * Anzahl der Matches auf einem gegebenen Level.
-   * 
+   *
    * @param level Level
    * @return Anzahl der Matches auf diesem Level
    */
@@ -366,11 +368,11 @@ public class DoubleEliminationMatchDetector
 
   /**
    * Liste der Gewinner auf einem Level.
-   * 
+   *
    * @param level Level
    * @return Liste der Oppoents, die die Matches auf diesem Level gewonnen
-   *         haben. Diese Liste enthaelt auch NULL-Values, wenn ein Match
-   *         unbekannt ist oder noch nicht abgeschlossen ist.
+   * haben. Diese Liste enthaelt auch NULL-Values, wenn ein Match
+   * unbekannt ist oder noch nicht abgeschlossen ist.
    */
   public List<Opponent> getWinnersOnLevel(int level) {
 
@@ -387,7 +389,7 @@ public class DoubleEliminationMatchDetector
   /**
    * Gibt eine Liste der bereits extistierenden Matches zurueck, die auf einem
    * Level ausgefuehrt werden.
-   * 
+   *
    * @param level Level
    * @return Liste der bereits vorhandenen Matches auf einem Level
    */
@@ -409,7 +411,7 @@ public class DoubleEliminationMatchDetector
 
   /**
    * Gibt den Index zurueck, bei dem Matches auf einem gegebenen Level starten.
-   * 
+   *
    * @param level Level
    * @return Index des ersten Matches auf dem Level
    */
@@ -420,7 +422,7 @@ public class DoubleEliminationMatchDetector
 
   /**
    * Gibt den Index zurueck, bei dem Matches auf einem gegebenen Level enden.
-   * 
+   *
    * @param level Level
    * @return Index des letzten Matches auf dem Level
    */
@@ -435,9 +437,9 @@ public class DoubleEliminationMatchDetector
    * wird, die bereits im Upper Bracket gegeneinander gespielt haben. Der split-
    * und der reverseFactor muessen wegen des rekursiven Aufrufes uebergeben
    * werden.
-   * 
-   * @param opponents Liste der Opponents, die sortiert werden muessen
-   * @param splitFactor SplitFactor gem. s.o.
+   *
+   * @param opponents     Liste der Opponents, die sortiert werden muessen
+   * @param splitFactor   SplitFactor gem. s.o.
    * @param reverseFactor reverseFactor gem. s.o.
    * @return umsortierte Liste der Verlierer
    */

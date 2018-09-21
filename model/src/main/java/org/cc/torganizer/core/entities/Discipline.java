@@ -155,9 +155,9 @@ public class Discipline extends Entity {
     return orderedRestrictions;
   }
 
-  public Restriction getRestriction(Restriction.Discriminator discriminator){
-    for (Restriction restriction : restrictions){
-      if(Objects.equals(discriminator, restriction.getDiscriminator())){
+  public Restriction getRestriction(Restriction.Discriminator discriminator) {
+    for (Restriction restriction : restrictions) {
+      if (Objects.equals(discriminator, restriction.getDiscriminator())) {
         return restriction;
       }
     }
@@ -169,15 +169,15 @@ public class Discipline extends Entity {
     boolean assignable = true;
 
     // restricted by restrition
-    for(Restriction restriction : restrictions){
-      if(restriction.isRestricted(opponent)){
+    for (Restriction restriction : restrictions) {
+      if (restriction.isRestricted(opponent)) {
         assignable = false;
         break;
       }
     }
 
     // already in discipline
-    if(opponents.contains(opponent)){
+    if (opponents.contains(opponent)) {
       assignable = false;
     }
 

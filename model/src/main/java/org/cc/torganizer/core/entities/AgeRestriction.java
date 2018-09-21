@@ -2,6 +2,8 @@ package org.cc.torganizer.core.entities;
 
 import java.time.LocalDate;
 
+import static org.cc.torganizer.core.entities.Restriction.Discriminator.AGE_RESTRICTION;
+
 /**
  * Restriktion auf Teilnahme an einem Modus wegen der Altersbeschraenkung. Fehlt
  * die obere oder untere Grenze, ist das Intervall in die entsprechende Richtung
@@ -9,7 +11,10 @@ import java.time.LocalDate;
  */
 public class AgeRestriction extends Restriction {
 
-  private static final Discriminator DISCRIMINATOR = Discriminator.AGE_RESTRICTION;
+  /**
+   * Discriminator for Database.
+   */
+  private static final Discriminator DISCRIMINATOR = AGE_RESTRICTION;
 
   /**
    * liegt zeitlich NACH dem minDateOfBirth (hat h\u00f6heren Jahres-, Monats-
@@ -30,24 +35,30 @@ public class AgeRestriction extends Restriction {
     // gem. Bean-Spec.
   }
 
-  public AgeRestriction(LocalDate maxDateOfBirth, LocalDate minDateOfBirth) {
-    this.maxDateOfBirth = maxDateOfBirth;
-    this.minDateOfBirth = minDateOfBirth;
+  /**
+   * convinience-constructor.
+   * @param newMaxDateOfBirth lower bound of age
+   * @param  newMinDateOfBirth upper bound of age
+   */
+  public AgeRestriction(final LocalDate newMaxDateOfBirth,
+                        final LocalDate newMinDateOfBirth) {
+    this.maxDateOfBirth = newMaxDateOfBirth;
+    this.minDateOfBirth = newMinDateOfBirth;
   }
 
-  public LocalDate getMaxDateOfBirth() {
+  public final LocalDate getMaxDateOfBirth() {
     return maxDateOfBirth;
   }
 
-  public void setMaxDateOfBirth(LocalDate newMaxDateOfBirth) {
+  public final void setMaxDateOfBirth(final LocalDate newMaxDateOfBirth) {
     this.maxDateOfBirth = newMaxDateOfBirth;
   }
 
-  public LocalDate getMinDateOfBirth() {
+  public final LocalDate getMinDateOfBirth() {
     return minDateOfBirth;
   }
 
-  public void setMinDateOfBirth(LocalDate newMinDateOfBirth) {
+  public final void setMinDateOfBirth(final LocalDate newMinDateOfBirth) {
     this.minDateOfBirth = newMinDateOfBirth;
   }
 
@@ -55,7 +66,7 @@ public class AgeRestriction extends Restriction {
    * {@inheritDoc}
    */
   @Override
-  public boolean isRestricted(Opponent opponent) {
+  public final boolean isRestricted(final Opponent opponent) {
     // wenn es eine Ober- bzw. eine Untergrenze fuer das Geburtsdatum
     // dann muss diese auch eingehalten werden
 
@@ -80,17 +91,17 @@ public class AgeRestriction extends Restriction {
     return restricted;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
-  public String toString() {
-    return "AgeRestriction with maxDateOfBirth='" + maxDateOfBirth + "' and minDateOfBirth='" + minDateOfBirth
+  public final String toString() {
+    return "AgeRestriction with maxDateOfBirth='"
+      + maxDateOfBirth
+      + "' and minDateOfBirth='"
+      + minDateOfBirth
       + "'";
   }
 
   @Override
-  public Discriminator getDiscriminator() {
+  public final Discriminator getDiscriminator() {
     return AgeRestriction.DISCRIMINATOR;
   }
 }

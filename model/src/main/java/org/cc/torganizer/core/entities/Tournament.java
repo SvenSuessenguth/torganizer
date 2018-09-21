@@ -8,14 +8,14 @@ import java.util.Set;
 /**
  * Tournament, welches verwaltet werden soll.
  */
-public class Tournament extends Entity{
+public class Tournament extends Entity {
 
   private String name;
 
   private Set<Opponent> opponents = new HashSet<>();
 
   private Set<Discipline> disciplines = new HashSet<>();
-  
+
   private Set<Gymnasium> gymnasiums = new HashSet<>();
 
   /**
@@ -25,7 +25,7 @@ public class Tournament extends Entity{
     // gem. Bean-Spec.
   }
 
-  public Tournament(Long id){
+  public Tournament(Long id) {
     setId(id);
   }
 
@@ -40,7 +40,7 @@ public class Tournament extends Entity{
   /**
    * Hinzufuegen einer Diszipline, die in diesem Tournament gespielt werden
    * soll.
-   * 
+   *
    * @param discipline Discipline, die gespielt werden soll.
    */
   public void addDiscipline(Discipline discipline) {
@@ -57,7 +57,7 @@ public class Tournament extends Entity{
 
   /**
    * Gibt die Liste der running Matches zur\u00fcck.
-   * 
+   *
    * @return Liste der running Matches
    */
   public List<Match> getRunningMatches() {
@@ -77,7 +77,7 @@ public class Tournament extends Entity{
   /**
    * Gibt eine Liste der finishedMatches zur\u00fcck. Dies umfasst nicht nur die
    * aktuellen Rounds, sondern alle Rounds.
-   * 
+   *
    * @return Liste der finished Matches
    */
   public List<Match> getFinishedMatches() {
@@ -97,6 +97,7 @@ public class Tournament extends Entity{
 
     return finishedMatches;
   }
+
   public Set<Opponent> getOpponents() {
     return opponents;
   }
@@ -114,7 +115,7 @@ public class Tournament extends Entity{
   }
 
   @Override
-  public String toString(){
-    return "["+getId()+"] "+getName();
+  public String toString() {
+    return "[" + getId() + "] " + getName();
   }
 }

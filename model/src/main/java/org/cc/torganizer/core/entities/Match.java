@@ -3,7 +3,9 @@ package org.cc.torganizer.core.entities;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+
 import static java.util.Collections.unmodifiableList;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,6 +20,7 @@ public class Match extends Entity implements IPositional {
    * Match, bei dem keiner der Opponents bekannt ist.
    */
   public static final Match NULL_MATCH;
+
   static {
     Opponent home = new Unknown();
     Opponent guest = new Unknown();
@@ -58,23 +61,21 @@ public class Match extends Entity implements IPositional {
 
   /**
    * convinience constructor.
-   * 
-   * @param newHome
-   *          home <i>opponent</i>
-   * @param newGuest
-   *          guest <i>opponent</i>
+   *
+   * @param newHome  home <i>opponent</i>
+   * @param newGuest guest <i>opponent</i>
    */
   public Match(Opponent newHome, Opponent newGuest) {
     this.home = newHome;
     this.guest = newGuest;
-    results  = new ArrayList<>();
+    results = new ArrayList<>();
   }
 
   /**
    * <p>
    * Getter for the field <code>results</code>.
    * </p>
-   * 
+   *
    * @return a {@link java.util.List} object.
    */
   public List<Result> getResults() {
@@ -83,12 +84,11 @@ public class Match extends Entity implements IPositional {
 
   /**
    * Hinzufuegen eines Results.
-   * 
-   * @param result
-   *          Result
+   *
+   * @param result Result
    */
   public void addResult(Result result) {
-    if(result == null){
+    if (result == null) {
       throw new IllegalArgumentException("can add only non null results");
     }
 
@@ -97,9 +97,8 @@ public class Match extends Entity implements IPositional {
 
   /**
    * Null-Safe-Variante.
-   * 
-   * @param match
-   *          Match, dessen Winner gesucht wird.
+   *
+   * @param match Match, dessen Winner gesucht wird.
    * @return Winner oder NULL
    */
   public static Opponent getWinner(Match match) {
@@ -113,9 +112,9 @@ public class Match extends Entity implements IPositional {
   /**
    * Der Opponent, der die meisten Results f\u00fcr sich entscheiden konnte, ist
    * Winner.
-   * 
+   *
    * @return Gweinner des Matches bzw. Unknown bei einem Unentschieden
-   *         oder wenn das Spiel noch nicht beendet wurde.
+   * oder wenn das Spiel noch nicht beendet wurde.
    */
   public Opponent getWinner() {
     if (!isFinished()) {
@@ -157,7 +156,7 @@ public class Match extends Entity implements IPositional {
 
   /**
    * Bestimmen des Verlierers eines Matches.
-   * 
+   *
    * @return Verlierer des Matches oder <code>null</code>, bei unentschieden.
    */
   public Opponent getLoser() {
@@ -187,7 +186,7 @@ public class Match extends Entity implements IPositional {
 
   /**
    * Gibt die Opponents zurueck, die an diesem Match teilnehmen.
-   * 
+   *
    * @return Liste der Opponents. Zuerst home, dann guest.
    */
   public List<Opponent> getOpponents() {
@@ -199,7 +198,9 @@ public class Match extends Entity implements IPositional {
     return unmodifiableList(opponents);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Integer getPosition() {
     return position;
@@ -209,7 +210,9 @@ public class Match extends Entity implements IPositional {
     this.position = newPosition;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String toString() {
     StringBuilder result = new StringBuilder();
@@ -240,11 +243,10 @@ public class Match extends Entity implements IPositional {
    * werden kann oder nicht. Wenn in dem anderen Match Players mitspielen sollen,
    * die in diesem Match bereits spielen, kann das andere Match nicht gestartet
    * werden.
-   * 
-   * @param otherMatch
-   *          Das Match, mit dem die Opponents/Players verglichen werden sollen.
+   *
+   * @param otherMatch Das Match, mit dem die Opponents/Players verglichen werden sollen.
    * @return <code>true</code>, wenn mindestens ein Player in beiden Matche
-   *         mitspielt, sonst <code>false</code>
+   * mitspielt, sonst <code>false</code>
    */
   public boolean isSharingPlayer(Match otherMatch) {
     for (Opponent opponent : this.getOpponents()) {
@@ -259,11 +261,10 @@ public class Match extends Entity implements IPositional {
 
   /**
    * Prueft, ob ein Player an diesem Match teilnimmt oder nicht.
-   * 
-   * @param player
-   *          Player, der geprueft werden soll.
+   *
+   * @param player Player, der geprueft werden soll.
    * @return <code>true</code>, wenn der Player an diesem Match teilnimmt, sonst
-   *         <code>false</code>
+   * <code>false</code>
    */
   protected boolean isParticipant(Player player) {
     for (Opponent o : this.getOpponents()) {
@@ -296,9 +297,9 @@ public class Match extends Entity implements IPositional {
   /**
    * Bestimmen der durchschnittlichen Wartezeit der Player, die an diesem Match
    * teilnehmen.
-   * 
+   *
    * @return Durchschnittliche Wartezeit der Player, die an dem uebergebenen Match
-   *         teilnehmen
+   * teilnehmen
    */
   public Long getIdleTime() {
 

@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Group extends Entity
   implements IPositional {
-  
+
   private Integer position;
 
   private List<PositionalOpponent> positionalOpponents = new ArrayList<>();
@@ -20,7 +20,7 @@ public class Group extends Entity
   /**
    * Ein Match soll nur der Group zugewiesen werden, wenn es persistiert werden
    * soll (running/finished).
-   */ 
+   */
   private List<Match> matches = new ArrayList<>();
 
   /**
@@ -32,7 +32,7 @@ public class Group extends Entity
 
   /**
    * Gibt die nach Position sortierte Liste von Opponents zur\u00fcck.
-   * 
+   *
    * @return nach Position sortierte Liste von PositionalOpponents
    */
   public List<PositionalOpponent> getPositionalOpponents() {
@@ -46,7 +46,7 @@ public class Group extends Entity
    * <p>
    * Setter for the field <code>positionalOpponents</code>.
    * </p>
-   * 
+   *
    * @param newPositionalOpponents a {@link java.util.List} object.
    */
   public void setPositionalOpponents(List<PositionalOpponent> newPositionalOpponents) {
@@ -56,7 +56,7 @@ public class Group extends Entity
   /**
    * Liste der Opponents, die zu dieser Group geh\u00f6ren wird neu gesetzt.
    * Alte Inhalte werden dabei gel\u00f6scht.
-   * 
+   *
    * @param newOpponents Opponents, die der Group zugewiesen werden sollen.
    */
   public void setOpponents(List<Opponent> newOpponents) {
@@ -70,7 +70,7 @@ public class Group extends Entity
   /**
    * Lesen der Opponents, die dieser Group zugewiesen sind. Die Liste
    * enth\u00e4lt die Opponents in der durch die Position  vorgegebenen Reihenfolge.
-   * 
+   *
    * @return Liste der Opponents, die dieser Gruppe zugewiesen sind.
    */
   public List<Opponent> getOpponents() {
@@ -87,7 +87,7 @@ public class Group extends Entity
   /**
    * Hinzuf\u00fcgen eines (unindizierten) Opponents. Die neue Position ist so
    * gro\u00df, dass der neue Opponent als letzter angef\u00fcgt wird.
-   * 
+   *
    * @param opponent Opponent, der de Group hinzugef\u00fcgt werden soll.
    */
   public void addOpponent(Opponent opponent) {
@@ -101,7 +101,7 @@ public class Group extends Entity
 
   /**
    * Entfernen eines Opponents aus der Liste aller (indizierten) Opponents.
-   * 
+   *
    * @param opponent Opponent, der entfernt werden soll.
    */
   public void removeOpponent(Opponent opponent) {
@@ -121,9 +121,9 @@ public class Group extends Entity
   /**
    * Lesen des indizierten Opponents, bei dem der Opponent mit dem Parameter
    * \u00fcbereinstimmt.
-   * 
+   *
    * @param opponent Opponent, zu dem der indizierte Opponent gefunden werden
-   *          soll.
+   *                 soll.
    * @return Der IndexedOpponent
    */
   public PositionalOpponent getPositionalOpponent(Opponent opponent) {
@@ -138,7 +138,7 @@ public class Group extends Entity
 
   /**
    * Gibt den Opponents zurueck, der in den entsprechenden Index hat.
-   * 
+   *
    * @param opponentsPosition Index des gesuchten Opopnents.
    * @return a {@link org.cc.torganizer.core.entities.Opponent} object.
    */
@@ -150,7 +150,7 @@ public class Group extends Entity
   /**
    * Lesen des indizierten Opponents, bei dem die Position mit dem Parameter
    * \u00fcbereinstimmt.
-   * 
+   *
    * @param reqPosition Index, zu dem der indizierte Opponent gefunden werden soll.
    * @return Der IndexedOpponent
    */
@@ -168,9 +168,9 @@ public class Group extends Entity
    * \u00c4ndern der Reihenfolge innerhalb der Liste der indizierten Opponents
    * durch tauschen der Position, so dass der \u00fcbergebene Opponent die
    * n\u00e4chst kleinere Position bekommt.
-   * 
+   *
    * @param opponent Opponent, der in der Positionsreihenfolge weiter vorne stehen
-   *          soll (kleinerer Position)
+   *                 soll (kleinerer Position)
    */
   public void moveUp(Opponent opponent) {
     PositionalOpponent positionalOpponent = getPositionalOpponent(opponent);
@@ -185,9 +185,9 @@ public class Group extends Entity
   /**
    * Tauschen der Position dieses Opponents mit dem Opponent, der die um eins
    * hoehere Position hat (wenn moeglich).
-   * 
+   *
    * @param opponent Opponent, der in der Positionsliste um eins nach unten
-   *          wandern soll
+   *                 wandern soll
    */
   public void moveDown(Opponent opponent) {
     PositionalOpponent positionalOpponent = getPositionalOpponent(opponent);
@@ -199,7 +199,9 @@ public class Group extends Entity
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Integer getPosition() {
     return position;
@@ -213,7 +215,7 @@ public class Group extends Entity
    * <p>
    * Getter for the field <code>matches</code>.
    * </p>
-   * 
+   *
    * @return a {@link java.util.List} object.
    */
   public List<Match> getMatches() {
@@ -222,7 +224,7 @@ public class Group extends Entity
 
   /**
    * Liste aller laufenden Matches.
-   * 
+   *
    * @return Liste aller laufenden Matches
    */
   public List<Match> getRunningMatches() {
@@ -239,7 +241,7 @@ public class Group extends Entity
 
   /**
    * Liste aller abgeschlossenen Matches.
-   * 
+   *
    * @return Liste aller abgeschlossenen Matches
    */
   public List<Match> getFinishedMatches() {
@@ -258,24 +260,26 @@ public class Group extends Entity
    * <p>
    * Setter for the field <code>matches</code>.
    * </p>
-   * 
+   *
    * @param newMatches a {@link java.util.List} object.
    */
   public void setMatches(List<Match> newMatches) {
     this.matches = newMatches;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String toString() {
     return "[position:" + position + "][matches:" + getMatches().size() + "][positionalOpponents:" + positionalOpponents.size()
-        + "]";
+      + "]";
   }
-  
+
   /**
    * Match mit der gewuenschten Position. Die Position ist insbesondere fuer das
    * finden der noch ausstehenden Matches von Bedeutung.
-   * 
+   *
    * @param matchPosition Indes des gesuchten Matches
    * @return a {@link org.cc.torganizer.core.entities.Match} object.
    */
