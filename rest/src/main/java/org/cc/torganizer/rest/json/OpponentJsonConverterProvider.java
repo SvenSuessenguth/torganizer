@@ -15,6 +15,7 @@ public class OpponentJsonConverterProvider{
   @Inject
   private Instance<OpponentJsonConverter> opponentConverters;
 
+  @SuppressWarnings("rawtypes")
   public ModelJsonConverter getConverter(OpponentType opponentType){
     for(OpponentJsonConverter converter : opponentConverters){
       if(Objects.equals(opponentType, converter.getOpponentType())){
@@ -24,6 +25,7 @@ public class OpponentJsonConverterProvider{
     return null;
   }
 
+  @SuppressWarnings("rawtypes")
   public ModelJsonConverter getConverter(Collection<Opponent> opponents){
 
     OpponentType opponentType;

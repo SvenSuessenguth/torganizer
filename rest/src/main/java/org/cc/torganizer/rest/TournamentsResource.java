@@ -106,6 +106,7 @@ public class TournamentsResource extends AbstractResource {
    * @param maxResults max results
    * @return JasonArray with the assignable opponents
    */
+  @SuppressWarnings("unchecked")
   @GET
   @Path("/{id}/assignable-opponents")
   public JsonArray getAssignableOpponents(@PathParam("id") Long tournamentId, @QueryParam("disciplineId") Long disciplineId,

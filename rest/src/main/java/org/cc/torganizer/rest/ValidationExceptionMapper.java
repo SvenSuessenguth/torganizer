@@ -26,6 +26,7 @@ public class ValidationExceptionMapper implements ExceptionMapper<ConstraintViol
       .build();
   }
 
+  @SuppressWarnings("rawtypes")
   protected JsonObject toJsonObject(Set<ConstraintViolation<?>> constraintViolations){
       JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
       JsonObjectBuilder objectBuilder = factory.createObjectBuilder();

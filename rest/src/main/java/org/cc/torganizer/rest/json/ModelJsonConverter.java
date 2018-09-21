@@ -28,6 +28,7 @@ public abstract class ModelJsonConverter<T extends Entity> {
   public abstract Collection<T> toModels(JsonArray jsonArray, Collection<T> models);
 
   // use existing object (update)
+  @SuppressWarnings("unchecked")
   public T getProperEntity(JsonObject jsonObject, Collection<T> models){
     Long id = Long.valueOf(jsonObject.get("id").toString());
     for(T model : models){

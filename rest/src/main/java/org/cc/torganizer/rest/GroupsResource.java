@@ -72,6 +72,7 @@ public class GroupsResource extends AbstractResource {
     return null;
   }
 
+  @SuppressWarnings("unchecked")
   @GET
   @Path("/{id}/assignableOpponents")
   public JsonArray getAssignableOpponents(@PathParam("id") Long groupId){

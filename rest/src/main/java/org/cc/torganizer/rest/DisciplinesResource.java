@@ -93,6 +93,7 @@ public class DisciplinesResource extends AbstractResource {
   // Opponents
   //
   //--------------------------------------------------------------------------------------------------------------------
+  @SuppressWarnings("unchecked")
   @GET
   @Path("/{id}/opponents")
   public JsonArray getOpponents(@PathParam("id") Long disciplineId, @QueryParam("offset") Integer offset, @QueryParam("maxResults") Integer maxResults) {

@@ -90,6 +90,7 @@ public class RoundsResource extends AbstractResource {
     return null;
   }
 
+  @SuppressWarnings("unchecked")
   @GET
   @Path("/{id}/opponents-assignable-to-group")
   public JsonArray getOpponentsAssignableToGroup(@PathParam("id") Long disciplineId){
