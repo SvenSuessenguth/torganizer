@@ -1,44 +1,45 @@
 package org.cc.torganizer.persistence;
 
-import org.cc.torganizer.core.entities.Club;
-
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import java.util.List;
+
+import org.cc.torganizer.core.entities.Club;
 
 @Stateless
-public class ClubsRepository extends Repository{
+public class ClubsRepository extends Repository {
 
-  public ClubsRepository(){
+  public ClubsRepository() {
   }
 
   /**
    * Constructor for testing purpose.
+   *
    * @param entityManager EntityManager
    */
-  ClubsRepository(EntityManager entityManager){
+  ClubsRepository(EntityManager entityManager) {
     this.entityManager = entityManager;
   }
 
 
-  //--------------------------------------------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------------------
   //
   // Tournaments CRUD
   //
-  //--------------------------------------------------------------------------------------------------------------------
-  public Club create(Club club){
+  //-----------------------------------------------------------------------------------------------
+  public Club create(Club club) {
     entityManager.persist(club);
     entityManager.flush();
 
     return club;
   }
 
-  public Club read(Long clubId){
+  public Club read(Long clubId) {
     return entityManager.find(Club.class, clubId);
   }
 
-  public List<Club> read(Integer offset, Integer maxResults){
+  public List<Club> read(Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
@@ -48,12 +49,13 @@ public class ClubsRepository extends Repository{
     return namedQuery.getResultList();
   }
 
-  public Club update(Club club){
+  public Club update(Club club) {
     entityManager.merge(club);
 
     return club;
   }
-  public Club delete(Club club){
+
+  public Club delete(Club club) {
     entityManager.remove(club);
 
     return club;
