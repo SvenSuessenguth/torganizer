@@ -24,15 +24,15 @@ public class Club extends Entity {
    *
    * @param pName Name des Clubs
    */
-  public Club(String pName) {
+  public Club(final String pName) {
     this.name = pName;
   }
 
-  public String getName() {
+  public final String getName() {
     return name;
   }
 
-  public void setName(String newName) {
+  public final void setName(String newName) {
     this.name = newName;
   }
 }
