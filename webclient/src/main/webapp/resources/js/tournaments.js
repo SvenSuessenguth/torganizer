@@ -9,6 +9,8 @@ tournaments.tournament.name
 let tournaments = {
   onload: function onload() {
     tournaments.updateTable();
+    menue.update();
+    header.update();
   },
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -69,6 +71,7 @@ let tournaments = {
     sessionStorage.setItem('tournaments.tournament.id', json.id);
     sessionStorage.setItem('tournaments.tournament.name', json.name);
     tournaments.updateTable();
+    header.update();
     menue.update();
   },
 
@@ -83,6 +86,7 @@ let tournaments = {
     document.getElementById("name").value = "";
     document.getElementById("name").focus();
     menue.update();
+    header.update();
   },
 
 //--------------------------------------------------------------------------------------------------------------------
