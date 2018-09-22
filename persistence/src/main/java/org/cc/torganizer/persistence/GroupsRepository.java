@@ -1,58 +1,60 @@
 package org.cc.torganizer.persistence;
 
-import org.cc.torganizer.core.entities.Discipline;
-import org.cc.torganizer.core.entities.Group;
-import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.Round;
-
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+
+import org.cc.torganizer.core.entities.Discipline;
+import org.cc.torganizer.core.entities.Group;
+import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.Round;
 
 @Stateless
-public class GroupsRepository extends Repository{
+public class GroupsRepository extends Repository {
 
   @Inject
-  private RoundsRepository rRepository;
+  private RoundsRepository roundsRep;
 
   @Inject
-  private DisciplinesRepository dRepository;
+  private DisciplinesRepository disciplineRepo;
 
   public GroupsRepository() {
   }
 
   /**
    * Constructor for testing.
+   *
    * @param entityManager EntityManager
    */
   GroupsRepository(EntityManager entityManager) {
     this.entityManager = entityManager;
   }
 
-  //--------------------------------------------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------------------
   //
   // Person CRUD
   //
-  //--------------------------------------------------------------------------------------------------------------------
-  public Group create(Group group){
+  //-----------------------------------------------------------------------------------------------
+  public Group create(Group group) {
     // Group wird als nicht-persistente entity betrachtet.
-    // vom client kann die id '0' geliefert werden, sodass eine detached-entity-Exception geworfen wird.
+    // vom client kann die id '0' geliefert werden, sodass eine detached-entity-Exception geworfen
+    // wird.
     group.setId(null);
     entityManager.persist(group);
 
     return group;
   }
 
-  public Group read(Long groupId){
+  public Group read(Long groupId) {
     return entityManager.find(Group.class, groupId);
   }
 
-  public List<Group> read(Integer offset, Integer maxResults){
+  public List<Group> read(Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
@@ -63,13 +65,13 @@ public class GroupsRepository extends Repository{
     return namedQuery.getResultList();
   }
 
-  public Group update(Group group){
+  public Group update(Group group) {
     entityManager.merge(group);
 
     return group;
   }
 
-  public Group delete(Long groupId){
+  public Group delete(Long groupId) {
     Group group = entityManager.find(Group.class, groupId);
 
     entityManager.remove(group);
@@ -83,21 +85,21 @@ public class GroupsRepository extends Repository{
     return (long) query.getSingleResult();
   }
 
-  public Set<Opponent> getAssignableOpponents(Long groupId){
+  public Set<Opponent> getAssignableOpponents(Long groupId) {
     // an opponent is assignable, if he
     // - passed the previous round
     // - is not already assigned to a group in the current round
-    Long roundId = rRepository.getRoundId(groupId);
-    Round round = rRepository.read(roundId);
-    Long disciplineId = dRepository.getDisciplineId(roundId);
-    Discipline discipline = dRepository.read(disciplineId);
+    Long roundId = roundsRep.getRoundId(groupId);
+    Round round = roundsRep.read(roundId);
+    Long disciplineId = disciplineRepo.getDisciplineId(roundId);
+    Discipline discipline = disciplineRepo.read(disciplineId);
 
     // opponents in round of group (passed the previous round)
     Set<Opponent> opponentsInRound = null;
-    if(round.getPosition()==0) {
+    if (round.getPosition() == 0) {
       opponentsInRound = discipline.getOpponents();
-    }else{
-      Round previousRound = discipline.getRound(round.getPosition()-1);
+    } else {
+      Round previousRound = discipline.getRound(round.getPosition() - 1);
       opponentsInRound = previousRound.getQualifiedOpponents();
     }
 
@@ -105,19 +107,20 @@ public class GroupsRepository extends Repository{
     return filterAlreadyAssignedOpponents(round, opponentsInRound);
   }
 
-  protected Set<Opponent> filterAlreadyAssignedOpponents(Round round, Set<Opponent> opponentsInRound) {
+  protected Set<Opponent> filterAlreadyAssignedOpponents(Round round,
+                                                         Set<Opponent> opponentsInRound) {
     Set<Opponent> assignableOpponents = new HashSet<>();
     List<Group> groups = round.getGroups();
-    for(Opponent candidate : opponentsInRound) {
+    for (Opponent candidate : opponentsInRound) {
       boolean isAssignable = true;
-      for (Group group:groups) {
-        if(group.getOpponents().contains(candidate)){
+      for (Group group : groups) {
+        if (group.getOpponents().contains(candidate)) {
           isAssignable = false;
           break;
         }
       }
 
-      if(isAssignable){
+      if (isAssignable) {
         assignableOpponents.add(candidate);
       }
     }

@@ -1,44 +1,46 @@
 package org.cc.torganizer.persistence;
 
-import org.cc.torganizer.core.entities.Match;
-
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.util.List;
+
+import org.cc.torganizer.core.entities.Match;
 
 @Stateless
-public class MatchesRepository extends Repository{
+public class MatchesRepository extends Repository {
 
   public MatchesRepository() {
   }
 
   /**
    * Constructor for testing.
+   *
    * @param entityManager EntityManager
    */
   MatchesRepository(EntityManager entityManager) {
     this.entityManager = entityManager;
   }
 
-  //--------------------------------------------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------------------
   //
   // Person CRUD
   //
-  //--------------------------------------------------------------------------------------------------------------------
-  public Match create(Match match){
+  //-----------------------------------------------------------------------------------------------
+  public Match create(Match match) {
     entityManager.persist(match);
     // with no flush, the id is unknown
     entityManager.flush();
 
     return match;
   }
+
   public Match read(Long matchId) {
     return entityManager.find(Match.class, matchId);
   }
 
-  public List<Match> read(Integer offset, Integer maxResults){
+  public List<Match> read(Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
@@ -48,13 +50,13 @@ public class MatchesRepository extends Repository{
     return namedQuery.getResultList();
   }
 
-  public Match update(Match match){
+  public Match update(Match match) {
     entityManager.merge(match);
 
     return match;
   }
 
-  public Match delete(Long matchId){
+  public Match delete(Long matchId) {
     Match match = entityManager.find(Match.class, matchId);
 
     entityManager.remove(match);
@@ -62,7 +64,7 @@ public class MatchesRepository extends Repository{
     return match;
   }
 
-  public long count(){
+  public long count() {
     Query query = entityManager.createQuery("SELECT count(m) FROM Match m");
     return (long) query.getSingleResult();
   }

@@ -56,7 +56,8 @@ public class DisciplinesRepository extends Repository {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery(DISCIPLINE_FIND_ALL_QUERY_NAME, Discipline.class);
+    TypedQuery<Discipline> namedQuery =
+        entityManager.createNamedQuery(DISCIPLINE_FIND_ALL_QUERY_NAME, Discipline.class);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
     return namedQuery.getResultList();
@@ -66,11 +67,11 @@ public class DisciplinesRepository extends Repository {
     return entityManager.merge(discipline);
   }
 
-  //--------------------------------------------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------------------
   //
   // Discipline opponents
   //
-  //--------------------------------------------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------------------
   public List<Opponent> getOpponents(Long disciplineId, Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
@@ -116,11 +117,11 @@ public class DisciplinesRepository extends Repository {
     return discipline;
   }
 
-  //--------------------------------------------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------------------
   //
   // Discipline rounds
   //
-  //--------------------------------------------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------------------
   public List<Round> getRounds(Long disciplineId, Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
@@ -170,7 +171,10 @@ public class DisciplinesRepository extends Repository {
     Long disciplineId = null;
 
     try {
-      TypedQuery<Long> query = entityManager.createQuery("SELECT d.id FROM Discipline d, Round r WHERE r.id = :roundId AND r MEMBER OF d.rounds", Long.class);
+      TypedQuery<Long> query = entityManager.createQuery("SELECT d.id "
+          + "FROM Discipline d, Round r "
+          + "WHERE r.id = :roundId "
+          + "AND r MEMBER OF d.rounds", Long.class);
       query.setParameter("roundId", roundId);
       disciplineId = query.getSingleResult();
     } catch (NoResultException nrExc) {

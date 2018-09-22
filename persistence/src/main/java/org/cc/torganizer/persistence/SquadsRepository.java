@@ -1,15 +1,15 @@
 package org.cc.torganizer.persistence;
 
-import org.cc.torganizer.core.comparators.OpponentByNameComparator;
-import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.core.entities.Squad;
-
+import java.util.Collections;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.util.Collections;
-import java.util.List;
+
+import org.cc.torganizer.core.comparators.OpponentByNameComparator;
+import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.core.entities.Squad;
 
 @Stateless
 public class SquadsRepository extends Repository {
@@ -19,17 +19,18 @@ public class SquadsRepository extends Repository {
 
   /**
    * Constructor for testing.
+   *
    * @param entityManager EntityManager
    */
   SquadsRepository(EntityManager entityManager) {
     this.entityManager = entityManager;
   }
 
-  //--------------------------------------------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------------------
   //
   // Person CRUD
   //
-  //--------------------------------------------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------------------
   public Squad create(Squad squad) {
     entityManager.persist(squad);
     entityManager.flush();
@@ -65,7 +66,7 @@ public class SquadsRepository extends Repository {
   }
 
   public Squad update(Squad squad) {
-    entityManager. merge(squad);
+    entityManager.merge(squad);
     return squad;
   }
 
@@ -82,13 +83,14 @@ public class SquadsRepository extends Repository {
     return (long) query.getSingleResult();
   }
 
-  //--------------------------------------------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------------------
   //
   // Squads players
   //
-  //--------------------------------------------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------------------
   public List<Player> getPlayers(Long squadId) {
-    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Squad.findPlayers", Player.class);
+    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Squad.findPlayers",
+        Player.class);
     namedQuery.setParameter("id", squadId);
 
     return namedQuery.getResultList();
