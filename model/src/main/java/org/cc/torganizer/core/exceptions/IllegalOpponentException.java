@@ -5,8 +5,7 @@ package org.cc.torganizer.core.exceptions;
  * in einem Kontext verwendet werden sollen, in dem sie ung\u00fcltig sind. Z.B.
  * darf in einem Match nicht zweimal der selbe Opponent zugewiesen werden.
  */
-public class IllegalOpponentException
-  extends RuntimeException {
+public class IllegalOpponentException extends RuntimeException {
 
   /**
    * Bequemlichkeitskonstruktor.

@@ -4,8 +4,7 @@ package org.cc.torganizer.core.entities;
  * Restriktion bezueglich des Typs des spielberechtigten Opponents. Z.B. darf
  * nur Einzel- oder nur Doppel gespielt werden.
  */
-public class OpponentTypeRestriction
-  extends Restriction {
+public class OpponentTypeRestriction extends Restriction {
 
   private static final Discriminator DISCRIMINATOR = Discriminator.OPPONENT_TYPE_RESTRICTION;
 
@@ -27,7 +26,7 @@ public class OpponentTypeRestriction
    */
   @Override
   public boolean isRestricted(Opponent opponent) {
-    if(opponent==null){
+    if (opponent == null) {
       return false;
     }
 

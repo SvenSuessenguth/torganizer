@@ -23,7 +23,7 @@ public class Gymnasium extends Entity {
   /**
    * Erzeugen einer vorgegebenen Anzahl von Courts. Die bereits bestehenden
    * Courts werden verworfen.
-   * 
+   *
    * @param number Anzahl der Courts, die erzeugt werden sollen.
    */
   public void createCourts(int number) {
@@ -49,7 +49,7 @@ public class Gymnasium extends Entity {
     return name;
   }
 
-  public void setName(String pName) {
-    this.name = pName;
+  public void setName(String name) {
+    this.name = name;
   }
 }

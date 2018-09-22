@@ -3,11 +3,10 @@ package org.cc.torganizer.core.entities;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-
-import static java.util.Collections.unmodifiableList;
-
 import java.util.Iterator;
 import java.util.List;
+
+import static java.util.Collections.unmodifiableList;
 
 
 /**
@@ -62,12 +61,12 @@ public class Match extends Entity implements IPositional {
   /**
    * convinience constructor.
    *
-   * @param newHome  home <i>opponent</i>
-   * @param newGuest guest <i>opponent</i>
+   * @param home  home <i>opponent</i>
+   * @param guest guest <i>opponent</i>
    */
-  public Match(Opponent newHome, Opponent newGuest) {
-    this.home = newHome;
-    this.guest = newGuest;
+  public Match(Opponent home, Opponent guest) {
+    this.home = home;
+    this.guest = guest;
     results = new ArrayList<>();
   }
 
@@ -114,7 +113,7 @@ public class Match extends Entity implements IPositional {
    * Winner.
    *
    * @return Gweinner des Matches bzw. Unknown bei einem Unentschieden
-   * oder wenn das Spiel noch nicht beendet wurde.
+   *     oder wenn das Spiel noch nicht beendet wurde.
    */
   public Opponent getWinner() {
     if (!isFinished()) {
@@ -180,8 +179,8 @@ public class Match extends Entity implements IPositional {
     return getFinishedTime() != null;
   }
 
-  public void setFinishedTime(LocalDateTime newFinishedTime) {
-    this.finishedTime = newFinishedTime;
+  public void setFinishedTime(LocalDateTime finishedTime) {
+    this.finishedTime = finishedTime;
   }
 
   /**
@@ -206,8 +205,8 @@ public class Match extends Entity implements IPositional {
     return position;
   }
 
-  public void setPosition(Integer newPosition) {
-    this.position = newPosition;
+  public void setPosition(Integer position) {
+    this.position = position;
   }
 
   /**
@@ -234,8 +233,8 @@ public class Match extends Entity implements IPositional {
     return running;
   }
 
-  public void setRunning(Boolean pRunning) {
-    this.running = pRunning;
+  public void setRunning(Boolean running) {
+    this.running = running;
   }
 
   /**
@@ -246,7 +245,7 @@ public class Match extends Entity implements IPositional {
    *
    * @param otherMatch Das Match, mit dem die Opponents/Players verglichen werden sollen.
    * @return <code>true</code>, wenn mindestens ein Player in beiden Matche
-   * mitspielt, sonst <code>false</code>
+   *     mitspielt, sonst <code>false</code>
    */
   public boolean isSharingPlayer(Match otherMatch) {
     for (Opponent opponent : this.getOpponents()) {
@@ -264,7 +263,7 @@ public class Match extends Entity implements IPositional {
    *
    * @param player Player, der geprueft werden soll.
    * @return <code>true</code>, wenn der Player an diesem Match teilnimmt, sonst
-   * <code>false</code>
+   *     <code>false</code>
    */
   protected boolean isParticipant(Player player) {
     for (Opponent o : this.getOpponents()) {
@@ -282,16 +281,16 @@ public class Match extends Entity implements IPositional {
     return home;
   }
 
-  public void setHome(Opponent newHome) {
-    this.home = newHome;
+  public void setHome(Opponent home) {
+    this.home = home;
   }
 
   public Opponent getGuest() {
     return guest;
   }
 
-  public void setGuest(Opponent newGuest) {
-    this.guest = newGuest;
+  public void setGuest(Opponent guest) {
+    this.guest = guest;
   }
 
   /**
@@ -299,7 +298,7 @@ public class Match extends Entity implements IPositional {
    * teilnehmen.
    *
    * @return Durchschnittliche Wartezeit der Player, die an dem uebergebenen Match
-   * teilnehmen
+   *     teilnehmen
    */
   public Long getIdleTime() {
 

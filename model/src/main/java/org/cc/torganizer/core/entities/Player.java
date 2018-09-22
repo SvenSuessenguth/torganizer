@@ -24,7 +24,7 @@ public class Player extends Opponent {
     // gem. Bean-Spec.
   }
 
-  public Player(Long id){
+  public Player(Long id) {
     setId(id);
   }
 
@@ -41,7 +41,7 @@ public class Player extends Opponent {
    * convenience constructor.
    *
    * @param firstName Vorname
-   * @param lastName Nachname
+   * @param lastName  Nachname
    */
   public Player(String firstName, String lastName) {
     this.person = new Person(firstName, lastName);
@@ -70,15 +70,15 @@ public class Player extends Opponent {
     return lastMatch;
   }
 
-  public void setLastMatch(LocalDateTime pLastMatch) {
-    this.lastMatch = pLastMatch;
+  public void setLastMatch(LocalDateTime lastMatch) {
+    this.lastMatch = lastMatch;
   }
 
   /**
    * Prueft, ob das Gender des Players bekannt ist (also nicht UNKNOWN).
    *
    * @return <code>true</code>, wenn das Gender der Person nicht
-   * <code>null</code> und nicht unbekannt ist, sonst <code>false</code>
+   *     <code>null</code> und nicht unbekannt ist, sonst <code>false</code>
    */
   public boolean hasGender() {
 
@@ -100,12 +100,12 @@ public class Player extends Opponent {
     this.club = club;
   }
 
-  public OpponentType getOpponentType(){
+  public OpponentType getOpponentType() {
     return OpponentType.PLAYER;
   }
 
   @Override
-  public String toString(){
-    return "["+getId()+"] "+person.getLastName()+ ", "+person.getFirstName();
+  public String toString() {
+    return "[" + getId() + "] " + person.getLastName() + ", " + person.getFirstName();
   }
 }

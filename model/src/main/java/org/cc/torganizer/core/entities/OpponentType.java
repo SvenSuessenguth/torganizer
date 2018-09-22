@@ -5,13 +5,19 @@ package org.cc.torganizer.core.entities;
  * Restriktionen bei Disciplines verwendet.
  */
 public enum OpponentType {
-  /** Ein Player. */
+  /**
+   * Ein Player.
+   */
   PLAYER(0, Player.class),
 
-  /** Mehrere Player. */
+  /**
+   * Mehrere Player.
+   */
   SQUAD(1, Squad.class),
 
-  /** Players und/oder Squads. */
+  /**
+   * Players und/oder Squads.
+   */
   TEAM(2, Team.class);
 
   private final int value;
@@ -20,8 +26,8 @@ public enum OpponentType {
 
   /**
    * Konstruktor.
-   * 
-   * @param newValue ID
+   *
+   * @param newValue         ID
    * @param newOpponentClass Class des Oppoenents
    */
   OpponentType(int newValue, Class<? extends Opponent> newOpponentClass) {
@@ -37,6 +43,7 @@ public enum OpponentType {
   public int toInt() {
     return value;
   }
+
   public int getValue() {
     return value;
   }
@@ -73,7 +80,9 @@ public enum OpponentType {
     return null;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String toString() {
     return name();

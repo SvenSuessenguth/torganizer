@@ -10,7 +10,9 @@ import java.util.Set;
  */
 public class Squad extends Opponent {
 
-  /** Ersatz f\u00fcr null-Values. */
+  /**
+   * Ersatz f\u00fcr null-Values.
+   */
   public static final Squad NONE = new Squad();
 
   private Set<Player> players = new HashSet<>();
@@ -22,19 +24,21 @@ public class Squad extends Opponent {
     // gem. Bean-Spec.
   }
 
-  public Squad(Long id){
+  public Squad(Long id) {
     setId(id);
   }
 
   public void addPlayer(Player player) {
     players.add(player);
   }
-  
+
   public void addPlayers(Collection<Player> players) {
     this.players.addAll(players);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Set<Player> getPlayers() {
     return players;
@@ -44,17 +48,17 @@ public class Squad extends Opponent {
     this.players = newPlayers;
   }
 
-  public OpponentType getOpponentType(){
+  public OpponentType getOpponentType() {
     return OpponentType.SQUAD;
   }
 
   @Override
-  public String toString(){
+  public String toString() {
     StringBuilder personsString = new StringBuilder("");
-    for(Player p:getPlayers()){
+    for (Player p : getPlayers()) {
       personsString.append(p.toString());
     }
 
-    return "Squad ["+getId()+"] players:{"+personsString.toString()+"}";
+    return "Squad [" + getId() + "] players:{" + personsString.toString() + "}";
   }
 }

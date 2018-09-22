@@ -10,20 +10,21 @@ import org.cc.torganizer.core.entities.Opponent;
 /**
  * RoundRobin bedeutet jeder spielt gegen jeden.
  */
-public class RoundRobinMatchDetector
-  extends AbstractPendingMatchDetector
-  implements PendingMatchDetector {
+public class RoundRobinMatchDetector extends AbstractPendingMatchDetector
+    implements PendingMatchDetector {
 
   /**
    * Gruppe muss vorgegeben sein.
-   * 
+   *
    * @param group Group
    */
   public RoundRobinMatchDetector(Group group) {
     super(group);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public List<Match> getPendingMatches() {
     List<Match> pendingMatches = new ArrayList<>();

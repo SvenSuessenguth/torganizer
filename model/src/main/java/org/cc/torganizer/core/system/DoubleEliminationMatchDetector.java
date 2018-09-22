@@ -64,16 +64,15 @@ import org.cc.torganizer.core.util.Checker;
  *      |- 3 (18) -----/
  * L14-/
  * </pre>
- * <p>
- * Das Finale wird nur einfach gespielt, auch wenn der Verlierer des Finales aus
+ *
+ * <p>Das Finale wird nur einfach gespielt, auch wenn der Verlierer des Finales aus
  * dem Upper-Bracket stammt und bisher nich nicht verloren hat.
  *
  * @see <a
- * href="https://groups.google.com/forum/?fromgroups#!topic/rec.sport.table-soccer/CCUadSrQymk">rec.sport.table-soccer</a>
+ *     href="https://groups.google.com/forum/?fromgroups#!topic/rec.sport.table-soccer/CCUadSrQymk">rec.sport.table-soccer</a>
  */
-public class DoubleEliminationMatchDetector
-  extends AbstractPendingMatchDetector
-  implements PendingMatchDetector {
+public class DoubleEliminationMatchDetector extends AbstractPendingMatchDetector
+    implements PendingMatchDetector {
 
   private final SingleEliminationMatchDetector semd;
 
@@ -249,7 +248,7 @@ public class DoubleEliminationMatchDetector
    *
    * @param level Level
    * @return <code>true</code>, wenn der uebergebene Wert 0 ist, sonst
-   * <code>false</code>
+   *     <code>false</code>
    */
   protected boolean isFirstLevel(int level) {
     return level == 0;
@@ -261,7 +260,7 @@ public class DoubleEliminationMatchDetector
    *
    * @param level Level
    * @return <code>true</code>, wenn Oppoenents des Upper und des Lower Brackets
-   * gemischt werden.
+   *     gemischt werden.
    */
   protected boolean hasToMixUpperLowerBracket(int level) {
     return level % 2 != 0;
@@ -371,8 +370,8 @@ public class DoubleEliminationMatchDetector
    *
    * @param level Level
    * @return Liste der Oppoents, die die Matches auf diesem Level gewonnen
-   * haben. Diese Liste enthaelt auch NULL-Values, wenn ein Match
-   * unbekannt ist oder noch nicht abgeschlossen ist.
+   *     haben. Diese Liste enthaelt auch NULL-Values, wenn ein Match
+   *     unbekannt ist oder noch nicht abgeschlossen ist.
    */
   public List<Opponent> getWinnersOnLevel(int level) {
 
@@ -443,7 +442,8 @@ public class DoubleEliminationMatchDetector
    * @param reverseFactor reverseFactor gem. s.o.
    * @return umsortierte Liste der Verlierer
    */
-  public List<Opponent> orderUpperBracketLosers(List<Opponent> opponents, int splitFactor, int reverseFactor) {
+  public List<Opponent> orderUpperBracketLosers(List<Opponent> opponents, int splitFactor,
+                                                int reverseFactor) {
 
     if (splitFactor == 1) {
       return opponents;

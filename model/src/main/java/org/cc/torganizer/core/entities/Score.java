@@ -1,12 +1,12 @@
 package org.cc.torganizer.core.entities;
 
-public class Score extends Entity{
-  
+public class Score extends Entity {
+
   private Integer points;
 
   /**
    * Bequemlichkeitskonstruktor.
-   * 
+   *
    * @param newScore Score
    */
   public Score(Integer newScore) {

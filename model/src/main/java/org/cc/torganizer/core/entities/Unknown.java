@@ -8,14 +8,6 @@ import java.util.Set;
  */
 public class Unknown extends Opponent {
 
-  /**
-   * Default.
-   */
-  public Unknown() {
-    // gem. Bean-Spec.
-  }
-
-  /** {@inheritDoc} */
   @Override
   public Set<Player> getPlayers() {
     return Collections.emptySet();

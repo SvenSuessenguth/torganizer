@@ -37,8 +37,9 @@ public class AgeRestriction extends Restriction {
 
   /**
    * convinience-constructor.
+   *
    * @param newMaxDateOfBirth lower bound of age
-   * @param  newMinDateOfBirth upper bound of age
+   * @param newMinDateOfBirth upper bound of age
    */
   public AgeRestriction(final LocalDate newMaxDateOfBirth,
                         final LocalDate newMinDateOfBirth) {

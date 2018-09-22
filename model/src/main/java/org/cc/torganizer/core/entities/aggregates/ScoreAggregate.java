@@ -7,8 +7,7 @@ import org.cc.torganizer.core.entities.Result;
 /**
  * Aggregieren der Daten zu verlorenen und gewonnenen Punkten.
  */
-public class ScoreAggregate
-  extends AbstractAggregate {
+public class ScoreAggregate extends AbstractAggregate {
 
   public ScoreAggregate() {
     // gem. Bean-Spec.
@@ -16,7 +15,7 @@ public class ScoreAggregate
 
   @Override
   public void aggregate(Match match, Opponent opponent) {
-    
+
     if (!match.getOpponents().contains(opponent)) {
       return;
     }

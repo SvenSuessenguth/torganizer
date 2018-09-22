@@ -18,12 +18,14 @@ public class Round extends Entity implements IPositional {
 
   private List<Group> groups = new ArrayList<>();
 
-  /** Every Round has a defaultsystem. Defaultsystem: ROUND_ROBIN */
+  /**
+   * Every Round has a defaultsystem. Defaultsystem: ROUND_ROBIN
+   */
   private System system = System.ROUND_ROBIN;
 
   /**
    * Number of players, which are qualified for the next round.
-   */  
+   */
   private Integer qualified = 0;
 
   /**
@@ -33,13 +35,13 @@ public class Round extends Entity implements IPositional {
     // gem. Bean-Spec.
   }
 
-  public Round(Long id){
+  public Round(Long id) {
     setId(id);
   }
 
   /**
    * Hinzufuegen einer Group zu der Liste aller Groups.
-   * 
+   *
    * @param group Group
    */
   public void addGroup(Group group) {
@@ -53,7 +55,7 @@ public class Round extends Entity implements IPositional {
   /**
    * Lesen der Group an der Stelle mit dem geforderten Indes aus der List aller
    * Groups.
-   * 
+   *
    * @param inIndex Position der Group in der Liste aller Groups.
    * @return Groups an der Stelle mit dem Index
    */
@@ -93,7 +95,9 @@ public class Round extends Entity implements IPositional {
     this.qualified = qualified;
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Integer getPosition() {
     return position;
@@ -105,6 +109,6 @@ public class Round extends Entity implements IPositional {
 }
 
 @FunctionalInterface
-interface QualifiedOpponentsCalculator{
+interface QualifiedOpponentsCalculator {
   Set<Opponent> calculate(Round round);
 }

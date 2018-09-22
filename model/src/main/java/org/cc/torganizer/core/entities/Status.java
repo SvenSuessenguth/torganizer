@@ -22,7 +22,7 @@ public enum Status {
 
   /**
    * Konstruktor.
-   * 
+   *
    * @param inValue ID
    */
   Status(int inValue) {
@@ -46,25 +46,27 @@ public enum Status {
    */
   public static Status fromInt(int value) {
     switch (value) {
-    case 1:
-      return ACTIVE;
-    case 0:
-      return INACTIVE;
-    default:
-      return INACTIVE;
+      case 1:
+        return ACTIVE;
+      case 0:
+        return INACTIVE;
+      default:
+        return INACTIVE;
     }
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String toString() {
     switch (value) {
-    case 1:
-      return "ACTIVE";
-    case 0:
-      return "INACTIVE";
-    default:
-      return "INACTIVE";
+      case 1:
+        return "ACTIVE";
+      case 0:
+        return "INACTIVE";
+      default:
+        return "INACTIVE";
     }
   }
 }

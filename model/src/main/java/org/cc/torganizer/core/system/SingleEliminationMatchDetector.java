@@ -11,12 +11,12 @@ import org.cc.torganizer.core.entities.Unknown;
 /**
  * In der ersten Spalte stehen die Indizes der Opponents, anschliessend die der
  * Matches.
- * 
+ *
  * <pre>
  * Matches bei 16 Opponents
- * 
+ *
  *       0       1      2      3   Level
- * 
+ *
  * 0:1   7  -\
  *            |- 3 -\
  * 2:3   8  -/       |
@@ -64,7 +64,8 @@ import org.cc.torganizer.core.entities.Unknown;
  * </td>
  * <td rowspan="2" style="vertical-align: top;"><br>
  * </td>
- * <td style="border-top: 1px solid gray; border-right: 1px solid gray; vertical-align: middle;" rowspan="2">
+ * <td style="border-top: 1px solid gray; border-right: 1px solid gray;
+ *            vertical-align: middle;" rowspan="2">
  * <br>
  * </td>
  * </tr>
@@ -82,7 +83,8 @@ import org.cc.torganizer.core.entities.Unknown;
  * </td>
  * <td rowspan="4" style="vertical-align: middle;">C<br>
  * </td>
- * <td style="border-right: 1px solid gray; border-bottom: 1px solid gray; vertical-align: middle;" rowspan="2">
+ * <td style="border-right: 1px solid gray; border-bottom: 1px solid gray;
+ *            vertical-align: middle;" rowspan="2">
  * <br>
  * </td>
  * <td rowspan="4" style="vertical-align: top;"><br>
@@ -111,20 +113,21 @@ import org.cc.torganizer.core.entities.Unknown;
  * </tbody>
  * </table>
  */
-public class SingleEliminationMatchDetector
-  extends AbstractPendingMatchDetector
-  implements PendingMatchDetector {
+public class SingleEliminationMatchDetector extends AbstractPendingMatchDetector
+    implements PendingMatchDetector {
 
   /**
    * Konstruktor mit Angabe zu welcher Group die Berechnung erfolgen soll.
-   * 
+   *
    * @param group Gruppe, auf die die Regeln angewendet werden sollen.
    */
   public SingleEliminationMatchDetector(Group group) {
     super(group);
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public List<Match> getPendingMatches() {
 
@@ -170,11 +173,11 @@ public class SingleEliminationMatchDetector
    * Suchen nach dem Match mit dem geforderten Index in der Liste der
    * uebergebenen Matches. Wird kein Match mit dem Index gefunden, wird ein
    * Match erzeugt, der Index gesetzt und die Opponents auf Unknown gesetzt.
-   * 
+   *
    * @param matchIndex Index des gesuchten Matches
-   * @param matches Liste der Matches, in der gesucht werden soll.
+   * @param matches    Liste der Matches, in der gesucht werden soll.
    * @return vorhandenes Match mit dem geforderten Index oder neues Match mit
-   *         unbekannten Opponents
+   *     unbekannten Opponents
    */
   protected Match getMatch(int matchIndex, List<Match> matches) {
 
@@ -197,23 +200,23 @@ public class SingleEliminationMatchDetector
    * Finden der Opponents eines Matches, welches keine Matches als Vorgaenger
    * hat. Die Opponents werden dann direkt aus der Liste aller der Group
    * zugewiesenen Opponents entnommen.
-   * 
+   *
    * @param match Match, dem die Opponents zugewiesen werden sollen
    */
   protected void assignOpponentsToMatch(Match match) {
 
-    int oIndex = 2 * (match.getPosition() + 1) - getGroup().getOpponents().size();
+    int index = 2 * (match.getPosition() + 1) - getGroup().getOpponents().size();
 
-    Opponent home = getGroup().getPositionalOpponent(oIndex).getOpponent();
-    Opponent guest = getGroup().getPositionalOpponent(oIndex + 1).getOpponent();
+    Opponent home = getGroup().getPositionalOpponent(index).getOpponent();
+    Opponent guest = getGroup().getPositionalOpponent(index + 1).getOpponent();
 
     match.setHome(home);
     match.setGuest(guest);
   }
 
   /**
-   * Wieviele Level werden bis zum Finale benoetigt?
-   * 
+   * Gibt an, wieviele Level bis zum Finale benoetigt werden.
+   *
    * @return Anzahl der Level bis zum Finale
    */
   public int getNumberOfLevels() {
@@ -236,10 +239,10 @@ public class SingleEliminationMatchDetector
    * Acht Opponents bestreiten auf Level 0 Die Matches 3, 4, 5 und 6. Der
    * Verlierer aus Match 6 kommt in der Liste der Loser auf Position 4, der
    * Verlierer aus Match 4 auf Position 2...
-   * 
+   *
    * @param level Level, zu dem die Loser gefunden werden sollen.
    * @return Liste der Loser. Diese Liste enthaelt auch NULL-Values, wenn ein
-   *         Match unbekannt ist oder noch nicht abgeschlossen ist.
+   *     Match unbekannt ist oder noch nicht abgeschlossen ist.
    */
   protected final List<Opponent> getLosersOnLevel(int level) {
     List<Opponent> losersOnLevel = new ArrayList<>();
@@ -259,7 +262,7 @@ public class SingleEliminationMatchDetector
   /**
    * Ermitteln der Matches, die auf dem gegebenen Level stattgefunden haben.
    * Beispiel:
-   * 
+   *
    * <pre>
    * 64 Opponents (Indizes 0-63):
    * Level 0 -&gt; Matches 31 - 62
@@ -269,7 +272,7 @@ public class SingleEliminationMatchDetector
    * Level 4 -&gt; Matches 1 - 2
    * Level 5 -&gt; Matches 0 (Finale)
    * </pre>
-   * 
+   *
    * @param level Level
    * @return a {@link java.util.List} object.
    */
@@ -288,7 +291,7 @@ public class SingleEliminationMatchDetector
   /**
    * Startindex der Matches zu einem gegebenen Level bestimmen (Siehe
    * Klassenkommentar).
-   * 
+   *
    * @param level Level
    * @return Startindex
    */
@@ -300,7 +303,7 @@ public class SingleEliminationMatchDetector
   /**
    * Endindex der Matches zu einem gegebenen Level bestimmen (Siehe
    * Klassenkommentar).
-   * 
+   *
    * @param level Level
    * @return Endindex
    */

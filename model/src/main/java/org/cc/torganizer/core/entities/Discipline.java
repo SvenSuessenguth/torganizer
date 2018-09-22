@@ -1,7 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import org.cc.torganizer.core.exceptions.RestrictionException;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -9,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+
+import org.cc.torganizer.core.exceptions.RestrictionException;
 
 import static java.util.Collections.unmodifiableList;
 
@@ -72,7 +72,7 @@ public class Discipline extends Entity {
     // pruefen aller restrictions und werfen einer RestrictionException
     for (Restriction restriction : restrictions) {
       if (restriction != null && restriction.isRestricted(opponent)) {
-        throw new RestrictionException("Versto\u00df gegen Restriction: "
+        throw new RestrictionException("violation with restriction "
           + restriction.getClass().getName());
       }
     }
@@ -157,14 +157,12 @@ public class Discipline extends Entity {
     // 3. OpponentTypeRestriction
     List<Restriction> orderedRestrictions = new ArrayList<>(this.restrictions);
 
-    orderedRestrictions.sort(Comparator.comparing(o ->
-      o.getDiscriminator().getId()));
+    orderedRestrictions.sort(Comparator.comparing(o -> o.getDiscriminator().getId()));
 
     return orderedRestrictions;
   }
 
-  public final Restriction getRestriction(
-    final Restriction.Discriminator discriminator) {
+  public final Restriction getRestriction(final Restriction.Discriminator discriminator) {
     for (Restriction restriction : restrictions) {
       if (Objects.equals(discriminator, restriction.getDiscriminator())) {
         return restriction;

@@ -1,17 +1,16 @@
 package org.cc.torganizer.core.entities;
 
-import org.cc.torganizer.core.comparators.PositionalComparator;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.cc.torganizer.core.comparators.PositionalComparator;
 
 /**
  * Eine Group sammelt Opponents zusammen. Innerhalb einer Group werden die
  * Matches ausgef\u00fchrt, die den Sieger oder die Opponents, die in die
  * n\u00e4chste Round kommen, bestimmen
  */
-public class Group extends Entity
-  implements IPositional {
+public class Group extends Entity implements IPositional {
 
   private Integer position;
 
@@ -137,17 +136,6 @@ public class Group extends Entity
   }
 
   /**
-   * Gibt den Opponents zurueck, der in den entsprechenden Index hat.
-   *
-   * @param opponentsPosition Index des gesuchten Opopnents.
-   * @return a {@link org.cc.torganizer.core.entities.Opponent} object.
-   */
-  public Opponent getOpponent(Integer opponentsPosition) {
-    PositionalOpponent po = getPositionalOpponent(opponentsPosition);
-    return po == null ? null : po.getOpponent();
-  }
-
-  /**
    * Lesen des indizierten Opponents, bei dem die Position mit dem Parameter
    * \u00fcbereinstimmt.
    *
@@ -162,6 +150,17 @@ public class Group extends Entity
       }
     }
     return positionalOpponent;
+  }
+
+  /**
+   * Gibt den Opponents zurueck, der in den entsprechenden Index hat.
+   *
+   * @param opponentsPosition Index des gesuchten Opopnents.
+   * @return a {@link org.cc.torganizer.core.entities.Opponent} object.
+   */
+  public Opponent getOpponent(Integer opponentsPosition) {
+    PositionalOpponent po = getPositionalOpponent(opponentsPosition);
+    return po == null ? null : po.getOpponent();
   }
 
   /**
@@ -272,8 +271,9 @@ public class Group extends Entity
    */
   @Override
   public String toString() {
-    return "[position:" + position + "][matches:" + getMatches().size() + "][positionalOpponents:" + positionalOpponents.size()
-      + "]";
+    return "[position:" + position + "]"
+      + "[matches:" + getMatches().size() + "]"
+      + "[positionalOpponents:" + positionalOpponents.size() + "]";
   }
 
   /**

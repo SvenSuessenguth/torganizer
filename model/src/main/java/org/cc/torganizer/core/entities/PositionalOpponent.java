@@ -7,7 +7,7 @@ package org.cc.torganizer.core.entities;
  * Sortierindex position keine Eigenschaft von Opponent sein.
  */
 public class PositionalOpponent extends Entity implements IPositional {
- 
+
   private Opponent opponent;
 
   private Integer position;
@@ -21,7 +21,7 @@ public class PositionalOpponent extends Entity implements IPositional {
 
   /**
    * Bequemlichkeitskonstruktor.
-   * 
+   *
    * @param newOpponent Opponent
    * @param newPosition Position des Opponents
    */
@@ -32,7 +32,7 @@ public class PositionalOpponent extends Entity implements IPositional {
 
   /**
    * Tauschen der Position mit einem anderen PositionalOpponent.
-   * 
+   *
    * @param other {@link PositionalOpponent}, mit dem die Position getauscht werden soll.
    */
   public void swapPosition(PositionalOpponent other) {
@@ -51,7 +51,6 @@ public class PositionalOpponent extends Entity implements IPositional {
     this.opponent = inOpponent;
   }
 
-  /** {@inheritDoc} */
   @Override
   public Integer getPosition() {
     return position;

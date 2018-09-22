@@ -3,8 +3,7 @@ package org.cc.torganizer.core.entities;
 /**
  * Restriktion bezueglich des Geschlechtes.
  */
-public class GenderRestriction
-  extends Restriction {
+public class GenderRestriction extends Restriction {
 
   private static final Discriminator DISCRIMINATOR = Discriminator.GENDER_RESTRICTION;
 
@@ -44,9 +43,9 @@ public class GenderRestriction
    * nicht null oder UNKNOWN ist.
    *
    * @param player Player
-   * @return <code>true</code>, wenn das Gender des Players nicht mit der
-   * Vorgabe uebereinstimmt und die Vorgabe nicht UNKNOWN ist, sonst
-   * <code>false</code>
+   * @return <code>true</code>, wenn das Gender des Players nicht mit der Vorgabe uebereinstimmt
+   *     und die Vorgabe nicht UNKNOWN ist, sonst
+   *     <code>false</code>
    */
   protected boolean isGenderRestricted(Player player) {
     Gender playersGender = player.getPerson().getGender();
@@ -62,17 +61,11 @@ public class GenderRestriction
     this.gender = newGender;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public String toString() {
     return "GenderRestriction with gender='" + gender + "'";
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public Discriminator getDiscriminator() {
     return GenderRestriction.DISCRIMINATOR;

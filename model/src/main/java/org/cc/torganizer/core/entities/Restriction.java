@@ -55,7 +55,7 @@ public abstract class Restriction extends Entity {
    *
    * @param opponent Opponent, der gepr\u00fcft werden soll.
    * @return <code>true</code>, wenn die Restriktionsregel erf\u00fcllt ist,
-   * sonst <code>false</code>
+   *     sonst <code>false</code>
    */
   public abstract boolean isRestricted(Opponent opponent);
 

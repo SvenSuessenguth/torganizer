@@ -7,26 +7,26 @@ import java.util.Set;
  */
 public abstract class Opponent extends Entity {
 
-	private Status status = Status.ACTIVE;
+  private Status status = Status.ACTIVE;
 
-	/**
-	 * Gibt eine Liste aller Players zurueck, die teil des Opponents sind.
-	 * 
-	 * @return Liste aller Players dieses Opponents.
-	 */  
-	public abstract Set<Player> getPlayers();
+  /**
+   * Gibt eine Liste aller Players zurueck, die teil des Opponents sind.
+   *
+   * @return Liste aller Players dieses Opponents.
+   */
+  public abstract Set<Player> getPlayers();
 
-	public abstract OpponentType getOpponentType();
+  public abstract OpponentType getOpponentType();
 
-	public Status getStatus() {
-		return status;
-	}
+  public Status getStatus() {
+    return status;
+  }
 
-	public void setStatus(Status inStatus) {
-		this.status = inStatus;
-	}
+  public void setStatus(Status inStatus) {
+    this.status = inStatus;
+  }
 
-	public boolean isBye() {
-		return this instanceof Bye;
-	}
+  public boolean isBye() {
+    return this instanceof Bye;
+  }
 }

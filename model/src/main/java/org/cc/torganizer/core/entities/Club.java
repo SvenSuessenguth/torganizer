@@ -22,17 +22,17 @@ public class Club extends Entity {
   /**
    * Konstruktor.
    *
-   * @param pName Name des Clubs
+   * @param name Name des Clubs
    */
-  public Club(final String pName) {
-    this.name = pName;
+  public Club(final String name) {
+    this.name = name;
   }
 
   public final String getName() {
     return name;
   }
 
-  public final void setName(final String newName) {
-    this.name = newName;
+  public final void setName(final String name) {
+    this.name = name;
   }
 }

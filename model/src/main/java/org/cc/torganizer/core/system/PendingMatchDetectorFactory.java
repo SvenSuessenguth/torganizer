@@ -16,15 +16,16 @@ public class PendingMatchDetectorFactory {
 
   /**
    * Gibt den zu dem System passenden PendingMatchDetector zurueck.
+   *
    * @param system System
-   * @param group Group
+   * @param group  Group
    * @return PendingMatchDetector
    */
   public PendingMatchDetector getPendingMatchDetector(System system, Group group) {
-    if(system==null){
+    if (system == null) {
       throw new IllegalArgumentException("system can not be null");
     }
-    
+
     PendingMatchDetector pendingMatchDetector;
 
     switch (system) {

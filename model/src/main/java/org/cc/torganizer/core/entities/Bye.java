@@ -8,8 +8,7 @@ import java.util.Set;
 /**
  * Freilos.
  */
-public class Bye
-  extends Opponent {
+public class Bye extends Opponent {
 
   /**
    * Default.

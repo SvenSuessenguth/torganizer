@@ -7,8 +7,7 @@ import org.cc.torganizer.core.entities.Unknown;
 /**
  * Aggregieren der Siege und Niederlagen.
  */
-public class MatchAggregate
-  extends AbstractAggregate {
+public class MatchAggregate extends AbstractAggregate {
 
   @Override
   public void aggregate(Match match, Opponent opponent) {
@@ -18,7 +17,7 @@ public class MatchAggregate
 
     if (opponent.equals(match.getWinner())) {
       increaseWins(1);
-    }else if (opponent.equals(match.getLoser())) {
+    } else if (opponent.equals(match.getLoser())) {
       increaseLose(1);
     }
   }
