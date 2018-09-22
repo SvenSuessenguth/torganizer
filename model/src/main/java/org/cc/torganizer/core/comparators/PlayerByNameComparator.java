@@ -1,16 +1,15 @@
 package org.cc.torganizer.core.comparators;
 
-import org.cc.torganizer.core.entities.Player;
-
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Objects;
 
+import org.cc.torganizer.core.entities.Player;
+
 /**
  * Comparing players by last name.
  */
-public class PlayerByNameComparator implements Comparator<Player>,
-  Serializable {
+public class PlayerByNameComparator implements Comparator<Player>, Serializable {
 
   @Override
   public final int compare(final Player o1, final Player o2) {

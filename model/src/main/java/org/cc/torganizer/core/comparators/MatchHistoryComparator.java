@@ -9,10 +9,11 @@ import org.cc.torganizer.core.entities.Match;
  * Erm\u00F6glichen einer Sortierung, die fuer eine gleichmaessige Wartezeit der
  * Spieler sorgt.
  */
-public class MatchHistoryComparator
-  implements Comparator<Match>, Serializable {
+public class MatchHistoryComparator implements Comparator<Match>, Serializable {
 
-  /** serialVersionUID . */
+  /**
+   * serialVersionUID .
+   */
   private static final long serialVersionUID = 4833758925262696791L;
 
   /**
@@ -22,7 +23,9 @@ public class MatchHistoryComparator
     // gem. Bean-Spec.
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public final int compare(final Match m1, final Match m2) {
 

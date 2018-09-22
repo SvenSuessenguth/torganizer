@@ -19,7 +19,7 @@ public class Person extends Entity {
     // gem. Bean-Spec.
   }
 
-  public Person(Long id){
+  public Person(Long id) {
     setId(id);
   }
 
@@ -58,14 +58,14 @@ public class Person extends Entity {
   public void setDateOfBirth(LocalDate newDateOfBirth) {
     this.dateOfBirth = newDateOfBirth;
   }
-  
+
   public Gender getGender() {
     return gender;
   }
 
   public void setGender(Gender newGender) {
     assert gender != null;
-    
+
     this.gender = newGender;
   }
 }
