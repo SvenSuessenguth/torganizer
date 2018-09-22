@@ -9,26 +9,19 @@ public class Court extends Entity {
 
   private int nr;
 
-  /**
-   * Default.
-   */
-  public Court() {
-    // gem. Bean-Spec.
-  }
-
-  public Match getMatch() {
+  public final Match getMatch() {
     return match;
   }
 
-  public void setMatch(Match newMatch) {
+  public final void setMatch(final Match newMatch) {
     this.match = newMatch;
   }
 
-  public int getNr() {
+  public final int getNr() {
     return nr;
   }
 
-  public void setNr(int newNr) {
+  public final void setNr(final int newNr) {
     this.nr = newNr;
   }
 }
