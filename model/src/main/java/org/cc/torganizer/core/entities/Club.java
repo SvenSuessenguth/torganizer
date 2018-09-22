@@ -32,7 +32,7 @@ public class Club extends Entity {
     return name;
   }
 
-  public final void setName(String newName) {
+  public final void setName(final String newName) {
     this.name = newName;
   }
 }
