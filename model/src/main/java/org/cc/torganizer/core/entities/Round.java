@@ -107,8 +107,3 @@ public class Round extends Entity implements IPositional {
     this.position = position;
   }
 }
-
-@FunctionalInterface
-interface QualifiedOpponentsCalculator {
-  Set<Opponent> calculate(Round round);
-}
