@@ -198,9 +198,6 @@ public class Group extends Entity implements IPositional {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public Integer getPosition() {
     return position;
@@ -266,9 +263,6 @@ public class Group extends Entity implements IPositional {
     this.matches = newMatches;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public String toString() {
     return "[position:" + position + "]"

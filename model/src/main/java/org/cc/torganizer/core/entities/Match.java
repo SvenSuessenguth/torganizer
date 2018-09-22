@@ -197,9 +197,6 @@ public class Match extends Entity implements IPositional {
     return unmodifiableList(opponents);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public Integer getPosition() {
     return position;
@@ -209,9 +206,6 @@ public class Match extends Entity implements IPositional {
     this.position = position;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public String toString() {
     StringBuilder result = new StringBuilder();

@@ -22,9 +22,6 @@ public class RoundRobinMatchDetector extends AbstractPendingMatchDetector
     super(group);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public List<Match> getPendingMatches() {
     List<Match> pendingMatches = new ArrayList<>();

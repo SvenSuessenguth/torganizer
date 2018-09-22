@@ -95,9 +95,6 @@ public class Round extends Entity implements IPositional {
     this.qualified = qualified;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public Integer getPosition() {
     return position;

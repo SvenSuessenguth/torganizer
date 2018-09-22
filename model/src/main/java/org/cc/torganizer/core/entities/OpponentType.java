@@ -80,9 +80,6 @@ public enum OpponentType {
     return null;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public String toString() {
     return name();

@@ -55,9 +55,6 @@ public enum Status {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public String toString() {
     switch (value) {

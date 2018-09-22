@@ -87,9 +87,6 @@ public class DoubleEliminationMatchDetector extends AbstractPendingMatchDetector
     semd = new SingleEliminationMatchDetector(group);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public List<Match> getPendingMatches() {
 

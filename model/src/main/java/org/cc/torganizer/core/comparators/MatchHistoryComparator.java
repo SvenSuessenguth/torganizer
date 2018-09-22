@@ -23,9 +23,6 @@ public class MatchHistoryComparator implements Comparator<Match>, Serializable {
     // gem. Bean-Spec.
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public final int compare(final Match m1, final Match m2) {
 

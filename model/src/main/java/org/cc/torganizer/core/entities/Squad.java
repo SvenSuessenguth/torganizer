@@ -36,9 +36,6 @@ public class Squad extends Opponent {
     this.players.addAll(players);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public Set<Player> getPlayers() {
     return players;

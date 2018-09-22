@@ -125,9 +125,6 @@ public class SingleEliminationMatchDetector extends AbstractPendingMatchDetector
     super(group);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public List<Match> getPendingMatches() {
 

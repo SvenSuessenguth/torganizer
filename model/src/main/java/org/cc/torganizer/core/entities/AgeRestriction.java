@@ -63,9 +63,6 @@ public class AgeRestriction extends Restriction {
     this.minDateOfBirth = newMinDateOfBirth;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public final boolean isRestricted(final Opponent opponent) {
     // wenn es eine Ober- bzw. eine Untergrenze fuer das Geburtsdatum

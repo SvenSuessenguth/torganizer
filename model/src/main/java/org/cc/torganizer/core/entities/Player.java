@@ -55,9 +55,6 @@ public class Player extends Opponent {
     this.person = newPerson;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public Set<Player> getPlayers() {
     Set<Player> players = new HashSet<>();

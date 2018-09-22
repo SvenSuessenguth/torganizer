@@ -20,9 +20,6 @@ public class GenderRestriction extends Restriction {
     this.gender = gender;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isRestricted(Opponent opponent) {
 

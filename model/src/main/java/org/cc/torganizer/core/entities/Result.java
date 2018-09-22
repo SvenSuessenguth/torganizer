@@ -66,9 +66,6 @@ public class Result extends Entity implements IPositional {
     return homeScore.equals(guestScore);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public Integer getPosition() {
     return position;

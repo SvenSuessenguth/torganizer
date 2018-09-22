@@ -21,9 +21,6 @@ public class OpponentTypeRestriction extends Restriction {
     this.opponentType = opponentType;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public boolean isRestricted(Opponent opponent) {
     if (opponent == null) {
@@ -42,17 +39,11 @@ public class OpponentTypeRestriction extends Restriction {
     this.opponentType = newOpponentType;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public String toString() {
     return "OpponentTypeRestriction with opponentType: " + opponentType;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
   public Discriminator getDiscriminator() {
     return OpponentTypeRestriction.DISCRIMINATOR;
