@@ -185,7 +185,7 @@ let rounds =  {
 
   //--------------------------------------------------------------------------------------------------------------------
   //
-  // init assignable opponents and group to whis opponents can be assigned
+  // init assignable opponents and group to which opponents can be assigned
   //
   //--------------------------------------------------------------------------------------------------------------------
   initRoundsGroup : function initRoundsGroup(){
@@ -194,6 +194,10 @@ let rounds =  {
   },
   initAssignableOpponents(){
     let roundId = sessionStorage.getItem("rounds.round.id");
+    if(roundId==null){
+      return;
+    }
+
     let url = resourcesUrl()+`rounds/${roundId}/opponents-assignable-to-group`;
     getResources(url, rounds.initAssignableOpponentsResolve);
   },
