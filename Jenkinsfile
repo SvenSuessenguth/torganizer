@@ -18,13 +18,11 @@ pipeline {
   stages {
     stage('compile') {
       steps {
-        // Run the maven build
         bat 'mvn clean compile'
       }
     }
     stage('test') {
       steps {
-        // Run the maven build
         bat 'mvn test'
       }
 
