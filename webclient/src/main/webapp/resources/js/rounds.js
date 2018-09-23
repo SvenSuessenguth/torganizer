@@ -204,10 +204,14 @@ let rounds =  {
   initAssignableOpponentsResolve : function initAssignableOpponentsResolve(json){
     let assignableOpponentsTable = document.getElementById("assignable-opponents-table");
     assignableOpponentsTable.setAttribute("data", JSON.stringify(json));
+    assignableOpponentsTable.addEventListener("opponent-selected", rounds.addOpponentToGroup);
   },
 
   initGroup(){
+  },
 
+  addOpponentToGroup : function addOpponentToGroup(event){
+    console.log("adding opponent "+event.detail+" to group "+sessionStorage.getItem("rounds.group.id"));
   },
 
   //--------------------------------------------------------------------------------------------------------------------
