@@ -8,9 +8,9 @@ rounds.count              number of rounds
 rounds.discipline.id      id of the currently selected discipline to show rounds for
  */
 
-let rounds =  {
+let rounds = {
 
-  onload : function onload() {
+  onload: function onload() {
     rounds.initDisciplinesSelection();
     rounds.initRoundsSelection();
     // rounds.initRoundsDetails();
@@ -23,10 +23,10 @@ let rounds =  {
   // initialize discipline selection
   //
   //--------------------------------------------------------------------------------------------------------------------
-  initDisciplinesSelection : function initDisciplinesSelection(){
+  initDisciplinesSelection: function initDisciplinesSelection() {
     getMultiple("disciplines", 0, 999, rounds.initDisciplinesSelectionResolve);
   },
-  initDisciplinesSelectionResolve : function initDisciplinesSelectionResolve(disciplines){
+  initDisciplinesSelectionResolve: function initDisciplinesSelectionResolve(disciplines) {
     let dSelect = document.getElementById("disciplines");
     let disciplineId = sessionStorage.getItem('rounds.discipline.id');
 
@@ -39,8 +39,8 @@ let rounds =  {
     let option = document.createElement("option");
     option.text = "select...";
     option.value = "null";
-    option.id= "null";
-    if(disciplineId==null){
+    option.id = "null";
+    if (disciplineId == null) {
       option.selected = "null";
     }
     dSelect.appendChild(option);
@@ -54,20 +54,20 @@ let rounds =  {
       option.id = discipline.id;
       dSelect.appendChild(option);
 
-      if(disciplineId==discipline.id.toString()){
+      if (disciplineId == discipline.id.toString()) {
         option.selected = "selected";
       }
     });
   },
-  showDisciplineSelected : function showDisciplineSelected(){
+  showDisciplineSelected: function showDisciplineSelected() {
     let dSelect = document.getElementById("disciplines");
     let disciplineId = dSelect.options[dSelect.selectedIndex].value;
     rounds.roundToForm({});
 
-    if(disciplineId !== "null") {
+    if (disciplineId !== "null") {
       sessionStorage.setItem("rounds.discipline.id", disciplineId);
     }
-    else{
+    else {
       sessionStorage.removeItem("rounds.discipline.id");
     }
 
@@ -81,14 +81,14 @@ let rounds =  {
   // initialize round selection
   //
   //--------------------------------------------------------------------------------------------------------------------
-  initRoundsSelection : function initRoundsSelection(){
+  initRoundsSelection: function initRoundsSelection() {
     let disciplineId = sessionStorage.getItem("rounds.discipline.id");
-    if(disciplineId==null){
+    if (disciplineId == null) {
       return;
     }
     disciplinesResource.getRounds(disciplineId, rounds.initRoundsSelectionResolve);
   },
-  initRoundsSelectionResolve : function initRoundsSelectionResolve(json){
+  initRoundsSelectionResolve: function initRoundsSelectionResolve(json) {
     // update number of rounds
     let numberOfRounds = json.length;
     let norElement = document.getElementById("numberOfRounds");
@@ -98,11 +98,11 @@ let rounds =  {
     // update rounds.round.position
     let roundPosition = sessionStorage.getItem("rounds.round.position");
     let roundElement = document.getElementById("round");
-    if(numberOfRounds===0 ){
+    if (numberOfRounds === 0) {
       roundElement.innerText = "-";
-    }else{
+    } else {
       // if there is any round, but none is selected, then select the first round
-      if(roundPosition===null){
+      if (roundPosition === null) {
         roundPosition = "0";
       }
       sessionStorage.setItem("rounds.round.position", roundPosition);
@@ -111,8 +111,8 @@ let rounds =  {
 
     // update rounds.round.id
     sessionStorage.removeItem("rounds.round.id");
-    json.forEach(function(round){
-      if(round.position==roundPosition){
+    json.forEach(function (round) {
+      if (round.position == roundPosition) {
         sessionStorage.setItem("rounds.round.id", round.id);
       }
     });
@@ -122,21 +122,25 @@ let rounds =  {
     let nextRoundElement = document.getElementById("nextRound");
     prevRoundElement.setAttribute("disabled", "disabled");
     nextRoundElement.setAttribute("disabled", "disabled");
-    if(numberOfRounds>0 && roundPosition!==null){
-      if(roundPosition>0 ){ prevRoundElement.removeAttribute("disabled"); }
-      if(roundPosition<(numberOfRounds-1)){ nextRoundElement.removeAttribute("disabled"); }
+    if (numberOfRounds > 0 && roundPosition !== null) {
+      if (roundPosition > 0) {
+        prevRoundElement.removeAttribute("disabled");
+      }
+      if (roundPosition < (numberOfRounds - 1)) {
+        nextRoundElement.removeAttribute("disabled");
+      }
     }
 
     rounds.initRoundsDetails();
   },
 
-  prevRound : function prevRound(){
+  prevRound: function prevRound() {
     let roundPosition = Number(sessionStorage.getItem("rounds.round.position"));
     sessionStorage.setItem("rounds.round.position", roundPosition - 1);
     rounds.initRoundsSelection();
   },
 
-  nextRound : function nextRound(){
+  nextRound: function nextRound() {
     let roundPosition = Number(sessionStorage.getItem("rounds.round.position"));
     sessionStorage.setItem("rounds.round.position", roundPosition + 1);
     rounds.initRoundsSelection();
@@ -148,32 +152,34 @@ let rounds =  {
   // save, delete, cancel
   //
   //--------------------------------------------------------------------------------------------------------------------
-  initRoundsDetails : function initRoundsDetails(){
+  initRoundsDetails: function initRoundsDetails() {
     let roundId = sessionStorage.getItem("rounds.round.id");
-    if(roundId==null){ return; }
+    if (roundId == null) {
+      return;
+    }
 
     getSingle("rounds", roundId, rounds.initRoundsDetailsResolve);
   },
 
-  initRoundsDetailsResolve : function initRoundsDetailsResolve(json){
+  initRoundsDetailsResolve: function initRoundsDetailsResolve(json) {
     rounds.roundToForm(json);
   },
 
-  save : function save(){
+  save: function save() {
     let json = rounds.formToRound();
     createOrUpdate("rounds", json, rounds.saveResolve);
   },
-  saveResolve : function saveResolve(json){
+  saveResolve: function saveResolve(json) {
     let disciplineId = sessionStorage.getItem("rounds.discipline.id");
     let roundId = json.id;
     disciplinesResource.addRound(disciplineId, roundId, rounds.addRoundToDisciplineResolve);
     sessionStorage.setItem("rounds.round.id", roundId);
   },
-  addRoundToDisciplineResolve : function addRoundToDisciplineResolve(json){
+  addRoundToDisciplineResolve: function addRoundToDisciplineResolve(json) {
     rounds.initRoundsSelection();
   },
 
-  cancel : function cancel(){
+  cancel: function cancel() {
     // reset all ui-elements
     let qualifiedElement = document.getElementById("qualified");
     qualifiedElement.value = '';
@@ -188,30 +194,34 @@ let rounds =  {
   // init assignable opponents and group to which opponents can be assigned
   //
   //--------------------------------------------------------------------------------------------------------------------
-  initRoundsGroup : function initRoundsGroup(){
+  initRoundsGroup: function initRoundsGroup() {
     rounds.initAssignableOpponents();
     rounds.initGroup();
   },
-  initAssignableOpponents(){
+  initAssignableOpponents() {
     let roundId = sessionStorage.getItem("rounds.round.id");
-    if(roundId==null){
+    if (roundId == null) {
       return;
     }
 
-    let url = resourcesUrl()+`rounds/${roundId}/opponents-assignable-to-group`;
+    let url = resourcesUrl() + `rounds/${roundId}/opponents-assignable-to-group`;
     getResources(url, rounds.initAssignableOpponentsResolve);
   },
-  initAssignableOpponentsResolve : function initAssignableOpponentsResolve(json){
+  initAssignableOpponentsResolve: function initAssignableOpponentsResolve(json) {
     let assignableOpponentsTable = document.getElementById("assignable-opponents-table");
     assignableOpponentsTable.setAttribute("data", JSON.stringify(json));
     assignableOpponentsTable.addEventListener("opponent-selected", rounds.addOpponentToGroup);
   },
 
-  initGroup(){
+  initGroup() {
   },
 
-  addOpponentToGroup : function addOpponentToGroup(event){
-    console.log("adding opponent "+event.detail+" to group "+sessionStorage.getItem("rounds.group.id"));
+  addOpponentToGroup: function addOpponentToGroup(event) {
+    console.log("adding opponent " + event.detail + " to group " + sessionStorage.getItem("rounds.group.id"));
+    groupsResource.addOpponent(groupId, opponentId, rounds.addOpponentToGroupResolve);
+  },
+  addOpponentToGroupResolve: function addOpponentToGroupResolve(json) {
+
   },
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -219,18 +229,20 @@ let rounds =  {
   // converting round form/to json/form
   //
   //--------------------------------------------------------------------------------------------------------------------
-  roundToForm : function roundToForm(json){
+  roundToForm: function roundToForm(json) {
     rounds.cancel();
 
-    if(json==null){ return; }
+    if (json == null) {
+      return;
+    }
 
     sessionStorage.setItem("rounds.round.id", json.id);
 
     let qualifiedElement = document.getElementById("qualified");
     let qualified = json.qualified;
-    if(qualified != null) {
+    if (qualified != null) {
       qualified = Number(qualified);
-      qualifiedElement.value= qualified;
+      qualifiedElement.value = qualified;
     }
 
     let systemElement = document.getElementById("system");
@@ -238,18 +250,22 @@ let rounds =  {
     selectItemByValue(systemElement, systemName);
   },
 
-  formToRound : function formToRound(){
+  formToRound: function formToRound() {
     let id = sessionStorage.getItem('rounds.round.id');
     let systemElement = document.getElementById("system");
     let qualified = document.getElementById("qualified").value;
 
-    if(id!==null){ id = Number(id); }
-    if(qualified !== null) { qualified = Number(qualified); }
+    if (id !== null) {
+      id = Number(id);
+    }
+    if (qualified !== null) {
+      qualified = Number(qualified);
+    }
 
     return {
       "id": id,
       "system": systemElement.options[systemElement.selectedIndex].value,
-      "qualified":qualified
+      "qualified": qualified
     };
   },
 };

@@ -17,8 +17,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
+import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.persistence.GroupsRepository;
+import org.cc.torganizer.rest.json.GroupJsonConverter;
 import org.cc.torganizer.rest.json.ModelJsonConverter;
 import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
 
@@ -28,10 +30,13 @@ import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
 public class GroupsResource extends AbstractResource {
 
   @Inject
-  private GroupsRepository gRepository;
+  private GroupsRepository groupsRepo;
 
   @Inject
   private OpponentJsonConverterProvider opponentJsonConverterProvider;
+
+  @Inject
+  private GroupJsonConverter groupConverter;
 
   @POST
   public JsonObject create(JsonObject jsonObject) {
@@ -63,7 +68,9 @@ public class GroupsResource extends AbstractResource {
   @POST
   @Path("/{id}/opponents")
   public JsonObject addOpponent(@PathParam("id") Long groupId, @QueryParam("opponentId") Long opponentId) {
-    return null;
+    Group group = groupsRepo.addOpponent(groupId, opponentId);
+
+    return groupConverter.toJsonObject(group);
   }
 
   @DELETE
@@ -78,7 +85,7 @@ public class GroupsResource extends AbstractResource {
   public JsonArray getAssignableOpponents(@PathParam("id") Long groupId){
     JsonArray result = null;
 
-    Set<Opponent> opponents = gRepository.getAssignableOpponents(groupId);
+    Set<Opponent> opponents = groupsRepo.getAssignableOpponents(groupId);
 
     // all opponents must have same type (see opponentTypeRestriction)
     if(opponents.isEmpty()){

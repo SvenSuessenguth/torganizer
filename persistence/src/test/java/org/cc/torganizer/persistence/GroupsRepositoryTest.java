@@ -4,6 +4,7 @@ import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Round;
+import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -73,5 +74,12 @@ public class GroupsRepositoryTest extends AbstractDbUnitJpaTest {
 
     Opponent o = assignable.iterator().next();
     assertThat(o, is(p2));
+  }
+
+  @Test
+  public void testAddOpponent(){
+    Group group = repository.addOpponent(1L, 3L);
+
+    assertThat(group.getOpponents(), hasSize(3));
   }
 }
