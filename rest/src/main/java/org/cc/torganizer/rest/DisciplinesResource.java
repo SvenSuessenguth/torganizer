@@ -22,13 +22,13 @@ import static org.cc.torganizer.rest.json.ModelJsonConverter.emptyArray;
 public class DisciplinesResource extends AbstractResource {
 
   @Inject
-  private DisciplinesRepository dRepository;
+  private DisciplinesRepository disciplineRepo;
 
   @Inject
-  private DisciplineJsonConverter dConverter;
+  private DisciplineJsonConverter disicplineConverter;
 
   @Inject
-  private RestrictionJsonConverter rConverter;
+  private RestrictionJsonConverter restrictionConverter;
 
   @Inject
   private RoundJsonConverter roundConverter;
@@ -44,48 +44,48 @@ public class DisciplinesResource extends AbstractResource {
 
   @POST
   public JsonObject create(JsonObject jsonObject) {
-    Discipline discipline = dConverter.toModel(jsonObject, new Discipline());
+    Discipline discipline = disicplineConverter.toModel(jsonObject, new Discipline());
 
     JsonArray jsonArray = jsonObject.getJsonArray("restrictions");
     for(int i=0; i<jsonArray.size(); i++){
       JsonObject r = jsonArray.getJsonObject(i);
       Restriction restriction = Restriction.Discriminator.byId(r.getString("discriminator")).create();
 
-      restriction = rConverter.toModel(r, restriction);
+      restriction = restrictionConverter.toModel(r, restriction);
       discipline.addRestriction(restriction);
     }
 
-    discipline = dRepository.create(discipline);
+    discipline = disciplineRepo.create(discipline);
 
-    return dConverter.toJsonObject(discipline);
+    return disicplineConverter.toJsonObject(discipline);
   }
 
   @GET
   @Path("{id}")
   public JsonObject readSingle(@PathParam("id") Long disciplineId) {
-    Discipline discipline = dRepository.read(disciplineId);
+    Discipline discipline = disciplineRepo.read(disciplineId);
 
-    return dConverter.toJsonObject(discipline);
+    return disicplineConverter.toJsonObject(discipline);
   }
 
   @GET
   public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("maxResults") Integer maxResults) {
-    List<Discipline> disciplines = dRepository.read(offset, maxResults);
+    List<Discipline> disciplines = disciplineRepo.read(offset, maxResults);
 
-    return dConverter.toJsonArray(disciplines);
+    return disicplineConverter.toJsonArray(disciplines);
   }
 
   @PUT
   public JsonObject update(JsonObject jsonObject) {
     Long id = Long.valueOf(jsonObject.get("id").toString());
-    Discipline discipline = dRepository.read(id);
+    Discipline discipline = disciplineRepo.read(id);
 
-    discipline = dConverter.toModel(jsonObject, discipline);
-    rConverter.toModels(jsonObject.getJsonArray("restrictions"), discipline.getRestrictions());
+    discipline = disicplineConverter.toModel(jsonObject, discipline);
+    restrictionConverter.toModels(jsonObject.getJsonArray("restrictions"), discipline.getRestrictions());
 
-    discipline = dRepository.update(discipline);
+    discipline = disciplineRepo.update(discipline);
 
-    return dConverter.toJsonObject(discipline);
+    return disicplineConverter.toJsonObject(discipline);
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -97,7 +97,7 @@ public class DisciplinesResource extends AbstractResource {
   @GET
   @Path("/{id}/opponents")
   public JsonArray getOpponents(@PathParam("id") Long disciplineId, @QueryParam("offset") Integer offset, @QueryParam("maxResults") Integer maxResults) {
-    List<Opponent> opponents = dRepository.getOpponents(disciplineId, offset, maxResults);
+    List<Opponent> opponents = disciplineRepo.getOpponents(disciplineId, offset, maxResults);
 
     JsonArray result;
 
@@ -116,17 +116,17 @@ public class DisciplinesResource extends AbstractResource {
   @POST
   @Path("/{id}/opponents")
   public JsonObject addOpponent(@PathParam("id") Long disciplineId, @QueryParam("opponentId") Long opponentId) {
-    Discipline discipline = dRepository.addOpponent(disciplineId, opponentId);
+    Discipline discipline = disciplineRepo.addOpponent(disciplineId, opponentId);
 
-    return dConverter.toJsonObject(discipline);
+    return disicplineConverter.toJsonObject(discipline);
   }
 
   @DELETE
   @Path("/{id}/opponents")
   public JsonObject removeOpponent(@PathParam("id") Long disciplineId, @QueryParam("opponentId") Long opponentId) {
-    Discipline discipline = dRepository.removeOpponent(disciplineId, opponentId);
+    Discipline discipline = disciplineRepo.removeOpponent(disciplineId, opponentId);
 
-    return dConverter.toJsonObject(discipline);
+    return disicplineConverter.toJsonObject(discipline);
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -137,21 +137,21 @@ public class DisciplinesResource extends AbstractResource {
   @GET
   @Path("/{id}/rounds")
   public JsonArray getRounds(@PathParam("id") Long disciplineId, @QueryParam("offset") Integer offset, @QueryParam("maxResults") Integer maxResults) {
-    List<Round> rounds = dRepository.getRounds(disciplineId, offset, maxResults);
+    List<Round> rounds = disciplineRepo.getRounds(disciplineId, offset, maxResults);
     return roundConverter.toJsonArray(rounds);
   }
 
   @POST
   @Path("/{id}/rounds")
   public JsonObject addRound(@PathParam("id") Long disciplineId, @QueryParam("roundId") Long roundId) {
-    Discipline discipline = dRepository.addRound(disciplineId, roundId);
-    return dConverter.toJsonObject(discipline);
+    Discipline discipline = disciplineRepo.addRound(disciplineId, roundId);
+    return disicplineConverter.toJsonObject(discipline);
   }
 
   @DELETE
   @Path("/{id}/rounds")
   public JsonObject removeRound(@PathParam("id") Long disciplineId, @QueryParam("roundId") Long roundId) {
-    Discipline discipline = dRepository.removeRound(disciplineId, roundId);
-    return dConverter.toJsonObject(discipline);
+    Discipline discipline = disciplineRepo.removeRound(disciplineId, roundId);
+    return disicplineConverter.toJsonObject(discipline);
   }
 }
