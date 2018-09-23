@@ -19,17 +19,11 @@ public class Discipline extends Entity {
 
   private String name;
 
-  private final Set<Opponent> opponents;
+  private final Set<Opponent> opponents = new HashSet<>();
 
-  private final List<Round> rounds;
+  private final List<Round> rounds = new ArrayList<>();
 
-  private final Set<Restriction> restrictions;
-
-  public Discipline() {
-    this.opponents = new HashSet<>();
-    this.restrictions = new HashSet<>();
-    this.rounds = new ArrayList<>();
-  }
+  private final Set<Restriction> restrictions = new HashSet<>();
 
   /**
    * Finden der letzten Round, in der Opponents zugewiesen sind. In einer Round
@@ -125,11 +119,14 @@ public class Discipline extends Entity {
     return round;
   }
 
-  public final void setRounds(final List<Round> newRounds) {
+  /**
+   * Replace current rounds with new rounds.
+   */
+  public final void setRounds(final List<Round> rounds) {
     this.rounds.clear();
 
-    if (newRounds != null) {
-      this.rounds.addAll(newRounds);
+    if (rounds != null) {
+      this.rounds.addAll(rounds);
     }
   }
 
@@ -150,11 +147,16 @@ public class Discipline extends Entity {
     restrictions.add(restriction);
   }
 
+  /**
+   * The restrictions are ordered by discriminator.
+   * <ol>
+   *   <li>AgeRestriction</li>
+   *   <li>GenderRestriction</li>
+   *   <li>OpponentTypeRestriction</li>
+   * </ol>
+   */
   public final Collection<Restriction> getRestrictions() {
-    // for regressiontest the restrictions are ordered by discriminator
-    // 1. AgeRestriction
-    // 2. GenderRestriction
-    // 3. OpponentTypeRestriction
+
     List<Restriction> orderedRestrictions = new ArrayList<>(this.restrictions);
 
     orderedRestrictions.sort(Comparator.comparing(o -> o.getDiscriminator().getId()));
@@ -162,6 +164,9 @@ public class Discipline extends Entity {
     return orderedRestrictions;
   }
 
+  /**
+   * Returns the Rstrictions with the given discriminator.
+   */
   public final Restriction getRestriction(final Restriction.Discriminator discriminator) {
     for (Restriction restriction : restrictions) {
       if (Objects.equals(discriminator, restriction.getDiscriminator())) {
@@ -172,6 +177,9 @@ public class Discipline extends Entity {
     return null;
   }
 
+  /**
+   * Checks, if the opponent is assignable and corrosponds to all restrictions.
+   */
   public final boolean isAssignable(final Opponent opponent) {
     boolean assignable = true;
 

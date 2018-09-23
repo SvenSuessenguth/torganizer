@@ -1,5 +1,7 @@
 package org.cc.torganizer.core.entities;
 
+import org.hamcrest.Matchers;
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -61,6 +63,19 @@ public class DisciplineTest {
   }
 
   @Test
+  public void testGetRestrictions_order(){
+    Discipline discipline = new Discipline();
+    discipline.addRestriction(new OpponentTypeRestriction());
+    discipline.addRestriction(new AgeRestriction());
+    discipline.addRestriction(new GenderRestriction());
+
+    List<Restriction> restrictions = new ArrayList(discipline.getRestrictions());
+    assertThat(restrictions.get(0), is(instanceOf(AgeRestriction.class)));
+    assertThat(restrictions.get(1), is(instanceOf(GenderRestriction.class)));
+    assertThat(restrictions.get(2), is(instanceOf(OpponentTypeRestriction.class)));
+  }
+
+  @Test
   public void testIsAssignable_true(){
     // opponents
     Player player = new Player(new Person("A", "A", LocalDate.of(1970, JANUARY, 1), MALE));
@@ -83,5 +98,34 @@ public class DisciplineTest {
 
     List<Opponent> assignableOpponents = opponents.stream().filter(opponent -> discipline.isAssignable(opponent)).collect(Collectors.toList());
     assertThat(assignableOpponents, hasSize(4));
+  }
+
+  @Test
+  public void testSetRounds_empty(){
+    List<Round> rounds = new ArrayList<>();
+    Discipline discipline = new Discipline();
+    discipline.addRound(new Round());
+    discipline.setRounds(rounds);
+
+    assertThat(discipline.getRounds(), is(empty()));
+  }
+
+  @Test
+  public void testSetRounds_null(){
+    List<Round> rounds = null;
+    Discipline discipline = new Discipline();
+    discipline.setRounds(rounds);
+
+    assertThat(discipline.getRounds(), is(not(nullValue())));
+  }
+
+  @Test
+  public void testSetRounds_some(){
+    List<Round> rounds = new ArrayList<>();
+    rounds.add(new Round());
+    Discipline discipline = new Discipline();
+    discipline.setRounds(rounds);
+
+    assertThat(discipline.getRounds(), hasSize(1));
   }
 }
