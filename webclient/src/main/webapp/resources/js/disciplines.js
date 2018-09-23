@@ -100,7 +100,7 @@ let disciplines = {
     let assignableOpponentsOffset = sessionStorage.getItem('disciplines.assignable-opponents-table.offset');
     let assignableOpponentsMaxResults = document.getElementById("assignable-opponents-table").getAttribute("rows");
 
-    sessionStorage.setItem('disciplines.current-discipline.id', disciplineId);
+    sessionStorage.setItem('disciplines.discipline.id', disciplineId);
 
     getSingle("disciplines", disciplineId, disciplines.showSelectedDisciplineResolve);
     disciplinesResource.getOpponents(disciplineId, opponentsOffset, opponentsMaxResults, disciplines.updateOpponentsResolve);
@@ -121,8 +121,8 @@ let disciplines = {
   },
 
   opponentSelectedFromOpponents : function opponentSelectedFromOpponents(event){
-    console.log("remove opponent "+event.detail+" from discipline "+sessionStorage.getItem('disciplines..discipline.id'));
-    let disciplineId = Number(sessionStorage.getItem('disciplines.current-discipline.id'));
+    console.log("remove opponent "+event.detail+" from discipline "+sessionStorage.getItem('disciplines.discipline.id'));
+    let disciplineId = Number(sessionStorage.getItem('disciplines.discipline.id'));
     let opponentId = event.detail;
     disciplinesResource.removeOpponent(disciplineId, opponentId, disciplines.removeOpponentResolve);
   },
