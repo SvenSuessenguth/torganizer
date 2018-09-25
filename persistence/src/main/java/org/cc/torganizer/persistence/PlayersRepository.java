@@ -45,10 +45,6 @@ public class PlayersRepository extends Repository<Player> {
     return namedQuery.getResultList();
   }
 
-  public Player delete(Long playerId) {
-    return super.delete(Player.class, playerId);
-  }
-
   public long count() {
     Query query = entityManager.createQuery("SELECT count(p) FROM Player p");
     return (long) query.getSingleResult();

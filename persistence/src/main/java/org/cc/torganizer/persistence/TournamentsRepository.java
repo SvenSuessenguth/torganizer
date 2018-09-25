@@ -58,11 +58,6 @@ public class TournamentsRepository extends Repository<Tournament> {
     return namedQuery.getResultList();
   }
 
-  @Override
-  public Tournament delete(Long tournamentId) {
-    return super.delete(Tournament.class, tournamentId);
-  }
-
   //-----------------------------------------------------------------------------------------------
   //
   // Tournaments players

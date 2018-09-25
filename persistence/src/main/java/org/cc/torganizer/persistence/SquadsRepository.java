@@ -60,11 +60,6 @@ public class SquadsRepository extends Repository<Squad> {
     return squads.subList(offset, offset + maxResults);
   }
 
-  @Override
-  public Squad delete(Long squadId) {
-    return super.delete(Squad.class, squadId);
-  }
-
   public long count() {
     Query query = entityManager.createQuery("SELECT count(s) FROM Squad s");
     return (long) query.getSingleResult();

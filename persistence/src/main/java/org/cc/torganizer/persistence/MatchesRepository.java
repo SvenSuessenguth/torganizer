@@ -44,11 +44,6 @@ public class MatchesRepository extends Repository<Match> {
     return namedQuery.getResultList();
   }
 
-  @Override
-  public Match delete(Long matchId) {
-    return super.delete(Match.class, matchId);
-  }
-
   public long count() {
     Query query = entityManager.createQuery("SELECT count(m) FROM Match m");
     return (long) query.getSingleResult();

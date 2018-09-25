@@ -57,11 +57,6 @@ public class GroupsRepository extends Repository<Group> {
     return namedQuery.getResultList();
   }
 
-  @Override
-  public Group delete(Long groupId) {
-    return super.delete(Group.class, groupId);
-  }
-
   public long count() {
     Query query = entityManager.createQuery("SELECT count(g) FROM Group g");
     return (long) query.getSingleResult();

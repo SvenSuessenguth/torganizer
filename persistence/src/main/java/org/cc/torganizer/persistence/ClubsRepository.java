@@ -43,9 +43,4 @@ public class ClubsRepository extends Repository<Club> {
     namedQuery.setMaxResults(maxResults);
     return namedQuery.getResultList();
   }
-
-  @Override
-  Club delete(Long clubId) {
-    return super.delete(Club.class, clubId);
-  }
 }

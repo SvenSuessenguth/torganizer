@@ -42,14 +42,8 @@ public abstract class Repository<T extends Entity> {
   /**
    * Deleting an entity with the given id.
    */
-  abstract T delete(Long id);
-
-  /**
-   * Deleting entity with the given class and id.
-   */
-  public T delete(Class clazz, Long id) {
-    T entity = read(id);
-    return delete(entity);
+  T delete(Long entityId) {
+    return delete(read(entityId));
   }
 
   /**

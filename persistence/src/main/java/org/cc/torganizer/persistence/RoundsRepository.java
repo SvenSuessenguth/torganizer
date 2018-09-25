@@ -59,11 +59,6 @@ public class RoundsRepository extends Repository<Round> {
     return namedQuery.getResultList();
   }
 
-  @Override
-  public Round delete(Long roundId) {
-    return super.delete(Round.class, roundId);
-  }
-
   public Set<Opponent> getOpponents(Long roundId) {
     Long prevRoundId = getPrevRoundId(roundId);
     Set<Opponent> opponents;

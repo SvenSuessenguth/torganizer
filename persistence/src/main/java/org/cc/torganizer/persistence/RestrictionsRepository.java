@@ -44,9 +44,4 @@ public class RestrictionsRepository extends Repository<Restriction> {
 
     return namedQuery.getResultList();
   }
-
-  @Override
-  Restriction delete(Long restrictionId) {
-    return super.delete(Restriction.class, restrictionId);
-  }
 }
