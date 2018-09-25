@@ -8,7 +8,7 @@ import javax.persistence.TypedQuery;
 import org.cc.torganizer.core.entities.Club;
 
 @Stateless
-public class ClubsRepository extends Repository {
+public class ClubsRepository extends Repository<Club> {
 
   public ClubsRepository() {
   }
@@ -28,17 +28,12 @@ public class ClubsRepository extends Repository {
   // Tournaments CRUD
   //
   //-----------------------------------------------------------------------------------------------
-  public Club create(Club club) {
-    entityManager.persist(club);
-    entityManager.flush();
-
-    return club;
-  }
-
+  @Override
   public Club read(Long clubId) {
     return entityManager.find(Club.class, clubId);
   }
 
+  @Override
   public List<Club> read(Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
@@ -47,17 +42,5 @@ public class ClubsRepository extends Repository {
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
     return namedQuery.getResultList();
-  }
-
-  public Club update(Club club) {
-    entityManager.merge(club);
-
-    return club;
-  }
-
-  public Club delete(Club club) {
-    entityManager.remove(club);
-
-    return club;
   }
 }

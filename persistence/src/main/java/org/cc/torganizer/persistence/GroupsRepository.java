@@ -127,7 +127,7 @@ public class GroupsRepository extends Repository {
     return assignableOpponents;
   }
 
-  public Group addOpponent(Long groupId, Long opponentId){
+  public Group addOpponent(Long groupId, Long opponentId) {
     Opponent opponent = entityManager.find(Opponent.class, opponentId);
 
     Group group = read(groupId);

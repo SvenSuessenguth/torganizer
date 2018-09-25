@@ -21,7 +21,7 @@ import org.cc.torganizer.core.entities.Squad;
 import org.cc.torganizer.core.entities.Tournament;
 
 @Stateless
-public class TournamentsRepository extends Repository {
+public class TournamentsRepository extends Repository<Tournament> {
 
   public TournamentsRepository() {
   }
@@ -41,31 +41,14 @@ public class TournamentsRepository extends Repository {
   // Tournaments CRUD
   //
   //-----------------------------------------------------------------------------------------------
-  public Tournament create(Tournament tournament) {
-    entityManager.persist(tournament);
-    entityManager.flush();
-
-    return tournament;
-  }
 
   public Tournament read(Long tournamentId) {
     return entityManager.find(Tournament.class, tournamentId);
   }
 
-  public Tournament update(Tournament tournament) {
-    entityManager.merge(tournament);
-
-    return tournament;
-  }
-
-  public Tournament delete(Tournament tournament) {
-    entityManager.remove(tournament);
-
-    return tournament;
-  }
 
 
-  public List<Tournament> getTournaments(Integer offset, Integer maxResults) {
+  public List<Tournament> read(Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 

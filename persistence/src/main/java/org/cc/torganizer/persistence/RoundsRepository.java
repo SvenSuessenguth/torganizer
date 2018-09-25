@@ -19,7 +19,7 @@ import org.cc.torganizer.core.entities.PositionalOpponent;
 import org.cc.torganizer.core.entities.Round;
 
 @Stateless
-public class RoundsRepository extends Repository {
+public class RoundsRepository extends Repository<Round> {
 
   @Inject
   private DisciplinesRepository disciplineRepo;
@@ -42,16 +42,6 @@ public class RoundsRepository extends Repository {
   // Round CRUD
   //
   //-----------------------------------------------------------------------------------------------
-  public Round create(Round round) {
-    // client can send '0' with a detached object exception as the result
-    round.setId(null);
-
-    entityManager.persist(round);
-    entityManager.flush();
-
-    return round;
-  }
-
   public Round read(Long roundId) {
     return entityManager.find(Round.class, roundId);
   }
@@ -65,18 +55,6 @@ public class RoundsRepository extends Repository {
     namedQuery.setMaxResults(maxResults);
 
     return namedQuery.getResultList();
-  }
-
-  public Round update(Round round) {
-    return entityManager.merge(round);
-  }
-
-  public Round delete(Long roundId) {
-    Round round = entityManager.find(Round.class, roundId);
-
-    entityManager.remove(round);
-
-    return round;
   }
 
   public Set<Opponent> getOpponents(Long roundId) {
