@@ -62,10 +62,15 @@ public class GroupsRepository extends Repository<Group> {
     return (long) query.getSingleResult();
   }
 
+  /**
+   * Return the opponents, who are assignable to a group.
+   * An opponent is assignable, if he
+   * <ul>
+   * <li>passed the previous round</li>
+   * <li>is not already assigned to a group in the current round</li>
+   * </ul>
+   */
   public Set<Opponent> getAssignableOpponents(Long groupId) {
-    // an opponent is assignable, if he
-    // - passed the previous round
-    // - is not already assigned to a group in the current round
     Long roundId = roundsRep.getRoundId(groupId);
     Round round = roundsRep.read(roundId);
     Long disciplineId = disciplineRepo.getDisciplineId(roundId);
@@ -104,6 +109,9 @@ public class GroupsRepository extends Repository<Group> {
     return assignableOpponents;
   }
 
+  /**
+   * Adding an opponent with the given id to the group with the given id.
+   */
   public Group addOpponent(Long groupId, Long opponentId) {
     Opponent opponent = entityManager.find(Opponent.class, opponentId);
 
