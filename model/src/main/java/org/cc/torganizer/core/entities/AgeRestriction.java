@@ -1,8 +1,8 @@
 package org.cc.torganizer.core.entities;
 
-import java.time.LocalDate;
-
 import static org.cc.torganizer.core.entities.Restriction.Discriminator.AGE_RESTRICTION;
+
+import java.time.LocalDate;
 
 /**
  * Restriktion auf Teilnahme an einem Modus wegen der Altersbeschraenkung. Fehlt

@@ -1,12 +1,12 @@
 package org.cc.torganizer.core.entities;
 
+import static java.util.Collections.unmodifiableList;
+
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import static java.util.Collections.unmodifiableList;
 
 
 /**

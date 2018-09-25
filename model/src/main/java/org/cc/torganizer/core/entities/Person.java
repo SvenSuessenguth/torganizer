@@ -28,6 +28,9 @@ public class Person extends Entity {
     this.lastName = newLastName;
   }
 
+  /**
+   * Convenience constructor.
+   */
   public Person(String firstName, String lastName, LocalDate dateOfBirth, Gender gender) {
     this.firstName = firstName;
     this.lastName = lastName;
@@ -55,17 +58,20 @@ public class Person extends Entity {
     return dateOfBirth;
   }
 
-  public void setDateOfBirth(LocalDate newDateOfBirth) {
-    this.dateOfBirth = newDateOfBirth;
+  public void setDateOfBirth(LocalDate dateOfBirth) {
+    this.dateOfBirth = dateOfBirth;
   }
 
   public Gender getGender() {
     return gender;
   }
 
-  public void setGender(Gender newGender) {
-    assert gender != null;
+  /**
+   * Setting the gender and asserting, that the gender is not <code>null</code>.
+   */
+  public void setGender(Gender gender) {
+    assert this.gender != null;
 
-    this.gender = newGender;
+    this.gender = gender;
   }
 }

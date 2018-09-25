@@ -4,6 +4,7 @@ import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.System;
 
 /**
+ * Factory class to find the {@link PendingMatchDetector} to a given {@link System}.
  */
 public class PendingMatchDetectorFactory {
 

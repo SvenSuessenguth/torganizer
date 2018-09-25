@@ -89,6 +89,9 @@ public final class LangUtil {
     return integerList;
   }
 
+  /**
+   * Capitalize the given sting.
+   */
   public static String capitalize(String s) {
     if (s == null || s.length() == 0) {
       return s;

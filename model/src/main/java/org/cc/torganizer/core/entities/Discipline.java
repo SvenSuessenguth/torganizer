@@ -1,5 +1,7 @@
 package org.cc.torganizer.core.entities;
 
+import static java.util.Collections.unmodifiableList;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -9,8 +11,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import org.cc.torganizer.core.exceptions.RestrictionException;
-
-import static java.util.Collections.unmodifiableList;
 
 /**
  * Auszufuehrende Disziplin innerhalb eines Turnieres (z.B. HE-A)
