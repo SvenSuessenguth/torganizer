@@ -46,11 +46,7 @@ public class PlayersRepository extends Repository<Player> {
   }
 
   public Player delete(Long playerId) {
-    Player player = entityManager.find(Player.class, playerId);
-
-    entityManager.remove(player);
-
-    return player;
+    return super.delete(Player.class, playerId);
   }
 
   public long count() {

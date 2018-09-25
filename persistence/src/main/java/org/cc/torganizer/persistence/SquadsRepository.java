@@ -31,10 +31,12 @@ public class SquadsRepository extends Repository<Squad> {
   // Person CRUD
   //
   //-----------------------------------------------------------------------------------------------
+  @Override
   public Squad read(Long squadId) {
     return entityManager.find(Squad.class, squadId);
   }
 
+  @Override
   public List<Squad> read(Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
@@ -58,12 +60,9 @@ public class SquadsRepository extends Repository<Squad> {
     return squads.subList(offset, offset + maxResults);
   }
 
+  @Override
   public Squad delete(Long squadId) {
-    Squad squad = entityManager.find(Squad.class, squadId);
-
-    entityManager.remove(squad);
-
-    return squad;
+    return super.delete(Squad.class, squadId);
   }
 
   public long count() {

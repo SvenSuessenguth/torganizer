@@ -47,6 +47,9 @@ public class PersonsRepository extends Repository<Person> {
     return namedQuery.getResultList();
   }
 
+  /**
+   * Reading <code>maxResults</code> Persons by Gender from <code>offset</code>.
+   */
   public List<Person> read(Integer offset, Integer maxResults, Gender gender) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
@@ -62,11 +65,7 @@ public class PersonsRepository extends Repository<Person> {
   }
 
   public Person delete(Long personId) {
-    Person person = entityManager.find(Person.class, personId);
-
-    entityManager.remove(person);
-
-    return person;
+    return super.delete(Person.class, personId);
   }
 
   public long count() {

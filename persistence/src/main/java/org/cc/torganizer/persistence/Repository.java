@@ -40,11 +40,16 @@ public abstract class Repository<T extends Entity> {
   abstract List<T> read(Integer offset, Integer maxResults);
 
   /**
-   * Updating the Database with the entities data.
+   * Deleting an entity with the given id.
    */
-  public T update(T t) {
-    entityManager.merge(t);
-    return t;
+  abstract T delete(Long id);
+
+  /**
+   * Deleting entity with the given class and id.
+   */
+  public T delete(Class clazz, Long id) {
+    T entity = read(id);
+    return delete(entity);
   }
 
   /**
@@ -52,6 +57,14 @@ public abstract class Repository<T extends Entity> {
    */
   public T delete(T t) {
     entityManager.remove(t);
+    return t;
+  }
+
+  /**
+   * Updating the Database with the entities data.
+   */
+  public T update(T t) {
+    entityManager.merge(t);
     return t;
   }
 }

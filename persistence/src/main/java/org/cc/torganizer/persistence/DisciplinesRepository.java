@@ -45,6 +45,11 @@ public class DisciplinesRepository extends Repository<Discipline> {
     return new ArrayList<>();
   }
 
+  @Override
+  Discipline delete(Long disciplineId) {
+    return super.delete(Discipline.class, disciplineId);
+  }
+
   //-----------------------------------------------------------------------------------------------
   //
   // Discipline opponents
