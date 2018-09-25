@@ -1,7 +1,7 @@
 let groupsResource = {
   addOpponent: function addOpponent(groupId, opponentId, onResolve) {
 
-    fetch(resourcesUrl() + 'groups/' + groupId + "/opponents?opponentId=" + opponentId, {
+    fetch(restResourceAdapter.resourcesUrl() + 'groups/' + groupId + "/opponents?opponentId=" + opponentId, {
       method: "POST",
       headers: {
         'Accept': 'application/json'
@@ -16,7 +16,7 @@ let groupsResource = {
         onResolve(json);
       })
       .catch(function (err) {
-        resourceError(err);
+        restResourceAdapter.resourceError(err);
       })
   },
 }

@@ -191,7 +191,7 @@ let disciplines = {
     if(disciplineId===null){ return;}
     else{ disciplineId = Number(disciplineId); }
 
-    getSingle("disciplines", disciplineId, disciplines.initRestrictionsResolve);
+    restResourceAdapter.getSingle("disciplines", disciplineId, disciplines.initRestrictionsResolve);
   },
   initRestrictionsResolve : function initRestrictionsResolve(json){
     disciplines.disciplineToForm(json);
@@ -211,7 +211,7 @@ let disciplines = {
     }
   },
   create : function create(discipline) {
-    createOrUpdate("disciplines", discipline, disciplines.createResolve);
+    restResourceAdapter.createOrUpdate("disciplines", discipline, disciplines.createResolve);
   },
   createResolve : function createResolve(json) {
     let tournamentId = tournaments.getId();
@@ -224,7 +224,7 @@ let disciplines = {
   },
 
   update : function update(discipline) {
-    createOrUpdate("disciplines", discipline, disciplines.updateResolve);
+    restResourceAdapter.createOrUpdate("disciplines", discipline, disciplines.updateResolve);
   },
   updateResolve : function updateResolve(json) {
     disciplines.initUI();

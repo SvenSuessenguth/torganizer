@@ -27,7 +27,7 @@ class Squads {
   }
 
   squadSelectedFromAllSquads(event){
-    getSingle("squads", event.detail, squads.showSquadResolve);
+    restResourceAdapter.getSingle("squads", event.detail, squads.showSquadResolve);
   }
   showSquadResolve(json){
     squads.squadToForm(json);
@@ -78,8 +78,8 @@ class Squads {
     document.getElementById("all-players-table").addEventListener("opponent-selected", this.playerSelectedFromAllPlayer);
   }
 
-  playerSelectedFromAllPlayer(event){    
-    getSingle("players", event.detail, squads.addPlayerToSquadResolve);
+  playerSelectedFromAllPlayer(event){
+    restResourceAdapter.getSingle("players", event.detail, squads.addPlayerToSquadResolve);
   }
   addPlayerToSquadResolve(json){
     let retrievedData = sessionStorage.getItem("squads.selected-players-table");
@@ -181,7 +181,7 @@ class Squads {
   //--------------------------------------------------------------------------------------------------------------------
   save(){
     let squad = this.formToSquad();
-    createOrUpdate("squads", squad, squads.createResolve);
+    restResourceAdapter.createOrUpdate("squads", squad, squads.createResolve);
   }
   createResolve(json){
     let tournamentId = tournaments.getId();

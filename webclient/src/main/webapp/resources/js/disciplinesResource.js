@@ -16,7 +16,7 @@ class   DisciplinesResource{
         onResolve(json);
     })
     .catch(function (err) {
-      resourceError(err);
+      restResourceAdapter.resourceError(err);
     });
   }
 
@@ -36,7 +36,7 @@ class   DisciplinesResource{
         onResolve(json);
       })
       .catch(function (err) {
-        resourceError(err);
+        restResourceAdapter.resourceError(err);
       });
   }
 
@@ -56,7 +56,7 @@ class   DisciplinesResource{
         onResolve(json);
       })
       .catch(function (err) {
-        resourceError(err);
+        restResourceAdapter.resourceError(err);
       });
   }
 
@@ -80,7 +80,7 @@ class   DisciplinesResource{
         onResolve(json);
       })
       .catch(function (err) {
-        resourceError(err);
+        restResourceAdapter.resourceError(err);
       });
   }
   removeRound(disciplineId, roundId, onResolve){
@@ -99,7 +99,7 @@ class   DisciplinesResource{
         onResolve(json);
       })
       .catch(function (err) {
-        resourceError(err);
+        restResourceAdapter.resourceError(err);
       });
   }
 }

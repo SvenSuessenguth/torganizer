@@ -19,7 +19,7 @@ let tournaments = {
 //
 //--------------------------------------------------------------------------------------------------------------------
   updateTable: function updateTournamentsTable() {
-    getMultiple("tournaments", 0, 100, tournaments.updateTableResolve);
+    restResourceAdapter.getMultiple("tournaments", 0, 100, tournaments.updateTableResolve);
   },
 
   updateTableResolve: function updateTournamentsTableResolve(data) {
@@ -46,7 +46,7 @@ let tournaments = {
   },
 
   select: function tournamentSelected(id) {
-    getSingle("tournaments", id, tournaments.selectResolve);
+    restResourceAdapter.getSingle("tournaments", id, tournaments.selectResolve);
   },
 
   selectResolve: function showTournamentDetailsResolve(data) {
@@ -64,7 +64,7 @@ let tournaments = {
 //--------------------------------------------------------------------------------------------------------------------
   save: function save() {
     let json = tournaments.formToJSon();
-    createOrUpdate("tournaments", json, tournaments.saveResolve);
+    restResourceAdapter.createOrUpdate("tournaments", json, tournaments.saveResolve);
   },
 
   saveResolve: function saveResolve(json) {

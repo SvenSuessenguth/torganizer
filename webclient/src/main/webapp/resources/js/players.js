@@ -45,13 +45,13 @@ var players = {
 
   //--------------------------------------------------------------------------------------------------------------------
   create : function create(json){
-    createOrUpdate("players", json, players.createResolve);
+    restResourceAdapter.createOrUpdate("players", json, players.createResolve);
   },
   createResolve: function createResolve(json){
     let tournamentId = tournaments.getId();
     // this can't be used inside a promise
     // https://stackoverflow.com/questions/32547735/javascript-promises-how-to-access-variable-this-inside-a-then-scope
-    tournamentsResource.addPlayer(tournamentId, json.id, players.addPlayerResolve, processMessages);
+    tournamentsResource.addPlayer(tournamentId, json.id, players.addPlayerResolve, restResourceAdapter.processMessages);
   },
   addPlayerResolve : function addPlayerResolve(json){
     players.updatePlayersTable();
@@ -59,7 +59,7 @@ var players = {
   },
   //--------------------------------------------------------------------------------------------------------------------
   update : function update(json) {
-    createOrUpdate("players", json, players.updateResolve);
+    restResourceAdapter.createOrUpdate("players", json, players.updateResolve);
   },
   updateResolve : function updateResolve(json){
     players.updatePlayersTable();
@@ -117,7 +117,7 @@ var players = {
   //
   //--------------------------------------------------------------------------------------------------------------------
   updateClubsSelectBox : function updateClubsSelectBox(){
-    getMultiple("clubs", 0, 100, players.updateClubsSelectBoxResolve);
+    restResourceAdapter.getMultiple("clubs", 0, 100, players.updateClubsSelectBoxResolve);
   },
   updateClubsSelectBoxResolve : function updateClubsSelectBoxResolve(json){
     let dSelect = document.getElementById("clubs");
@@ -241,7 +241,7 @@ var players = {
   //
   //--------------------------------------------------------------------------------------------------------------------
   showDetails : function showDetails(id) {
-    getSingle("players", id, players.playerToForm);
+    restResourceAdapter.getSingle("players", id, players.playerToForm);
   },
 
   //--------------------------------------------------------------------------------------------------------------------

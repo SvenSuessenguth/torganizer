@@ -24,7 +24,7 @@ let rounds = {
   //
   //--------------------------------------------------------------------------------------------------------------------
   initDisciplinesSelection: function initDisciplinesSelection() {
-    getMultiple("disciplines", 0, 999, rounds.initDisciplinesSelectionResolve);
+    restResourceAdapter.getMultiple("disciplines", 0, 999, rounds.initDisciplinesSelectionResolve);
   },
   initDisciplinesSelectionResolve: function initDisciplinesSelectionResolve(disciplines) {
     let dSelect = document.getElementById("disciplines");
@@ -158,7 +158,7 @@ let rounds = {
       return;
     }
 
-    getSingle("rounds", roundId, rounds.initRoundsDetailsResolve);
+    restResourceAdapter.getSingle("rounds", roundId, rounds.initRoundsDetailsResolve);
   },
 
   initRoundsDetailsResolve: function initRoundsDetailsResolve(json) {
@@ -167,7 +167,7 @@ let rounds = {
 
   save: function save() {
     let json = rounds.formToRound();
-    createOrUpdate("rounds", json, rounds.saveResolve);
+    restResourceAdapter.createOrUpdate("rounds", json, rounds.saveResolve);
   },
   saveResolve: function saveResolve(json) {
     let disciplineId = sessionStorage.getItem("rounds.discipline.id");
