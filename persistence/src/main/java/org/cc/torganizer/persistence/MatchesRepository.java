@@ -9,7 +9,7 @@ import javax.persistence.TypedQuery;
 import org.cc.torganizer.core.entities.Match;
 
 @Stateless
-public class MatchesRepository extends Repository {
+public class MatchesRepository extends Repository<Match> {
 
   public MatchesRepository() {
   }
@@ -28,18 +28,12 @@ public class MatchesRepository extends Repository {
   // Person CRUD
   //
   //-----------------------------------------------------------------------------------------------
-  public Match create(Match match) {
-    entityManager.persist(match);
-    // with no flush, the id is unknown
-    entityManager.flush();
-
-    return match;
-  }
-
+  @Override
   public Match read(Long matchId) {
     return entityManager.find(Match.class, matchId);
   }
 
+  @Override
   public List<Match> read(Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
@@ -48,12 +42,6 @@ public class MatchesRepository extends Repository {
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
     return namedQuery.getResultList();
-  }
-
-  public Match update(Match match) {
-    entityManager.merge(match);
-
-    return match;
   }
 
   public Match delete(Long matchId) {

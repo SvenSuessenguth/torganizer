@@ -10,7 +10,7 @@ import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Person;
 
 @Stateless
-public class PersonsRepository extends Repository {
+public class PersonsRepository extends Repository<Person> {
 
   public PersonsRepository() {
   }
@@ -29,20 +29,12 @@ public class PersonsRepository extends Repository {
   // Person CRUD
   //
   //-----------------------------------------------------------------------------------------------
-  public Person create(Person person) {
-    // Person wird als nicht-persistente entity betrachtet.
-    // vom client kann die id '0' geliefert werden, sodass eine detached-entity-Exception geworfen
-    // wird.
-    person.setId(null);
-    entityManager.persist(person);
-
-    return person;
-  }
-
+  @Override
   public Person read(Long personId) {
     return entityManager.find(Person.class, personId);
   }
 
+  @Override
   public List<Person> read(Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
@@ -69,12 +61,6 @@ public class PersonsRepository extends Repository {
     return namedQuery.getResultList();
   }
 
-  public Person update(Person person) {
-    entityManager.merge(person);
-
-    return person;
-  }
-
   public Person delete(Long personId) {
     Person person = entityManager.find(Person.class, personId);
 
@@ -82,7 +68,6 @@ public class PersonsRepository extends Repository {
 
     return person;
   }
-
 
   public long count() {
     Query query = entityManager.createQuery("SELECT count(p) FROM Person p");

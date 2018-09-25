@@ -12,7 +12,7 @@ import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 
 @Stateless
-public class SquadsRepository extends Repository {
+public class SquadsRepository extends Repository<Squad> {
 
   public SquadsRepository() {
   }
@@ -31,13 +31,6 @@ public class SquadsRepository extends Repository {
   // Person CRUD
   //
   //-----------------------------------------------------------------------------------------------
-  public Squad create(Squad squad) {
-    entityManager.persist(squad);
-    entityManager.flush();
-
-    return squad;
-  }
-
   public Squad read(Long squadId) {
     return entityManager.find(Squad.class, squadId);
   }
@@ -63,11 +56,6 @@ public class SquadsRepository extends Repository {
 
     Collections.sort(squads, new OpponentByNameComparator());
     return squads.subList(offset, offset + maxResults);
-  }
-
-  public Squad update(Squad squad) {
-    entityManager.merge(squad);
-    return squad;
   }
 
   public Squad delete(Long squadId) {

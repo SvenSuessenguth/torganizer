@@ -15,7 +15,7 @@ import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Round;
 
 @Stateless
-public class GroupsRepository extends Repository {
+public class GroupsRepository extends Repository<Group> {
 
   @Inject
   private RoundsRepository roundsRep;
@@ -40,20 +40,12 @@ public class GroupsRepository extends Repository {
   // Person CRUD
   //
   //-----------------------------------------------------------------------------------------------
-  public Group create(Group group) {
-    // Group wird als nicht-persistente entity betrachtet.
-    // vom client kann die id '0' geliefert werden, sodass eine detached-entity-Exception geworfen
-    // wird.
-    group.setId(null);
-    entityManager.persist(group);
-
-    return group;
-  }
-
+  @Override
   public Group read(Long groupId) {
     return entityManager.find(Group.class, groupId);
   }
 
+  @Override
   public List<Group> read(Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
@@ -65,15 +57,8 @@ public class GroupsRepository extends Repository {
     return namedQuery.getResultList();
   }
 
-  public Group update(Group group) {
-    entityManager.merge(group);
-
-    return group;
-  }
-
   public Group delete(Long groupId) {
     Group group = entityManager.find(Group.class, groupId);
-
     entityManager.remove(group);
 
     return group;

@@ -1,5 +1,6 @@
 package org.cc.torganizer.persistence;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -12,11 +13,10 @@ import javax.persistence.criteria.Root;
 
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.Restriction;
 import org.cc.torganizer.core.entities.Round;
 
 @Stateless
-public class DisciplinesRepository extends Repository {
+public class DisciplinesRepository extends Repository<Discipline> {
 
   private static final String DISCIPLINE_FIND_ALL_QUERY_NAME = "Discipline.findAll";
 
@@ -37,34 +37,14 @@ public class DisciplinesRepository extends Repository {
   // Discipline CRUD
   //
   //-----------------------------------------------------------------------------------------------
-  public Discipline create(Discipline discipline) {
-    // client can send '0' with a detached object exception as the result
-    discipline.setId(null);
-    discipline.getRestrictions().forEach((Restriction restriction) -> restriction.setId(null));
-
-    entityManager.persist(discipline);
-    entityManager.flush();
-
-    return discipline;
-  }
-
+  @Override
   public Discipline read(Long disciplineId) {
     return entityManager.find(Discipline.class, disciplineId);
   }
 
+  @Override
   public List<Discipline> read(Integer offset, Integer maxResults) {
-    offset = offset == null ? DEFAULT_OFFSET : offset;
-    maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
-
-    TypedQuery<Discipline> namedQuery =
-        entityManager.createNamedQuery(DISCIPLINE_FIND_ALL_QUERY_NAME, Discipline.class);
-    namedQuery.setFirstResult(offset);
-    namedQuery.setMaxResults(maxResults);
-    return namedQuery.getResultList();
-  }
-
-  public Discipline update(Discipline discipline) {
-    return entityManager.merge(discipline);
+    return new ArrayList<>();
   }
 
   //-----------------------------------------------------------------------------------------------

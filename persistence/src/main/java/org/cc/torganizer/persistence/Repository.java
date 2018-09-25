@@ -14,12 +14,13 @@ public abstract class Repository<T extends Entity> {
   @PersistenceContext(name = "torganizer")
   protected EntityManager entityManager;
 
-  protected Repository(){}
+  protected Repository() {
+  }
 
   /**
    * persisting a new entity.
    */
-  public T create(T t){
+  public T create(T t) {
     t.setId(null);
 
     entityManager.persist(t);
@@ -41,7 +42,7 @@ public abstract class Repository<T extends Entity> {
   /**
    * Updating the Database with the entities data.
    */
-  public T update(T t){
+  public T update(T t) {
     entityManager.merge(t);
     return t;
   }
@@ -49,7 +50,7 @@ public abstract class Repository<T extends Entity> {
   /**
    * Deleting the entity from the database.
    */
-  public T delete(T t){
+  public T delete(T t) {
     entityManager.remove(t);
     return t;
   }

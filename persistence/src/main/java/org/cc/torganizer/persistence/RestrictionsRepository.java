@@ -8,7 +8,7 @@ import javax.persistence.TypedQuery;
 import org.cc.torganizer.core.entities.Restriction;
 
 @Stateless
-public class RestrictionsRepository extends Repository {
+public class RestrictionsRepository extends Repository<Restriction> {
 
   public RestrictionsRepository() {
   }
@@ -27,17 +27,12 @@ public class RestrictionsRepository extends Repository {
   // Person CRUD
   //
   //-----------------------------------------------------------------------------------------------
-  public Restriction create(Restriction restriction) {
-    entityManager.persist(restriction);
-    entityManager.flush();
-
-    return restriction;
-  }
-
+  @Override
   public Restriction read(Long restrictionId) {
     return entityManager.find(Restriction.class, restrictionId);
   }
 
+  @Override
   public List<Restriction> read(Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;

@@ -42,10 +42,12 @@ public class RoundsRepository extends Repository<Round> {
   // Round CRUD
   //
   //-----------------------------------------------------------------------------------------------
+  @Override
   public Round read(Long roundId) {
     return entityManager.find(Round.class, roundId);
   }
 
+  @Override
   public List<Round> read(Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;

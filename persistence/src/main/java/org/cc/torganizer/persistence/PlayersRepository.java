@@ -9,7 +9,7 @@ import javax.persistence.TypedQuery;
 import org.cc.torganizer.core.entities.Player;
 
 @Stateless
-public class PlayersRepository extends Repository {
+public class PlayersRepository extends Repository<Player> {
 
   public PlayersRepository() {
   }
@@ -28,18 +28,12 @@ public class PlayersRepository extends Repository {
   // Person CRUD
   //
   //-----------------------------------------------------------------------------------------------
-  public Player create(Player player) {
-    entityManager.persist(player);
-    // with no flush, the id is unknown
-    entityManager.flush();
-
-    return player;
-  }
-
+  @Override
   public Player read(Long playerId) {
     return entityManager.find(Player.class, playerId);
   }
 
+  @Override
   public List<Player> read(Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
@@ -49,12 +43,6 @@ public class PlayersRepository extends Repository {
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
     return namedQuery.getResultList();
-  }
-
-  public Player update(Player player) {
-    entityManager.merge(player);
-
-    return player;
   }
 
   public Player delete(Long playerId) {

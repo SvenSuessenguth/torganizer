@@ -41,13 +41,12 @@ public class TournamentsRepository extends Repository<Tournament> {
   // Tournaments CRUD
   //
   //-----------------------------------------------------------------------------------------------
-
+  @Override
   public Tournament read(Long tournamentId) {
     return entityManager.find(Tournament.class, tournamentId);
   }
 
-
-
+  @Override
   public List<Tournament> read(Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
