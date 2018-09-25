@@ -99,14 +99,14 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
 
   @Test
   void testGetTournaments(){
-    List<Tournament> tournaments = repository.getTournaments(0,10);
+    List<Tournament> tournaments = repository.read(0,10);
 
     assertThat(tournaments, hasSize(2));
   }
 
   @Test
   void testGetTournaments_usingMaxResults(){
-    List<Tournament> tournaments = repository.getTournaments(0,1);
+    List<Tournament> tournaments = repository.read(0,1);
 
     assertThat(tournaments, hasSize(1));
   }

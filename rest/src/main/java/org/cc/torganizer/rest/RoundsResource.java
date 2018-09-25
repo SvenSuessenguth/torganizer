@@ -67,7 +67,8 @@ public class RoundsResource extends AbstractResource {
   @DELETE
   @Path("/{id}")
   public JsonObject delete(@PathParam("id") Long id) {
-    Round round = rRepository.delete(id);
+    Round round = rRepository.read(id);
+    round = rRepository.delete(round);
 
     return rConverter.toJsonObject(round);
   }

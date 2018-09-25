@@ -84,7 +84,7 @@ public class TournamentsResource extends AbstractResource {
   @GET
   public JsonArray readMultiple(@QueryParam("offset") Integer offset,
                                 @QueryParam("maxResults") Integer maxResults) {
-    List<Tournament> tournaments = tournamentsRepo.getTournaments(offset, maxResults);
+    List<Tournament> tournaments = tournamentsRepo.read(offset, maxResults);
 
     return tournamentConverter.toJsonArray(tournaments);
   }
