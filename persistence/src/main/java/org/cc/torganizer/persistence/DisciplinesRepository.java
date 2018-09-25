@@ -18,8 +18,6 @@ import org.cc.torganizer.core.entities.Round;
 @Stateless
 public class DisciplinesRepository extends Repository<Discipline> {
 
-  private static final String DISCIPLINE_FIND_ALL_QUERY_NAME = "Discipline.findAll";
-
   public DisciplinesRepository() {
   }
 
