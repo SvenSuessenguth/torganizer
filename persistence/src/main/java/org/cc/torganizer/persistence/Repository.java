@@ -42,7 +42,7 @@ public abstract class Repository<T extends Entity> {
   /**
    * Deleting an entity with the given id.
    */
-  T delete(Long entityId) {
+  public T delete(Long entityId) {
     return delete(read(entityId));
   }
 
