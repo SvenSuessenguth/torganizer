@@ -31,7 +31,7 @@ let restResourceAdapter = {
   getMultipleResources: function getMultipleResources(url, offset, maxResults, onResolve) {
     let completeUrl = url + '?offset=' + offset + '&maxResults=' + maxResults;
 
-    restResourceAdapter.callRestResource(url, "GET", "", onResolve);
+    restResourceAdapter.callRestResource(completeUrl, "GET", "", onResolve);
   },
 
   getResources: function getResources(url, onResolve) {
