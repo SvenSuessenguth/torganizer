@@ -14,7 +14,7 @@ public class AgeRestriction extends Restriction {
   /**
    * Discriminator for Database.
    */
-  private static Discriminator DISCRIMINATOR = AGE_RESTRICTION;
+  private static final Discriminator DISCRIMINATOR = AGE_RESTRICTION;
 
   /**
    * liegt zeitlich NACH dem minDateOfBirth (hat h\u00f6heren Jahres-, Monats-

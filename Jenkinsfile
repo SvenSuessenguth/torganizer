@@ -12,7 +12,7 @@ pipeline {
 
   tools {
     maven 'apache-maven-3.5'
-    jdk 'jdk-10'
+    jdk 'jdk-11'
   }
 
   stages {
