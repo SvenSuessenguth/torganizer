@@ -47,7 +47,7 @@ let restResourceAdapter = {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: body
+      body: (body!==""?body:undefined)
     })
       .then(function (response) {
         // text is a stream and therefore on-time-readable only
