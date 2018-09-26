@@ -14,7 +14,7 @@ public class AgeRestriction extends Restriction {
   /**
    * Discriminator for Database.
    */
-  private static final Discriminator DISCRIMINATOR = AGE_RESTRICTION;
+  private static Discriminator DISCRIMINATOR = AGE_RESTRICTION;
 
   /**
    * liegt zeitlich NACH dem minDateOfBirth (hat h\u00f6heren Jahres-, Monats-
@@ -41,30 +41,30 @@ public class AgeRestriction extends Restriction {
    * @param newMaxDateOfBirth lower bound of age
    * @param newMinDateOfBirth upper bound of age
    */
-  public AgeRestriction(final LocalDate newMaxDateOfBirth,
-                        final LocalDate newMinDateOfBirth) {
+  public AgeRestriction(LocalDate newMaxDateOfBirth,
+                        LocalDate newMinDateOfBirth) {
     this.maxDateOfBirth = newMaxDateOfBirth;
     this.minDateOfBirth = newMinDateOfBirth;
   }
 
-  public final LocalDate getMaxDateOfBirth() {
+  public LocalDate getMaxDateOfBirth() {
     return maxDateOfBirth;
   }
 
-  public final void setMaxDateOfBirth(final LocalDate newMaxDateOfBirth) {
+  public void setMaxDateOfBirth(LocalDate newMaxDateOfBirth) {
     this.maxDateOfBirth = newMaxDateOfBirth;
   }
 
-  public final LocalDate getMinDateOfBirth() {
+  public LocalDate getMinDateOfBirth() {
     return minDateOfBirth;
   }
 
-  public final void setMinDateOfBirth(final LocalDate newMinDateOfBirth) {
+  public void setMinDateOfBirth(LocalDate newMinDateOfBirth) {
     this.minDateOfBirth = newMinDateOfBirth;
   }
 
   @Override
-  public final boolean isRestricted(final Opponent opponent) {
+  public boolean isRestricted(Opponent opponent) {
     // wenn es eine Ober- bzw. eine Untergrenze fuer das Geburtsdatum
     // dann muss diese auch eingehalten werden
 
@@ -90,16 +90,16 @@ public class AgeRestriction extends Restriction {
   }
 
   @Override
-  public final String toString() {
+  public String toString() {
     return "AgeRestriction with maxDateOfBirth='"
-      + maxDateOfBirth
-      + "' and minDateOfBirth='"
-      + minDateOfBirth
-      + "'";
+        + maxDateOfBirth
+        + "' and minDateOfBirth='"
+        + minDateOfBirth
+        + "'";
   }
 
   @Override
-  public final Discriminator getDiscriminator() {
+  public Discriminator getDiscriminator() {
     return AgeRestriction.DISCRIMINATOR;
   }
 }

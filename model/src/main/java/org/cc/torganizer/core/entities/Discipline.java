@@ -19,11 +19,11 @@ public class Discipline extends Entity {
 
   private String name;
 
-  private final Set<Opponent> opponents = new HashSet<>();
+  private Set<Opponent> opponents = new HashSet<>();
 
-  private final List<Round> rounds = new ArrayList<>();
+  private List<Round> rounds = new ArrayList<>();
 
-  private final Set<Restriction> restrictions = new HashSet<>();
+  private Set<Restriction> restrictions = new HashSet<>();
 
   /**
    * Finden der letzten Round, in der Opponents zugewiesen sind. In einer Round
@@ -31,7 +31,7 @@ public class Discipline extends Entity {
    *
    * @return a {@link org.cc.torganizer.core.entities.Round} object.
    */
-  public final Round getCurrentRound() {
+  public Round getCurrentRound() {
     Round currentRound = null;
     for (Round r : getRounds()) {
       for (Group g : r.getGroups()) {
@@ -44,15 +44,15 @@ public class Discipline extends Entity {
     return currentRound;
   }
 
-  public final String getName() {
+  public String getName() {
     return name;
   }
 
-  public final void setName(final String newName) {
+  public void setName(String newName) {
     this.name = newName;
   }
 
-  public final Set<Opponent> getOpponents() {
+  public Set<Opponent> getOpponents() {
     return opponents;
   }
 
@@ -62,12 +62,12 @@ public class Discipline extends Entity {
    *
    * @param opponent Opponent, der der Disziplin hinzugefuegt werden soll. *
    */
-  public final void addOpponent(final Opponent opponent) {
+  public void addOpponent(Opponent opponent) {
     // pruefen aller restrictions und werfen einer RestrictionException
     for (Restriction restriction : restrictions) {
       if (restriction != null && restriction.isRestricted(opponent)) {
         throw new RestrictionException("violation with restriction "
-          + restriction.getClass().getName());
+            + restriction.getClass().getName());
       }
     }
 
@@ -80,7 +80,7 @@ public class Discipline extends Entity {
    *
    * @param opponent Opponent, der nicht mehr an der Disziplin teilnehmen soll.
    */
-  public final void removeOpponent(final Opponent opponent) {
+  public void removeOpponent(Opponent opponent) {
     this.getOpponents().remove(opponent);
   }
 
@@ -89,16 +89,16 @@ public class Discipline extends Entity {
    *
    * @param round Runde.
    */
-  public final void addRound(final Round round) {
+  public void addRound(Round round) {
     round.setPosition(rounds.size());
     rounds.add(round);
   }
 
-  public final List<Round> getRounds() {
+  public List<Round> getRounds() {
     return unmodifiableList(rounds);
   }
 
-  public final Round getFirstRound() {
+  public Round getFirstRound() {
     return getRound(0);
   }
 
@@ -108,7 +108,7 @@ public class Discipline extends Entity {
    * @param index Index der gesuchten Runde.
    * @return Runde mit dem geforderten Index.
    */
-  public final Round getRound(final int index) {
+  public Round getRound(int index) {
     Round round = null;
     for (Round r : getRounds()) {
       if (r.getPosition() == index) {
@@ -122,7 +122,7 @@ public class Discipline extends Entity {
   /**
    * Replace current rounds with new rounds.
    */
-  public final void setRounds(final List<Round> rounds) {
+  public void setRounds(List<Round> rounds) {
     this.rounds.clear();
 
     if (rounds != null) {
@@ -135,7 +135,7 @@ public class Discipline extends Entity {
    *
    * @return Liste aller Player
    */
-  public final Set<Player> getPlayers() {
+  public Set<Player> getPlayers() {
     Set<Player> players = new HashSet<>();
 
     getOpponents().forEach(opponent -> players.addAll(opponent.getPlayers()));
@@ -143,19 +143,19 @@ public class Discipline extends Entity {
     return players;
   }
 
-  public final void addRestriction(final Restriction restriction) {
+  public void addRestriction(Restriction restriction) {
     restrictions.add(restriction);
   }
 
   /**
    * The restrictions are ordered by discriminator.
    * <ol>
-   *   <li>AgeRestriction</li>
-   *   <li>GenderRestriction</li>
-   *   <li>OpponentTypeRestriction</li>
+   * <li>AgeRestriction</li>
+   * <li>GenderRestriction</li>
+   * <li>OpponentTypeRestriction</li>
    * </ol>
    */
-  public final Collection<Restriction> getRestrictions() {
+  public Collection<Restriction> getRestrictions() {
 
     List<Restriction> orderedRestrictions = new ArrayList<>(this.restrictions);
 
@@ -167,7 +167,7 @@ public class Discipline extends Entity {
   /**
    * Returns the Rstrictions with the given discriminator.
    */
-  public final Restriction getRestriction(final Restriction.Discriminator discriminator) {
+  public Restriction getRestriction(Restriction.Discriminator discriminator) {
     for (Restriction restriction : restrictions) {
       if (Objects.equals(discriminator, restriction.getDiscriminator())) {
         return restriction;
@@ -180,7 +180,7 @@ public class Discipline extends Entity {
   /**
    * Checks, if the opponent is assignable and corrosponds to all restrictions.
    */
-  public final boolean isAssignable(final Opponent opponent) {
+  public boolean isAssignable(Opponent opponent) {
     boolean assignable = true;
 
     // restricted by restrition

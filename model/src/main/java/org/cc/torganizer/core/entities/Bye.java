@@ -18,7 +18,7 @@ public class Bye extends Opponent {
   }
 
   @Override
-  public final Set<Player> getPlayers() {
+  public Set<Player> getPlayers() {
     return Collections.emptySet();
   }
 
@@ -29,7 +29,7 @@ public class Bye extends Opponent {
    * @param size Anzahl der zu erzeugenden Freilose
    * @return Liste von Freilosen
    */
-  public static List<Opponent> createByes(final int size) {
+  public static List<Opponent> createByes(int size) {
 
     // fehlenden Byes generieren
     List<Opponent> byes = new ArrayList<>();
@@ -42,7 +42,7 @@ public class Bye extends Opponent {
   }
 
   @Override
-  public final OpponentType getOpponentType() {
+  public OpponentType getOpponentType() {
     return null;
   }
 }

@@ -9,19 +9,19 @@ public class Court extends Entity {
 
   private int nr;
 
-  public final Match getMatch() {
+  public Match getMatch() {
     return match;
   }
 
-  public final void setMatch(final Match newMatch) {
+  public void setMatch(Match newMatch) {
     this.match = newMatch;
   }
 
-  public final int getNr() {
+  public int getNr() {
     return nr;
   }
 
-  public final void setNr(final int newNr) {
+  public void setNr(int newNr) {
     this.nr = newNr;
   }
 }

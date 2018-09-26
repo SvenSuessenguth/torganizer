@@ -8,7 +8,7 @@ public class Club extends Entity {
   /**
    * zu verwendender Name, wenn ein Opponent keinem club angehoert.
    */
-  public static final String NULL_CLUB_NAME = "-";
+  public static String NULL_CLUB_NAME = "-";
 
   private String name;
 
@@ -24,15 +24,15 @@ public class Club extends Entity {
    *
    * @param name Name des Clubs
    */
-  public Club(final String name) {
+  public Club(String name) {
     this.name = name;
   }
 
-  public final String getName() {
+  public String getName() {
     return name;
   }
 
-  public final void setName(final String name) {
+  public void setName(String name) {
     this.name = name;
   }
 }
