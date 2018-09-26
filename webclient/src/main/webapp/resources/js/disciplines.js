@@ -102,7 +102,7 @@ let disciplines = {
 
     sessionStorage.setItem('disciplines.discipline.id', disciplineId);
 
-    getSingle("disciplines", disciplineId, disciplines.showSelectedDisciplineResolve);
+    restResourceAdapter.getSingle("disciplines", disciplineId, disciplines.showSelectedDisciplineResolve);
     disciplinesResource.getOpponents(disciplineId, opponentsOffset, opponentsMaxResults, disciplines.updateOpponentsResolve);
     tournamentsResource.assignableOpponents(tournamentId, disciplineId, assignableOpponentsOffset, assignableOpponentsMaxResults, disciplines.updateAssignableOpponentsResolve);
   },

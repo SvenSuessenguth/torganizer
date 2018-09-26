@@ -24,7 +24,8 @@ let rounds = {
   //
   //--------------------------------------------------------------------------------------------------------------------
   initDisciplinesSelection: function initDisciplinesSelection() {
-    restResourceAdapter.getMultiple("disciplines", 0, 999, rounds.initDisciplinesSelectionResolve);
+    let tournamentId = tournaments.getId();
+    tournamentsResource.getDisciplines(tournamentId, rounds.initDisciplinesSelectionResolve)
   },
   initDisciplinesSelectionResolve: function initDisciplinesSelectionResolve(disciplines) {
     let dSelect = document.getElementById("disciplines");
