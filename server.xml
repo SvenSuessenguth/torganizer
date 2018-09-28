@@ -13,7 +13,7 @@
     <feature>jndi-1.0</feature>
   </featureManager>
   
-  <jndiEntry jndiName="torganizer/resourcesUrl" value="http://localhost:9080/rest_war_exploded/resources/" />
+  <jndiEntry jndiName="torganizer/resourcesUrl" value="http://localhost:9080/rest/resources/" />
   <jndiEntry jndiName="jsf/ProjectStage" value="Production" />
   
   <dataSource id="DefaultDataSource" jndiName="jdbc/torganizerDS">
