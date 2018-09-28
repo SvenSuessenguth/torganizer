@@ -206,7 +206,7 @@ let rounds = {
     }
 
     let url = resourcesUrl() + `rounds/${roundId}/opponents-assignable-to-group`;
-    getResources(url, rounds.initAssignableOpponentsResolve);
+    restResourceAdapter.getResources(url, rounds.initAssignableOpponentsResolve);
   },
   initAssignableOpponentsResolve: function initAssignableOpponentsResolve(json) {
     let assignableOpponentsTable = document.getElementById("assignable-opponents-table");
