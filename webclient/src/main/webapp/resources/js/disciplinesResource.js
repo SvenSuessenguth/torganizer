@@ -61,7 +61,7 @@ class   DisciplinesResource{
   }
 
   getRounds(disciplineId, onResolve){
-    getMultipleResources(resourcesUrl()+'disciplines/' +disciplineId+"/rounds", 0, 100, onResolve);
+    restResourceAdapter.getMultipleResources(resourcesUrl()+'disciplines/' +disciplineId+"/rounds", 0, 100, onResolve);
   }
 
   addRound(disciplineId, roundId, onResolve){
