@@ -131,8 +131,6 @@ let rounds = {
         nextRoundElement.removeAttribute("disabled");
       }
     }
-
-    rounds.initRoundsDetails();
   },
 
   prevRound: function prevRound() {
@@ -178,6 +176,7 @@ let rounds = {
   },
   addRoundToDisciplineResolve: function addRoundToDisciplineResolve(json) {
     rounds.initRoundsSelection();
+    rounds.initRoundsDetails();
   },
 
   cancel: function cancel() {
@@ -196,7 +195,6 @@ let rounds = {
   //
   //--------------------------------------------------------------------------------------------------------------------
   initRoundsGroup: function initRoundsGroup() {
-    rounds.initAssignableOpponents();
     rounds.initGroup();
   },
   initAssignableOpponents() {
@@ -215,10 +213,19 @@ let rounds = {
   },
 
   initGroup() {
+
   },
 
   addOpponentToGroup: function addOpponentToGroup(event) {
-    console.log("adding opponent " + event.detail + " to group " + sessionStorage.getItem("rounds.group.id"));
+    let groupId = sessionStorage.getItem("rounds.group.id");
+
+    if(groupId===null || groupId==""){
+      let warning = document.getElementById("noGroupSpecified").textContent;
+      window.alert(warning);
+      return;
+    }
+
+    console.log("adding opponent " + event.detail + " to group " + groupId);
     groupsResource.addOpponent(groupId, opponentId, rounds.addOpponentToGroupResolve);
   },
   addOpponentToGroupResolve: function addOpponentToGroupResolve(json) {

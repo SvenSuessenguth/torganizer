@@ -22,8 +22,10 @@
       <label for="disciplines">#{text.disciplines}</label>
       <select id="disciplines" onchange="rounds.showDisciplineSelected()"/>
 
+      <span style="visibility: hidden" id="noGroupSpecified">#{text.addingOpponentNotPossible_noGroupSpecified}</span>
+
       <br />
-      <label for="round">Round</label>
+      <label for="round">#{text.round}</label>
       <input type="button" id="prevRound" disabled="disabled" value="&#9664;" onclick="rounds.prevRound()" />
       <span id="round" />
       <input type="button" id="nextRound" disabled="disabled" value="&#9654;" onclick="rounds.nextRound()" />
@@ -51,7 +53,10 @@
         <input type="submit" value="#{text.next}" onclick="rounds.nextAssignableOpponents()" />
       </div>
       <div style="float:left; padding-right: 10px;">
-        <input type="button" value="&#9664;" onclick="rounds.prevGroup()" /> <span id="group">1</span> <input type="button" value="&#9654;" onclick="rounds.nextGroup()" />
+        <input type="button" value="&#9664;" onclick="rounds.prevGroup()" />
+        <span id="group" />
+        <input type="button" value="&#9654;" onclick="rounds.nextGroup()" />
+
         <input type="button" value="&#43;" style="font-weight: bolder;" onclick="rounds.newGroup()" title="#{text.nju}" />
         <input type="button" value="&#8722;" style="font-weight: bolder;" onclick="rounds.deleteGroup()" title="#{text.delete}" />
       </div>
