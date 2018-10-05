@@ -59,6 +59,9 @@ public class RoundsRepository extends Repository<Round> {
     return namedQuery.getResultList();
   }
 
+  /**
+   * Reading the opponents which are related to the round with the given id.
+   */
   public Set<Opponent> getOpponents(Long roundId) {
     Long prevRoundId = getPrevRoundId(roundId);
     Set<Opponent> opponents;
@@ -87,6 +90,9 @@ public class RoundsRepository extends Repository<Round> {
     return assignableOpponents;
   }
 
+  /**
+   * Getting all opponents which are assigned to the round with the given id.
+   */
   public Set<Opponent> getAlreadyAssignedOpponents(Long roundId) {
     TypedQuery<PositionalOpponent> query = entityManager.createQuery("SELECT po "
             + "FROM Round r, Group g , PositionalOpponent po "
@@ -110,6 +116,9 @@ public class RoundsRepository extends Repository<Round> {
   // Round groups
   //
   //-----------------------------------------------------------------------------------------------
+  /**
+   * Getting all groups which are assigned to the round with the given id.
+   */
   public List<Group> getGroups(Long roundId, Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
@@ -136,6 +145,9 @@ public class RoundsRepository extends Repository<Round> {
 
   }
 
+  /**
+   * Adding the group with the given id to the round with the given id.
+   */
   public Round addGroup(Long roundId, Long groupId) {
     Group group = entityManager.find(Group.class, groupId);
     Round round = read(roundId);
@@ -146,6 +158,9 @@ public class RoundsRepository extends Repository<Round> {
     return round;
   }
 
+  /**
+   * Remove the group with the given id from the round with the given id.
+   */
   public Round removeGroup(Long roundId, Long groupId) {
     Group group = entityManager.find(Group.class, groupId);
     Round round = read(roundId);
@@ -156,6 +171,9 @@ public class RoundsRepository extends Repository<Round> {
     return round;
   }
 
+  /**
+   * Getting the id of the round, to which the group with the given id is related.
+   */
   public Long getRoundId(Long groupId) {
     Long roundId = null;
 
@@ -172,6 +190,10 @@ public class RoundsRepository extends Repository<Round> {
     return roundId;
   }
 
+  /**
+   * Getting the id of the round, to which the group with the given id is related
+   * and has the given position.
+   */
   public Long getRoundId(Long disciplineId, Integer roundPosition) {
     Long roundId = null;
 
@@ -190,6 +212,9 @@ public class RoundsRepository extends Repository<Round> {
     return roundId;
   }
 
+  /**
+   * Getting the id of the round which is the processor of the round with the given id.
+   */
   public Long getPrevRoundId(Long roundId) {
     Integer roundPosition = getPosition(roundId);
     Integer prevRoundPosition = roundPosition - 1;
@@ -197,6 +222,9 @@ public class RoundsRepository extends Repository<Round> {
     return getRoundId(disciplineId, prevRoundPosition);
   }
 
+  /**
+   * Getting the position of the round with the given id.
+   */
   public Integer getPosition(Long roundId) {
     try {
       TypedQuery<Integer> query = entityManager.createQuery("SELECT r.position FROM Round r "

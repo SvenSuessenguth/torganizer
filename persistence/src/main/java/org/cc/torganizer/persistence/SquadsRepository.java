@@ -49,6 +49,9 @@ public class SquadsRepository extends Repository<Squad> {
     return namedQuery.getResultList();
   }
 
+  /**
+   * Reading squads and sort them by the last name of the players.
+   */
   public List<Squad> readOrderByLastName(Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
@@ -70,6 +73,10 @@ public class SquadsRepository extends Repository<Squad> {
   // Squads players
   //
   //-----------------------------------------------------------------------------------------------
+
+  /**
+   * Getting all players which are related to the squad with the given id.
+   */
   public List<Player> getPlayers(Long squadId) {
     TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Squad.findPlayers",
         Player.class);
