@@ -20,7 +20,6 @@ import org.cc.torganizer.core.entities.GenderRestriction;
 import org.cc.torganizer.core.entities.OpponentType;
 import org.cc.torganizer.core.entities.OpponentTypeRestriction;
 import org.cc.torganizer.core.entities.Restriction;
-import org.cc.torganizer.rest.util.Strings;
 
 /**
  * Converting a restriction from/to json.

@@ -6,9 +6,16 @@ package org.cc.torganizer.rest.util;
 public class Strings {
 
   /**
+   * Utility class constructor.
+   */
+  private Strings(){
+    // do not instantiate...
+  }
+
+  /**
    * Checks, if a given String is <code>NULL</code> or <code>empty</code> (after trimming).
    */
-  public static final boolean isEmpty(String s) {
+  public static boolean isEmpty(String s) {
     return s == null || s.trim().isEmpty();
   }
 }
