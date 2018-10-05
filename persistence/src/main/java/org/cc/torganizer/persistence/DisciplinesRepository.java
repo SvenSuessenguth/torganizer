@@ -15,6 +15,9 @@ import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Round;
 
+/**
+ * Accessing the Repository for Disciplines and related entities.
+ */
 @Stateless
 public class DisciplinesRepository extends Repository<Discipline> {
 
@@ -50,6 +53,10 @@ public class DisciplinesRepository extends Repository<Discipline> {
   // Discipline opponents
   //
   //-----------------------------------------------------------------------------------------------
+
+  /**
+   * Getting the opponents related to the given discipline.
+   */
   public List<Opponent> getOpponents(Long disciplineId, Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
@@ -75,6 +82,9 @@ public class DisciplinesRepository extends Repository<Discipline> {
     return query.getResultList();
   }
 
+  /**
+   * Adding the opponent with the give id to the discipline with the given id.
+   */
   public Discipline addOpponent(Long disciplineId, Long opponentId) {
     Opponent opponent = entityManager.find(Opponent.class, opponentId);
 
@@ -85,6 +95,9 @@ public class DisciplinesRepository extends Repository<Discipline> {
     return discipline;
   }
 
+  /**
+   * Removing the opponent with the give id from the discipline with the given id.
+   */
   public Discipline removeOpponent(Long disciplineId, Long opponentId) {
     Opponent opponent = entityManager.find(Opponent.class, opponentId);
 
@@ -100,6 +113,10 @@ public class DisciplinesRepository extends Repository<Discipline> {
   // Discipline rounds
   //
   //-----------------------------------------------------------------------------------------------
+
+  /**
+   * Getting the rounds related to the discipline with the given id.
+   */
   public List<Round> getRounds(Long disciplineId, Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
@@ -125,6 +142,9 @@ public class DisciplinesRepository extends Repository<Discipline> {
     return query.getResultList();
   }
 
+  /**
+   * Adding the round with the give id to the discipline with the given id.
+   */
   public Discipline addRound(Long disciplineId, Long roundId) {
     Round round = entityManager.find(Round.class, roundId);
 
@@ -135,6 +155,9 @@ public class DisciplinesRepository extends Repository<Discipline> {
     return discipline;
   }
 
+  /**
+   * Rmoving the round with the give id to the discipline with the given id.
+   */
   public Discipline removeRound(Long disciplineId, Long roundId) {
     Round round = entityManager.find(Round.class, roundId);
 
@@ -145,6 +168,9 @@ public class DisciplinesRepository extends Repository<Discipline> {
     return discipline;
   }
 
+  /**
+   * Getting the Discipline to which the round is related.
+   */
   public Long getDisciplineId(Long roundId) {
     Long disciplineId = null;
 
