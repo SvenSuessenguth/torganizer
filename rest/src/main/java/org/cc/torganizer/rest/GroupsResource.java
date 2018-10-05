@@ -3,7 +3,6 @@ package org.cc.torganizer.rest;
 import static org.cc.torganizer.rest.json.ModelJsonConverter.emptyArray;
 
 import java.util.Set;
-
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.json.JsonArray;
@@ -50,7 +49,8 @@ public class GroupsResource extends AbstractResource {
   }
 
   @GET
-  public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("maxResults") Integer maxResults) {
+  public JsonArray readMultiple(@QueryParam("offset") Integer offset,
+                                @QueryParam("maxResults") Integer maxResults) {
     return null;
   }
 
@@ -61,13 +61,16 @@ public class GroupsResource extends AbstractResource {
 
   @GET
   @Path("/{id}/opponents")
-  public JsonArray getOpponents(@PathParam("id") Long groupId, @QueryParam("offset") Integer offset, @QueryParam("maxResults") Integer maxResults) {
+  public JsonArray getOpponents(@PathParam("id") Long groupId,
+                                @QueryParam("offset") Integer offset,
+                                @QueryParam("maxResults") Integer maxResults) {
     return null;
   }
 
   @POST
   @Path("/{id}/opponents")
-  public JsonObject addOpponent(@PathParam("id") Long groupId, @QueryParam("opponentId") Long opponentId) {
+  public JsonObject addOpponent(@PathParam("id") Long groupId,
+                                @QueryParam("opponentId") Long opponentId) {
     Group group = groupsRepo.addOpponent(groupId, opponentId);
 
     return groupConverter.toJsonObject(group);
@@ -75,25 +78,26 @@ public class GroupsResource extends AbstractResource {
 
   @DELETE
   @Path("/{id}/opponents")
-  public JsonObject removeOpponent(@PathParam("id") Long groupId, @QueryParam("opponentId") Long opponentId) {
+  public JsonObject removeOpponent(@PathParam("id") Long groupId,
+                                   @QueryParam("opponentId") Long opponentId) {
     return null;
   }
 
   @SuppressWarnings("unchecked")
   @GET
   @Path("/{id}/assignableOpponents")
-  public JsonArray getAssignableOpponents(@PathParam("id") Long groupId){
+  public JsonArray getAssignableOpponents(@PathParam("id") Long groupId) {
     JsonArray result = null;
 
     Set<Opponent> opponents = groupsRepo.getAssignableOpponents(groupId);
 
     // all opponents must have same type (see opponentTypeRestriction)
-    if(opponents.isEmpty()){
+    if (opponents.isEmpty()) {
       return emptyArray();
-    }
-    else{ 
-      ModelJsonConverter<Opponent> oConverter = opponentJsonConverterProvider.getConverter(opponents);
-      result = oConverter.toJsonArray(opponents);
+    } else {
+      ModelJsonConverter<Opponent> opponentConverter =
+          opponentJsonConverterProvider.getConverter(opponents);
+      result = opponentConverter.toJsonArray(opponents);
     }
 
     return result;

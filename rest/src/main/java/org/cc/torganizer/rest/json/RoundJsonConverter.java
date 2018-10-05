@@ -1,16 +1,21 @@
 package org.cc.torganizer.rest.json;
 
+import java.util.Collection;
+import java.util.HashMap;
+import javax.enterprise.context.RequestScoped;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonBuilderFactory;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.json.JsonValue;
+
 import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.core.entities.System;
 
-import javax.enterprise.context.RequestScoped;
-import javax.json.*;
-import java.util.Collection;
-import java.util.HashMap;
-
 /**
  * A json-disciplines contains nothing but id, name and restrictions.
- *
  */
 @RequestScoped
 public class RoundJsonConverter extends ModelJsonConverter<Round> {
@@ -26,7 +31,7 @@ public class RoundJsonConverter extends ModelJsonConverter<Round> {
     add(objectBuilder, "qualified", round.getQualified());
     add(objectBuilder, "position", round.getPosition());
 
-    String systemName = round.getSystem()==null?null:round.getSystem().name();
+    String systemName = round.getSystem() == null ? null : round.getSystem().name();
     add(objectBuilder, PROPERTY_SYSTEM_NAME, systemName);
 
     return objectBuilder.build();
@@ -49,14 +54,14 @@ public class RoundJsonConverter extends ModelJsonConverter<Round> {
 
     JsonValue positionValue = jsonObject.get("position");
     Integer position = null;
-    if(!JsonValue.NULL.equals(positionValue) && positionValue!=null){
+    if (!JsonValue.NULL.equals(positionValue) && positionValue != null) {
       position = Integer.valueOf(positionValue.toString());
     }
     round.setPosition(position);
 
     JsonValue systemValue = jsonObject.get(PROPERTY_SYSTEM_NAME);
     System system = System.ROUND_ROBIN;
-    if(!JsonValue.NULL.equals(systemValue) && systemValue!=null){
+    if (!JsonValue.NULL.equals(systemValue) && systemValue != null) {
       String systemName = get(jsonObject, PROPERTY_SYSTEM_NAME);
       system = System.valueOf(systemName);
     }

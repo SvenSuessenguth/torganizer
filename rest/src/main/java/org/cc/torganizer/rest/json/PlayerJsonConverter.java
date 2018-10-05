@@ -1,9 +1,10 @@
 package org.cc.torganizer.rest.json;
 
+import static org.cc.torganizer.rest.util.Strings.isEmpty;
+
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashMap;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -22,33 +23,35 @@ import org.cc.torganizer.core.entities.Status;
  * @author svens
  */
 @RequestScoped
-public class PlayerJsonConverter extends ModelJsonConverter<Player> implements OpponentJsonConverter{
+public class PlayerJsonConverter extends ModelJsonConverter<Player>
+    implements OpponentJsonConverter {
 
-  @Inject  
+  @Inject
   private PersonJsonConverter personConverter;
 
   @Inject
   private ClubJsonConverter clubConverter;
 
-  public PlayerJsonConverter(){
+  public PlayerJsonConverter() {
   }
-  
-  public PlayerJsonConverter(PersonJsonConverter personConverter, ClubJsonConverter clubConverter){
+
+  public PlayerJsonConverter(PersonJsonConverter personConverter,
+                             ClubJsonConverter clubConverter) {
     this.clubConverter = clubConverter;
     this.personConverter = personConverter;
   }
-  
+
   @Override
   public JsonObject toJsonObject(Player player) {
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonObjectBuilder objectBuilder = factory.createObjectBuilder();
-    
+
     add(objectBuilder, "id", player.getId());
     add(objectBuilder, "lastMatch", player.getLastMatch());
     add(objectBuilder, "status", player.getStatus().toString());
     add(objectBuilder, "person", personConverter.toJsonObject(player.getPerson()));
     add(objectBuilder, "club", clubConverter.toJsonObject(player.getClub()));
-      
+
     return objectBuilder.build();
   }
 
@@ -57,8 +60,8 @@ public class PlayerJsonConverter extends ModelJsonConverter<Player> implements O
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonArrayBuilder arrayBuilder = factory.createArrayBuilder();
 
-    players.forEach(player -> arrayBuilder.add(this.toJsonObject(player)) );
-    
+    players.forEach(player -> arrayBuilder.add(this.toJsonObject(player)));
+
     return arrayBuilder.build();
   }
 
@@ -67,11 +70,13 @@ public class PlayerJsonConverter extends ModelJsonConverter<Player> implements O
     String lastMatchString = get(jsonObject, "lastMatch");
     LocalDateTime lastMatch = super.localDateTimeFromString(lastMatchString);
     player.setLastMatch(lastMatch);
-    
+
     String statusString = get(jsonObject, "status");
-    Status status = statusString==null||statusString.trim().isEmpty()?Status.ACTIVE:Status.valueOf(statusString);
+    Status status = isEmpty(statusString)
+        ? Status.ACTIVE
+        : Status.valueOf(statusString);
     player.setStatus(status);
-   
+
     JsonObject personJsonObject = jsonObject.getJsonObject("person");
     final Person person = personConverter.toModel(personJsonObject, player.getPerson());
     player.setPerson(person);

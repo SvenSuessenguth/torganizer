@@ -1,11 +1,17 @@
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.Group;
-
-import javax.enterprise.context.RequestScoped;
-import javax.json.*;
 import java.util.Collection;
 import java.util.HashMap;
+import javax.enterprise.context.RequestScoped;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonBuilderFactory;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.json.JsonValue;
+
+import org.cc.torganizer.core.entities.Group;
 
 @RequestScoped
 public class GroupJsonConverter extends ModelJsonConverter<Group> {
@@ -35,7 +41,7 @@ public class GroupJsonConverter extends ModelJsonConverter<Group> {
   public Group toModel(JsonObject jsonObject, Group group) {
     JsonValue positionValue = jsonObject.get("position");
     Integer position = null;
-    if(!JsonValue.NULL.equals(positionValue)){
+    if (!JsonValue.NULL.equals(positionValue)) {
       position = Integer.valueOf(positionValue.toString());
     }
     group.setPosition(position);

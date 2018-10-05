@@ -1,18 +1,32 @@
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.*;
+import static org.cc.torganizer.rest.util.Strings.isEmpty;
 
-import javax.enterprise.context.RequestScoped;
-import javax.json.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashMap;
+import javax.enterprise.context.RequestScoped;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonBuilderFactory;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+
+import org.cc.torganizer.core.entities.AgeRestriction;
+import org.cc.torganizer.core.entities.Gender;
+import org.cc.torganizer.core.entities.GenderRestriction;
+import org.cc.torganizer.core.entities.OpponentType;
+import org.cc.torganizer.core.entities.OpponentTypeRestriction;
+import org.cc.torganizer.core.entities.Restriction;
+import org.cc.torganizer.rest.util.Strings;
 
 /**
+ * Converting a restriction from/to json.
  * What does a restriction-json look like:
- * <p>
- * AgeRestriction
+ *
+ * <p>AgeRestriction
  * <pre>
  * {
  *   id:
@@ -48,26 +62,30 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
         toJsonObject((OpponentTypeRestriction) restriction, objectBuilder);
         break;
       default:
-        throw new IllegalArgumentException("Can't convert restriction with discriminator-id " + restriction.getDiscriminator().getId() + " to json.");
+        throw new IllegalArgumentException("Can't convert restriction with discriminator-id "
+            + restriction.getDiscriminator().getId() + " to json.");
     }
 
     return objectBuilder.build();
   }
 
-  public JsonObjectBuilder toJsonObject(AgeRestriction restriction, JsonObjectBuilder objectBuilder) {
+  public JsonObjectBuilder toJsonObject(AgeRestriction restriction,
+                                        JsonObjectBuilder objectBuilder) {
     add(objectBuilder, "minDateOfBirth", restriction.getMinDateOfBirth());
     add(objectBuilder, "maxDateOfBirth", restriction.getMaxDateOfBirth());
 
     return objectBuilder;
   }
 
-  public JsonObjectBuilder toJsonObject(GenderRestriction restriction, JsonObjectBuilder objectBuilder) {
+  public JsonObjectBuilder toJsonObject(GenderRestriction restriction,
+                                        JsonObjectBuilder objectBuilder) {
     add(objectBuilder, "gender", restriction.getGender().toString());
 
     return objectBuilder;
   }
 
-  public JsonObjectBuilder toJsonObject(OpponentTypeRestriction restriction, JsonObjectBuilder objectBuilder) {
+  public JsonObjectBuilder toJsonObject(OpponentTypeRestriction restriction,
+                                        JsonObjectBuilder objectBuilder) {
     add(objectBuilder, "opponentType", restriction.getOpponentType().toString());
 
     return objectBuilder;
@@ -100,7 +118,8 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
         toModel((OpponentTypeRestriction) restriction, jsonObject);
         break;
       default:
-        throw new IllegalArgumentException("Can't convert json with discriminator-id " + restriction.getDiscriminator().getId() + " to model.");
+        throw new IllegalArgumentException("Can't convert json with discriminator-id "
+            + restriction.getDiscriminator().getId() + " to model.");
     }
 
     return restriction;
@@ -108,11 +127,15 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
 
   private AgeRestriction toModel(AgeRestriction ageRestriction, JsonObject jsonObject) {
     String minDateOfBirthString = get(jsonObject, "minDateOfBirth");
-    LocalDate minDateOfBirth = minDateOfBirthString == null || minDateOfBirthString.trim().isEmpty() ? null : LocalDate.parse(minDateOfBirthString, DateTimeFormatter.ISO_DATE);
+    LocalDate minDateOfBirth = isEmpty(minDateOfBirthString)
+        ? null
+        : LocalDate.parse(minDateOfBirthString, DateTimeFormatter.ISO_DATE);
     ageRestriction.setMinDateOfBirth(minDateOfBirth);
 
     String maxDateOfBirthString = get(jsonObject, "maxDateOfBirth");
-    LocalDate maxDateOfBirth = maxDateOfBirthString == null || maxDateOfBirthString.trim().isEmpty() ? null : LocalDate.parse(maxDateOfBirthString, DateTimeFormatter.ISO_DATE);
+    LocalDate maxDateOfBirth = isEmpty(maxDateOfBirthString)
+        ? null
+        : LocalDate.parse(maxDateOfBirthString, DateTimeFormatter.ISO_DATE);
     ageRestriction.setMaxDateOfBirth(maxDateOfBirth);
 
     return ageRestriction;
@@ -126,7 +149,8 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
     return genderRestriction;
   }
 
-  private OpponentTypeRestriction toModel(OpponentTypeRestriction opponentTypeRestriction, JsonObject jsonObject) {
+  private OpponentTypeRestriction toModel(OpponentTypeRestriction opponentTypeRestriction,
+                                          JsonObject jsonObject) {
     String opponentTypeString = get(jsonObject, "opponentType");
     OpponentType opponentType = OpponentType.valueOf(opponentTypeString);
     opponentTypeRestriction.setOpponentType(opponentType);
@@ -135,7 +159,8 @@ public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
   }
 
   @Override
-  public Collection<Restriction> toModels(JsonArray jsonArray, Collection<Restriction> restrictions) {
+  public Collection<Restriction> toModels(JsonArray jsonArray,
+                                          Collection<Restriction> restrictions) {
     jsonArray.forEach(item -> {
       JsonObject jsonObject = (JsonObject) item;
       Restriction restriction = getProperEntity(jsonObject, restrictions);

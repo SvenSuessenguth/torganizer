@@ -2,7 +2,6 @@ package org.cc.torganizer.rest.json;
 
 import java.util.Collection;
 import java.util.HashMap;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -19,26 +18,26 @@ import org.cc.torganizer.core.entities.Squad;
  * @author svens
  */
 @RequestScoped
-public class SquadJsonConverter extends ModelJsonConverter<Squad> implements OpponentJsonConverter{
+public class SquadJsonConverter extends ModelJsonConverter<Squad> implements OpponentJsonConverter {
 
-  @Inject  
+  @Inject
   private PlayerJsonConverter playerConverter;
-  
-  public SquadJsonConverter(){
+
+  public SquadJsonConverter() {
   }
-  
-  public SquadJsonConverter(PlayerJsonConverter playerConverter){
+
+  public SquadJsonConverter(PlayerJsonConverter playerConverter) {
     this.playerConverter = playerConverter;
   }
-  
+
   @Override
   public JsonObject toJsonObject(Squad squad) {
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonObjectBuilder objectBuilder = factory.createObjectBuilder();
-    
+
     add(objectBuilder, "id", squad.getId());
     objectBuilder.add("players", playerConverter.toJsonArray(squad.getPlayers()));
-      
+
     return objectBuilder.build();
   }
 
@@ -46,9 +45,9 @@ public class SquadJsonConverter extends ModelJsonConverter<Squad> implements Opp
   public JsonArray toJsonArray(Collection<Squad> squads) {
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonArrayBuilder arrayBuilder = factory.createArrayBuilder();
-    
-    squads.forEach(squad -> arrayBuilder.add(this.toJsonObject(squad)) );
-    
+
+    squads.forEach(squad -> arrayBuilder.add(this.toJsonObject(squad)));
+
     return arrayBuilder.build();
   }
 

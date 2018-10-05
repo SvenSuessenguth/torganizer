@@ -1,16 +1,21 @@
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.Discipline;
-
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.json.*;
 import java.util.Collection;
 import java.util.HashMap;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonBuilderFactory;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+
+import org.cc.torganizer.core.entities.Discipline;
+import org.cc.torganizer.core.entities.Restriction;
 
 /**
  * A json-disciplines contains nothing but id, name and restrictions.
- *
  */
 @RequestScoped
 public class DisciplineJsonConverter extends ModelJsonConverter<Discipline> {
@@ -32,7 +37,9 @@ public class DisciplineJsonConverter extends ModelJsonConverter<Discipline> {
 
     add(objectBuilder, "id", discipline.getId());
     add(objectBuilder, "name", discipline.getName());
-    objectBuilder.add("restrictions", restrictionConverter.toJsonArray(discipline.getRestrictions()));
+
+    Collection<Restriction> restrictions = discipline.getRestrictions();
+    objectBuilder.add("restrictions", restrictionConverter.toJsonArray(restrictions));
 
     return objectBuilder.build();
   }

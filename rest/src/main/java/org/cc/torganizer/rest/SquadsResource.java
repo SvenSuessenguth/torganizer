@@ -1,19 +1,27 @@
 package org.cc.torganizer.rest;
 
+import java.util.List;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 import org.cc.torganizer.persistence.PlayersRepository;
 import org.cc.torganizer.persistence.SquadsRepository;
 import org.cc.torganizer.rest.json.PlayerJsonConverter;
 import org.cc.torganizer.rest.json.SquadJsonConverter;
-
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import java.util.List;
 
 @Stateless
 @Path("/squads")
@@ -23,43 +31,44 @@ public class SquadsResource {
 
   @Inject
   private SquadJsonConverter converter;
-  
-  @Inject
-  private PlayerJsonConverter pConverter;
 
   @Inject
-  private SquadsRepository sRepository;
+  private PlayerJsonConverter playersConverter;
 
   @Inject
-  private PlayersRepository pRepository;
+  private SquadsRepository ssquadsRepository;
+
+  @Inject
+  private PlayersRepository playersRepository;
 
   @POST
   public JsonObject create(JsonObject jsonObject) {
     Squad squad = converter.toModel(jsonObject, new Squad());
 
     JsonArray playerArray = jsonObject.getJsonArray("players");
-    for(int i=0; i<playerArray.size(); i++){
+    for (int i = 0; i < playerArray.size(); i++) {
       JsonObject playerObject = playerArray.getJsonObject(i);
       Long playerId = Long.valueOf(playerObject.get("id").toString());
-      Player player = pRepository.read(playerId);
+      Player player = playersRepository.read(playerId);
       squad.addPlayer(player);
     }
 
-    squad = sRepository.create(squad);
+    squad = ssquadsRepository.create(squad);
     return converter.toJsonObject(squad);
   }
 
   @GET
   @Path("{id}")
   public JsonObject readSingle(@PathParam("id") Long id) {
-    Squad squad = sRepository.read(id);
+    Squad squad = ssquadsRepository.read(id);
 
-    return  converter.toJsonObject(squad);
+    return converter.toJsonObject(squad);
   }
-  
+
   @GET
-  public JsonArray readMultiple(@QueryParam("offset") Integer offset, @QueryParam("maxResults") Integer maxResults) {
-    List<Squad> squads = sRepository.read(offset, maxResults);
+  public JsonArray readMultiple(@QueryParam("offset") Integer offset,
+                                @QueryParam("maxResults") Integer maxResults) {
+    List<Squad> squads = ssquadsRepository.read(offset, maxResults);
 
     return converter.toJsonArray(squads);
   }
@@ -67,26 +76,26 @@ public class SquadsResource {
   @PUT
   public JsonObject update(JsonObject jsonObject) {
     Long id = Long.valueOf(jsonObject.get("id").toString());
-    Squad squad = sRepository.read(id);
+    Squad squad = ssquadsRepository.read(id);
     squad = converter.toModel(jsonObject, squad);
     squad.getPlayers().clear();
 
     JsonArray playerArray = jsonObject.getJsonArray("players");
-    for(int i=0; i<playerArray.size(); i++){
+    for (int i = 0; i < playerArray.size(); i++) {
       JsonObject playerObject = playerArray.getJsonObject(i);
       Long playerId = Long.valueOf(playerObject.get("id").toString());
-      Player player = pRepository.read(playerId);
+      Player player = playersRepository.read(playerId);
       squad.addPlayer(player);
     }
 
-    squad = sRepository.update(squad);
-    return  converter.toJsonObject(squad);
+    squad = ssquadsRepository.update(squad);
+    return converter.toJsonObject(squad);
   }
 
   @DELETE
   @Path("/{id}")
   public JsonObject delete(@PathParam("id") Long id) {
-    Squad squad = sRepository.delete(id);
+    Squad squad = ssquadsRepository.delete(id);
 
     return converter.toJsonObject(squad);
   }
@@ -94,14 +103,14 @@ public class SquadsResource {
   @GET
   @Path("/count")
   public long count() {
-    return sRepository.count();
+    return ssquadsRepository.count();
   }
-  
+
   @GET
   @Path("/{id}/players")
   public JsonArray players(@PathParam("id") Long squadId) {
-    List<Player> players = sRepository.getPlayers(squadId);
+    List<Player> players = ssquadsRepository.getPlayers(squadId);
 
-    return pConverter.toJsonArray(players);
+    return playersConverter.toJsonArray(players);
   }
 }

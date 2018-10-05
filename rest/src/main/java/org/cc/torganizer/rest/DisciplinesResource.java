@@ -1,5 +1,7 @@
 package org.cc.torganizer.rest;
 
+import static org.cc.torganizer.rest.json.ModelJsonConverter.emptyArray;
+
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -24,8 +26,6 @@ import org.cc.torganizer.rest.json.ModelJsonConverter;
 import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
 import org.cc.torganizer.rest.json.RestrictionJsonConverter;
 import org.cc.torganizer.rest.json.RoundJsonConverter;
-
-import static org.cc.torganizer.rest.json.ModelJsonConverter.emptyArray;
 
 @Stateless
 @Path("/disciplines")

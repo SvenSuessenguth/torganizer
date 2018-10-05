@@ -1,24 +1,29 @@
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.Tournament;
-
-import javax.json.*;
 import java.util.Collection;
 import java.util.HashMap;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonBuilderFactory;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+
+import org.cc.torganizer.core.entities.Tournament;
 
 /**
  * @author svens
  */
-public class TournamentJsonConverter extends ModelJsonConverter<Tournament>{
+public class TournamentJsonConverter extends ModelJsonConverter<Tournament> {
 
   @Override
   public JsonObject toJsonObject(Tournament tournament) {
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonObjectBuilder objectBuilder = factory.createObjectBuilder();
-    
+
     add(objectBuilder, "id", tournament.getId());
     add(objectBuilder, "name", tournament.getName());
-      
+
     return objectBuilder.build();
   }
 
@@ -26,9 +31,9 @@ public class TournamentJsonConverter extends ModelJsonConverter<Tournament>{
   public JsonArray toJsonArray(Collection<Tournament> tournaments) {
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonArrayBuilder arrayBuilder = factory.createArrayBuilder();
-    
+
     tournaments.forEach(tournament -> arrayBuilder.add(this.toJsonObject(tournament)));
-    
+
     return arrayBuilder.build();
   }
 
