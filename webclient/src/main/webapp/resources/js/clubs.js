@@ -27,7 +27,7 @@ let clubs = {
   },
 
   showTable : function showTable(){
-    getMultiple("clubs", 0, 100, clubs.showTableResolve);
+	  restResourceAdapter.getMultiple("clubs", 0, 100, clubs.showTableResolve);
   },
 
   showTableResolve : function showTableResolve(data){
@@ -54,7 +54,7 @@ let clubs = {
   },
 
   showDetails : function showDetails(id) {
-    getSingle("clubs", id, clubs.showDetailResolve);
+	restResourceAdapter.getSingle("clubs", id, clubs.showDetailResolve);
   },
 
   showDetailResolve : function showDetailResolve(data){
@@ -65,7 +65,7 @@ let clubs = {
 
   save : function save(){
     let json = this.formToClub();
-    createOrUpdate("clubs", json, clubs.saveSuccess);
+    restResourceAdapter.createOrUpdate("clubs", json, clubs.saveSuccess);
   },
 
   saveSuccess : function saveSuccess(json){

@@ -19,7 +19,7 @@
   <dataSource id="DefaultDataSource" jndiName="jdbc/torganizerDS">
     <jdbcDriver libraryRef="MySQLLib" />
     <!-- password = 'root' -->
-    <properties databaseName="torganizer" serverName="localhost" portNumber="3306" user="root" password="{aes}ALmk/qtWbd27UtuezseI+seT03P9BRHGtVND7JC9/OL4" useSSL="false" />
+    <properties databaseName="torganizer" serverName="localhost" portNumber="3306" user="root" useSSL="false" />
   </dataSource>
   
   <library id="MySQLLib">
