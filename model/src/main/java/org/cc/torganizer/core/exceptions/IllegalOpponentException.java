@@ -7,12 +7,14 @@ package org.cc.torganizer.core.exceptions;
  */
 public class IllegalOpponentException extends RuntimeException {
 
-  /**
-   * Bequemlichkeitskonstruktor.
-   *
-   * @param message Message
-   */
-  public IllegalOpponentException(String message) {
-    super(message);
-  }
+	private static final long serialVersionUID = -7148242357110165108L;
+
+	/**
+	 * Bequemlichkeitskonstruktor.
+	 *
+	 * @param message Message
+	 */
+	public IllegalOpponentException(String message) {
+		super(message);
+	}
 }

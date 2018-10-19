@@ -1,18 +1,21 @@
 package org.cc.torganizer.persistence;
 
-import org.cc.torganizer.core.entities.Group;
-import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.core.entities.Round;
-import org.hamcrest.MatcherAssert;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import org.cc.torganizer.core.entities.Group;
+import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.core.entities.Round;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class GroupsRepositoryTest extends AbstractDbUnitJpaTest {
 

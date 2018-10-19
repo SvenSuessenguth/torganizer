@@ -18,7 +18,8 @@ public class MatchGetWinnerTest {
 
 	private static final String HOME_NAME = "home";
 	private static final String GUEST_NAME = "guest";
-
+	
+	@SuppressWarnings("unused")
 	private static Stream<Arguments> addMatch() {
 		return Stream.of(
 			// Gastmannschaft gewinnt

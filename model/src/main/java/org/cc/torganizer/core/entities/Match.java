@@ -30,7 +30,7 @@ public class Match extends Entity implements IPositional {
 
   private Opponent guest;
 
-  private final List<Result> results;
+  private List<Result> results;
 
   /**
    * Nummer des Matches in der Gruppe, in der das Match stattfindet. Die Position

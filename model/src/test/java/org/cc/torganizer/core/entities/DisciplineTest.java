@@ -1,24 +1,29 @@
 package org.cc.torganizer.core.entities;
 
-import org.hamcrest.Matchers;
-import org.hamcrest.core.IsInstanceOf;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import static java.time.LocalDate.of;
 import static java.time.Month.JANUARY;
 import static java.time.Month.MAY;
 import static org.cc.torganizer.core.entities.Gender.FEMALE;
 import static org.cc.torganizer.core.entities.Gender.MALE;
 import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
-import static org.cc.torganizer.core.entities.Restriction.Discriminator.*;
+import static org.cc.torganizer.core.entities.Restriction.Discriminator.AGE_RESTRICTION;
+import static org.cc.torganizer.core.entities.Restriction.Discriminator.GENDER_RESTRICTION;
+import static org.cc.torganizer.core.entities.Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class DisciplineTest {
 
@@ -62,6 +67,7 @@ public class DisciplineTest {
     assertThat(restriction.getDiscriminator(), is(OPPONENT_TYPE_RESTRICTION));
   }
 
+  @SuppressWarnings({ "rawtypes", "unchecked" })
   @Test
   public void testGetRestrictions_order(){
     Discipline discipline = new Discipline();

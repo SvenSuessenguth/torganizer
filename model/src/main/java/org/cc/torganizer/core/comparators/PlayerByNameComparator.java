@@ -11,6 +11,8 @@ import org.cc.torganizer.core.entities.Player;
  */
 public class PlayerByNameComparator implements Comparator<Player>, Serializable {
 
+  private static final long serialVersionUID = 6249336100950968432L;
+
   @Override
   public final int compare(final Player o1, final Player o2) {
     if (Objects.equals(o1, o2)) {
