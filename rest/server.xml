@@ -1,8 +1,8 @@
 <!--
  |
  +-->
- <server>  
- 
+ <server>
+
   <!--
    | https://www.ibm.com/support/knowledgecenter/en/SS7K4U_liberty/com.ibm.websphere.wlp.zseries.doc/ae/twlp_dep_configuring_ds.html 
    +-->
@@ -14,7 +14,7 @@
   <library id="MySQLLib">
     <file name="c:/dev/tools/mysql-connector-java-5.1.47/mysql-connector-java-5.1.47-bin.jar"/>
   </library>
-  
+
   <!--
    | https://www.ibm.com/support/knowledgecenter/en/SSAW57_liberty/com.ibm.websphere.wlp.nd.multiplatform.doc/ae/rwlp_portnums.html 
    +-->

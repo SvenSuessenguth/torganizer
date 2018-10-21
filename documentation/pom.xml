@@ -21,7 +21,7 @@
   <properties>
     <asciidoctor-maven-plugin.version>1.5.7.1</asciidoctor-maven-plugin.version>
   </properties>
-  
+
   <build>
     <plugins>
        <plugin>
