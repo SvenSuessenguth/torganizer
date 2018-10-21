@@ -21,7 +21,7 @@ class OpponentsTable extends HTMLElement{
 	this.attachShadow({ mode: 'open' });
 	let opponentsTable = this.template.content.cloneNode(true);
 	
-	this._tbody = opponentsTable.getElementById("opponents-table-body");;
+	this._tbody = opponentsTable.getElementById("opponents-table-body");
 	
     // always show empty table with all rows
     for (var i = 0; i < this._rows; i++) { 
