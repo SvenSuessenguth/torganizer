@@ -18,5 +18,5 @@
   <!--
    | https://www.ibm.com/support/knowledgecenter/en/SSAW57_liberty/com.ibm.websphere.wlp.nd.multiplatform.doc/ae/rwlp_portnums.html 
    +-->
-  <wasJmsEndpoint id="InboundJmsEndpoint" wasJmsPort="7278" wasJmsSSLPort="7288" />
+  <wasJmsEndpoint wasJmsPort="7278" wasJmsSSLPort="7288" />
 </server>
