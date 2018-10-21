@@ -5,38 +5,27 @@ class OpponentsTable extends HTMLElement{
   
   constructor(){
     super();
-    this.attachShadow({ mode: 'open' });
-    this.rows = 10;
-    // to access tbody on attribute change
-    this.tbody = null;
-    
-    var attRows = this.getAttribute("rows");
-    if(attRows !== null){
-      this.rows = attRows;
-    }
-    
-    var attData = this.getAttribute("data");
-    if(attData === null || attData.length===0){
-      this.data = '[]';
-    }
-    
-    var attId = this.getAttribute("id");
-    if(attId === null || attId.length===0){
-      this.Id = '';
-    }
+    this.template = this.template();
+    this._rows = 10;
+    this._tbody = null;
   }
   
+  set id(newId) { this.setAttribute('id', newId); }
+  get id() { return this._id; }
+  set rows(newRows) { this.setAttribute('rows', newRows); }
+  get rows() { return this._rows; }
   set data(newData) { this.setAttribute('data', newData); }
   get data() { return this._data; }
   
-  connectedCallback(){    
-    var ownerDocument = document.currentScript.ownerDocument;
-    var template = ownerDocument.getElementById("opponents-table-template");
-    this.opponentsTable = document.importNode(template.content, true);
-    
-    // always show empty table with all rows    
-    this.tbody = this.opponentsTable.getElementById("opponents-table-body");
-    for (var i = 0; i < this.rows; i++) { 
+  connectedCallback(){
+	this.attachShadow({ mode: 'open' });
+	let opponentsTable = this.template.content.cloneNode(true);
+	
+	this._tbody = opponentsTable.getElementById("opponents-table-body");;
+	
+    // always show empty table with all rows
+    for (var i = 0; i < this._rows; i++) { 
+      
       var rowOpponent = document.createElement("tr");
       var tdFirstNames = document.createElement("td");
       // for correct height of an empty row
@@ -48,30 +37,33 @@ class OpponentsTable extends HTMLElement{
       rowOpponent.appendChild(tdLastNames);
       rowOpponent.appendChild(tdClubs);
       
-      this.tbody.appendChild(rowOpponent);
+      this._tbody.appendChild(rowOpponent);
     }
     
-     this.shadowRoot.appendChild(this.opponentsTable);
+    this.shadowRoot.appendChild(opponentsTable);
   }
   
-  static get observedAttributes() { return ['data']; }
+  static get observedAttributes() { return ['data', 'rows']; }
   
   attributeChangedCallback(name, oldValue, newValue) {
-    // calling attributeChangedCallback before connectedCallback results in emtpy 'tbody'
-    if(this.tbody===null){
+
+    if(name==="rows"){
+      this._rows = newValue;
       return;
     }
-    
+
     // only listening for changes of 'data'
     // so newValue is always an array of opponents
-    var opponents = JSON.parse(newValue);
-    var counter = 0;
-    var tbody = this.tbody;
+    let opponents = JSON.parse(newValue);
+    let counter = 0;
+    
     // therefore 'opponentSelected' is a global function, the id of the event-sending element is dynmic
-    var id = this.getAttribute("id");
-
+    let id = this.getAttribute("id");
+    let tbody = this._tbody;
+    if(tbody===null){ return; }
+    
     opponents.forEach(function(opponent){
-      var rowOpponent = tbody.getElementsByTagName("tr")[counter];
+      let rowOpponent = tbody.getElementsByTagName("tr")[counter];
       rowOpponent.setAttribute("onclick", "opponentSelected("+opponent.id+", \""+id+"\")");
 
       // in case of single player put json in new array
@@ -106,6 +98,31 @@ class OpponentsTable extends HTMLElement{
       var tdLastNames = rowOpponent.getElementsByTagName("td")[1];
       tdLastNames.innerHTML = '&nbsp;';
     }
+  }
+  
+  template(){
+	let template = document.createElement('template');
+	template.innerHTML = `	  
+      <style>
+        table{ border: 1px solid Gray; border-collapse:collapse; }
+        tr:nth-child(odd){ background-color: #F4F4F4; }
+        tr:nth-child(even){ background-color: #FFFFFF; }
+        th{ background-color: #FECEA8; border: 1px solid Gray; padding: 2px 20px; }
+        td{ border: 1px solid Gray; padding: 2px 20px; }
+      </style>
+  
+      <table id="opponents-table">
+        <thead>
+          <tr>
+            <th>Vornamen</th><th>Nachnamen</th><th>Vereine</th>
+          </tr>      
+        </thead>
+        <tbody id="opponents-table-body">
+        </tbody>
+      </table>
+    `;
+	
+	return template;
   }
 }
 
