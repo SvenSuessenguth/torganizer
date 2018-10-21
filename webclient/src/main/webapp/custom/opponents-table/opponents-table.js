@@ -3,10 +3,6 @@
 
 class OpponentsTable extends HTMLElement{
   
-  static get observedAttributes() {
-    return ['data'];
-  }
-  
   constructor(){
     super();
     this.attachShadow({ mode: 'open' });
@@ -31,7 +27,7 @@ class OpponentsTable extends HTMLElement{
   }
   
   set data(newData) { this.setAttribute('data', newData); }
-  get data() { return this.getAttribute('data'); }
+  get data() { return this._data; }
   
   connectedCallback(){    
     var ownerDocument = document.currentScript.ownerDocument;
@@ -57,6 +53,8 @@ class OpponentsTable extends HTMLElement{
     
      this.shadowRoot.appendChild(this.opponentsTable);
   }
+  
+  static get observedAttributes() { return ['data']; }
   
   attributeChangedCallback(name, oldValue, newValue) {
     // calling attributeChangedCallback before connectedCallback results in emtpy 'tbody'
@@ -117,5 +115,4 @@ function opponentSelected(opponentId, elementId){
   document.getElementById(elementId).dispatchEvent(event);
 }
 
-var customElements;
-customElements.define("opponents-table", OpponentsTable);
+window.customElements.define("opponents-table", OpponentsTable);
