@@ -25,6 +25,8 @@ var players = {
     players.updatePlayersTable();
     players.updateClubsSelectBox();
     players.cancel();
+
+    document.getElementById("players").addEventListener("opponent-selected", players.showDetails);
   },
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -219,8 +221,8 @@ var players = {
   // show selected player
   //
   //--------------------------------------------------------------------------------------------------------------------
-  showDetails : function showDetails(id) {
-    restResourceAdapter.getSingle("players", id, players.playerToForm);
+  showDetails : function showDetails(event) {
+    restResourceAdapter.getSingle("players", event.detail, players.playerToForm);
   },
 
   //--------------------------------------------------------------------------------------------------------------------
