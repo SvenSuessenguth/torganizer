@@ -176,31 +176,10 @@ var players = {
     tournamentsResource.countPlayers(tournamentId, players.countPlayersTableResolve);
   },
 
-  updatePlayersTableResolve : function updatePlayersTableResolve(json){ players.updatePlayersTableInternal(json); },
-  countPlayersTableResolve : function countPlayersTableResolve(json){ document.getElementById("players-count").innerHTML = json; },
-
-  updatePlayersTableInternal : function updatePlayersTableInternal(json){
-    // clean table to avoid double entries
-    // https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
-    let tableBody = document.querySelector('#players-table-body');
-    while (tableBody.firstChild) {
-      tableBody.removeChild(tableBody.firstChild);
-    }
-
-    // insert data into table
-    json.forEach(function(player){
-      let row = tableBody.insertRow(tableBody.rows.length);
-      row.onclick = function(){ players.showDetails(player.id); };
-
-      let fnCell = row.insertCell(0);
-      fnCell.innerHTML = player.person.firstName;
-      fnCell.setAttribute("id", "first-name"+player.id);
-
-      let lnCell = row.insertCell(1);
-      lnCell.innerHTML = player.person.lastName;
-      lnCell.setAttribute("id", "last-name"+player.id);
-    });
+  updatePlayersTableResolve : function updatePlayersTableResolve(json){
+    document.querySelector("#players").setAttribute("data", JSON.stringify(json));
   },
+  countPlayersTableResolve : function countPlayersTableResolve(json){ document.getElementById("players-count").innerHTML = json; },
 
   //--------------------------------------------------------------------------------------------------------------------
   //
