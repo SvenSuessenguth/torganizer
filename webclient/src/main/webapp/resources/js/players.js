@@ -171,7 +171,7 @@ var players = {
     let offset = Number(sessionStorage.getItem('players.players-table.offset'));
     let tournamentId = tournaments.getId();
 
-    document.getElementById("players-offset").innerHTML = offset.toString();
+    document.getElementById("players-offset").innerHTML = offset;
     document.getElementById("players-length").innerHTML = offset + defaultTableSize;
 
     tournamentsResource.getPlayers(tournamentId, offset, defaultTableSize, players.updatePlayersTableResolve);
