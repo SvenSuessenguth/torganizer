@@ -172,7 +172,7 @@ var players = {
     let tournamentId = tournaments.getId();
 
     document.getElementById("players-offset").innerHTML = offset.toString();
-    document.getElementById("players-length").innerHTML = offset.toString() + defaultTableSize;
+    document.getElementById("players-length").innerHTML = offset + defaultTableSize;
 
     tournamentsResource.getPlayers(tournamentId, offset, defaultTableSize, players.updatePlayersTableResolve);
     tournamentsResource.countPlayers(tournamentId, players.countPlayersTableResolve);
