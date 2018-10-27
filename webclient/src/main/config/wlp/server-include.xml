@@ -4,7 +4,13 @@
 <server>
   <featureManager>
     <feature>jndi-1.0</feature>
+	<feature>localConnector-1.0</feature>
   </featureManager>
+  
+  <!--
+   | https://stackoverflow.com/questions/15485239/websphere-liberty-profile-and-intellij-jmx-administration-should-be-enable
+   +-->
+  <applicationMonitor updateTrigger="mbean" />
 
   <!--
    | https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/twlp_dep_jndi.html 

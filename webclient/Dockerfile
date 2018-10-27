@@ -1,4 +1,6 @@
 FROM websphere-liberty:kernel
 COPY /target/webclient.war /config/dropins/
-COPY server.xml /config/
+COPY /src/config/wlp/server.xml /config/
+COPY /src/config/wlp/server-include.xml /config/
+COPY /src/config/wlp/server.env /config/
 RUN installUtility install --acceptLicense defaultServer
