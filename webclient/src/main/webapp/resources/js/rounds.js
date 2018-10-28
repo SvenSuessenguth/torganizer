@@ -95,9 +95,8 @@ let rounds = {
     let norElement = document.getElementById("numberOfRounds");
     norElement.innerText = numberOfRounds;
 
-
     // update rounds.round.position
-    let roundPosition = sessionStorage.getItem("rounds.round.position");
+    let roundPosition = Number(sessionStorage.getItem("rounds.round.position"));
     let roundElement = document.getElementById("round");
     if (numberOfRounds === 0) {
       roundElement.innerText = "-";
@@ -107,7 +106,7 @@ let rounds = {
         roundPosition = "0";
       }
       sessionStorage.setItem("rounds.round.position", roundPosition);
-      roundElement.innerText = roundPosition;
+      roundElement.innerText = roundPosition + 1;
     }
 
     // update rounds.round.id
