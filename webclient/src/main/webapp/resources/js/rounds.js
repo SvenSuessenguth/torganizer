@@ -136,12 +136,14 @@ let rounds = {
     let roundPosition = Number(sessionStorage.getItem("rounds.round.position"));
     sessionStorage.setItem("rounds.round.position", roundPosition - 1);
     rounds.initRoundsSelection();
+    rounds.initAssignableOpponents();
   },
 
   nextRound: function nextRound() {
     let roundPosition = Number(sessionStorage.getItem("rounds.round.position"));
     sessionStorage.setItem("rounds.round.position", roundPosition + 1);
     rounds.initRoundsSelection();
+    rounds.initAssignableOpponents();
   },
 
   //--------------------------------------------------------------------------------------------------------------------
