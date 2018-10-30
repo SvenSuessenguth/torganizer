@@ -101,10 +101,6 @@ let rounds = {
     if (numberOfRounds === 0) {
       roundElement.innerText = "-";
     } else {
-      // if there is any round, but none is selected, then select the first round
-      if (roundPosition == null) {
-        roundPosition = "0";
-      }
       sessionStorage.setItem("rounds.round.position", roundPosition);
       roundElement.innerText = roundPosition + 1;
     }
