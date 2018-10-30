@@ -29,7 +29,7 @@ class Rounds {
     option.value = "null";
     option.id = "null";
     if (disciplineId == null) {
-
+      option.selected = "null";
     }
     eDisciplines.appendChild(option);
 
@@ -66,6 +66,68 @@ class Rounds {
   prepareUpdateAssignedOpponents(){
   }
   updateAssignedOpponents(jOpponents){
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // Actions
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  selectDiscipline() {
+    let eDisciplines = document.querySelector("#disciplines");
+    let disciplineId = eDisciplines.options[eDisciplines.selectedIndex].value;
+    rounds2.roundToForm({});
+
+    if (disciplineId !== "null") {
+      sessionStorage.setItem("rounds.discipline.id", disciplineId);
+    }
+    else {
+      sessionStorage.removeItem("rounds.discipline.id");
+    }
+
+    sessionStorage.removeItem("rounds.round.id");
+    sessionStorage.removeItem("rounds.round.position");
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  //
+  // converting round form/to json/form
+  //
+  //--------------------------------------------------------------------------------------------------------------------
+  roundToForm(jRound) {
+    if (jRound == null) { return; }
+
+    sessionStorage.setItem("rounds.round.id", jRound.id);
+
+    let qualifiedElement = document.getElementById("qualified");
+    let qualified = jRound.qualified;
+    if (qualified != null) {
+      qualified = Number(qualified);
+      qualifiedElement.value = qualified;
+    }
+
+    let systemElement = document.getElementById("system");
+    let systemName = jRound.system;
+    selectItemByValue(systemElement, systemName);
+  }
+
+  formToRound() {
+    let id = sessionStorage.getItem('rounds.round.id');
+    let systemElement = document.getElementById("system");
+    let qualified = document.getElementById("qualified").value;
+
+    if (id !== null) {
+      id = Number(id);
+    }
+    if (qualified !== null) {
+      qualified = Number(qualified);
+    }
+
+    return {
+      "id": id,
+      "system": systemElement.options[systemElement.selectedIndex].value,
+      "qualified": qualified
+    };
   }
 }
 
