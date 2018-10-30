@@ -118,7 +118,7 @@ let rounds = {
     let nextRoundElement = document.getElementById("nextRound");
     prevRoundElement.setAttribute("disabled", "disabled");
     nextRoundElement.setAttribute("disabled", "disabled");
-    if (numberOfRounds > 0 && roundPosition != null) {
+    if (numberOfRounds > 0) {
       if (roundPosition > 0) {
         prevRoundElement.removeAttribute("disabled");
       }
