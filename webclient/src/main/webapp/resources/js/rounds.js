@@ -102,7 +102,7 @@ let rounds = {
       roundElement.innerText = "-";
     } else {
       // if there is any round, but none is selected, then select the first round
-      if (roundPosition === null) {
+      if (roundPosition == null) {
         roundPosition = "0";
       }
       sessionStorage.setItem("rounds.round.position", roundPosition);
@@ -122,7 +122,7 @@ let rounds = {
     let nextRoundElement = document.getElementById("nextRound");
     prevRoundElement.setAttribute("disabled", "disabled");
     nextRoundElement.setAttribute("disabled", "disabled");
-    if (numberOfRounds > 0 && roundPosition !== null) {
+    if (numberOfRounds > 0 && roundPosition != null) {
       if (roundPosition > 0) {
         prevRoundElement.removeAttribute("disabled");
       }

@@ -29,7 +29,7 @@ class Rounds {
     option.value = "null";
     option.id = "null";
     if (disciplineId == null) {
-      
+
     }
     eDisciplines.appendChild(option);
 
