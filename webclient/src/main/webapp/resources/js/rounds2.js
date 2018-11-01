@@ -60,9 +60,10 @@ class Rounds {
   }
   updateRoundSelection(jRounds){
     if(jRounds.length==undefined || jRounds.length==0 ){
-      document.querySelector("#numberOfRounds").innerHTML = 0;
+      document.querySelector("#numberOfRounds").innerHTML = '0';
       document.querySelector("#prevRound").setAttribute("disabled", "disabled");
       document.querySelector("#nextRound").setAttribute("disabled", "disabled");
+      document.querySelector("#round").innerHTML = '-';
 
       sessionStorage.removeItem('rounds.round.id');
       sessionStorage.removeItem('rounds.round.position');
@@ -70,9 +71,16 @@ class Rounds {
       return;
     }
 
-    let firstRound = jRounds[0];
-    sessionStorage.setItem('rounds.round.id', firstRound.id);
-    sessionStorage.setItem('rounds.round.position', firstRound.position);
+    let lastRound = jRounds[jRounds.length-1];
+    sessionStorage.setItem('rounds.round.id', lastRound.id);
+    sessionStorage.setItem('rounds.round.position', lastRound.position);
+
+    document.querySelector("#nextRound").setAttribute("disabled", "disabled");
+    document.querySelector("#round").innerHTML = Number(lastRound.position) + 1;
+    document.querySelector("#numberOfRounds").innerHTML = jRounds.length;
+    if(jRounds.length>1) {
+      document.querySelector("#prevRound").setAttribute("disabled", "enabled");
+    }
   }
 
   prepareUpdateRoundSystemDefinition(){
@@ -116,6 +124,23 @@ class Rounds {
 
     this.prepareUpdateRoundSelection();
   }
+
+  save(){
+    let round = this.formToRound();
+    let url = resourcesUrl() + `rounds`;
+
+    this.crud.createOrUpdate(url, round, this.saveFollowUp.bind(this));
+  }
+  saveFollowUp(jRound){
+    let disciplineId = sessionStorage.getItem("rounds.discipline.id");
+    let roundId = jRound.id;
+    disciplinesResource.addRound(disciplineId, roundId, this.addRoundToDisciplineResolve.bind(this));
+    sessionStorage.setItem("rounds.round.id", roundId);
+  }
+  addRoundToDisciplineResolve(jDiscipline){
+    this.prepareUpdateRoundSelection();
+  }
+
 
   //--------------------------------------------------------------------------------------------------------------------
   //
