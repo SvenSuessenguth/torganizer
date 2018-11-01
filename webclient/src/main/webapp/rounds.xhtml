@@ -34,14 +34,14 @@
       <span id="numberOfRounds" />
       <br /><br />
 
-      <label for="system">system
+      <label for="system">#{text.system}
         <select id="system">
           <option value="DOUBLE_ELIMINATION">double ko</option>
           <option value="SINGLE_ELIMINATION">single ko</option>
           <option value="ROUND_ROBIN">round robin</option>
         </select>
       </label>
-      <label for="qualified">qualified<input id="qualified" value="" size="2" /></label>
+      <label for="qualified">#{text.qualified}<input id="qualified" value="" size="2" /></label>
       <input type="button" value="#{text.save}" onclick="rounds.save()" />
       <input type="button" value="#{text.delete}" onclick="rounds.delete()" />
       <input type="button" value="#{text.cancel}" onclick="rounds.cancel()" />
