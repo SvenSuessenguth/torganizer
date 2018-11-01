@@ -20,7 +20,7 @@ class Rounds {
 
     // remove all optione before adding new ones
     while (eDisciplines.firstChild) {
-      eDisciplines.removeChild(dSelect.firstChild);
+      eDisciplines.removeChild(eDisciplines.firstChild);
     }
 
     // add an empty option to force an onselect event
@@ -49,8 +49,30 @@ class Rounds {
   }
 
   prepareUpdateRoundSelection(){
+    let disciplineId = sessionStorage.getItem('rounds.discipline.id');
+    let url = resourcesUrl() + `disciplines/${disciplineId}/rounds`;
+
+    if(disciplineId!=null) {
+      this.crud.get(url, this.updateRoundSelection.bind(this));
+    }else {
+      this.clear();
+    }
   }
   updateRoundSelection(jRounds){
+    if(jRounds.length==undefined || jRounds.length==0 ){
+      document.querySelector("#numberOfRounds").innerHTML = 0;
+      document.querySelector("#prevRound").setAttribute("disabled", "disabled");
+      document.querySelector("#nextRound").setAttribute("disabled", "disabled");
+
+      sessionStorage.removeItem('rounds.round.id');
+      sessionStorage.removeItem('rounds.round.position');
+
+      return;
+    }
+
+    let firstRound = jRounds[0];
+    sessionStorage.setItem('rounds.round.id', firstRound.id);
+    sessionStorage.setItem('rounds.round.position', firstRound.position);
   }
 
   prepareUpdateRoundSystemDefinition(){
@@ -68,6 +90,11 @@ class Rounds {
   updateAssignedOpponents(jOpponents){
   }
 
+  clear(){
+    this.updateRoundSelection({});
+    this.updateRoundSystemDefinition({});
+  }
+
   //--------------------------------------------------------------------------------------------------------------------
   //
   // Actions
@@ -76,8 +103,7 @@ class Rounds {
   selectDiscipline() {
     let eDisciplines = document.querySelector("#disciplines");
     let disciplineId = eDisciplines.options[eDisciplines.selectedIndex].value;
-    rounds2.roundToForm({});
-
+    
     if (disciplineId !== "null") {
       sessionStorage.setItem("rounds.discipline.id", disciplineId);
     }
@@ -87,6 +113,8 @@ class Rounds {
 
     sessionStorage.removeItem("rounds.round.id");
     sessionStorage.removeItem("rounds.round.position");
+
+    this.prepareUpdateRoundSelection();
   }
 
   //--------------------------------------------------------------------------------------------------------------------
