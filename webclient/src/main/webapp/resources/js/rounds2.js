@@ -1,20 +1,21 @@
 class Rounds {
-  constructor(){
+  constructor() {
     this.crud = new Crud();
   }
 
-  onload(){
+  onload() {
     this.prepareUpdateDisciplineSelection();
     this.prepareUpdateRoundSelection();
   }
 
-  prepareUpdateDisciplineSelection(){
+  prepareUpdateDisciplineSelection() {
     let tournamentId = tournaments.getId();
     let url = resourcesUrl() + `tournaments/${tournamentId}/disciplines`;
 
     this.crud.get(url, this.updateDisciplineSelection.bind(this));
   }
-  updateDisciplineSelection(jDisciplines){
+
+  updateDisciplineSelection(jDisciplines) {
     let disciplineId = sessionStorage.getItem('rounds.discipline.id');
     let eDisciplines = document.querySelector("#disciplines");
 
@@ -48,59 +49,65 @@ class Rounds {
     });
   }
 
-  prepareUpdateRoundSelection(){
+  prepareUpdateRoundSelection() {
     let disciplineId = sessionStorage.getItem('rounds.discipline.id');
     let url = resourcesUrl() + `disciplines/${disciplineId}/rounds`;
 
-    if(disciplineId!=null) {
-      this.crud.get(url, this.updateRoundSelection.bind(this));
-    }else {
-      this.clear();
+    if (disciplineId != null) {
+      this.crud.get(url, this.updateRoundSelectionLast.bind(this));
+    } else {
+      this.cancel();
     }
   }
-  updateRoundSelection(jRounds){
-    if(jRounds.length==undefined || jRounds.length==0 ){
+
+  updateRoundSelectionLast(jAllRounds) {
+    if (jAllRounds.length == undefined || jAllRounds.length == 0) {
       document.querySelector("#numberOfRounds").innerHTML = '0';
       document.querySelector("#prevRound").setAttribute("disabled", "disabled");
       document.querySelector("#nextRound").setAttribute("disabled", "disabled");
-      document.querySelector("#round").innerHTML = '-';
+      this.updateRoundsSelectionSingle(undefined);
+    }
 
+    let lastRound = jAllRounds[jAllRounds.length - 1];
+    this.updateRoundsSelectionSingle(lastRound);
+    document.querySelector("#numberOfRounds").innerHTML = jAllRounds.length;
+    if (jAllRounds.length > 1) {
+      document.querySelector("#prevRound").setAttribute("disabled", "enabled");
+    }
+  }
+
+  updateRoundsSelectionSingle(jRound) {
+    if (jRound == undefined) {
+      document.querySelector("#round").innerHTML = '-';
       sessionStorage.removeItem('rounds.round.id');
       sessionStorage.removeItem('rounds.round.position');
 
       return;
     }
 
-    let lastRound = jRounds[jRounds.length-1];
-    sessionStorage.setItem('rounds.round.id', lastRound.id);
-    sessionStorage.setItem('rounds.round.position', lastRound.position);
-
     document.querySelector("#nextRound").setAttribute("disabled", "disabled");
-    document.querySelector("#round").innerHTML = Number(lastRound.position) + 1;
-    document.querySelector("#numberOfRounds").innerHTML = jRounds.length;
-    if(jRounds.length>1) {
-      document.querySelector("#prevRound").setAttribute("disabled", "enabled");
-    }
+    document.querySelector("#round").innerHTML = Number(jRound.position) + 1;
+    sessionStorage.setItem('rounds.round.id', jRound.id);
+    sessionStorage.setItem('rounds.round.position', jRound.position);
   }
 
-  prepareUpdateRoundSystemDefinition(){
-  }
-  updateRoundSystemDefinition(jRound){
+
+  prepareUpdateRoundSystemDefinition() {
   }
 
-  prepareUpdateAssignableOpponents(){
-  }
-  updateAssignableOpponents(jOpponents){
+  updateRoundSystemDefinition(jRound) {
   }
 
-  prepareUpdateAssignedOpponents(){
-  }
-  updateAssignedOpponents(jOpponents){
+  prepareUpdateAssignableOpponents() {
   }
 
-  clear(){
-    this.updateRoundSelection({});
-    this.updateRoundSystemDefinition({});
+  updateAssignableOpponents(jOpponents) {
+  }
+
+  prepareUpdateAssignedOpponents() {
+  }
+
+  updateAssignedOpponents(jOpponents) {
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -111,7 +118,7 @@ class Rounds {
   selectDiscipline() {
     let eDisciplines = document.querySelector("#disciplines");
     let disciplineId = eDisciplines.options[eDisciplines.selectedIndex].value;
-    
+
     if (disciplineId !== "null") {
       sessionStorage.setItem("rounds.discipline.id", disciplineId);
     }
@@ -125,22 +132,28 @@ class Rounds {
     this.prepareUpdateRoundSelection();
   }
 
-  save(){
-    let round = this.formToRound();
+  //------------------------------------------------------------------------------------------------------------- save -
+  save() {
+    let jRound = this.formToRound();
     let url = resourcesUrl() + `rounds`;
 
-    this.crud.createOrUpdate(url, round, this.saveFollowUp.bind(this));
+    this.crud.createOrUpdate(url, jRound, this.addRoundToDiscipline.bind(this));
   }
-  saveFollowUp(jRound){
+  addRoundToDiscipline(jRound) {
     let disciplineId = sessionStorage.getItem("rounds.discipline.id");
     let roundId = jRound.id;
     disciplinesResource.addRound(disciplineId, roundId, this.addRoundToDisciplineResolve.bind(this));
     sessionStorage.setItem("rounds.round.id", roundId);
   }
-  addRoundToDisciplineResolve(jDiscipline){
+  addRoundToDisciplineResolve(jDiscipline) {
     this.prepareUpdateRoundSelection();
   }
 
+  //----------------------------------------------------------------------------------------------------------- cancel -
+  cancel() {
+    this.updateRoundsSelectionSingle(undefined);
+    this.roundToForm(undefined);
+  }
 
   //--------------------------------------------------------------------------------------------------------------------
   //
@@ -148,20 +161,19 @@ class Rounds {
   //
   //--------------------------------------------------------------------------------------------------------------------
   roundToForm(jRound) {
-    if (jRound == null) { return; }
+    let eQualified = document.getElementById("qualified");
+    let eSystem = document.getElementById("system");
 
-    sessionStorage.setItem("rounds.round.id", jRound.id);
+    if (jRound == null || jRound == undefined) {
+      eQualified.value = '';
+      selectFirstItem(eSystem);
+    } else {
+      let qualified = Number(jRound.qualified);
+      eQualified.value = qualified;
 
-    let qualifiedElement = document.getElementById("qualified");
-    let qualified = jRound.qualified;
-    if (qualified != null) {
-      qualified = Number(qualified);
-      qualifiedElement.value = qualified;
+      let systemName = jRound.system;
+      selectItemByValue(eSystem, systemName);
     }
-
-    let systemElement = document.getElementById("system");
-    let systemName = jRound.system;
-    selectItemByValue(systemElement, systemName);
   }
 
   formToRound() {

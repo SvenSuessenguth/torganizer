@@ -23,13 +23,18 @@ function isFormValid(formId){
 //
 //http://www.imranulhoque.com/javascript/javascript-beginners-select-a-dropdown-option-by-value/
 //
-function selectItemByValue(elmnt, value){
-  for(var i=0; i < elmnt.options.length; i++) {
-    if(elmnt.options[i].value === value) {
-      elmnt.selectedIndex = i;
+function selectItemByValue(eSelect, value){
+  for(var i=0; i < eSelect.options.length; i++) {
+    if(eSelect.options[i].value === value) {
+      eSelect.selectedIndex = i;
     }
   }
 }
+function selectFirstItem(eSelect){
+  if(eSelect.options.length==0){ return; }
+  else{ eSelect.selectedIndex = 0; }
+}
+
 
 //
 // Es muss ein aktives Turnier ausgewählt sein, bevor man weitere Eingaben
