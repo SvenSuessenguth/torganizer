@@ -56,6 +56,10 @@ class Rounds {
     if (disciplineId != null) {
       this.crud.get(url, this.updateRoundSelectionLast.bind(this));
     } else {
+      document.querySelector("#prevRound").setAttribute("disabled", "disabled");
+      document.querySelector("#nextRound").setAttribute("disabled", "disabled");
+      document.querySelector("#numberOfRounds").innerHTML = '';
+
       this.cancel();
     }
   }
