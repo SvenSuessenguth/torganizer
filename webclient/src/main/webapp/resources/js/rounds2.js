@@ -235,8 +235,7 @@ class Rounds {
       eQualified.value = '';
       selectFirstItem(eSystem);
     } else {
-      let qualified = Number(jRound.qualified);
-      eQualified.value = qualified;
+      eQualified.value = Number(jRound.qualified);
 
       let systemName = jRound.system;
       selectItemByValue(eSystem, systemName);
