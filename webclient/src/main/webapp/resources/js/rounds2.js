@@ -185,7 +185,7 @@ class Rounds {
     let eQualified = document.getElementById("qualified");
     let eSystem = document.getElementById("system");
 
-    if (jRound == null || jRound === undefined) {
+    if (jRound == null || jRound == undefined) {
       eQualified.value = '';
       selectFirstItem(eSystem);
     } else {
