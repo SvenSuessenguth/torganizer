@@ -21,7 +21,8 @@ import org.cc.torganizer.core.entities.Round;
 @Stateless
 public class DisciplinesRepository extends Repository<Discipline> {
 
-  public DisciplinesRepository() {
+  public DisciplinesRepository(){
+
   }
 
   /**
@@ -171,8 +172,8 @@ public class DisciplinesRepository extends Repository<Discipline> {
   /**
    * Getting the Discipline to which the round is related.
    */
-  public Long getDisciplineId(Long roundId) {
-    Long disciplineId = null;
+  Long getDisciplineId(Long roundId) {
+    Long disciplineId;
 
     try {
       TypedQuery<Long> query = entityManager.createQuery("SELECT d.id "
@@ -186,5 +187,27 @@ public class DisciplinesRepository extends Repository<Discipline> {
     }
 
     return disciplineId;
+  }
+
+  /**
+   * Getting the round with the given position from the discipline with the given id.
+   */
+  public Round getRoundByPosition(Long disciplineId, Integer position) {
+    Round round;
+
+    try {
+      TypedQuery<Round> query = entityManager.createQuery("SELECT r "
+          + "FROM Round r, Discipline d "
+          + "WHERE r.position = :position "
+          + "AND d.id = :disciplineId", Round.class);
+      query.setParameter("disciplineId", disciplineId);
+      query.setParameter("position", position);
+      round = query.getSingleResult();
+    } catch (NoResultException nrExc) {
+      return null;
+    }
+
+    return round;
+
   }
 }

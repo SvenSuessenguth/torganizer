@@ -43,7 +43,7 @@ class Rounds {
       option.id = jDiscipline.id;
       eDisciplines.appendChild(option);
 
-      if (disciplineId.toString() === jDiscipline.id.toString()) {
+      if (disciplineId === jDiscipline.id) {
         option.selected = "selected";
       }
     });
@@ -89,6 +89,8 @@ class Rounds {
     document.querySelector("#round").innerHTML = Number(jRound.position) + 1;
     sessionStorage.setItem('rounds.round.id', jRound.id);
     sessionStorage.setItem('rounds.round.position', jRound.position);
+
+    this.roundToForm(jRound);
   }
 
 
@@ -134,6 +136,11 @@ class Rounds {
 
   //------------------------------------------------------------------------------------------------------------- save -
   save() {
+    let disciplineId = sessionStorage.getItem("rounds.discipline.id");
+    if(disciplineId === null){
+      return;
+    }
+
     let jRound = this.formToRound();
     let url = resourcesUrl() + `rounds`;
 
@@ -161,13 +168,48 @@ class Rounds {
 
   //--------------------------------------------------------------------------------------------------- previous round -
   prevRound(){
+    let disciplineId = sessionStorage.getItem("rounds.discipline.id");
+    if(disciplineId===null) { return; }
+
     let currentPosition = sessionStorage.getItem("rounds.round.position");
     let previousPosition = Number(currentPosition) - 1;
-  }
+    if(previousPosition < 0){ previousPosition = 0; }
 
+    let url = resourcesUrl() + `disciplines/${disciplineId}/round-by-position/${previousPosition}`;
+    this.crud.get(url, this.updateRoundsSelectionSingle.bind(this));
+
+    let ePrevRound = document.querySelector("#prevRound");
+    let eNextRound = document.querySelector("#nextRound");
+
+    if(currentPosition>0){ eNextRound.removeAttribute("disabled"); }
+    else { eNextRound.setAttribute("disabled", "disabled"); }
+
+    if(previousPosition <= 0) { ePrevRound.setAttribute("disabled", "disabled"); }
+    else { ePrevRound.removeAttribute("disabled");}
+  }
 
   //------------------------------------------------------------------------------------------------------- next round -
 
+  nextRound(){
+    let disciplineId = sessionStorage.getItem("rounds.discipline.id");
+    if(disciplineId===null) { return; }
+
+    let currentPosition = sessionStorage.getItem("rounds.round.position");
+    let nextPosition = Number(currentPosition) + 1;
+
+    let url = resourcesUrl() + `disciplines/${disciplineId}/round-by-position/${nextPosition}`;
+    this.crud.get(url, this.updateRoundsSelectionSingle.bind(this));
+
+    let numberOfRounds = Number(document.querySelector("#numberOfRounds").innerHTML);
+    let ePrevRound = document.querySelector("#prevRound");
+    let eNextRound = document.querySelector("#nextRound");
+
+    if(nextPosition < (numberOfRounds-1)){ eNextRound.removeAttribute("disabled"); }
+    else { eNextRound.setAttribute("disabled", "disabled"); }
+
+    if(nextPosition <= 0) { ePrevRound.setAttribute("disabled", "disabled"); }
+    else { ePrevRound.removeAttribute("disabled");}
+  }
 
 
   //----------------------------------------------------------------------------------------------------------- cancel -
@@ -185,7 +227,7 @@ class Rounds {
     let eQualified = document.getElementById("qualified");
     let eSystem = document.getElementById("system");
 
-    if (jRound == null || jRound == undefined) {
+    if (jRound == null) {
       eQualified.value = '';
       selectFirstItem(eSystem);
     } else {

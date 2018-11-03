@@ -15,6 +15,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Response;
 
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
@@ -163,6 +164,20 @@ public class DisciplinesResource extends AbstractResource {
 
     List<Round> rounds = disciplineRepo.getRounds(disciplineId, offset, maxResults);
     return roundConverter.toJsonArray(rounds);
+  }
+
+  @GET
+  @Path("/{id}/round-by-position/{position}")
+  public Response getRoundByPosition(@PathParam("id") Long disciplineId, @PathParam("position") Integer position) {
+    Round round = disciplineRepo.getRoundByPosition(disciplineId, position);
+
+    if(round == null){
+      return Response.status(Response.Status.NOT_FOUND).build();
+    }
+
+    JsonObject jsonObject = roundConverter.toJsonObject(round);
+
+    return Response.ok().entity(jsonObject).build();
   }
 
   @POST

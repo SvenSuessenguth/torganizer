@@ -1,6 +1,7 @@
 package org.cc.torganizer.persistence;
 
 import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.Round;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -44,5 +45,32 @@ public class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
     Long id = repository.getDisciplineId(-1L);
 
     assertThat(id, is(nullValue()));
+  }
+
+  @Test
+  public void testGetRoundByPosition_roundExisting(){
+    // testdata:
+    // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="1" />
+    Round round = repository.getRoundByPosition(1L, 2);
+
+    assertThat(round, is(not(nullValue())));
+  }
+
+  @Test
+  public void testGetRoundByPosition_roundNotExisting(){
+    // testdata:
+    // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="1" />
+    Round round = repository.getRoundByPosition(1L, 4);
+
+    assertThat(round, is(nullValue()));
+  }
+
+  @Test
+  public void testGetRoundByPosition_disciplineNotExisting(){
+    // testdata:
+    // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="1" />
+    Round round = repository.getRoundByPosition(2L, 2);
+
+    assertThat(round, is(nullValue()));
   }
 }
