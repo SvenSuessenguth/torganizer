@@ -11,7 +11,7 @@ pipeline {
   }
 
   tools {
-    maven 'apache-maven-3.5'
+    maven 'apache-maven-3.6'
     jdk 'jdk-10'
   }
 
