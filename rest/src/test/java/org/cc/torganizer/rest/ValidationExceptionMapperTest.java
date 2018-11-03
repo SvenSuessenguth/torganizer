@@ -51,7 +51,7 @@ class ValidationExceptionMapperTest {
     String actual = jsonObject.toString();
     String expected = "{\"violations-count\":1," +
       "\"violations\":[" +
-      "{\"message\":\"message\",\"propertyPath\":\"propertyPath\",\"invalildValue\":\"invalidValue\"}" +
+      "{\"message\":\"message\",\"propertyPath\":\"propertyPath\",\"invalidValue\":\"invalidValue\"}" +
       "]}";
 
     assertThat(actual, is(expected));

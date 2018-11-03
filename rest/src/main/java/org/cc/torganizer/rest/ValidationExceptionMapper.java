@@ -42,7 +42,7 @@ public class ValidationExceptionMapper implements ExceptionMapper<ConstraintViol
           Json.createObjectBuilder()
               .add("message", violation.getMessage())
               .add("propertyPath", violation.getPropertyPath().toString())
-              .add("invalildValue", violation.getInvalidValue().toString()));
+              .add("invalidValue", violation.getInvalidValue().toString()));
     }
     objectBuilder.add("violations", arrayBuilder);
 
