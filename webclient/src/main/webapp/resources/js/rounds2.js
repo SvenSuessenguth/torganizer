@@ -47,6 +47,8 @@ class Rounds {
         option.selected = "selected";
       }
     });
+
+    this.selectDiscipline();
   }
 
   prepareUpdateRoundSelection() {
@@ -127,9 +129,15 @@ class Rounds {
 
     if (disciplineId !== "null") {
       sessionStorage.setItem("rounds.discipline.id", disciplineId);
+      document.querySelector("#save").removeAttribute("disabled");
+      document.querySelector("#delete").removeAttribute("disabled");
+      document.querySelector("#cancel").removeAttribute("disabled");
     }
     else {
       sessionStorage.removeItem("rounds.discipline.id");
+      document.querySelector("#save").setAttribute("disabled", "disabled");
+      document.querySelector("#delete").setAttribute("disabled", "disabled");
+      document.querySelector("#cancel").setAttribute("disabled", "disabled");
     }
 
     sessionStorage.removeItem("rounds.round.id");
