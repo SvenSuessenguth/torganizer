@@ -80,20 +80,20 @@ public class RoundsRepository extends Repository<Round> {
   /**
    * Find all opponents, which are not already assigned to a group of the round.
    */
-  public Set<Opponent> getOpponentsAssignableToGroup(Long roundId) {
+  public Set<Opponent> getNotAssignedOpponents(Long roundId) {
     Set<Opponent> opponents = getOpponents(roundId);
-    Set<Opponent> alreadyAssignedOpponents = getAlreadyAssignedOpponents(roundId);
+    Set<Opponent> assignedOpponents = getAssignedOpponents(roundId);
 
-    Set<Opponent> assignableOpponents = opponents;
-    assignableOpponents.removeAll(alreadyAssignedOpponents);
+    Set<Opponent> notAssignedOpponents = opponents;
+    notAssignedOpponents.removeAll(assignedOpponents);
 
-    return assignableOpponents;
+    return notAssignedOpponents;
   }
 
   /**
    * Getting all opponents which are assigned to the round with the given id.
    */
-  public Set<Opponent> getAlreadyAssignedOpponents(Long roundId) {
+  public Set<Opponent> getAssignedOpponents(Long roundId) {
     TypedQuery<PositionalOpponent> query = entityManager.createQuery("SELECT po "
             + "FROM Round r, Group g , PositionalOpponent po "
             + "WHERE r.id = :roundId "
@@ -103,12 +103,12 @@ public class RoundsRepository extends Repository<Round> {
     query.setParameter("roundId", roundId);
     List<PositionalOpponent> resultList = query.getResultList();
 
-    Set<Opponent> alreadyAssignedOpponents = new HashSet<>(resultList.size());
+    Set<Opponent> assignedOpponents = new HashSet<>(resultList.size());
     for (PositionalOpponent po : resultList) {
-      alreadyAssignedOpponents.add(po.getOpponent());
+      assignedOpponents.add(po.getOpponent());
     }
 
-    return alreadyAssignedOpponents;
+    return assignedOpponents;
   }
 
   //-----------------------------------------------------------------------------------------------

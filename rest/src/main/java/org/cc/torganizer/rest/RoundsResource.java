@@ -109,7 +109,7 @@ public class RoundsResource extends AbstractResource {
   public JsonArray getOpponentsAssignableToGroup(@PathParam("id") Long roundId) {
     JsonArray result = null;
 
-    Set<Opponent> opponents = roundsRepository.getOpponentsAssignableToGroup(roundId);
+    Set<Opponent> opponents = roundsRepository.getNotAssignedOpponents(roundId);
 
     // all opponents must have same type (see opponentTypeRestriction)
     if (opponents.isEmpty()) {

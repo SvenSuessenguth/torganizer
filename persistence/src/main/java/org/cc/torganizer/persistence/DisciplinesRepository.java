@@ -172,7 +172,7 @@ public class DisciplinesRepository extends Repository<Discipline> {
   /**
    * Getting the Discipline to which the round is related.
    */
-  Long getDisciplineId(Long roundId) {
+  public Long getDisciplineId(Long roundId) {
     Long disciplineId;
 
     try {

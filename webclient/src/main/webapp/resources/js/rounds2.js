@@ -107,9 +107,15 @@ class Rounds {
   }
 
   prepareUpdateAssignableOpponents() {
+    let roundId = sessionStorage.getItem("rounds.round.id");
+    let url = resourcesUrl() + `rounds/${roundId}/opponents-assignable-to-group`;
+
+    this.crud.get(url, this.updateAssignableOpponents.bind(this));
   }
 
   updateAssignableOpponents(jOpponents) {
+    console.log(JSON.stringify(jOpponents));
+
   }
 
   prepareUpdateAssignedOpponents() {
@@ -198,6 +204,8 @@ class Rounds {
 
     if(previousPosition <= 0) { ePrevRound.setAttribute("disabled", "disabled"); }
     else { ePrevRound.removeAttribute("disabled");}
+
+    this.prepareUpdateAssignableOpponents();
   }
 
   //------------------------------------------------------------------------------------------------------- next round -
@@ -221,6 +229,8 @@ class Rounds {
 
     if(nextPosition <= 0) { ePrevRound.setAttribute("disabled", "disabled"); }
     else { ePrevRound.removeAttribute("disabled");}
+
+    this.prepareUpdateAssignableOpponents();
   }
 
 

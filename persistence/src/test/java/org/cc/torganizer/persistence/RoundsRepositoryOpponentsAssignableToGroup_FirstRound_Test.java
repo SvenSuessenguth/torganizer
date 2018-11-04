@@ -21,7 +21,7 @@ public class RoundsRepositoryOpponentsAssignableToGroup_FirstRound_Test extends 
 
   @Test
   public void testGetOpponentsAssignableToRound(){
-    Set<Opponent> opponentsAssignableToRound = repository.getOpponentsAssignableToGroup(1L);
+    Set<Opponent> opponentsAssignableToRound = repository.getNotAssignedOpponents(1L);
 
     assertThat(opponentsAssignableToRound, is(not(empty())));
     assertThat(opponentsAssignableToRound, hasSize(1));
@@ -29,7 +29,7 @@ public class RoundsRepositoryOpponentsAssignableToGroup_FirstRound_Test extends 
 
   @Test
   public void testGetAlreadyAssignedOpponents(){
-    Set<Opponent> alreadyAssignedOpponents = repository.getAlreadyAssignedOpponents(1L);
+    Set<Opponent> alreadyAssignedOpponents = repository.getAssignedOpponents(1L);
 
     assertThat(alreadyAssignedOpponents, hasSize(2));
   }
