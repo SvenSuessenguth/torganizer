@@ -4,7 +4,8 @@
 <server>
   <featureManager>
     <feature>jndi-1.0</feature>
-	<feature>localConnector-1.0</feature>
+    <feature>localConnector-1.0</feature>
+    <feature>microProfile-2.0</feature>
   </featureManager>
   
   <!--
@@ -15,11 +16,13 @@
   <!--
    | https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/twlp_dep_jndi.html 
    +-->
-  <jndiEntry jndiName="torganizer/resourcesUrl" value="http://localhost:9080/rest/resources/" />
   <jndiEntry jndiName="jsf/ProjectStage" value="Production" />
 
   <!--
    | https://www.ibm.com/support/knowledgecenter/en/SSAW57_liberty/com.ibm.websphere.wlp.nd.multiplatform.doc/ae/rwlp_portnums.html 
    +-->
   <wasJmsEndpoint wasJmsPort="7279" wasJmsSSLPort="7289" />
+  
+  <!-- https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/twlp_mp_metrics_monitor.html -->
+  <mpMetrics authentication="false"/>
 </server>
