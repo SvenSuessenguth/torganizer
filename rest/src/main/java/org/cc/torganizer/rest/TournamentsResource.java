@@ -3,6 +3,7 @@ package org.cc.torganizer.rest;
 import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
 import static org.cc.torganizer.core.entities.OpponentType.SQUAD;
 import static org.cc.torganizer.core.entities.Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION;
+import static org.eclipse.microprofile.metrics.MetricUnits.NANOSECONDS;
 
 import java.util.List;
 import java.util.Set;
@@ -41,6 +42,9 @@ import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
 import org.cc.torganizer.rest.json.PlayerJsonConverter;
 import org.cc.torganizer.rest.json.SquadJsonConverter;
 import org.cc.torganizer.rest.json.TournamentJsonConverter;
+import org.eclipse.microprofile.metrics.MetricUnits;
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 
 @Stateless
 @Path("/tournaments")
@@ -82,6 +86,8 @@ public class TournamentsResource extends AbstractResource {
   }
 
   @GET
+  @Counted(monotonic=true)
+  @Timed(absolute = true, unit = NANOSECONDS)
   public JsonArray readMultiple(@QueryParam("offset") Integer offset,
                                 @QueryParam("maxResults") Integer maxResults) {
     List<Tournament> tournaments = tournamentsRepo.read(offset, maxResults);
