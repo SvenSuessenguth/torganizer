@@ -6,7 +6,6 @@ class Rounds {
   onload() {
     this.prepareUpdateDisciplineSelection();
     this.prepareUpdateRoundSelection();
-    this.prepareUpdateAssignableOpponents();
   }
 
   prepareUpdateDisciplineSelection() {
@@ -97,6 +96,8 @@ class Rounds {
     sessionStorage.setItem('rounds.round.id', jRound.id);
     sessionStorage.setItem('rounds.round.position', jRound.position);
 
+    this.prepareUpdateAssignableOpponents();
+
     this.roundToForm(jRound);
   }
 
@@ -109,14 +110,19 @@ class Rounds {
 
   prepareUpdateAssignableOpponents() {
     let roundId = sessionStorage.getItem("rounds.round.id");
-    let url = resourcesUrl() + `rounds/${roundId}/opponents-assignable-to-group`;
+    if(roundId==undefined){
+      this.updateAssignableOpponents(JSON.parse("[]"));
+      return;
+    }
 
+    let url = resourcesUrl() + `rounds/${roundId}/opponents-assignable-to-group`;
     this.crud.get(url, this.updateAssignableOpponents.bind(this));
   }
 
   updateAssignableOpponents(jOpponents) {
     console.log(JSON.stringify(jOpponents));
-
+    let element = document.querySelector("#assignable");
+    element.setAttribute("data", JSON.stringify(jOpponents));
   }
 
   prepareUpdateAssignedOpponents() {
@@ -151,6 +157,7 @@ class Rounds {
     sessionStorage.removeItem("rounds.round.position");
 
     this.prepareUpdateRoundSelection();
+    this.updateAssignableOpponents(JSON.parse("[]"));
   }
 
   //------------------------------------------------------------------------------------------------------------- save -
