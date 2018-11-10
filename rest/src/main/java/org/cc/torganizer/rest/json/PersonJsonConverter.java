@@ -57,7 +57,7 @@ public class PersonJsonConverter extends ModelJsonConverter<Person> {
     person.setGender(gender);
 
     String dateOfBirthString = get(jsonObject, "dateOfBirth");
-    LocalDate dateOfBirth = (dateOfBirthString == null || dateOfBirthString.trim().isEmpty())
+    LocalDate dateOfBirth = dateOfBirthString == null || dateOfBirthString.trim().isEmpty()
         ? null
         : LocalDate.parse(dateOfBirthString, DateTimeFormatter.ISO_DATE);
     person.setDateOfBirth(dateOfBirth);
