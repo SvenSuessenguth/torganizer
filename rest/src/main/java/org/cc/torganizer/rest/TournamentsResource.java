@@ -42,7 +42,6 @@ import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
 import org.cc.torganizer.rest.json.PlayerJsonConverter;
 import org.cc.torganizer.rest.json.SquadJsonConverter;
 import org.cc.torganizer.rest.json.TournamentJsonConverter;
-import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 
