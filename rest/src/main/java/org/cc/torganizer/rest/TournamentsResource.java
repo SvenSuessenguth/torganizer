@@ -44,7 +44,6 @@ import org.cc.torganizer.rest.json.SquadJsonConverter;
 import org.cc.torganizer.rest.json.TournamentJsonConverter;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Timed;
-import org.eclipse.microprofile.openapi.annotations.Operation;
 
 @Stateless
 @Path("/tournaments")
