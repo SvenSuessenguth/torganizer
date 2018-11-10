@@ -85,7 +85,7 @@ public class TournamentsResource extends AbstractResource {
   }
 
   @GET
-  @Counted(monotonic=true)
+  @Counted(monotonic = true)
   @Timed(absolute = true, unit = NANOSECONDS)
   public JsonArray readMultiple(@QueryParam("offset") Integer offset,
                                 @QueryParam("maxResults") Integer maxResults) {
