@@ -168,10 +168,11 @@ public class DisciplinesResource extends AbstractResource {
 
   @GET
   @Path("/{id}/round-by-position/{position}")
-  public Response getRoundByPosition(@PathParam("id") Long disciplineId, @PathParam("position") Integer position) {
+  public Response getRoundByPosition(@PathParam("id") Long disciplineId,
+                                     @PathParam("position") Integer position) {
     Round round = disciplineRepo.getRoundByPosition(disciplineId, position);
 
-    if(round == null){
+    if (round == null) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
 

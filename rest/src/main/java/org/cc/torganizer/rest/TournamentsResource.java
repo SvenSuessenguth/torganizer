@@ -44,6 +44,7 @@ import org.cc.torganizer.rest.json.SquadJsonConverter;
 import org.cc.torganizer.rest.json.TournamentJsonConverter;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Timed;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 
 @Stateless
 @Path("/tournaments")
@@ -63,7 +64,6 @@ public class TournamentsResource extends AbstractResource {
 
   @Inject
   private OpponentJsonConverterProvider opponentConverterProvider;
-
 
   @POST
   public Response create(JsonObject jsonObject) {
