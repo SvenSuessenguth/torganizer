@@ -1,12 +1,14 @@
 package org.cc.torganizer.persistence;
 
 import org.cc.torganizer.core.entities.Group;
+import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.core.entities.System;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -114,5 +116,17 @@ public class RoundsRepositoryTest extends AbstractDbUnitJpaTest {
   public void testGetPreviousRound(){
     Long prevRoundId = repository.getPrevRoundId(2L);
     assertThat(1L, is(prevRoundId));
+  }
+
+  @Test
+  public void testGetAssignedOpponents_containsData(){
+    Set<Opponent> assignedOpponents = repository.getAssignedOpponents(1L);
+    assertThat(assignedOpponents, hasSize(2));
+  }
+
+  @Test
+  public void testGetAssignedOpponents_Empty(){
+    Set<Opponent> assignedOpponents = repository.getAssignedOpponents(2L);
+    assertThat(assignedOpponents, is(empty()));
   }
 }

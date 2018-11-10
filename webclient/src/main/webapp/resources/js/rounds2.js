@@ -6,6 +6,7 @@ class Rounds {
   onload() {
     this.prepareUpdateDisciplineSelection();
     this.prepareUpdateRoundSelection();
+    this.prepareUpdateAssignableOpponents();
   }
 
   prepareUpdateDisciplineSelection() {
