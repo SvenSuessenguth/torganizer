@@ -14,7 +14,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 public class Configurations {
 
   @Inject
-  @ConfigProperty(name="resources.url")
+  @ConfigProperty(name="resources_url")
   private String resourcesUrl;
 
   public String getResourcesUrl() {
