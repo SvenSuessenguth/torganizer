@@ -23,7 +23,7 @@
   <!--
    | To access this server from a remote client add a host attribute to the following element, e.g. host="*"
    +-->
-  <httpEndpoint id="defaultHttpEndpoint" httpPort="8080" httpsPort="9444" />
+  <httpEndpoint id="defaultHttpEndpoint" host="*" httpPort="8080" httpsPort="9444" />
 
   <!-- 
    | Automatically expand WAR files and EAR files
