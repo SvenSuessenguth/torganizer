@@ -22,11 +22,11 @@ public class Group extends Entity implements IPositional {
    */
   private List<Match> matches = new ArrayList<>();
 
-  /**
-   * Default.
-   */
   public Group() {
-    // gem. Bean-Spec.
+  }
+
+  public Group(Integer position) {
+    this.position = position;
   }
 
   /**

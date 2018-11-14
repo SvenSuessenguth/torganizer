@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import org.cc.torganizer.core.comparators.PositionalComparator;
+
 /**
  * Runde in einer Disziplin. Alle Runden m\u00fcssen in einer definierten
  * Reihenfolge gespielt werden, daher der INDEX. Analog im Fussball gibt eine
@@ -45,7 +47,20 @@ public class Round extends Entity implements IPositional {
    * @param group Group
    */
   public void addGroup(Group group) {
+    // validate, that group has a position, otherwise append with next position
+    if(group.getPosition()==null){
+      group.setPosition(groups.size());
+    }
+
+    // validate, that position is not existing
+    for (Group g : groups) {
+      if (g.getPosition() == group.getPosition()) {
+        throw new IllegalArgumentException("position '" + g.getPosition() + "' of new group is already present");
+      }
+    }
+
     groups.add(group);
+    Collections.sort(groups, new PositionalComparator());
   }
 
   public List<Group> getGroups() {
@@ -53,14 +68,20 @@ public class Round extends Entity implements IPositional {
   }
 
   /**
-   * Lesen der Group an der Stelle mit dem geforderten Indes aus der List aller
+   * Lesen der Group an der Stelle mit der geforderten Position aus der List aller
    * Groups.
    *
-   * @param inIndex Position der Group in der Liste aller Groups.
+   * @param position Position der Group in der Liste aller Groups.
    * @return Groups an der Stelle mit dem Index
    */
-  public Group getGroup(int inIndex) {
-    return getGroups().get(inIndex);
+  public Group getGroup(Integer position) {
+    for (Group g : groups) {
+      if (g.getPosition() == position) {
+        return g;
+      }
+    }
+
+    return null;
   }
 
   public Set<Opponent> getQualifiedOpponents() {
@@ -73,10 +94,6 @@ public class Round extends Entity implements IPositional {
 
   public void setGroups(List<Group> newGroups) {
     this.groups = newGroups;
-  }
-
-  public int getGroupsCount() {
-    return getGroups().size();
   }
 
   public System getSystem() {
