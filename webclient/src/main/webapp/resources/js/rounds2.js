@@ -125,12 +125,6 @@ class Rounds {
     element.setAttribute("data", JSON.stringify(jOpponents));
   }
 
-  prepareUpdateAssignedOpponents() {
-  }
-
-  updateAssignedOpponents(jOpponents) {
-  }
-
   //--------------------------------------------------------------------------------------------------------------------
   //
   //                                                                                                             Actions
@@ -217,7 +211,6 @@ class Rounds {
   }
 
   //------------------------------------------------------------------------------------------------------- next round -
-
   nextRound(){
     let disciplineId = sessionStorage.getItem("rounds.discipline.id");
     if(disciplineId===null) { return; }
@@ -247,6 +240,18 @@ class Rounds {
     this.updateRoundsSelectionSingle(undefined);
     this.roundToForm(undefined);
   }
+
+  //---------------------------------------------------------------------------------------------------- create groups -
+  createGroups(){
+    let numberOfGroups = Number(document.querySelector("#numberOfGroups").value);
+    if(isNaN(numberOfGroups)){
+      return;
+    }
+
+
+    console.log("Anzahl Gruppen: "+numberOfGroups);
+  }
+
 
   //--------------------------------------------------------------------------------------------------------------------
   //

@@ -41,7 +41,6 @@
           <option value="ROUND_ROBIN">round robin</option>
         </select>
       </label>
-      <label for="numberOfGroups">#{text.groups}<input id="numberOfGroups" value="" size="2" /></label>
       <label for="qualified">#{text.qualified}<input id="qualified" value="" size="2" /></label>
       <input id="save" type="button" value="#{text.save}" onclick="rounds2.save()" />
       <input id="delete" type="button" value="#{text.delete}" onclick="rounds2.delete()" />
@@ -51,12 +50,14 @@
       <div>
         <opponents-table id="assignable" rows="5" data="[]" >
         </opponents-table>
-        <input type="submit" value="#{text.prev}" onclick="rounds.prevAssignableOpponents()" />
-        <input type="submit" value="#{text.next}" onclick="rounds.nextAssignableOpponents()" />
+        <input type="submit" value="#{text.prev}" onclick="rounds2.prevAssignableOpponents()" />
+        <input type="submit" value="#{text.next}" onclick="rounds2.nextAssignableOpponents()" />
       </div>
 
       <hr />
-      all groups
+      <label for="numberOfGroups">#{text.groups}<input id="numberOfGroups" value="" size="2" /></label>
+      <input type="submit" value="${text.create}" onclick="rounds2.createGroups()" />
+      <input type="submit" value="${text.assign}" onclick="rounds2.assignOpponents()" />
 
       <script type="text/javascript">
         rounds2.onload();

@@ -68,3 +68,32 @@ function getUrlVars() {
   });
   return vars;
 }
+
+// Examplemessage
+//
+// {"violations-count":1,
+//   "violations":"[
+//     {"message":"message","propertyPath":"propertyPath","invalidValue":"invalidValue"}
+//   ]}"
+//
+function processMessages(json) {
+  showMessages(json);
+  markElements(json);
+}
+
+function showMessages(json) {
+  let ul = document.getElementById("violations");
+  json.violations.forEach(violation => {
+    let li = document.createElement("li");
+    li.setAttribute("class", "violation");
+    li.appendChild(document.createTextNode(violation.message));
+    ul.appendChild(li);
+  });
+}
+
+function markElements(json) {
+  json.violations.forEach(violation => {
+    let element = document.getElementById(violation.propertyPath);
+    element.classList.add("violation");
+  });
+}

@@ -42,20 +42,20 @@ public class Checker {
    * @param objects Array von Objekten, die gepr\u00fcft werden sollen.
    * @return a boolean.
    */
-  public boolean onlyOneIsNull(Object... objects) {
+  public static int countNullValues(Object... objects) {
 
     if (objects == null || objects.length == 0) {
-      return false;
+      return 0;
     }
 
     int nullCounter = 0;
 
-    // Zaehlen der Objekte, die NULL sind
+    // count null values
     for (Object object : objects) {
       nullCounter += object == null ? 1 : 0;
     }
 
-    return nullCounter == 1;
+    return nullCounter;
   }
 
   /**
@@ -87,20 +87,10 @@ public class Checker {
    * @param objects Array von Objekten, die gepr\u00fcft werden sollen.
    * @return a boolean.
    */
-  public boolean allIsNull(Object... objects) {
-    // es muss mindestens ein Objekt uebergeben werden 
-    if (objects == null || objects.length == 0) {
-      return false;
-    }
+  public static boolean onlyNullValues(Object... objects) {
+    int counter = countNullValues(objects);
 
-    int nullCounter = 0;
-
-    // Zaehlen der Objekte, die NULL sind
-    for (Object object : objects) {
-      nullCounter += object == null ? 1 : 0;
-    }
-
-    return nullCounter == objects.length;
+    return counter == objects.length;
   }
 
   /**

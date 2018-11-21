@@ -46,20 +46,10 @@ public class Round extends Entity implements IPositional {
    *
    * @param group Group
    */
-  public void addGroup(Group group) {
-    // validate, that group has a position, otherwise append with next position
-    if(group.getPosition()==null){
-      group.setPosition(groups.size());
-    }
-
-    // validate, that position is not existing
-    for (Group g : groups) {
-      if (g.getPosition() == group.getPosition()) {
-        throw new IllegalArgumentException("position '" + g.getPosition() + "' of new group is already present");
-      }
-    }
-
+  public void appendGroup(Group group) {
+    group.setPosition(groups.size());
     groups.add(group);
+
     Collections.sort(groups, new PositionalComparator());
   }
 

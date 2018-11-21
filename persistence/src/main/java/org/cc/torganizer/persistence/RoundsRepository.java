@@ -1,5 +1,6 @@
 package org.cc.torganizer.persistence;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -234,5 +235,26 @@ public class RoundsRepository extends Repository<Round> {
     } catch (NoResultException nrExc) {
       return null;
     }
+  }
+
+  /**
+   * Creating groups and associate to a given round.
+   */
+  public List<Group> createGroups(Long id, Integer numberOfGroups) {
+    List<Group> groups = new ArrayList<>();
+    Round round = this.read(id);
+
+    for (Integer counter = 0; counter < numberOfGroups; counter++) {
+      Group group = new Group();
+      round.appendGroup(group);
+      entityManager.persist(group);
+
+      groups.add(group);
+    }
+
+    entityManager.merge(round);
+    entityManager.flush();
+
+    return groups;
   }
 }

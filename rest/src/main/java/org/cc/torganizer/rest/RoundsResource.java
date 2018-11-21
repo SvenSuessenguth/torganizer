@@ -16,7 +16,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Response;
 
+import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.persistence.RoundsRepository;
@@ -94,6 +96,14 @@ public class RoundsResource extends AbstractResource {
   public JsonObject addOpponent(@PathParam("id") Long disciplineId,
                                 @QueryParam("opponentId") Long opponentId) {
     return null;
+  }
+
+  @POST
+  @Path("/{id}/create-groups")
+  public Response createGroups(@PathParam("id") Long id, @QueryParam("numberOfGroups") Integer numberOfGroups){
+    List<Group> groups = roundsRepository.createGroups(id, numberOfGroups);
+
+    return Response.ok().build();
   }
 
   @DELETE

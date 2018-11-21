@@ -64,7 +64,7 @@ public class GroupsRepositoryTest extends AbstractDbUnitJpaTest {
 
     Round round = new Round();
     Group group = new Group();
-    round.addGroup(group);
+    round.appendGroup(group);
     group.addOpponent(p1);
 
     Set<Opponent> opponentsInRound = new HashSet<>();
