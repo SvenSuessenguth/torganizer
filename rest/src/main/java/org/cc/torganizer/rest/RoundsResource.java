@@ -22,6 +22,7 @@ import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.persistence.RoundsRepository;
+import org.cc.torganizer.rest.json.GroupJsonConverter;
 import org.cc.torganizer.rest.json.ModelJsonConverter;
 import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
 import org.cc.torganizer.rest.json.RoundJsonConverter;
@@ -36,6 +37,9 @@ public class RoundsResource extends AbstractResource {
 
   @Inject
   private RoundJsonConverter roundConverter;
+
+  @Inject
+  private GroupJsonConverter groupConverter;
 
   @Inject
   private OpponentJsonConverterProvider opponentJsonConverterProvider;
@@ -102,8 +106,9 @@ public class RoundsResource extends AbstractResource {
   @Path("/{id}/create-groups")
   public Response createGroups(@PathParam("id") Long id, @QueryParam("numberOfGroups") Integer numberOfGroups){
     List<Group> groups = roundsRepository.createGroups(id, numberOfGroups);
+    JsonArray jsonArray = groupConverter.toJsonArray(groups);
 
-    return Response.ok().build();
+    return Response.ok(jsonArray).build();
   }
 
   @DELETE

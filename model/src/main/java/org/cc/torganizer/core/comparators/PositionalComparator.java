@@ -6,7 +6,6 @@ import static org.cc.torganizer.core.util.Checker.onlyNullValues;
 import java.util.Comparator;
 
 import org.cc.torganizer.core.entities.IPositional;
-import org.cc.torganizer.core.util.Checker;
 
 /**
  * Sortieren nach der Position.
