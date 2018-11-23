@@ -25,25 +25,6 @@
     <mapping-file>META-INF/tournament-orm.xml</mapping-file>
 
     <properties>
-
-      <!-- 
-       | Derby
-       | @see test-dependencies in pom.xml
-       | @see http://blog.payara.fish/whats-coming-in-payara-5
-       |
-      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:test;create=true"/>
-      <property name="javax.persistence.jdbc.user" value=""/>
-      <property name="javax.persistence.jdbc.password" value=""/>
-
-      <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyTenSevenDialect"/>
-      <property name="hibernate.hbm2ddl.auto" value="update"/>
-       |
-       +-->
-
-      <!-- 
-       | H2 
-       +-->
       <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test;INIT=CREATE SCHEMA IF NOT EXISTS torganizer"/>
       <property name="javax.persistence.jdbc.user" value=""/>

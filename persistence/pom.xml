@@ -17,7 +17,7 @@
   
   <properties>
     <dbunit.version>2.6.0</dbunit.version>
-    <hibernate.version>5.3.7.Final</hibernate.version>
+    <hibernate.version>5.4.0.CR1</hibernate.version>
     <h2.version>1.4.197</h2.version>
   </properties>
 
@@ -43,16 +43,6 @@
       <groupId>org.hibernate</groupId><artifactId>hibernate-entitymanager</artifactId>
       <version>${hibernate.version}</version><scope>test</scope>
     </dependency>
-
-    <!-- 
-     | used for testing jpa
-     | @see persistence.xml
-    <dependency>
-      <groupId>org.apache.derby</groupId><artifactId>derby</artifactId>
-      <version>10.14.1.0</version><scope>test</scope>
-    </dependency>
-     |
-     +-->
     <dependency>
       <groupId>com.h2database</groupId><artifactId>h2</artifactId>
       <version>${h2.version}</version><scope>test</scope>
