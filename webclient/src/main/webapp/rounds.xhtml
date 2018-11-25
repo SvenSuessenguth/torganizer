@@ -56,8 +56,12 @@
 
       <hr />
       <label for="numberOfGroups">#{text.groups}<input id="numberOfGroups" value="" size="2" /></label>
-      <input type="submit" value="${text.create}" onclick="rounds2.createGroups()" />
+      <input type="submit" value="${text.add}" onclick="rounds2.addGroups()" />
       <input type="submit" value="${text.assign}" onclick="rounds2.assignOpponents()" />
+
+      <hr />
+      <div id="groups">
+      </div>
 
       <script type="text/javascript">
         rounds2.onload();

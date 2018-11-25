@@ -132,7 +132,7 @@ public class RoundsRepositoryTest extends AbstractDbUnitJpaTest {
 
   @Test
   public void testCreateGroups(){
-    List<Group> groups = repository.createGroups(1L, 3);
+    List<Group> groups = repository.addGroups(1L, 3);
 
     assertThat(groups, hasSize(3));
 

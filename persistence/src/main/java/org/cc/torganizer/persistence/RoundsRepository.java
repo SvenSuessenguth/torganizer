@@ -239,8 +239,9 @@ public class RoundsRepository extends Repository<Round> {
 
   /**
    * Creating groups and associate to a given round.
+   * @return List of all groups assigned to the round with the given id
    */
-  public List<Group> createGroups(Long id, Integer numberOfGroups) {
+  public List<Group> addGroups(Long id, Integer numberOfGroups) {
     List<Group> groups = new ArrayList<>();
     Round round = this.read(id);
 
@@ -255,6 +256,6 @@ public class RoundsRepository extends Repository<Round> {
     entityManager.merge(round);
     entityManager.flush();
 
-    return groups;
+    return round.getGroups();
   }
 }

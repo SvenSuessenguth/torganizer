@@ -95,6 +95,17 @@ public class RoundsResource extends AbstractResource {
     return null;
   }
 
+  @GET
+  @Path("/{id}/groups")
+  public Response getGroups(@PathParam("id") Long roundId,
+                                @QueryParam("offset") Integer offset,
+                                @QueryParam("maxResults") Integer maxResults) {
+    Round round = roundsRepository.read(roundId);
+    JsonArray jsonArray = groupConverter.toJsonArray(round.getGroups());
+
+    return Response.ok(jsonArray).build();
+  }
+
   @POST
   @Path("/{id}/opponents")
   public JsonObject addOpponent(@PathParam("id") Long disciplineId,
@@ -103,9 +114,9 @@ public class RoundsResource extends AbstractResource {
   }
 
   @POST
-  @Path("/{id}/create-groups")
-  public Response createGroups(@PathParam("id") Long id, @QueryParam("numberOfGroups") Integer numberOfGroups) {
-    List<Group> groups = roundsRepository.createGroups(id, numberOfGroups);
+  @Path("/{id}/add-groups")
+  public Response addGroups(@PathParam("id") Long id, @QueryParam("numberOfGroups") Integer numberOfGroups) {
+    List<Group> groups = roundsRepository.addGroups(id, numberOfGroups);
     JsonArray jsonArray = groupConverter.toJsonArray(groups);
 
     return Response.ok(jsonArray).build();

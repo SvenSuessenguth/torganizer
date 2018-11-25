@@ -18,7 +18,7 @@
   <applicationManager autoExpand="true" />
   <applicationMonitor updateTrigger="mbean" />
   <webApplication id="rest" location="rest.war" name="rest" />
-  <include location="C:/dev/projects/torganizer/rest/server.xml" />
+  <include location="./server-include.xml" />
   
   <keyStore id="defaultKeyStore" password="_admin_" />
   <basicRegistry id="basic" realm="BasicRealm">

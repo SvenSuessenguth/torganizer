@@ -8,6 +8,7 @@ class OpponentsTable extends HTMLElement{
     this.template = this.template();
     this._rows = 10;
     this._tbody = null;
+    this._visibilit = true
   }
   
   set id(newId) { this.setAttribute('id', newId); }
@@ -16,7 +17,7 @@ class OpponentsTable extends HTMLElement{
   get rows() { return this._rows; }
   set data(newData) { this.setAttribute('data', newData); }
   get data() { return this._data; }
-  
+
   connectedCallback(){
 	this.attachShadow({ mode: 'open' });
 	let opponentsTable = this.template.content.cloneNode(true);
@@ -111,7 +112,7 @@ class OpponentsTable extends HTMLElement{
         td{ border: 1px solid Gray; padding: 2px 20px; }
       </style>
   
-      <table id="opponents-table">
+      <table id="opponents-table" style="visibility: visible">
         <thead>
           <tr>
             <th>Vornamen</th><th>Nachnamen</th><th>Vereine</th>

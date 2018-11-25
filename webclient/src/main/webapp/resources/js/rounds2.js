@@ -125,6 +125,27 @@ class Rounds {
     element.setAttribute("data", JSON.stringify(jOpponents));
   }
 
+  prepareUpdateGroups(){
+
+  }
+  updateGroups(jGroups){
+    // remove old groups
+    let eGroups = document.querySelector("#groups");
+    while (eGroups.firstChild) {
+      eGroups.removeChild(eGroups.firstChild);
+    }
+
+    // show groups
+    if(jGroups.length>0) {
+      jGroups.forEach(function (jGroup) {
+        eGroups.appendChild(document.createElement("opponents-table",))
+        let eButton = document.createElement("button");
+        eButton.innerText = "löschen";
+        eButton.setAttribute("onClick", "rounds2.deleteGroup("+jGroup.id+")");
+        eGroups.appendChild(eButton);
+      });
+    }
+  }
   //--------------------------------------------------------------------------------------------------------------------
   //
   //                                                                                                             Actions
@@ -242,16 +263,21 @@ class Rounds {
   }
 
   //---------------------------------------------------------------------------------------------------- create groups -
-  createGroups(){
+  addGroups(){
+    let roundId = sessionStorage.getItem("rounds.round.id");
     let numberOfGroups = Number(document.querySelector("#numberOfGroups").value);
     if(isNaN(numberOfGroups)){
       return;
     }
 
-
-    console.log("Anzahl Gruppen: "+numberOfGroups);
+    let url = resourcesUrl() + `rounds/${roundId}/add-groups?numberOfGroups=${numberOfGroups}`;
+    this.crud.post(url, undefined, this.updateGroups.bind(this));
   }
 
+  //----------------------------------------------------------------------------------------------------- delete group -
+  deleteGroup(id){
+    console.log("delete group "+id);
+  }
 
   //--------------------------------------------------------------------------------------------------------------------
   //

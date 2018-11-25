@@ -14,6 +14,21 @@ class Crud{
     .then(function(json) { callback(json); });
   }
 
+  post(resource, json, callback){
+    let body = JSON.stringify(json);
+
+    fetch(resource, {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: body !== "" ? body : undefined
+    })
+      .then(function(response) { return response.json(); })
+      .then(function(json) { callback(json); });
+  }
+
   createOrUpdate(resource, json, callback) {
     let body = JSON.stringify(json);
 
