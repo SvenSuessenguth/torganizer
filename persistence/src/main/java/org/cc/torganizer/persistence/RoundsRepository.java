@@ -117,6 +117,7 @@ public class RoundsRepository extends Repository<Round> {
   // Round groups
   //
   //-----------------------------------------------------------------------------------------------
+
   /**
    * Getting all groups which are assigned to the round with the given id.
    */
@@ -149,7 +150,7 @@ public class RoundsRepository extends Repository<Round> {
   /**
    * Adding the group with the given id to the round with the given id.
    */
-  public Round addGroup(Long roundId, Long groupId) {
+  public Round newGroup(Long roundId, Long groupId) {
     Group group = entityManager.find(Group.class, groupId);
     Round round = read(roundId);
 
@@ -239,19 +240,18 @@ public class RoundsRepository extends Repository<Round> {
 
   /**
    * Creating groups and associate to a given round.
+   *
    * @return List of all groups assigned to the round with the given id
    */
-  public List<Group> addGroups(Long id, Integer numberOfGroups) {
+  public List<Group> newGroup(Long id) {
     List<Group> groups = new ArrayList<>();
     Round round = this.read(id);
 
-    for (Integer counter = 0; counter < numberOfGroups; counter++) {
-      Group group = new Group();
-      round.appendGroup(group);
-      entityManager.persist(group);
+    Group group = new Group();
+    round.appendGroup(group);
+    entityManager.persist(group);
 
-      groups.add(group);
-    }
+    groups.add(group);
 
     entityManager.merge(round);
     entityManager.flush();

@@ -263,14 +263,10 @@ class Rounds {
   }
 
   //---------------------------------------------------------------------------------------------------- create groups -
-  addGroups(){
+  newGroup(){
     let roundId = sessionStorage.getItem("rounds.round.id");
-    let numberOfGroups = Number(document.querySelector("#numberOfGroups").value);
-    if(isNaN(numberOfGroups)){
-      return;
-    }
 
-    let url = resourcesUrl() + `rounds/${roundId}/add-groups?numberOfGroups=${numberOfGroups}`;
+    let url = resourcesUrl() + `rounds/${roundId}/new-group`;
     this.crud.post(url, undefined, this.updateGroups.bind(this));
   }
 

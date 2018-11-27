@@ -114,10 +114,9 @@ public class RoundsResource extends AbstractResource {
   }
 
   @POST
-  @Path("/{id}/add-groups")
-  public Response addGroups(@PathParam("id") Long id,
-                            @QueryParam("numberOfGroups") Integer numberOfGroups) {
-    List<Group> groups = roundsRepository.addGroups(id, numberOfGroups);
+  @Path("/{id}/new-group")
+  public Response addGroups(@PathParam("id") Long id) {
+    List<Group> groups = roundsRepository.newGroup(id);
     JsonArray jsonArray = groupConverter.toJsonArray(groups);
 
     return Response.ok(jsonArray).build();

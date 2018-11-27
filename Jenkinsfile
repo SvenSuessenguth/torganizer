@@ -33,6 +33,17 @@ pipeline {
         }
       }
     }
+	stage ('analysis') {
+      steps{ 
+        bat 'mvn -batch-mode -V -U -e checkstyle:checkstyle pmd:pmd'
+ 
+        def checkstyle = scanForIssues tool: [$class: 'CheckStyle'], pattern: '**/target/checkstyle-result.xml'
+        publishIssues issues:[checkstyle]
+    
+        def pmd = scanForIssues tool: [$class: 'Pmd'], pattern: '**/target/pmd.xml'
+        publishIssues issues:[pmd]
+      }
+    }
     stage('report') {
       steps {
         withSonarQubeEnv('SonarQube') {
