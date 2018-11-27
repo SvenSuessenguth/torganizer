@@ -115,7 +115,7 @@ public class RoundsResource extends AbstractResource {
 
   @POST
   @Path("/{id}/new-group")
-  public Response addGroups(@PathParam("id") Long id) {
+  public Response newGroup(@PathParam("id") Long id) {
     List<Group> groups = roundsRepository.newGroup(id);
     JsonArray jsonArray = groupConverter.toJsonArray(groups);
 
@@ -133,7 +133,7 @@ public class RoundsResource extends AbstractResource {
   @GET
   @Path("/{id}/opponents-assignable-to-group")
   public JsonArray getOpponentsAssignableToGroup(@PathParam("id") Long roundId) {
-    JsonArray result = null;
+    JsonArray result;
 
     Set<Opponent> opponents = roundsRepository.getNotAssignedOpponents(roundId);
 

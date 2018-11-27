@@ -139,10 +139,6 @@ class Rounds {
     if(jGroups.length>0) {
       jGroups.forEach(function (jGroup) {
         eGroups.appendChild(document.createElement("opponents-table",))
-        let eButton = document.createElement("button");
-        eButton.innerText = "löschen";
-        eButton.setAttribute("onClick", "rounds2.deleteGroup("+jGroup.id+")");
-        eGroups.appendChild(eButton);
       });
     }
   }
