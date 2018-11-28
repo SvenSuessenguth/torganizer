@@ -258,11 +258,11 @@ class Rounds {
     this.roundToForm(undefined);
   }
 
-  //---------------------------------------------------------------------------------------------------- create groups -
+  //------------------------------------------------------------------------------------------------------- new groups -
   newGroup(){
     let roundId = sessionStorage.getItem("rounds.round.id");
 
-    let url = resourcesUrl() + `rounds/${roundId}/new-group`;
+    let url = resourcesUrl() + `rounds/${roundId}/group`;
     this.crud.post(url, undefined, this.updateGroups.bind(this));
   }
 
@@ -270,8 +270,8 @@ class Rounds {
   deleteGroup(id){
     let roundId = sessionStorage.getItem("rounds.round.id");
 
-    let url = resourcesUrl() + `rounds/${roundId}/delete-group`;
-    this.crud.post(url, undefined, this.updateGroups.bind(this));
+    let url = resourcesUrl() + `rounds/${roundId}/group`;
+    this.crud.delete(url, undefined, this.updateGroups.bind(this));
   }
 
   //--------------------------------------------------------------------------------------------------------------------

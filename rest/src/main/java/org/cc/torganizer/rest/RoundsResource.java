@@ -113,10 +113,22 @@ public class RoundsResource extends AbstractResource {
     return null;
   }
 
+  /**
+   * Create and associate a new group to the given round.
+   */
   @POST
-  @Path("/{id}/new-group")
+  @Path("/{id}/group")
   public Response newGroup(@PathParam("id") Long id) {
     List<Group> groups = roundsRepository.newGroup(id);
+    JsonArray jsonArray = groupConverter.toJsonArray(groups);
+
+    return Response.ok(jsonArray).build();
+  }
+
+  @DELETE
+  @Path("/{id}/group")
+  public Response deleteGroup(@PathParam("id") Long id) {
+    List<Group> groups = roundsRepository.deleteGroup(id);
     JsonArray jsonArray = groupConverter.toJsonArray(groups);
 
     return Response.ok(jsonArray).build();

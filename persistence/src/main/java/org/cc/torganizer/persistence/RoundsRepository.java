@@ -258,4 +258,14 @@ public class RoundsRepository extends Repository<Round> {
 
     return round.getGroups();
   }
+
+  /**
+   * Creating groups and associate to a given round.
+   *
+   * @return List of all groups assigned to the round with the given id
+   */
+  public List<Group> deleteGroup(Long roundId) {
+    Round round = this.read(roundId);
+    return round.getGroups();
+  }
 }
