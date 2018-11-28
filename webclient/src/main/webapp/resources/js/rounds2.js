@@ -268,7 +268,10 @@ class Rounds {
 
   //----------------------------------------------------------------------------------------------------- delete group -
   deleteGroup(id){
-    console.log("delete group "+id);
+    let roundId = sessionStorage.getItem("rounds.round.id");
+
+    let url = resourcesUrl() + `rounds/${roundId}/delete-group`;
+    this.crud.post(url, undefined, this.updateGroups.bind(this));
   }
 
   //--------------------------------------------------------------------------------------------------------------------

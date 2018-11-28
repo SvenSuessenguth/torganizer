@@ -41,28 +41,13 @@ pipeline {
       }
     }
 
-//    stage('doc') {
-//      steps {
-//        bat 'mvn javadoc:aggregate org.asciidoctor:asciidoctor-maven-plugin:process-asciidoc'
-//      }
-//    }
-
     // on master-branch only
     stage('deploy') {
       when { branch 'master' }
       steps {
         // Run the maven build
         bat 'mvn deploy -DskipTests'
-
-        // archive artifacts in jenkins
-        archiveArtifacts artifacts: '*/target/*.war', fingerprint: true
       }
     }
   }
-
-//  post {
-//    always {
-//      archiveArtifacts artifacts: '*/target/*.war', fingerprint: true
-//    }
-//  }
 }
