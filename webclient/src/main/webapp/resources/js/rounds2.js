@@ -16,7 +16,7 @@ class Rounds {
   }
 
   updateDisciplineSelection(jDisciplines) {
-    let disciplineId = Number(sessionStorage.getItem('rounds.discipline.id'));
+    let disciplineId = sessionStorage.getItem('rounds.discipline.id');
     let eDisciplines = document.querySelector("#disciplines");
 
     // remove all optione before adding new ones
@@ -29,7 +29,7 @@ class Rounds {
     option.text = "select...";
     option.value = "null";
     option.id = "null";
-    if (disciplineId == undefined) {
+    if (disciplineId == null || disciplineId == undefined) {
       option.selected = "null";
     }
     eDisciplines.appendChild(option);
@@ -42,7 +42,7 @@ class Rounds {
       option.id = jDiscipline.id;
       eDisciplines.appendChild(option);
 
-      if (disciplineId === jDiscipline.id) {
+      if (Number(disciplineId) === jDiscipline.id) {
         option.selected = "selected";
       }
     });
