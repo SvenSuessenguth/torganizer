@@ -29,7 +29,7 @@ class Rounds {
     option.text = "select...";
     option.value = "null";
     option.id = "null";
-    if (disciplineId == null || Number(disciplineId) == NaN) {
+    if (disciplineId == null || Number(disciplineId) === NaN) {
       option.selected = "null";
     }
     eDisciplines.appendChild(option);
