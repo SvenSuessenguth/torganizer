@@ -29,7 +29,7 @@ class Rounds {
     option.text = "select...";
     option.value = "null";
     option.id = "null";
-    if (disciplineId === undefined) {
+    if (disciplineId == undefined) {
       option.selected = "null";
     }
     eDisciplines.appendChild(option);
