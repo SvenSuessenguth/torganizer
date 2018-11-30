@@ -16,7 +16,7 @@ class Rounds {
   }
 
   updateDisciplineSelection(jDisciplines) {
-    let disciplineId = sessionStorage.getItem('rounds.discipline.id');
+    let disciplineId = Number(sessionStorage.getItem('rounds.discipline.id'));
     let eDisciplines = document.querySelector("#disciplines");
 
     // remove all optione before adding new ones
@@ -34,7 +34,6 @@ class Rounds {
     }
     eDisciplines.appendChild(option);
 
-
     // add an option for every discipline
     jDisciplines.forEach(function (jDiscipline) {
       let option = document.createElement("option");
@@ -47,8 +46,6 @@ class Rounds {
         option.selected = "selected";
       }
     });
-
-    this.selectDiscipline();
   }
 
   prepareUpdateRoundSelection() {
