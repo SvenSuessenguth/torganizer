@@ -6,6 +6,7 @@ class Rounds {
   onload() {
     this.prepareUpdateDisciplineSelection();
     this.prepareUpdateRoundSelection();
+    this.prepareUpdateGroups();
   }
 
   prepareUpdateDisciplineSelection() {
@@ -98,13 +99,6 @@ class Rounds {
     this.roundToForm(jRound);
   }
 
-
-  prepareUpdateRoundSystemDefinition() {
-  }
-
-  updateRoundSystemDefinition(jRound) {
-  }
-
   prepareUpdateAssignableOpponents() {
     let roundId = sessionStorage.getItem("rounds.round.id");
     if(roundId==undefined){
@@ -117,13 +111,18 @@ class Rounds {
   }
 
   updateAssignableOpponents(jOpponents) {
-    console.log(JSON.stringify(jOpponents));
     let element = document.querySelector("#assignable");
     element.setAttribute("data", JSON.stringify(jOpponents));
   }
 
   prepareUpdateGroups(){
+    let roundId = sessionStorage.getItem("rounds.round.id");
+    if (roundId == null || isNaN(Number(roundId))) {
+      return;
+    }
 
+    let url = resourcesUrl() + `rounds/${roundId}/groups`;
+    this.crud.get(url, this.updateGroups.bind(this));
   }
   updateGroups(jGroups){
     // remove old groups
@@ -255,7 +254,7 @@ class Rounds {
     this.roundToForm(undefined);
   }
 
-  //------------------------------------------------------------------------------------------------------- new groups -
+  //-------------------------------------------------------------------------------------------------------- new group -
   newGroup(){
     let roundId = sessionStorage.getItem("rounds.round.id");
 
