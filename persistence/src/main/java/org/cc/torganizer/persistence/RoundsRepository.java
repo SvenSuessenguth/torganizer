@@ -260,12 +260,21 @@ public class RoundsRepository extends Repository<Round> {
   }
 
   /**
-   * Creating groups and associate to a given round.
+   * Deleting a round with no opponents.
    *
    * @return List of all groups assigned to the round with the given id
    */
   public List<Group> deleteGroup(Long roundId) {
     Round round = this.read(roundId);
+    List<Group> groups = round.getDeletableGroups();
+
+    if (!groups.isEmpty()) {
+      round.removeGroup(groups.get(0));
+
+      entityManager.merge(round);
+      entityManager.flush();
+    }
+
     return round.getGroups();
   }
 }

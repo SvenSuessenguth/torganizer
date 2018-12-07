@@ -23,9 +23,9 @@ public class Person extends Entity {
     setId(id);
   }
 
-  public Person(String newFirstName, String newLastName) {
-    this.firstName = newFirstName;
-    this.lastName = newLastName;
+  public Person(String firstName, String lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
   }
 
   /**

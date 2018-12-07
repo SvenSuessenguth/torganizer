@@ -1,10 +1,13 @@
 package org.cc.torganizer.core.entities;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
+
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -64,5 +67,43 @@ class RoundTest {
     round.appendGroup(group);
 
     assertThat(group.getPosition(), is(0));
+  }
+
+  @Test
+  public void getDeletabelGroups_allGroupsHaveOpponents(){
+    Round round = new Round();
+    Group group1 = new Group();
+    group1.addOpponent(new Player());
+    round.appendGroup(group1);
+    Group group2 = new Group();
+    group2.addOpponent(new Player());
+    round.appendGroup(group2);
+
+    List<Group> deletableGroups = round.getDeletableGroups();
+
+    assertThat(deletableGroups, is(empty()));
+  }
+
+  @Test
+  public void getDeletabelGroups_atLeastOneGroupsHasNoOpponents(){
+    Round round = new Round();
+    Group group1 = new Group();
+    group1.addOpponent(new Player());
+    round.appendGroup(group1);
+    Group group2 = new Group();
+    round.appendGroup(group2);
+
+    List<Group> deletableGroups = round.getDeletableGroups();
+
+    assertThat(deletableGroups, hasSize(1));
+  }
+
+  @Test
+  public void getDeletabelGroups_noGroupAssigned(){
+    Round round = new Round();
+
+    List<Group> deletableGroups = round.getDeletableGroups();
+
+    assertThat(deletableGroups, is(empty()));
   }
 }

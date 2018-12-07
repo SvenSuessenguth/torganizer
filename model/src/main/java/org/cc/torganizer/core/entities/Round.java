@@ -42,7 +42,7 @@ public class Round extends Entity implements IPositional {
   }
 
   /**
-   * Hinzufuegen einer Group zu der Liste aller Groups.
+   * Add Group to round and set position.
    *
    * @param group Group
    */
@@ -51,6 +51,13 @@ public class Round extends Entity implements IPositional {
     groups.add(group);
 
     Collections.sort(groups, new PositionalComparator());
+  }
+
+  /**
+   * Deleting group from round.
+   */
+  public void removeGroup(Group group){
+    groups.remove(group);
   }
 
   public List<Group> getGroups() {
@@ -72,6 +79,18 @@ public class Round extends Entity implements IPositional {
     }
 
     return null;
+  }
+
+  public List<Group> getDeletableGroups(){
+    List<Group> deletableGroups = new ArrayList<>();
+
+    for(Group group : groups){
+      if(group.getOpponents().isEmpty()){
+        deletableGroups.add(group);
+      }
+    }
+
+    return deletableGroups;
   }
 
   public Set<Opponent> getQualifiedOpponents() {
