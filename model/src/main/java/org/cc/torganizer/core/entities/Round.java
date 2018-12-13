@@ -3,6 +3,7 @@ package org.cc.torganizer.core.entities;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import org.cc.torganizer.core.comparators.PositionalComparator;
@@ -50,7 +51,7 @@ public class Round extends Entity implements IPositional {
     group.setPosition(groups.size());
     groups.add(group);
 
-    Collections.sort(groups, new PositionalComparator());
+    groups.sort(new PositionalComparator());
   }
 
   /**
@@ -73,7 +74,7 @@ public class Round extends Entity implements IPositional {
    */
   public Group getGroup(Integer position) {
     for (Group g : groups) {
-      if (g.getPosition() == position) {
+      if (Objects.equals(g.getPosition(), position)) {
         return g;
       }
     }
@@ -94,11 +95,7 @@ public class Round extends Entity implements IPositional {
   }
 
   public Set<Opponent> getQualifiedOpponents() {
-    return Collections.<Opponent>emptySet();
-  }
-
-  public Group getFirstGroup() {
-    return getGroup(0);
+    return Collections.emptySet();
   }
 
   public void setGroups(List<Group> newGroups) {
