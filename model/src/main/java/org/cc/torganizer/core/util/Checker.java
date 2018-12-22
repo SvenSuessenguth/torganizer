@@ -1,5 +1,7 @@
 package org.cc.torganizer.core.util;
 
+import static java.lang.Boolean.TRUE;
+
 import java.util.List;
 
 /**
@@ -90,7 +92,7 @@ public class Checker {
   public static boolean onlyNullValues(Object... objects) {
     int counter = countNullValues(objects);
 
-    return objects!=null ? counter == objects.length : true;
+    return objects==null ? TRUE : counter == objects.length;
   }
 
   /**
