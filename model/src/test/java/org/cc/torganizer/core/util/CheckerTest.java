@@ -1,6 +1,7 @@
 package org.cc.torganizer.core.util;
 
 import static org.cc.torganizer.core.util.Checker.countNullValues;
+import static org.cc.torganizer.core.util.Checker.onlyNullValues;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,5 +31,20 @@ class CheckerTest {
   @Test
   void countNullValues_onlyNonNullValues() {
     assertThat(countNullValues(new Object(), new Object()), is(0));
+  }
+
+  @Test
+  public void onlyNullValues_null() {
+    assertThat(onlyNullValues(), is(true));
+  }
+
+  @Test
+  public void onlyNullValues_true() {
+    assertThat(onlyNullValues(null, null, null), is(true));
+  }
+
+  @Test
+  public void onlyNullValues_false() {
+    assertThat(onlyNullValues(null, new Object(), null), is(false));
   }
 }

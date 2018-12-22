@@ -90,7 +90,7 @@ public class Checker {
   public static boolean onlyNullValues(Object... objects) {
     int counter = countNullValues(objects);
 
-    return counter == objects.length;
+    return objects!=null ? counter == objects.length : true;
   }
 
   /**
