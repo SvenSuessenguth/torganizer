@@ -2,6 +2,18 @@
 
 === Applicationserver
 
+==== OpenLiberty
+
+https://www.ibm.com/support/knowledgecenter/en/SS7K4U_liberty/com.ibm.websphere.wlp.zseries.doc/ae/twlp_setup_new_server.html
+[source,dos,options="nowrap"]
+----
+/wlp/bin/server create rest
+/wlp/bin/server create webclient
+----
+
+Copy files from <project>/src/main/config/wlp to <wlp>/usr/servers/<servername>
+
+
 ==== Glassfish 5 / Payara
 
 https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-usagenotes-glassfish-config.html
