@@ -23,7 +23,7 @@ public class Checker {
    * @param list0 Liste eins
    * @param list1 Liste zwei
    * @return <code>true</code>, wenn die Inhalte gleich sind, sonst
-   *         <code>false</code>
+   *     <code>false</code>
    */
   public boolean equals(List<?> list0, List<?> list1) {
     boolean equals = true;
@@ -92,7 +92,7 @@ public class Checker {
   public static boolean onlyNullValues(Object... objects) {
     int counter = countNullValues(objects);
 
-    return objects==null ? TRUE : counter == objects.length;
+    return objects == null ? TRUE : counter == objects.length;
   }
 
   /**

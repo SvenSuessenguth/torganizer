@@ -57,7 +57,7 @@ public class Round extends Entity implements IPositional {
   /**
    * Deleting group from round.
    */
-  public void removeGroup(Group group){
+  public void removeGroup(Group group) {
     groups.remove(group);
   }
 
@@ -82,11 +82,14 @@ public class Round extends Entity implements IPositional {
     return null;
   }
 
-  public List<Group> getDeletableGroups(){
+  /**
+   * Get rounds, which can be deleted. A round can be deleted, if it contains no opponent.
+   */
+  public List<Group> getDeletableGroups() {
     List<Group> deletableGroups = new ArrayList<>();
 
-    for(Group group : groups){
-      if(group.getOpponents().isEmpty()){
+    for (Group group : groups) {
+      if (group.getOpponents().isEmpty()) {
         deletableGroups.add(group);
       }
     }

@@ -161,6 +161,27 @@ public class RoundsRepository extends Repository<Round> {
   }
 
   /**
+   * Creating group and associate to a given round.
+   *
+   * @return List of all groups assigned to the round with the given id
+   */
+  public List<Group> newGroup(Long id) {
+    List<Group> groups = new ArrayList<>();
+    Round round = this.read(id);
+
+    Group group = new Group();
+    round.appendGroup(group);
+    entityManager.persist(group);
+
+    groups.add(group);
+
+    entityManager.merge(round);
+    entityManager.flush();
+
+    return round.getGroups();
+  }
+
+  /**
    * Remove the group with the given id from the round with the given id.
    */
   public Round removeGroup(Long roundId, Long groupId) {
@@ -236,27 +257,6 @@ public class RoundsRepository extends Repository<Round> {
     } catch (NoResultException nrExc) {
       return null;
     }
-  }
-
-  /**
-   * Creating groups and associate to a given round.
-   *
-   * @return List of all groups assigned to the round with the given id
-   */
-  public List<Group> newGroup(Long id) {
-    List<Group> groups = new ArrayList<>();
-    Round round = this.read(id);
-
-    Group group = new Group();
-    round.appendGroup(group);
-    entityManager.persist(group);
-
-    groups.add(group);
-
-    entityManager.merge(round);
-    entityManager.flush();
-
-    return round.getGroups();
   }
 
   /**
