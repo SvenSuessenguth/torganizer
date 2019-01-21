@@ -17,7 +17,7 @@
   
   <properties>
     <dbunit.version>2.6.0</dbunit.version>
-    <hibernate.version>5.4.0.Final</hibernate.version>
+    <hibernate.version>5.4.1.Final</hibernate.version>
     <h2.version>1.4.197</h2.version>
   </properties>
 

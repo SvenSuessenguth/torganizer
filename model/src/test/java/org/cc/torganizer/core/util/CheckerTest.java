@@ -4,11 +4,7 @@ import static org.cc.torganizer.core.util.Checker.countNullValues;
 import static org.cc.torganizer.core.util.Checker.onlyNullValues;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.*;
 
-import org.hamcrest.Matcher;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
 class CheckerTest {
