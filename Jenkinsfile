@@ -35,8 +35,7 @@ pipeline {
     }
     stage('report') {
       steps {
-	    bat 'mvn pmd:pmd'
-        withSonarQubeEnv('SonarQube') {
+	    withSonarQubeEnv('SonarQube') {
           bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
         }
       }
