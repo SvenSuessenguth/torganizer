@@ -34,7 +34,7 @@
 
     <!-- dependency versions -->
     <activation.version>1.1.1</activation.version>
-    <checkstyle.version>8.16</checkstyle.version>
+    <checkstyle.version>8.17</checkstyle.version>
     <javaee-api.version>8.0.1-b5</javaee-api.version>
     <jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
     <jaxb-core.version>2.3.0.1</jaxb-core.version>
