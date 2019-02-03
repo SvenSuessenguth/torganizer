@@ -14,10 +14,10 @@
   <dataSource id="DefaultDataSource" jndiName="jdbc/torganizerDS">
     <jdbcDriver libraryRef="MySQLLib"/>
     <!-- password = 'root' -->
-    <properties databaseName="torganizer" password="{xor}LTAwKw==" portNumber="3306" serverName="localhost" useSSL="false" user="root"/>
+    <properties databaseName="torganizer" password="root" portNumber="3306" serverName="localhost" useSSL="false" allowPublicKeyRetrieval="true" user="root" />
   </dataSource>  
   <library id="MySQLLib">
-    <file name="c:/dev/tools/mysql-connector-java-5.1.47/mysql-connector-java-5.1.47-bin.jar"/>
+    <file name="c:/dev/tools/mysql-connector-java-8.0.15/mysql-connector-java-8.0.15.jar"/>
   </library>
 
   <!--

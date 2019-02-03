@@ -1,29 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <server description="new server">
-  <!-- Enable features -->
   <featureManager>
     <feature>javaee-8.0</feature>
+    <feature>localConnector-1.0</feature>
   </featureManager>
-
   <include location="./server-include.xml" />
-
-  <!-- 
-   | To access this server from a remote client add a host attribute to the following element, e.g. host="*"
-   +-->
   <httpEndpoint httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint" />
-  
-  <!--
-   | Automatically expand WAR files and EAR files
-   +-->
   <applicationManager autoExpand="true" />
   <applicationMonitor updateTrigger="mbean" />
   <webApplication id="rest" location="rest.war" name="rest" />
   <include location="./server-include.xml" />
-  
   <keyStore id="defaultKeyStore" password="_admin_" />
   <basicRegistry id="basic" realm="BasicRealm">
     <user name="admin" password="admin" />
   </basicRegistry>
-
+  <application id="webclient_war_exploded" location="C:\dev\projects\torganizer\webclient\target\webclient" name="webclient_war_exploded" type="war" context-root="/webclient" />
+  <application id="rest_war_exploded" location="C:\dev\projects\torganizer\rest\target\rest" name="rest_war_exploded" type="war" context-root="/rest" />
 </server>
 
