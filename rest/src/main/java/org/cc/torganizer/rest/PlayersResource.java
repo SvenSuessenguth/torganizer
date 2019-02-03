@@ -30,6 +30,7 @@ import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.persistence.ClubsRepository;
 import org.cc.torganizer.persistence.PlayersRepository;
 import org.cc.torganizer.rest.json.PlayerJsonConverter;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 
 @Stateless
 @Path("/players")
@@ -46,6 +47,7 @@ public class PlayersResource {
   @Inject
   private PlayerJsonConverter playersConverter;
 
+  @Operation(operationId = "createPlayer")
   @POST
   public JsonObject create(JsonObject jsonObject) {
     JsonObject result = null;
@@ -74,6 +76,7 @@ public class PlayersResource {
     return result;
   }
 
+  @Operation(operationId = "readSinglePlayer")
   @GET
   @Path("{id}")
   public JsonObject readSingle(@PathParam("id") Long id) {
@@ -83,6 +86,7 @@ public class PlayersResource {
     return playersConverter.toJsonObject(player);
   }
 
+  @Operation(operationId = "readMultiplePlayers")
   @GET
   public JsonArray readMultiple(@QueryParam("offset") Integer offset,
                                 @QueryParam("maxResults") Integer maxResults) {
@@ -91,6 +95,7 @@ public class PlayersResource {
     return playersConverter.toJsonArray(players);
   }
 
+  @Operation(operationId = "updatePlayer")
   @PUT
   public JsonObject update(JsonObject jsonObject) {
     Long id = Long.valueOf(jsonObject.get("id").toString());
@@ -111,6 +116,7 @@ public class PlayersResource {
     return playersConverter.toJsonObject(player);
   }
 
+  @Operation(operationId = "deletePlayer")
   @DELETE
   @Path("/{id}")
   public JsonObject delete(@PathParam("id") Long id) {
@@ -119,6 +125,7 @@ public class PlayersResource {
     return playersConverter.toJsonObject(player);
   }
 
+  @Operation(operationId = "countPlayers")
   @GET
   @Path("/count")
   public long count() {

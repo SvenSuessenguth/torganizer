@@ -24,6 +24,7 @@ import javax.ws.rs.core.UriInfo;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.persistence.PersonsRepository;
 import org.cc.torganizer.rest.json.PersonJsonConverter;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 
 /**
  * http://www.restapitutorial.com/lessons/httpmethods.html
@@ -42,6 +43,7 @@ public class PersonsResource extends AbstractResource {
   @Inject
   private PersonJsonConverter converter;
 
+  @Operation(operationId = "createPerson")
   @POST
   public Response create(JsonObject jsonObject, @Context UriInfo uriInfo) {
     Person person = converter.toModel(jsonObject, new Person());
@@ -61,6 +63,7 @@ public class PersonsResource extends AbstractResource {
     return converter.toJsonObject(person);
   }
 
+  @Operation(operationId = "updatePerson")
   @PUT
   public JsonObject update(JsonObject jsonObject) {
     Long id = Long.valueOf(jsonObject.get("id").toString());
@@ -72,6 +75,7 @@ public class PersonsResource extends AbstractResource {
     return converter.toJsonObject(person);
   }
 
+  @Operation(operationId = "deletePerson")
   @DELETE
   @Path("/{id}")
   public JsonObject delete(@PathParam("id") Long id) {
@@ -89,6 +93,7 @@ public class PersonsResource extends AbstractResource {
     return converter.toJsonArray(persons);
   }
 
+  @Operation(operationId = "countPersons")
   @GET
   @Path("/count")
   public long count() {
