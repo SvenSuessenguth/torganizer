@@ -62,7 +62,6 @@ public class PersonsResource extends AbstractResource {
   }
 
   @PUT
-  @Path("/{id}")
   public JsonObject update(JsonObject jsonObject) {
     Long id = Long.valueOf(jsonObject.get("id").toString());
     Person person = personsRepository.read(id);
