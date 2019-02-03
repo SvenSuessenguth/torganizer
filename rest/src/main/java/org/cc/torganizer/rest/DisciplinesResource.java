@@ -27,6 +27,7 @@ import org.cc.torganizer.rest.json.ModelJsonConverter;
 import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
 import org.cc.torganizer.rest.json.RestrictionJsonConverter;
 import org.cc.torganizer.rest.json.RoundJsonConverter;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 
 @Stateless
 @Path("/disciplines")
@@ -54,6 +55,7 @@ public class DisciplinesResource extends AbstractResource {
   //
   //-----------------------------------------------------------------------------------------------
 
+  @Operation(operationId = "createDiscipline")
   @POST
   public JsonObject create(JsonObject jsonObject) {
     Discipline discipline = disicplineConverter.toModel(jsonObject, new Discipline());
@@ -73,6 +75,7 @@ public class DisciplinesResource extends AbstractResource {
     return disicplineConverter.toJsonObject(discipline);
   }
 
+  @Operation(operationId = "readSingleDisciplines")
   @GET
   @Path("{id}")
   public JsonObject readSingle(@PathParam("id") Long disciplineId) {
@@ -81,6 +84,7 @@ public class DisciplinesResource extends AbstractResource {
     return disicplineConverter.toJsonObject(discipline);
   }
 
+  @Operation(operationId = "readMultipleDisciplines")
   @GET
   public JsonArray readMultiple(@QueryParam("offset") Integer offset,
                                 @QueryParam("maxResults") Integer maxResults) {
@@ -90,6 +94,7 @@ public class DisciplinesResource extends AbstractResource {
     return disicplineConverter.toJsonArray(disciplines);
   }
 
+  @Operation(operationId = "updateDiscipline")
   @PUT
   public JsonObject update(JsonObject jsonObject) {
     Long id = Long.valueOf(jsonObject.get("id").toString());
