@@ -15,6 +15,7 @@ import javax.ws.rs.QueryParam;
 import org.cc.torganizer.core.entities.Restriction;
 import org.cc.torganizer.persistence.RestrictionsRepository;
 import org.cc.torganizer.rest.json.RestrictionJsonConverter;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 
 @Stateless
 @Path("restrictions")
@@ -27,6 +28,7 @@ public class RestrictionsResource extends AbstractResource {
   @Inject
   private RestrictionJsonConverter converter;
 
+  @Operation(operationId = "createRestriction")
   @POST
   public JsonObject create(JsonObject jsonObject) {
     String discriminatorId = jsonObject.getString("discriminator");
@@ -39,6 +41,7 @@ public class RestrictionsResource extends AbstractResource {
     return converter.toJsonObject(restriction);
   }
 
+  @Operation(operationId = "getSingleRestriction")
   @GET
   @Path("{id}")
   public JsonObject readSingle(@PathParam("id") Long id) {
@@ -47,6 +50,7 @@ public class RestrictionsResource extends AbstractResource {
     return converter.toJsonObject(restriction);
   }
 
+  @Operation(operationId = "getMultipleRestrictions")
   @GET
   public JsonArray readMultiple(@QueryParam("offset") Integer offset,
                                 @QueryParam("maxResults") Integer maxResults) {

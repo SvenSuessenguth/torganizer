@@ -26,6 +26,7 @@ import org.cc.torganizer.rest.json.GroupJsonConverter;
 import org.cc.torganizer.rest.json.ModelJsonConverter;
 import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
 import org.cc.torganizer.rest.json.RoundJsonConverter;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 
 @Stateless
 @Path("/rounds")
@@ -44,6 +45,7 @@ public class RoundsResource extends AbstractResource {
   @Inject
   private OpponentJsonConverterProvider opponentJsonConverterProvider;
 
+  @Operation(operationId = "createRound")
   @POST
   public JsonObject create(JsonObject jsonObject) {
     Round round = roundConverter.toModel(jsonObject, new Round());
@@ -52,6 +54,7 @@ public class RoundsResource extends AbstractResource {
     return roundConverter.toJsonObject(round);
   }
 
+  @Operation(operationId = "readSingleRound")
   @GET
   @Path("{id}")
   public JsonObject readSingle(@PathParam("id") Long roundId) {
@@ -60,6 +63,7 @@ public class RoundsResource extends AbstractResource {
     return roundConverter.toJsonObject(round);
   }
 
+  @Operation(operationId = "readMultipleRounds")
   @GET
   public JsonArray readMultiple(@QueryParam("offset") Integer offset,
                                 @QueryParam("maxResults") Integer maxResults) {
@@ -67,6 +71,7 @@ public class RoundsResource extends AbstractResource {
     return roundConverter.toJsonArray(roounds);
   }
 
+  @Operation(operationId = "updateRound")
   @PUT
   public JsonObject update(JsonObject jsonObject) {
     Long id = Long.valueOf(jsonObject.get("id").toString());
@@ -78,6 +83,7 @@ public class RoundsResource extends AbstractResource {
     return roundConverter.toJsonObject(round);
   }
 
+  @Operation(operationId = "deleteRound")
   @DELETE
   @Path("/{id}")
   public JsonObject delete(@PathParam("id") Long id) {
@@ -87,35 +93,19 @@ public class RoundsResource extends AbstractResource {
     return roundConverter.toJsonObject(round);
   }
 
-  @GET
-  @Path("/{id}/opponents")
-  public JsonArray getOpponents(@PathParam("id") Long disciplineId,
-                                @QueryParam("offset") Integer offset,
-                                @QueryParam("maxResults") Integer maxResults) {
-    return null;
-  }
-
+  @Operation(operationId = "getGroupsByRound")
   @GET
   @Path("/{id}/groups")
-  public Response getGroups(@PathParam("id") Long roundId,
-                                @QueryParam("offset") Integer offset,
-                                @QueryParam("maxResults") Integer maxResults) {
+  public Response getGroupsByRound(@PathParam("id") Long roundId,
+                                   @QueryParam("offset") Integer offset,
+                                   @QueryParam("maxResults") Integer maxResults) {
     Round round = roundsRepository.read(roundId);
     JsonArray jsonArray = groupConverter.toJsonArray(round.getGroups());
 
     return Response.ok(jsonArray).build();
   }
 
-  @POST
-  @Path("/{id}/opponents")
-  public JsonObject addOpponent(@PathParam("id") Long disciplineId,
-                                @QueryParam("opponentId") Long opponentId) {
-    return null;
-  }
-
-  /**
-   * Create and associate a new group to the given round.
-   */
+  @Operation(operationId = "createGroupForRound")
   @POST
   @Path("/{id}/group")
   public Response newGroup(@PathParam("id") Long id) {
@@ -125,6 +115,7 @@ public class RoundsResource extends AbstractResource {
     return Response.ok(jsonArray).build();
   }
 
+  @Operation(operationId = "deleteGroupFromRound")
   @DELETE
   @Path("/{id}/group")
   public Response deleteGroup(@PathParam("id") Long id) {
@@ -134,14 +125,8 @@ public class RoundsResource extends AbstractResource {
     return Response.ok(jsonArray).build();
   }
 
-  @DELETE
-  @Path("/{id}/opponents")
-  public JsonObject removeOpponent(@PathParam("id") Long disciplineId,
-                                   @QueryParam("opponentId") Long opponentId) {
-    return null;
-  }
-
   @SuppressWarnings("unchecked")
+  @Operation(operationId = "getOpponentsAssignableToGroupForRound")
   @GET
   @Path("/{id}/opponents-assignable-to-group")
   public JsonArray getOpponentsAssignableToGroup(@PathParam("id") Long roundId) {
