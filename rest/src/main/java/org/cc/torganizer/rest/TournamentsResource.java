@@ -45,8 +45,6 @@ import org.cc.torganizer.rest.json.TournamentJsonConverter;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.eclipse.microprofile.openapi.annotations.enums.ParameterIn;
-import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 
 @Stateless
 @Path("/tournaments")
@@ -69,7 +67,7 @@ public class TournamentsResource extends AbstractResource {
 
   @Operation(operationId = "createTournament")
   @POST
-  public Response create(JsonObject jsonObject) {
+  public Response create(JsonObject jsonObject) throws ConstraintViolationException{
     Tournament tournament = tournamentConverter.toModel(jsonObject, new Tournament());
     // client can send '0' with a detached object exception as the result
     tournament.setId(null);
@@ -101,7 +99,7 @@ public class TournamentsResource extends AbstractResource {
 
   @Operation(operationId = "updateTournament")
   @PUT
-  public JsonObject update(JsonObject jsonObject) throws ConstraintViolationException{
+  public JsonObject update(JsonObject jsonObject) {
     Long id = Long.valueOf(jsonObject.get("id").toString());
     Tournament tournament = tournamentsRepo.read(id);
 

@@ -14,13 +14,13 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class ValidationExceptionMapperTest {
+class ConstraintViolationExceptionMapperTest {
 
-  private ValidationExceptionMapper mapper;
+  private ConstraintViolationExceptionMapper mapper;
 
   @BeforeEach
   public void beforeEach() {
-    mapper = new ValidationExceptionMapper();
+    mapper = new ConstraintViolationExceptionMapper();
   }
 
   @Test
