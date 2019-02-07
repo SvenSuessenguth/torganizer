@@ -44,6 +44,9 @@ import org.cc.torganizer.rest.json.SquadJsonConverter;
 import org.cc.torganizer.rest.json.TournamentJsonConverter;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Timed;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.enums.ParameterIn;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 
 @Stateless
 @Path("/tournaments")
@@ -64,6 +67,7 @@ public class TournamentsResource extends AbstractResource {
   @Inject
   private OpponentJsonConverterProvider opponentConverterProvider;
 
+  @Operation(operationId = "createTournament")
   @POST
   public Response create(JsonObject jsonObject) {
     Tournament tournament = tournamentConverter.toModel(jsonObject, new Tournament());
@@ -76,6 +80,7 @@ public class TournamentsResource extends AbstractResource {
     return Response.ok(tournamentConverter.toJsonObject(savedTournament)).build();
   }
 
+  @Operation(operationId = "readSingleTournament")
   @GET
   @Path("{id}")
   public JsonObject readSingle(@PathParam("id") Long id) {
@@ -83,6 +88,7 @@ public class TournamentsResource extends AbstractResource {
     return tournamentConverter.toJsonObject(tournament);
   }
 
+  @Operation(operationId = "readMultipleTournaments")
   @GET
   @Counted(monotonic = true)
   @Timed(absolute = true, unit = NANOSECONDS)
@@ -93,6 +99,7 @@ public class TournamentsResource extends AbstractResource {
     return tournamentConverter.toJsonArray(tournaments);
   }
 
+  @Operation(operationId = "updateTournament")
   @PUT
   public JsonObject update(JsonObject jsonObject) throws ConstraintViolationException{
     Long id = Long.valueOf(jsonObject.get("id").toString());
@@ -106,6 +113,7 @@ public class TournamentsResource extends AbstractResource {
     return tournamentConverter.toJsonObject(tournament);
   }
 
+  @Operation(operationId = "deleteTournament")
   @DELETE
   public JsonObject delete(JsonObject jsonObject) {
     Long id = Long.valueOf(jsonObject.get("id").toString());
@@ -139,6 +147,7 @@ public class TournamentsResource extends AbstractResource {
    * @return JasonArray with the assignable opponents
    */
   @SuppressWarnings("unchecked")
+  @Operation(operationId = "assignableOpponentsByTournament")
   @GET
   @Path("/{id}/assignable-opponents")
   public JsonArray getAssignableOpponents(@PathParam("id") Long tournamentId,
@@ -158,6 +167,7 @@ public class TournamentsResource extends AbstractResource {
     return converter.toJsonArray(opponents);
   }
 
+  @Operation(operationId = "addPlayerByTournament")
   @POST
   @Path("/{tid}/players")
   public JsonObject addPlayer(@PathParam("tid") Long tournamentId,
@@ -206,6 +216,7 @@ public class TournamentsResource extends AbstractResource {
     return squadConverter.toJsonArray(squads);
   }
 
+  @Operation(operationId = "getSquadsByTournament")
   @POST
   @Path("/{id}/squads")
   public JsonObject squads(@PathParam("id") Long tournamentId, @QueryParam("sid") Long squadId) {
