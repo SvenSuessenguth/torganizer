@@ -42,7 +42,7 @@
     <junit-jupiter.version>5.4.0</junit-jupiter.version>
     <junit-platform.version>1.3.0-RC1</junit-platform.version>
     <hamcrest-all.version>1.3</hamcrest-all.version>
-	<microprofile.version>2.2-RC1</microprofile.version>
+	<microprofile.version>2.2</microprofile.version>
     <mockito.version>2.24.0</mockito.version>
 
     <!-- plugin versions -->
