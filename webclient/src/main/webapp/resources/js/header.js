@@ -3,7 +3,7 @@
 let header = {
 
   onload : function onload(){
-    menue.update();
+    header.update();
   },
 
   update : function update(){

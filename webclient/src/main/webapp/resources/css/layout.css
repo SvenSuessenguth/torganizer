@@ -1,13 +1,12 @@
-body {
-    display: grid;
-    grid-template-columns: 20% 80%;
-    grid-column-gap: 1em;
-    background-color: beige;
-}
-
 header{
     background-color: aliceblue;
 }
 nav{
     background-color: antiquewhite;
+}
+main {
+    background-color: beige;
+}
+footer {
+    background-color: azure;
 }
