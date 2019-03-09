@@ -20,20 +20,20 @@
       <h:outputScript name="js/disciplines.js" target="head" />
 
       <h:outputScript name="js/crud2.js" target="head" />
-      <h:outputScript name="js/rounds2.js" target="head" />
+      <h:outputScript name="js/rounds.js" target="head" />
 
       <script src="./custom/opponents-table/opponents-table.js"></script>
 
       <label for="disciplines">#{text.disciplines}</label>
-      <select id="disciplines" onchange="rounds2.selectDiscipline()"/>
+      <select id="disciplines" onchange="rounds.selectDiscipline()"/>
 
       <span style="visibility: hidden" id="noGroupSpecified">#{text.addingOpponentNotPossible_noGroupSpecified}</span>
 
       <br />
       <label for="round">#{text.round}</label>
-      <input type="button" id="prevRound" disabled="disabled" value="&#9664;" onclick="rounds2.prevRound()" />
+      <input type="button" id="prevRound" disabled="disabled" value="&#9664;" onclick="rounds.prevRound()" />
       <span id="round" />
-      <input type="button" id="nextRound" disabled="disabled" value="&#9654;" onclick="rounds2.nextRound()" />
+      <input type="button" id="nextRound" disabled="disabled" value="&#9654;" onclick="rounds.nextRound()" />
       &#160;<h:outputText value="#{text.from}" />
       <span id="numberOfRounds" />
       <br /><br />
@@ -46,29 +46,29 @@
         </select>
       </label>
       <label for="qualified">#{text.qualified}<input id="qualified" value="" size="2" /></label>
-      <input id="save" type="button" value="#{text.save}" onclick="rounds2.save()" />
-      <input id="delete" type="button" value="#{text.delete}" onclick="rounds2.delete()" />
-      <input id="cancel" type="button" value="#{text.cancel}" onclick="rounds2.cancel()" />
+      <input id="save" type="button" value="#{text.save}" onclick="rounds.save()" />
+      <input id="delete" type="button" value="#{text.delete}" onclick="rounds.delete()" />
+      <input id="cancel" type="button" value="#{text.cancel}" onclick="rounds.cancel()" />
       <br /><br />
 
       <div>
         <opponents-table id="assignable" rows="5" data="[]" >
         </opponents-table>
-        <input type="submit" value="#{text.prev}" onclick="rounds2.prevAssignableOpponents()" />
-        <input type="submit" value="#{text.next}" onclick="rounds2.nextAssignableOpponents()" />
+        <input type="submit" value="#{text.prev}" onclick="rounds.prevAssignableOpponents()" />
+        <input type="submit" value="#{text.next}" onclick="rounds.nextAssignableOpponents()" />
       </div>
 
       <hr />
-      <input type="submit" value="${text.add}" onclick="rounds2.newGroup()" />
-      <input type="submit" value="${text.remove}" onclick="rounds2.deleteGroup()" />
-      <input type="submit" value="${text.assign}" onclick="rounds2.assignOpponents()" />
+      <input type="submit" value="${text.add}" onclick="rounds.newGroup()" />
+      <input type="submit" value="${text.remove}" onclick="rounds.deleteGroup()" />
+      <input type="submit" value="${text.assign}" onclick="rounds.assignOpponents()" />
 
       <hr />
       <div id="groups">
       </div>
 
       <script type="text/javascript">
-        rounds2.onload();
+        rounds.onload();
       </script>
     </ui:define>
   </ui:composition>

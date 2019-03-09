@@ -270,6 +270,13 @@ class Rounds {
     this.crud.delete(url, undefined, this.updateGroups.bind(this));
   }
 
+  //--------------------------------------------------------------------------------------- assign opponents to groups -
+  assignOpponents(){
+    let roundId = sessionStorage.getItem("rounds.round.id");
+
+    console.log("assign opponents to groups of roound "+roundId);
+  }
+
   //--------------------------------------------------------------------------------------------------------------------
   //
   //                                                                                  converting round form/to json/form
@@ -310,4 +317,4 @@ class Rounds {
   }
 }
 
-let rounds2 = new Rounds();
+let rounds = new Rounds();
