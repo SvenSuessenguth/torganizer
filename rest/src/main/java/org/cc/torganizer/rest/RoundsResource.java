@@ -4,7 +4,6 @@ import static org.cc.torganizer.rest.json.ModelJsonConverter.emptyArray;
 
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.json.Json;
