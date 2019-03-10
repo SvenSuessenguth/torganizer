@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.ws.rs.DELETE;
@@ -144,5 +145,13 @@ public class RoundsResource extends AbstractResource {
     }
 
     return result;
+  }
+
+  @Operation(operationId = "autoAssignOpponents")
+  @POST
+  @Path("/{id}/auto-assign-opponents")
+  public Response autoAssignOpponents(@PathParam("id") Long roundId) {
+    System.out.println("auto-assign-opponents for round " + roundId);
+    return Response.ok(Json.createObjectBuilder().build()).build();
   }
 }

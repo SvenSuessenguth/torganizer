@@ -67,7 +67,7 @@ public class TournamentsResource extends AbstractResource {
 
   @Operation(operationId = "createTournament")
   @POST
-  public Response create(JsonObject jsonObject) throws ConstraintViolationException{
+  public Response create(JsonObject jsonObject) throws ConstraintViolationException {
     Tournament tournament = tournamentConverter.toModel(jsonObject, new Tournament());
     // client can send '0' with a detached object exception as the result
     tournament.setId(null);

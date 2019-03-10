@@ -131,7 +131,7 @@ class Rounds {
       eGroups.removeChild(eGroups.firstChild);
     }
 
-    // show groups
+    // show groups incl. opponents
     if(jGroups.length>0) {
       jGroups.forEach(function (jGroup) {
         eGroups.appendChild(document.createElement("opponents-table",))
@@ -273,8 +273,11 @@ class Rounds {
   //--------------------------------------------------------------------------------------- assign opponents to groups -
   assignOpponents(){
     let roundId = sessionStorage.getItem("rounds.round.id");
+    let url= resourcesUrl() + `rounds/${roundId}/auto-assign-opponents`;
 
     console.log("assign opponents to groups of roound "+roundId);
+
+    this.crud.post(url, undefined, this.updateGroups.bind(this));
   }
 
   //--------------------------------------------------------------------------------------------------------------------
