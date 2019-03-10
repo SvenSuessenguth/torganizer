@@ -4,6 +4,7 @@ import static org.cc.torganizer.rest.json.ModelJsonConverter.emptyArray;
 
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -151,7 +152,6 @@ public class RoundsResource extends AbstractResource {
   @POST
   @Path("/{id}/auto-assign-opponents")
   public Response autoAssignOpponents(@PathParam("id") Long roundId) {
-    System.out.println("auto-assign-opponents for round " + roundId);
     return Response.ok(Json.createObjectBuilder().build()).build();
   }
 }
