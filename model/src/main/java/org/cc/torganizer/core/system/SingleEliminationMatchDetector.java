@@ -140,8 +140,8 @@ public class SingleEliminationMatchDetector extends AbstractPendingMatchDetector
     int startIndexOnLevel0 = getGroup().getOpponents().size() / 2 - 1;
 
     for (int index = 0; index < m; index += 1) {
-      Match m0 = getMatch(2 * index + 1, pendingMatches);
-      Match m1 = getMatch(2 * index + 2, pendingMatches);
+      Match m0 = getUpperBracketsMatch(2 * index + 1, pendingMatches);
+      Match m1 = getUpperBracketsMatch(2 * index + 2, pendingMatches);
 
       // Ein Match mit diesem Index existiert noch nicht
       if (getGroup().getMatch(index) == null) {
@@ -158,7 +158,7 @@ public class SingleEliminationMatchDetector extends AbstractPendingMatchDetector
           Match match = new Match();
           match.setPosition(index);
 
-          assignOpponentsToMatch(match);
+          assignUpperBracketOpponentsToMatch(match);
           pendingMatches.add(match);
         }
       }
@@ -176,7 +176,7 @@ public class SingleEliminationMatchDetector extends AbstractPendingMatchDetector
    * @return vorhandenes Match mit dem geforderten Index oder neues Match mit
    *     unbekannten Opponents
    */
-  protected Match getMatch(int matchIndex, List<Match> matches) {
+  protected Match getUpperBracketsMatch(int matchIndex, List<Match> matches) {
 
     for (Match match : matches) {
       if (match.getPosition().equals(matchIndex)) {
@@ -200,7 +200,7 @@ public class SingleEliminationMatchDetector extends AbstractPendingMatchDetector
    *
    * @param match Match, dem die Opponents zugewiesen werden sollen
    */
-  protected void assignOpponentsToMatch(Match match) {
+  protected void assignUpperBracketOpponentsToMatch(Match match) {
 
     int index = 2 * (match.getPosition() + 1) - getGroup().getOpponents().size();
 
@@ -216,7 +216,7 @@ public class SingleEliminationMatchDetector extends AbstractPendingMatchDetector
    *
    * @return Anzahl der Level bis zum Finale
    */
-  public int getNumberOfLevels() {
+  public int getUpperBracketsNumberOfLevels() {
     // Gruppe ist null oder keine Opponents
     if (getGroup() == null || getGroup().getOpponents().isEmpty()) {
       return 0;
@@ -241,9 +241,9 @@ public class SingleEliminationMatchDetector extends AbstractPendingMatchDetector
    * @return Liste der Loser. Diese Liste enthaelt auch NULL-Values, wenn ein
    *     Match unbekannt ist oder noch nicht abgeschlossen ist.
    */
-  protected final List<Opponent> getLosersOnLevel(int level) {
+  protected final List<Opponent> getUpperBracketLosersOnLevel(int level) {
     List<Opponent> losersOnLevel = new ArrayList<>();
-    List<Match> matchesOnLevel = getMatchesOnLevel(level);
+    List<Match> matchesOnLevel = getUpperBracketMatchesOnLevel(level);
 
     for (Match match : matchesOnLevel) {
       if (match != null) {
@@ -273,11 +273,11 @@ public class SingleEliminationMatchDetector extends AbstractPendingMatchDetector
    * @param level Level
    * @return a {@link java.util.List} object.
    */
-  protected List<Match> getMatchesOnLevel(int level) {
+  protected List<Match> getUpperBracketMatchesOnLevel(int level) {
     List<Match> matches = new ArrayList<>();
 
-    int startIndex = getStartIndex(level);
-    int endIndex = getEndIndex(level);
+    int startIndex = getUpperBracketStartIndex(level);
+    int endIndex = getUpperBracketEndIndex(level);
     for (int index = startIndex; index <= endIndex; index += 1) {
       matches.add(getGroup().getMatch(index));
     }
@@ -292,8 +292,8 @@ public class SingleEliminationMatchDetector extends AbstractPendingMatchDetector
    * @param level Level
    * @return Startindex
    */
-  public int getStartIndex(int level) {
-    double maxLevel = getNumberOfLevels();
+  public int getUpperBracketStartIndex(int level) {
+    double maxLevel = getUpperBracketsNumberOfLevels();
     return (int) (Math.pow(2, maxLevel - level - 1) - 1);
   }
 
@@ -304,8 +304,8 @@ public class SingleEliminationMatchDetector extends AbstractPendingMatchDetector
    * @param level Level
    * @return Endindex
    */
-  public int getEndIndex(int level) {
-    double maxLevel = getNumberOfLevels();
+  public int getUpperBracketEndIndex(int level) {
+    double maxLevel = getUpperBracketsNumberOfLevels();
     return (int) (Math.pow(2, maxLevel - level) - 2);
   }
 }

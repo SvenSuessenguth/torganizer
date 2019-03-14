@@ -71,10 +71,8 @@ import org.cc.torganizer.core.util.Checker;
  * @see <a
  *     href="https://groups.google.com/forum/?fromgroups#!topic/rec.sport.table-soccer/CCUadSrQymk">rec.sport.table-soccer</a>
  */
-public class DoubleEliminationMatchDetector extends AbstractPendingMatchDetector
+public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetector
     implements PendingMatchDetector {
-
-  private final SingleEliminationMatchDetector semd;
 
   /**
    * Konstruktor mit Angabe zur Group.
@@ -84,7 +82,6 @@ public class DoubleEliminationMatchDetector extends AbstractPendingMatchDetector
    */
   public DoubleEliminationMatchDetector(Group group) {
     super(group);
-    semd = new SingleEliminationMatchDetector(group);
   }
 
   @Override
@@ -93,7 +90,7 @@ public class DoubleEliminationMatchDetector extends AbstractPendingMatchDetector
     List<Match> pendingMatches = new ArrayList<>();
 
     // Upper und Lower Bracket
-    List<Match> pendingMatchesUpperBracket = semd.getPendingMatches();
+    List<Match> pendingMatchesUpperBracket = super.getPendingMatches();
     List<Match> pendingMatchesLowerBracket = getPendingMatchesLowerBracket();
     pendingMatches.addAll(pendingMatchesUpperBracket);
     pendingMatches.addAll(pendingMatchesLowerBracket);
@@ -143,7 +140,7 @@ public class DoubleEliminationMatchDetector extends AbstractPendingMatchDetector
     List<Match> pendingMatches = new ArrayList<>();
 
     // Anzahl der Level
-    long maxLevel = semd.getNumberOfLevels() * 2L;
+    long maxLevel = super.getUpperBracketsNumberOfLevels() * 2L;
     // Matches der jeweiligen Level ermitteln
     for (int level = 0; level <= maxLevel; level += 1) {
       List<Match> matchesOnLevel = getMatchesOnLevel(level);
@@ -174,7 +171,7 @@ public class DoubleEliminationMatchDetector extends AbstractPendingMatchDetector
       // umsortierte Verlierer aus dem Level '(l+1)/2' aus dem Upper Bracket
       // mit den Gewinnern des Levels 'l-1' aus dem Lower Bracket
       int splitFactor = (int) (Math.pow(2.0, level));
-      List<Opponent> tmp = semd.getLosersOnLevel((level + 1) / 2);
+      List<Opponent> tmp = super.getUpperBracketLosersOnLevel((level + 1) / 2);
       List<Opponent> ubl = orderUpperBracketLosers(tmp, splitFactor, 1);
       List<Opponent> lbw = getWinnersOnLevel(level - 1);
 
@@ -209,7 +206,7 @@ public class DoubleEliminationMatchDetector extends AbstractPendingMatchDetector
 
     int level = 0;
     List<Match> matches = new ArrayList<>();
-    List<Opponent> losers = semd.getLosersOnLevel(level);
+    List<Opponent> losers = super.getUpperBracketLosersOnLevel(level);
     for (int i = 0; i < losers.size() - 1; i += 2) {
       Opponent home = losers.get(i);
       Opponent guest = losers.get(i + 1);
@@ -465,6 +462,5 @@ public class DoubleEliminationMatchDetector extends AbstractPendingMatchDetector
   @Override
   public void setGroup(Group newGroup) {
     super.setGroup(newGroup);
-    semd.setGroup(newGroup);
   }
 }

@@ -92,7 +92,7 @@ public class SingleEliminationMatchDetectorTest {
 		g.setOpponents(o);
 		semd.setGroup(g);
 
-		assertThat(semd.getNumberOfLevels(), is(3));
+		assertThat(semd.getUpperBracketsNumberOfLevels(), is(3));
 	}
 
 	@Test
@@ -106,7 +106,7 @@ public class SingleEliminationMatchDetectorTest {
 		g.setOpponents(o);
 		semd.setGroup(g);
 
-		assertThat(semd.getNumberOfLevels(), is(7));
+		assertThat(semd.getUpperBracketsNumberOfLevels(), is(7));
 	}
 
 	@Test
@@ -120,7 +120,7 @@ public class SingleEliminationMatchDetectorTest {
 		g.setOpponents(o);
 		semd.setGroup(g);
 
-		assertThat(semd.getNumberOfLevels(), is(0));
+		assertThat(semd.getUpperBracketsNumberOfLevels(), is(0));
 	}
 
 	@Test
@@ -134,7 +134,7 @@ public class SingleEliminationMatchDetectorTest {
 		g.setOpponents(o);
 		semd.setGroup(g);
 
-		assertThat(semd.getNumberOfLevels(), is(1));
+		assertThat(semd.getUpperBracketsNumberOfLevels(), is(1));
 	}
 
 	@Test
@@ -186,21 +186,21 @@ public class SingleEliminationMatchDetectorTest {
 		semd.setGroup(group);
 
 		// Level 0 -> Matches mit Index 31 bis 62
-		List<Match> level0 = semd.getMatchesOnLevel(0);
+		List<Match> level0 = semd.getUpperBracketMatchesOnLevel(0);
 		assertThat(level0, hasSize(32));
 		for (int index = 31; index <= 62; index += 1) {
 			assertThat(listContainsMatchWithIndex(level0, index), is(true));
 		}
 
 		// Level 1 -> Matches mit Index 15 bis 30
-		List<Match> level1 = semd.getMatchesOnLevel(1);
+		List<Match> level1 = semd.getUpperBracketMatchesOnLevel(1);
 		assertThat(level1, hasSize(16));
 		for (int index = 15; index <= 30; index += 1) {
 			assertThat(listContainsMatchWithIndex(level1, index), is(true));
 		}
 
 		// Level 2 -> Matches mit Index 7 bis 14
-		List<Match> level2 = semd.getMatchesOnLevel(2);
+		List<Match> level2 = semd.getUpperBracketMatchesOnLevel(2);
 		assertThat(level2, hasSize(8));
 		for (int index = 7; index <= 14; index += 1) {
 			assertThat(listContainsMatchWithIndex(level2, index), is(true));
@@ -282,7 +282,7 @@ public class SingleEliminationMatchDetectorTest {
 		semd.setGroup(group);
 
 		// Verlierer auf Level 0 sind: 1, 3, 4, null
-		List<Opponent> losersOnLevel0 = semd.getLosersOnLevel(0);
+		List<Opponent> losersOnLevel0 = semd.getUpperBracketLosersOnLevel(0);
 
 		assertThat(losersOnLevel0, hasSize(4));
 		assertThat(((Player) losersOnLevel0.get(0)).getPerson().getFirstName(), is("1"));
@@ -292,13 +292,13 @@ public class SingleEliminationMatchDetectorTest {
 
 
 		// Verlierer auf Level 1 sind: 0, null
-		List<Opponent> losersOnLevel1 = semd.getLosersOnLevel(1);
+		List<Opponent> losersOnLevel1 = semd.getUpperBracketLosersOnLevel(1);
 		assertThat(losersOnLevel1, hasSize(2));
 		assertThat(((Player) losersOnLevel1.get(0)).getPerson().getFirstName(), is("0"));
 		assertThat(losersOnLevel1.get(1), is(nullValue()));
 
 		// Verlierer auf Level 2 sind: null
-		List<Opponent> losersOnLevel2 = semd.getLosersOnLevel(2);
+		List<Opponent> losersOnLevel2 = semd.getUpperBracketLosersOnLevel(2);
 		assertThat(losersOnLevel2, hasSize(1));
 		assertThat(losersOnLevel2.get(0), is(nullValue()));
 	}
@@ -311,10 +311,10 @@ public class SingleEliminationMatchDetectorTest {
 		when(group.getOpponents()).thenReturn(list);
 		semd.setGroup(group);
 
-		assertThat(semd.getStartIndex(0), is(7));
-		assertThat(semd.getStartIndex(1), is(3));
-		assertThat(semd.getStartIndex(2), is(1));
-		assertThat(semd.getStartIndex(3),is(0));
+		assertThat(semd.getUpperBracketStartIndex(0), is(7));
+		assertThat(semd.getUpperBracketStartIndex(1), is(3));
+		assertThat(semd.getUpperBracketStartIndex(2), is(1));
+		assertThat(semd.getUpperBracketStartIndex(3),is(0));
 	}
 
 	@Test
@@ -325,9 +325,9 @@ public class SingleEliminationMatchDetectorTest {
 		when(group.getOpponents()).thenReturn(list);
 		semd.setGroup(group);
 
-		assertThat(semd.getEndIndex(0), is(14));
-		assertThat(semd.getEndIndex(1), is(6));
-		assertThat(semd.getEndIndex(2), is(2));
-		assertThat(semd.getEndIndex(3),is(0));
+		assertThat(semd.getUpperBracketEndIndex(0), is(14));
+		assertThat(semd.getUpperBracketEndIndex(1), is(6));
+		assertThat(semd.getUpperBracketEndIndex(2), is(2));
+		assertThat(semd.getUpperBracketEndIndex(3),is(0));
 	}
 }
