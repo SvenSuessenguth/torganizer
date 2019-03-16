@@ -19,10 +19,12 @@ public class RoundRobinMatchDetectorTest {
   private List<Opponent> players;
   private List<Opponent> teams;
 
+  private Group group;
+
   @BeforeEach
   public void before() {
-    Group group = new Group();
-    rrmd = new RoundRobinMatchDetector(group);
+    group = new Group();
+    rrmd = new RoundRobinMatchDetector();
 
     // 5 player
     players = new ArrayList<>();
@@ -48,11 +50,11 @@ public class RoundRobinMatchDetectorTest {
     rrmd = null;
     players = null;
     teams = null;
+    group = null;
   }
 
   @Test
   public void testMatchIndex() {
-    Group group = rrmd.getGroup();
     group.addOpponent(new Player("a", "a"));
     group.addOpponent(new Player("b", "b"));
     group.addOpponent(new Player("c", "c"));
@@ -62,7 +64,7 @@ public class RoundRobinMatchDetectorTest {
      * b:c -> 2
      */
 
-    List<Match> matches = rrmd.getPendingMatches();
+    List<Match> matches = rrmd.getPendingMatches(group);
 
     assertThat(matches.get(0).getPosition().intValue(), is(1));
     assertThat(matches.get(1).getPosition().intValue(), is(2));
@@ -71,28 +73,25 @@ public class RoundRobinMatchDetectorTest {
 
   @Test
   public void testGetPendingMatches() {
-    Group group = rrmd.getGroup();
     for (Opponent opponent : players) {
       group.addOpponent(opponent);
     }
 
-    Match m0 = rrmd.getPendingMatches().get(0);
+    Match m0 = rrmd.getPendingMatches(group).get(0);
     m0.addResult(new Result(0, 1, 0));
     m0.setFinishedTime(LocalDateTime.now());
     m0.setRunning(false);
     group.getMatches().add(m0);
 
-    assertThat(rrmd.getPendingMatches(), hasSize(9));
+    assertThat(rrmd.getPendingMatches(group), hasSize(9));
   }
 
   @Test
   public void testGetPendingMatchesFromScratch() {
     // bisher sind noch keine Matches gespielt worden    
-    // Group mit 5 Player -> 4+3+2+1 = 10 Spiele 
-    Group group = rrmd.getGroup();
     for (Opponent opponent : players) {
       group.addOpponent(opponent);
     }
-    assertThat(rrmd.getPendingMatches(), hasSize(10));
+    assertThat(rrmd.getPendingMatches(group), hasSize(10));
   }
 }

@@ -2,7 +2,9 @@ package org.cc.torganizer.core.system;
 
 import java.util.List;
 
+import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Match;
+import org.cc.torganizer.core.entities.System;
 
 /**
  * Die verbleibenden Spiele werden je nach System aus den bisherigen
@@ -17,6 +19,7 @@ public interface PendingMatchDetector {
    *
    * @return Liste der verbleibenden Matches
    */
-  List<Match> getPendingMatches();
+  List<Match> getPendingMatches(Group group);
+  System getSystem();
 
 }

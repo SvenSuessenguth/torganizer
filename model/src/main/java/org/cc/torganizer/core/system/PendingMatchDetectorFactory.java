@@ -1,48 +1,35 @@
 package org.cc.torganizer.core.system;
 
+import java.util.Objects;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Instance;
+
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.System;
 
 /**
  * Factory class to find the {@link PendingMatchDetector} to a given {@link System}.
  */
+@ApplicationScoped
 public class PendingMatchDetectorFactory {
 
-  /**
-   * Default.
-   */
-  public PendingMatchDetectorFactory() {
-    // gem. Bean-Spec.
-  }
+  private Instance<PendingMatchDetector> detectors;
 
   /**
    * Gibt den zu dem System passenden PendingMatchDetector zurueck.
    *
    * @param system System
-   * @param group  Group
    * @return PendingMatchDetector
    */
-  public PendingMatchDetector getPendingMatchDetector(System system, Group group) {
-    if (system == null) {
-      throw new IllegalArgumentException("system can not be null");
+  public PendingMatchDetector getPendingMatchDetector(System system) throws MissingPendingMatchDetectorException{
+
+    for(PendingMatchDetector detector : detectors){
+      if(Objects.equals(system, detector.getSystem())){
+        return detector;
+      }
     }
 
-    PendingMatchDetector pendingMatchDetector;
+    throw new MissingPendingMatchDetectorException(system);
 
-    switch (system) {
-      case ROUND_ROBIN:
-        pendingMatchDetector = new RoundRobinMatchDetector(group);
-        break;
-      case DOUBLE_ELIMINATION:
-        pendingMatchDetector = new DoubleEliminationMatchDetector(group);
-        break;
-      case SINGLE_ELIMINATION:
-        pendingMatchDetector = new SingleEliminationMatchDetector(group);
-        break;
-      default:
-        pendingMatchDetector = null;
-    }
-
-    return pendingMatchDetector;
   }
 }

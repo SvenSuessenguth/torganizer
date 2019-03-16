@@ -6,6 +6,7 @@ import java.util.List;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Match;
 import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.System;
 import org.cc.torganizer.core.entities.Unknown;
 
 /**
@@ -113,20 +114,10 @@ import org.cc.torganizer.core.entities.Unknown;
  * </tbody>
  * </table>
  */
-public class SingleEliminationMatchDetector extends AbstractPendingMatchDetector
-    implements PendingMatchDetector {
-
-  /**
-   * Konstruktor mit Angabe zu welcher Group die Berechnung erfolgen soll.
-   *
-   * @param group Gruppe, auf die die Regeln angewendet werden sollen.
-   */
-  public SingleEliminationMatchDetector(Group group) {
-    super(group);
-  }
+public class SingleEliminationMatchDetector implements PendingMatchDetector {
 
   @Override
-  public List<Match> getPendingMatches() {
+  public List<Match> getPendingMatches(Group group) {
 
     List<Match> pendingMatches = new ArrayList<>();
 
@@ -136,15 +127,15 @@ public class SingleEliminationMatchDetector extends AbstractPendingMatchDetector
     // Der Index wird von rechts nach links vergeben
     // Dadurch wird es einfach die Vorgaengerspiele zu ermitteln (i+1, i+2)
     // Anzahl der Matches im upper/winner bracket
-    int m = getGroup().getOpponents().size() - 1;
-    int startIndexOnLevel0 = getGroup().getOpponents().size() / 2 - 1;
+    int m = group.getOpponents().size() - 1;
+    int startIndexOnLevel0 = group.getOpponents().size() / 2 - 1;
 
     for (int index = 0; index < m; index += 1) {
-      Match m0 = getUpperBracketsMatch(2 * index + 1, pendingMatches);
-      Match m1 = getUpperBracketsMatch(2 * index + 2, pendingMatches);
+      Match m0 = getUpperBracketsMatch(2 * index + 1, pendingMatches, group);
+      Match m1 = getUpperBracketsMatch(2 * index + 2, pendingMatches, group);
 
       // Ein Match mit diesem Index existiert noch nicht
-      if (getGroup().getMatch(index) == null) {
+      if (group.getMatch(index) == null) {
 
         // Match findet nicht auf level-0 statt
         if (index < startIndexOnLevel0) {
@@ -158,7 +149,7 @@ public class SingleEliminationMatchDetector extends AbstractPendingMatchDetector
           Match match = new Match();
           match.setPosition(index);
 
-          assignUpperBracketOpponentsToMatch(match);
+          assignUpperBracketOpponentsToMatch(match, group);
           pendingMatches.add(match);
         }
       }
@@ -176,7 +167,7 @@ public class SingleEliminationMatchDetector extends AbstractPendingMatchDetector
    * @return vorhandenes Match mit dem geforderten Index oder neues Match mit
    *     unbekannten Opponents
    */
-  protected Match getUpperBracketsMatch(int matchIndex, List<Match> matches) {
+  protected Match getUpperBracketsMatch(int matchIndex, List<Match> matches, Group group) {
 
     for (Match match : matches) {
       if (match.getPosition().equals(matchIndex)) {
@@ -184,7 +175,7 @@ public class SingleEliminationMatchDetector extends AbstractPendingMatchDetector
       }
     }
 
-    for (Match match : getGroup().getMatches()) {
+    for (Match match : group.getMatches()) {
       if (match.getPosition().equals(matchIndex)) {
         return match;
       }
@@ -200,12 +191,12 @@ public class SingleEliminationMatchDetector extends AbstractPendingMatchDetector
    *
    * @param match Match, dem die Opponents zugewiesen werden sollen
    */
-  protected void assignUpperBracketOpponentsToMatch(Match match) {
+  protected void assignUpperBracketOpponentsToMatch(Match match, Group group) {
 
-    int index = 2 * (match.getPosition() + 1) - getGroup().getOpponents().size();
+    int index = 2 * (match.getPosition() + 1) - group.getOpponents().size();
 
-    Opponent home = getGroup().getPositionalOpponent(index).getOpponent();
-    Opponent guest = getGroup().getPositionalOpponent(index + 1).getOpponent();
+    Opponent home = group.getPositionalOpponent(index).getOpponent();
+    Opponent guest = group.getPositionalOpponent(index + 1).getOpponent();
 
     match.setHome(home);
     match.setGuest(guest);
@@ -216,15 +207,10 @@ public class SingleEliminationMatchDetector extends AbstractPendingMatchDetector
    *
    * @return Anzahl der Level bis zum Finale
    */
-  public int getUpperBracketsNumberOfLevels() {
-    // Gruppe ist null oder keine Opponents
-    if (getGroup() == null || getGroup().getOpponents().isEmpty()) {
-      return 0;
-    }
+  public int getUpperBracketsNumberOfLevels(int groupSize) {
 
     // Gruppe hat Opponents
-    int n = getGroup().getOpponents().size();
-    long levels = Math.round(Math.log10(n) / Math.log10(2));
+    long levels = Math.round(Math.log10(groupSize) / Math.log10(2));
 
     return (int) levels;
   }
@@ -241,9 +227,9 @@ public class SingleEliminationMatchDetector extends AbstractPendingMatchDetector
    * @return Liste der Loser. Diese Liste enthaelt auch NULL-Values, wenn ein
    *     Match unbekannt ist oder noch nicht abgeschlossen ist.
    */
-  protected final List<Opponent> getUpperBracketLosersOnLevel(int level) {
+  protected final List<Opponent> getUpperBracketLosersOnLevel(int level, Group group) {
     List<Opponent> losersOnLevel = new ArrayList<>();
-    List<Match> matchesOnLevel = getUpperBracketMatchesOnLevel(level);
+    List<Match> matchesOnLevel = getUpperBracketMatchesOnLevel(level, group);
 
     for (Match match : matchesOnLevel) {
       if (match != null) {
@@ -273,13 +259,15 @@ public class SingleEliminationMatchDetector extends AbstractPendingMatchDetector
    * @param level Level
    * @return a {@link java.util.List} object.
    */
-  protected List<Match> getUpperBracketMatchesOnLevel(int level) {
+  protected List<Match> getUpperBracketMatchesOnLevel(int level, Group group) {
     List<Match> matches = new ArrayList<>();
 
-    int startIndex = getUpperBracketStartIndex(level);
-    int endIndex = getUpperBracketEndIndex(level);
+    int groupSize = group.getOpponents().size();
+
+    int startIndex = getUpperBracketStartIndex(level, groupSize);
+    int endIndex = getUpperBracketEndIndex(level, groupSize);
     for (int index = startIndex; index <= endIndex; index += 1) {
-      matches.add(getGroup().getMatch(index));
+      matches.add(group.getMatch(index));
     }
 
     return matches;
@@ -292,8 +280,8 @@ public class SingleEliminationMatchDetector extends AbstractPendingMatchDetector
    * @param level Level
    * @return Startindex
    */
-  public int getUpperBracketStartIndex(int level) {
-    double maxLevel = getUpperBracketsNumberOfLevels();
+  public int getUpperBracketStartIndex(int level, int groupSize) {
+    double maxLevel = getUpperBracketsNumberOfLevels(groupSize);
     return (int) (Math.pow(2, maxLevel - level - 1) - 1);
   }
 
@@ -304,8 +292,13 @@ public class SingleEliminationMatchDetector extends AbstractPendingMatchDetector
    * @param level Level
    * @return Endindex
    */
-  public int getUpperBracketEndIndex(int level) {
-    double maxLevel = getUpperBracketsNumberOfLevels();
+  public int getUpperBracketEndIndex(int level, int groupSize) {
+    double maxLevel = getUpperBracketsNumberOfLevels(groupSize);
     return (int) (Math.pow(2, maxLevel - level) - 2);
+  }
+
+  @Override
+  public System getSystem(){
+    return System.SINGLE_ELIMINATION;
   }
 }

@@ -1,19 +1,28 @@
 package org.cc.torganizer.core.system;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import javax.enterprise.inject.Instance;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
+@ExtendWith(MockitoExtension.class)
 public class PendingMatchDetectorFactoryTest {
-  PendingMatchDetectorFactory factory;
+
+  @Mock
+  private Instance<PendingMatchDetector> detectors;
+
+  @InjectMocks
+  private PendingMatchDetectorFactory factory;
 
   @BeforeEach
   public void before() {
-    factory = new PendingMatchDetectorFactory();
   }
 
   @AfterEach
@@ -21,18 +30,12 @@ public class PendingMatchDetectorFactoryTest {
     factory = null;
   }
 
-  @Test
-  public void testGetMatchMaker() {
-
-    for (org.cc.torganizer.core.entities.System system : org.cc.torganizer.core.entities.System.values()) {
-      assertThat(factory.getPendingMatchDetector(system, null), is(not(nullValue())));
-    }
-  }
 
   @Test
   public void testGetMatchMakerNull() {
-    assertThrows(IllegalArgumentException.class, ()-> {
-      factory.getPendingMatchDetector(null, null);
+    // Instances ist noch nicht instanziiert
+    assertThrows(NullPointerException.class, ()-> {
+      factory.getPendingMatchDetector(null);
     });
   }
 }
