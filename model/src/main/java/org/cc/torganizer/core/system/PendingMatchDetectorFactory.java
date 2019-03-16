@@ -4,7 +4,6 @@ import java.util.Objects;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Instance;
 
-import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.System;
 
 /**
@@ -21,7 +20,7 @@ public class PendingMatchDetectorFactory {
    * @param system System
    * @return PendingMatchDetector
    */
-  public PendingMatchDetector getPendingMatchDetector(System system) throws MissingPendingMatchDetectorException{
+  public PendingMatchDetector getPendingMatchDetector(System system) {
 
     for(PendingMatchDetector detector : detectors){
       if(Objects.equals(system, detector.getSystem())){
