@@ -3,7 +3,6 @@ package org.cc.torganizer.core;
 import java.util.Objects;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Instance;
-import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
 import org.cc.torganizer.core.entities.System;

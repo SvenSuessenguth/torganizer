@@ -18,7 +18,6 @@ import javax.ws.rs.QueryParam;
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.persistence.ClubsRepository;
 import org.cc.torganizer.rest.json.ClubJsonConverter;
-import org.eclipse.microprofile.openapi.annotations.Operation;
 
 @Stateless
 @Path("/clubs")
