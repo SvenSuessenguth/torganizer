@@ -1,7 +1,6 @@
 package org.cc.torganizer.core.doubleelimination;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
@@ -21,22 +20,22 @@ import org.junit.jupiter.api.Test;
 /**
  * @author svens
  */
-public class DoubleEliminationMatchDetectorTest {
+class DoubleEliminationMatchDetectorTest {
 
 	private DoubleEliminationMatchDetector demd;
 
 	@BeforeEach
-	public void before() {
+	void before() {
 		demd = new DoubleEliminationMatchDetector();
 	}
 
 	@AfterEach
-	public void after() {
+	void after() {
 		demd = null;
 	}
 
 	@Test
-	public void testCreatePendingMatchWithNull() {
+	void testCreatePendingMatchWithNull() {
 
     assertThrows(NullPointerException.class, ()-> {
       demd.createPendingMatch(0, 0, null, new Player(), null);
@@ -44,7 +43,7 @@ public class DoubleEliminationMatchDetectorTest {
 	}
 
 	@Test
-	public void testCreatePendingMatch() {
+	void testCreatePendingMatch() {
 		Group group = new Group();
 		for (int i = 0; i < 4; i++) {
 			group.addOpponent(new Player());
@@ -56,7 +55,7 @@ public class DoubleEliminationMatchDetectorTest {
 	}
 
 	@Test
-	public void testAddMatchToListNull() {
+	void testAddMatchToListNull() {
 		List<Match> matches = new ArrayList<>();
 		demd.addMatchToList(matches, null);
 
@@ -64,7 +63,7 @@ public class DoubleEliminationMatchDetectorTest {
 	}
 
 	@Test
-	public void testAddMatchToList() {
+	void testAddMatchToList() {
 		List<Match> matches = new ArrayList<>();
 		demd.addMatchToList(matches, new Match());
 
@@ -72,13 +71,13 @@ public class DoubleEliminationMatchDetectorTest {
 	}
 
 	@Test
-	public void testIsFirstLevel() {
+	void testIsFirstLevel() {
     assertThat(demd.isFirstLevel(0)).isTrue();
     assertThat(demd.isFirstLevel(1)).isFalse();
 	}
 
 	@Test
-	public void testHasToMixUpperLowerBracket() {
+	void testHasToMixUpperLowerBracket() {
 		assertThat(demd.hasToMixUpperLowerBracket(0)).isFalse();
 		assertThat(demd.hasToMixUpperLowerBracket(1)).isTrue();
 		assertThat(demd.hasToMixUpperLowerBracket(2)).isFalse();
@@ -86,14 +85,14 @@ public class DoubleEliminationMatchDetectorTest {
 	}
 
 	@Test
-	public void testCountMatchesUpToLevel_32_0() {
+	void testCountMatchesUpToLevel_32_0() {
 
 		// 32 Opponents -> 16 Loser -> 8 Matches
 		assertThat(demd.countMatchesUpToLevel(0, 32)).isEqualTo(8);
 	}
 
 	@Test
-	public void testCountMatchesOnLevel() {
+	void testCountMatchesOnLevel() {
 		assertThat(demd.countMatchesOnLevel(0, 16)).isEqualTo(4);
 		assertThat(demd.countMatchesOnLevel(1, 16)).isEqualTo(4);
 		assertThat(demd.countMatchesOnLevel(2, 16)).isEqualTo(2);
@@ -101,17 +100,17 @@ public class DoubleEliminationMatchDetectorTest {
 	}
 
 	@Test
-	public void testCountMatchesOnLevelNull() {
+	void testCountMatchesOnLevelNull() {
 	  assertThat(demd.countMatchesOnLevel(-1, 16)).isEqualTo(0);
 	}
 
 	@Test
-	public void testCountMatchesUpToLevel_16_3() {
+	void testCountMatchesUpToLevel_16_3() {
 		assertThat(demd.countMatchesUpToLevel(3, 16)).isEqualTo(12);
 	}
 
 	@Test
-	public void testGetMatchIndex() {
+	void testGetMatchIndex() {
 		// Gruppe mit 16 Opponents
 		// 16=Opponents, Level=0, LevelIndex=0 -> matchIndex = 15
 		int matchIndex = demd.getMatchIndex(0, 0, 16);
@@ -123,7 +122,7 @@ public class DoubleEliminationMatchDetectorTest {
 	}
 
 	@Test
-	public void testGetMatchIndexNullNull() {
+	void testGetMatchIndexNullNull() {
 		// 16 Opponents -> 15 Matches im Upper Level (index = 14)
 		// Index im Lower Bracket beginnt mit 15
 		assertThat(demd.getMatchIndex(0, 0, 16)).isEqualTo(15);
@@ -137,13 +136,13 @@ public class DoubleEliminationMatchDetectorTest {
 	 * [1, 2]
 	 */
 	@Test
-	public void testOrderUpperBracketLosers() {
+	void testOrderUpperBracketLosers() {
 
 		// 64 Opponents -> 32 auf Level 1 der Verlierer
 		int players = 32;
 		int level = 3;
-		int playersInRound = new Double(players / Math.pow(2, level - 1)).intValue();
-		int splitFactor = new Double(Math.pow(2.0, level - 1.0)).intValue();
+		int playersInRound = Double.valueOf(players / Math.pow(2, level - 1)).intValue();
+		int splitFactor = Double.valueOf(Math.pow(2.0, level - 1.0)).intValue();
 		int reverseFactor = (level + 1) % 2;
 
 		List<Opponent> losersOnLevel = new ArrayList<>();
@@ -164,7 +163,7 @@ public class DoubleEliminationMatchDetectorTest {
 	}
 
 	@Test
-	public void testGetPendingMatchesLowerBracketSimple() {
+	void testGetPendingMatchesLowerBracketSimple() {
 		/*
 		 * p0 \ |- 1:0 (m1) - p0 \ p1 / | |- egal (m0) - p3 p2 \ | |- 2:3 (m2) - p3 / p3
 		 * /
@@ -198,7 +197,7 @@ public class DoubleEliminationMatchDetectorTest {
 	}
 
 	@Test
-	public void testGetPendingMatchesLowerBracketComplex() {
+	void testGetPendingMatchesLowerBracketComplex() {
 		/*
 		 * p0 \ |- 1:0 (m3) - p0 \ p1 / | |- 3:4 (m1) - p3 \ p2 \ | | |- 2:3 (m4) - p3 /
 		 * | p3 / | |- egal (m0) p4 \ | |- 2:1 (m5) p4 \ | p5 / | | |- 2:1 (m2) - p4 /
@@ -235,7 +234,7 @@ public class DoubleEliminationMatchDetectorTest {
 	}
 
 	@Test
-	public void testGetWinnersOnLevel() {
+	void testGetWinnersOnLevel() {
 		Group group = new Group();
 		Player[] players = new Player[8];
 		for (int i = 0; i < 8; i++) {
@@ -261,7 +260,7 @@ public class DoubleEliminationMatchDetectorTest {
 	}
 
 	@Test
-	public void testGetPendingMatchesLowerBracketSemiComplex() {
+	void testGetPendingMatchesLowerBracketSemiComplex() {
 		/*
 		 * Es muss ein peding match mit Guest = unknown gefunden werden weil Match 3
 		 * noch nicht beendet wurde.
@@ -293,7 +292,7 @@ public class DoubleEliminationMatchDetectorTest {
 	}
 
 	@Test
-	public void testGetPendingMatchesLowerBracketFinale() {
+  void testGetPendingMatchesLowerBracketFinale() {
 		/*
 		 * Finale muss gefunden werden
 		 * 
@@ -319,7 +318,7 @@ public class DoubleEliminationMatchDetectorTest {
 	}
 
 	@Test
-	public void testGetPendingMatchesLowerBracketFinaleFinished() {
+	void testGetPendingMatchesLowerBracketFinaleFinished() {
 		/*
 		 * Finale ist bereits gespielt
 		 * 
@@ -347,27 +346,27 @@ public class DoubleEliminationMatchDetectorTest {
 	}
 
 	@Test
-	public void testGetStartMatchIndex() {
+	void testGetStartMatchIndex() {
 		assertThat(demd.getStartMatchIndex(0, 8)).isEqualTo(7);
 	}
 
 	@Test
-	public void testGetEndMatchindex() {
+	void testGetEndMatchindex() {
 		assertThat(demd.getEndMatchIndex(0, 8)).isEqualTo(8);
 	}
 
 	@Test
-	public void testGetStartMatchIndexEqualsEndIndex() {
+	void testGetStartMatchIndexEqualsEndIndex() {
 		assertThat(demd.getEndMatchIndex(0, 4)).isEqualTo(3);
 	}
 
 	@Test
-	public void testGetEndMatchIndexEqualsStartIndex() {
+	void testGetEndMatchIndexEqualsStartIndex() {
 		assertThat(demd.getStartMatchIndex(0, 4)).isEqualTo(3);
 	}
 
 	@Test
-	public void testGetFirstLevelMatches() {
+	void testGetFirstLevelMatches() {
 		Group group = new Group();
 		Opponent[] opponents = new Opponent[8];
 		for (int i = 0; i < 8; i++) {
@@ -386,7 +385,7 @@ public class DoubleEliminationMatchDetectorTest {
     assertThat(firstLevelMatches).hasSize(2);
 	}
 
-	private Match addMatch(Group group, int matchIndex, Opponent home, Opponent guest, Result result) {
+	private void addMatch(Group group, int matchIndex, Opponent home, Opponent guest, Result result) {
 		Match match = new Match(home, guest);
 
 		if (result != null) {
@@ -395,7 +394,5 @@ public class DoubleEliminationMatchDetectorTest {
 		match.setFinishedTime(LocalDateTime.now());
 		match.setPosition(matchIndex);
 		group.getMatches().add(match);
-
-		return match;
 	}
 }

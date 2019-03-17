@@ -458,7 +458,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
   }
 
   @Override
-  public System getSystem(){
+  public System getSystem() {
     return System.DOUBLE_ELIMINATION;
   }
 }

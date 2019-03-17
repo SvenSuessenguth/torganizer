@@ -41,7 +41,7 @@ public class RoundRobinMatchDetector implements PendingMatchDetector {
   }
 
   @Override
-  public System getSystem(){
+  public System getSystem() {
     return System.ROUND_ROBIN;
   }
 }

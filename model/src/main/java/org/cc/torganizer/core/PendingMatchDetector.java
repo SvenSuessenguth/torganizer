@@ -20,6 +20,7 @@ public interface PendingMatchDetector {
    * @return Liste der verbleibenden Matches
    */
   List<Match> getPendingMatches(Group group);
+
   System getSystem();
 
 }

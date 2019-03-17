@@ -9,5 +9,6 @@ import org.cc.torganizer.core.entities.System;
 
 public interface OpponentToGroupsAssigner {
   void assign(Set<Opponent> opponents, List<Group> groups);
+
   System getSystem();
 }

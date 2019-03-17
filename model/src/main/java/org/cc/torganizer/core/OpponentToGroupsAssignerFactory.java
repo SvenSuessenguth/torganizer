@@ -24,8 +24,8 @@ public class OpponentToGroupsAssignerFactory {
    */
   public OpponentToGroupsAssigner getOpponentToGroupsAssigner(System system) {
 
-    for(OpponentToGroupsAssigner assigner : assigners){
-      if(Objects.equals(system, assigner.getSystem())){
+    for (OpponentToGroupsAssigner assigner : assigners) {
+      if (Objects.equals(system, assigner.getSystem())) {
         return assigner;
       }
     }

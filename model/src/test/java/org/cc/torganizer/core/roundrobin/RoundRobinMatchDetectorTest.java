@@ -1,19 +1,22 @@
 package org.cc.torganizer.core.roundrobin;
 
-import org.cc.torganizer.core.entities.*;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
+import org.cc.torganizer.core.entities.Group;
+import org.cc.torganizer.core.entities.Match;
+import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.core.entities.Result;
+import org.cc.torganizer.core.entities.Team;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class RoundRobinMatchDetectorTest {
+class RoundRobinMatchDetectorTest {
 
   private RoundRobinMatchDetector rrmd;
   private List<Opponent> players;
@@ -22,7 +25,7 @@ public class RoundRobinMatchDetectorTest {
   private Group group;
 
   @BeforeEach
-  public void before() {
+  void before() {
     group = new Group();
     rrmd = new RoundRobinMatchDetector();
 
@@ -46,7 +49,7 @@ public class RoundRobinMatchDetectorTest {
   }
 
   @AfterEach
-  public void after() {
+  void after() {
     rrmd = null;
     players = null;
     teams = null;
@@ -54,7 +57,7 @@ public class RoundRobinMatchDetectorTest {
   }
 
   @Test
-  public void testMatchIndex() {
+  void testMatchIndex() {
     group.addOpponent(new Player("a", "a"));
     group.addOpponent(new Player("b", "b"));
     group.addOpponent(new Player("c", "c"));
@@ -66,13 +69,13 @@ public class RoundRobinMatchDetectorTest {
 
     List<Match> matches = rrmd.getPendingMatches(group);
 
-    assertThat(matches.get(0).getPosition().intValue(), is(1));
-    assertThat(matches.get(1).getPosition().intValue(), is(2));
-    assertThat(matches.get(2).getPosition().intValue(), is(5));
+    assertThat(matches.get(0).getPosition().intValue()).isEqualTo(1);
+    assertThat(matches.get(1).getPosition().intValue()).isEqualTo(2);
+    assertThat(matches.get(2).getPosition().intValue()).isEqualTo(5);
   }
 
   @Test
-  public void testGetPendingMatches() {
+  void testGetPendingMatches() {
     for (Opponent opponent : players) {
       group.addOpponent(opponent);
     }
@@ -83,15 +86,15 @@ public class RoundRobinMatchDetectorTest {
     m0.setRunning(false);
     group.getMatches().add(m0);
 
-    assertThat(rrmd.getPendingMatches(group), hasSize(9));
+    assertThat(rrmd.getPendingMatches(group)).hasSize(9);
   }
 
   @Test
-  public void testGetPendingMatchesFromScratch() {
+  void testGetPendingMatchesFromScratch() {
     // bisher sind noch keine Matches gespielt worden    
     for (Opponent opponent : players) {
       group.addOpponent(opponent);
     }
-    assertThat(rrmd.getPendingMatches(group), hasSize(10));
+    assertThat(rrmd.getPendingMatches(group)).hasSize(10);
   }
 }

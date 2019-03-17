@@ -67,7 +67,7 @@ import org.cc.torganizer.core.PendingMatchDetector;
  * <td rowspan="2" style="vertical-align: top;"><br>
  * </td>
  * <td style="border-top: 1px solid gray; border-right: 1px solid gray;
- *            vertical-align: middle;" rowspan="2">
+ * vertical-align: middle;" rowspan="2">
  * <br>
  * </td>
  * </tr>
@@ -86,7 +86,7 @@ import org.cc.torganizer.core.PendingMatchDetector;
  * <td rowspan="4" style="vertical-align: middle;">C<br>
  * </td>
  * <td style="border-right: 1px solid gray; border-bottom: 1px solid gray;
- *            vertical-align: middle;" rowspan="2">
+ * vertical-align: middle;" rowspan="2">
  * <br>
  * </td>
  * <td rowspan="4" style="vertical-align: top;"><br>
@@ -299,7 +299,7 @@ public class SingleEliminationMatchDetector implements PendingMatchDetector {
   }
 
   @Override
-  public System getSystem(){
+  public System getSystem() {
     return System.SINGLE_ELIMINATION;
   }
 }
