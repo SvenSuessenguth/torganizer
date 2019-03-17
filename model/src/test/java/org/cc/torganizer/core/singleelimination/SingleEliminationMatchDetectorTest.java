@@ -1,4 +1,4 @@
-package org.cc.torganizer.core.system;
+package org.cc.torganizer.core.singleelimination;
 
 import org.cc.torganizer.core.entities.*;
 import org.junit.jupiter.api.AfterEach;
@@ -6,14 +6,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class SingleEliminationMatchDetectorTest {
 

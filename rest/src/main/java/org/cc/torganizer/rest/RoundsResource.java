@@ -19,9 +19,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import org.cc.torganizer.core.OpponentToGroupsAssigner;
+import org.cc.torganizer.core.OpponentToGroupsAssignerFactory;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Round;
+import org.cc.torganizer.core.entities.System;
 import org.cc.torganizer.persistence.RoundsRepository;
 import org.cc.torganizer.rest.json.GroupJsonConverter;
 import org.cc.torganizer.rest.json.ModelJsonConverter;
@@ -45,6 +48,9 @@ public class RoundsResource extends AbstractResource {
 
   @Inject
   private OpponentJsonConverterProvider opponentJsonConverterProvider;
+
+  @Inject
+  private OpponentToGroupsAssignerFactory opponentToGroupsAssignerFactory;
 
   @Operation(operationId = "createRound")
   @POST
@@ -151,6 +157,16 @@ public class RoundsResource extends AbstractResource {
   @POST
   @Path("/{id}/auto-assign-opponents")
   public Response autoAssignOpponents(@PathParam("id") Long roundId) {
-    return Response.ok(Json.createObjectBuilder().build()).build();
+
+    Round round = roundsRepository.read(roundId);
+    System system = round.getSystem();
+    Set<Opponent> opponents = roundsRepository.getNotAssignedOpponents(roundId);
+    List<Group> groups = round.getGroups();
+
+    OpponentToGroupsAssigner assigner = opponentToGroupsAssignerFactory.getOpponentToGroupsAssigner(system);
+    assigner.assign(opponents, groups);
+
+    JsonArray jsonArray = groupConverter.toJsonArray(groups);
+    return Response.ok(jsonArray).build();
   }
 }

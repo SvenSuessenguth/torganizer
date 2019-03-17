@@ -153,6 +153,8 @@ public class DisciplinesRepository extends Repository<Discipline> {
     discipline.addRound(round);
     entityManager.persist(discipline);
 
+    System.out.println("Position der Round nach hinzufügen zu Discipline: "+round.getPosition());
+
     return discipline;
   }
 

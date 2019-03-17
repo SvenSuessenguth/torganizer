@@ -1,4 +1,4 @@
-package org.cc.torganizer.core.system;
+package org.cc.torganizer.core;
 
 import java.util.Objects;
 import javax.enterprise.context.ApplicationScoped;

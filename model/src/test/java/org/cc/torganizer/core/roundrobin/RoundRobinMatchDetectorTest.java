@@ -1,4 +1,4 @@
-package org.cc.torganizer.core.system;
+package org.cc.torganizer.core.roundrobin;
 
 import org.cc.torganizer.core.entities.*;
 import org.junit.jupiter.api.AfterEach;

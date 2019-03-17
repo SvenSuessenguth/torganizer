@@ -1,4 +1,4 @@
-package org.cc.torganizer.core.system;
+package org.cc.torganizer.core;
 
 import org.cc.torganizer.core.entities.System;
 
