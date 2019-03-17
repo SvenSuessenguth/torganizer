@@ -1,17 +1,22 @@
 package org.cc.torganizer.core.doubleelimination;
 
-import org.cc.torganizer.core.entities.*;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.cc.torganizer.core.entities.Group;
+import org.cc.torganizer.core.entities.Match;
+import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.core.entities.Result;
+import org.cc.torganizer.core.entities.Unknown;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author svens
@@ -46,60 +51,63 @@ public class DoubleEliminationMatchDetectorTest {
 		}
 
 		Match match = demd.createPendingMatch(0, 0, new Player("a", "a"), new Player("b", "b"), group);
-		assertThat(match,is(not(nullValue())));
+
+		assertThat(match).isNotNull();
 	}
 
 	@Test
 	public void testAddMatchToListNull() {
 		List<Match> matches = new ArrayList<>();
 		demd.addMatchToList(matches, null);
-		assertThat(matches, is(empty()));
+
+		assertThat(matches).isEmpty();
 	}
 
 	@Test
 	public void testAddMatchToList() {
 		List<Match> matches = new ArrayList<>();
 		demd.addMatchToList(matches, new Match());
-		assertThat(matches, is(not(empty())));
+
+    assertThat(matches).isNotEmpty();
 	}
 
 	@Test
 	public void testIsFirstLevel() {
-		assertThat(demd.isFirstLevel(0), is(true));
-		assertThat(demd.isFirstLevel(1), is(false));
+    assertThat(demd.isFirstLevel(0)).isTrue();
+    assertThat(demd.isFirstLevel(1)).isFalse();
 	}
 
 	@Test
 	public void testHasToMixUpperLowerBracket() {
-		assertThat(demd.hasToMixUpperLowerBracket(0), is(false));
-		assertThat(demd.hasToMixUpperLowerBracket(1), is(true));
-		assertThat(demd.hasToMixUpperLowerBracket(2), is(false));
-		assertThat(demd.hasToMixUpperLowerBracket(3), is(true));
+		assertThat(demd.hasToMixUpperLowerBracket(0)).isFalse();
+		assertThat(demd.hasToMixUpperLowerBracket(1)).isTrue();
+		assertThat(demd.hasToMixUpperLowerBracket(2)).isFalse();
+		assertThat(demd.hasToMixUpperLowerBracket(3)).isTrue();
 	}
 
 	@Test
 	public void testCountMatchesUpToLevel_32_0() {
 
 		// 32 Opponents -> 16 Loser -> 8 Matches
-		assertThat(demd.countMatchesUpToLevel(0, 32), is(8));
+		assertThat(demd.countMatchesUpToLevel(0, 32)).isEqualTo(8);
 	}
 
 	@Test
 	public void testCountMatchesOnLevel() {
-		assertThat(demd.countMatchesOnLevel(0, 16), is(4));
-		assertThat(demd.countMatchesOnLevel(1, 16), is(4));
-		assertThat(demd.countMatchesOnLevel(2, 16), is(2));
-		assertThat(demd.countMatchesOnLevel(3, 16), is(2));
+		assertThat(demd.countMatchesOnLevel(0, 16)).isEqualTo(4);
+		assertThat(demd.countMatchesOnLevel(1, 16)).isEqualTo(4);
+		assertThat(demd.countMatchesOnLevel(2, 16)).isEqualTo(2);
+		assertThat(demd.countMatchesOnLevel(3, 16)).isEqualTo(2);
 	}
 
 	@Test
 	public void testCountMatchesOnLevelNull() {
-		assertThat(demd.countMatchesOnLevel(-1, 16), is(0));
+	  assertThat(demd.countMatchesOnLevel(-1, 16)).isEqualTo(0);
 	}
 
 	@Test
 	public void testCountMatchesUpToLevel_16_3() {
-		assertThat(demd.countMatchesUpToLevel(3, 16), is(12));
+		assertThat(demd.countMatchesUpToLevel(3, 16)).isEqualTo(12);
 	}
 
 	@Test
@@ -107,18 +115,18 @@ public class DoubleEliminationMatchDetectorTest {
 		// Gruppe mit 16 Opponents
 		// 16=Opponents, Level=0, LevelIndex=0 -> matchIndex = 15
 		int matchIndex = demd.getMatchIndex(0, 0, 16);
-		assertThat(matchIndex, is(15));
+		assertThat(matchIndex).isEqualTo(15);
 
 		// 16=Opponents, Level=3, LevelIndex=1 -> matchIndex = 26
 		matchIndex = demd.getMatchIndex(3, 1, 16);
-		assertThat(matchIndex,is(26));
+		assertThat(matchIndex).isEqualTo(26);
 	}
 
 	@Test
 	public void testGetMatchIndexNullNull() {
 		// 16 Opponents -> 15 Matches im Upper Level (index = 14)
 		// Index im Lower Bracket beginnt mit 15
-		assertThat(demd.getMatchIndex(0, 0, 16), is(15));
+		assertThat(demd.getMatchIndex(0, 0, 16)).isEqualTo(15);
 	}
 
 	/**
@@ -145,14 +153,14 @@ public class DoubleEliminationMatchDetectorTest {
 
 		List<Opponent> orderedLosers = demd.orderUpperBracketLosers(losersOnLevel, splitFactor, reverseFactor);
 
-		assertThat(((Player) orderedLosers.get(0)).getPerson().getFirstName(), is("2"));
-		assertThat(((Player) orderedLosers.get(1)).getPerson().getFirstName(), is("3"));
-		assertThat(((Player) orderedLosers.get(2)).getPerson().getFirstName(), is("0"));
-		assertThat(((Player) orderedLosers.get(3)).getPerson().getFirstName(), is("1"));
-		assertThat(((Player) orderedLosers.get(4)).getPerson().getFirstName(), is("6"));
-		assertThat(((Player) orderedLosers.get(5)).getPerson().getFirstName(), is("7"));
-		assertThat(((Player) orderedLosers.get(6)).getPerson().getFirstName(), is("4"));
-		assertThat(((Player) orderedLosers.get(7)).getPerson().getFirstName(), is("5"));
+		assertThat(((Player) orderedLosers.get(0)).getPerson().getFirstName()).isEqualTo("2");
+		assertThat(((Player) orderedLosers.get(1)).getPerson().getFirstName()).isEqualTo("3");
+		assertThat(((Player) orderedLosers.get(2)).getPerson().getFirstName()).isEqualTo("0");
+		assertThat(((Player) orderedLosers.get(3)).getPerson().getFirstName()).isEqualTo("1");
+		assertThat(((Player) orderedLosers.get(4)).getPerson().getFirstName()).isEqualTo("6");
+		assertThat(((Player) orderedLosers.get(5)).getPerson().getFirstName()).isEqualTo("7");
+		assertThat(((Player) orderedLosers.get(6)).getPerson().getFirstName()).isEqualTo("4");
+		assertThat(((Player) orderedLosers.get(7)).getPerson().getFirstName()).isEqualTo("5");
 	}
 
 	@Test
@@ -186,7 +194,7 @@ public class DoubleEliminationMatchDetectorTest {
 
 		List<Match> matches = demd.getPendingMatchesLowerBracket(group);
 
-		assertThat(matches, is(not(empty())));
+    assertThat(matches).isNotEmpty();
 	}
 
 	@Test
@@ -223,7 +231,7 @@ public class DoubleEliminationMatchDetectorTest {
 
 		List<Match> matches = demd.getPendingMatchesLowerBracket(group);
 
-		assertThat(matches, hasSize(2));
+    assertThat(matches).hasSize(2);
 	}
 
 	@Test
@@ -248,7 +256,8 @@ public class DoubleEliminationMatchDetectorTest {
 		addMatch(group, 8, players[5], players[6], new Result(0, 0, 1));
 
 		List<Opponent> winnersOnLevel = demd.getWinnersOnLevel(0, group);
-		assertThat(winnersOnLevel, hasSize(2));
+
+    assertThat(winnersOnLevel).hasSize(2);
 	}
 
 	@Test
@@ -279,8 +288,8 @@ public class DoubleEliminationMatchDetectorTest {
 
 		List<Match> matches = demd.getPendingMatchesLowerBracket(group);
 
-		assertThat(matches, hasSize(1));
-		assertThat(matches.get(0).getGuest(), is(instanceOf(Unknown.class)));
+    assertThat(matches).hasSize(1);
+		assertThat(matches.get(0).getGuest()).isInstanceOf(Unknown.class);
 	}
 
 	@Test
@@ -306,7 +315,7 @@ public class DoubleEliminationMatchDetectorTest {
 
 		Match finalMatch = demd.getPendingFinalMatch(group);
 
-		assertThat(finalMatch, is(not(nullValue())));
+    assertThat(finalMatch).isNotNull();
 	}
 
 	@Test
@@ -334,27 +343,27 @@ public class DoubleEliminationMatchDetectorTest {
 
 		Match finalMatch = demd.getPendingFinalMatch(group);
 
-		assertThat(finalMatch, is(nullValue()));
+		assertThat(finalMatch).isNull();
 	}
 
 	@Test
 	public void testGetStartMatchIndex() {
-		assertThat(demd.getStartMatchIndex(0, 8), is(7));
+		assertThat(demd.getStartMatchIndex(0, 8)).isEqualTo(7);
 	}
 
 	@Test
 	public void testGetEndMatchindex() {
-		assertThat(demd.getEndMatchIndex(0, 8), is(8));
+		assertThat(demd.getEndMatchIndex(0, 8)).isEqualTo(8);
 	}
 
 	@Test
 	public void testGetStartMatchIndexEqualsEndIndex() {
-		assertThat(demd.getEndMatchIndex(0, 4), is(3));
+		assertThat(demd.getEndMatchIndex(0, 4)).isEqualTo(3);
 	}
 
 	@Test
 	public void testGetEndMatchIndexEqualsStartIndex() {
-		assertThat(demd.getStartMatchIndex(0, 4), is(3));
+		assertThat(demd.getStartMatchIndex(0, 4)).isEqualTo(3);
 	}
 
 	@Test
@@ -373,7 +382,8 @@ public class DoubleEliminationMatchDetectorTest {
 		addMatch(group, 6, opponents[6], opponents[7], new Result(0, 2, 0));
 
 		List<Match> firstLevelMatches = demd.getFirstLevelMatches(group);
-		assertThat(firstLevelMatches, hasSize(2));
+
+    assertThat(firstLevelMatches).hasSize(2);
 	}
 
 	private Match addMatch(Group group, int matchIndex, Opponent home, Opponent guest, Result result) {

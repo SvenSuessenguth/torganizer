@@ -1,17 +1,17 @@
 package org.cc.torganizer.validation;
 
-import org.cc.torganizer.core.entities.Person;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import java.util.Set;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import org.cc.torganizer.core.entities.Person;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
 
 public class ValidatePersonTest {
   
@@ -31,7 +31,7 @@ public class ValidatePersonTest {
     Set<ConstraintViolation<Person>> violations = validator.validate( p );
     
     // notBlank, min-size=1
-    assertThat(violations.size(), is(2));
+    assertThat(violations).hasSize(2);
   }
   
   @Test
@@ -42,7 +42,7 @@ public class ValidatePersonTest {
     Set<ConstraintViolation<Person>> violations = validator.validate( p );
     
     // notBlank
-    assertThat(violations.size(), is(1));
+    assertThat(violations).hasSize(1);
   }
   
   @Test
@@ -53,7 +53,7 @@ public class ValidatePersonTest {
     Set<ConstraintViolation<Person>> violations = validator.validate( p );
     
     // notNull, notBlank
-    assertThat(violations.size(), is(2));
+    assertThat(violations).hasSize(2);
   }
   
   @Test
@@ -65,6 +65,6 @@ public class ValidatePersonTest {
     Set<ConstraintViolation<Person>> violations = validator.validate( p );
     
     // max-size=20
-    assertThat(violations.size(), is(1));
+    assertThat(violations).hasSize(1);
   }
 }

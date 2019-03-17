@@ -1,12 +1,11 @@
 package org.cc.torganizer.core.comparators;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
 
 public class PlayerByNameComparatorTest {
 
@@ -21,7 +20,7 @@ public class PlayerByNameComparatorTest {
   public void compare_bothNull() {
     int c = comparator.compare(null, null);
 
-    assertThat(c, is(0));
+    assertThat(c).isEqualTo(0);
   }
 
   @Test
@@ -29,7 +28,7 @@ public class PlayerByNameComparatorTest {
     Player p = new Player(new Person("A", "B"));
     int c = comparator.compare(p, p);
 
-    assertThat(c, is(0));
+    assertThat(c).isEqualTo(0);
   }
 
   @Test
@@ -38,7 +37,7 @@ public class PlayerByNameComparatorTest {
     Player p2 = new Player(new Person("B", "B"));
     int c = comparator.compare(p1, p2);
 
-    assertThat(c, is(0));
+    assertThat(c).isEqualTo(0);
   }
 
   @Test
@@ -46,7 +45,7 @@ public class PlayerByNameComparatorTest {
     Player p2 = new Player(new Person("B", "B"));
     int c = comparator.compare(null, p2);
 
-    assertThat(c, is(-1));
+    assertThat(c).isEqualTo(-1);
   }
 
   @Test
@@ -54,7 +53,7 @@ public class PlayerByNameComparatorTest {
     Player p1 = new Player(new Person("A", "B"));
     int c = comparator.compare(p1, null);
 
-    assertThat(c, is(1));
+    assertThat(c).isEqualTo(1);
   }
 
   @Test
@@ -63,6 +62,6 @@ public class PlayerByNameComparatorTest {
     Player p2 = new Player(new Person("a", "b"));
     int c = comparator.compare(p1, p2);
 
-    assertThat(c, is(0));
+    assertThat(c).isEqualTo(0);
   }
 }

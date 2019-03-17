@@ -1,24 +1,23 @@
 package org.cc.torganizer.core.entities;
 
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import org.junit.jupiter.api.Test;
 
 public class ByeTest {
 
   @Test
   public void testCreateByes_keineLiefertLeereListe() throws Exception {
     List<Opponent> byes = Bye.createByes(0);
-    assertThat(byes, is(notNullValue()));
+
+    assertThat(byes).isNotNull();
   }
   
   @Test
   public void testCreateByes_negativerWertLiefertLeereListe() throws Exception {
     List<Opponent> byes = Bye.createByes(-1);
-    assertThat(byes, is(notNullValue()));
+    assertThat(byes).isNotNull();
   }
 }

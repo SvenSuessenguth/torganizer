@@ -5,13 +5,13 @@
  */
 package org.cc.torganizer.core.entities;
 
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
 import java.util.Collection;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -30,6 +30,7 @@ public class SquadTest {
   public void testAddPlayers() {
     Collection<Player> players = Arrays.asList(new Player(), new Player());
     squad.addPlayers(players);
-    MatcherAssert.assertThat(squad.getPlayers(), Matchers.hasSize(2));
+
+    assertThat(squad.getPlayers()).hasSize(2);
   }  
 }
