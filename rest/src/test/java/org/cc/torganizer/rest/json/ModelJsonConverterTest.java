@@ -5,68 +5,67 @@
  */
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.Entity;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static java.time.LocalDateTime.of;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Collection;
 import java.util.Collections;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
 
-import static java.time.LocalDateTime.of;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import org.cc.torganizer.core.entities.Entity;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  *
  * @author svens
  */
-public class ModelJsonConverterTest {
+class ModelJsonConverterTest {
   
   private ModelJsonConverter<?> converter;
   
   @BeforeEach
-  public void before(){
+  void before(){
     converter = new ModelJsonConverterImpl<>();
   }
   
   @Test
-  public void testLocalDateTimeToString(){
+  void testLocalDateTimeToString(){
     LocalDateTime christmasEve = of(2017, Month.DECEMBER, 24, 18, 0,0);
     String christmasEveString = "2017-12-24 18:00:00";
     final String localDateTimeToString = converter.localDateTimeToString(christmasEve);
     
-    assertThat(localDateTimeToString, is(christmasEveString));
+    assertThat(localDateTimeToString).isEqualTo(christmasEveString);
   }
   
   @Test
-  public void testLocalDateToString(){
+  void testLocalDateToString(){
     LocalDate christmasEve = LocalDate.of(2017, 12, 24);
     String christmasEveString = "2017-12-24";
     final String localDateTimeToString = converter.localDateToString(christmasEve);
     
-    assertThat(localDateTimeToString, is(christmasEveString));
+    assertThat(localDateTimeToString).isEqualTo(christmasEveString);
   }
 
   @Test
-  public void testGetProper(){
+  void testGetProper(){
     JsonObject jsonObject = Json
       .createObjectBuilder()
       .add("id", 1)
       .build();
 
     Entity properModel = converter.getProperEntity(jsonObject, Collections.emptyList());
-    assertThat(properModel, is(not(nullValue())));
+    assertThat(properModel).isNotNull();
   }
 
   private static class ModelJsonConverterImpl<T extends Entity> extends ModelJsonConverter<Entity> {
 
-    public ModelJsonConverterImpl() {
+    ModelJsonConverterImpl() {
     }
 
     @Override
@@ -80,7 +79,7 @@ public class ModelJsonConverterTest {
     }
 
     @Override
-    public Entity toModel(JsonObject jsonObject, Entity entity) {
+    public T toModel(JsonObject jsonObject, Entity entity) {
       throw new UnsupportedOperationException("Not supported yet.");
     }
 

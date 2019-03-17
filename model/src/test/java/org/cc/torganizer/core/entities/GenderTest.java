@@ -1,21 +1,19 @@
 package org.cc.torganizer.core.entities;
 
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import org.junit.jupiter.api.Test;
 
 /**
  *
  * @author svens
  */
-public class GenderTest {
+class GenderTest {
   
   @Test
-  public void testValueOf_UNKNOWN() {
+  void testValueOf_UNKNOWN() {
     String name = "UNKNOWN";
     Gender result = Gender.valueOf(name);
-    assertThat(result, Matchers.is(Matchers.notNullValue()));
+    assertThat(result).isNotNull();
   }
-  
 }

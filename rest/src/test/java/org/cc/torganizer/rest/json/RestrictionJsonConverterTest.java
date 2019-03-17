@@ -1,36 +1,39 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.*;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static java.time.Month.JANUARY;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.cc.torganizer.core.entities.Gender.MALE;
+import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
+import static org.cc.torganizer.core.entities.Restriction.Discriminator.AGE_RESTRICTION;
+import static org.cc.torganizer.core.entities.Restriction.Discriminator.GENDER_RESTRICTION;
+import static org.cc.torganizer.core.entities.Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION;
 
+import java.io.StringReader;
+import java.time.LocalDate;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import java.io.StringReader;
-import java.time.LocalDate;
-import java.time.Month;
 
-public class RestrictionJsonConverterTest {
+import org.cc.torganizer.core.entities.AgeRestriction;
+import org.cc.torganizer.core.entities.GenderRestriction;
+import org.cc.torganizer.core.entities.OpponentTypeRestriction;
+import org.cc.torganizer.core.entities.Restriction;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class RestrictionJsonConverterTest {
 
   private RestrictionJsonConverter converter;
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     converter = new RestrictionJsonConverter();
   }
 
   @Test
-  public void testToModel_AgeRestriction() {
+  void testToModel_AgeRestriction() {
     String jsonString = "{\"id\":1, "
-      + "\"discriminator\":\"" + Restriction.Discriminator.AGE_RESTRICTION.getId() + "\","
+      + "\"discriminator\":\"" + AGE_RESTRICTION.getId() + "\","
       + "\"minDateOfBirth\":\"1968-01-12\","
       + "\"maxDateOfBirth\":\"1970-01-12\"}";
 
@@ -38,94 +41,90 @@ public class RestrictionJsonConverterTest {
     JsonObject jsonObject = jsonReader.readObject();
 
     Restriction restriction = converter.toModel(jsonObject, new AgeRestriction());
-    MatcherAssert.assertThat(restriction, Matchers.is(Matchers.instanceOf(AgeRestriction.class)));
+    assertThat(restriction).isInstanceOf(AgeRestriction.class);
 
     AgeRestriction ageRestriction = (AgeRestriction) restriction;
-    MatcherAssert.assertThat(ageRestriction.getMinDateOfBirth(), Matchers.is(LocalDate.of(1968, Month.JANUARY, 12)));
-    MatcherAssert.assertThat(ageRestriction.getMaxDateOfBirth(), Matchers.is(LocalDate.of(1970, Month.JANUARY, 12)));
+    assertThat(ageRestriction.getMinDateOfBirth()).isEqualTo(LocalDate.of(1968, JANUARY, 12));
+    assertThat(ageRestriction.getMaxDateOfBirth()).isEqualTo(LocalDate.of(1970, JANUARY, 12));
   }
 
   @Test
-  public void testToJson_AgeRestriction() {
+  void testToJson_AgeRestriction() {
     String expectedJsonString = "{\"id\":1,"
-      + "\"discriminator\":\"" + Restriction.Discriminator.AGE_RESTRICTION.getId() + "\","
+      + "\"discriminator\":\"" + AGE_RESTRICTION.getId() + "\","
       + "\"minDateOfBirth\":\"1968-01-12\","
       + "\"maxDateOfBirth\":\"1970-01-12\"}";
 
     AgeRestriction restriction = new AgeRestriction();
     restriction.setId(1L);
-    restriction.setMinDateOfBirth(LocalDate.of(1968, Month.JANUARY, 12));
-    restriction.setMaxDateOfBirth(LocalDate.of(1970, Month.JANUARY, 12));
+    restriction.setMinDateOfBirth(LocalDate.of(1968, JANUARY, 12));
+    restriction.setMaxDateOfBirth(LocalDate.of(1970, JANUARY, 12));
 
-    JsonObject jsonObject = converter.toJsonObject(restriction);
-    String actualJsonString = jsonObject.toString();
+    JsonObject json = converter.toJsonObject(restriction);
 
-    MatcherAssert.assertThat(expectedJsonString, Matchers.is(actualJsonString));
+    assertThat(json).asString().isEqualTo(expectedJsonString);
   }
 
   @Test
-  public void testToModel_GenderRestriction() {
+  void testToModel_GenderRestriction() {
     String jsonString = "{\"id\":1, "
-      + "\"discriminator\":\"" + Restriction.Discriminator.GENDER_RESTRICTION.getId() + "\","
+      + "\"discriminator\":\"" + GENDER_RESTRICTION.getId() + "\","
       + "\"gender\":\"MALE\"}";
 
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonObject jsonObject = jsonReader.readObject();
 
     Restriction restriction = converter.toModel(jsonObject, new GenderRestriction());
-    MatcherAssert.assertThat(restriction, Matchers.is(Matchers.instanceOf(GenderRestriction.class)));
+    assertThat(restriction).isInstanceOf(GenderRestriction.class);
 
     GenderRestriction genderRestriction = (GenderRestriction) restriction;
-    MatcherAssert.assertThat(genderRestriction.getGender(), Matchers.is(Gender.MALE));
+    assertThat(genderRestriction.getGender()).isEqualTo(MALE);
 
   }
 
   @Test
-  public void testToJson_GenderRestriction() {
+  void testToJson_GenderRestriction() {
     String expectedJsonString = "{\"id\":1,"
-      + "\"discriminator\":\"" + Restriction.Discriminator.GENDER_RESTRICTION.getId() + "\","
+      + "\"discriminator\":\"" + GENDER_RESTRICTION.getId() + "\","
       + "\"gender\":\"MALE\"}";
 
     GenderRestriction restriction = new GenderRestriction();
     restriction.setId(1L);
-    restriction.setGender(Gender.MALE);
+    restriction.setGender(MALE);
 
-    JsonObject jsonObject = converter.toJsonObject(restriction);
-    String actualJsonString = jsonObject.toString();
+    JsonObject json = converter.toJsonObject(restriction);
 
-    MatcherAssert.assertThat(expectedJsonString, Matchers.is(actualJsonString));
+    assertThat(json).asString().isEqualTo(expectedJsonString);
   }
 
   @Test
-  public void testToModel_OpponentTypeRestriction() {
+  void testToModel_OpponentTypeRestriction() {
     String jsonString = "{\"id\":1,"
-      + "\"discriminator\":\"" + Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION.getId() + "\","
+      + "\"discriminator\":\"" + OPPONENT_TYPE_RESTRICTION.getId() + "\","
       + "\"opponentType\":\"PLAYER\"}";
 
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonObject jsonObject = jsonReader.readObject();
 
     Restriction restriction = converter.toModel(jsonObject, new OpponentTypeRestriction());
-    MatcherAssert.assertThat(restriction, Matchers.is(Matchers.instanceOf(OpponentTypeRestriction.class)));
+    assertThat(restriction).isInstanceOf(OpponentTypeRestriction.class);
 
     OpponentTypeRestriction opponentTypeRestriction = (OpponentTypeRestriction) restriction;
-    MatcherAssert.assertThat(opponentTypeRestriction.getOpponentType(), Matchers.is(OpponentType.PLAYER));
-
+    assertThat(opponentTypeRestriction.getOpponentType()).isEqualTo(PLAYER);
   }
 
   @Test
-  public void testToJson_OpponentTypeRestriction() {
+  void testToJson_OpponentTypeRestriction() {
     String expectedJsonString = "{\"id\":1,"
-      + "\"discriminator\":\"" + Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION.getId() + "\","
+      + "\"discriminator\":\"" + OPPONENT_TYPE_RESTRICTION.getId() + "\","
       + "\"opponentType\":\"PLAYER\"}";
 
     OpponentTypeRestriction restriction = new OpponentTypeRestriction();
     restriction.setId(1L);
-    restriction.setOpponentType(OpponentType.PLAYER);
+    restriction.setOpponentType(PLAYER);
 
-    JsonObject jsonObject = converter.toJsonObject(restriction);
-    String actualJsonString = jsonObject.toString();
+    JsonObject json = converter.toJsonObject(restriction);
 
-    MatcherAssert.assertThat(expectedJsonString, Matchers.is(actualJsonString));
+    assertThat(json).asString().isEqualTo(expectedJsonString);
   }
 }

@@ -1,5 +1,15 @@
 package org.cc.torganizer.persistence;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Objects;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
@@ -13,23 +23,14 @@ import org.hibernate.internal.SessionImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.SQLException;
-
 public abstract class AbstractDbUnitJpaTest{
 
-  protected EntityManagerFactory entityManagerFactory;
+  private EntityManagerFactory entityManagerFactory;
+  private Connection connection;
   protected EntityManager entityManager;
-  protected Connection connection;
-  
+
   @BeforeEach
-  public void initTestFixture() throws Exception {
+  public void initTestFixture() {
     // Get the entity manager for the tests.
     entityManagerFactory = Persistence.createEntityManagerFactory("torganizerTest");
     entityManager = entityManagerFactory.createEntityManager();    
@@ -54,7 +55,7 @@ public abstract class AbstractDbUnitJpaTest{
 
     // Testdaten laden und [NULL] durch null-Value ersetzen
     URL url = getClass().getClassLoader().getResource(testData);
-    InputStream is = url.openStream();
+    InputStream is = Objects.requireNonNull(url).openStream();
     ReplacementDataSet dataSet = new ReplacementDataSet(new FlatXmlDataSetBuilder().build(is));
     dataSet.addReplacementObject("[NULL]", null);
     

@@ -1,28 +1,35 @@
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.*;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.time.LocalDate;
+import java.time.Month;
+
+import org.cc.torganizer.core.entities.AgeRestriction;
+import org.cc.torganizer.core.entities.Discipline;
+import org.cc.torganizer.core.entities.Gender;
+import org.cc.torganizer.core.entities.GenderRestriction;
+import org.cc.torganizer.core.entities.OpponentType;
+import org.cc.torganizer.core.entities.OpponentTypeRestriction;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDate;
-import java.time.Month;
-
 @ExtendWith(MockitoExtension.class)
-public class DisciplineJsonConverterTest {
+class DisciplineJsonConverterTest {
 
   @Spy
-  private RestrictionJsonConverter restrictionConverter;
+  RestrictionJsonConverter rConverter;
 
   @InjectMocks
   private DisciplineJsonConverter converter;
 
   @Test
-  public void testToJsonObject() {
+  void testToJsonObject() {
     String expected = "{\"id\":null,\"name\":\"Damen-Einzel U50\","
       + "\"restrictions\":"
       + "[{\"id\":null,\"discriminator\":\"A\",\"minDateOfBirth\":\"1968-01-12\",\"maxDateOfBirth\":\"1970-01-12\"},"
@@ -47,6 +54,6 @@ public class DisciplineJsonConverterTest {
 
     String actual = converter.toJsonObject(discipline).toString();
 
-    MatcherAssert.assertThat(actual, Matchers.is(expected));
+    assertThat(actual).isEqualTo(expected);
   }
 }

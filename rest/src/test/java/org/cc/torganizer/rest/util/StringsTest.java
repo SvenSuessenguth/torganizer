@@ -1,8 +1,7 @@
 package org.cc.torganizer.rest.util;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.cc.torganizer.rest.util.Strings.isEmpty;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
 
 import org.junit.jupiter.api.Test;
 
@@ -10,21 +9,21 @@ class StringsTest {
 
   @Test
   void isEmpty_null() {
-    assertThat(isEmpty(null), is(true));
+    assertThat(isEmpty(null)).isTrue();
   }
 
   @Test
   void isEmpty_empty() {
-    assertThat(isEmpty(""), is(true));
+    assertThat(isEmpty("")).isTrue();
   }
 
   @Test
   void isEmpty_spaces() {
-    assertThat(isEmpty("  "), is(true));
+    assertThat(isEmpty("  ")).isTrue();
   }
 
   @Test
   void isEmpty_containsSpaces() {
-    assertThat(isEmpty("  string  "), is(false));
+    assertThat(isEmpty("  string  ")).isFalse();
   }
 }

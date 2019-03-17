@@ -1,11 +1,6 @@
 package org.cc.torganizer.persistence;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.nullValue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 import java.util.Set;
@@ -37,47 +32,47 @@ class RoundsRepositoryTest extends AbstractDbUnitJpaTest {
 
     repository.create(round);
 
-    assertThat(round.getId(), is(not(nullValue())));
+    assertThat(round.getId()).isNotNull();
   }
 
   @Test
   void testReadExisting(){
     Round round = repository.read(1L);
-    assertThat(round, is(not(nullValue())));
+    assertThat(round).isNotNull();
   }
 
   @Test
   void testReadNonExisting(){
     Round round = repository.read(100L);
-    assertThat(round, is(nullValue()));
+    assertThat(round).isNull();
   }
 
   @Test
   void testReadMultiple_lessThanAvailable(){
     List<Round> rounds = repository.read(0, 1);
-    assertThat(rounds, is(not(nullValue())));
-    assertThat(rounds, hasSize(1));
+    assertThat(rounds).isNotNull();
+    assertThat(rounds).hasSize(1);
   }
 
   @Test
   void testReadMultiple_moreThanAvailable(){
     List<Round> rounds = repository.read(0, 3);
-    assertThat(rounds, is(not(nullValue())));
-    assertThat(rounds, hasSize(2));
+    assertThat(rounds).isNotNull();
+    assertThat(rounds).hasSize(2);
   }
 
   @Test
   void testGetGroups_existing(){
     List<Group> groups = repository.getGroups(1L, 0, 10);
 
-    assertThat(groups, hasSize(4));
+    assertThat(groups).hasSize(4);
   }
 
   @Test
   void testGetGroups_notExisting(){
     List<Group> groups = repository.getGroups(2L, 0, 10);
 
-    assertThat(groups, is(empty()));
+    assertThat(groups).isEmpty();
   }
 
   @Test
@@ -86,7 +81,7 @@ class RoundsRepositoryTest extends AbstractDbUnitJpaTest {
     // <_ROUNDS_GROUPS _ROUND_ID="1" _GROUP_ID="3" />
     Long id = repository.getRoundId(3L);
 
-    assertThat(id, is(1L));
+    assertThat(id).isEqualTo(1L);
   }
 
   @Test
@@ -95,53 +90,53 @@ class RoundsRepositoryTest extends AbstractDbUnitJpaTest {
     // <_ROUNDS_GROUPS _ROUND_ID="1" _GROUP_ID="3" />
     Long id = repository.getRoundId(-1L);
 
-    assertThat(id, is(nullValue()));
+    assertThat(id).isNull();
   }
 
   @Test
   void testGetPosition(){
     Integer position = repository.getPosition(1L);
-    assertThat(position, is(1));
+    assertThat(position).isEqualTo(1);
 
     position = repository.getPosition(2L);
-    assertThat(position, is(2));
+    assertThat(position).isEqualTo(2);
   }
 
   @Test
   void testGetRoundId_ByDisciplineAndPosition(){
     Long roundId = repository.getRoundId(1L, 2);
-    assertThat(roundId, is(2L));
+    assertThat(roundId).isEqualTo(2L);
 
     roundId = repository.getRoundId(1L, 1);
-    assertThat(roundId, is(1L));
+    assertThat(roundId).isEqualTo(1L);
   }
 
   @Test
   void testGetPreviousRound(){
     Long prevRoundId = repository.getPrevRoundId(2L);
-    assertThat(1L, is(prevRoundId));
+    assertThat(1L).isEqualTo(prevRoundId);
   }
 
   @Test
   void testGetAssignedOpponents_containsData(){
     Set<Opponent> assignedOpponents = repository.getAssignedOpponents(1L);
-    assertThat(assignedOpponents, hasSize(2));
+    assertThat(assignedOpponents).hasSize(2);
   }
 
   @Test
   void testGetAssignedOpponents_Empty(){
     Set<Opponent> assignedOpponents = repository.getAssignedOpponents(2L);
-    assertThat(assignedOpponents, is(empty()));
+    assertThat(assignedOpponents).isEmpty();
   }
 
   @Test
   void testCreateGroups(){
     List<Group> groups = repository.newGroup(1L);
 
-    assertThat(groups, hasSize(5));
+    assertThat(groups).hasSize(5);
 
     for(Group group : groups){
-      assertThat(group.getId(), is(not(nullValue())));
+      assertThat(group.getId()).isNotNull();
     }
   }
 }

@@ -1,47 +1,46 @@
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.Tournament;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
 import java.io.StringReader;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import org.cc.torganizer.core.entities.Tournament;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 
 /**
  * @author svens
  */
-public class TournamentJsonConverterTest {
+class TournamentJsonConverterTest {
   
   private TournamentJsonConverter converter;
 
   @BeforeEach
-  public void before(){
+  void before(){
     converter = new TournamentJsonConverter();
   }  
   
   @Test
-  public void testToJson_withNullValues(){
+  void testToJson_withNullValues(){
     String expected ="{\"id\":null,\"name\":\"Turniername\"}";
     Tournament tournament = new Tournament();
     tournament.setName("Turniername");
     
     final JsonObject jsonObject = converter.toJsonObject(tournament);
     
-    assertThat(jsonObject.toString(), is(expected));
+    assertThat(jsonObject).asString().isEqualTo(expected);
   }
   
   @Test
-  public void testToJsonArray(){
+  void testToJsonArray(){
     String expected ="["
             + "{\"id\":1,\"name\":\"Turniername1\"},"
             + "{\"id\":2,\"name\":\"Turniername2\"}"
@@ -57,11 +56,11 @@ public class TournamentJsonConverterTest {
     
     final JsonArray jsonArray = converter.toJsonArray(tournaments);
     
-    assertThat(jsonArray.toString(), is(expected));
+    assertThat(jsonArray).asString().isEqualTo(expected);
   }
   
   @Test
-  public void testToList(){
+  void testToList(){
     String jsonString ="["
             + "{\"id\":1,\"name\":\"Turniername1\"},"
             + "{\"id\":2,\"name\":\"Turniername2\"}"
@@ -74,11 +73,11 @@ public class TournamentJsonConverterTest {
         
     tournaments = converter.toModels(jsonArray, tournaments);
     
-    assertThat(tournaments, is(notNullValue()));
-    assertThat(tournaments.size(), is(2));
+    assertThat(tournaments).isNotNull();
+    assertThat(tournaments).hasSize(2);
     
     Tournament t1 = ((List<Tournament>)tournaments).get(0);
-    assertThat(t1.getId(), is(1L));
-    assertThat(t1.getName(), is("Turniername1"));
+    assertThat(t1.getId()).isEqualTo(1L);
+    assertThat(t1.getName()).isEqualTo("Turniername1");
   }
 }

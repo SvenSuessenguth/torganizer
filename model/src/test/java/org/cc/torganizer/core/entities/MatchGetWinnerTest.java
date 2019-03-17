@@ -1,20 +1,17 @@
 package org.cc.torganizer.core.entities;
 
-import org.hamcrest.Matchers;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-public class MatchGetWinnerTest {
+class MatchGetWinnerTest {
 
 	private static final String HOME_NAME = "home";
 	private static final String GUEST_NAME = "guest";
@@ -35,15 +32,15 @@ public class MatchGetWinnerTest {
 
 	@ParameterizedTest
 	@MethodSource("addMatch")
-	public void testGetWinner(Match match, Boolean matchHasWinner) {
+	void testGetWinner(Match match, Boolean matchHasWinner) {
 		if (match.isFinished() && matchHasWinner) {
-			assertThat(match.getWinner(), is(notNullValue()));			
+			assertThat(match.getWinner()).isNotNull();
 		} else {
-			assertThat(match.getWinner(), Matchers.is(Matchers.instanceOf(Unknown.class)));
+			assertThat(match.getWinner()).isInstanceOf(Unknown.class);
 		}
 	}
 
-	private static final Match matchFactory(Integer homeScore, Integer guestScore, boolean finished){
+	private static Match matchFactory(Integer homeScore, Integer guestScore, boolean finished){
 		Opponent home = new Player(HOME_NAME, HOME_NAME);
 		Opponent guest = new Player(GUEST_NAME, GUEST_NAME);
 		Match match = new Match(home, guest);

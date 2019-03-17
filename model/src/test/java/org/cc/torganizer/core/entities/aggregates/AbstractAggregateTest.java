@@ -1,24 +1,23 @@
 package org.cc.torganizer.core.entities.aggregates;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.cc.torganizer.core.entities.Match;
 import org.cc.torganizer.core.entities.Result;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-
-public class AbstractAggregateTest {
+class AbstractAggregateTest {
   
   private AbstractAggregate aa;
 
   @BeforeEach
-  public void before() throws Exception {
+  void before() {
     aa = new ResultAggregate();
   }
 
   @Test
-  public void testGetRatio_keinenGewonnen() throws Exception {
+  void testGetRatio_keinenGewonnen() {
     // keinen geownnen, einen verloren
     Match m = new Match();
     m.addResult(new Result(0, 1, 2));
@@ -26,21 +25,21 @@ public class AbstractAggregateTest {
     
     double ratio = aa.getRatio();
     
-    assertThat(ratio, is(0.0));
+    assertThat(ratio).isEqualTo(0.0);
   }
   
   @Test
-  public void testGetRatio_keinresult() throws Exception {
+  void testGetRatio_keinresult() {
     // kein Result
     Match m = new Match();
     aa.aggregate(m, null);
     double ratio = aa.getRatio();
     
-    assertThat(ratio, is(0.0));
+    assertThat(ratio).isEqualTo(0.0);
   }
   
   @Test
-  public void testGetRatio_doppeltSoVieleVerlorenWieGewonnen() throws Exception {
+  void testGetRatio_doppeltSoVieleVerlorenWieGewonnen() {
     // 1 von 3 gewonnen
     Match m = new Match();
     m.addResult(new Result(0, 0, 1));
@@ -49,7 +48,6 @@ public class AbstractAggregateTest {
     aa.aggregate(m, null);
     double ratio = aa.getRatio();
     
-    assertThat(ratio, is(1/3.0));
+    assertThat(ratio).isEqualTo(1/3.0);
   }
-
 }

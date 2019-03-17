@@ -1,76 +1,75 @@
 package org.cc.torganizer.persistence;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.List;
+
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Round;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-
-public class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
+class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
 
   private DisciplinesRepository repository;
 
   @BeforeEach
-  public void before() throws Exception {
+  void before() throws Exception {
     super.initDatabase("test-data-tournament.xml");
 
     repository = new DisciplinesRepository(entityManager);
   }
 
   @Test
-  public void testGetOpponents() {
+  void testGetOpponents() {
     List<Opponent> opponents = repository.getOpponents(1L, null, null);
 
-    assertThat(opponents, is(not(nullValue())));
-    assertThat(opponents, hasSize(2));
+    assertThat(opponents).isNotNull();
+    assertThat(opponents).hasSize(2);
   }
 
   @Test
-  public void testGetDisciplineId_existing(){
+  void testGetDisciplineId_existing(){
     // testdata:
     // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="3" />
     Long id = repository.getDisciplineId(3L);
 
-    assertThat(id, is(1L));
+    assertThat(id).isEqualTo(1L);
   }
 
   @Test
-  public void testGetRoundId_roundDoesNotExist(){
+  void testGetRoundId_roundDoesNotExist(){
     // testdata:
     // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="1" />
     Long id = repository.getDisciplineId(-1L);
 
-    assertThat(id, is(nullValue()));
+    assertThat(id).isNull();
   }
 
   @Test
-  public void testGetRoundByPosition_roundExisting(){
+  void testGetRoundByPosition_roundExisting(){
     // testdata:
     // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="1" />
     Round round = repository.getRoundByPosition(1L, 2);
 
-    assertThat(round, is(not(nullValue())));
+    assertThat(round).isNotNull();
   }
 
   @Test
-  public void testGetRoundByPosition_roundNotExisting(){
+  void testGetRoundByPosition_roundNotExisting(){
     // testdata:
     // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="1" />
     Round round = repository.getRoundByPosition(1L, 4);
 
-    assertThat(round, is(nullValue()));
+    assertThat(round).isNull();
   }
 
   @Test
-  public void testGetRoundByPosition_disciplineNotExisting(){
+  void testGetRoundByPosition_disciplineNotExisting(){
     // testdata:
     // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="1" />
     Round round = repository.getRoundByPosition(2L, 2);
 
-    assertThat(round, is(nullValue()));
+    assertThat(round).isNull();
   }
 }

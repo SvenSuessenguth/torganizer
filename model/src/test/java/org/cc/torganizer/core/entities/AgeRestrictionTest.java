@@ -1,18 +1,17 @@
 package org.cc.torganizer.core.entities;
 
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDate;
 import java.util.stream.Stream;
 
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-public class AgeRestrictionTest {
+class AgeRestrictionTest {
 	
 	@SuppressWarnings("unused")
 	private static Stream<Arguments> addRestrictionAndPlayer() {
@@ -48,13 +47,13 @@ public class AgeRestrictionTest {
 						playerFactory(2009, 1, 1), FALSE));
 	}
 
-	private static final Player playerFactory(Integer year, Integer month, Integer day) {
+	private static Player playerFactory(Integer year, Integer month, Integer day) {
 		LocalDate dateOfBirth = localDateFactory(year, month, day);
 		Person person = new Person("a", "b", dateOfBirth, Gender.UNKNOWN);
 		return new Player(person);
 	}
 
-	private static final LocalDate localDateFactory(Integer year, Integer month, Integer day) {
+	private static LocalDate localDateFactory(Integer year, Integer month, Integer day) {
 		if (year != null && month != null && day != null) {
 			return LocalDate.of(year, month, day);
 		}
@@ -63,8 +62,8 @@ public class AgeRestrictionTest {
 
 	@ParameterizedTest
 	@MethodSource("addRestrictionAndPlayer")
-	public void testPlayerRestriction(Restriction restriction, Player player, boolean expectedRestricted) {
+	void testPlayerRestriction(Restriction restriction, Player player, boolean expectedRestricted) {
 		boolean isRestricted = restriction.isRestricted(player);
-		assertThat(isRestricted, is(expectedRestricted));
+		assertThat(isRestricted).isEqualTo(expectedRestricted);
 	}
 }

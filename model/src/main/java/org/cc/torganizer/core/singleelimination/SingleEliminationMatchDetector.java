@@ -168,7 +168,7 @@ public class SingleEliminationMatchDetector implements PendingMatchDetector {
    * @return vorhandenes Match mit dem geforderten Index oder neues Match mit
    *     unbekannten Opponents
    */
-  protected Match getUpperBracketsMatch(int matchIndex, List<Match> matches, Group group) {
+  private Match getUpperBracketsMatch(int matchIndex, List<Match> matches, Group group) {
 
     for (Match match : matches) {
       if (match.getPosition().equals(matchIndex)) {
@@ -192,7 +192,7 @@ public class SingleEliminationMatchDetector implements PendingMatchDetector {
    *
    * @param match Match, dem die Opponents zugewiesen werden sollen
    */
-  protected void assignUpperBracketOpponentsToMatch(Match match, Group group) {
+  private void assignUpperBracketOpponentsToMatch(Match match, Group group) {
 
     int index = 2 * (match.getPosition() + 1) - group.getOpponents().size();
 
@@ -208,7 +208,7 @@ public class SingleEliminationMatchDetector implements PendingMatchDetector {
    *
    * @return Anzahl der Level bis zum Finale
    */
-  public int getUpperBracketsNumberOfLevels(int groupSize) {
+  protected int getUpperBracketsNumberOfLevels(int groupSize) {
 
     // Gruppe hat Opponents
     long levels = Math.round(Math.log10(groupSize) / Math.log10(2));
@@ -260,7 +260,7 @@ public class SingleEliminationMatchDetector implements PendingMatchDetector {
    * @param level Level
    * @return a {@link java.util.List} object.
    */
-  protected List<Match> getUpperBracketMatchesOnLevel(int level, Group group) {
+  List<Match> getUpperBracketMatchesOnLevel(int level, Group group) {
     List<Match> matches = new ArrayList<>();
 
     int groupSize = group.getOpponents().size();
@@ -281,7 +281,7 @@ public class SingleEliminationMatchDetector implements PendingMatchDetector {
    * @param level Level
    * @return Startindex
    */
-  public int getUpperBracketStartIndex(int level, int groupSize) {
+  int getUpperBracketStartIndex(int level, int groupSize) {
     double maxLevel = getUpperBracketsNumberOfLevels(groupSize);
     return (int) (Math.pow(2, maxLevel - level - 1) - 1);
   }
@@ -293,7 +293,7 @@ public class SingleEliminationMatchDetector implements PendingMatchDetector {
    * @param level Level
    * @return Endindex
    */
-  public int getUpperBracketEndIndex(int level, int groupSize) {
+  int getUpperBracketEndIndex(int level, int groupSize) {
     double maxLevel = getUpperBracketsNumberOfLevels(groupSize);
     return (int) (Math.pow(2, maxLevel - level) - 2);
   }

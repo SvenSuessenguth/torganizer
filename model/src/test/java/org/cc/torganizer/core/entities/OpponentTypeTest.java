@@ -5,31 +5,30 @@
  */
 package org.cc.torganizer.core.entities;
 
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
-
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author svens
  */
-public class OpponentTypeTest {
+class OpponentTypeTest {
 
   @Test
-  public void testValueOf_NULL() {
+  void testValueOf_NULL() {
     assertThrows(NullPointerException.class, ()-> {
-      OpponentType expResult = null;
       OpponentType result = OpponentType.valueOf(null);
-      MatcherAssert.assertThat(expResult, Matchers.is(result));
+
+      assertThat(result).isNull();
     });
   }
 
   @Test
-  public void testValueOf_Male() {
+  void testValueOf_Male() {
     OpponentType expResult = OpponentType.PLAYER;
     OpponentType result = OpponentType.valueOf("PLAYER");
-    MatcherAssert.assertThat(expResult, Matchers.is(result));
-  }
 
+    assertThat(expResult).isEqualTo(result);
+  }
 }

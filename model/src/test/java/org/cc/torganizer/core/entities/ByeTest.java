@@ -6,17 +6,17 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-public class ByeTest {
+class ByeTest {
 
   @Test
-  public void testCreateByes_keineLiefertLeereListe() throws Exception {
+  void testCreateByes_keineLiefertLeereListe() {
     List<Opponent> byes = Bye.createByes(0);
 
     assertThat(byes).isNotNull();
   }
   
   @Test
-  public void testCreateByes_negativerWertLiefertLeereListe() throws Exception {
+  void testCreateByes_negativerWertLiefertLeereListe() {
     List<Opponent> byes = Bye.createByes(-1);
     assertThat(byes).isNotNull();
   }

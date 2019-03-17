@@ -1,32 +1,30 @@
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.Group;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Collection;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.Collection;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
+import org.cc.torganizer.core.entities.Group;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class GroupJsonConverterTest {
+class GroupJsonConverterTest {
 
   private GroupJsonConverter converter;
 
   @BeforeEach
-  public void setUp() throws Exception {
+  void setUp() {
     this.converter = new GroupJsonConverter();
   }
 
   @Test
-  public void toJsonObject_withId() {
+  void toJsonObject_withId() {
     String expected = "{\"id\":1,\"position\":2}";
     Group group = new Group();
     group.setId(1L);
@@ -34,22 +32,22 @@ public class GroupJsonConverterTest {
 
     String actual = converter.toJsonObject(group).toString();
 
-    assertThat(actual, is(expected));
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
-  public void toJsonObject_withNullId() {
+  void toJsonObject_withNullId() {
     String expected = "{\"id\":null,\"position\":2}";
     Group group = new Group();
     group.setPosition(2);
 
     String actual = converter.toJsonObject(group).toString();
 
-    assertThat(actual, is(expected));
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
-  public void toJsonArray() {
+  void toJsonArray() {
     String expected = "[" +
       "{\"id\":null,\"position\":1}," +
       "{\"id\":2,\"position\":3}" +
@@ -67,11 +65,11 @@ public class GroupJsonConverterTest {
 
     String actual = converter.toJsonArray(groups).toString();
 
-    assertThat(actual, is(expected));
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
-  public void toModel() {
+  void toModel() {
     String jsonString = "{\"id\":1,\"position\":2}";
     Group group = new Group();
     group.setId(1L);
@@ -81,12 +79,12 @@ public class GroupJsonConverterTest {
 
     group = converter.toModel(jsonObject, group);
 
-    assertThat(group.getId(), is(1L));
-    assertThat(group.getPosition(), is(2));
+    assertThat(group.getId()).isEqualTo(1L);
+    assertThat(group.getPosition()).isEqualTo(2);
   }
 
   @Test
-  public void toModel_withIdNull() {
+  void toModel_withIdNull() {
     String jsonString = "{\"id\":null,\"position\":2}";
     Group group = new Group();
 
@@ -95,12 +93,12 @@ public class GroupJsonConverterTest {
 
     group = converter.toModel(jsonObject, group);
 
-    assertThat(group.getId(), is(nullValue()));
-    assertThat(group.getPosition(), is(2));
+    assertThat(group.getId()).isNull();
+    assertThat(group.getPosition()).isEqualTo(2);
   }
 
   @Test
-  public void toModels() {
+  void toModels() {
     String jsonString = "[" +
       "{\"id\":1,\"position\":1}," +
       "{\"id\":2,\"position\":3}" +
@@ -116,9 +114,9 @@ public class GroupJsonConverterTest {
     groups.add(group1);
     groups.add(group2);
 
-    groups = converter.toModels(jsonArray, groups);
+    converter.toModels(jsonArray, groups);
 
-    assertThat(group1.getPosition(), is(1));
-    assertThat(group2.getPosition(), is(3));
+    assertThat(group1.getPosition()).isEqualTo(1);
+    assertThat(group2.getPosition()).isEqualTo(3);
   }
 }

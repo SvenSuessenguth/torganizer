@@ -17,17 +17,17 @@ import org.junit.jupiter.api.Test;
  *
  * @author svens
  */
-public class SquadTest {
+class SquadTest {
   
   private Squad squad;
   
   @BeforeEach
-  public void before(){
+  void before(){
     squad = new Squad();
   }
 
   @Test
-  public void testAddPlayers() {
+  void testAddPlayers() {
     Collection<Player> players = Arrays.asList(new Player(), new Player());
     squad.addPlayers(players);
 

@@ -1,18 +1,24 @@
 package org.cc.torganizer.persistence;
 
-import org.cc.torganizer.core.entities.*;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
 import javax.persistence.Query;
 import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.*;
-import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Root;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import org.cc.torganizer.core.entities.Discipline;
+import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.core.entities.Squad;
+import org.cc.torganizer.core.entities.Tournament;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
 
@@ -39,7 +45,7 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
     Long count = (Long) result.get(0).get(1);
 
     // 2 Player + 1 Squad
-    assertThat(count, is(3L));
+    assertThat(count).isEqualTo(3L);
   }
 
   @Test
@@ -60,7 +66,7 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
     List<Tuple> result = entityManager.createQuery(cq).getResultList();
     Long count = (Long) result.get(0).get(1);
 
-    assertThat(count, is(2L));
+    assertThat(count).isEqualTo(2L);
   }
 
   @Test
@@ -80,35 +86,35 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
     List<Tuple> result = entityManager.createQuery(cq).getResultList();
     Long count = (Long) result.get(0).get(1);
 
-    assertThat(count, is(1L));
+    assertThat(count).isEqualTo(1L);
   }
 
   @Test
   void testCriteriaListPlayersOrderedByLastName(){
     List<Player> players = repository.getPlayersOrderedByLastName(1L, 0, 5);
 
-    assertThat(players.get(0).getPerson().getLastName(), is("Aöüß"));
+    assertThat(players.get(0).getPerson().getLastName()).isEqualTo("Aöüß");
   }
 
   @Test
   void testGetTournament(){
     Tournament t = repository.read(1L);
 
-    assertThat(t, is(not(nullValue())));
+    assertThat(t).isNotNull();
   }
 
   @Test
   void testGetTournaments(){
     List<Tournament> tournaments = repository.read(0,10);
 
-    assertThat(tournaments, hasSize(2));
+    assertThat(tournaments).hasSize(2);
   }
 
   @Test
   void testGetTournaments_usingMaxResults(){
     List<Tournament> tournaments = repository.read(0,1);
 
-    assertThat(tournaments, hasSize(1));
+    assertThat(tournaments).hasSize(1);
   }
 
   @Test
@@ -117,7 +123,7 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
     repository.addPlayer(1L, 6L);
     long countAfter = repository.countPlayers(1L);
 
-    assertThat(countBefore, is(countAfter-1));
+    assertThat(countBefore).isEqualTo(countAfter-1);
   }
 
   @Test
@@ -126,7 +132,7 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
     query.setParameter("id", 1L);
     long countSubscribers = (long) query.getSingleResult();
 
-    assertThat(countSubscribers, Matchers.is(2L));
+    assertThat(countSubscribers).isEqualTo(2L);
   }
 
   @Test
@@ -135,7 +141,7 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
     query.setParameter("id", 3L);
     long countSubscribers = (long) query.getSingleResult();
 
-    assertThat(countSubscribers, is(0L));
+    assertThat(countSubscribers).isEqualTo(0L);
   }
 
   @Test
@@ -144,7 +150,7 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
     query.setParameter("id", null);
     long countSubscribers = (long) query.getSingleResult();
 
-    assertThat(countSubscribers, is(0L));
+    assertThat(countSubscribers).isEqualTo(0L);
   }
 
   @Test
@@ -153,7 +159,7 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
     query.setParameter("id", 1L);
     List<Player> players = query.getResultList();
 
-    assertThat(players, hasSize(2));
+    assertThat(players).hasSize(2);
   }
 
   @Test
@@ -162,7 +168,7 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
     query.setParameter("id", 1L);
     List<Squad> squads = query.getResultList();
 
-    assertThat(squads, hasSize(1));
+    assertThat(squads).hasSize(1);
   }
 
   @Test
@@ -171,7 +177,7 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
     query.setParameter("id", 3L);
     List<Player> players = query.getResultList();
 
-    assertThat(players, hasSize(0));
+    assertThat(players).isEmpty();
   }
 
   @Test
@@ -180,7 +186,7 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
     query.setParameter("id", 2L);
     List<Squad> squads = query.getResultList();
 
-    assertThat(squads, hasSize(0));
+    assertThat(squads).isEmpty();
   }
 
   @Test
@@ -189,7 +195,7 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
     query.setParameter("id", 1L);
     List<Discipline> disciplines = query.getResultList();
 
-    assertThat(disciplines, hasSize(1));
+    assertThat(disciplines).hasSize(1);
   }
 
   @Test
@@ -198,6 +204,6 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
     query.setParameter("id", 1L);
     List<Opponent> opponents = query.getResultList();
 
-    assertThat(opponents, hasSize(3));
+    assertThat(opponents).hasSize(3);
   }
 }

@@ -1,9 +1,8 @@
 package org.cc.torganizer.core.util;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.cc.torganizer.core.util.Checker.countNullValues;
 import static org.cc.torganizer.core.util.Checker.onlyNullValues;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,36 +10,36 @@ class CheckerTest {
 
   @Test
   void countNullValues_empty() {
-    assertThat(countNullValues(), is(0));
+    assertThat(countNullValues()).isEqualTo(0);
   }
 
   @Test
   void countNullValues_onlyNullValues() {
-    assertThat(countNullValues(null, null), is(2));
+    assertThat(countNullValues(null, null)).isEqualTo(2);
   }
 
   @Test
   void countNullValues_mixedValues() {
-    assertThat(countNullValues(null, new Object(), null), is(2));
+    assertThat(countNullValues(null, new Object(), null)).isEqualTo(2);
   }
 
   @Test
   void countNullValues_onlyNonNullValues() {
-    assertThat(countNullValues(new Object(), new Object()), is(0));
+    assertThat(countNullValues(new Object(), new Object())).isEqualTo(0);
   }
 
   @Test
-  public void onlyNullValues_null() {
-    assertThat(onlyNullValues(), is(true));
+  void onlyNullValues_null() {
+    assertThat(onlyNullValues()).isTrue();
   }
 
   @Test
-  public void onlyNullValues_true() {
-    assertThat(onlyNullValues(null, null, null), is(true));
+  void onlyNullValues_true() {
+    assertThat(onlyNullValues(null, null, null)).isTrue();
   }
 
   @Test
-  public void onlyNullValues_false() {
-    assertThat(onlyNullValues(null, new Object(), null), is(false));
+  void onlyNullValues_false() {
+    assertThat(onlyNullValues(null, new Object(), null)).isFalse();
   }
 }

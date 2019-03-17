@@ -1,11 +1,6 @@
 package org.cc.torganizer.core.entities;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.nullValue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
@@ -21,24 +16,24 @@ class RoundTest {
     round.appendGroup(new Group(0));
     round.appendGroup(new Group(2));
 
-    for(Integer position = 0 ; position<=3 ; position+=1){
+    for(int position = 0 ; position<=3 ; position+=1){
       Group group = round.getGroup(position);
-      assertThat(group.getPosition(), is(position));
+      assertThat(group.getPosition()).isEqualTo(position);
     }
   }
 
   @Test
-  public void appendGroup_everyGroupHasPosition(){
+  void appendGroup_everyGroupHasPosition(){
     Round round = new Round();
     Group group = new Group();
 
     round.appendGroup(group);
 
-    assertThat(group.getPosition(), is(not(nullValue())));
+    assertThat(group.getPosition()).isNotNull();
   }
 
   @Test
-  public void appendGroup_appendAtEnd(){
+  void appendGroup_appendAtEnd(){
     Round round = new Round();
     round.appendGroup(new Group());
     round.appendGroup(new Group());
@@ -49,28 +44,28 @@ class RoundTest {
 
     round.appendGroup(group);
 
-    assertThat(group.getPosition(), is(3));
+    assertThat(group.getPosition()).isEqualTo(3);
   }
 
   @Test
-  public void appendGroup_groupHasPosition(){
+  void appendGroup_groupHasPosition(){
     Round round = new Round();
     round.appendGroup(new Group(1));
 
-    assertThat(round.getGroups(), hasSize(1));
+    assertThat(round.getGroups()).hasSize(1);
   }
 
   @Test
-  public void appendGroup_groupHasNoPosition(){
+  void appendGroup_groupHasNoPosition(){
     Round round = new Round();
     Group group = new Group();
     round.appendGroup(group);
 
-    assertThat(group.getPosition(), is(0));
+    assertThat(group.getPosition()).isEqualTo(0);
   }
 
   @Test
-  public void getDeletabelGroups_allGroupsHaveOpponents(){
+  void getDeletabelGroups_allGroupsHaveOpponents(){
     Round round = new Round();
     Group group1 = new Group();
     group1.addOpponent(new Player());
@@ -81,11 +76,11 @@ class RoundTest {
 
     List<Group> deletableGroups = round.getDeletableGroups();
 
-    assertThat(deletableGroups, is(empty()));
+    assertThat(deletableGroups).isEmpty();
   }
 
   @Test
-  public void getDeletabelGroups_atLeastOneGroupsHasNoOpponents(){
+  void getDeletabelGroups_atLeastOneGroupsHasNoOpponents(){
     Round round = new Round();
     Group group1 = new Group();
     group1.addOpponent(new Player());
@@ -95,15 +90,15 @@ class RoundTest {
 
     List<Group> deletableGroups = round.getDeletableGroups();
 
-    assertThat(deletableGroups, hasSize(1));
+    assertThat(deletableGroups).hasSize(1);
   }
 
   @Test
-  public void getDeletabelGroups_noGroupAssigned(){
+  void getDeletabelGroups_noGroupAssigned(){
     Round round = new Round();
 
     List<Group> deletableGroups = round.getDeletableGroups();
 
-    assertThat(deletableGroups, is(empty()));
+    assertThat(deletableGroups).isEmpty();
   }
 }

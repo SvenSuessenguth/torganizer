@@ -1,71 +1,70 @@
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.Round;
-import org.cc.torganizer.core.entities.System;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.cc.torganizer.core.entities.System.DOUBLE_ELIMINATION;
+import static org.cc.torganizer.core.entities.System.ROUND_ROBIN;
+import static org.cc.torganizer.core.entities.System.SINGLE_ELIMINATION;
 
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
+import org.cc.torganizer.core.entities.Round;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class RoundJsonConverterTest {
+class RoundJsonConverterTest {
 
   private RoundJsonConverter converter;
 
   @BeforeEach
-  public void before(){
+  void before(){
     converter = new RoundJsonConverter();
   }
 
   @Test
-  public void testToJsonObject_empty(){
+  void testToJsonObject_empty(){
     String expected = "{\"id\":null,\"qualified\":0,\"position\":null,\"system\":\"DOUBLE_ELIMINATION\"}";
 
     Round round = new Round();
-    round.setSystem(System.DOUBLE_ELIMINATION);
+    round.setSystem(DOUBLE_ELIMINATION);
     String actual = converter.toJsonObject(round).toString();
 
-    assertThat(actual, is(expected));
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
-  public void testToJsonObject_full(){
+  void testToJsonObject_full(){
     String expected = "{\"id\":1,\"qualified\":4,\"position\":1,\"system\":\"DOUBLE_ELIMINATION\"}";
 
     Round round = new Round();
     round.setId(1L);
     round.setPosition(1);
-    round.setSystem(System.DOUBLE_ELIMINATION);
+    round.setSystem(DOUBLE_ELIMINATION);
     round.setQualified(4);
 
     String actual = converter.toJsonObject(round).toString();
 
-    assertThat(actual, is(expected));
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
-  public void testToJsonArray_empty(){
+  void testToJsonArray_empty(){
     String expected = "[]";
     List<Round> rounds = new ArrayList<>();
     String actual = converter.toJsonArray(rounds).toString();
 
-    assertThat(actual, is(expected));
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
-  public void testToJsonArray_full(){
+  void testToJsonArray_full(){
     String expected = "["+
       "{\"id\":1,\"qualified\":4,\"position\":1,\"system\":\"ROUND_ROBIN\"}," +
       "{\"id\":2,\"qualified\":2,\"position\":2,\"system\":null}" +
@@ -77,7 +76,7 @@ public class RoundJsonConverterTest {
     round1.setId(1L);
     round1.setQualified(4);
     round1.setPosition(1);
-    round1.setSystem(System.ROUND_ROBIN);
+    round1.setSystem(ROUND_ROBIN);
     rounds.add(round1);
 
     Round round2 = new Round();
@@ -89,11 +88,11 @@ public class RoundJsonConverterTest {
 
     String actual = converter.toJsonArray(rounds).toString();
 
-    assertThat(actual, is(expected));
+    assertThat(actual).isEqualTo(expected);
   }
 
   @Test
-  public void testToModel_withValues(){
+  void testToModel_withValues(){
     String jsonString = "{\"id\":1,\"qualified\":4,\"position\":1,\"system\":\"SINGLE_ELIMINATION\"}";
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonObject jsonObject = jsonReader.readObject();
@@ -102,14 +101,14 @@ public class RoundJsonConverterTest {
 
     converter.toModel(jsonObject, round);
 
-    assertThat(1L, is(round.getId()));
-    assertThat(4, is(round.getQualified()));
-    assertThat(1, is(round.getPosition()));
-    assertThat(round.getSystem(), is(System.SINGLE_ELIMINATION));
+    assertThat(round.getId()).isEqualTo(1L);
+    assertThat(round.getQualified()).isEqualTo(4);
+    assertThat(round.getPosition()).isEqualTo(1);
+    assertThat(round.getSystem()).isEqualTo(SINGLE_ELIMINATION);
   }
 
   @Test
-  public void testToModel_withNullValues(){
+  void testToModel_withNullValues(){
     String jsonString = "{\"id\":null,\"qualified\":null,\"position\":null,\"system\":null}";
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonObject jsonObject = jsonReader.readObject();
@@ -118,14 +117,14 @@ public class RoundJsonConverterTest {
 
     converter.toModel(jsonObject, round);
 
-    assertThat(round.getId(), is(nullValue()));
-    assertThat(round.getQualified(), is(0));
-    assertThat(round.getPosition(), is(nullValue()));
-    assertThat(round.getSystem(), is(System.ROUND_ROBIN));
+    assertThat(round.getId()).isNull();
+    assertThat(round.getQualified()).isEqualTo(0);
+    assertThat(round.getPosition()).isNull();
+    assertThat(round.getSystem()).isEqualTo(ROUND_ROBIN);
   }
 
   @Test
-  public void testToModels() {
+  void testToModels() {
     String jsonString = "["
       + "{\"id\":1,\"qualified\":4,\"position\":1},"
       + "{\"id\":2,\"qualified\":2,\"position\":2}"
@@ -137,7 +136,7 @@ public class RoundJsonConverterTest {
 
     rounds = converter.toModels(jsonArray, rounds);
 
-    assertThat(rounds, is(notNullValue()));
-    assertThat(rounds.size(), is(2));
+    assertThat(rounds).isNotNull();
+    assertThat(rounds).hasSize(2);
   }
 }

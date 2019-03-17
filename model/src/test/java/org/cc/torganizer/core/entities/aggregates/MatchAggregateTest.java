@@ -1,25 +1,28 @@
 package org.cc.torganizer.core.entities.aggregates;
 
-import org.cc.torganizer.core.entities.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDateTime;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import org.cc.torganizer.core.entities.Match;
+import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.Person;
+import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.core.entities.Result;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class MatchAggregateTest {
+class MatchAggregateTest {
 
   private MatchAggregate matchAggregate;
 
   @BeforeEach
-  public void before(){
+  void before(){
     matchAggregate = new MatchAggregate();
   }
 
   @Test
-  public void testDraw(){
+  void testDraw(){
     Opponent home = new Player(new Person("1", "1"));
     Opponent guest = new Player(new Person("2", "2"));
 
@@ -27,13 +30,13 @@ public class MatchAggregateTest {
     m.addResult(new Result(0, 0, 0));
 
     matchAggregate.aggregate(m, home);
-    assertThat(matchAggregate.getRatio(), is(0D));
-    assertThat(matchAggregate.getWins(), is(0));
-    assertThat(matchAggregate.getLose(), is(0));
+    assertThat(matchAggregate.getRatio()).isEqualTo(0D);
+    assertThat(matchAggregate.getWins()).isEqualTo(0);
+    assertThat(matchAggregate.getLose()).isEqualTo(0);
   }
 
   @Test
-  public void testHomeWins(){
+  void testHomeWins(){
     Opponent home = new Player(new Person("1", "1"));
     Opponent guest = new Player(new Person("2", "2"));
 
@@ -43,8 +46,8 @@ public class MatchAggregateTest {
 
     matchAggregate.aggregate(m, home);
 
-    assertThat("invalid wins", matchAggregate.getWins(), is(1));
-    assertThat("invalid lose", matchAggregate.getLose(), is(0));
-    assertThat("invalid ratio", matchAggregate.getRatio(), is(1D) );
+    assertThat(matchAggregate.getWins()).isEqualTo(1);
+    assertThat(matchAggregate.getLose()).isEqualTo(0);
+    assertThat(matchAggregate.getRatio()).isEqualTo(1D);
   }
 }

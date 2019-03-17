@@ -1,5 +1,8 @@
 package org.cc.torganizer.rest.json;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.assertj.core.api.Assertions;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,19 +17,15 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
-
 /**
  * @author svens
  */
-public class SquadJsonConverterTest {
+class SquadJsonConverterTest {
   
   private SquadJsonConverter converter;
   
   @BeforeEach
-  public void before(){
+  void before(){
     PersonJsonConverter personConverter = new PersonJsonConverter();
     PlayerJsonConverter playerConverter = new PlayerJsonConverter(personConverter, new ClubJsonConverter());
     
@@ -34,7 +33,7 @@ public class SquadJsonConverterTest {
   }
   
   @Test
-  public void testToJsonObject(){
+  void testToJsonObject(){
     String expected = "{\"id\":null,"
             + "\"players\":["
             + "{\"id\":null,\"lastMatch\":null,\"status\":\"ACTIVE\","
@@ -50,11 +49,11 @@ public class SquadJsonConverterTest {
     
     final JsonObject jsonObject = converter.toJsonObject(squad);
     
-    assertThat(jsonObject.toString(), is(expected));
+    assertThat(jsonObject).asString().isEqualTo(expected);
   }
   
   @Test
-  public void testToJsonArray(){
+  void testToJsonArray(){
     
     String expected = "["
             + "{\"id\":null,"
@@ -74,11 +73,11 @@ public class SquadJsonConverterTest {
     
     final JsonArray jsonArray = converter.toJsonArray(squads);
 
-    assertThat(jsonArray.toString(), is(expected));
+    assertThat(jsonArray).asString().isEqualTo(expected);
   }
   
   @Test
-  public void testToModel(){
+  void testToModel(){
     String jsonString = "{\"id\":1,"
             + "\"players\":["
             + "{\"id\":null,\"lastMatch\":null,\"status\":\"ACTIVE\","
@@ -90,8 +89,6 @@ public class SquadJsonConverterTest {
     JsonObject jsonObject = jsonReader.readObject();
     
     final Squad squad = converter.toModel(jsonObject, new Squad(1L));
-    System.out.println(squad);
-    assertThat(squad, is(notNullValue()));
-    
+    assertThat(squad).isNotNull();
   }
 }

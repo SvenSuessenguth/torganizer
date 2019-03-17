@@ -7,24 +7,24 @@ import org.cc.torganizer.core.entities.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class PlayerByNameComparatorTest {
+class PlayerByNameComparatorTest {
 
   private PlayerByNameComparator comparator;
 
   @BeforeEach
-  public void setUp() throws Exception {
+  void setUp() {
     comparator = new PlayerByNameComparator();
   }
 
   @Test
-  public void compare_bothNull() {
+  void compare_bothNull() {
     int c = comparator.compare(null, null);
 
     assertThat(c).isEqualTo(0);
   }
 
   @Test
-  public void compare_bothEquals(){
+  void compare_bothEquals(){
     Player p = new Player(new Person("A", "B"));
     int c = comparator.compare(p, p);
 
@@ -32,7 +32,7 @@ public class PlayerByNameComparatorTest {
   }
 
   @Test
-  public void compare_bothSameLastName(){
+  void compare_bothSameLastName(){
     Player p1 = new Player(new Person("A", "B"));
     Player p2 = new Player(new Person("B", "B"));
     int c = comparator.compare(p1, p2);
@@ -41,7 +41,7 @@ public class PlayerByNameComparatorTest {
   }
 
   @Test
-  public void compare_firstIsNull(){
+  void compare_firstIsNull(){
     Player p2 = new Player(new Person("B", "B"));
     int c = comparator.compare(null, p2);
 
@@ -49,7 +49,7 @@ public class PlayerByNameComparatorTest {
   }
 
   @Test
-  public void compare_secondIsNull(){
+  void compare_secondIsNull(){
     Player p1 = new Player(new Person("A", "B"));
     int c = comparator.compare(p1, null);
 
@@ -57,7 +57,7 @@ public class PlayerByNameComparatorTest {
   }
 
   @Test
-  public void compare_lowerAndUpperCase(){
+  void compare_lowerAndUpperCase(){
     Player p1 = new Player(new Person("A", "B"));
     Player p2 = new Player(new Person("a", "b"));
     int c = comparator.compare(p1, p2);

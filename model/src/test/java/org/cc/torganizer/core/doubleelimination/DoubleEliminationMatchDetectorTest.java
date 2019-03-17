@@ -37,9 +37,7 @@ class DoubleEliminationMatchDetectorTest {
 	@Test
 	void testCreatePendingMatchWithNull() {
 
-    assertThrows(NullPointerException.class, ()-> {
-      demd.createPendingMatch(0, 0, null, new Player(), null);
-    });
+    assertThrows(NullPointerException.class, ()-> demd.createPendingMatch(0, 0, null, new Player(), null));
 	}
 
 	@Test

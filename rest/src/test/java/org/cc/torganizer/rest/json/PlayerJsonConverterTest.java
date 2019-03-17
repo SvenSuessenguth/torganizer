@@ -1,6 +1,22 @@
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.Gender;
+import static java.time.LocalDateTime.of;
+import static java.time.Month.DECEMBER;
+import static java.time.Month.JANUARY;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.cc.torganizer.core.entities.Gender.MALE;
+
+import java.io.StringReader;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Objects;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.junit.jupiter.api.Test;
@@ -9,29 +25,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import java.io.StringReader;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-
-import static java.time.LocalDateTime.of;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
-
 /**
  * @author svens
  */
 @ExtendWith(MockitoExtension.class)
-public class PlayerJsonConverterTest {
+class PlayerJsonConverterTest {
 
   @Spy
   private PersonJsonConverter personConverter;
@@ -43,7 +41,7 @@ public class PlayerJsonConverterTest {
   private PlayerJsonConverter converter;
 
   @Test
-  public void testToJson_withNullValues() {
+  void testToJson_withNullValues() {
     String expected = "{\"id\":null,\"lastMatch\":null,\"status\":\"ACTIVE\","
       + "\"person\":{"
       + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
@@ -53,27 +51,27 @@ public class PlayerJsonConverterTest {
 
     final JsonObject jsonObject = converter.toJsonObject(player);
 
-    assertThat(jsonObject.toString(), is(expected));
+    assertThat(jsonObject).asString().isEqualTo(expected);
   }
 
   @Test
-  public void testToJson_withLastMatch() {
+  void testToJson_withLastMatch() {
     String expected = "{\"id\":null,\"lastMatch\":\"2017-12-24 18:00:00\",\"status\":\"ACTIVE\","
       + "\"person\":{"
       + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
       + "\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
       + "\"club\":{\"id\":null,\"name\":null}}";
     Player player = new Player("vorname", "nachname");
-    LocalDateTime christmasEve = of(2017, Month.DECEMBER, 24, 18, 0, 0);
+    LocalDateTime christmasEve = of(2017, DECEMBER, 24, 18, 0, 0);
     player.setLastMatch(christmasEve);
 
     final JsonObject jsonObject = converter.toJsonObject(player);
 
-    assertThat(jsonObject.toString(), is(expected));
+    assertThat(jsonObject).asString().isEqualTo(expected);
   }
 
   @Test
-  public void testToModel_singlePlayer() {
+  void testToModel_singlePlayer() {
     String jsonString = "{\"id\":null,\"lastMatch\":\"2017-12-24 18:00:00\","
       + "\"person\":{"
       + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
@@ -83,14 +81,14 @@ public class PlayerJsonConverterTest {
 
     Player player = converter.toModel(jsonObject, new Player(new Person()));
 
-    LocalDateTime expectedLastMatch = LocalDateTime.of(2017, Month.DECEMBER, 24, 18, 0, 0);
-    assertThat(player.getLastMatch(), is(expectedLastMatch));
-    assertThat(player.getPerson().getFirstName(), is("vorname"));
-    assertThat(player.getPerson().getGender(), is(Gender.MALE));
+    LocalDateTime expectedLastMatch = LocalDateTime.of(2017, DECEMBER, 24, 18, 0, 0);
+    assertThat(player.getLastMatch()).isEqualTo(expectedLastMatch);
+    assertThat(player.getPerson().getFirstName()).isEqualTo("vorname");
+    assertThat(player.getPerson().getGender()).isEqualTo(MALE);
   }
 
   @Test
-  public void testToModels_multiplePlayer() {
+  void testToModels_multiplePlayer() throws NullPointerException{
     String jsonString = "["
       + "{\"id\":1,\"lastMatch\":\"2017-12-24 18:00:00\","
       + "\"person\":{"
@@ -110,10 +108,10 @@ public class PlayerJsonConverterTest {
     Collection<Player> players = Arrays.asList(p1, p2);
 
 
-    players = (List<Player>) converter.toModels(jsonArray, players);
+    players = converter.toModels(jsonArray, players);
 
-    assertThat(players, is(notNullValue()));
-    assertThat(players.size(), is(2));
+    assertThat(players).isNotNull();
+    assertThat(players).hasSize(2);
 
 
     Player player1 = null;
@@ -126,12 +124,12 @@ public class PlayerJsonConverterTest {
         player2 = p;
       }
     }
-    LocalDateTime expectedLastMatch = LocalDateTime.of(2017, Month.DECEMBER, 24, 18, 0, 0);
-    assertThat(player1.getLastMatch(), is(expectedLastMatch));
-    assertThat(player1.getPerson().getFirstName(), is("vorname"));
-    assertThat(player1.getPerson().getGender(), is(Gender.MALE));
+    LocalDateTime expectedLastMatch = LocalDateTime.of(2017, DECEMBER, 24, 18, 0, 0);
+    assertThat(Objects.requireNonNull(player1).getLastMatch()).isEqualTo(expectedLastMatch);
+    assertThat(player1.getPerson().getFirstName()).isEqualTo("vorname");
+    assertThat(player1.getPerson().getGender()).isEqualTo(MALE);
 
-    LocalDate expectedDateOfBirth = LocalDate.of(1968, Month.JANUARY, 12);
-    assertThat(player2.getPerson().getDateOfBirth(), is(expectedDateOfBirth));
+    LocalDate expectedDateOfBirth = LocalDate.of(1968, JANUARY, 12);
+    assertThat(Objects.requireNonNull(player2).getPerson().getDateOfBirth()).isEqualTo(expectedDateOfBirth);
   }
 }
