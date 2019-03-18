@@ -47,6 +47,18 @@ public class Player extends Opponent {
     this.person = new Person(firstName, lastName);
   }
 
+  /**
+   * convenience constructor.
+   *
+   * @param firstName Vorname
+   * @param lastName  Nachname
+   * @param club Club
+   */
+  public Player(String firstName, String lastName, Club club) {
+    this.person = new Person(firstName, lastName);
+    this.club = club;
+  }
+
   public Person getPerson() {
     return person;
   }
