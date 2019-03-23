@@ -3,11 +3,13 @@ package org.cc.torganizer.persistence;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.core.entities.PositionalOpponent;
 import org.cc.torganizer.core.entities.Round;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -82,5 +84,17 @@ class GroupsRepositoryTest extends AbstractDbUnitJpaTest {
     Group group = repository.addOpponent(1L, 3L);
 
     assertThat(group.getOpponents()).hasSize(3);
+  }
+
+  @Test
+  void testGetPositionalOpponents(){
+    List<PositionalOpponent> pOpponents = repository.getPositionalOpponents(1L, 0, 10);
+    assertThat(pOpponents).hasSize(2);
+  }
+
+  @Test
+  void testGetPositionalOpponentsFromNonExistingGroup(){
+    List<PositionalOpponent> pOpponents = repository.getPositionalOpponents(-1L, 0, 10);
+    assertThat(pOpponents).hasSize(0);
   }
 }

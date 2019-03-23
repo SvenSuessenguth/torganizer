@@ -12,6 +12,7 @@ import javax.persistence.TypedQuery;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.PositionalOpponent;
 import org.cc.torganizer.core.entities.Round;
 
 @Stateless
@@ -120,5 +121,17 @@ public class GroupsRepository extends Repository<Group> {
     entityManager.persist(group);
 
     return group;
+  }
+
+  public List<PositionalOpponent> getPositionalOpponents(Long groupId, Integer offset, Integer maxResults ) {
+    offset = offset == null ? DEFAULT_OFFSET : offset;
+    maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
+
+    TypedQuery<PositionalOpponent> namedQuery = entityManager.createNamedQuery("Group.findPositionalOpponents", PositionalOpponent.class);
+    namedQuery.setParameter("groupId", groupId);
+    namedQuery.setFirstResult(offset);
+    namedQuery.setMaxResults(maxResults);
+
+    return namedQuery.getResultList();
   }
 }

@@ -7,6 +7,9 @@
   <named-query name="Group.findAll">
     <query>SELECT g FROM Group g</query>
   </named-query>
+  <named-query name="Group.findPositionalOpponents">
+    <query>SELECT p FROM PositionalOpponent p, Group g WHERE p MEMBER OF g.positionalOpponents AND g.id = :groupId</query>
+  </named-query>
 
   <entity class="org.cc.torganizer.core.entities.Group" access="FIELD">
     <!-- GROUPS is a mysql keyword -->

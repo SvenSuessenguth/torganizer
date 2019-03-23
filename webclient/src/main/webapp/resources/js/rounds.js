@@ -125,6 +125,8 @@ class Rounds {
     this.crud.get(url, this.updateGroups.bind(this));
   }
   updateGroups(jGroups){
+    console.log("updating groups");
+
     // remove old groups
     let eGroups = document.querySelector("#groups");
     while (eGroups.firstChild) {
