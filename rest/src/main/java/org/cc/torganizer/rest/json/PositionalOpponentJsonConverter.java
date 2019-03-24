@@ -2,13 +2,17 @@ package org.cc.torganizer.rest.json;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
 import javax.json.JsonPatch;
 
+import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.PositionalOpponent;
 
 @RequestScoped
@@ -32,7 +36,12 @@ public class PositionalOpponentJsonConverter extends BaseModelJsonConverter<Posi
 
   @Override
   public JsonArray toJsonArray(Collection<PositionalOpponent> positionalOpponents) {
-    return null;
+    JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
+    final JsonArrayBuilder arrayBuilder = factory.createArrayBuilder();
+
+    positionalOpponents.forEach(po -> arrayBuilder.add(this.toJsonObject(po)));
+
+    return arrayBuilder.build();
   }
 
   @Override
