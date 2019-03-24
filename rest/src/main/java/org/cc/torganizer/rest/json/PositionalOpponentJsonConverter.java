@@ -1,6 +1,7 @@
 package org.cc.torganizer.rest.json;
 
 import java.util.Collection;
+import java.util.Collections;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -25,9 +26,8 @@ public class PositionalOpponentJsonConverter extends BaseModelJsonConverter<Posi
     JsonPatch patch = Json.createPatchBuilder().
         add("/position", positionalOpponent.getPosition()).
         build();
-    JsonObject result = patch.apply(jsonObject);
 
-    return result;
+    return patch.apply(jsonObject);
   }
 
   @Override
@@ -42,7 +42,7 @@ public class PositionalOpponentJsonConverter extends BaseModelJsonConverter<Posi
 
   @Override
   public Collection<PositionalOpponent> toModels(JsonArray jsonArray, Collection<PositionalOpponent> models) {
-    return null;
+    return Collections.emptyList();
   }
 
 
@@ -59,6 +59,6 @@ public class PositionalOpponentJsonConverter extends BaseModelJsonConverter<Posi
       return null;
     }
 
-    return (ModelJsonConverter) provider.getConverter(pOppponent.getOpponent().getOpponentType());
+    return provider.getConverter(pOppponent.getOpponent().getOpponentType());
   }
 }
