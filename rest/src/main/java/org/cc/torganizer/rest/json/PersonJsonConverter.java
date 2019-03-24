@@ -19,7 +19,7 @@ import org.cc.torganizer.core.entities.Person;
  * @author svens
  */
 @RequestScoped
-public class PersonJsonConverter extends ModelJsonConverter<Person> {
+public class PersonJsonConverter extends BaseModelJsonConverter<Person> {
 
   @Override
   public JsonObject toJsonObject(Person person) {

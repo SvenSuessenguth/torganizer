@@ -23,7 +23,7 @@ import org.cc.torganizer.core.entities.Status;
  * @author svens
  */
 @RequestScoped
-public class PlayerJsonConverter extends ModelJsonConverter<Player>
+public class PlayerJsonConverter extends BaseModelJsonConverter<Player>
     implements OpponentJsonConverter {
 
   @Inject
@@ -56,11 +56,11 @@ public class PlayerJsonConverter extends ModelJsonConverter<Player>
   }
 
   @Override
-  public JsonArray toJsonArray(Collection<Player> players) {
+  public JsonArray toJsonArray(Collection players) {
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonArrayBuilder arrayBuilder = factory.createArrayBuilder();
 
-    players.forEach(player -> arrayBuilder.add(this.toJsonObject(player)));
+    players.forEach(player -> arrayBuilder.add(this.toJsonObject((Player) player)));
 
     return arrayBuilder.build();
   }
@@ -85,7 +85,7 @@ public class PlayerJsonConverter extends ModelJsonConverter<Player>
   }
 
   @Override
-  public Collection<Player> toModels(JsonArray jsonArray, Collection<Player> players) {
+  public Collection toModels(JsonArray jsonArray, Collection players) {
     jsonArray.forEach(item -> {
       JsonObject jsonObject = (JsonObject) item;
       Player player = getProperEntity(jsonObject, players);

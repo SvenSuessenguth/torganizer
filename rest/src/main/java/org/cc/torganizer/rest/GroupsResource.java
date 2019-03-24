@@ -1,7 +1,8 @@
 package org.cc.torganizer.rest;
 
-import static org.cc.torganizer.rest.json.ModelJsonConverter.emptyArray;
+import static org.cc.torganizer.rest.json.BaseModelJsonConverter.emptyArray;
 
+import java.util.List;
 import java.util.Set;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -18,10 +19,12 @@ import javax.ws.rs.QueryParam;
 
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.PositionalOpponent;
 import org.cc.torganizer.persistence.GroupsRepository;
 import org.cc.torganizer.rest.json.GroupJsonConverter;
-import org.cc.torganizer.rest.json.ModelJsonConverter;
+import org.cc.torganizer.rest.json.BaseModelJsonConverter;
 import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
+import org.cc.torganizer.rest.json.PositionalOpponentJsonConverter;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 
 @Stateless
@@ -34,6 +37,9 @@ public class GroupsResource extends AbstractResource {
 
   @Inject
   private OpponentJsonConverterProvider opponentJsonConverterProvider;
+
+  @Inject
+  private PositionalOpponentJsonConverter positionlOpponentJsonConverter;
 
   @Inject
   private GroupJsonConverter groupConverter;
@@ -70,10 +76,17 @@ public class GroupsResource extends AbstractResource {
   public JsonArray getOpponents(@PathParam("id") Long groupId, @QueryParam("offset") Integer offset,
                                 @QueryParam("maxResults") Integer maxResults) {
 
-    groupsRepo.getPositionalOpponents(groupId, offset, maxResults);
+    JsonArray result = null;
+    List<PositionalOpponent> positionalOpponents = groupsRepo.getPositionalOpponents(groupId, offset, maxResults);
 
+    // all opponents must have same type (see opponentTypeRestriction)
+    if (positionalOpponents.isEmpty()) {
+      return emptyArray();
+    } else {
+      result = positionlOpponentJsonConverter.toJsonArray(positionalOpponents);
+    }
 
-    return null;
+    return result;
   }
 
   @Operation(operationId = "addOpponentToGroup")
@@ -106,7 +119,7 @@ public class GroupsResource extends AbstractResource {
     if (opponents.isEmpty()) {
       return emptyArray();
     } else {
-      ModelJsonConverter<Opponent> opponentConverter =
+      BaseModelJsonConverter<Opponent> opponentConverter =
           opponentJsonConverterProvider.getConverter(opponents);
       result = opponentConverter.toJsonArray(opponents);
     }

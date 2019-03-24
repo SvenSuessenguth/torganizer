@@ -14,7 +14,7 @@ import javax.json.JsonValue;
 import org.cc.torganizer.core.entities.Group;
 
 @RequestScoped
-public class GroupJsonConverter extends ModelJsonConverter<Group> {
+public class GroupJsonConverter extends BaseModelJsonConverter<Group> {
 
   @Override
   public JsonObject toJsonObject(Group group) {

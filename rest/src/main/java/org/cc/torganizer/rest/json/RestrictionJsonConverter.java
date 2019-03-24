@@ -38,7 +38,7 @@ import org.cc.torganizer.core.entities.Restriction;
  * @author svens
  */
 @RequestScoped
-public class RestrictionJsonConverter extends ModelJsonConverter<Restriction> {
+public class RestrictionJsonConverter extends BaseModelJsonConverter<Restriction> {
 
   @Override
   public JsonObject toJsonObject(Restriction restriction) {

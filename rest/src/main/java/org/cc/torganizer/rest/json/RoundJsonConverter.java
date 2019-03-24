@@ -18,7 +18,7 @@ import org.cc.torganizer.core.entities.System;
  * A json-disciplines contains nothing but id, name and restrictions.
  */
 @RequestScoped
-public class RoundJsonConverter extends ModelJsonConverter<Round> {
+public class RoundJsonConverter extends BaseModelJsonConverter<Round> {
 
   public static final String PROPERTY_SYSTEM_NAME = "system";
 

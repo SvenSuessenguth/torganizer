@@ -25,9 +25,9 @@ import org.junit.jupiter.api.Test;
  *
  * @author svens
  */
-class ModelJsonConverterTest {
+class BaseModelJsonConverterTest {
   
-  private ModelJsonConverter<?> converter;
+  private BaseModelJsonConverter<?> converter;
   
   @BeforeEach
   void before(){
@@ -63,7 +63,7 @@ class ModelJsonConverterTest {
     assertThat(properModel).isNotNull();
   }
 
-  private static class ModelJsonConverterImpl<T extends Entity> extends ModelJsonConverter<Entity> {
+  private static class ModelJsonConverterImpl<T extends Entity> extends BaseModelJsonConverter<Entity> {
 
     ModelJsonConverterImpl() {
     }

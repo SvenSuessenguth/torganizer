@@ -16,17 +16,17 @@ public class OpponentJsonConverterProvider {
   private Instance<OpponentJsonConverter> opponentConverters;
 
   @SuppressWarnings("rawtypes")
-  public ModelJsonConverter getConverter(OpponentType opponentType) {
+  public BaseModelJsonConverter getConverter(OpponentType opponentType) {
     for (OpponentJsonConverter converter : opponentConverters) {
       if (Objects.equals(opponentType, converter.getOpponentType())) {
-        return (ModelJsonConverter) converter;
+        return (BaseModelJsonConverter) converter;
       }
     }
     return null;
   }
 
   @SuppressWarnings("rawtypes")
-  public ModelJsonConverter getConverter(Collection<Opponent> opponents) {
+  public BaseModelJsonConverter getConverter(Collection<Opponent> opponents) {
 
     OpponentType opponentType;
     if (opponents.isEmpty()) {

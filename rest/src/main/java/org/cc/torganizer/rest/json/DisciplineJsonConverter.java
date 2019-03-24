@@ -18,7 +18,7 @@ import org.cc.torganizer.core.entities.Restriction;
  * A json-disciplines contains nothing but id, name and restrictions.
  */
 @RequestScoped
-public class DisciplineJsonConverter extends ModelJsonConverter<Discipline> {
+public class DisciplineJsonConverter extends BaseModelJsonConverter<Discipline> {
 
   @Inject
   private RestrictionJsonConverter restrictionConverter;

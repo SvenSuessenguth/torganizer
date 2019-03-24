@@ -18,7 +18,7 @@ import org.cc.torganizer.core.entities.Squad;
  * @author svens
  */
 @RequestScoped
-public class SquadJsonConverter extends ModelJsonConverter<Squad> implements OpponentJsonConverter {
+public class SquadJsonConverter extends BaseModelJsonConverter<Squad> implements OpponentJsonConverter {
 
   @Inject
   private PlayerJsonConverter playerConverter;
@@ -42,11 +42,11 @@ public class SquadJsonConverter extends ModelJsonConverter<Squad> implements Opp
   }
 
   @Override
-  public JsonArray toJsonArray(Collection<Squad> squads) {
+  public JsonArray toJsonArray(Collection squads) {
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonArrayBuilder arrayBuilder = factory.createArrayBuilder();
 
-    squads.forEach(squad -> arrayBuilder.add(this.toJsonObject(squad)));
+    squads.forEach(squad -> arrayBuilder.add(this.toJsonObject((Squad) squad)));
 
     return arrayBuilder.build();
   }
@@ -57,7 +57,7 @@ public class SquadJsonConverter extends ModelJsonConverter<Squad> implements Opp
   }
 
   @Override
-  public Collection<Squad> toModels(JsonArray jsonArray, Collection<Squad> squads) {
+  public Collection<Squad> toModels(JsonArray jsonArray, Collection squads) {
     return squads;
   }
 

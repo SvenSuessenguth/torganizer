@@ -14,7 +14,7 @@ import org.cc.torganizer.core.entities.Club;
 /**
  * @author svens
  */
-public class ClubJsonConverter extends ModelJsonConverter<Club> {
+public class ClubJsonConverter extends BaseModelJsonConverter<Club> {
 
   @Override
   public JsonObject toJsonObject(Club club) {

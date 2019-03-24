@@ -1,6 +1,6 @@
 package org.cc.torganizer.rest;
 
-import static org.cc.torganizer.rest.json.ModelJsonConverter.emptyArray;
+import static org.cc.torganizer.rest.json.BaseModelJsonConverter.emptyArray;
 
 import java.util.List;
 import java.util.Set;
@@ -26,7 +26,7 @@ import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.core.entities.System;
 import org.cc.torganizer.persistence.RoundsRepository;
 import org.cc.torganizer.rest.json.GroupJsonConverter;
-import org.cc.torganizer.rest.json.ModelJsonConverter;
+import org.cc.torganizer.rest.json.BaseModelJsonConverter;
 import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
 import org.cc.torganizer.rest.json.RoundJsonConverter;
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -144,7 +144,7 @@ public class RoundsResource extends AbstractResource {
     if (opponents.isEmpty()) {
       result = emptyArray();
     } else {
-      ModelJsonConverter<Opponent> opponentConverter =
+      BaseModelJsonConverter<Opponent> opponentConverter =
           opponentJsonConverterProvider.getConverter(opponents);
       result = opponentConverter.toJsonArray(opponents);
     }

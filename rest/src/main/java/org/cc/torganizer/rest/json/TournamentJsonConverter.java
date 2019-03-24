@@ -14,7 +14,7 @@ import org.cc.torganizer.core.entities.Tournament;
 /**
  * @author svens
  */
-public class TournamentJsonConverter extends ModelJsonConverter<Tournament> {
+public class TournamentJsonConverter extends BaseModelJsonConverter<Tournament> {
 
   @Override
   public JsonObject toJsonObject(Tournament tournament) {
