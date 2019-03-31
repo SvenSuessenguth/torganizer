@@ -101,7 +101,7 @@ class Rounds {
 
   prepareUpdateAssignableOpponents() {
     let roundId = sessionStorage.getItem("rounds.round.id");
-    if(roundId==undefined){
+    if (roundId == undefined) {
       this.updateAssignableOpponents(JSON.parse("[]"));
       return;
     }
@@ -115,7 +115,7 @@ class Rounds {
     element.setAttribute("data", JSON.stringify(jOpponents));
   }
 
-  prepareUpdateGroups(){
+  prepareUpdateGroups() {
     let roundId = sessionStorage.getItem("rounds.round.id");
     if (roundId == null || isNaN(Number(roundId))) {
       return;
@@ -124,7 +124,8 @@ class Rounds {
     let url = resourcesUrl() + `rounds/${roundId}/groups`;
     this.crud.get(url, this.updateGroups.bind(this));
   }
-  updateGroups(jGroups){
+
+  updateGroups(jGroups) {
     console.log("updating groups");
 
     // remove old groups
@@ -133,10 +134,12 @@ class Rounds {
       eGroups.removeChild(eGroups.firstChild);
     }
 
-    // show groups incl. opponents
-    if(jGroups.length>0) {
+    // display groups incl. opponents
+    if (jGroups.length > 0) {
       jGroups.forEach(function (jGroup) {
-        eGroups.appendChild(document.createElement("opponents-table",))
+        let groupElement = document.createElement("opponents-table",);
+        groupElement.setAttribute("id", jGroup.id);
+        eGroups.appendChild(groupElement);
       });
     }
   }
@@ -154,8 +157,7 @@ class Rounds {
       document.querySelector("#save").removeAttribute("disabled");
       document.querySelector("#delete").removeAttribute("disabled");
       document.querySelector("#cancel").removeAttribute("disabled");
-    }
-    else {
+    } else {
       sessionStorage.removeItem("rounds.discipline.id");
       document.querySelector("#save").setAttribute("disabled", "disabled");
       document.querySelector("#delete").setAttribute("disabled", "disabled");
@@ -172,7 +174,7 @@ class Rounds {
   //------------------------------------------------------------------------------------------------------------- save -
   save() {
     let disciplineId = sessionStorage.getItem("rounds.discipline.id");
-    if(disciplineId === null){
+    if (disciplineId === null) {
       return;
     }
 
@@ -182,8 +184,7 @@ class Rounds {
     let callback = null;
     if (jRound.id != null) {
       callback = this.updateRoundsSelectionSingle.bind(this);
-    }
-    else {
+    } else {
       callback = this.addRoundToDiscipline.bind(this);
     }
 
@@ -202,13 +203,17 @@ class Rounds {
   }
 
   //--------------------------------------------------------------------------------------------------- previous round -
-  prevRound(){
+  prevRound() {
     let disciplineId = sessionStorage.getItem("rounds.discipline.id");
-    if(disciplineId===null) { return; }
+    if (disciplineId === null) {
+      return;
+    }
 
     let currentPosition = sessionStorage.getItem("rounds.round.position");
     let previousPosition = Number(currentPosition) - 1;
-    if(previousPosition < 0){ previousPosition = 0; }
+    if (previousPosition < 0) {
+      previousPosition = 0;
+    }
 
     let url = resourcesUrl() + `disciplines/${disciplineId}/round-by-position/${previousPosition}`;
     this.crud.get(url, this.updateRoundsSelectionSingle.bind(this));
@@ -216,19 +221,27 @@ class Rounds {
     let ePrevRound = document.querySelector("#prevRound");
     let eNextRound = document.querySelector("#nextRound");
 
-    if(currentPosition>0){ eNextRound.removeAttribute("disabled"); }
-    else { eNextRound.setAttribute("disabled", "disabled"); }
+    if (currentPosition > 0) {
+      eNextRound.removeAttribute("disabled");
+    } else {
+      eNextRound.setAttribute("disabled", "disabled");
+    }
 
-    if(previousPosition <= 0) { ePrevRound.setAttribute("disabled", "disabled"); }
-    else { ePrevRound.removeAttribute("disabled");}
+    if (previousPosition <= 0) {
+      ePrevRound.setAttribute("disabled", "disabled");
+    } else {
+      ePrevRound.removeAttribute("disabled");
+    }
 
     this.prepareUpdateAssignableOpponents();
   }
 
   //------------------------------------------------------------------------------------------------------- next round -
-  nextRound(){
+  nextRound() {
     let disciplineId = sessionStorage.getItem("rounds.discipline.id");
-    if(disciplineId===null) { return; }
+    if (disciplineId === null) {
+      return;
+    }
 
     let currentPosition = sessionStorage.getItem("rounds.round.position");
     let nextPosition = Number(currentPosition) + 1;
@@ -240,11 +253,17 @@ class Rounds {
     let ePrevRound = document.querySelector("#prevRound");
     let eNextRound = document.querySelector("#nextRound");
 
-    if(nextPosition < (numberOfRounds-1)){ eNextRound.removeAttribute("disabled"); }
-    else { eNextRound.setAttribute("disabled", "disabled"); }
+    if (nextPosition < (numberOfRounds - 1)) {
+      eNextRound.removeAttribute("disabled");
+    } else {
+      eNextRound.setAttribute("disabled", "disabled");
+    }
 
-    if(nextPosition <= 0) { ePrevRound.setAttribute("disabled", "disabled"); }
-    else { ePrevRound.removeAttribute("disabled");}
+    if (nextPosition <= 0) {
+      ePrevRound.setAttribute("disabled", "disabled");
+    } else {
+      ePrevRound.removeAttribute("disabled");
+    }
 
     this.prepareUpdateAssignableOpponents();
   }
@@ -257,7 +276,7 @@ class Rounds {
   }
 
   //-------------------------------------------------------------------------------------------------------- new group -
-  newGroup(){
+  newGroup() {
     let roundId = sessionStorage.getItem("rounds.round.id");
 
     let url = resourcesUrl() + `rounds/${roundId}/group`;
@@ -265,7 +284,7 @@ class Rounds {
   }
 
   //----------------------------------------------------------------------------------------------------- delete group -
-  deleteGroup(id){
+  deleteGroup(id) {
     let roundId = sessionStorage.getItem("rounds.round.id");
 
     let url = resourcesUrl() + `rounds/${roundId}/group`;
@@ -273,11 +292,11 @@ class Rounds {
   }
 
   //--------------------------------------------------------------------------------------- assign opponents to groups -
-  assignOpponents(){
+  assignOpponents() {
     let roundId = sessionStorage.getItem("rounds.round.id");
-    let url= resourcesUrl() + `rounds/${roundId}/auto-assign-opponents`;
+    let url = resourcesUrl() + `rounds/${roundId}/auto-assign-opponents`;
 
-    console.log("assign opponents to groups of roound "+roundId);
+    console.log("assign opponents to groups of round " + roundId);
 
     this.crud.post(url, undefined, this.updateGroups.bind(this));
   }

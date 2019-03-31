@@ -12,7 +12,6 @@ import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
 import javax.json.JsonPatch;
 
-import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.PositionalOpponent;
 
 @RequestScoped

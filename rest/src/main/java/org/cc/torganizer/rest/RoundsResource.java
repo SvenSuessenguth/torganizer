@@ -2,7 +2,9 @@ package org.cc.torganizer.rest;
 
 import static org.cc.torganizer.rest.json.BaseModelJsonConverter.emptyArray;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -27,6 +29,7 @@ import org.cc.torganizer.core.entities.System;
 import org.cc.torganizer.persistence.RoundsRepository;
 import org.cc.torganizer.rest.json.GroupJsonConverter;
 import org.cc.torganizer.rest.json.BaseModelJsonConverter;
+import org.cc.torganizer.rest.json.OpponentJsonConverter;
 import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
 import org.cc.torganizer.rest.json.RoundJsonConverter;
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -164,8 +167,25 @@ public class RoundsResource extends AbstractResource {
 
     OpponentToGroupsAssigner assigner = opponentToGroupsAssignerFactory.getOpponentToGroupsAssigner(system);
     assigner.assign(opponents, groups);
-
     JsonArray jsonArray = groupConverter.toJsonArray(groups);
+
+    // adding opponents-json to groups-json
+    jsonArray.forEach(groupJson->{
+      String idAsString = ((JsonObject)groupJson).getString("id");
+      Long id = Long.valueOf(idAsString);
+      Group group = getGroupById(groups, id);
+      groupConverter.addOpponents((JsonObject)groupJson, group.getOpponents());
+    });
+
     return Response.ok(jsonArray).build();
+  }
+
+  private Group getGroupById(Collection<Group> groups, Long id){
+    for(Group group : groups){
+      if(Objects.equals(group.getId(), id)){
+        return group;
+      }
+    }
+    return null;
   }
 }
