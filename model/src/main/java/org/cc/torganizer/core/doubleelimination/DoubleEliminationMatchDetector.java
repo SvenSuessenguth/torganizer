@@ -3,11 +3,11 @@ package org.cc.torganizer.core.doubleelimination;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.cc.torganizer.core.PendingMatchDetector;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Match;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.System;
-import org.cc.torganizer.core.PendingMatchDetector;
 import org.cc.torganizer.core.singleelimination.SingleEliminationMatchDetector;
 import org.cc.torganizer.core.util.Checker;
 
@@ -408,7 +408,9 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    */
   protected int getStartMatchIndex(int level, int groupSize) {
     // Index beginnt bei '0', daher beim Ergebnis des zaehlens jeweils 1 abziehen
-    return countMatchesUpperBracket(groupSize) + countMatchesUpToLevel(level, groupSize) - countMatchesOnLevel(level, groupSize);
+    return countMatchesUpperBracket(groupSize)
+        + countMatchesUpToLevel(level, groupSize)
+        - countMatchesOnLevel(level, groupSize);
   }
 
   /**

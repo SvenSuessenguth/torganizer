@@ -70,9 +70,9 @@ public class GroupJsonConverter extends BaseModelJsonConverter<Group> {
     BaseModelJsonConverter converter = opponentJsonConverterProvider.getConverter(opponents);
     JsonArray opponentsJsonArray = converter.toJsonArray(opponents);
 
-    JsonPatch patch = Json.createPatchBuilder().
-        add("/opponents", opponentsJsonArray).
-        build();
+    JsonPatch patch = Json.createPatchBuilder()
+        .add("/opponents", opponentsJsonArray)
+        .build();
 
     return patch.apply(groupJson);
   }

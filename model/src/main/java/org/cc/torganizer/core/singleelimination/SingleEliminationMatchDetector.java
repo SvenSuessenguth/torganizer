@@ -3,12 +3,12 @@ package org.cc.torganizer.core.singleelimination;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.cc.torganizer.core.PendingMatchDetector;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Match;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.System;
 import org.cc.torganizer.core.entities.Unknown;
-import org.cc.torganizer.core.PendingMatchDetector;
 
 /**
  * In der ersten Spalte stehen die Indizes der Opponents, anschliessend die der

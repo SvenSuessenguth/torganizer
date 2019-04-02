@@ -26,9 +26,9 @@ public class PositionalOpponentJsonConverter extends BaseModelJsonConverter<Posi
 
     JsonObject jsonObject = converter.toJsonObject(positionalOpponent.getOpponent());
 
-    JsonPatch patch = Json.createPatchBuilder().
-        add("/position", positionalOpponent.getPosition()).
-        build();
+    JsonPatch patch = Json.createPatchBuilder()
+        .add("/position", positionalOpponent.getPosition())
+        .build();
 
     return patch.apply(jsonObject);
   }
@@ -49,24 +49,25 @@ public class PositionalOpponentJsonConverter extends BaseModelJsonConverter<Posi
   }
 
   @Override
-  public Collection<PositionalOpponent> toModels(JsonArray jsonArray, Collection<PositionalOpponent> models) {
+  public Collection<PositionalOpponent> toModels(JsonArray jsonArray,
+                                                 Collection<PositionalOpponent> models) {
     return Collections.emptyList();
   }
 
 
-  protected ModelJsonConverter getConverter(Collection<PositionalOpponent> pOpponents) {
-    if (pOpponents == null || pOpponents.isEmpty()) {
+  protected ModelJsonConverter getConverter(Collection<PositionalOpponent> positionalOpponents) {
+    if (positionalOpponents == null || positionalOpponents.isEmpty()) {
       return null;
     }
 
-    return getConverter(pOpponents.iterator().next());
+    return getConverter(positionalOpponents.iterator().next());
   }
 
-  protected ModelJsonConverter getConverter(PositionalOpponent pOppponent) {
-    if (pOppponent == null) {
+  protected ModelJsonConverter getConverter(PositionalOpponent positionalOpponent) {
+    if (positionalOpponent == null) {
       return null;
     }
 
-    return provider.getConverter(pOppponent.getOpponent().getOpponentType());
+    return provider.getConverter(positionalOpponent.getOpponent().getOpponentType());
   }
 }

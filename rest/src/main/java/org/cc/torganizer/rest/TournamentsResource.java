@@ -36,8 +36,8 @@ import org.cc.torganizer.core.entities.Squad;
 import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.persistence.DisciplinesRepository;
 import org.cc.torganizer.persistence.TournamentsRepository;
-import org.cc.torganizer.rest.json.DisciplineJsonConverter;
 import org.cc.torganizer.rest.json.BaseModelJsonConverter;
+import org.cc.torganizer.rest.json.DisciplineJsonConverter;
 import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
 import org.cc.torganizer.rest.json.PlayerJsonConverter;
 import org.cc.torganizer.rest.json.SquadJsonConverter;
@@ -159,8 +159,8 @@ public class TournamentsResource extends AbstractResource {
 
     OpponentTypeRestriction otRestriction =
         (OpponentTypeRestriction) discipline.getRestriction(OPPONENT_TYPE_RESTRICTION);
-    OpponentType opponentType = otRestriction.getOpponentType();
-    BaseModelJsonConverter<Opponent> converter = opponentConverterProvider.getConverter(opponentType);
+    OpponentType oppType = otRestriction.getOpponentType();
+    BaseModelJsonConverter<Opponent> converter = opponentConverterProvider.getConverter(oppType);
 
     return converter.toJsonArray(opponents);
   }

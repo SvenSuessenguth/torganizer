@@ -123,11 +123,13 @@ public class GroupsRepository extends Repository<Group> {
     return group;
   }
 
-  public List<PositionalOpponent> getPositionalOpponents(Long groupId, Integer offset, Integer maxResults ) {
+  public List<PositionalOpponent> getPositionalOpponents(Long groupId, Integer offset,
+                                                         Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    TypedQuery<PositionalOpponent> namedQuery = entityManager.createNamedQuery("Group.findPositionalOpponents", PositionalOpponent.class);
+    TypedQuery<PositionalOpponent> namedQuery = entityManager
+        .createNamedQuery("Group.findPositionalOpponents", PositionalOpponent.class);
     namedQuery.setParameter("groupId", groupId);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);

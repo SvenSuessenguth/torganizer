@@ -27,9 +27,8 @@ import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.core.entities.System;
 import org.cc.torganizer.persistence.RoundsRepository;
-import org.cc.torganizer.rest.json.GroupJsonConverter;
 import org.cc.torganizer.rest.json.BaseModelJsonConverter;
-import org.cc.torganizer.rest.json.OpponentJsonConverter;
+import org.cc.torganizer.rest.json.GroupJsonConverter;
 import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
 import org.cc.torganizer.rest.json.RoundJsonConverter;
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -52,7 +51,7 @@ public class RoundsResource extends AbstractResource {
   private OpponentJsonConverterProvider opponentJsonConverterProvider;
 
   @Inject
-  private OpponentToGroupsAssignerFactory opponentToGroupsAssignerFactory;
+  private OpponentToGroupsAssignerFactory oppToGroupAssFactory;
 
   @Operation(operationId = "createRound")
   @POST
@@ -165,24 +164,24 @@ public class RoundsResource extends AbstractResource {
     Set<Opponent> opponents = roundsRepository.getNotAssignedOpponents(roundId);
     List<Group> groups = round.getGroups();
 
-    OpponentToGroupsAssigner assigner = opponentToGroupsAssignerFactory.getOpponentToGroupsAssigner(system);
+    OpponentToGroupsAssigner assigner = oppToGroupAssFactory.getOpponentToGroupsAssigner(system);
     assigner.assign(opponents, groups);
     JsonArray jsonArray = groupConverter.toJsonArray(groups);
 
     // adding opponents-json to groups-json
-    jsonArray.forEach(groupJson->{
-      String idAsString = ((JsonObject)groupJson).getString("id");
+    jsonArray.forEach(groupJson -> {
+      String idAsString = ((JsonObject) groupJson).getString("id");
       Long id = Long.valueOf(idAsString);
       Group group = getGroupById(groups, id);
-      groupConverter.addOpponents((JsonObject)groupJson, group.getOpponents());
+      groupConverter.addOpponents((JsonObject) groupJson, group.getOpponents());
     });
 
     return Response.ok(jsonArray).build();
   }
 
-  private Group getGroupById(Collection<Group> groups, Long id){
-    for(Group group : groups){
-      if(Objects.equals(group.getId(), id)){
+  private Group getGroupById(Collection<Group> groups, Long id) {
+    for (Group group : groups) {
+      if (Objects.equals(group.getId(), id)) {
         return group;
       }
     }
