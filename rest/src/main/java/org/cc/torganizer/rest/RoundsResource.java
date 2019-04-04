@@ -185,6 +185,7 @@ public class RoundsResource extends AbstractResource {
         return group;
       }
     }
-    return null;
+
+    throw new GroupNotFoundException();
   }
 }

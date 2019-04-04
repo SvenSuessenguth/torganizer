@@ -77,7 +77,7 @@ public class GroupsResource extends AbstractResource {
                                 @QueryParam("offset") Integer offset,
                                 @QueryParam("maxResults") Integer maxResults) {
 
-    JsonArray result = null;
+    JsonArray result;
     List<PositionalOpponent> positionalOpponents = groupsRepo.getPositionalOpponents(groupId,
         offset, maxResults);
 
@@ -113,7 +113,7 @@ public class GroupsResource extends AbstractResource {
   @GET
   @Path("/{id}/assignableOpponents")
   public JsonArray getAssignableOpponents(@PathParam("id") Long groupId) {
-    JsonArray result = null;
+    JsonArray result;
 
     Set<Opponent> opponents = groupsRepo.getAssignableOpponents(groupId);
 
