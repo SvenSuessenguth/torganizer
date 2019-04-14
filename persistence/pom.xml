@@ -19,7 +19,10 @@
     <dbunit.version>2.6.0</dbunit.version>
     <hibernate-entitymanager.version>5.4.2.Final</hibernate-entitymanager.version>
 	<hibernate-core.version>5.4.2.Final</hibernate-core.version>
+	<hibernate-c3p0.version>5.4.2.Final</hibernate-c3p0.version>
+	<c3p0.version>0.9.1.2</c3p0.version>
     <h2.version>1.4.199</h2.version>
+	<slf4j-log4j12.version>1.8.0-beta4</slf4j-log4j12.version>
   </properties>
 
   <dependencies>
@@ -46,15 +49,15 @@
     </dependency>
     <dependency>
       <groupId>org.hibernate</groupId><artifactId>hibernate-c3p0</artifactId>
-      <version>5.4.2.Final</version>
+      <version>${hibernate-c3p0.version}</version>
     </dependency>
 	  <dependency>
       <groupId>c3p0</groupId><artifactId>c3p0</artifactId>
-      <version>0.9.1.2</version><scope>test</scope>
+      <version>${c3p0.version}</version><scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId><artifactId>slf4j-log4j12</artifactId>
-      <version>1.8.0-beta4</version><scope>test</scope>
+      <version>${slf4j-log4j12.version}</version><scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.h2database</groupId><artifactId>h2</artifactId>
