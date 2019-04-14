@@ -4,9 +4,9 @@
   <_TOURNAMENTS _ID="2" _NAME="Testturnier-2" />
 
   <_DISCIPLINES _ID="1" _NAME="DD" />
-  <_RESTRICTIONS _ID="1" _DISCRIMINATOR="A" />
-  <_RESTRICTIONS _ID="2" _DISCRIMINATOR="G" />
-  <_RESTRICTIONS _ID="3" _DISCRIMINATOR="O" />
+  <_RESTRICTIONS _ID="1" />
+  <_RESTRICTIONS _ID="2" />
+  <_RESTRICTIONS _ID="3" />
   <_AGE_RESTRICTIONS _ID="1" _MIN_DATE_OF_BIRTH="2000-01-01" _MAX_DATE_OF_BIRTH="2002-12-31" />
   <_GENDER_RESTRICTIONS _ID="2" _GENDER="FEMALE" />
   <_OPPONENT_TYPE_RESTRICTIONS _ID="3" _OPPONENT_TYPE="SQUAD" />
@@ -17,12 +17,12 @@
   <_PERSONS _ID="4" _FIRST_NAME="nimmt_nicht_am_turnier_teil" _LAST_NAME="huhu" _GENDER="UNKNOWN" _DATE_OF_BIRTH="1970-01-01" />
   <_PERSONS _ID="5" _FIRST_NAME="KeinemTurnierZugeordnetVorname" _LAST_NAME="KeineTurnierZugeordnetNachname" _GENDER="UNKNOWN" _DATE_OF_BIRTH="1970-01-01" />
     
-  <_OPPONENTS _ID="1" _status="ACTIVE" _TYPE="P"/>
-  <_OPPONENTS _ID="2" _status="ACTIVE" _TYPE="P"/>
-  <_OPPONENTS _ID="3" _status="ACTIVE" _TYPE="S"/>
-  <_OPPONENTS _ID="4" _status="ACTIVE" _TYPE="P"/>
-  <_OPPONENTS _ID="5" _status="ACTIVE" _TYPE="P"/>
-  <_OPPONENTS _ID="6" _status="ACTIVE" _TYPE="P"/>
+  <_OPPONENTS _ID="1" _status="ACTIVE" />
+  <_OPPONENTS _ID="2" _status="ACTIVE" />
+  <_OPPONENTS _ID="3" _status="ACTIVE" />
+  <_OPPONENTS _ID="4" _status="ACTIVE" />
+  <_OPPONENTS _ID="5" _status="ACTIVE" />
+  <_OPPONENTS _ID="6" _status="ACTIVE" />
   
   <_PLAYERS _ID="1" _PERSON_ID="1" />
   <_PLAYERS _ID="2" _PERSON_ID="2" />
