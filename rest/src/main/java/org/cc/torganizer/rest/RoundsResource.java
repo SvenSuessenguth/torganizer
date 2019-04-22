@@ -9,7 +9,9 @@ import java.util.Set;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.json.JsonArray;
+import javax.json.JsonNumber;
 import javax.json.JsonObject;
+import javax.json.JsonValue;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -163,19 +165,22 @@ public class RoundsResource extends AbstractResource {
     System system = round.getSystem();
     Set<Opponent> opponents = roundsRepository.getNotAssignedOpponents(roundId);
     List<Group> groups = round.getGroups();
+    JsonArray jsonArray = groupConverter.toJsonArray(groups);
 
     OpponentToGroupsAssigner assigner = oppToGroupAssFactory.getOpponentToGroupsAssigner(system);
     assigner.assign(opponents, groups);
-    JsonArray jsonArray = groupConverter.toJsonArray(groups);
 
     // adding opponents-json to groups-json
-    jsonArray.forEach(groupJson -> {
-      String idAsString = ((JsonObject) groupJson).getString("id");
-      Long id = Long.valueOf(idAsString);
+    int size = jsonArray.size();
+    for (int index = 0; index < size; index++) {
+      JsonObject groupJson = jsonArray.getJsonObject(index);
+      JsonNumber jsonNumber = groupJson.getJsonNumber("id");
+      Long id = jsonNumber.longValue();
       Group group = getGroupById(groups, id);
       groupConverter.addOpponents((JsonObject) groupJson, group.getOpponents());
-    });
+    }
 
+    java.lang.System.out.println(jsonArray.toString());
     return Response.ok(jsonArray).build();
   }
 
