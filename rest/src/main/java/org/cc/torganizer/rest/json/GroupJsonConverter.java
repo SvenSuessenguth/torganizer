@@ -75,7 +75,6 @@ public class GroupJsonConverter extends BaseModelJsonConverter<Group> {
         .add("/opponents", opponentsJsonArray)
         .build();
 
-    JsonObject jsonObject = patch.apply(groupJson);
-    return jsonObject;
+    return patch.apply(groupJson);
   }
 }
