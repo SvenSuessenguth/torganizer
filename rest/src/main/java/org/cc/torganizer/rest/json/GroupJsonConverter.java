@@ -40,8 +40,7 @@ public class GroupJsonConverter extends BaseModelJsonConverter<Group> {
 
     groups.forEach(group -> arrayBuilder.add(this.toJsonObject(group)));
 
-    JsonArray jsonArray = arrayBuilder.build();
-    return jsonArray;
+    return arrayBuilder.build();
   }
 
   @Override

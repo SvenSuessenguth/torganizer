@@ -179,7 +179,6 @@ public class RoundsResource extends AbstractResource {
       groupConverter.addOpponents((JsonObject) groupJson, group.getOpponents());
     }
 
-    java.lang.System.out.println(jsonArray.toString());
     return Response.ok(jsonArray).build();
   }
 
