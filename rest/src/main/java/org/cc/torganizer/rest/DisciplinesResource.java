@@ -27,7 +27,6 @@ import org.cc.torganizer.rest.json.DisciplineJsonConverter;
 import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
 import org.cc.torganizer.rest.json.RestrictionJsonConverter;
 import org.cc.torganizer.rest.json.RoundJsonConverter;
-import org.eclipse.microprofile.openapi.annotations.Operation;
 
 @Stateless
 @Path("/disciplines")
