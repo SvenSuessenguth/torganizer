@@ -55,7 +55,9 @@ public class DisciplinesResource extends AbstractResource {
   //
   //-----------------------------------------------------------------------------------------------
 
-  @Operation(operationId = "createDiscipline")
+  /**
+   * Create and persist a new discipline.
+   */
   @POST
   public JsonObject create(JsonObject jsonObject) {
     Discipline discipline = disicplineConverter.toModel(jsonObject, new Discipline());
@@ -75,7 +77,9 @@ public class DisciplinesResource extends AbstractResource {
     return disicplineConverter.toJsonObject(discipline);
   }
 
-  @Operation(operationId = "readSingleDisciplines")
+  /**
+   * Getting the discipline with the given id.
+   */
   @GET
   @Path("{id}")
   public JsonObject readSingle(@PathParam("id") Long disciplineId) {
@@ -84,7 +88,9 @@ public class DisciplinesResource extends AbstractResource {
     return disicplineConverter.toJsonObject(discipline);
   }
 
-  @Operation(operationId = "readMultipleDisciplines")
+  /**
+   * Reading multiple (offset to maxResults) disciplines.
+   */
   @GET
   public JsonArray readMultiple(@QueryParam("offset") Integer offset,
                                 @QueryParam("maxResults") Integer maxResults) {
@@ -94,7 +100,9 @@ public class DisciplinesResource extends AbstractResource {
     return disicplineConverter.toJsonArray(disciplines);
   }
 
-  @Operation(operationId = "updateDiscipline")
+  /**
+   * Updating a discipline.
+   */
   @PUT
   public JsonObject update(JsonObject jsonObject) {
     Long id = Long.valueOf(jsonObject.get("id").toString());
@@ -114,6 +122,10 @@ public class DisciplinesResource extends AbstractResource {
   // Opponents
   //
   //-----------------------------------------------------------------------------------------------
+
+  /**
+   * Getting the opponents (offset to maxResults) from the discipline with the given id.
+   */
   @SuppressWarnings("unchecked")
   @GET
   @Path("/{id}/opponents")
@@ -137,6 +149,9 @@ public class DisciplinesResource extends AbstractResource {
     return result;
   }
 
+  /**
+   * Adding an opponent with the given id to the discipline with the given id.
+   */
   @POST
   @Path("/{id}/opponents")
   public JsonObject addOpponent(@PathParam("id") Long disciplineId,
@@ -147,6 +162,9 @@ public class DisciplinesResource extends AbstractResource {
     return disicplineConverter.toJsonObject(discipline);
   }
 
+  /**
+   * Deleting an opponent with the given id from the discipline with the given id.
+   */
   @DELETE
   @Path("/{id}/opponents")
   public JsonObject removeOpponent(@PathParam("id") Long disciplineId,
@@ -161,6 +179,10 @@ public class DisciplinesResource extends AbstractResource {
   // Rounds
   //
   //-----------------------------------------------------------------------------------------------
+
+  /**
+   * Get the rounds (offset to maxResults) from the discipline with the given id.
+   */
   @GET
   @Path("/{id}/rounds")
   public JsonArray getRounds(@PathParam("id") Long disciplineId,
@@ -171,6 +193,9 @@ public class DisciplinesResource extends AbstractResource {
     return roundConverter.toJsonArray(rounds);
   }
 
+  /**
+   * Getting the position of a round with given id from discipline with given id.
+   */
   @GET
   @Path("/{id}/round-by-position/{position}")
   public Response getRoundByPosition(@PathParam("id") Long disciplineId,
@@ -186,6 +211,9 @@ public class DisciplinesResource extends AbstractResource {
     return Response.ok().entity(jsonObject).build();
   }
 
+  /**
+   * Adding a round with the given id to the discipline with the given id.
+   */
   @POST
   @Path("/{id}/rounds")
   public JsonObject addRound(@PathParam("id") Long disciplineId,
@@ -195,6 +223,9 @@ public class DisciplinesResource extends AbstractResource {
     return disicplineConverter.toJsonObject(discipline);
   }
 
+  /**
+   * Deleting a round with the given id from the discipline with the given id.
+   */
   @DELETE
   @Path("/{id}/rounds")
   public JsonObject removeRound(@PathParam("id") Long disciplineId,
