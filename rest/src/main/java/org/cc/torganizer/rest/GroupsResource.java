@@ -25,7 +25,6 @@ import org.cc.torganizer.rest.json.BaseModelJsonConverter;
 import org.cc.torganizer.rest.json.GroupJsonConverter;
 import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
 import org.cc.torganizer.rest.json.PositionalOpponentJsonConverter;
-import org.eclipse.microprofile.openapi.annotations.Operation;
 
 @Stateless
 @Path("/groups")
@@ -44,33 +43,28 @@ public class GroupsResource extends AbstractResource {
   @Inject
   private GroupJsonConverter groupConverter;
 
-  @Operation(operationId = "createGroup")
   @POST
   public JsonObject create(JsonObject jsonObject) {
     return null;
   }
 
-  @Operation(operationId = "readSingleGroup")
   @GET
   @Path("{id}")
   public JsonObject readSingle(@PathParam("id") Long groupId) {
     return null;
   }
 
-  @Operation(operationId = "readMultipleGroups")
   @GET
   public JsonArray readMultiple(@QueryParam("offset") Integer offset,
                                 @QueryParam("maxResults") Integer maxResults) {
     return null;
   }
 
-  @Operation(operationId = "updateGroup")
   @PUT
   public JsonObject update(JsonObject jsonObject) {
     return null;
   }
 
-  @Operation(operationId = "getOpponentByGroup")
   @GET
   @Path("/{id}/opponents")
   public JsonArray getOpponents(@PathParam("id") Long groupId,
@@ -91,7 +85,6 @@ public class GroupsResource extends AbstractResource {
     return result;
   }
 
-  @Operation(operationId = "addOpponentToGroup")
   @POST
   @Path("/{id}/opponents")
   public JsonObject addOpponent(@PathParam("id") Long groupId,
@@ -101,7 +94,6 @@ public class GroupsResource extends AbstractResource {
     return groupConverter.toJsonObject(group);
   }
 
-  @Operation(operationId = "removeGroupOpponent")
   @DELETE
   @Path("/{id}/opponents")
   public JsonObject removeOpponent(@PathParam("id") Long groupId,
