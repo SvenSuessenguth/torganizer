@@ -65,6 +65,9 @@ public class GroupsResource extends AbstractResource {
     return null;
   }
 
+  /**
+   * Get the opponents from offset to maxResults from the group with the given id.
+   */
   @GET
   @Path("/{id}/opponents")
   public JsonArray getOpponents(@PathParam("id") Long groupId,
@@ -85,6 +88,9 @@ public class GroupsResource extends AbstractResource {
     return result;
   }
 
+  /**
+   * Adding the opponent with the given id to the group with the given id.
+   */
   @POST
   @Path("/{id}/opponents")
   public JsonObject addOpponent(@PathParam("id") Long groupId,
@@ -101,6 +107,9 @@ public class GroupsResource extends AbstractResource {
     return null;
   }
 
+  /**
+   * Getting the assignable opponents for the group with the given id.
+   */
   @SuppressWarnings("unchecked")
   @GET
   @Path("/{id}/assignableOpponents")
