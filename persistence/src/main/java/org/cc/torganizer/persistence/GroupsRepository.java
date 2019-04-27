@@ -123,6 +123,9 @@ public class GroupsRepository extends Repository<Group> {
     return group;
   }
 
+  /**
+   * Getting positional Opponents for a given group.
+   */
   public List<PositionalOpponent> getPositionalOpponents(Long groupId, Integer offset,
                                                          Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;

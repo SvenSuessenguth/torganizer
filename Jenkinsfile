@@ -36,7 +36,7 @@ pipeline {
 	stage ('analysis') {
       steps{
         bat 'mvn checkstyle:checkstyle'
-		
+		// https://github.com/firemanphil/jenkinsfile/blob/master/Jenkinsfile
 		step([$class: 'hudson.plugins.checkstyle.CheckStylePublisher', pattern: '**/target/checkstyle-result.xml', unstableTotalAll:'0'])
 	  }
     }

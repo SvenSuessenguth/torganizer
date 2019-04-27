@@ -154,7 +154,7 @@ public class TournamentsResource extends AbstractResource {
                                           @QueryParam("maxResults") Integer maxResults) {
 
     Discipline discipline = disciplineRepo.read(disciplineId);
-    List<Opponent> opponents = tournamentsRepo.getOpponentsForDiscipline(tournamentId, discipline,
+    List<Opponent> opponents = tournamentsRepo.getAssignableOpponentsForDiscipline(tournamentId, discipline,
         offset, maxResults);
 
     OpponentTypeRestriction otRestriction =

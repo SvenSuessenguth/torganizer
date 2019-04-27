@@ -41,11 +41,18 @@ public class TournamentsRepository extends Repository<Tournament> {
   // Tournaments CRUD
   //
   //-----------------------------------------------------------------------------------------------
+
+  /**
+   * Reading the Tournament with the given id.
+   */
   @Override
   public Tournament read(Long tournamentId) {
     return entityManager.find(Tournament.class, tournamentId);
   }
 
+  /**
+   * Reading some tournaments from offset to maxResults.
+   */
   @Override
   public List<Tournament> read(Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
@@ -63,6 +70,10 @@ public class TournamentsRepository extends Repository<Tournament> {
   // Tournaments players
   //
   //-----------------------------------------------------------------------------------------------
+
+  /**
+   * Getting the Players (offset to maxResults) of the given tournament ordered by last name.
+   */
   public List<Player> getPlayersOrderedByLastName(Long tournamentId, Integer offset,
                                                   Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
@@ -96,6 +107,9 @@ public class TournamentsRepository extends Repository<Tournament> {
     return query.getResultList();
   }
 
+  /**
+   * Add a player to a tournament.
+   */
   public Player addPlayer(Long tournamentId, Long playerId) {
     Player player = entityManager.find(Player.class, (Object) playerId);
     Tournament tournament = entityManager.find(Tournament.class, tournamentId);
@@ -110,6 +124,9 @@ public class TournamentsRepository extends Repository<Tournament> {
     return player;
   }
 
+  /**
+   * Removing a player from a tournament.
+   */
   public Player removePlayer(Long tournamentId, Long playerId) {
     Player player = entityManager.find(Player.class, playerId);
     Tournament tournament = entityManager.find(Tournament.class, tournamentId);
@@ -123,6 +140,9 @@ public class TournamentsRepository extends Repository<Tournament> {
     return player;
   }
 
+  /**
+   * Counting the players of a tournament.
+   */
   public long countPlayers(Long tournamentId) {
     Query query = entityManager.createNamedQuery("Tournament.countPlayers");
     query.setParameter("id", tournamentId);
@@ -135,6 +155,10 @@ public class TournamentsRepository extends Repository<Tournament> {
   // Tournaments squads
   //
   //-----------------------------------------------------------------------------------------------
+
+  /**
+   * Adding a squad to a tournament.
+   */
   public Squad addSquad(Long tournamentId, Long squadId) {
     Squad squad = entityManager.find(Squad.class, squadId);
     Tournament tournament = entityManager.find(Tournament.class, tournamentId);
@@ -146,6 +170,9 @@ public class TournamentsRepository extends Repository<Tournament> {
     return squad;
   }
 
+  /**
+   * Getting the squads from offset o maxResults from a tournament.
+   */
   public List<Squad> getSquads(Long tournamentId, Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
@@ -161,6 +188,9 @@ public class TournamentsRepository extends Repository<Tournament> {
     return squads;
   }
 
+  /**
+   * Counting the squads of a tournament.
+   */
   public long countSquads(Long tournamentId) {
     Query query = entityManager.createNamedQuery("Tournament.countSquads");
     query.setParameter("id", tournamentId);
@@ -173,6 +203,10 @@ public class TournamentsRepository extends Repository<Tournament> {
   // Tournaments disciplines
   //
   //-----------------------------------------------------------------------------------------------
+
+  /**
+   * Gettng the disciplines from offset to maxResults from a tournament.
+   */
   public List<Discipline> getDisciplines(Long tournamentId, Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
@@ -186,6 +220,9 @@ public class TournamentsRepository extends Repository<Tournament> {
     return namedQuery.getResultList();
   }
 
+  /**
+   * Adding a discipline to a tournament.
+   */
   public Discipline addDiscipline(Long tournamentId, Discipline discipline) {
     Tournament tournament = entityManager.find(Tournament.class, tournamentId);
 
@@ -196,8 +233,13 @@ public class TournamentsRepository extends Repository<Tournament> {
     return discipline;
   }
 
-  public List<Opponent> getOpponentsForDiscipline(Long tournamentId, Discipline discipline,
-                                                  Integer offset, Integer maxResults) {
+  /**
+   * Getting the opponents, which can be assigned to a discipline.
+   */
+  public List<Opponent> getAssignableOpponentsForDiscipline(Long tournamentId,
+                                                            Discipline discipline,
+                                                            Integer offset,
+                                                            Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
