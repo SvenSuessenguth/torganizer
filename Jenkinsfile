@@ -35,7 +35,7 @@ pipeline {
     }
 	stage ('analysis') {
       steps{
-        bat 'mvn -batch-mode -V -U -e checkstyle:checkstyle pmd:pmd pmd:cpd findbugs:findbugs'
+        bat 'mvn checkstyle:checkstyle'
 		
 		step([$class: 'hudson.plugins.checkstyle.CheckStylePublisher', pattern: '**/target/checkstyle-result.xml', unstableTotalAll:'0'])
 	  }
