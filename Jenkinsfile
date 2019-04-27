@@ -33,8 +33,8 @@ pipeline {
         }
       }
     }
-	stage ('Analysis') {
-        
+	stage ('analysis') {
+      steps{
         bat 'mvn -batch-mode -V -U -e checkstyle:checkstyle pmd:pmd pmd:cpd findbugs:findbugs'
  
         def checkstyle = scanForIssues tool: [$class: 'CheckStyle'], pattern: '**/target/checkstyle-result.xml'
@@ -48,6 +48,7 @@ pipeline {
          
         def findbugs = scanForIssues tool: [$class: 'FindBugs'], pattern: '**/target/findbugsXml.xml'
         publishIssues issues:[findbugs]
+	  }
     }
 	
     stage('report') {
