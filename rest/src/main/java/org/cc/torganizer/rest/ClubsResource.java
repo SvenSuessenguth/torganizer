@@ -30,6 +30,9 @@ public class ClubsResource extends AbstractResource {
   @Inject
   private ClubJsonConverter clubsConverter;
 
+  /**
+   * Creating and persist an new Club.
+   */
   @POST
   public JsonObject create(JsonObject jsonObject) {
     Club club = clubsConverter.toModel(jsonObject, new Club());
@@ -41,6 +44,9 @@ public class ClubsResource extends AbstractResource {
     return clubsConverter.toJsonObject(club);
   }
 
+  /**
+   * Reading the club with the given id.
+   */
   @GET
   @Path("{id}")
   public JsonObject readSingle(@PathParam("id") Long id) {
@@ -48,6 +54,9 @@ public class ClubsResource extends AbstractResource {
     return clubsConverter.toJsonObject(club);
   }
 
+  /**
+   * Reading multiple (offset to maxResult) clubs.
+   */
   @GET
   public JsonArray readMultiple(@QueryParam("offset") Integer offset,
                                 @QueryParam("maxResults") Integer maxResults) {
@@ -57,6 +66,9 @@ public class ClubsResource extends AbstractResource {
     return clubsConverter.toJsonArray(clubs);
   }
 
+  /**
+   * Updatding an existing club.
+   */
   @PUT
   public JsonObject update(JsonObject jsonObject) {
     Long id = Long.valueOf(jsonObject.get("id").toString());
@@ -68,6 +80,9 @@ public class ClubsResource extends AbstractResource {
     return clubsConverter.toJsonObject(club);
   }
 
+  /**
+   * Deleting a club.
+   */
   @DELETE
   public JsonObject delete(JsonObject jsonObject) {
     Long id = Long.valueOf(jsonObject.get("id").toString());

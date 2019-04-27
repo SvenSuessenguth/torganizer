@@ -19,11 +19,19 @@ import javax.json.JsonValue;
 
 import org.cc.torganizer.core.entities.Entity;
 
+/**
+ * Base-Class to convert model-entities from/to json.
+ */
 public abstract class BaseModelJsonConverter<T extends Entity> implements ModelJsonConverter<T> {
 
-  // use existing object (update)
+
+  /**
+   * This method use the attribute 'id' from the jsonObject to find the proper entity-object from the collection of
+   * entit-objects (models).
+   */
   @SuppressWarnings("unchecked")
   public T getProperEntity(JsonObject jsonObject, Collection<T> models) {
+    // use existing object (update)
     Long id = Long.valueOf(jsonObject.get("id").toString());
     for (T model : models) {
       if (Objects.equals(model.getId(), id)) {
@@ -45,6 +53,9 @@ public abstract class BaseModelJsonConverter<T extends Entity> implements ModelJ
     }
   }
 
+  /**
+   * Adding null-safe a new jsonObject with a given name to the JsonBuilder.
+   */
   public JsonObjectBuilder add(JsonObjectBuilder objectBuilder, String name, JsonObject value) {
     if (value == null) {
       return objectBuilder.add(name, JsonValue.NULL);
@@ -53,6 +64,9 @@ public abstract class BaseModelJsonConverter<T extends Entity> implements ModelJ
     }
   }
 
+  /**
+   * Adding null-safe a LocalDate as String with a given name to the JsonBuilder.
+   */
   public JsonObjectBuilder add(JsonObjectBuilder objectBuilder, String name, LocalDate value) {
     if (value == null) {
       return objectBuilder.add(name, JsonValue.NULL);
@@ -61,6 +75,9 @@ public abstract class BaseModelJsonConverter<T extends Entity> implements ModelJ
     }
   }
 
+  /**
+   * Adding null-safe a LocalDateTime as String with a given name to the JsonBuilder.
+   */
   public JsonObjectBuilder add(JsonObjectBuilder objectBuilder, String name, LocalDateTime value) {
     if (value == null) {
       return objectBuilder.add(name, JsonValue.NULL);
@@ -69,6 +86,9 @@ public abstract class BaseModelJsonConverter<T extends Entity> implements ModelJ
     }
   }
 
+  /**
+   * Adding null-safe a Long-valuewith a given name to the JsonBuilder.
+   */
   public JsonObjectBuilder add(JsonObjectBuilder objectBuilder, String name, Long value) {
     if (value == null) {
       return objectBuilder.add(name, JsonValue.NULL);
@@ -77,6 +97,9 @@ public abstract class BaseModelJsonConverter<T extends Entity> implements ModelJ
     }
   }
 
+  /**
+   * Adding null-safe a Integer with a given name to the JsonBuilder.
+   */
   public JsonObjectBuilder add(JsonObjectBuilder objectBuilder, String name, Integer integer) {
     if (integer == null) {
       return objectBuilder.add(name, JsonValue.NULL);
@@ -85,6 +108,9 @@ public abstract class BaseModelJsonConverter<T extends Entity> implements ModelJ
     }
   }
 
+  /**
+   * Adding null-safe a String with a given name to the JsonBuilder.
+   */
   public JsonObjectBuilder add(JsonObjectBuilder objectBuilder, String name, String value) {
     if (value == null) {
       return objectBuilder.add(name, JsonValue.NULL);
