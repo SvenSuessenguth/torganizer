@@ -47,7 +47,9 @@ public class PlayersResource {
   @Inject
   private PlayerJsonConverter playersConverter;
 
-  @Operation(operationId = "createPlayer")
+  /**
+   * Create a player.
+   */
   @POST
   public JsonObject create(JsonObject jsonObject) {
     JsonObject result = null;
