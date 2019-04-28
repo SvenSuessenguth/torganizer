@@ -3,6 +3,7 @@ package org.cc.torganizer.core.comparators;
 import static org.cc.torganizer.core.util.Checker.countNullValues;
 import static org.cc.torganizer.core.util.Checker.onlyNullValues;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 import org.cc.torganizer.core.entities.IPositional;
@@ -10,7 +11,7 @@ import org.cc.torganizer.core.entities.IPositional;
 /**
  * Sortieren nach der Position.
  */
-public class PositionalComparator implements Comparator<IPositional> {
+public class PositionalComparator implements Comparator<IPositional>, Serializable {
 
   @Override
   public final int compare(final IPositional p0, final IPositional p1) {

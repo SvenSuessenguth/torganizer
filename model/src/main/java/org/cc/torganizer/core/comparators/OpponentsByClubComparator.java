@@ -1,5 +1,6 @@
 package org.cc.torganizer.core.comparators;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -10,7 +11,7 @@ import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Player;
 
-public class OpponentsByClubComparator implements Comparator<Opponent> {
+public class OpponentsByClubComparator implements Comparator<Opponent>, Serializable {
 
   @Override
   public int compare(Opponent o1, Opponent o2) {

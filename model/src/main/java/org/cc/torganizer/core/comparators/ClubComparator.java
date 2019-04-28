@@ -1,12 +1,12 @@
 package org.cc.torganizer.core.comparators;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Objects;
 
 import org.cc.torganizer.core.entities.Club;
 
-public class ClubComparator implements Comparator<Club> {
-
+public class ClubComparator implements Comparator<Club>, Serializable {
 
   @Override
   public int compare(Club o1, Club o2) {
