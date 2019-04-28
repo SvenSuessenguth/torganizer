@@ -15,6 +15,9 @@ public class OpponentJsonConverterProvider {
   @Inject
   private Instance<OpponentJsonConverter> opponentConverters;
 
+  /**
+   * Providing the converter for the given opponentType.
+   */
   @SuppressWarnings("rawtypes")
   public BaseModelJsonConverter getConverter(OpponentType opponentType) {
     for (OpponentJsonConverter converter : opponentConverters) {
@@ -25,6 +28,10 @@ public class OpponentJsonConverterProvider {
     return null;
   }
 
+  /**
+   * Providing the converter for the first opponent found in the collection. To run properly, all
+   * opponents must have the same opponentType.
+   */
   @SuppressWarnings("rawtypes")
   public BaseModelJsonConverter getConverter(Collection<Opponent> opponents) {
 

@@ -68,6 +68,10 @@ public class RestrictionJsonConverter extends BaseModelJsonConverter<Restriction
     return objectBuilder.build();
   }
 
+  /**
+   * Add information about the given {@link AgeRestriction} to the {@link JsonObjectBuilder},
+   * to convert all values to Json.
+   */
   public JsonObjectBuilder toJsonObject(AgeRestriction restriction,
                                         JsonObjectBuilder objectBuilder) {
     add(objectBuilder, "minDateOfBirth", restriction.getMinDateOfBirth());
@@ -76,6 +80,10 @@ public class RestrictionJsonConverter extends BaseModelJsonConverter<Restriction
     return objectBuilder;
   }
 
+  /**
+   * Add information about the given {@link GenderRestriction} to the {@link JsonObjectBuilder},
+   * to convert all values to Json.
+   */
   public JsonObjectBuilder toJsonObject(GenderRestriction restriction,
                                         JsonObjectBuilder objectBuilder) {
     add(objectBuilder, "gender", restriction.getGender().toString());
@@ -83,6 +91,10 @@ public class RestrictionJsonConverter extends BaseModelJsonConverter<Restriction
     return objectBuilder;
   }
 
+  /**
+   * Add information about the given {@link OpponentTypeRestriction} to the
+   * {@link JsonObjectBuilder}, to convert all values to Json.
+   */
   public JsonObjectBuilder toJsonObject(OpponentTypeRestriction restriction,
                                         JsonObjectBuilder objectBuilder) {
     add(objectBuilder, "opponentType", restriction.getOpponentType().toString());

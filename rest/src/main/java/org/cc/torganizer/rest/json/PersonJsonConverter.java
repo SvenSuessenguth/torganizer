@@ -15,9 +15,6 @@ import javax.json.JsonObjectBuilder;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Person;
 
-/**
- * @author svens
- */
 @RequestScoped
 public class PersonJsonConverter extends BaseModelJsonConverter<Person> {
 

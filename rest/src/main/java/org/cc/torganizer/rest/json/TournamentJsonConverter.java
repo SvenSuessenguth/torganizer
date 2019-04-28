@@ -11,9 +11,6 @@ import javax.json.JsonObjectBuilder;
 
 import org.cc.torganizer.core.entities.Tournament;
 
-/**
- * @author svens
- */
 public class TournamentJsonConverter extends BaseModelJsonConverter<Tournament> {
 
   @Override

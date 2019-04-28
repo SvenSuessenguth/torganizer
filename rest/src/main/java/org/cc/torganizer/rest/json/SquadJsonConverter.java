@@ -14,9 +14,6 @@ import javax.json.JsonObjectBuilder;
 import org.cc.torganizer.core.entities.OpponentType;
 import org.cc.torganizer.core.entities.Squad;
 
-/**
- * @author svens
- */
 @RequestScoped
 public class SquadJsonConverter extends BaseModelJsonConverter<Squad>
     implements OpponentJsonConverter {

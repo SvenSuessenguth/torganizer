@@ -19,9 +19,6 @@ import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Status;
 
-/**
- * @author svens
- */
 @RequestScoped
 public class PlayerJsonConverter extends BaseModelJsonConverter<Player>
     implements OpponentJsonConverter {
