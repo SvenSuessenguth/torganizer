@@ -22,7 +22,6 @@ import org.cc.torganizer.persistence.PlayersRepository;
 import org.cc.torganizer.persistence.SquadsRepository;
 import org.cc.torganizer.rest.json.PlayerJsonConverter;
 import org.cc.torganizer.rest.json.SquadJsonConverter;
-import org.eclipse.microprofile.openapi.annotations.Operation;
 
 @Stateless
 @Path("/squads")
@@ -42,7 +41,9 @@ public class SquadsResource {
   @Inject
   private PlayersRepository playersRepository;
 
-  @Operation(operationId = "createSquad")
+  /**
+   * Create and persist a new squad.
+   */
   @POST
   public JsonObject create(JsonObject jsonObject) {
     Squad squad = converter.toModel(jsonObject, new Squad());
@@ -59,7 +60,9 @@ public class SquadsResource {
     return converter.toJsonObject(squad);
   }
 
-  @Operation(operationId = "readSingleSquad")
+  /**
+   * Getting the squad with the given id.
+   */
   @GET
   @Path("{id}")
   public JsonObject readSingle(@PathParam("id") Long id) {
@@ -68,7 +71,9 @@ public class SquadsResource {
     return converter.toJsonObject(squad);
   }
 
-  @Operation(operationId = "readMultipleSquad")
+  /**
+   * Getting multiple squads from offset to maxResults.
+   */
   @GET
   public JsonArray readMultiple(@QueryParam("offset") Integer offset,
                                 @QueryParam("maxResults") Integer maxResults) {
@@ -77,7 +82,9 @@ public class SquadsResource {
     return converter.toJsonArray(squads);
   }
 
-  @Operation(operationId = "updateSquad")
+  /**
+   * Update an existing squad.
+   */
   @PUT
   public JsonObject update(JsonObject jsonObject) {
     Long id = Long.valueOf(jsonObject.get("id").toString());
@@ -97,7 +104,9 @@ public class SquadsResource {
     return converter.toJsonObject(squad);
   }
 
-  @Operation(operationId = "deleteSquad")
+  /**
+   * Deleting the squad with the given id.
+   */
   @DELETE
   @Path("/{id}")
   public JsonObject delete(@PathParam("id") Long id) {
@@ -106,14 +115,15 @@ public class SquadsResource {
     return converter.toJsonObject(squad);
   }
 
-  @Operation(operationId = "countSquads")
   @GET
   @Path("/count")
   public long count() {
     return ssquadsRepository.count();
   }
 
-  @Operation(operationId = "getPlayersBySquad")
+  /**
+   * Getting the players of the squad with the given id.
+   */
   @GET
   @Path("/{id}/players")
   public JsonArray players(@PathParam("id") Long squadId) {
