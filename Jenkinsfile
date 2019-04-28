@@ -38,6 +38,8 @@ pipeline {
         bat 'mvn checkstyle:checkstyle'
 		// https://github.com/firemanphil/jenkinsfile/blob/master/Jenkinsfile
 		step([$class: 'hudson.plugins.checkstyle.CheckStylePublisher', pattern: '**/target/checkstyle-result.xml', unstableTotalAll:'0'])
+		step([$class: 'PmdPublisher', pattern: '**/target/pmd.xml'])
+        step([$class: 'FindBugsPublisher', pattern: '**/findbugsXml.xml']
 	  }
     }
 	
