@@ -14,13 +14,13 @@ public class Result extends Entity implements IPositional {
    * Reihenfolge der Results. -1 als Standardwert, wenn die Reihenfolge ohne
    * Bedeutung ist.
    */
-  private Integer position = -1;
+  private Integer position = Integer.valueOf(-1);
 
   /**
    * Standardkonstruktor.
    */
   public Result() {
-    position = -1;
+    position = Integer.valueOf(-1);
   }
 
   /**
@@ -29,7 +29,7 @@ public class Result extends Entity implements IPositional {
    * @param newPosition Index
    */
   public Result(Integer newPosition) {
-    this(newPosition, 0, 0);
+    this(newPosition, Integer.valueOf(0), Integer.valueOf(0));
   }
 
   /**
@@ -40,7 +40,7 @@ public class Result extends Entity implements IPositional {
    * @param newGuestScore Score des Guests
    */
   public Result(Integer newPosition, Integer newHomeScore, Integer newGuestScore) {
-    this.position = newPosition == null ? -1 : newPosition;
+    this.position = newPosition == null ? Integer.valueOf(-1) : newPosition;
     this.homeScore = newHomeScore;
     this.guestScore = newGuestScore;
   }
