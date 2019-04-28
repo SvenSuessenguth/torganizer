@@ -3,6 +3,7 @@ package org.cc.torganizer.core;
 import java.util.Objects;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
 
 import org.cc.torganizer.core.entities.System;
 
@@ -12,6 +13,7 @@ import org.cc.torganizer.core.entities.System;
 @ApplicationScoped
 public class PendingMatchDetectorFactory {
 
+  @Inject
   private Instance<PendingMatchDetector> detectors;
 
   /**
