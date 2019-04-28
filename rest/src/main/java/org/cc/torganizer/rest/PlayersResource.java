@@ -134,7 +134,7 @@ public class PlayersResource {
     return playersConverter.toJsonObject(player);
   }
 
-  
+
   @GET
   @Path("/count")
   public long count() {
