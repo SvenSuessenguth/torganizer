@@ -78,7 +78,9 @@ public class PlayersResource {
     return result;
   }
 
-  @Operation(operationId = "readSinglePlayer")
+  /**
+   * Getting the Player with the given id including the person.
+   */
   @GET
   @Path("{id}")
   public JsonObject readSingle(@PathParam("id") Long id) {
@@ -88,7 +90,9 @@ public class PlayersResource {
     return playersConverter.toJsonObject(player);
   }
 
-  @Operation(operationId = "readMultiplePlayers")
+  /**
+   * Getting multiple players from offset to maxResults including the persons.
+   */
   @GET
   public JsonArray readMultiple(@QueryParam("offset") Integer offset,
                                 @QueryParam("maxResults") Integer maxResults) {
@@ -97,7 +101,9 @@ public class PlayersResource {
     return playersConverter.toJsonArray(players);
   }
 
-  @Operation(operationId = "updatePlayer")
+  /**
+   * Updating the player or person with the given id.
+   */
   @PUT
   public JsonObject update(JsonObject jsonObject) {
     Long id = Long.valueOf(jsonObject.get("id").toString());
@@ -118,7 +124,9 @@ public class PlayersResource {
     return playersConverter.toJsonObject(player);
   }
 
-  @Operation(operationId = "deletePlayer")
+  /**
+   * Deleting the player with the given id.
+   */
   @DELETE
   @Path("/{id}")
   public JsonObject delete(@PathParam("id") Long id) {
