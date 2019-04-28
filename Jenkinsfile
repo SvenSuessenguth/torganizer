@@ -35,7 +35,7 @@ pipeline {
     }
 	stage ('analysis') {
       steps{
-        bat 'mvn checkstyle:checkstyle'
+        bat 'mvn checkstyle:checkstyle pmd:pmd findbugs:findbugs'
 		// https://github.com/firemanphil/jenkinsfile/blob/master/Jenkinsfile
 		step([$class: 'hudson.plugins.checkstyle.CheckStylePublisher', pattern: '**/target/checkstyle-result.xml', unstableTotalAll:'0'])
 		step([$class: 'PmdPublisher', pattern: '**/target/pmd.xml'])
