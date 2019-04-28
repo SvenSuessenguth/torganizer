@@ -26,8 +26,8 @@ public abstract class BaseModelJsonConverter<T extends Entity> implements ModelJ
 
 
   /**
-   * This method use the attribute 'id' from the jsonObject to find the proper entity-object from the collection of
-   * entit-objects (models).
+   * This method use the attribute 'id' from the jsonObject to find the proper entity-object
+   * from the collection of entit-objects (models).
    */
   @SuppressWarnings("unchecked")
   public T getProperEntity(JsonObject jsonObject, Collection<T> models) {
