@@ -138,6 +138,10 @@ public abstract class BaseModelJsonConverter<T extends Entity> implements ModelJ
     return LocalDateTime.parse(localDateTimeString, formatter);
   }
 
+  /**
+   * Getting the jsonValue of the jsonObject with the given key as string. Supported valueTypes are
+   * NULL, STRING and NUMBER.
+   */
   public String get(JsonObject jsonObject, String key) {
     if (jsonObject.containsKey(key)) {
       JsonValue jsonValue = jsonObject.get(key);
