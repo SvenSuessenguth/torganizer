@@ -30,7 +30,6 @@ import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.persistence.ClubsRepository;
 import org.cc.torganizer.persistence.PlayersRepository;
 import org.cc.torganizer.rest.json.PlayerJsonConverter;
-import org.eclipse.microprofile.openapi.annotations.Operation;
 
 @Stateless
 @Path("/players")
@@ -135,7 +134,7 @@ public class PlayersResource {
     return playersConverter.toJsonObject(player);
   }
 
-  @Operation(operationId = "countPlayers")
+  
   @GET
   @Path("/count")
   public long count() {
