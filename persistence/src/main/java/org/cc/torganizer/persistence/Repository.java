@@ -8,8 +8,8 @@ import org.cc.torganizer.core.entities.Entity;
 
 public abstract class Repository<T extends Entity> {
 
-  protected static final int DEFAULT_MAX_RESULTS = 10;
-  protected static final int DEFAULT_OFFSET = 0;
+  protected static final int DEFAULT_MAX_RESULTS = Integer.valueOf(10);
+  protected static final int DEFAULT_OFFSET = Integer.valueOf(0);
 
   @PersistenceContext(name = "torganizer")
   protected EntityManager entityManager;
