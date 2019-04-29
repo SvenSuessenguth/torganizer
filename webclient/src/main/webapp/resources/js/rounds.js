@@ -137,8 +137,10 @@ class Rounds {
     // display groups incl. opponents
     if (jGroups.length > 0) {
       jGroups.forEach(function (jGroup) {
+        console.log(JSON.stringify(jGroup));
         let groupElement = document.createElement("opponents-table",);
         groupElement.setAttribute("id", jGroup.id);
+        groupElement.setAttribute("opponents", jGroup.opponents);
         eGroups.appendChild(groupElement);
       });
     }
