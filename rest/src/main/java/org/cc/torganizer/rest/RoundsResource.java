@@ -3,12 +3,16 @@ package org.cc.torganizer.rest;
 import static org.cc.torganizer.rest.json.BaseModelJsonConverter.emptyArray;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.json.Json;
 import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonBuilderFactory;
 import javax.json.JsonNumber;
 import javax.json.JsonObject;
 import javax.ws.rs.DELETE;
@@ -183,22 +187,26 @@ public class RoundsResource extends AbstractResource {
     System system = round.getSystem();
     Set<Opponent> opponents = roundsRepository.getNotAssignedOpponents(roundId);
     List<Group> groups = round.getGroups();
-    JsonArray jsonArray = groupConverter.toJsonArray(groups);
+    JsonArray jsonGroups = groupConverter.toJsonArray(groups);
 
     OpponentToGroupsAssigner assigner = oppToGroupAssFactory.getOpponentToGroupsAssigner(system);
     assigner.assign(opponents, groups);
 
     // adding opponents-json to groups-json
-    int size = jsonArray.size();
+    JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
+    final JsonArrayBuilder arrayBuilder = factory.createArrayBuilder();
+
+    int size = jsonGroups.size();
     for (int index = 0; index < size; index++) {
-      JsonObject groupJson = jsonArray.getJsonObject(index);
+      JsonObject groupJson = jsonGroups.getJsonObject(index);
       JsonNumber jsonNumber = groupJson.getJsonNumber("id");
       Long id = jsonNumber.longValue();
       Group group = getGroupById(groups, id);
-      groupConverter.addOpponents((JsonObject) groupJson, group.getOpponents());
+      JsonObject patchedGroupJson = groupConverter.addOpponents(groupJson, group.getOpponents());
+      arrayBuilder.add(patchedGroupJson);
     }
 
-    return Response.ok(jsonArray).build();
+    return Response.ok(arrayBuilder.build()).build();
   }
 
   private Group getGroupById(Collection<Group> groups, Long id) {

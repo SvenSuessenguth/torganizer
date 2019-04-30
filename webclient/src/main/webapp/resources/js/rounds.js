@@ -140,7 +140,7 @@ class Rounds {
         console.log(JSON.stringify(jGroup));
         let groupElement = document.createElement("opponents-table",);
         groupElement.setAttribute("id", jGroup.id);
-        groupElement.setAttribute("opponents", jGroup.opponents);
+        groupElement.setAttribute("data", JSON.stringify(jGroup.opponents));
         eGroups.appendChild(groupElement);
       });
     }
