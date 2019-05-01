@@ -38,11 +38,14 @@ pipeline {
 	    // https://github.com/jenkinsci/warnings-ng-plugin/blob/master/doc/Documentation.md
         
 		bat 'mvn --batch-mode -V -U -e checkstyle:checkstyle pmd:pmd pmd:cpd spotbugs:spotbugs'
-
-        recordIssues enabledForFailure: true, tool: checkStyle()
-        recordIssues enabledForFailure: true, tool: spotBugs()
-        recordIssues enabledForFailure: true, tool: cpd(pattern: '**/target/cpd.xml')
-        recordIssues enabledForFailure: true, tool: pmdParser(pattern: '**/target/pmd.xml')
+	  }
+      post {
+        always {
+          recordIssues enabledForFailure: true, tool: checkStyle()
+          recordIssues enabledForFailure: true, tool: spotBugs()
+          recordIssues enabledForFailure: true, tool: cpd(pattern: '**/target/cpd.xml')
+          recordIssues enabledForFailure: true, tool: pmdParser(pattern: '**/target/pmd.xml')
+		}
 	  }
     }
 	
