@@ -1,3 +1,6 @@
+// Jenkins need to install the following additional plugins:
+// SonarQube Scanner
+
 pipeline {
   agent any
 
@@ -12,7 +15,7 @@ pipeline {
 
   tools {
     maven 'apache-maven-3.6'
-    jdk 'jdk-11'
+    jdk 'openjdk-12'
   }
 
   stages {
