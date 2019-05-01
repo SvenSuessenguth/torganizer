@@ -35,28 +35,15 @@ pipeline {
     }
 	stage ('analysis') {
       steps{
-        bat 'mvn checkstyle:checkstyle pmd:pmd pmd:cpd spotbugs:spotbugs'
-		// https://github.com/firemanphil/jenkinsfile/blob/master/Jenkinsfile
-		// https://github.com/jenkinsci/warnings-ng-plugin/blob/master/doc/Documentation.md
-	
-        def checkstyle = scanForIssues tool: checkStyle(pattern: '**/target/checkstyle-result.xml')
-        publishIssues issues: [checkstyle]
-   
-        def pmd = scanForIssues tool: pmdParser(pattern: '**/target/pmd.xml')
-        publishIssues issues: [pmd]
+	    // https://github.com/jenkinsci/warnings-ng-plugin/blob/master/doc/Documentation.md
         
-        def cpd = scanForIssues tool: cpd(pattern: '**/target/cpd.xml')
-        publishIssues issues: [cpd]
-        
-        def spotbugs = scanForIssues tool: spotBugs(pattern: '**/target/spotbugs.xml')
-        publishIssues issues: [spotbugs]
-
-        def maven = scanForIssues tool: mavenConsole()
-        publishIssues issues: [maven]
-        
-        publishIssues id: 'analysis', name: 'All Issues', 
-            issues: [checkstyle, pmd, spotbugs], 
-            filters: [includePackage('io.jenkins.plugins.analysis.*')]
+		bat 'mvn --batch-mode -V -U -e clean verify -Dsurefire.useFile=false -Dmaven.test.failure.ignore'
+		
+        recordIssues enabledForFailure: true, tools: [mavenConsole(), java(), javaDoc()]
+        recordIssues enabledForFailure: true, tool: checkStyle()
+        recordIssues enabledForFailure: true, tool: spotBugs()
+        recordIssues enabledForFailure: true, tool: cpd(pattern: '**/target/cpd.xml')
+        recordIssues enabledForFailure: true, tool: pmdParser(pattern: '**/target/pmd.xml')
 	  }
     }
 	
