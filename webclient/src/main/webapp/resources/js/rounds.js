@@ -126,8 +126,6 @@ class Rounds {
   }
 
   updateGroups(jGroups) {
-    console.log("updating groups");
-
     // remove old groups
     let eGroups = document.querySelector("#groups");
     while (eGroups.firstChild) {
@@ -137,11 +135,10 @@ class Rounds {
     // display groups incl. opponents
     if (jGroups.length > 0) {
       jGroups.forEach(function (jGroup) {
-        console.log(JSON.stringify(jGroup));
         let groupElement = document.createElement("opponents-table",);
         groupElement.setAttribute("id", jGroup.id);
-        groupElement.setAttribute("data", JSON.stringify(jGroup.opponents));
         eGroups.appendChild(groupElement);
+        groupElement.setAttribute("data", JSON.stringify(jGroup.opponents));
       });
     }
   }

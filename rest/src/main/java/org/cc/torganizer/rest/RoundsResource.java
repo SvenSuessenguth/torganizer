@@ -124,9 +124,13 @@ public class RoundsResource extends AbstractResource {
                                    @QueryParam("offset") Integer offset,
                                    @QueryParam("maxResults") Integer maxResults) {
     Round round = roundsRepository.read(roundId);
-    JsonArray jsonArray = groupConverter.toJsonArray(round.getGroups());
+    List<Group> groups = round.getGroups();
+    JsonArray jsonGroups = groupConverter.toJsonArray(groups);
 
-    return Response.ok(jsonArray).build();
+    // adding Opponents-Json to Group-Json
+    JsonArray patchedJsonGroups = addOpponentsToGroupsJson(jsonGroups, groups);
+
+    return Response.ok(patchedJsonGroups).build();
   }
 
   /**
@@ -192,6 +196,26 @@ public class RoundsResource extends AbstractResource {
     OpponentToGroupsAssigner assigner = oppToGroupAssFactory.getOpponentToGroupsAssigner(system);
     assigner.assign(opponents, groups);
 
+    // adding Opponents-Json to Group-Json
+    JsonArray patchedJsonGroups = addOpponentsToGroupsJson(jsonGroups, groups);
+
+    return Response.ok(patchedJsonGroups).build();
+  }
+
+  private Group getGroupById(Collection<Group> groups, Long id) {
+    for (Group group : groups) {
+      if (Objects.equals(group.getId(), id)) {
+        return group;
+      }
+    }
+
+    throw new GroupNotFoundException();
+  }
+
+  /**
+   * adding opponents-json to groups-json.
+   */
+  protected JsonArray addOpponentsToGroupsJson(JsonArray jsonGroups, Collection<Group> groups){
     // adding opponents-json to groups-json
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonArrayBuilder arrayBuilder = factory.createArrayBuilder();
@@ -205,17 +229,6 @@ public class RoundsResource extends AbstractResource {
       JsonObject patchedGroupJson = groupConverter.addOpponents(groupJson, group.getOpponents());
       arrayBuilder.add(patchedGroupJson);
     }
-
-    return Response.ok(arrayBuilder.build()).build();
-  }
-
-  private Group getGroupById(Collection<Group> groups, Long id) {
-    for (Group group : groups) {
-      if (Objects.equals(group.getId(), id)) {
-        return group;
-      }
-    }
-
-    throw new GroupNotFoundException();
+    return arrayBuilder.build();
   }
 }

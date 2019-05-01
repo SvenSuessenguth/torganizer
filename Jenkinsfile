@@ -35,12 +35,12 @@ pipeline {
     }
 	stage ('analysis') {
       steps{
-        bat 'mvn checkstyle:checkstyle pmd:pmd findbugs:findbugs'
+        bat 'mvn checkstyle:checkstyle pmd:pmd spotbugs:spotbugs'
 		// https://github.com/firemanphil/jenkinsfile/blob/master/Jenkinsfile
 	
         step([$class: 'hudson.plugins.checkstyle.CheckStylePublisher', pattern: '**/target/checkstyle-result.xml', unstableTotalAll:'0'])
         step([$class: 'PmdPublisher', pattern: '**/target/pmd.xml'])
-        step([$class: 'FindBugsPublisher', pattern: '**/findbugsXml.xml'])
+        step([$class: 'SpotBugsPublisher', pattern: '**/target/spotbugsXml.xml'])		
 	  }
     }
 	
