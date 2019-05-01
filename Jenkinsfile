@@ -35,12 +35,28 @@ pipeline {
     }
 	stage ('analysis') {
       steps{
-        bat 'mvn checkstyle:checkstyle pmd:pmd spotbugs:spotbugs'
+        bat 'mvn checkstyle:checkstyle pmd:pmd pmd:cpd spotbugs:spotbugs'
 		// https://github.com/firemanphil/jenkinsfile/blob/master/Jenkinsfile
+		// https://github.com/jenkinsci/warnings-ng-plugin/blob/master/doc/Documentation.md
 	
-        step([$class: 'hudson.plugins.checkstyle.CheckStylePublisher', pattern: '**/target/checkstyle-result.xml', unstableTotalAll:'0'])
-        step([$class: 'PmdPublisher', pattern: '**/target/pmd.xml'])
-        step([$class: 'SpotBugsPublisher', pattern: '**/target/spotbugsXml.xml'])		
+        def checkstyle = scanForIssues tool: checkStyle(pattern: '**/target/checkstyle-result.xml')
+        publishIssues issues: [checkstyle]
+   
+        def pmd = scanForIssues tool: pmdParser(pattern: '**/target/pmd.xml')
+        publishIssues issues: [pmd]
+        
+        def cpd = scanForIssues tool: cpd(pattern: '**/target/cpd.xml')
+        publishIssues issues: [cpd]
+        
+        def spotbugs = scanForIssues tool: spotBugs(pattern: '**/target/spotbugs.xml')
+        publishIssues issues: [spotbugs]
+
+        def maven = scanForIssues tool: mavenConsole()
+        publishIssues issues: [maven]
+        
+        publishIssues id: 'analysis', name: 'All Issues', 
+            issues: [checkstyle, pmd, spotbugs], 
+            filters: [includePackage('io.jenkins.plugins.analysis.*')]
 	  }
     }
 	

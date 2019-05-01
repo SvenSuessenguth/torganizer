@@ -215,7 +215,7 @@ public class RoundsResource extends AbstractResource {
   /**
    * adding opponents-json to groups-json.
    */
-  protected JsonArray addOpponentsToGroupsJson(JsonArray jsonGroups, Collection<Group> groups){
+  protected JsonArray addOpponentsToGroupsJson(JsonArray jsonGroups, Collection<Group> groups) {
     // adding opponents-json to groups-json
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     final JsonArrayBuilder arrayBuilder = factory.createArrayBuilder();
