@@ -1,5 +1,7 @@
 // Jenkins need to install the following additional plugins:
+// https://updates.jenkins.io/download/plugins/
 // SonarQube Scanner
+// Warnings Next Generation
 
 pipeline {
   agent any

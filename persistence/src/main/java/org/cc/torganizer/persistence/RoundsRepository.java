@@ -166,14 +166,11 @@ public class RoundsRepository extends Repository<Round> {
    * @return List of all groups assigned to the round with the given id
    */
   public List<Group> newGroup(Long id) {
-    List<Group> groups = new ArrayList<>();
     Round round = this.read(id);
 
     Group group = new Group();
     round.appendGroup(group);
     entityManager.persist(group);
-
-    groups.add(group);
 
     entityManager.merge(round);
     entityManager.flush();
