@@ -57,7 +57,7 @@
      | [WARNING] The following plugins do not have their version specified:
      +-->
     <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
-    <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
     <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
     <maven-install-plugin.version>3.0.0-M1</maven-install-plugin.version>
     <maven-checkstyle-plugin>3.0.0</maven-checkstyle-plugin>
