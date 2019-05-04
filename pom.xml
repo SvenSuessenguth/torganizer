@@ -225,6 +225,7 @@
           <version>${dependency-check-maven.version}</version>
           <configuration>
             <skipProvidedScope>true</skipProvidedScope>
+			<format>all</format>
           </configuration>
           <executions>
             <execution>
