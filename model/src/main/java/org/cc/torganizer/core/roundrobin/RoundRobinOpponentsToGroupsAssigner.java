@@ -1,7 +1,6 @@
 package org.cc.torganizer.core.roundrobin;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
