@@ -93,6 +93,8 @@ class OpponentsTable extends HTMLElement{
         let clubName = player.club.name;
         if(clubName!=null) {
           tdClubs.innerHTML += player.club.name + "<br />";
+        }else{
+          tdClubs.innerHTML += "-<br />";
         }
       });
       
@@ -107,6 +109,9 @@ class OpponentsTable extends HTMLElement{
       
       var tdLastNames = rowOpponent.getElementsByTagName("td")[1];
       tdLastNames.innerHTML = '&nbsp;';
+
+      var tdClubs = rowOpponent.getElementsByTagName("td")[2];
+      tdClubs.innerHTML = '&nbsp;';
     }
   }
   
