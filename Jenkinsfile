@@ -46,11 +46,11 @@ pipeline {
 	  }
       post {
         always {
-		  recordIssues enabledForFailure: true, aggregatingResults : true, tools: [mavenConsole(), java()]
-          recordIssues enabledForFailure: true, aggregatingResults : true, tool: checkStyle()
-          recordIssues enabledForFailure: true, aggregatingResults : true, tool: spotBugs()
-          recordIssues enabledForFailure: true, aggregatingResults : true, tool: cpd(pattern: '**/target/cpd.xml')
-          recordIssues enabledForFailure: true, aggregatingResults : true, tool: pmdParser(pattern: '**/target/pmd.xml')		  
+		  recordIssues enabledForFailure: true, aggregatingResults : true, tools: [mavenConsole(), java(), checkStyle(), spotBugs(), cpd(pattern: '**/target/cpd.xml'), pmdParser(pattern: '**/target/pmd.xml')]
+          //recordIssues enabledForFailure: true, aggregatingResults : true, tool: checkStyle()
+          //recordIssues enabledForFailure: true, aggregatingResults : true, tool: spotBugs()
+          //recordIssues enabledForFailure: true, aggregatingResults : true, tool: cpd(pattern: '**/target/cpd.xml')
+          //recordIssues enabledForFailure: true, aggregatingResults : true, tool: pmdParser(pattern: '**/target/pmd.xml')		  
 		}
 	  }
     }
