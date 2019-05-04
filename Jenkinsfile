@@ -60,8 +60,10 @@ pipeline {
     }
 	
 	stage ('analysis-2') {
-        
+        steps{
         bat 'mvn --batch-mode -V -U -e checkstyle:checkstyle pmd:pmd pmd:cpd spotbugs:spotbugs'
+		}
+		post{always{
 
         def checkstyle = scanForIssues tool: checkStyle(pattern: '**/target/checkstyle-result.xml')
         publishIssues issues: [checkstyle]
@@ -81,6 +83,7 @@ pipeline {
         publishIssues id: 'analysis-2', name: 'All Issues', 
             issues: [checkstyle, pmd, spotbugs], 
             filters: [includePackage('io.jenkins.plugins.analysis.*')]
+			}}
     }
 	
     stage('report') {
