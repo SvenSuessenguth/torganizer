@@ -50,11 +50,7 @@ pipeline {
           recordIssues enabledForFailure: true, tool: checkStyle()
           recordIssues enabledForFailure: true, tool: spotBugs()
           recordIssues enabledForFailure: true, tool: cpd(pattern: '**/target/cpd.xml')
-          recordIssues enabledForFailure: true, tool: pmdParser(pattern: '**/target/pmd.xml')
-		  
-		  publishIssues id: 'analysis', name: 'All Issues', 
-            issues: [checkstyle, pmd, spotbugs], 
-            filters: [includePackage('io.jenkins.plugins.analysis.*')]
+          recordIssues enabledForFailure: true, tool: pmdParser(pattern: '**/target/pmd.xml')		  
 		}
 	  }
     }
