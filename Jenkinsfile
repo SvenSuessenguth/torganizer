@@ -42,11 +42,11 @@ pipeline {
       steps{
 	    // https://github.com/jenkinsci/warnings-ng-plugin/blob/master/doc/Documentation.md
         
-		bat 'mvn --batch-mode -V -U -e javadoc:javadoc checkstyle:checkstyle pmd:pmd pmd:cpd spotbugs:spotbugs'
+		bat 'mvn --batch-mode -V -U -e checkstyle:checkstyle pmd:pmd pmd:cpd spotbugs:spotbugs'
 	  }
       post {
         always {
-		  recordIssues enabledForFailure: true, aggregatingResults : true, tools: [mavenConsole(), java(), javaDoc()]
+		  recordIssues enabledForFailure: true, aggregatingResults : true, tools: [mavenConsole(), java()]
           recordIssues enabledForFailure: true, aggregatingResults : true, tool: checkStyle()
           recordIssues enabledForFailure: true, aggregatingResults : true, tool: spotBugs()
           recordIssues enabledForFailure: true, aggregatingResults : true, tool: cpd(pattern: '**/target/cpd.xml')
