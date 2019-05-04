@@ -46,11 +46,12 @@ pipeline {
 	  }
       post {
         always {
-		  recordIssues enabledForFailure: true, aggregatingResults : true, tools: [mavenConsole(), java()]
-          recordIssues enabledForFailure: true, aggregatingResults : true, tool: checkStyle()
-          recordIssues enabledForFailure: true, aggregatingResults : true, tool: spotBugs()
-          recordIssues enabledForFailure: true, aggregatingResults : true, tool: cpd(pattern: '**/target/cpd.xml')
-          recordIssues enabledForFailure: true, aggregatingResults : true, tool: pmdParser(pattern: '**/target/pmd.xml')		  
+		  recordIssues enabledForFailure: false, aggregatingResults: true, name: 'Code Analysis', id: 'analysis', tools: [
+		  [tool: [mavenConsole(), java()]]
+          [tool: checkStyle()]
+          [tool: spotBugs()]
+          [tool: cpd(pattern: '**/target/cpd.xml')]
+          [tool: pmdParser(pattern: '**/target/pmd.xml')]]
 		}
 	  }
     }
