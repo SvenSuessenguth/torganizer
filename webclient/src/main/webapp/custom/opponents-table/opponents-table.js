@@ -86,6 +86,15 @@ class OpponentsTable extends HTMLElement{
       players.forEach(function(player){
         tdLastNames.innerHTML += player.person.lastName+"<br />";
       });
+
+      var tdClubs = rowOpponent.getElementsByTagName("td")[2];
+      tdClubs.innerHTML = "";
+      players.forEach(function(player){
+        let clubName = player.club.name;
+        if(clubName!=null) {
+          tdClubs.innerHTML += player.club.name + "<br />";
+        }
+      });
       
       counter += 1;
     });
