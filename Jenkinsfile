@@ -59,33 +59,6 @@ pipeline {
 	  }
     }
 	
-	stage ('analysis-2') {
-        steps{
-        bat 'mvn --batch-mode -V -U -e checkstyle:checkstyle pmd:pmd pmd:cpd spotbugs:spotbugs'
-		}
-		post{always{
-
-        def checkstyle = scanForIssues tool: checkStyle(pattern: '**/target/checkstyle-result.xml')
-        publishIssues issues: [checkstyle]
-   
-        def pmd = scanForIssues tool: pmdParser(pattern: '**/target/pmd.xml')
-        publishIssues issues: [pmd]
-        
-        def cpd = scanForIssues tool: cpd(pattern: '**/target/cpd.xml')
-        publishIssues issues: [cpd]
-        
-        def spotbugs = scanForIssues tool: spotBugs(pattern: '**/target/spotbugsXml.xml')
-        publishIssues issues: [spotbugs]
-
-        def maven = scanForIssues tool: mavenConsole()
-        publishIssues issues: [maven]
-        
-        publishIssues id: 'analysis-2', name: 'All Issues', 
-            issues: [checkstyle, pmd, spotbugs], 
-            filters: [includePackage('io.jenkins.plugins.analysis.*')]
-			}}
-    }
-	
     stage('report') {
       steps {
 	    withSonarQubeEnv('SonarQube') {
