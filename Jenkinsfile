@@ -78,7 +78,7 @@ pipeline {
         def maven = scanForIssues tool: mavenConsole()
         publishIssues issues: [maven]
         
-        publishIssues id: 'analysis', name: 'All Issues', 
+        publishIssues id: 'analysis-2', name: 'All Issues', 
             issues: [checkstyle, pmd, spotbugs], 
             filters: [includePackage('io.jenkins.plugins.analysis.*')]
     }
