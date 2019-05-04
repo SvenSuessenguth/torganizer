@@ -38,26 +38,29 @@ pipeline {
         }
       }
     }
-	stage ('analysis') {
+    stage ('analysis') {
       steps{
-	    // https://github.com/jenkinsci/warnings-ng-plugin/blob/master/doc/Documentation.md
+        // https://github.com/jenkinsci/warnings-ng-plugin/blob/master/doc/Documentation.md
         
-		bat 'mvn --batch-mode -V -U -e checkstyle:checkstyle pmd:pmd pmd:cpd spotbugs:spotbugs dependency-check:check'
-	  }
+        bat 'mvn --batch-mode -V -U -e checkstyle:checkstyle pmd:pmd pmd:cpd spotbugs:spotbugs dependency-check:check'
+      }
       post {
         always {
-		  recordIssues enabledForFailure: true, aggregatingResults : true, tools: [mavenConsole(), java(), checkStyle(), spotBugs(), cpd(pattern: '**/target/cpd.xml'), pmdParser(pattern: '**/target/pmd.xml')]
-          //recordIssues enabledForFailure: true, aggregatingResults : true, tool: checkStyle()
-          //recordIssues enabledForFailure: true, aggregatingResults : true, tool: spotBugs()
-          //recordIssues enabledForFailure: true, aggregatingResults : true, tool: cpd(pattern: '**/target/cpd.xml')
-          //recordIssues enabledForFailure: true, aggregatingResults : true, tool: pmdParser(pattern: '**/target/pmd.xml')		  
-		}
-	  }
+          recordIssues enabledForFailure: true, aggregatingResults : true, tools: [
+            mavenConsole(),
+            java(),
+            checkStyle(),
+            spotBugs(),
+            cpd(pattern: '**/target/cpd.xml'),
+            pmdParser(pattern: '**/target/pmd.xml')
+          ]
+        }
+      }
     }
-	
+
     stage('report') {
       steps {
-	    withSonarQubeEnv('SonarQube') {
+        withSonarQubeEnv('SonarQube') {
           bat 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
         }
       }
