@@ -7,6 +7,7 @@ class Rounds {
     this.prepareUpdateDisciplineSelection();
     this.prepareUpdateRoundSelection();
     this.prepareUpdateGroups();
+    this.prepareGroupsButtons();
   }
 
   prepareUpdateDisciplineSelection() {
@@ -64,6 +65,19 @@ class Rounds {
     }
   }
 
+  prepareGroupsButtons() {
+    let id = sessionStorage.getItem('rounds.round.id');
+    if(id===null) {
+      document.querySelector("#newGroup").setAttribute("disabled", "disabled");
+      document.querySelector("#deleteGroup").setAttribute("disabled", "disabled");
+      document.querySelector("#assignOpponents").setAttribute("disabled", "disabled");
+    }else {
+      document.querySelector("#newGroup").removeAttribute("disabled");
+      document.querySelector("#deleteGroup").removeAttribute("disabled");
+      document.querySelector("#assignOpponents").removeAttribute("disabled");
+    }
+  }
+
   updateRoundSelectionLast(jAllRounds) {
     if (jAllRounds.length === undefined || jAllRounds.length === 0) {
       document.querySelector("#numberOfRounds").innerHTML = '0';
@@ -95,6 +109,7 @@ class Rounds {
     sessionStorage.setItem('rounds.round.position', jRound.position);
 
     this.prepareUpdateAssignableOpponents();
+    this.prepareGroupsButtons();
 
     this.roundToForm(jRound);
   }
@@ -168,6 +183,7 @@ class Rounds {
 
     this.prepareUpdateRoundSelection();
     this.updateAssignableOpponents(JSON.parse("[]"));
+    this.prepareGroupsButtons();
   }
 
   //------------------------------------------------------------------------------------------------------------- save -
