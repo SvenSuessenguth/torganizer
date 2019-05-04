@@ -12,13 +12,6 @@ public class Aggregation {
   private ResultAggregate ra;
   private ScoreAggregate sa;
 
-  /**
-   * Default.
-   */
-  public Aggregation() {
-    // gem. Bean-Spec.
-  }
-
   public Opponent getOpponent() {
     return opponent;
   }

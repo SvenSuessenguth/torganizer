@@ -23,7 +23,7 @@ public class PositionalComparator implements Comparator<IPositional>, Serializab
 
     // exact one value is NULL
     if (countNullValues(p0, p1) == 1) {
-      int result = 0;
+      int result;
       if (p0 == null) {
         result = 1;
       } else {

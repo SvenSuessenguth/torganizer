@@ -16,7 +16,7 @@ public class GenderRestriction extends Restriction {
     // gem. Bean-Spec.
   }
 
-  public GenderRestriction(Gender gender) {
+  GenderRestriction(Gender gender) {
     this.gender = gender;
   }
 
@@ -44,7 +44,7 @@ public class GenderRestriction extends Restriction {
    *     und die Vorgabe nicht UNKNOWN ist, sonst
    *     <code>false</code>
    */
-  protected boolean isGenderRestricted(Player player) {
+  private boolean isGenderRestricted(Player player) {
     Gender playersGender = player.getPerson().getGender();
 
     return !Gender.UNKNOWN.equals(playersGender) && !this.gender.equals(playersGender);

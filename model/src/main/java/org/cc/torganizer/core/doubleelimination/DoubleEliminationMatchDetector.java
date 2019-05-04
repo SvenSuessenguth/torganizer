@@ -104,7 +104,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    *
    * @return Finale, wenn noch nicht gespielt/beendet
    */
-  protected Match getPendingFinalMatch(Group group) {
+  Match getPendingFinalMatch(Group group) {
 
     Match finalMatch = null;
     int finalMatchIndex = 2 * (group.getOpponents().size() - 1) - 1;
@@ -129,7 +129,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    *
    * @return Liste der noch ausstehenden Matches aus dem Lower Bracket
    */
-  protected List<Match> getPendingMatchesLowerBracket(Group group) {
+  List<Match> getPendingMatchesLowerBracket(Group group) {
     // Hilfslisten
     List<Match> pendingMatches = new ArrayList<>();
 
@@ -157,7 +157,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    * @param level Level
    * @return Matches auf dem gegebenen Level
    */
-  protected List<Match> getMatchesOnLevel(int level, Group group) {
+  private List<Match> getMatchesOnLevel(int level, Group group) {
 
     List<Match> matches = new ArrayList<>();
 
@@ -198,7 +198,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    *
    * @return Liste der Matches auf Level-0
    */
-  protected List<Match> getFirstLevelMatches(Group group) {
+  List<Match> getFirstLevelMatches(Group group) {
 
     int level = 0;
     List<Match> matches = new ArrayList<>();
@@ -222,7 +222,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    * @param guest Gast
    * @return Match mit allen erforderlichen Parametern
    */
-  protected Match createPendingMatch(int level, int i, Opponent home, Opponent guest, Group group) {
+  Match createPendingMatch(int level, int i, Opponent home, Opponent guest, Group group) {
     Match match = null;
     int groupSize = group.getOpponents().size();
 
@@ -242,7 +242,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    * @return <code>true</code>, wenn der uebergebene Wert 0 ist, sonst
    *     <code>false</code>
    */
-  protected boolean isFirstLevel(int level) {
+  boolean isFirstLevel(int level) {
     return level == 0;
   }
 
@@ -254,7 +254,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    * @return <code>true</code>, wenn Oppoenents des Upper und des Lower Brackets
    *     gemischt werden.
    */
-  protected boolean hasToMixUpperLowerBracket(int level) {
+  boolean hasToMixUpperLowerBracket(int level) {
     return level % 2 != 0;
   }
 
@@ -265,7 +265,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    * @param matches Liste von Matches
    * @param match   Match
    */
-  public void addMatchToList(List<Match> matches, Match match) {
+  void addMatchToList(List<Match> matches, Match match) {
     if (match != null) {
       matches.add(match);
     }
@@ -278,7 +278,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    * @param levelIndex Index innerhalb des Levels
    * @return Index des Matches unter Beruecksichtigung des Upper Brackets
    */
-  public int getMatchIndex(int level, int levelIndex, int groupSize) {
+  int getMatchIndex(int level, int levelIndex, int groupSize) {
     int mub = countMatchesUpperBracket(groupSize);
 
     if (level == 0) {
@@ -298,7 +298,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    *
    * @return Anzahl der Matches im Upper Bracket
    */
-  protected int countMatchesUpperBracket(int groupSize) {
+  private int countMatchesUpperBracket(int groupSize) {
     return groupSize - 1;
   }
 
@@ -309,7 +309,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    * @param level Level
    * @return Anzahl der Matches im Lower Bracket
    */
-  protected int countMatchesUpToLevel(int level, int groupSize) {
+  int countMatchesUpToLevel(int level, int groupSize) {
 
     int number = 0;
 
@@ -326,7 +326,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    * @param level Level
    * @return Anzahl der Matches auf diesem Level
    */
-  protected int countMatchesOnLevel(int level, int groupSize) {
+  int countMatchesOnLevel(int level, int groupSize) {
 
     // bei negativel Level wird 0 zurueckgegeben
     if (level < 0) {
@@ -364,7 +364,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    *     haben. Diese Liste enthaelt auch NULL-Values, wenn ein Match
    *     unbekannt ist oder noch nicht abgeschlossen ist.
    */
-  public List<Opponent> getWinnersOnLevel(int level, Group group) {
+  List<Opponent> getWinnersOnLevel(int level, Group group) {
 
     List<Opponent> winners = new ArrayList<>();
     List<Match> matches = getDoubleEliminationExistingMatchesOnLevel(level, group);
@@ -383,7 +383,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    * @param level Level
    * @return Liste der bereits vorhandenen Matches auf einem Level
    */
-  protected List<Match> getDoubleEliminationExistingMatchesOnLevel(int level, Group group) {
+  private List<Match> getDoubleEliminationExistingMatchesOnLevel(int level, Group group) {
     List<Match> matches = new ArrayList<>();
     int groupSize = group.getOpponents().size();
 
@@ -406,7 +406,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    * @param level Level
    * @return Index des ersten Matches auf dem Level
    */
-  protected int getStartMatchIndex(int level, int groupSize) {
+  int getStartMatchIndex(int level, int groupSize) {
     // Index beginnt bei '0', daher beim Ergebnis des zaehlens jeweils 1 abziehen
     return countMatchesUpperBracket(groupSize)
         + countMatchesUpToLevel(level, groupSize)
@@ -419,7 +419,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    * @param level Level
    * @return Index des letzten Matches auf dem Level
    */
-  protected int getEndMatchIndex(int level, int groupSize) {
+  int getEndMatchIndex(int level, int groupSize) {
     // Index beginnt bei '0', daher beim Ergebnis des zaehlens 1 abziehen
     return getStartMatchIndex(level, groupSize) + countMatchesOnLevel(level, groupSize) - 1;
   }
@@ -436,7 +436,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    * @param reverseFactor reverseFactor gem. s.o.
    * @return umsortierte Liste der Verlierer
    */
-  public List<Opponent> orderUpperBracketLosers(List<Opponent> opponents, int splitFactor,
+  List<Opponent> orderUpperBracketLosers(List<Opponent> opponents, int splitFactor,
                                                 int reverseFactor) {
 
     if (splitFactor == 1) {

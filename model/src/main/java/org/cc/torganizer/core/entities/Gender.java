@@ -1,7 +1,7 @@
 package org.cc.torganizer.core.entities;
 
 /**
- * Geschlecht.
+ * Gender.
  */
 public enum Gender {
 
@@ -12,5 +12,5 @@ public enum Gender {
   FEMALE,
 
   /** Unbekannt. */
-  UNKNOWN;
+  UNKNOWN
 }

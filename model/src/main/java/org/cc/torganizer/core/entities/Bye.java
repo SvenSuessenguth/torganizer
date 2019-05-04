@@ -29,7 +29,7 @@ public class Bye extends Opponent {
    * @param size Anzahl der zu erzeugenden Freilose
    * @return Liste von Freilosen
    */
-  public static List<Opponent> createByes(int size) {
+  static List<Opponent> createByes(int size) {
 
     // fehlenden Byes generieren
     List<Opponent> byes = new ArrayList<>();

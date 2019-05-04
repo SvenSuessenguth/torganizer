@@ -23,7 +23,7 @@ public class RoundRobinOpponentsToGroupsAssigner implements OpponentToGroupsAssi
 
     // avoid/minimize matches with opponents of the same club
     List<Opponent> sortedOpponents = new ArrayList<>(opponents);
-    Collections.sort(sortedOpponents, new OpponentsByClubComparator());
+    sortedOpponents.sort(new OpponentsByClubComparator());
 
     int groupsCount = groups.size();
     int groupIndex = 0;

@@ -24,7 +24,7 @@ public abstract class AbstractAggregate {
     return (double) wins / (double) (wins + lose);
   }
 
-  public int getWins() {
+  int getWins() {
     return wins;
   }
 
@@ -33,11 +33,11 @@ public abstract class AbstractAggregate {
    * 
    * @param i Inkrement
    */
-  public void increaseWins(int i) {
+  void increaseWins(int i) {
     this.wins += i;
   }
 
-  public int getLose() {
+  int getLose() {
     return lose;
   }
 
@@ -46,7 +46,7 @@ public abstract class AbstractAggregate {
    * 
    * @param i Inkrement
    */
-  public void increaseLose(int i) {
+  void increaseLose(int i) {
     this.lose += i;
   }
 

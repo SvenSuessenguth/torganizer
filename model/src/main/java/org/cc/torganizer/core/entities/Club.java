@@ -5,11 +5,6 @@ package org.cc.torganizer.core.entities;
  */
 public class Club extends Entity {
 
-  /**
-   * zu verwendender Name, wenn ein Opponent keinem club angehoert.
-   */
-  public static final String NULL_CLUB_NAME = "-";
-
   private String name;
 
   /**

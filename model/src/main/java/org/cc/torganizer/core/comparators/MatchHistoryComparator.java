@@ -16,13 +16,6 @@ public class MatchHistoryComparator implements Comparator<Match>, Serializable {
    */
   private static final long serialVersionUID = 4833758925262696791L;
 
-  /**
-   * Default.
-   */
-  public MatchHistoryComparator() {
-    // gem. Bean-Spec.
-  }
-
   @Override
   public final int compare(final Match m1, final Match m2) {
 

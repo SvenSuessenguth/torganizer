@@ -61,29 +61,6 @@ public class Checker {
   }
 
   /**
-   * Pr\u00fcft, ob eins und genau ein \u00fcbergebenes Object null ist.
-   *
-   * @param objects Array von Objekten, die gepr\u00fcft werden sollen.
-   * @return a boolean.
-   */
-  public boolean onlyOneIsNotNull(Object... objects) {
-
-    // es muss mindestens ein Objekt uebergeben werden 
-    if (objects == null || objects.length == 0) {
-      return false;
-    }
-
-    int notNullCounter = 0;
-
-    // Zaehlen der Objekte, die NULL sind
-    for (Object object : objects) {
-      notNullCounter += object != null ? 1 : 0;
-    }
-
-    return notNullCounter == 1;
-  }
-
-  /**
    * Pr\u00fcft, ob alle \u00fcbergebenen Objecte null sind.
    *
    * @param objects Array von Objekten, die gepr\u00fcft werden sollen.

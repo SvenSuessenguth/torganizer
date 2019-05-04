@@ -11,10 +11,6 @@ import org.cc.torganizer.core.entities.Result;
  */
 public class ResultAggregate extends AbstractAggregate {
 
-  public ResultAggregate() {
-    // gem. Bean-Spec.
-  }
-
   @Override
   public void aggregate(Match match, Opponent opponent) {
     if (!match.getOpponents().contains(opponent)) {

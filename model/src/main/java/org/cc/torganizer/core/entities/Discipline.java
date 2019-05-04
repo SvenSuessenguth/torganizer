@@ -31,7 +31,7 @@ public class Discipline extends Entity {
    *
    * @return a {@link org.cc.torganizer.core.entities.Round} object.
    */
-  public Round getCurrentRound() {
+  Round getCurrentRound() {
     Round currentRound = null;
     for (Round r : getRounds()) {
       for (Group g : r.getGroups()) {
@@ -76,15 +76,6 @@ public class Discipline extends Entity {
   }
 
   /**
-   * Entfernen eines Opponents aus der Disziplin.
-   *
-   * @param opponent Opponent, der nicht mehr an der Disziplin teilnehmen soll.
-   */
-  public void removeOpponent(Opponent opponent) {
-    this.getOpponents().remove(opponent);
-  }
-
-  /**
    * Hinzufuegen einer Runde, die in dieser Disziplin gespielt werden soll.
    *
    * @param round Runde.
@@ -96,10 +87,6 @@ public class Discipline extends Entity {
 
   public List<Round> getRounds() {
     return unmodifiableList(rounds);
-  }
-
-  public Round getFirstRound() {
-    return getRound(0);
   }
 
   /**

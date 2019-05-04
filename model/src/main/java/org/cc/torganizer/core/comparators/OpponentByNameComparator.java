@@ -42,8 +42,10 @@ public class OpponentByNameComparator implements Comparator<Opponent>, Serializa
     }
 
     PlayerByNameComparator pbnComparator = new PlayerByNameComparator();
-    Collections.sort(o1Players, pbnComparator);
-    Collections.sort(o2Players, pbnComparator);
+
+
+    o1Players.sort(pbnComparator);
+    o2Players.sort(pbnComparator);
 
     Player po1 = o1Players.get(0);
     Player p02 = o2Players.get(0);

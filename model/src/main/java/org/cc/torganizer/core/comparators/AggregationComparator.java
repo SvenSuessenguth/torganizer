@@ -17,13 +17,6 @@ public class AggregationComparator implements Comparator<Aggregation>, Serializa
    */
   private static final long serialVersionUID = -5450778037135481288L;
 
-  /**
-   * Default.
-   */
-  public AggregationComparator() {
-    // gem. Bean-Spec.
-  }
-
   @Override
   public final int compare(final Aggregation o1, final Aggregation o2) {
     if (o1 == null || o2 == null) {

@@ -9,10 +9,6 @@ import org.cc.torganizer.core.entities.Result;
  */
 public class ScoreAggregate extends AbstractAggregate {
 
-  public ScoreAggregate() {
-    // gem. Bean-Spec.
-  }
-
   @Override
   public void aggregate(Match match, Opponent opponent) {
 

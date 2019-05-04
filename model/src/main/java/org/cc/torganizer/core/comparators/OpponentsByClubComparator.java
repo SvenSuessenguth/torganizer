@@ -32,7 +32,7 @@ public class OpponentsByClubComparator implements Comparator<Opponent>, Serializ
     return new ClubComparator().compare(club1, club2);
   }
 
-  protected Club getOpponentsClub(Opponent opponent) {
+  private Club getOpponentsClub(Opponent opponent) {
 
     if (opponent == null || opponent.getPlayers().isEmpty()) {
       return null;
@@ -47,7 +47,7 @@ public class OpponentsByClubComparator implements Comparator<Opponent>, Serializ
         clubs.add(club);
       }
     }
-    Collections.sort(clubs, new ClubComparator());
+    clubs.sort(new ClubComparator());
 
 
     return clubs.isEmpty() ? null : clubs.get(0);
