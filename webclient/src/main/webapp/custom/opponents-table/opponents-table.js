@@ -119,11 +119,25 @@ class OpponentsTable extends HTMLElement{
 	let template = document.createElement('template');
 	template.innerHTML = `	  
       <style>
-        table{ border: 1px solid Gray; border-collapse:collapse; }
-        tr:nth-child(odd){ background-color: #F4F4F4; }
-        tr:nth-child(even){ background-color: #FFFFFF; }
-        th{ background-color: #FECEA8; border: 1px solid Gray; padding: 2px 20px; }
-        td{ border: 1px solid Gray; padding: 2px 20px; }
+        table{
+          border: var(--table_border);
+          border-collapse: var(--table_border-collapse);
+        }
+        tr:nth-child(odd){
+          background-color: var(--tr_nth-child_odd_background-color);
+        }
+        tr:nth-child(even){
+          background-color: var(--tr_nth-child_even_background-color);
+        }
+        th{ 
+          background-color: var(--th_background-color); 
+          border: var(--th_border); 
+          padding: var(--th_padding); 
+        }
+        td{
+          border: var(--td_border);
+          padding: var(--td_padding);
+        }
       </style>
   
       <table id="opponents-table" style="visibility: visible">
