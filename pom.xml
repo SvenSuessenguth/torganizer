@@ -61,7 +61,7 @@
     <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
     <maven-install-plugin.version>3.0.0-M1</maven-install-plugin.version>
     <maven-checkstyle-plugin>3.0.0</maven-checkstyle-plugin>
-	<dependency-check-maven.version>5.0.0-M2</dependency-check-maven.version>
+    <dependency-check-maven.version>5.0.0-M2</dependency-check-maven.version>
     <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
     <maven-jxr-plugin.version>3.0.0</maven-jxr-plugin.version>
     <maven-pmd-plugin>3.12.0</maven-pmd-plugin>
@@ -220,12 +220,12 @@
             </dependency>
           </dependencies>
         </plugin>
-		<plugin>
+        <plugin>
           <groupId>org.owasp</groupId><artifactId>dependency-check-maven</artifactId>
           <version>${dependency-check-maven.version}</version>
           <configuration>
             <skipProvidedScope>true</skipProvidedScope>
-			<format>all</format>
+            <format>all</format>
           </configuration>
           <executions>
             <execution>
