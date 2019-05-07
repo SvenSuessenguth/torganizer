@@ -1,28 +1,15 @@
-/* CSS - Cascading Style Sheet */
-/* Palette color codes */
-/* Palette URL: http://paletton.com/#uid=10N0u0kleqtbzEKgVuIpcmGtdhZ */
-/*.color-primary-0 { color: #D39C47 }	/* Main Primary color */
-/*.color-primary-1 { color: #FFDBA3 }*/
-/*.color-primary-2 { color: #F5C273 }*/
-/*.color-primary-3 { color: #B57D26 }*/
-/*.color-primary-4 { color: #8F5C0D }*/
-:root {
-    --button-backgroound-color: #8F5C0D;
-    --button-border-color: #B57D26;
-    --button-box-shadow-color: black;
-}
-
 /**
  * http://jsfiddle.net/volcanicpixels/udXXA/
  */
+
 /** Shadow */
 input[type=button]::before {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
-    -webkit-box-shadow: #959595 0 2px 5px;
-    -moz-box-shadow: #959595 0 2px 5px;
+    -webkit-box-shadow: var(--color-primary-4) 0 2px 5px;
+    -moz-box-shadow: var(--color-primary-4) 0 2px 5px;
     border-radius: 3px;
-    box-shadow: #959595 0 2px 5px;
+    box-shadow: var(--color-primary-4) 0 2px 5px;
     content: "";
     display: block;
     height: 100%;
