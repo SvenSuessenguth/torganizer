@@ -1,12 +1,12 @@
+body {
+  background-color: var(--body_background-color);
+}
 header{
-    background-color: aliceblue;
+  background-color: var(--header_background-color);
 }
 nav{
-    background-color: antiquewhite;
 }
 main {
-    background-color: beige;
 }
 footer {
-    background-color: azure;
 }

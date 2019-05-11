@@ -1,17 +1,17 @@
 /* https://www.smashingmagazine.com/2016/12/styling-web-components-using-a-shared-style-sheet/ */
 /* Declare the custom property API */
 * {
-    --table_border: 1px solid Gray;
+    --table_border: 1px solid var(--input_border-color);
     --table_border-collapse: collapse;
 
-    --th_background-color: #FECEA8;
-    --th_border: 1px solid Gray;
+    --th_background-color: #EBCFC4;
+    --th_border: 1px solid var(--input_border-color);
     --th_padding: 2px 20px;
 
     --tr_nth-child_odd_background-color: white;
     --tr_nth-child_even_background-color: var(--color-primary-2);
 
-    --td_border: 1px solid Gray;
+    --td_border: 1px solid var(--input_border-color);
     --td_padding: 2px 20px;
 }
 
