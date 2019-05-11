@@ -225,6 +225,7 @@
           <version>${dependency-check-maven.version}</version>
           <configuration>
             <skipProvidedScope>true</skipProvidedScope>
+            <retireJsAnalyzerEnabled>false</retireJsAnalyzerEnabled>
             <format>all</format>
           </configuration>
           <executions>
