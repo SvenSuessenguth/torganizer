@@ -101,7 +101,7 @@ public class TournamentsResource extends AbstractResource {
    * Update the tournament with data from json.
    */
   @PUT
-  public JsonObject update(JsonObject jsonObject) {
+  public JsonObject update(JsonObject jsonObject) throws ConstraintViolationException{
     Long id = Long.valueOf(jsonObject.get("id").toString());
     Tournament tournament = tournamentsRepo.read(id);
 
