@@ -19,6 +19,9 @@ import org.cc.torganizer.core.entities.Opponent;
 @RequestScoped
 public class GroupJsonConverter extends BaseModelJsonConverter<Group> {
 
+  private static final JsonArray EMPTY_OPPONENT_ARRAY = Json.createBuilderFactory(new HashMap<>())
+      .createArrayBuilder().build();
+
   @Inject
   private OpponentJsonConverterProvider opponentJsonConverterProvider;
 
@@ -71,7 +74,7 @@ public class GroupJsonConverter extends BaseModelJsonConverter<Group> {
    */
   public JsonObject addOpponents(JsonObject groupJson, Collection<Opponent> opponents) {
     BaseModelJsonConverter converter = opponentJsonConverterProvider.getConverter(opponents);
-    JsonArray opponentsJsonArray = converter.toJsonArray(opponents);
+    JsonArray opponentsJsonArray = converter == null ? EMPTY_OPPONENT_ARRAY : converter.toJsonArray(opponents);
 
     JsonPatch patch = Json.createPatchBuilder()
         .add("/opponents", opponentsJsonArray)

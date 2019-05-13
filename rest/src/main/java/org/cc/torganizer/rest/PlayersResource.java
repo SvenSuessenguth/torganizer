@@ -11,6 +11,7 @@ import javax.json.JsonObject;
 import javax.json.JsonValue;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
+import javax.validation.ValidationException;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import javax.ws.rs.Consumes;
@@ -50,7 +51,7 @@ public class PlayersResource {
    * Create a player.
    */
   @POST
-  public JsonObject create(JsonObject jsonObject) {
+  public JsonObject create(JsonObject jsonObject) throws ValidationException {
     JsonObject result = null;
     Player player = playersConverter.toModel(jsonObject, new Player(new Person()));
 
@@ -58,8 +59,8 @@ public class PlayersResource {
     Club club = null;
     JsonValue jsonValue = jsonObject.getJsonObject("club").get("id");
     if (jsonValue != NULL) {
-      Long id = Long.valueOf(jsonValue.toString());
-      club = clubsRepository.read(id);
+      Long clubId = Long.valueOf(jsonValue.toString());
+      club = clubsRepository.read(clubId);
     }
     player.setClub(club);
 

@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Objects;
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -43,10 +44,10 @@ class PlayerJsonConverterTest {
   @Test
   void testToJson_withNullValues() {
     String expected = "{\"id\":null,\"lastMatch\":null,\"status\":\"ACTIVE\","
-      + "\"person\":{"
-      + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
-      + "\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
-      + "\"club\":{\"id\":null,\"name\":null}}";
+        + "\"person\":{"
+        + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
+        + "\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
+        + "\"club\":{\"id\":null,\"name\":null}}";
     Player player = new Player("vorname", "nachname");
 
     final JsonObject jsonObject = converter.toJsonObject(player);
@@ -57,10 +58,10 @@ class PlayerJsonConverterTest {
   @Test
   void testToJson_withLastMatch() {
     String expected = "{\"id\":null,\"lastMatch\":\"2017-12-24 18:00:00\",\"status\":\"ACTIVE\","
-      + "\"person\":{"
-      + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
-      + "\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
-      + "\"club\":{\"id\":null,\"name\":null}}";
+        + "\"person\":{"
+        + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
+        + "\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
+        + "\"club\":{\"id\":null,\"name\":null}}";
     Player player = new Player("vorname", "nachname");
     LocalDateTime christmasEve = of(2017, DECEMBER, 24, 18, 0, 0);
     player.setLastMatch(christmasEve);
@@ -73,9 +74,9 @@ class PlayerJsonConverterTest {
   @Test
   void testToModel_singlePlayer() {
     String jsonString = "{\"id\":null,\"lastMatch\":\"2017-12-24 18:00:00\","
-      + "\"person\":{"
-      + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
-      + "\"dateOfBirth\":null,\"gender\":\"MALE\"}}";
+        + "\"person\":{"
+        + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
+        + "\"dateOfBirth\":null,\"gender\":\"MALE\"}}";
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonObject jsonObject = jsonReader.readObject();
 
@@ -88,17 +89,17 @@ class PlayerJsonConverterTest {
   }
 
   @Test
-  void testToModels_multiplePlayer() throws NullPointerException{
+  void testToModels_multiplePlayer() throws NullPointerException {
     String jsonString = "["
-      + "{\"id\":1,\"lastMatch\":\"2017-12-24 18:00:00\","
-      + "\"person\":{"
-      + "\"id\":1,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
-      + "\"dateOfBirth\":null,\"gender\":\"MALE\"}},"
-      + "{\"id\":2,\"lastMatch\":null,"
-      + "\"person\":{"
-      + "\"id\":2,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
-      + "\"dateOfBirth\":\"1968-01-12\",\"gender\":\"MALE\"}}"
-      + "]";
+        + "{\"id\":1,\"lastMatch\":\"2017-12-24 18:00:00\","
+        + "\"person\":{"
+        + "\"id\":1,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
+        + "\"dateOfBirth\":null,\"gender\":\"MALE\"}},"
+        + "{\"id\":2,\"lastMatch\":null,"
+        + "\"person\":{"
+        + "\"id\":2,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
+        + "\"dateOfBirth\":\"1968-01-12\",\"gender\":\"MALE\"}}"
+        + "]";
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonArray jsonArray = jsonReader.readArray();
     Player p1 = new Player(1L);
@@ -116,11 +117,11 @@ class PlayerJsonConverterTest {
 
     Player player1 = null;
     Player player2 = null;
-    for(Player p : players){
-      if(Objects.equals(p.getId(), 1L)){
+    for (Player p : players) {
+      if (Objects.equals(p.getId(), 1L)) {
         player1 = p;
       }
-      if(Objects.equals(p.getId(), 2L)){
+      if (Objects.equals(p.getId(), 2L)) {
         player2 = p;
       }
     }
@@ -131,5 +132,14 @@ class PlayerJsonConverterTest {
 
     LocalDate expectedDateOfBirth = LocalDate.of(1968, JANUARY, 12);
     assertThat(Objects.requireNonNull(player2).getPerson().getDateOfBirth()).isEqualTo(expectedDateOfBirth);
+  }
+
+  @Test
+  public void testToJsonArray_emptyCollection() {
+    Collection<Player> players = Collections.emptyList();
+    JsonArray jsonArray = converter.toJsonArray(players);
+
+    assertThat(jsonArray).isNotNull();
+    assertThat(jsonArray).toString().equalsIgnoreCase("[]");
   }
 }

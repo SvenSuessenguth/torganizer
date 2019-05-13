@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -166,5 +167,18 @@ class GroupJsonConverterTest {
     String vornameFromPatchesJsonGroup = opponent.getJsonObject("person").getJsonString("firstName").getString();
 
     assertThat(vornameFromPatchesJsonGroup).isEqualTo("vorname");
+  }
+
+  @Test
+  public void testAddOpponents_emptyCollection(){
+    String jsonGroupString = "{\"id\":1,\"position\":1}";
+    JsonReader jsonGroupReader = Json.createReader(new StringReader(jsonGroupString));
+    JsonObject jsonGroup = jsonGroupReader.readObject();
+
+    Collection<Opponent> opponents = Collections.emptyList();
+
+    JsonObject jsonObject = converter.addOpponents(jsonGroup, opponents);
+
+    assertThat(jsonObject).isNotNull();
   }
 }
