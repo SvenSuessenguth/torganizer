@@ -74,7 +74,9 @@ public class GroupJsonConverter extends BaseModelJsonConverter<Group> {
    */
   public JsonObject addOpponents(JsonObject groupJson, Collection<Opponent> opponents) {
     BaseModelJsonConverter converter = opponentJsonConverterProvider.getConverter(opponents);
-    JsonArray opponentsJsonArray = converter == null ? EMPTY_OPPONENT_ARRAY : converter.toJsonArray(opponents);
+    JsonArray opponentsJsonArray = converter == null
+        ? EMPTY_OPPONENT_ARRAY
+        : converter.toJsonArray(opponents);
 
     JsonPatch patch = Json.createPatchBuilder()
         .add("/opponents", opponentsJsonArray)
