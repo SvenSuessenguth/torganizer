@@ -90,7 +90,6 @@ var players = {
   //--------------------------------------------------------------------------------------------------------------------
   cancel : function cancel(){
     let currentPlayerId = sessionStorage.getItem('players.player.id');
-    console.log("players.player.id to cancel : "+currentPlayerId);
     if(currentPlayerId!==null){
       sessionStorage.removeItem('players.player.id');
     }
