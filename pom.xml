@@ -44,7 +44,7 @@
     <junit-platform.version>1.3.0-RC1</junit-platform.version>
     <microprofile.version>2.2</microprofile.version>
     <mockito.version>2.27.0</mockito.version>
-    <spotbugs.version>4.0.0-beta1</spotbugs.version>
+    <spotbugs.version>4.0.0-beta2</spotbugs.version>
 
     <!-- plugin versions -->
     <jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
