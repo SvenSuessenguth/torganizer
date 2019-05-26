@@ -2,6 +2,7 @@ package org.cc.torganizer.rest;
 
 import static org.cc.torganizer.rest.json.BaseModelJsonConverter.emptyArray;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import javax.ejb.Stateless;
@@ -16,6 +17,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
@@ -128,5 +131,19 @@ public class GroupsResource extends AbstractResource {
     }
 
     return result;
+  }
+
+  /**
+   * Returns an array of both groups including the opponents.
+   */
+  @PUT
+  @Path("moveOpponent")
+  public Response moveOpponent(@QueryParam("from") Long fromGroupId,
+                               @QueryParam("to") Long toGroupId,
+                               @QueryParam("opponent") Long opponentId) {
+    List<Group> groups = new ArrayList<>();
+    JsonArray json = groupConverter.toJsonArray(groups);
+
+    return Response.ok(json, MediaType.APPLICATION_JSON).build();
   }
 }

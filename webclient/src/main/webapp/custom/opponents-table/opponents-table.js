@@ -8,11 +8,9 @@ class OpponentsTable extends HTMLElement{
     this.template = this.template();
     this._rows = 10;
     this._tbody = null;
-    this._visibilit = true
   }
   
   set id(newId) { this.setAttribute('id', newId); }
-  get id() { return this._id; }
   set rows(newRows) { this.setAttribute('rows', newRows); }
   get rows() { return this._rows; }
   set data(newData) { this.setAttribute('data', newData); }
@@ -21,23 +19,24 @@ class OpponentsTable extends HTMLElement{
   connectedCallback(){
 	this.attachShadow({ mode: 'open' });
 	let opponentsTable = this.template.content.cloneNode(true);
-	
 	this._tbody = opponentsTable.getElementById("opponents-table-body");
 	
     // always show empty table with all rows
-    for (var i = 0; i < this._rows; i++) { 
+    for (let i = 0; i < this._rows; i++) {
       
-      var rowOpponent = document.createElement("tr");
-      var tdFirstNames = document.createElement("td");
+      let rowOpponent = document.createElement("tr");
+      let tdFirstNames = document.createElement("td");
       // for correct height of an empty row
       tdFirstNames.innerHTML += '&nbsp;';
-      var tdLastNames = document.createElement("td");      
-      var tdClubs = document.createElement("td");
+      let tdLastNames = document.createElement("td");
+      let tdClubs = document.createElement("td");
       
       rowOpponent.appendChild(tdFirstNames);
       rowOpponent.appendChild(tdLastNames);
       rowOpponent.appendChild(tdClubs);
-      
+      rowOpponent.setAttribute("ondragover" , "event.preventDefault()");
+      rowOpponent.setAttribute("ondrop" , "opponentDropped(-1, -1)");
+
       this._tbody.appendChild(rowOpponent);
     }
     
@@ -58,36 +57,39 @@ class OpponentsTable extends HTMLElement{
     let opponents = JSON.parse(newValue);
     let counter = 0;
     
-    // therefore 'opponentSelected' is a global function, the id of the event-sending element is dynmic
+    // therefore 'opponentSelected' is a global function, the id of the event-sending element is dynamic
     let id = this.getAttribute("id");
     let tbody = this._tbody;
     if(tbody===null){ return; }
-    
+
     opponents.forEach(function(opponent){
       let rowOpponent = tbody.getElementsByTagName("tr")[counter];
-      rowOpponent.setAttribute("onclick", "opponentSelected("+opponent.id+", \""+id+"\")");
+      rowOpponent.setAttribute("onclick", "opponentSelected("+opponent.id+", "+id+")");
+      rowOpponent.setAttribute("draggable", "true");
+      rowOpponent.setAttribute("ondragstart" , "opponentDragged(event, "+opponent.id+", "+id+")");
+      rowOpponent.setAttribute("ondrop" , "opponentDropped(event, "+opponent.id+", "+id+")");
 
       // in case of single player put json in new array
       if(!opponent.players){
-        var newArray = "{\"players\":["+JSON.stringify(opponent)+"]}";
+        let newArray = "{\"players\":["+JSON.stringify(opponent)+"]}";
         opponent = JSON.parse(newArray);
       }
 
-      var players = opponent.players;
-      var tdFirstNames = rowOpponent.getElementsByTagName("td")[0];
+      let players = opponent.players;
+      let tdFirstNames = rowOpponent.getElementsByTagName("td")[0];
       tdFirstNames.innerHTML = "";
 
       players.forEach(function(player){
         tdFirstNames.innerHTML += player.person.firstName+"<br />";
       });
       
-      var tdLastNames = rowOpponent.getElementsByTagName("td")[1];
+      let tdLastNames = rowOpponent.getElementsByTagName("td")[1];
       tdLastNames.innerHTML = "";
       players.forEach(function(player){
         tdLastNames.innerHTML += player.person.lastName+"<br />";
       });
 
-      var tdClubs = rowOpponent.getElementsByTagName("td")[2];
+      let tdClubs = rowOpponent.getElementsByTagName("td")[2];
       tdClubs.innerHTML = "";
       players.forEach(function(player){
         let clubName = player.club.name;
@@ -143,7 +145,7 @@ class OpponentsTable extends HTMLElement{
       <table id="opponents-table" style="visibility: visible">
         <thead>
           <tr>
-            <th>Vornamen</th><th>Nachnamen</th><th>Vereine</th>
+            <th class="dropzone">Vornamen</th><th class="dropzone">Nachnamen</th><th class="dropzone">Vereine</th>
           </tr>      
         </thead>
         <tbody id="opponents-table-body">
@@ -157,8 +159,29 @@ class OpponentsTable extends HTMLElement{
 
 function opponentSelected(opponentId, elementId){
   // https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Creating_and_triggering_events
-  var event = new CustomEvent('opponent-selected', {"detail":opponentId});
+  let event = new CustomEvent('opponent-selected', {"detail":opponentId});
   document.getElementById(elementId).dispatchEvent(event);
+}
+
+function opponentDragged(event, opponentId, elementId) {
+    let dragJson = {
+    sourceOpponentId: opponentId,
+    sourceElementId: elementId
+  };
+
+  event.dataTransfer.setData("text/plain", JSON.stringify(dragJson));
+}
+function opponentDropped(event, opponentId, elementId) {
+  let dragJson = JSON.parse(event.dataTransfer.getData("text/plain"));
+  let dropJson = {
+    sourceOpponentId: dragJson.sourceOpponentId,
+    sourceElementId: dragJson.sourceElementId,
+    dropOpponentId: opponentId,
+    dropElementId: elementId
+  }
+
+  let dragAndDroppedEvent = new CustomEvent('opponent-dragged-and-dropped', {"detail":JSON.stringify(dropJson)});
+  document.getElementById(elementId).dispatchEvent(dragAndDroppedEvent);
 }
 
 window.customElements.define("opponents-table", OpponentsTable);

@@ -152,10 +152,15 @@ class Rounds {
       jGroups.forEach(function (jGroup) {
         let groupElement = document.createElement("opponents-table",);
         groupElement.setAttribute("id", jGroup.id);
+        groupElement.addEventListener("opponent-dragged-and-dropped", rounds.opponentDragAndDropped);
         eGroups.appendChild(groupElement);
         groupElement.setAttribute("data", JSON.stringify(jGroup.opponents));
       });
     }
+  }
+
+  opponentDragAndDropped(event){
+    let json = JSON.parse(event.detail);
   }
   //--------------------------------------------------------------------------------------------------------------------
   //
@@ -310,8 +315,6 @@ class Rounds {
   assignOpponents() {
     let roundId = sessionStorage.getItem("rounds.round.id");
     let url = resourcesUrl() + `rounds/${roundId}/auto-assign-opponents`;
-
-    console.log("assign opponents to groups of round " + roundId);
 
     this.crud.post(url, undefined, this.updateGroups.bind(this));
   }
