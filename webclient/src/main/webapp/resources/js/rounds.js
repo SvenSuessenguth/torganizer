@@ -161,6 +161,7 @@ class Rounds {
 
   opponentDragAndDropped(event){
     let json = JSON.parse(event.detail);
+    console.log(event.detail)
   }
   //--------------------------------------------------------------------------------------------------------------------
   //

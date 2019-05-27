@@ -8,9 +8,11 @@ class OpponentsTable extends HTMLElement{
     this.template = this.template();
     this._rows = 10;
     this._tbody = null;
+    this._visibilit = true
   }
   
   set id(newId) { this.setAttribute('id', newId); }
+  get id() { return this._id; }
   set rows(newRows) { this.setAttribute('rows', newRows); }
   get rows() { return this._rows; }
   set data(newData) { this.setAttribute('data', newData); }
@@ -65,9 +67,9 @@ class OpponentsTable extends HTMLElement{
     opponents.forEach(function(opponent){
       let rowOpponent = tbody.getElementsByTagName("tr")[counter];
       rowOpponent.setAttribute("onclick", "opponentSelected("+opponent.id+", "+id+")");
-      rowOpponent.setAttribute("draggable", "true");
-      rowOpponent.setAttribute("ondragstart" , "opponentDragged(event, "+opponent.id+", "+id+")");
-      rowOpponent.setAttribute("ondrop" , "opponentDropped(event, "+opponent.id+", "+id+")");
+      // rowOpponent.setAttribute("draggable", "true");
+      // rowOpponent.setAttribute("ondragstart" , "opponentDragged(event, "+opponent.id+", "+id+")");
+      // rowOpponent.setAttribute("ondrop" , "opponentDropped(event, "+opponent.id+", "+id+")");
 
       // in case of single player put json in new array
       if(!opponent.players){
@@ -145,7 +147,7 @@ class OpponentsTable extends HTMLElement{
       <table id="opponents-table" style="visibility: visible">
         <thead>
           <tr>
-            <th class="dropzone">Vornamen</th><th class="dropzone">Nachnamen</th><th class="dropzone">Vereine</th>
+            <th>Vornamen</th><th>Nachnamen</th><th>Vereine</th>
           </tr>      
         </thead>
         <tbody id="opponents-table-body">
@@ -181,7 +183,8 @@ function opponentDropped(event, opponentId, elementId) {
   }
 
   let dragAndDroppedEvent = new CustomEvent('opponent-dragged-and-dropped', {"detail":JSON.stringify(dropJson)});
-  document.getElementById(elementId).dispatchEvent(dragAndDroppedEvent);
+  let element = document.getElementById(elementId);
+  element.dispatchEvent(dragAndDroppedEvent);
 }
 
 window.customElements.define("opponents-table", OpponentsTable);
