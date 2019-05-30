@@ -30,14 +30,10 @@
       <version>${project.version}</version><scope>compile</scope>
     </dependency>
 
-    <!--
-     | JPA 
-     +-->
     <dependency>
       <groupId>org.dbunit</groupId><artifactId>dbunit</artifactId>
       <version>${dbunit.version}</version><scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>org.hibernate</groupId><artifactId>hibernate-core</artifactId>
       <version>${hibernate-core.version}</version><scope>test</scope>
@@ -46,10 +42,22 @@
       <groupId>org.hibernate</groupId><artifactId>hibernate-c3p0</artifactId>
       <version>${hibernate-c3p0.version}</version><scope>test</scope>
     </dependency>
-	  <dependency>
+    <dependency>
       <groupId>c3p0</groupId><artifactId>c3p0</artifactId>
       <version>${c3p0.version}</version><scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId><artifactId>h2</artifactId>
+      <version>${h2.version}</version><scope>test</scope>
+    </dependency>
+
+    <!--
+     | slf4j-api is not necessary to compile/test, but to avoid the following output:
+     |
+     | SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+     | SLF4J: Defaulting to no-operation (NOP) logger implementation
+     | SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+     +-->
     <dependency>
       <groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId>
       <version>${slf4j.version}</version><scope>test</scope>
@@ -57,10 +65,6 @@
     <dependency>
       <groupId>org.slf4j</groupId><artifactId>slf4j-log4j12</artifactId>
       <version>${slf4j.version}</version><scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.h2database</groupId><artifactId>h2</artifactId>
-      <version>${h2.version}</version><scope>test</scope>
     </dependency>
   </dependencies>
 </project>
