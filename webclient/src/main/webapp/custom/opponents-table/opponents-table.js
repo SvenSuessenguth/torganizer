@@ -66,10 +66,10 @@ class OpponentsTable extends HTMLElement{
 
     opponents.forEach(function(opponent){
       let rowOpponent = tbody.getElementsByTagName("tr")[counter];
-      rowOpponent.setAttribute("onclick", "opponentSelected("+opponent.id+", "+id+")");
-      // rowOpponent.setAttribute("draggable", "true");
-      // rowOpponent.setAttribute("ondragstart" , "opponentDragged(event, "+opponent.id+", "+id+")");
-      // rowOpponent.setAttribute("ondrop" , "opponentDropped(event, "+opponent.id+", "+id+")");
+      rowOpponent.setAttribute("onclick", "opponentSelected("+opponent.id+", '"+id+"')");
+      rowOpponent.setAttribute("draggable", "true");
+      rowOpponent.setAttribute("ondragstart" , "opponentDragged(event, "+opponent.id+", "+id+")");
+      rowOpponent.setAttribute("ondrop" , "opponentDropped(event, "+opponent.id+", "+id+")");
 
       // in case of single player put json in new array
       if(!opponent.players){
@@ -162,7 +162,8 @@ class OpponentsTable extends HTMLElement{
 function opponentSelected(opponentId, elementId){
   // https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Creating_and_triggering_events
   let event = new CustomEvent('opponent-selected', {"detail":opponentId});
-  document.getElementById(elementId).dispatchEvent(event);
+  let element = document.getElementById(elementId);
+  element.dispatchEvent(event);
 }
 
 function opponentDragged(event, opponentId, elementId) {
