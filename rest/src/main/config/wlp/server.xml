@@ -1,20 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<server description="new server">
+<!--
+ |
+ +-->
+<server>
   <featureManager>
     <feature>javaee-8.0</feature>
+    <feature>microProfile-2.0</feature>
     <feature>localConnector-1.0</feature>
   </featureManager>
-  <include location="./server-include.xml" />
+  <!--
+    | Ignore "IllegalStateException: The orb is not available"
+    | https://www-01.ibm.com/support/docview.wss?uid=ibm10728669
+    +-->
   <httpEndpoint id="defaultHttpEndpoint" enabled="true" httpPort="9080" httpsPort="9443" host="*" />
-  <applicationManager autoExpand="true" />
+  <!--
+   | https://www.ibm.com/support/knowledgecenter/en/SS7K4U_liberty/com.ibm.websphere.wlp.zseries.doc/ae/twlp_dep_configuring_ds.html 
+   +-->
+  <dataSource id="DefaultDataSource" jndiName="jdbc/torganizerDS">
+    <jdbcDriver libraryRef="MySQLLib" />
+    <!-- password = 'root' -->
+    <properties databaseName="torganizer" password="root" portNumber="3306" serverName="localhost" useSSL="false" allowPublicKeyRetrieval="true" user="root" />
+  </dataSource>
+  <library id="MySQLLib">
+    <file name="c:/dev/tools/mysql-connector-java-8.0.16/mysql-connector-java-8.0.16.jar" />
+  </library>
+  <!--
+   | https://www.ibm.com/support/knowledgecenter/en/SSAW57_liberty/com.ibm.websphere.wlp.nd.multiplatform.doc/ae/rwlp_portnums.html 
+   +-->
+  <wasJmsEndpoint wasJmsPort="7278" wasJmsSSLPort="7288" />
+  <!-- https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/twlp_mp_metrics_monitor.html -->
+  <mpMetrics authentication="false" />
+  <!--
+   | Ist dieser Pfad nicht vorhanden (z.B. weil die Anwendung in das Dropin-Verzeichnis kopiert wurde), wird er ignoriert.
+   | Waehrend der Entwicklung mit IntelliJ wird die Variable ersetzt und die Application wird genutzt,
+   +-->
+  <application id="rest_war" location="${application_location}" name="rest_war" type="war" />
+  
   <applicationMonitor updateTrigger="mbean" />
-  <webApplication id="rest" location="rest.war" name="rest" />
-  <include location="./server-include.xml" />
-  <keyStore id="defaultKeyStore" password="_admin_" />
-  <basicRegistry id="basic" realm="BasicRealm">
-    <user name="admin" password="admin" />
-  </basicRegistry>
-  <application id="webclient_war_exploded" location="C:\dev\projects\torganizer\webclient\target\webclient" name="webclient_war_exploded" type="war" context-root="/webclient" />
-  <application id="rest_war_exploded" location="C:\dev\projects\torganizer\rest\target\rest" name="rest_war_exploded" type="war" context-root="/rest" />
 </server>
 

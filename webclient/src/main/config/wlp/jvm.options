@@ -1,0 +1,5 @@
+# Set the maximum heap size to 1024m.
+-Xmx1024m
+
+# Set a system property.
+-Dresources_url=http://localhost:9080/rest_war/resources/
