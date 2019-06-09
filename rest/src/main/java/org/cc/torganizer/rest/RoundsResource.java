@@ -164,7 +164,8 @@ public class RoundsResource extends AbstractResource {
   @SuppressWarnings("unchecked")
   @GET
   @Path("/{id}/opponents-assignable-to-group")
-  public JsonArray getOpponentsAssignableToGroup(@PathParam("id") Long roundId, @QueryParam("offset") Integer offset,
+  public JsonArray getOpponentsAssignableToGroup(@PathParam("id") Long roundId,
+                                                 @QueryParam("offset") Integer offset,
                                                  @QueryParam("maxResults") Integer maxResults) {
     JsonArray result;
 
