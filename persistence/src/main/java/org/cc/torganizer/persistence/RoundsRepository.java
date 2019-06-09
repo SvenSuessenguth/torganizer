@@ -96,7 +96,7 @@ public class RoundsRepository extends Repository<Round> {
 
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
-    int foundOpponentsSize = notAssignedOpponents.size();
+    Integer foundOpponentsSize = notAssignedOpponents.size();
     maxResults = maxResults > foundOpponentsSize ? foundOpponentsSize : maxResults;
 
     return new HashSet(notAssignedOpponents.subList(offset, maxResults));
