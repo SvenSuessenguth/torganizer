@@ -1,5 +1,8 @@
 package org.cc.torganizer.persistence;
 
+import static java.util.Collections.sort;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,6 +16,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
+import org.cc.torganizer.core.comparators.OpponentByNameComparator;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.PositionalOpponent;
@@ -80,14 +84,21 @@ public class RoundsRepository extends Repository<Round> {
   /**
    * Find all opponents, which are not already assigned to a group of the round.
    */
-  public Set<Opponent> getNotAssignedOpponents(Long roundId) {
+  public Set<Opponent> getNotAssignedOpponents(Long roundId, Integer offset, Integer maxResults) {
+
     Set<Opponent> opponents = getOpponents(roundId);
     Set<Opponent> assignedOpponents = getAssignedOpponents(roundId);
 
-    Set<Opponent> notAssignedOpponents = opponents;
+    // sets can't work with positions
+    List<Opponent> notAssignedOpponents = new ArrayList<>(opponents);
     notAssignedOpponents.removeAll(assignedOpponents);
+    sort(notAssignedOpponents, new OpponentByNameComparator());
 
-    return notAssignedOpponents;
+    offset = offset == null ? DEFAULT_OFFSET : offset;
+    maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
+    maxResults = maxResults > notAssignedOpponents.size() ? notAssignedOpponents.size() : maxResults;
+
+    return new HashSet(notAssignedOpponents.subList(offset, maxResults));
   }
 
   /**

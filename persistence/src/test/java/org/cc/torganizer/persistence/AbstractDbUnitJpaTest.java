@@ -18,14 +18,12 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.ReplacementDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.h2.H2DataTypeFactory;
-import org.dbunit.ext.mysql.MySqlDataTypeFactory;
-import org.dbunit.ext.mysql.MySqlMetadataHandler;
 import org.dbunit.operation.DatabaseOperation;
 import org.hibernate.internal.SessionImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
-public abstract class AbstractDbUnitJpaTest{
+public abstract class AbstractDbUnitJpaTest {
 
   private EntityManagerFactory entityManagerFactory;
   private Connection connection;
@@ -35,18 +33,18 @@ public abstract class AbstractDbUnitJpaTest{
   public void initTestFixture() {
     // Get the entity manager for the tests.
     entityManagerFactory = Persistence.createEntityManagerFactory("torganizerTest");
-    entityManager = entityManagerFactory.createEntityManager();    
+    entityManager = entityManagerFactory.createEntityManager();
     connection = ((SessionImpl) (entityManager.getDelegate())).connection();
     entityManager.getTransaction().begin();
   }
 
   @AfterEach
   public void closeTestFixture() {
-	  entityManager.getTransaction().rollback();
-	  entityManager.close();
+    entityManager.getTransaction().rollback();
+    entityManager.close();
     entityManagerFactory.close();
   }
-  
+
   public void initDatabase(String testData) throws IOException, DatabaseUnitException, SQLException {
     // Connection aufbauen
     IDatabaseConnection dbunitConn = new DatabaseConnection(connection);
@@ -60,7 +58,7 @@ public abstract class AbstractDbUnitJpaTest{
     InputStream is = Objects.requireNonNull(url).openStream();
     ReplacementDataSet dataSet = new ReplacementDataSet(new FlatXmlDataSetBuilder().build(is));
     dataSet.addReplacementObject("[NULL]", null);
-    
+
 
     // Daten in Datenbank eintragen
     DatabaseOperation.DELETE_ALL.execute(dbunitConn, dataSet);

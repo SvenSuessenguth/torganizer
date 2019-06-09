@@ -151,16 +151,17 @@ class Rounds {
     if (jGroups.length > 0) {
       jGroups.forEach(function (jGroup) {
         let groupElement = document.createElement("opponents-table",);
-        groupElement.setAttribute("id", jGroup.id);
-        groupElement.addEventListener("opponent-dragged-and-dropped", rounds.opponentDragAndDropped);
         eGroups.appendChild(groupElement);
+        groupElement.setAttribute("id", jGroup.id);
         groupElement.setAttribute("data", JSON.stringify(jGroup.opponents));
+        groupElement.addEventListener("opponent-dragged-and-dropped", rounds.opponentDragAndDropped);
       });
     }
   }
 
   opponentDragAndDropped(event){
     let json = JSON.parse(event.detail);
+
     console.log(event.detail)
   }
   //--------------------------------------------------------------------------------------------------------------------

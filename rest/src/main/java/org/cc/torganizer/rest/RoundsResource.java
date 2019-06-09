@@ -1,5 +1,6 @@
 package org.cc.torganizer.rest;
 
+import static java.lang.Integer.MAX_VALUE;
 import static org.cc.torganizer.rest.json.BaseModelJsonConverter.emptyArray;
 
 import java.util.Collection;
@@ -158,15 +159,16 @@ public class RoundsResource extends AbstractResource {
   }
 
   /**
-   * Getting all opponents, which can be assigned to the groups of the round with the given id.
+   * Getting opponents, which can be assigned to the groups of the round with the given id.
    */
   @SuppressWarnings("unchecked")
   @GET
   @Path("/{id}/opponents-assignable-to-group")
-  public JsonArray getOpponentsAssignableToGroup(@PathParam("id") Long roundId) {
+  public JsonArray getOpponentsAssignableToGroup(@PathParam("id") Long roundId, @QueryParam("offset") Integer offset,
+                                                 @QueryParam("maxResults") Integer maxResults) {
     JsonArray result;
 
-    Set<Opponent> opponents = roundsRepository.getNotAssignedOpponents(roundId);
+    Set<Opponent> opponents = roundsRepository.getNotAssignedOpponents(roundId, offset, maxResults);
 
     // all opponents must have same type (see opponentTypeRestriction)
     if (opponents.isEmpty()) {
@@ -189,7 +191,7 @@ public class RoundsResource extends AbstractResource {
 
     Round round = roundsRepository.read(roundId);
     System system = round.getSystem();
-    Set<Opponent> opponents = roundsRepository.getNotAssignedOpponents(roundId);
+    Set<Opponent> opponents = roundsRepository.getNotAssignedOpponents(roundId, 0, MAX_VALUE);
     List<Group> groups = round.getGroups();
     JsonArray jsonGroups = groupConverter.toJsonArray(groups);
 

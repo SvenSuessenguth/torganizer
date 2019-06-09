@@ -66,6 +66,12 @@ class OpponentsTable extends HTMLElement{
 
     opponents.forEach(function(opponent){
       let rowOpponent = tbody.getElementsByTagName("tr")[counter];
+
+      // more opponents than rows
+      if(rowOpponent === undefined){
+        return;
+      }
+
       rowOpponent.setAttribute("onclick", "opponentSelected("+opponent.id+", '"+id+"')");
       rowOpponent.setAttribute("draggable", "true");
       rowOpponent.setAttribute("ondragstart" , "opponentDragged(event, "+opponent.id+", "+id+")");

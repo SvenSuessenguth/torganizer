@@ -29,6 +29,10 @@
 
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
+      <!--
+       | https://thoughts-on-java.org/hibernate-tips-create-initialize-database/
+       +-->
+      <property name="javax.persistence.sql-load-script-source" value="META-INF/sample.sql"/>
     </properties>
   </persistence-unit>
 
