@@ -21,7 +21,7 @@
     <hibernate-c3p0.version>5.4.2.Final</hibernate-c3p0.version>
     <c3p0.version>0.9.1.2</c3p0.version>
     <h2.version>1.4.199</h2.version>
-    <slf4j.version>1.8.0-beta4</slf4j.version>
+    <slf4j.version>2.0.0-alpha0</slf4j.version>
   </properties>
 
   <dependencies>
