@@ -65,7 +65,7 @@ public class TournamentsResource extends AbstractResource {
    * Create, validate and persist an new {@link Tournament}.
    */
   @POST
-  public Response create(JsonObject jsonObject) throws ConstraintViolationException {
+  public Response create(JsonObject jsonObject) {
     Tournament tournament = tournamentConverter.toModel(jsonObject, new Tournament());
     // client can send '0' with a detached object exception as the result
     tournament.setId(null);
@@ -101,7 +101,7 @@ public class TournamentsResource extends AbstractResource {
    * Update the tournament with data from json.
    */
   @PUT
-  public JsonObject update(JsonObject jsonObject) throws ConstraintViolationException {
+  public JsonObject update(JsonObject jsonObject) {
     Long id = Long.valueOf(jsonObject.get("id").toString());
     Tournament tournament = tournamentsRepo.read(id);
 

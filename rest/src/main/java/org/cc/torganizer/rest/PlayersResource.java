@@ -10,6 +10,7 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonValue;
 import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Validation;
 import javax.validation.ValidationException;
 import javax.validation.Validator;
@@ -51,7 +52,7 @@ public class PlayersResource {
    * Create a player.
    */
   @POST
-  public JsonObject create(JsonObject jsonObject) throws ValidationException {
+  public JsonObject create(JsonObject jsonObject) {
     JsonObject result = null;
     Player player = playersConverter.toModel(jsonObject, new Player(new Person()));
 
@@ -64,18 +65,12 @@ public class PlayersResource {
     }
     player.setClub(club);
 
+    validate(player);
 
-    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-    Validator validator = factory.getValidator();
-    Set<ConstraintViolation<Player>> violations = validator.validate(player);
+    playersRepository.create(player);
 
-    if (violations.isEmpty()) {
-      playersRepository.create(player);
+    return playersConverter.toJsonObject(player);
 
-      result = playersConverter.toJsonObject(player);
-    }
-
-    return result;
   }
 
   /**
@@ -140,5 +135,15 @@ public class PlayersResource {
   @Path("/count")
   public long count() {
     return playersRepository.count();
+  }
+
+  private void validate(Player player) {
+    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+    Validator validator = factory.getValidator();
+    Set<ConstraintViolation<Player>> violations = validator.validate(player);
+
+    if (!violations.isEmpty()) {
+      throw new ConstraintViolationException(violations);
+    }
   }
 }

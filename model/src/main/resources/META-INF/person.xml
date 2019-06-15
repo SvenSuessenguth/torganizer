@@ -15,9 +15,12 @@
   
   <bean class="Person" ignore-annotations="true">
     <field name="firstName">
-      <constraint annotation="javax.validation.constraints.NotBlank" />
+      <constraint annotation="javax.validation.constraints.NotBlank" >
+        <message>{person.firstname.notblank}</message>
+      </constraint>
       <constraint annotation="javax.validation.constraints.NotNull"/>
       <constraint annotation="javax.validation.constraints.Size">
+        <message>{person.firstname.size}</message>
         <element name="min">1</element>
         <element name="max">20</element>
       </constraint>
