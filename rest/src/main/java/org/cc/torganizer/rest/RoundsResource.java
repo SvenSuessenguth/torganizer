@@ -141,9 +141,12 @@ public class RoundsResource extends AbstractResource {
   @Path("/{roundId}/group")
   public Response newGroup(@PathParam("roundId") Long roundId) {
     List<Group> groups = roundsRepository.newGroup(roundId);
-    JsonArray jsonArray = groupConverter.toJsonArray(groups);
+    JsonArray jsonGroups = groupConverter.toJsonArray(groups);
 
-    return Response.ok(jsonArray).build();
+    // adding Opponents-Json to Group-Json
+    JsonArray patchedJsonGroups = addOpponentsToGroupsJson(jsonGroups, groups);
+
+    return Response.ok(patchedJsonGroups).build();
   }
 
   /**

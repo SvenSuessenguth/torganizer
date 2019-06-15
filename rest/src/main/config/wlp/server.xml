@@ -31,10 +31,11 @@
   <!-- https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/twlp_mp_metrics_monitor.html -->
   <mpMetrics authentication="false" />
   <!--
-   | Ist dieser Pfad nicht vorhanden (z.B. weil die Anwendung in das Dropin-Verzeichnis kopiert wurde), wird er ignoriert.
+   | Ist dieser Pfad nicht vorhanden (z.B. weil die Anwendung in das Dropin-Verzeichnis kopiert wurde), wird der Eintrag ignoriert.
    | Waehrend der Entwicklung mit IntelliJ wird die Variable ersetzt und die Application wird genutzt,
+   | Beispiel fuer den Wert der Variable: 'C:\dev\projects\torganizer\rest\target\rest.war.xml'
    +-->
-  <application id="rest_war" location="${application_location}" name="rest_war" type="war" />
+  <application id="rest" location="${application_location}" name="rest" type="war" />
   
   <applicationMonitor updateTrigger="mbean" />
 </server>
