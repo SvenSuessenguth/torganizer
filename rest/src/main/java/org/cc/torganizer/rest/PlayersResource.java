@@ -12,7 +12,6 @@ import javax.json.JsonValue;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validation;
-import javax.validation.ValidationException;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import javax.ws.rs.Consumes;
