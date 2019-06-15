@@ -52,7 +52,6 @@ public class PlayersResource {
    */
   @POST
   public JsonObject create(JsonObject jsonObject) {
-    JsonObject result = null;
     Player player = playersConverter.toModel(jsonObject, new Player(new Person()));
 
     // use existing club instead of creating a new one
