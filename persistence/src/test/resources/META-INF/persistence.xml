@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
-             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
-             version="2.1">
+<persistence
+  xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+                      http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+  version="2.2">
 
   <persistence-unit name="torganizerTest" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
@@ -30,16 +31,16 @@
       <property name="javax.persistence.jdbc.user" value=""/>
       <property name="javax.persistence.jdbc.password" value=""/>
 
-      <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+      <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
       <property name="hibernate.hbm2ddl.auto" value="update"/>
-      <property name="hibernate.connection.isolation" value="TRANSACTION_SERIALIZABLE" />
-      <property name="hibernate.connection.autocommit" value="true" />
+      <property name="hibernate.connection.isolation" value="TRANSACTION_SERIALIZABLE"/>
+      <property name="hibernate.connection.autocommit" value="true"/>
       <!--
        | to remove the warning:
        | WARN: HHH10001002: Using Hibernate built-in connection pool (not for production use!)
        +-->
-      <property name="hibernate.connection.provider_class" value="org.hibernate.connection.C3P0ConnectionProvider" />
-      <property name="hibernate.c3p0.min_size" value="10" />
+      <property name="hibernate.connection.provider_class" value="org.hibernate.connection.C3P0ConnectionProvider"/>
+      <property name="hibernate.c3p0.min_size" value="10"/>
     </properties>
   </persistence-unit>
 
