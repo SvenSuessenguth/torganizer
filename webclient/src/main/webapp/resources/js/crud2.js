@@ -26,7 +26,7 @@ class Crud{
       body: body !== "" ? body : undefined
     })
       .then(function(response) { return response.json(); })
-      .then(function(json) { callback(json); });
+      .then(function(jsonRsponse) { callback(jsonRsponse); });
   }
 
   delete(resource, json, callback){
@@ -41,7 +41,7 @@ class Crud{
       body: body !== "" ? body : undefined
     })
       .then(function(response) { return response.json(); })
-      .then(function(json) { callback(json); });
+      .then(function(jsonRsponse) { callback(jsonRsponse); });
   }
 
   createOrUpdate(resource, json, callback) {
@@ -63,6 +63,6 @@ class Crud{
       body: body !== "" ? body : undefined
     })
     .then(function(response) { return response.json(); })
-    .then(function(json) { callback(json); });
+    .then(function(jsonRsponse) { callback(jsonRsponse); });
   }
 }
