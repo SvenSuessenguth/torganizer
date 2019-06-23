@@ -38,14 +38,14 @@ class Rounds {
 
     // add an option for every discipline
     jDisciplines.forEach(function (jDiscipline) {
-      let option = document.createElement("option");
-      option.text = jDiscipline.name;
-      option.value = jDiscipline.id;
-      option.id = jDiscipline.id;
-      eDisciplines.appendChild(option);
+      let dOption = document.createElement("option");
+      dOption.text = jDiscipline.name;
+      dOption.value = jDiscipline.id;
+      dOption.id = jDiscipline.id;
+      eDisciplines.appendChild(dOption);
 
       if (Number(disciplineId) === jDiscipline.id) {
-        option.selected = "selected";
+        dOption.selected = "selected";
       }
     });
   }

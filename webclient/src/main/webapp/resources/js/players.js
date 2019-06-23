@@ -140,16 +140,16 @@ var players = {
     dSelect.appendChild(option);
 
 
-    // add an option for every discipline
+    // add an option for every club
     json.forEach(function (club) {
-      let option = document.createElement("option");
-      option.text = club.name;
-      option.value = club.id;
-      option.id = club.id;
+      let cOption = document.createElement("option");
+      cOption.text = club.name;
+      cOption.value = club.id;
+      cOption.id = club.id;
       dSelect.appendChild(option);
 
       if(clubId===club.id.toString()){
-        option.selected = "selected";
+        cOption.selected = "selected";
       }
     });
   },
