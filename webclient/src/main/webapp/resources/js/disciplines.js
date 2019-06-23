@@ -71,14 +71,14 @@ let disciplines = {
 
     // add an option for every discipline
     json.forEach(function (discipline) {
-      let option = document.createElement("option");
-      option.text = discipline.name;
-      option.value = discipline.id;
-      option.id = discipline.id;
-      dSelect.appendChild(option);
+      let dOption = document.createElement("option");
+      dOption.text = discipline.name;
+      dOption.value = discipline.id;
+      dOption.id = discipline.id;
+      dSelect.appendChild(dOption);
 
       if(disciplineId===discipline.id.toString()){
-        option.selected = "selected";
+        dOption.selected = "selected";
       }
     });
   },

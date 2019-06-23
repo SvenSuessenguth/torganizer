@@ -23,8 +23,8 @@ class CrudResource {
         else
           throw new Error('Fehlerhandling noch nicht spezifiziert');
       })
-      .then(function (json) {
-        onResolve(json);
+      .then(function (crudResource) {
+        onResolve(crudResource);
       })
       .catch(function (err) {
         restResourceAdapter.resourceError(err);
