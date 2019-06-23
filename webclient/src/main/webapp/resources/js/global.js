@@ -4,17 +4,17 @@ const getHeader = {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
   }
-}
+};
 
 //
 // Validating the form to show client side errors.
 // no business logic is called, just formal errors.
 // 
-function isFormValid(formId){
-  var form = document.getElementById(formId);
-  if(form.checkValidity()){
+function isFormValid(formId) {
+  let form = document.getElementById(formId);
+  if (form.checkValidity()) {
     return true;
-  }else{
+  } else {
     document.getElementById("validateFormButton").click();
     return false;
   }
@@ -23,33 +23,17 @@ function isFormValid(formId){
 //
 //http://www.imranulhoque.com/javascript/javascript-beginners-select-a-dropdown-option-by-value/
 //
-function selectItemByValue(eSelect, value){
-  for(var i=0; i < eSelect.options.length; i++) {
-    if(eSelect.options[i].value === value) {
+function selectItemByValue(eSelect, value) {
+  for (let i = 0; i < eSelect.options.length; i++) {
+    if (eSelect.options[i].value === value) {
       eSelect.selectedIndex = i;
     }
   }
 }
-function selectFirstItem(eSelect){
-  if(eSelect.options.length==0){ return; }
-  else{ eSelect.selectedIndex = 0; }
-}
 
-
-//
-// Es muss ein aktives Turnier ausgewählt sein, bevor man weitere Eingaben
-// (andere Seiten) anzeigen kann.
-//
-function activateNavigation() {
-  var activeNavigation = new Tournaments().isActiveTournament();
-  if(!activeNavigation) {
-    // text soll von allen optional-Links angezeigt werden, aber kein a href vorhanden sein
-    // https://www.w3schools.com/jsref/met_document_getelementsbyclassname.asp
-    var navOptional = document.getElementsByClassName("nav-optional");
-    var i;
-    for (i = 0; i < navOptional.length; i++) {
-      navOptional[i].removeAttribute("href");
-    }
+function selectFirstItem(eSelect) {
+  if (eSelect.options.length !== 0) {
+    eSelect.selectedIndex = 0;
   }
 }
 
@@ -60,30 +44,20 @@ function resourceReject(json) {
   console.log(json);
 }
 
-//https://stackoverflow.com/questions/979975/how-to-get-the-value-from-the-get-parameters
-function getUrlVars() {
-  var vars = {};
-  window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(m,key,value) {
-    vars[key] = value;
-  });
-  return vars;
-}
-
-// Examplemessage
-//
-// {"violations-count":1,
-//   "violations":"[
-//     {"message":"message","propertyPath":"propertyPath","invalidValue":"invalidValue"}
-//   ]}"
-//
 function processMessages(json) {
   showMessages(json);
   markElements(json);
 }
 
+/**
+ * @param json             Json-Object including the violations.
+ * @param json.violations  violations.
+ */
 function showMessages(json) {
   let ul = document.getElementById("violations");
-  json.violations.forEach(violation => {
+  let violations = json.violations;
+
+  violations.forEach(violation => {
     let li = document.createElement("li");
     li.setAttribute("class", "violation");
     li.appendChild(document.createTextNode(violation.message));
@@ -91,6 +65,12 @@ function showMessages(json) {
   });
 }
 
+/**
+ * Marking UI-Elements with data causing violations.
+ * @param json containing violations
+ * @param json.violations violations
+ * @param json.violations.propertyPath propertyPath in the model with violation.
+ */
 function markElements(json) {
   json.violations.forEach(violation => {
     let element = document.getElementById(violation.propertyPath);
