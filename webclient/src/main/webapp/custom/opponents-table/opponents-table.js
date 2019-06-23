@@ -65,17 +65,17 @@ class OpponentsTable extends HTMLElement{
     if(tbody===null){ return; }
 
     opponents.forEach(function(opponent){
-      let rowOpponent = tbody.getElementsByTagName("tr")[counter];
+      let row = tbody.getElementsByTagName("tr")[counter];
 
       // more opponents than rows
-      if(rowOpponent === undefined){
+      if(row === undefined){
         return;
       }
 
-      rowOpponent.setAttribute("onclick", "opponentSelected("+opponent.id+", '"+id+"')");
-      rowOpponent.setAttribute("draggable", "true");
-      rowOpponent.setAttribute("ondragstart" , "opponentDragged(event, "+opponent.id+", "+id+")");
-      rowOpponent.setAttribute("ondrop" , "opponentDropped(event, "+opponent.id+", "+id+")");
+      row.setAttribute("onclick", "opponentSelected("+opponent.id+", '"+id+"')");
+      row.setAttribute("draggable", "true");
+      row.setAttribute("ondragstart" , "opponentDragged(event, "+opponent.id+", "+id+")");
+      row.setAttribute("ondrop" , "opponentDropped(event, "+opponent.id+", "+id+")");
 
       // in case of single player put json in new array
       if(!opponent.players){
@@ -84,20 +84,20 @@ class OpponentsTable extends HTMLElement{
       }
 
       let players = opponent.players;
-      let tdFirstNames = rowOpponent.getElementsByTagName("td")[0];
+      let tdFirstNames = row.getElementsByTagName("td")[0];
       tdFirstNames.innerHTML = "";
 
       players.forEach(function(player){
         tdFirstNames.innerHTML += player.person.firstName+"<br />";
       });
       
-      let tdLastNames = rowOpponent.getElementsByTagName("td")[1];
+      let tdLastNames = row.getElementsByTagName("td")[1];
       tdLastNames.innerHTML = "";
       players.forEach(function(player){
         tdLastNames.innerHTML += player.person.lastName+"<br />";
       });
 
-      let tdClubs = rowOpponent.getElementsByTagName("td")[2];
+      let tdClubs = row.getElementsByTagName("td")[2];
       tdClubs.innerHTML = "";
       players.forEach(function(player){
         let clubName = player.club.name;
@@ -112,15 +112,15 @@ class OpponentsTable extends HTMLElement{
     });
     
     // clear left over rows
-    for(var i=opponents.length;i<this.rows;i+=1){
-      var rowOpponent = tbody.getElementsByTagName("tr")[i];
-      var tdFirstNames = rowOpponent.getElementsByTagName("td")[0];
+    for(let i=opponents.length;i<this.rows;i+=1){
+      let rowOpponent = tbody.getElementsByTagName("tr")[i];
+      let tdFirstNames = rowOpponent.getElementsByTagName("td")[0];
       tdFirstNames.innerHTML = '&nbsp;';
       
-      var tdLastNames = rowOpponent.getElementsByTagName("td")[1];
+      let tdLastNames = rowOpponent.getElementsByTagName("td")[1];
       tdLastNames.innerHTML = '&nbsp;';
 
-      var tdClubs = rowOpponent.getElementsByTagName("td")[2];
+      let tdClubs = rowOpponent.getElementsByTagName("td")[2];
       tdClubs.innerHTML = '&nbsp;';
     }
   }
@@ -187,7 +187,7 @@ function opponentDropped(event, opponentId, elementId) {
     sourceElementId: dragJson.sourceElementId,
     dropOpponentId: opponentId,
     dropElementId: elementId
-  }
+  };
 
   let dragAndDroppedEvent = new CustomEvent('opponent-dragged-and-dropped', {"detail":JSON.stringify(dropJson)});
   let element = document.getElementById(elementId);
