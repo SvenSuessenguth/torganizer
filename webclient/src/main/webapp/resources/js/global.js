@@ -1,11 +1,3 @@
-const getHeader = {
-  method: "GET",
-  headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
-  }
-};
-
 //
 // Validating the form to show client side errors.
 // no business logic is called, just formal errors.

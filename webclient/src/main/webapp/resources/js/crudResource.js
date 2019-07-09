@@ -21,7 +21,7 @@ class CrudResource {
         if (response.ok)
           return response.json();
         else
-          throw new Error('Fehlerhandling noch nicht spezifiziert');
+          throw new Error('errorhandling not specified yet');
       })
       .then(function (crudResource) {
         onResolve(crudResource);
