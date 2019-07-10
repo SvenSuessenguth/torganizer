@@ -306,10 +306,10 @@ class Rounds {
   }
 
   //----------------------------------------------------------------------------------------------------- delete group -
-  deleteGroup(id) {
+  deleteGroup(groupId) {
     let roundId = sessionStorage.getItem("rounds.round.id");
 
-    let url = resourcesUrl() + `rounds/${roundId}/group`;
+    let url = resourcesUrl() + `rounds/${roundId}/group/${groupId}`;
     this.crud.delete(url, undefined, this.updateGroups.bind(this));
   }
 
