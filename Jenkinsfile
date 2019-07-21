@@ -77,13 +77,13 @@ pipeline {
   }
 }
 
-void execute(instruction) {
-  echo instruction
-  echo isUnix().toString()
+void execute(instruction) {  
   
   if (isUnix()) {
+    echo '$JAVA_HOME'
     sh instruction
   } else {
+    echo '%JAVA_HOME%'
     bat instruction
   }    
 }
