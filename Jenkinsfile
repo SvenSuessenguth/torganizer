@@ -77,10 +77,10 @@ pipeline {
   }
 }
 
-void execute(instruction) {  
+void execute(instruction) {
   if (isUnix()) {
-    sh 'instruction'
-  } else {    
-    bat 'instruction'
+    sh instruction
+  } else {
+    bat instruction
   }
 }
