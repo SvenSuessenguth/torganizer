@@ -78,11 +78,9 @@ pipeline {
 }
 
 void execute(instruction) {  
-  
   if (isUnix()) {
     sh 'instruction'
-  } else {
-    echo %JAVA_HOME%
+  } else {    
     bat 'instruction'
-  }    
+  }
 }
