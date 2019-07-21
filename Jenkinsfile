@@ -23,7 +23,7 @@ pipeline {
   stages {
     stage('compile') {
       steps {
-        sh 'mvn clean compile'
+        execute('mvn clean compile')
       }
     }
     stage('test') {
@@ -75,4 +75,14 @@ pipeline {
       }
     }
   }
+}
+
+void execute(instruction) {  
+  
+  if (isUnix()) {
+    sh 'instruction'
+  } else {
+    echo %JAVA_HOME%
+    bat 'instruction'
+  }    
 }
