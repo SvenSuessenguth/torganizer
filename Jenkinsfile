@@ -3,6 +3,9 @@
 // SonarQube Scanner
 // Warnings Next Generation
 
+// https://stackoverflow.com/questions/47628248/how-to-create-methods-in-jenkins-declarative-pipeline
+@Library('execute.groovy')_
+
 pipeline {
   agent any
 
@@ -23,7 +26,7 @@ pipeline {
   stages {
     stage('compile') {
       steps {
-        execute('mvn clean compile')
+        execute 'mvn clean compile'
       }
     }
     stage('test') {
@@ -75,14 +78,4 @@ pipeline {
       }
     }
   }
-}
-
-def execute(instruction) {
-  def os = System.properties['os.name'].toLowerCase()
-  echo "OS: ${os}"
-  if (os.contains("linux")) {
-    sh instruction
-  } else {
-    bat instruction
-  }    
 }
