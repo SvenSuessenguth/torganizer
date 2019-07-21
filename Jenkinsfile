@@ -80,10 +80,10 @@ pipeline {
 void execute(instruction) {  
   
   if (isUnix()) {
-    echo '$JAVA_HOME'
+    echo $JAVA_HOME
     sh instruction
   } else {
-    echo '%JAVA_HOME%'
+    echo %JAVA_HOME%
     bat instruction
   }    
 }
