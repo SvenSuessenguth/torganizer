@@ -79,7 +79,7 @@ pipeline {
 
 void execute(instruction) {
   echo instruction
-  echo isUnix().toStrin()
+  echo isUnix().toString()
   
   if (isUnix()) {
     sh instruction
