@@ -23,7 +23,7 @@ pipeline {
   stages {
     stage('compile') {
       steps {
-        bat 'mvn clean compile'
+        execute('mvn clean compile')
       }
     }
     stage('test') {
@@ -75,4 +75,14 @@ pipeline {
       }
     }
   }
+}
+
+def execute(instruction) {
+  def os = System.properties['os.name'].toLowerCase()
+  echo "OS: ${os}"
+  if (os.contains("linux")) {
+    sh instruction
+  } else {
+    bat instruction
+  }    
 }
