@@ -78,6 +78,9 @@ pipeline {
 }
 
 void execute(instruction) {
+  echo instruction
+  echo isUnix()
+  
   if (isUnix()) {
     sh instruction
   } else {
