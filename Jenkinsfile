@@ -23,12 +23,12 @@ pipeline {
   stages {
     stage('compile') {
       steps {
-        sh 'mvn clean compile'
+        execute('mvn clean compile')
       }
     }
     stage('test') {
       steps {
-        sh 'mvn test'
+        execute('mvn test')
       }
 
       // @see https://jenkins.io/blog/2017/02/07/declarative-maven-project/
@@ -42,7 +42,7 @@ pipeline {
       steps{
         // https://github.com/jenkinsci/warnings-ng-plugin/blob/master/doc/Documentation.md
         
-        sh 'mvn --batch-mode -V -U -e checkstyle:checkstyle pmd:pmd pmd:cpd spotbugs:spotbugs dependency-check:check'
+        execute('mvn --batch-mode -V -U -e checkstyle:checkstyle pmd:pmd pmd:cpd spotbugs:spotbugs dependency-check:check')
       }
       post {
         always {
@@ -61,7 +61,7 @@ pipeline {
     stage('report') {
       steps {
         withSonarQubeEnv('SonarQube') {
-          sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
+          execute('mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar')
         }
       }
     }
@@ -71,7 +71,7 @@ pipeline {
       when { branch 'master' }
       steps {
         // Run the maven build
-        sh 'mvn deploy -DskipTests'
+        execute('mvn deploy -DskipTests')
       }
     }
   }
