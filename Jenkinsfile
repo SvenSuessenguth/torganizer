@@ -5,12 +5,7 @@
 
 pipeline {
   agent {
-    any
-	
-	node('linux') {
-      env.JAVA_HOME="${tool 'openjdk-12'}"
-      env.PATH="${env.JAVA_HOME}/bin:${env.PATH}"      
-    }
+    any	
   }
 
   options {
