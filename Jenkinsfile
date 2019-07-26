@@ -4,7 +4,14 @@
 // Warnings Next Generation
 
 pipeline {
-  agent any
+  agent {
+    any
+	
+	node('linux') {
+      env.JAVA_HOME="${tool 'openjdk-12'}"
+      env.PATH="${env.JAVA_HOME}/bin:${env.PATH}"      
+    }
+  }
 
   options {
     buildDiscarder(logRotator(daysToKeepStr: '3', numToKeepStr: '3', artifactNumToKeepStr: '3'))
