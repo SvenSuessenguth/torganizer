@@ -4,9 +4,7 @@
 // Warnings Next Generation
 
 pipeline {
-  agent {
-    any	
-  }
+  agent any
 
   options {
     buildDiscarder(logRotator(daysToKeepStr: '3', numToKeepStr: '3', artifactNumToKeepStr: '3'))
