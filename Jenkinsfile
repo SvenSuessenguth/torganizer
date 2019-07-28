@@ -78,7 +78,6 @@ pipeline {
 }
 
 void execute(instruction) {
-  withEnv(["JAVA_HOME=${tool 'openjdk-12'}"]) {
     if (isUnix()) {
       sh instruction	
     } else {
@@ -86,5 +85,4 @@ void execute(instruction) {
 	  set PATH
       bat instruction
     }
-  }
 }
