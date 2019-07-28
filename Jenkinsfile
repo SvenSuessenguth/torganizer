@@ -19,6 +19,10 @@ pipeline {
     maven 'apache-maven-3.6'
     jdk 'openjdk-12'
   }
+  
+  environment {
+    JAVA_HOME = tool 'openjdk-12'
+  }
 
   stages {
     stage('compile') {
