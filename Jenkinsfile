@@ -78,11 +78,11 @@ pipeline {
 }
 
 void execute(instruction) {
+  echo JAVA_HOME
+  echo PATH
     if (isUnix()) {
       sh instruction	
-    } else {
-	  set JAVA_HOME
-	  set PATH
+    } else {	  
       bat instruction
     }
 }
