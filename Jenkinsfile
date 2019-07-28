@@ -21,7 +21,7 @@ pipeline {
   }
   
   environment {
-    JAVA_HOME = tool 'openjdk-12'
+    env.JAVA_HOME="${tool 'openjdk-12'}"
   }
 
   stages {
@@ -82,9 +82,11 @@ pipeline {
 }
 
 void execute(instruction) {
-  if (isUnix()) {
-    sh instruction
-  } else {
-    bat instruction
+  withEnv(['JAVA_HOME=tool('openjdk-12')']) {
+    if (isUnix()) {
+      sh instruction	
+    } else {
+      bat instruction
+    }
   }
 }
