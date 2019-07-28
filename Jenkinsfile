@@ -21,7 +21,7 @@ pipeline {
   }
   
   environment {
-    env.JAVA_HOME="${tool 'openjdk-12'}"
+    JAVA_HOME = tool('openjdk-12')
   }
 
   stages {
