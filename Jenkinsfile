@@ -82,6 +82,8 @@ void execute(instruction) {
     if (isUnix()) {
       sh instruction	
     } else {
+	  set JAVA_HOME
+	  set PATH
       bat instruction
     }
   }
