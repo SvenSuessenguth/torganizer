@@ -20,10 +20,6 @@ pipeline {
     jdk 'openjdk-12'
   }
   
-  environment {
-    JAVA_HOME = tool('openjdk-12')
-  }
-
   stages {
     stage('compile') {
       steps {
@@ -82,11 +78,11 @@ pipeline {
 }
 
 void execute(instruction) {
-  
+  withEnv(["JAVA_HOME=${tool 'openjdk-12'}"]) {
     if (isUnix()) {
       sh instruction	
     } else {
       bat instruction
     }
-  
+  }
 }
