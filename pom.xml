@@ -34,8 +34,8 @@
 
     <!-- dependency versions -->
     <activation.version>1.1.1</activation.version>
-    <assertj-core.version>3.12.2</assertj-core.version>
-    <checkstyle.version>8.22</checkstyle.version>
+    <assertj-core.version>3.13.2</assertj-core.version>
+    <checkstyle.version>8.23</checkstyle.version>
     <javaee-api.version>8.0.1</javaee-api.version>
     <jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
     <jaxb-core.version>2.3.0.1</jaxb-core.version>

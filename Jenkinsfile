@@ -40,9 +40,8 @@ pipeline {
     }
     stage ('analysis') {
       steps{
-        // https://github.com/jenkinsci/warnings-ng-plugin/blob/master/doc/Documentation.md
-        
-        execute('mvn --batch-mode -V -U -e -DskipTests install checkstyle:checkstyle pmd:pmd pmd:cpd spotbugs:spotbugs dependency-check:check')
+        // https://github.com/jenkinsci/warnings-ng-plugin/blob/master/doc/Documentation.md        
+        execute('mvn --batch-mode -V -U -e -DskipTests install checkstyle:checkstyle pmd:pmd pmd:cpd spotbugs:spotbugs dependency-check:aggregate')
       }
       post {
         always {
