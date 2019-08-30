@@ -50,7 +50,7 @@
     <jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
     <maven-enforcer-plugin.version>3.0.0-M2</maven-enforcer-plugin.version>
     <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
-    <sonar-maven-plugin.version>3.6.0.1398</sonar-maven-plugin.version>
+    <sonar-maven-plugin.version>3.6.1.1688</sonar-maven-plugin.version>
 
     <!--
      | mvn site and mvn versions:display-plugin-updates shows a warning
