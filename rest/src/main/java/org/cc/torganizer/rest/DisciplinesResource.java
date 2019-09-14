@@ -37,7 +37,7 @@ public class DisciplinesResource extends AbstractResource {
   private DisciplinesRepository disciplineRepo;
 
   @Inject
-  private DisciplineJsonConverter disicplineConverter;
+  private DisciplineJsonConverter disciplineConverter;
 
   @Inject
   private RestrictionJsonConverter restrictionConverter;
@@ -59,7 +59,7 @@ public class DisciplinesResource extends AbstractResource {
    */
   @POST
   public JsonObject create(JsonObject jsonObject) {
-    Discipline discipline = disicplineConverter.toModel(jsonObject, new Discipline());
+    Discipline discipline = disciplineConverter.toModel(jsonObject, new Discipline());
 
     JsonArray jsonArray = jsonObject.getJsonArray("restrictions");
     for (int i = 0; i < jsonArray.size(); i++) {
@@ -73,7 +73,7 @@ public class DisciplinesResource extends AbstractResource {
 
     discipline = disciplineRepo.create(discipline);
 
-    return disicplineConverter.toJsonObject(discipline);
+    return disciplineConverter.toJsonObject(discipline);
   }
 
   /**
@@ -84,7 +84,7 @@ public class DisciplinesResource extends AbstractResource {
   public JsonObject readSingle(@PathParam("id") Long disciplineId) {
     Discipline discipline = disciplineRepo.read(disciplineId);
 
-    return disicplineConverter.toJsonObject(discipline);
+    return disciplineConverter.toJsonObject(discipline);
   }
 
   /**
@@ -96,7 +96,7 @@ public class DisciplinesResource extends AbstractResource {
 
     List<Discipline> disciplines = disciplineRepo.read(offset, maxResults);
 
-    return disicplineConverter.toJsonArray(disciplines);
+    return disciplineConverter.toJsonArray(disciplines);
   }
 
   /**
@@ -107,13 +107,13 @@ public class DisciplinesResource extends AbstractResource {
     Long id = Long.valueOf(jsonObject.get("id").toString());
     Discipline discipline = disciplineRepo.read(id);
 
-    discipline = disicplineConverter.toModel(jsonObject, discipline);
+    discipline = disciplineConverter.toModel(jsonObject, discipline);
     restrictionConverter.toModels(jsonObject.getJsonArray("restrictions"),
         discipline.getRestrictions());
 
     discipline = disciplineRepo.update(discipline);
 
-    return disicplineConverter.toJsonObject(discipline);
+    return disciplineConverter.toJsonObject(discipline);
   }
 
   //-----------------------------------------------------------------------------------------------
@@ -158,7 +158,7 @@ public class DisciplinesResource extends AbstractResource {
 
     Discipline discipline = disciplineRepo.addOpponent(disciplineId, opponentId);
 
-    return disicplineConverter.toJsonObject(discipline);
+    return disciplineConverter.toJsonObject(discipline);
   }
 
   /**
@@ -170,7 +170,7 @@ public class DisciplinesResource extends AbstractResource {
                                    @QueryParam("opponentId") Long opponentId) {
 
     Discipline discipline = disciplineRepo.removeOpponent(disciplineId, opponentId);
-    return disicplineConverter.toJsonObject(discipline);
+    return disciplineConverter.toJsonObject(discipline);
   }
 
   //-----------------------------------------------------------------------------------------------
@@ -219,7 +219,7 @@ public class DisciplinesResource extends AbstractResource {
                              @QueryParam("roundId") Long roundId) {
 
     Discipline discipline = disciplineRepo.addRound(disciplineId, roundId);
-    return disicplineConverter.toJsonObject(discipline);
+    return disciplineConverter.toJsonObject(discipline);
   }
 
   /**
@@ -231,6 +231,6 @@ public class DisciplinesResource extends AbstractResource {
                                 @QueryParam("roundId") Long roundId) {
 
     Discipline discipline = disciplineRepo.removeRound(disciplineId, roundId);
-    return disicplineConverter.toJsonObject(discipline);
+    return disciplineConverter.toJsonObject(discipline);
   }
 }

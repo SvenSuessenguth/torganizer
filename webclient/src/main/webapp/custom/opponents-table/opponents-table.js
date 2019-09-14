@@ -8,7 +8,6 @@ class OpponentsTable extends HTMLElement{
     this.template = this.template();
     this._rows = 10;
     this._tbody = null;
-    this._visibilit = true
   }
   
   set id(newId) { this.setAttribute('id', newId); }
