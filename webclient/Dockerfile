@@ -1,10 +1,11 @@
-FROM torganizer/wlp
+# https://www.ibm.com/support/knowledgecenter/SS7K4U_liberty/com.ibm.websphere.wlp.zseries.doc/ae/twlp_icp_docker.html
 
-COPY /target/webclient.war /config/dropins/
-COPY /src/main/config/wlp/server.xml /config/
-COPY /src/main/config/wlp/server.env /config/
-COPY /src/main/config/wlp/jvm.options /config/
+FROM open-liberty:microProfile3-java8-openj9
 
-RUN installUtility install --acceptLicense defaultServer
+COPY --chown=1001:0  /target/webclient.war /config/dropins/
+COPY --chown=1001:0 /src/main/config/wlp/server.xml /config/
+COPY --chown=1001:0 /src/main/config/wlp/server.env /config/
+COPY --chown=1001:0 /src/main/config/wlp/jvm.options /config/
 
-EXPOSE 8080
+ENV LICENSE accept
+
