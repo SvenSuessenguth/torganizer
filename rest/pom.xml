@@ -16,7 +16,7 @@
   <name>rest</name>
 
   <properties>
-    <javax.json.version>1.1.4</javax.json.version>
+    <javax.json.version>1.1.6</javax.json.version>
     <failOnMissingWebXml>false</failOnMissingWebXml>
   </properties>
 
@@ -35,7 +35,7 @@
      | https://javaee.github.io/jsonp/getting-started.html 
      +-->
     <dependency>
-      <groupId>org.glassfish</groupId><artifactId>javax.json</artifactId>
+      <groupId>org.glassfish</groupId><artifactId>jakarta.json</artifactId>
       <version>${javax.json.version}</version><scope>test</scope>
     </dependency>
   </dependencies>
