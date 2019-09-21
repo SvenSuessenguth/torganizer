@@ -70,7 +70,7 @@ pipeline {
       when { branch 'master' }
       steps {
         // deploy already build artifact
-        execute('mvn deploy:deploy-file@deploy-only')
+        execute('mvn deploy -DskipTests')
       }
     }
   }
