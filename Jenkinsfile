@@ -23,12 +23,12 @@ pipeline {
   stages {
     stage('compile') {
       steps {
-        execute('mvn clean compile')
+        execute('mvn clean compile -T 4C')
       }
     }
     stage('test') {
       steps {
-        execute('mvn test')
+        execute('mvn test -T 4C')
       }
 
       // @see https://jenkins.io/blog/2017/02/07/declarative-maven-project/
@@ -41,7 +41,7 @@ pipeline {
     stage ('analysis') {
       steps{
         // https://github.com/jenkinsci/warnings-ng-plugin/blob/master/doc/Documentation.md        
-        execute('mvn --batch-mode -V -U -e -DskipTests install checkstyle:checkstyle pmd:pmd pmd:cpd spotbugs:spotbugs dependency-check:aggregate')
+        execute('mvn -T 4C checkstyle:checkstyle pmd:pmd pmd:cpd spotbugs:spotbugs dependency-check:aggregate')
       }
       post {
         always {
@@ -70,7 +70,7 @@ pipeline {
       when { branch 'master' }
       steps {
         // deploy already build artifact
-        execute('mvn deploy -DskipTests')
+        execute('mvn deploy -T 4C -DskipTests')
       }
     }
   }
