@@ -226,13 +226,6 @@
             <retireJsAnalyzerEnabled>false</retireJsAnalyzerEnabled>
             <format>all</format>
           </configuration>
-          <executions>
-            <execution>
-              <goals>
-                <goal>check</goal>
-              </goals>
-            </execution>
-          </executions>
         </plugin>
 
         <plugin>

@@ -69,8 +69,8 @@ pipeline {
     stage('deploy') {
       when { branch 'master' }
       steps {
-        // Run the maven build
-        execute('mvn deploy -DskipTests')
+        // deploy already build artifact
+        execute('mvn deploy:deploy-file@deploy-only')
       }
     }
   }
