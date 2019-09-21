@@ -1,11 +1,11 @@
 package org.cc.torganizer.core.comparators;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class PlayerByNameComparatorTest {
 

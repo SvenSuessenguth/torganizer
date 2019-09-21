@@ -1,5 +1,13 @@
 package org.cc.torganizer.core.entities;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static java.time.LocalDate.of;
 import static java.time.Month.JANUARY;
 import static java.time.Month.MAY;
@@ -7,17 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.cc.torganizer.core.entities.Gender.FEMALE;
 import static org.cc.torganizer.core.entities.Gender.MALE;
 import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
-import static org.cc.torganizer.core.entities.Restriction.Discriminator.AGE_RESTRICTION;
-import static org.cc.torganizer.core.entities.Restriction.Discriminator.GENDER_RESTRICTION;
-import static org.cc.torganizer.core.entities.Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.cc.torganizer.core.entities.Restriction.Discriminator.*;
 
 class DisciplineTest {
 

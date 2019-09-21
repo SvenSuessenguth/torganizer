@@ -1,10 +1,10 @@
 package org.cc.torganizer.core.util;
 
+import org.junit.jupiter.api.Test;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.cc.torganizer.core.util.Checker.countNullValues;
 import static org.cc.torganizer.core.util.Checker.onlyNullValues;
-
-import org.junit.jupiter.api.Test;
 
 class CheckerTest {
 

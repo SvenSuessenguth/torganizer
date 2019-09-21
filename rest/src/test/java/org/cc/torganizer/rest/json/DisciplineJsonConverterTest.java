@@ -1,29 +1,22 @@
 package org.cc.torganizer.rest.json;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.time.LocalDate;
-import java.time.Month;
-
-import org.cc.torganizer.core.entities.AgeRestriction;
-import org.cc.torganizer.core.entities.Discipline;
-import org.cc.torganizer.core.entities.Gender;
-import org.cc.torganizer.core.entities.GenderRestriction;
-import org.cc.torganizer.core.entities.OpponentType;
-import org.cc.torganizer.core.entities.OpponentTypeRestriction;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.cc.torganizer.core.entities.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
+import java.time.Month;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 @ExtendWith(MockitoExtension.class)
 class DisciplineJsonConverterTest {
 
   @Spy
-  RestrictionJsonConverter rConverter;
+  private RestrictionJsonConverter rConverter;
 
   @InjectMocks
   private DisciplineJsonConverter converter;

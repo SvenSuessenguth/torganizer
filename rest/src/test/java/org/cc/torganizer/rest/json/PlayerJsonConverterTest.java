@@ -1,23 +1,5 @@
 package org.cc.torganizer.rest.json;
 
-import static java.time.LocalDateTime.of;
-import static java.time.Month.DECEMBER;
-import static java.time.Month.JANUARY;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.cc.torganizer.core.entities.Gender.MALE;
-
-import java.io.StringReader;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Objects;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.junit.jupiter.api.Test;
@@ -25,6 +7,24 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import java.io.StringReader;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Objects;
+
+import static java.time.LocalDateTime.of;
+import static java.time.Month.DECEMBER;
+import static java.time.Month.JANUARY;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.cc.torganizer.core.entities.Gender.MALE;
 
 /**
  * @author svens
@@ -135,7 +135,7 @@ class PlayerJsonConverterTest {
   }
 
   @Test
-  public void testToJsonArray_emptyCollection() {
+  void testToJsonArray_emptyCollection() {
     Collection<Player> players = Collections.emptyList();
     JsonArray jsonArray = converter.toJsonArray(players);
 

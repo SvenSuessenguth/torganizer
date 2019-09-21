@@ -23,13 +23,6 @@ public class DisciplineJsonConverter extends BaseModelJsonConverter<Discipline> 
   @Inject
   private RestrictionJsonConverter restrictionConverter;
 
-  public DisciplineJsonConverter() {
-  }
-
-  public DisciplineJsonConverter(RestrictionJsonConverter restrictionConverter) {
-    this.restrictionConverter = restrictionConverter;
-  }
-
   @Override
   public JsonObject toJsonObject(Discipline discipline) {
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());

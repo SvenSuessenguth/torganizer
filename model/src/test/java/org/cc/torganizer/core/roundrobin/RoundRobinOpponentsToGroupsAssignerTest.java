@@ -1,13 +1,5 @@
 package org.cc.torganizer.core.roundrobin;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.cc.torganizer.core.entities.System.ROUND_ROBIN;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
@@ -15,6 +7,14 @@ import org.cc.torganizer.core.entities.Player;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.cc.torganizer.core.entities.System.ROUND_ROBIN;
 
 class RoundRobinOpponentsToGroupsAssignerTest {
 

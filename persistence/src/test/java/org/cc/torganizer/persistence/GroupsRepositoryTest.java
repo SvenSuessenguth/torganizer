@@ -1,18 +1,14 @@
 package org.cc.torganizer.persistence;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.cc.torganizer.core.entities.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.cc.torganizer.core.entities.Group;
-import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.core.entities.PositionalOpponent;
-import org.cc.torganizer.core.entities.Round;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class GroupsRepositoryTest extends AbstractDbUnitJpaTest {
 

@@ -1,24 +1,16 @@
 package org.cc.torganizer.persistence;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.cc.torganizer.core.entities.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import java.util.List;
 import javax.persistence.Query;
 import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import java.util.List;
 
-import org.cc.torganizer.core.entities.Discipline;
-import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.core.entities.Squad;
-import org.cc.torganizer.core.entities.Tournament;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
 

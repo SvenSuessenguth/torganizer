@@ -1,8 +1,5 @@
 package org.cc.torganizer.rest.json;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.assertj.core.api.Assertions;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +13,8 @@ import java.io.StringReader;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author svens

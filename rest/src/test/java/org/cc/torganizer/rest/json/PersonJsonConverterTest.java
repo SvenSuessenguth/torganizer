@@ -5,23 +5,23 @@
  */
 package org.cc.torganizer.rest.json;
 
-import static java.time.Month.DECEMBER;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
+import org.cc.torganizer.core.entities.Person;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 import java.io.StringReader;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
 
-import org.cc.torganizer.core.entities.Person;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static java.time.Month.DECEMBER;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
 
 /**
  *

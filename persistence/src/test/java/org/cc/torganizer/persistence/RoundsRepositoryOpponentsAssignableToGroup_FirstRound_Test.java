@@ -1,12 +1,12 @@
 package org.cc.torganizer.persistence;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.Set;
-
 import org.cc.torganizer.core.entities.Opponent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class RoundsRepositoryOpponentsAssignableToGroup_FirstRound_Test extends AbstractDbUnitJpaTest {
 

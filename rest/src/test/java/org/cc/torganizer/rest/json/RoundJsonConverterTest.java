@@ -1,23 +1,21 @@
 package org.cc.torganizer.rest.json;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.cc.torganizer.core.entities.System.DOUBLE_ELIMINATION;
-import static org.cc.torganizer.core.entities.System.ROUND_ROBIN;
-import static org.cc.torganizer.core.entities.System.SINGLE_ELIMINATION;
+import org.cc.torganizer.core.entities.Round;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
 
-import org.cc.torganizer.core.entities.Round;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.cc.torganizer.core.entities.System.*;
 
 class RoundJsonConverterTest {
 

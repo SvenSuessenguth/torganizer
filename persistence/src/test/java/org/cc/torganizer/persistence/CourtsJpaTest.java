@@ -1,12 +1,12 @@
 package org.cc.torganizer.persistence;
 
-import java.util.List;
-import javax.persistence.TypedQuery;
-
 import org.assertj.core.api.Assertions;
 import org.cc.torganizer.core.entities.Court;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 class CourtsJpaTest extends AbstractDbUnitJpaTest {
 

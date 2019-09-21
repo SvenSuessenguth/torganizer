@@ -1,18 +1,18 @@
 package org.cc.torganizer.persistence;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.cc.torganizer.core.entities.Gender.FEMALE;
-import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
-
-import java.time.LocalDate;
-import java.util.List;
-
 import org.cc.torganizer.core.entities.AgeRestriction;
 import org.cc.torganizer.core.entities.GenderRestriction;
 import org.cc.torganizer.core.entities.OpponentTypeRestriction;
 import org.cc.torganizer.core.entities.Restriction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.cc.torganizer.core.entities.Gender.FEMALE;
+import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
 
 class RestrictionsRepositoryTest extends AbstractDbUnitJpaTest {
 

@@ -1,37 +1,25 @@
 package org.cc.torganizer.rest.json;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
-import static org.mockito.Answers.RETURNS_DEEP_STUBS;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import org.cc.torganizer.core.entities.Group;
+import org.cc.torganizer.core.entities.Opponent;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
-import org.cc.torganizer.core.entities.Group;
-import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.OpponentType;
-import org.cc.torganizer.core.entities.Person;
-import org.cc.torganizer.core.entities.Player;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Answers;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockSettings;
-import org.mockito.Mockito;
-import org.mockito.Spy;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.stubbing.Answer;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class GroupJsonConverterTest {
@@ -170,7 +158,7 @@ class GroupJsonConverterTest {
   }
 
   @Test
-  public void testAddOpponents_emptyCollection(){
+  void testAddOpponents_emptyCollection(){
     String jsonGroupString = "{\"id\":1,\"position\":1}";
     JsonReader jsonGroupReader = Json.createReader(new StringReader(jsonGroupString));
     JsonObject jsonGroup = jsonGroupReader.readObject();

@@ -1,11 +1,11 @@
 package org.cc.torganizer.persistence;
 
-import java.util.List;
-
 import org.assertj.core.api.Assertions;
 import org.cc.torganizer.core.entities.Result;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 class ResultsJpaTest extends AbstractDbUnitJpaTest {
 

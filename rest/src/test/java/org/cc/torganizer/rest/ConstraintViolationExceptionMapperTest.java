@@ -1,17 +1,17 @@
 package org.cc.torganizer.rest;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import java.util.HashSet;
-import java.util.Set;
 import javax.json.JsonObject;
 import javax.validation.ConstraintViolation;
 import javax.validation.Path;
+import java.util.HashSet;
+import java.util.Set;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class ConstraintViolationExceptionMapperTest {
 

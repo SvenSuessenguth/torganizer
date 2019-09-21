@@ -5,21 +5,21 @@
  */
 package org.cc.torganizer.rest.json;
 
-import static java.time.LocalDateTime.of;
-import static org.assertj.core.api.Assertions.assertThat;
+import org.cc.torganizer.core.entities.Entity;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Collection;
 import java.util.Collections;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
 
-import org.cc.torganizer.core.entities.Entity;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static java.time.LocalDateTime.of;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  *

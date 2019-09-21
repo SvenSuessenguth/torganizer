@@ -1,25 +1,23 @@
 package org.cc.torganizer.rest.json;
 
-import static java.time.Month.JANUARY;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.cc.torganizer.core.entities.Gender.MALE;
-import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
-import static org.cc.torganizer.core.entities.Restriction.Discriminator.AGE_RESTRICTION;
-import static org.cc.torganizer.core.entities.Restriction.Discriminator.GENDER_RESTRICTION;
-import static org.cc.torganizer.core.entities.Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION;
-
-import java.io.StringReader;
-import java.time.LocalDate;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-
 import org.cc.torganizer.core.entities.AgeRestriction;
 import org.cc.torganizer.core.entities.GenderRestriction;
 import org.cc.torganizer.core.entities.OpponentTypeRestriction;
 import org.cc.torganizer.core.entities.Restriction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import java.io.StringReader;
+import java.time.LocalDate;
+
+import static java.time.Month.JANUARY;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.cc.torganizer.core.entities.Gender.MALE;
+import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
+import static org.cc.torganizer.core.entities.Restriction.Discriminator.*;
 
 class RestrictionJsonConverterTest {
 
