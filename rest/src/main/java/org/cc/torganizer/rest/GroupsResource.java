@@ -1,5 +1,24 @@
 package org.cc.torganizer.rest;
 
+import static org.cc.torganizer.rest.json.BaseModelJsonConverter.emptyArray;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.PositionalOpponent;
@@ -8,19 +27,6 @@ import org.cc.torganizer.rest.json.BaseModelJsonConverter;
 import org.cc.torganizer.rest.json.GroupJsonConverter;
 import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
 import org.cc.torganizer.rest.json.PositionalOpponentJsonConverter;
-
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import static org.cc.torganizer.rest.json.BaseModelJsonConverter.emptyArray;
 
 @Stateless
 @Path("/groups")
