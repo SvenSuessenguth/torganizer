@@ -8,22 +8,24 @@
     <feature>microProfile-2.0</feature>
     <feature>localConnector-1.0</feature>
   </featureManager>
+
   <!--
-    | Ignore "IllegalStateException: The orb is not available"
-    | https://www-01.ibm.com/support/docview.wss?uid=ibm10728669
-    +-->
+   | Ignore "IllegalStateException: The orb is not available"
+   | https://www-01.ibm.com/support/docview.wss?uid=ibm10728669
+   +-->
   <httpEndpoint id="defaultHttpEndpoint" enabled="true" httpPort="9080" httpsPort="9443" host="*" />
+
   <!--
    | https://www.ibm.com/support/knowledgecenter/en/SS7K4U_liberty/com.ibm.websphere.wlp.zseries.doc/ae/twlp_dep_configuring_ds.html 
    +-->
-  <dataSource id="DefaultDataSource" jndiName="jdbc/torganizerDS">
+  <dataSource id="TorganizerDataSource" jndiName="jdbc/torganizerDS">
     <jdbcDriver libraryRef="MySQLLib" />
-    <!-- password = 'root' -->
-    <properties databaseName="torganizer" password="root" portNumber="3306" serverName="localhost" useSSL="false" allowPublicKeyRetrieval="true" user="root" />
+    <properties databaseName="torganizer" user="root" password="root" portNumber="3306" serverName="localhost" useSSL="false" allowPublicKeyRetrieval="true" />
   </dataSource>
   <library id="MySQLLib">
     <file name="${shared.resource.dir}mysql-connector-java-8.0.17.jar" />
   </library>
+
   <!--
    | CWWKS9660E: Das Element orb mit dem id-Attribut defaultOrb setzt eine Benutzerregistry voraus, aber auch nach 10 Sekunden war keine Benutzerregistry verfügbar.
    | https://www.ibm.com/support/knowledgecenter/SSD28V_9.0.0/com.ibm.websphere.wlp.core.doc/ae/twlp_sec_basic_registry.html
@@ -34,17 +36,29 @@
       <member name="dings" />
     </group>
   </basicRegistry>
+
   <!--
    | https://www.ibm.com/support/knowledgecenter/en/SSAW57_liberty/com.ibm.websphere.wlp.nd.multiplatform.doc/ae/rwlp_portnums.html 
    +-->
   <wasJmsEndpoint wasJmsPort="7278" wasJmsSSLPort="7288" />
-  <!-- https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/twlp_mp_metrics_monitor.html -->
+
+  <!--
+   | https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/twlp_mp_metrics_monitor.html
+   +-->
   <mpMetrics authentication="false" />
+  
   <!--
    | Ist dieser Pfad nicht vorhanden (z.B. weil die Anwendung in das Dropin-Verzeichnis kopiert wurde), wird er ignoriert.
    | Waehrend der Entwicklung mit IntelliJ wird die Variable ersetzt und die Application wird genutzt,
    +-->
   <applicationMonitor updateTrigger="mbean" />
+
+  <!--
+   | https://openliberty.io/guides/cors.html
+   | https://stackoverflow.com/questions/56738237/how-to-enable-cors-set-up-for-liberty-server-which-is-installed-through-docker
+   +-->
+  <cors domain="/" allowedOrigins="*" allowedMethods="GET, DELETE, POST, PUT" allowedHeaders="origin, content-type, accept, authorization, cache-control" maxAge="3600" />
+
   <application id="rest_war" location="C:\dev\projects\torganizer\rest\target\rest.war.xml" name="rest_war" type="war" />
 </server>
 
