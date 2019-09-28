@@ -17,9 +17,9 @@
   
   <properties>
     <dbunit.version>2.6.0</dbunit.version>
-    <hibernate-core.version>5.4.4.Final</hibernate-core.version>
-    <hibernate-c3p0.version>5.4.4.Final</hibernate-c3p0.version>	
-    <c3p0.version>0.9.1.2</c3p0.version>
+    <hibernate-core.version>5.4.5.Final</hibernate-core.version>
+    <hibernate-c3p0.version>5.4.5.Final</hibernate-c3p0.version>
+    <c3p0.version>0.9.5.4</c3p0.version>
     <h2.version>1.4.199</h2.version>
     <slf4j.version>2.0.0-alpha0</slf4j.version>
   </properties>
@@ -43,7 +43,7 @@
       <version>${hibernate-c3p0.version}</version><scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>c3p0</groupId><artifactId>c3p0</artifactId>
+      <groupId>com.mchange</groupId><artifactId>c3p0</artifactId>
       <version>${c3p0.version}</version><scope>test</scope>
     </dependency>
     <dependency>
