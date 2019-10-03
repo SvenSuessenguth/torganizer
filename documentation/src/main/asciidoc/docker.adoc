@@ -15,7 +15,7 @@ docker network inspect torganizer
 
 mysql-8
 docker build -t "torganizer/mysql" .
-docker run -d -p 3306:3306 --name mysql torganizer/mysql:latest --default-authentication-plugin=mysql_native_password
+docker run -d -p 3306:3306 --name torganizer-mysql torganizer/mysql:latest --default-authentication-plugin=mysql_native_password
 
 nexus
 docker pull sonatype/nexus3

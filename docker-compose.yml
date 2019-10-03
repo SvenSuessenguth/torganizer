@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  database:
+    build: ./docker/mysql
+    volumes:
+      - ./mysql/data
+    ports:
+      - 3306:3306
+  rest:
+    build: ./rest
+    links:
+      - database
+    depends_on:
+      - database

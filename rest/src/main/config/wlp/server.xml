@@ -5,7 +5,7 @@
 <server>
   <featureManager>
     <feature>javaee-8.0</feature>
-    <feature>microProfile-2.0</feature>
+    <feature>microProfile-3.0</feature>
     <feature>localConnector-1.0</feature>
   </featureManager>
 
@@ -46,7 +46,7 @@
    | https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/twlp_mp_metrics_monitor.html
    +-->
   <mpMetrics authentication="false" />
-  
+
   <!--
    | Ist dieser Pfad nicht vorhanden (z.B. weil die Anwendung in das Dropin-Verzeichnis kopiert wurde), wird er ignoriert.
    | Waehrend der Entwicklung mit IntelliJ wird die Variable ersetzt und die Application wird genutzt,
@@ -57,8 +57,11 @@
    | https://openliberty.io/guides/cors.html
    | https://stackoverflow.com/questions/56738237/how-to-enable-cors-set-up-for-liberty-server-which-is-installed-through-docker
    +-->
-  <cors domain="/" allowedOrigins="*" allowedMethods="GET, DELETE, POST, PUT" allowedHeaders="origin, content-type, accept, authorization, cache-control" maxAge="3600" />
+  <cors domain="/" allowedOrigins="*" allowedMethods="GET, DELETE, POST, PUT"
+        allowedHeaders="origin, content-type, accept, authorization, cache-control" maxAge="3600" />
 
+  <!--
   <application id="rest_war" location="C:\dev\projects\torganizer\rest\target\rest.war.xml" name="rest_war" type="war" />
+  -->
 </server>
 
