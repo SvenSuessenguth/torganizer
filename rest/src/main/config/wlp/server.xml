@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+ | parameters to set:
  |
+ | dataSource.serverName : localhost
+ | dataSource.user       : root
+ | dataSource.password   : root
  +-->
 <server>
   <featureManager>
@@ -17,14 +21,18 @@
 
   <!--
    | https://www.ibm.com/support/knowledgecenter/en/SS7K4U_liberty/com.ibm.websphere.wlp.zseries.doc/ae/twlp_dep_configuring_ds.html 
+   | https://www.ibm.com/support/knowledgecenter/en/SSHS8R_7.1.0/com.ibm.worklight.deploy.doc/admin/t_configuring_liberty_profile_for_my_sql_manually.html
    +-->
-  <dataSource id="TorganizerDataSource" jndiName="jdbc/torganizerDS">
-    <jdbcDriver libraryRef="MySQLLib" />
-    <properties databaseName="torganizer" user="root" password="root" portNumber="3306" serverName="localhost" useSSL="false" allowPublicKeyRetrieval="true" />
-  </dataSource>
   <library id="MySQLLib">
     <file name="${shared.resource.dir}mysql-connector-java-8.0.17.jar" />
   </library>
+  <dataSource jndiName="jdbc/torganizerDS" transactional="true">
+    <jdbcDriver libraryRef="MySQLLib" />
+    <!-- e.g. mysql.server.name=localhost, mysql.server.port=3306 -->
+    <properties databaseName="torganizer"
+      serverName="${dataSource.serverName}" portNumber="3306"
+      user="${dataSource.user}" password="${dataSource.password}" useSSL="false" allowPublicKeyRetrieval="true" />
+  </dataSource>
 
   <!--
    | CWWKS9660E: Das Element orb mit dem id-Attribut defaultOrb setzt eine Benutzerregistry voraus, aber auch nach 10 Sekunden war keine Benutzerregistry verfügbar.
@@ -58,10 +66,6 @@
    | https://stackoverflow.com/questions/56738237/how-to-enable-cors-set-up-for-liberty-server-which-is-installed-through-docker
    +-->
   <cors domain="/" allowedOrigins="*" allowedMethods="GET, DELETE, POST, PUT"
-        allowedHeaders="origin, content-type, accept, authorization, cache-control" maxAge="3600" />
-
-  <!--
-  <application id="rest_war" location="C:\dev\projects\torganizer\rest\target\rest.war.xml" name="rest_war" type="war" />
-  -->
+    allowedHeaders="origin, content-type, accept, authorization, cache-control" maxAge="3600" />
 </server>
 

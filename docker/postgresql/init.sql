@@ -1,0 +1,3 @@
+CREATE USER docker;
+CREATE DATABASE torganizer;
+GRANT ALL PRIVILEGES ON DATABASE torganizer TO docker;
