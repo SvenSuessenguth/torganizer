@@ -1,4 +1,4 @@
-CREATE USER 'developer'@'%' IDENTIFIED BY 'root';
-GRANT ALL ON *.* TO 'developer'@'%';
+CREATE USER 'root'@'%' IDENTIFIED BY 'root';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root';
 
 CREATE DATABASE torganizer;
