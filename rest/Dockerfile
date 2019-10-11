@@ -9,7 +9,7 @@ COPY --chown=1001:0 /src/main/config/wlp/server.xml /config/
 COPY --chown=1001:0 /src/main/config/wlp/server.env /config/
 COPY --chown=1001:0 /src/main/config/wlp/jvm.options /config/
 
-ADD --chown=1001:0 https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.17/mysql-connector-java-8.0.17.jar /opt/ol/wlp/usr/shared/resources/
+ADD --chown=1001:0 https://jdbc.postgresql.org/download/postgresql-42.2.8.jar /opt/ol/wlp/usr/shared/resources/
 
 USER 1001
 
