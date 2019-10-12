@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
- | parameters to set:
- |
- | dataSource.serverName : localhost
- | dataSource.user       : root
- | dataSource.password   : root
- +-->
 <server>
   <featureManager>
     <feature>javaee-8.0</feature>
@@ -31,14 +24,14 @@
     <!--
      |                          | postgresql     | mysql
      | ___________________________________________________________
-     | dataSource.serverName    | localhost      | localhost
+     | dataSource.serverName    | postgreql      | mysql
      | dataSource.portNumber    | 5432           | 3306
      | dataSource.user          | postgres       | root
      | dataSource.password      | postgres       | root
      +-->
     <properties databaseName="torganizer"
-      serverName="${dataSource.serverName}" portNumber="5432"
-      user="${dataSource.user}" password="${dataSource.password}" useSSL="false" allowPublicKeyRetrieval="true" />
+      serverName="${env.dataSource_serverName}" portNumber="${env.dataSource_portNumber}"
+      user="${env.dataSource_user}" password="${env.dataSource_password}" useSSL="false" allowPublicKeyRetrieval="true" />
   </dataSource>
 
   <!--

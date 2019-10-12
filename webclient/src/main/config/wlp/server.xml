@@ -43,12 +43,6 @@
   <applicationManager autoExpand="true" />
 
   <!--
-   | Ist dieser Pfad nicht vorhanden (z.B. weil die Anwendung in das Dropin-Verzeichnis kopiert wurde), wird er ignoriert.
-   | Waehrend der Entwicklung mit IntelliJ wird die Variable ersetzt und die Application wird genutzt,
-   +-->
-  <application id="webclient_war" location="${application_location}" name="webclient_war" type="war" />
-
-  <!--
    | CWWKS9660E: Das Element orb mit dem id-Attribut defaultOrb setzt eine Benutzerregistry voraus, aber auch nach 10 Sekunden war keine Benutzerregistry verfügbar.
    | https://www.ibm.com/support/knowledgecenter/SSD28V_9.0.0/com.ibm.websphere.wlp.core.doc/ae/twlp_sec_basic_registry.html
    +-->

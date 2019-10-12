@@ -11,7 +11,7 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbc/torganizerDS</jta-data-source>
 
-    <mapping-file>META-INF/orm.xml</mapping-file>
+    <mapping-file>META-INF/entity-orm.xml</mapping-file>
 
     <mapping-file>META-INF/club-orm.xml</mapping-file>
     <mapping-file>META-INF/court-orm.xml</mapping-file>

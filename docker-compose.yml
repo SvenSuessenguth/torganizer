@@ -1,16 +1,28 @@
 version: '3.7'
 
 services:
-  database:
-    build: ./docker/mysql
+  postgresql:
+    build: ./docker/postgresql
+    networks:
+      - torganizer
     ports:
-      - 3306:3306
+      - 5432:5432
+    container_name: postgresql
   rest:
     build: ./rest
+    networks:
+      - torganizer
+    depends_on:
+      - "postgresql"
     ports:
       - 9080:9080
+    container_name: rest
     environment:
-      mysql.server.port: 3306
-      mysql.server.name: 0.0.0.0
-      mysql.user: root
-      mysql.password: root
+      dataSource_portNumber: 5432
+      dataSource_serverName: postgresql
+      dataSource_user: postgres
+      dataSource_password: postgres
+
+networks:
+  torganizer:
+    driver: bridge
