@@ -1,6 +1,6 @@
 # https://www.ibm.com/support/knowledgecenter/SS7K4U_liberty/com.ibm.websphere.wlp.zseries.doc/ae/twlp_icp_docker.html
 
-FROM open-liberty:19.0.0.9-javaee8-java12
+FROM open-liberty:javaee8-java12
 
 USER root
 

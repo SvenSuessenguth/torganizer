@@ -13,9 +13,19 @@ docker network create torganizer
 docker network connect torganizer [name]
 docker network inspect torganizer
 
-mysql-8
+docker build -t "torganizer/postgresql" .
+docker run -d -p 5432:5432 --name postgresql --network=torganizer "torganizer/postgresql":latest
+
+docker build -t "torganizer/rest" .
+docker run -d -p 9080:9080 -e dataSource_serverName=postgresql -e dataSource_user=postgres -e dataSource_password=postgres -e dataSource_portNumber=5432 --name rest --network torganizer "torganizer/rest":latest
+
+docker build -t "torganizer/webclient" .
+docker run -d -p 8080:8080 -e "resources_url=http://localhost:9080/rest/resources/" --name webclient --network torganizer "torganizer/webclient":latest
+
+
 docker build -t "torganizer/mysql" .
-docker run -d -p 3306:3306 --name torganizer-mysql torganizer/mysql:latest --default-authentication-plugin=mysql_native_password
+docker run -d --name mysql --network=torganizer "torganizer/postgresql":latest
+docker run -d -p 9080:9080 -e dataSource_serverName=mysql -e dataSource_user=root -e dataSource_password=root -e dataSource_portNumber=3306 --name rest --network torganizer "torganizer/rest":latest
 
 nexus
 docker pull sonatype/nexus3

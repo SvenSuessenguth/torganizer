@@ -45,7 +45,7 @@
     <spotbugs.version>4.0.0-beta4</spotbugs.version>
 
     <!-- plugin versions -->
-    <jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
+    <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
     <maven-enforcer-plugin.version>3.0.0-M2</maven-enforcer-plugin.version>
     <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
     <sonar-maven-plugin.version>3.7.0.1746</sonar-maven-plugin.version>
