@@ -1,5 +1,9 @@
 package org.cc.torganizer.rest;
 
+import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
+import static org.cc.torganizer.core.entities.OpponentType.SQUAD;
+import static org.cc.torganizer.core.entities.Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION;
+
 import java.util.List;
 import java.util.Set;
 import javax.ejb.Stateless;
@@ -37,10 +41,6 @@ import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
 import org.cc.torganizer.rest.json.PlayerJsonConverter;
 import org.cc.torganizer.rest.json.SquadJsonConverter;
 import org.cc.torganizer.rest.json.TournamentJsonConverter;
-
-import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
-import static org.cc.torganizer.core.entities.OpponentType.SQUAD;
-import static org.cc.torganizer.core.entities.Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION;
 
 @Stateless
 @Path("/tournaments")
