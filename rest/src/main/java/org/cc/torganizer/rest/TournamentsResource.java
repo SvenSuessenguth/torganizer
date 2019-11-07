@@ -1,17 +1,39 @@
 package org.cc.torganizer.rest;
 
-import org.cc.torganizer.core.entities.*;
+import org.cc.torganizer.core.entities.Discipline;
+import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.OpponentType;
+import org.cc.torganizer.core.entities.OpponentTypeRestriction;
+import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.core.entities.Squad;
+import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.persistence.DisciplinesRepository;
 import org.cc.torganizer.persistence.TournamentsRepository;
-import org.cc.torganizer.rest.json.*;
+import org.cc.torganizer.rest.json.BaseModelJsonConverter;
+import org.cc.torganizer.rest.json.DisciplineJsonConverter;
+import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
+import org.cc.torganizer.rest.json.PlayerJsonConverter;
+import org.cc.torganizer.rest.json.SquadJsonConverter;
+import org.cc.torganizer.rest.json.TournamentJsonConverter;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
-import javax.validation.*;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.*;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.Set;
@@ -40,7 +62,7 @@ public class TournamentsResource extends AbstractResource {
   private OpponentJsonConverterProvider opponentConverterProvider;
 
   /**
-   * Create, validate and persist an new {@link Tournament}.
+   * Create, validate and persist an new {@link org.cc.torganizer.core.entities.Tournament}.
    */
   @POST
   public Response create(JsonObject jsonObject) {
