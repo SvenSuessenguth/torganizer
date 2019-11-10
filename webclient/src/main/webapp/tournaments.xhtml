@@ -15,9 +15,9 @@
       <h:outputScript name="js/restResourcesAdapter.js" target="head" />
       <h:outputScript name="js/tournaments.js" target="head" />
 
-      #{text.count} <span id="count" />
-      <table id="tournaments" aria-hidden="true">
-        <thead><tr><th>Name</th></tr></thead>
+      <span id="count" /> <span id="table-content">${text.tournament}</span>
+      <table id="tournaments" aria-describedby="table-content">
+        <thead><tr><th scope="col">Name</th></tr></thead>
         <tbody />
       </table>
 
