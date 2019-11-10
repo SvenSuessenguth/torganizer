@@ -5,7 +5,7 @@
   xmlns:h="http://xmlns.jcp.org/jsf/html"
   xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
   <head>
-    <title>clubs</title>
+    <title>#{text.clubs}</title>
   </head>
 
   <ui:composition template="/WEB-INF/templates/template.xhtml">
@@ -22,9 +22,9 @@
       </template>
 
       #{text.count} <span id="count"></span>
-      <table id="clubsTable">
+      <table id="clubsTable" aria-hidden=""true"">
         <thead>
-          <th>Name</th>
+          <th scope="col">Name</th>
         </thead>
         <tbody id="clubsTableBody"></tbody>
       </table>
