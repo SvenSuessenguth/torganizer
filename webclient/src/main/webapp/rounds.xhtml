@@ -2,74 +2,70 @@
 <!DOCTYPE html>
 
 <html lang="en"
-  xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-  
-  <head>
-    <title>rounds</title>
-  </head>
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-  <ui:composition template="/WEB-INF/templates/template.xhtml">
+<ui:composition template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="content">
-      <h:outputScript name="js/restResourcesAdapter.js" target="head" />
-      <h:outputScript name="js/tournamentsResource.js" target="head" />
-      <h:outputScript name="js/tournaments.js" target="head" />
-      <h:outputScript name="js/disciplinesResource.js" target="head" />
-      <h:outputScript name="js/groupsResource.js" target="head" />
-      <h:outputScript name="js/disciplines.js" target="head" />
+        <h:outputScript name="js/restResourcesAdapter.js" target="head"/>
+        <h:outputScript name="js/tournamentsResource.js" target="head"/>
+        <h:outputScript name="js/tournaments.js" target="head"/>
+        <h:outputScript name="js/disciplinesResource.js" target="head"/>
+        <h:outputScript name="js/groupsResource.js" target="head"/>
+        <h:outputScript name="js/disciplines.js" target="head"/>
 
-      <h:outputScript name="js/crud2.js" target="head" />
-      <h:outputScript name="js/rounds.js" target="head" />
+        <h:outputScript name="js/crud2.js" target="head"/>
+        <h:outputScript name="js/rounds.js" target="head"/>
 
-      <script src="./custom/opponents-table/opponents-table.js"></script>
+        <script src="./custom/opponents-table/opponents-table.js"></script>
 
-      <label for="disciplines">#{text.disciplines}</label>
-      <select id="disciplines" onchange="rounds.selectDiscipline()"/>
+        <label for="disciplines">#{text.disciplines}</label>
+        <select id="disciplines" onchange="rounds.selectDiscipline()"/>
 
-      <span style="visibility: hidden" id="noGroupSpecified">#{text.addingOpponentNotPossible_noGroupSpecified}</span>
+        <span style="visibility: hidden" id="noGroupSpecified">#{text.addingOpponentNotPossible_noGroupSpecified}</span>
 
-      <br />
-      <label for="round">#{text.round}</label>
-      <input type="button" id="prevRound" disabled="disabled" value="&#9664;" onclick="rounds.prevRound()" />
-      <span id="round" />
-      <input type="button" id="nextRound" disabled="disabled" value="&#9654;" onclick="rounds.nextRound()" />
-      &#160;<h:outputText value="#{text.from}" />
-      <span id="numberOfRounds" />
-      <br /><br />
+        <br/>
+        <label for="round">#{text.round}</label>
+        <input type="button" id="prevRound" disabled="disabled" value="&#9664;" onclick="rounds.prevRound()"/>
+        <span id="round"/>
+        <input type="button" id="nextRound" disabled="disabled" value="&#9654;" onclick="rounds.nextRound()"/>
+        &#160;<h:outputText value="#{text.from}"/>
+        <span id="numberOfRounds"/>
+        <br/><br/>
 
-      <label for="system">#{text.system}
-        <select id="system">
-          <option value="DOUBLE_ELIMINATION">double ko</option>
-          <option value="SINGLE_ELIMINATION">single ko</option>
-          <option value="ROUND_ROBIN">round robin</option>
-        </select>
-      </label>
-      <label for="qualified">#{text.qualified}<input id="qualified" value="" size="2" /></label>
-      <input id="save" type="button" value="#{text.save}" onclick="rounds.save()" />
-      <input id="delete" type="button" value="#{text.delete}" onclick="rounds.delete()" />
-      <input id="cancel" type="button" value="#{text.cancel}" onclick="rounds.cancel()" />
-      <br /><br />
+        <label for="system">#{text.system}
+            <select id="system">
+                <option value="DOUBLE_ELIMINATION">double ko</option>
+                <option value="SINGLE_ELIMINATION">single ko</option>
+                <option value="ROUND_ROBIN">round robin</option>
+            </select>
+        </label>
+        <label for="qualified">#{text.qualified}<input id="qualified" value="" size="2"/></label>
+        <input id="save" type="button" value="#{text.save}" onclick="rounds.save()"/>
+        <input id="delete" type="button" value="#{text.delete}" onclick="rounds.delete()"/>
+        <input id="cancel" type="button" value="#{text.cancel}" onclick="rounds.cancel()"/>
+        <br/><br/>
 
-      <div>
-        <opponents-table id="assignable" rows="5" data="[]" >
-        </opponents-table>
-        <input type="button" value="#{text.prev}" onclick="rounds.prevAssignableOpponents()" />
-        <input type="button" value="#{text.next}" onclick="rounds.nextAssignableOpponents()" />
-      </div>
+        <div>
+            <opponents-table id="assignable" rows="5" data="[]">
+            </opponents-table>
+            <input type="button" value="#{text.prev}" onclick="rounds.prevAssignableOpponents()"/>
+            <input type="button" value="#{text.next}" onclick="rounds.nextAssignableOpponents()"/>
+        </div>
 
-      <hr />
-      <input id="newGroup" type="button" value="${text.add}" onclick="rounds.newGroup()" />
-      <input id="deleteGroup" type="button" value="${text.remove}" onclick="rounds.deleteGroup()" />
-      <input id="assignOpponents" type="button" value="${text.assign}" onclick="rounds.assignOpponents()" />
+        <hr/>
+        <input id="newGroup" type="button" value="${text.add}" onclick="rounds.newGroup()"/>
+        <input id="deleteGroup" type="button" value="${text.remove}" onclick="rounds.deleteGroup()"/>
+        <input id="assignOpponents" type="button" value="${text.assign}" onclick="rounds.assignOpponents()"/>
 
-      <hr />
-      <div id="groups">
-      </div>
+        <hr/>
+        <div id="groups">
+        </div>
 
-      <script type="text/javascript">
-        rounds.onload();
-      </script>
+        <script type="text/javascript">
+            rounds.onload();
+        </script>
     </ui:define>
-  </ui:composition>
+</ui:composition>
 </html>

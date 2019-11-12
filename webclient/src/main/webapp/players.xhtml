@@ -2,68 +2,65 @@
 <!DOCTYPE html>
 
 <html lang="en"
-  xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-  
-  <head>
-    <title>players</title>
-  </head>
-  
-  <ui:composition template="/WEB-INF/templates/template.xhtml">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="content">
-      <h:outputScript name="js/restResourcesAdapter.js" target="head" />
-      <h:outputScript name="js/tournamentsResource.js" target="head" />
-      <h:outputScript name="js/tournaments.js" target="head" />
-      <h:outputScript name="js/clubs.js" target="head" />
-      <h:outputScript name="js/players.js" target="head" />
+        <h:outputScript name="js/restResourcesAdapter.js" target="head"/>
+        <h:outputScript name="js/tournamentsResource.js" target="head"/>
+        <h:outputScript name="js/tournaments.js" target="head"/>
+        <h:outputScript name="js/clubs.js" target="head"/>
+        <h:outputScript name="js/players.js" target="head"/>
 
-      <script src="./custom/opponents-table/opponents-table.js"></script>
+        <script src="./custom/opponents-table/opponents-table.js"></script>
 
-      <input type="submit" id="validateFormButton" value="validate" style="display: none;" />
+        <input type="submit" id="validateFormButton" value="validate" style="display: none;"/>
 
-      <!--
-       | Tabelle aller Spieler  
-       +-->
-      <span id="players-offset"></span> #{text.to} <span id="players-length"></span> (#{text.overall} <span id="players-count"></span>)
-      <opponents-table id="players" data="[]" rows="10"></opponents-table>
-      <input type="button" value="#{text.prev}" onclick="players.prev()" />
-      <input type="button" value="#{text.next}" onclick="players.next()" />
-    
-      <span id="players-data"> 
+        <!--
+         | Tabelle aller Spieler
+         +-->
+        <span id="players-offset"></span> #{text.to} <span id="players-length"></span> (#{text.overall} <span
+            id="players-count"></span>)
+        <opponents-table id="players" data="[]" rows="10"></opponents-table>
+        <input type="button" value="#{text.prev}" onclick="players.prev()"/>
+        <input type="button" value="#{text.next}" onclick="players.next()"/>
+
+        <span id="players-data">
         <label for="first-name">#{text.first_name}
-          <input id="first-name" value="" type="text" autofocus="autofocus" required="required" />
+            <input id="first-name" value="" type="text" autofocus="autofocus" required="required"/>
         </label>
         <label for="last-name">#{text.last_name}
-          <input id="last-name" value="" required="required" />
+            <input id="last-name" value="" required="required"/>
         </label>
         <label for="gender">#{text.gender}
-          <select id="gender">
+            <select id="gender">
             <option value="MALE">#{text.male}</option>
             <option value="FEMALE">#{text.female}</option>
             <option value="UNKNOWN">#{text.unknown}</option>
           </select>
         </label>
         <label for="date-of-birth">#{text.date_of_birth}
-          <input id="date-of-birth" type="date" value="" />
+            <input id="date-of-birth" type="date" value=""/>
         </label>
         <label for="status">#{text.status}
-          <select id="status">
+            <select id="status">
             <option value="ACTIVE">#{text.active}</option>
             <option value="INACTIVE">#{text.inactive}</option>
           </select>
         </label>
         <label for="clubs">#{text.club}
-          <select id="clubs" onchange="players.changeClub()">
+            <select id="clubs" onchange="players.changeClub()">
           </select>
         </label>
 
-        <input type="button" value="#{text.save}" onclick="players.save()" />
-        <input type="button" value="#{text.delete}" onclick="players.deletePlayer()" />
-        <input type="button" value="#{text.cancel}" onclick="players.cancel()" />
+        <input type="button" value="#{text.save}" onclick="players.save()"/>
+        <input type="button" value="#{text.delete}" onclick="players.deletePlayer()"/>
+        <input type="button" value="#{text.cancel}" onclick="players.cancel()"/>
       </span>
 
-      <script type="text/javascript">players.onload();</script>
+        <script type="text/javascript">players.onload();</script>
     </ui:define>
-  </ui:composition>
+</ui:composition>
 </html>
