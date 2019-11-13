@@ -157,6 +157,7 @@
     <dependency>
       <groupId>org.mockito</groupId><artifactId>mockito-junit-jupiter</artifactId>
     </dependency>
+	
     <!--
      | dependencies for the new module-system
      +-->
@@ -242,6 +243,7 @@
           <groupId>org.sonarsource.scanner.maven</groupId><artifactId>sonar-maven-plugin</artifactId>
           <version>${sonar-maven-plugin.version}</version>
         </plugin>
+		
         <!-- 
          | mvn versions:display-plugin-updates shows a warning
          | [WARNING] The following plugins do not have their version specified:
