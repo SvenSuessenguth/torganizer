@@ -41,7 +41,7 @@ pipeline {
     stage ('analysis') {
       steps{
         // https://github.com/jenkinsci/warnings-ng-plugin/blob/master/doc/Documentation.md        
-        execute('mvn checkstyle:checkstyle pmd:pmd pmd:cpd spotbugs:spotbugs dependency-check:aggregate')
+        execute('mvn checkstyle:checkstyle pmd:pmd pmd:cpd spotbugs:spotbugs dependency-check:aggregate org.owasp:dependency-check-maven:check')
       }
       post {
         always {
@@ -53,6 +53,7 @@ pipeline {
             cpd(pattern: '**/target/cpd.xml'),
             pmdParser(pattern: '**/target/pmd.xml')
           ]
+		  dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
         }
       }
     }

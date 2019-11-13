@@ -59,7 +59,7 @@
     <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
     <maven-install-plugin.version>3.0.0-M1</maven-install-plugin.version>
     <maven-checkstyle-plugin>3.1.0</maven-checkstyle-plugin>
-    <dependency-check-maven.version>5.2.2</dependency-check-maven.version>
+    <dependency-check-maven.version>5.2.4</dependency-check-maven.version>
     <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
     <maven-jxr-plugin.version>3.0.0</maven-jxr-plugin.version>
     <maven-pmd-plugin>3.12.0</maven-pmd-plugin>
@@ -288,11 +288,7 @@
       </plugins>
     </pluginManagement>
 
-    <plugins>
-	  <plugin>
-        <groupId>org.owasp</groupId><artifactId>dependency-check-maven</artifactId>
-      </plugin>
-	
+    <plugins>	  
       <!--
        | https://www.mkyong.com/maven/jacoco-java-code-coverage-maven-example/
        +-->
@@ -359,6 +355,13 @@
       <plugin>
         <groupId>com.github.spotbugs</groupId><artifactId>spotbugs-maven-plugin</artifactId>
       </plugin>
+	  
+	   <plugin>
+          <groupId>org.owasp</groupId><artifactId>dependency-check-maven</artifactId>
+          <configuration>
+            <skipProvidedScope>true</skipProvidedScope>
+          </configuration>
+        </plugin>
     </plugins>
   </build>
 
