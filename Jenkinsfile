@@ -41,13 +41,14 @@ pipeline {
     stage ('static-analysis') {
       steps{
         // https://github.com/jenkinsci/warnings-ng-plugin/blob/master/doc/Documentation.md        
-        execute('mvn checkstyle:checkstyle pmd:pmd pmd:cpd spotbugs:spotbugs')
+        execute('mvn checkstyle:checkstyle pmd:pmd pmd:cpd spotbugs:spotbugs javadoc:javadoc')
       }
       post {
         always {
           recordIssues enabledForFailure: true, aggregatingResults : true, tools: [
             mavenConsole(),
             java(),
+            javadoc(),
             checkStyle(),
             spotBugs(),
             cpd(pattern: '**/target/cpd.xml'),
