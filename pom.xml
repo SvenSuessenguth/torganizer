@@ -28,9 +28,14 @@
   </distributionManagement>
 
   <properties>
+    <!--
+     | common project properties
+     +-->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <doclint>none</doclint>
-    <!-- dependency versions -->
+
+    <!--
+     | dependency versions
+     +-->
     <activation.version>1.1.1</activation.version>
     <assertj-core.version>3.14.0</assertj-core.version>
     <checkstyle.version>8.26</checkstyle.version>
@@ -44,7 +49,9 @@
     <mockito.version>3.1.0</mockito.version>
     <spotbugs.version>4.0.0-beta4</spotbugs.version>
 
-    <!-- plugin versions -->
+    <!--
+     | plugin versions
+     +-->
     <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
     <maven-enforcer-plugin.version>3.0.0-M2</maven-enforcer-plugin.version>
     <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
@@ -291,6 +298,13 @@
     </pluginManagement>
 
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId><artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.1.1</version>
+        <configuration>
+          <doclint>none</doclint>
+        </configuration>
+      </plugin>
       <!--
        | https://www.mkyong.com/maven/jacoco-java-code-coverage-maven-example/
        +-->
