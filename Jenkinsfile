@@ -41,7 +41,7 @@ pipeline {
     stage ('analysis') {
       steps{
         // https://github.com/jenkinsci/warnings-ng-plugin/blob/master/doc/Documentation.md        
-        execute('mvn checkstyle:checkstyle pmd:pmd pmd:cpd spotbugs:spotbugs dependency-check:aggregate org.owasp:dependency-check-maven:aggregate')
+        execute('mvn checkstyle:checkstyle pmd:pmd pmd:cpd spotbugs:spotbugs')
       }
       post {
         always {
@@ -57,7 +57,7 @@ pipeline {
       }
     }
 
-    stage('report') {
+    stage('sonar') {
       steps {
         withSonarQubeEnv('SonarQube') {
           execute('mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar')
@@ -68,7 +68,12 @@ pipeline {
 
     stage('owasp') {
       steps {
-        dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+        execute('mvn dependency-check:aggregate')
+      }
+      post {
+        always {
+          dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+        }
       }
     }
 
