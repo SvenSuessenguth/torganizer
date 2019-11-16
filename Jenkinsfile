@@ -66,6 +66,13 @@ pipeline {
       }
     }
 
+    stage('owasp') {
+      steps {
+        dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+      }
+    }
+
+
     // on master-branch only
     stage('deploy') {
       when { branch 'master' }
