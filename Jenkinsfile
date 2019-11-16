@@ -38,7 +38,7 @@ pipeline {
         }
       }
     }
-    stage ('analysis') {
+    stage ('static-analysis') {
       steps{
         // https://github.com/jenkinsci/warnings-ng-plugin/blob/master/doc/Documentation.md        
         execute('mvn checkstyle:checkstyle pmd:pmd pmd:cpd spotbugs:spotbugs')
@@ -66,7 +66,7 @@ pipeline {
       }
     }
 
-    stage('owasp') {
+    stage('dependency-check') {
       steps {
         execute('mvn dependency-check:aggregate')
       }
