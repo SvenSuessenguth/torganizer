@@ -6,6 +6,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <ui:composition template="/WEB-INF/templates/template.xhtml">
+    <ui:define name="title">#{text.clubs}</ui:define>
 
     <ui:define name="content">
         <h:outputScript name="js/restResourcesAdapter.js" target="head"/>
