@@ -298,13 +298,19 @@
     </pluginManagement>
 
     <plugins>
+      <!--
+       | https://stackoverflow.com/questions/55676341/java-11-12-javadoc-with-maven-results-in-not-generating-javadocs-for-tests
+       +-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId><artifactId>maven-javadoc-plugin</artifactId>
         <version>3.1.1</version>
         <configuration>
+          <show>private</show>
+          <failOnError>false</failOnError>
           <doclint>none</doclint>
         </configuration>
       </plugin>
+
       <!--
        | https://www.mkyong.com/maven/jacoco-java-code-coverage-maven-example/
        +-->
