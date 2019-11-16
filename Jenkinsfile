@@ -58,7 +58,7 @@ pipeline {
           recordIssues enabledForFailure: true, aggregatingResults : true, tools: [
             mavenConsole(),
             java(),
-            javadoc(),
+            javaDoc(),
             checkStyle(),
             spotBugs(),
             cpd(pattern: '**/target/cpd.xml'),
