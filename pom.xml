@@ -29,7 +29,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
+    <doclint>none</doclint>
     <!-- dependency versions -->
     <activation.version>1.1.1</activation.version>
     <assertj-core.version>3.14.0</assertj-core.version>
@@ -290,7 +290,7 @@
       </plugins>
     </pluginManagement>
 
-    <plugins>	  
+    <plugins>
       <!--
        | https://www.mkyong.com/maven/jacoco-java-code-coverage-maven-example/
        +-->

@@ -59,6 +59,7 @@ pipeline {
             mavenConsole(),
             java(),
             javaDoc(),
+            taskScanner(),
             checkStyle(),
             spotBugs(),
             cpd(pattern: '**/target/cpd.xml'),
