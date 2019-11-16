@@ -62,6 +62,7 @@ pipeline {
         withSonarQubeEnv('SonarQube') {
           execute('mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar')
         }
+        step([$class: 'DependencyCheckPublisher', unstableTotalAll: '0'])
       }
     }
 
