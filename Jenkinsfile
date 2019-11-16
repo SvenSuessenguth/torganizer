@@ -38,6 +38,16 @@ pipeline {
         }
       }
     }
+
+    // on master-branch only
+    stage('deploy') {
+      when { branch 'master' }
+      steps {
+        // deploy already build artifact
+        execute('mvn deploy -T 4C -DskipTests')
+      }
+    }
+
     stage ('static-analysis') {
       steps{
         // https://github.com/jenkinsci/warnings-ng-plugin/blob/master/doc/Documentation.md        
@@ -74,15 +84,6 @@ pipeline {
         always {
           dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
         }
-      }
-    }
-
-    // on master-branch only
-    stage('deploy') {
-      when { branch 'master' }
-      steps {
-        // deploy already build artifact
-        execute('mvn deploy -T 4C -DskipTests')
       }
     }
   }
