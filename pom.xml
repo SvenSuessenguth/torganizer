@@ -187,14 +187,7 @@
     <module>persistence</module>
     <module>rest</module>
     <module>webclient</module>
-    <!--
-	 | has no Javasources so causes errors during javadoc
-	 |
-	 | [ERROR] Error fetching link: C:\Users\svens\.jenkins\workspace\torganizer_master\target\javadoc-bundle-options. Ignored it.
-	 |
-	<module>documentation</module>
-	 |
-	 +-->
+    <module>documentation</module>	
   </modules>
 
   <build>
