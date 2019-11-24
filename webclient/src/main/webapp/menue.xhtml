@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="de"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<head>
+    <title>menu</title>
+</head>
+<body>
+
+<ui:composition>
+
+    <a id="menueTournaments" href="tournaments.xhtml">${text.tournaments}</a>
+    <a id="menueDisciplines" href="disciplines.xhtml">#{text.disciplines}</a>
+    <a id="menueRounds" href="rounds.xhtml">${text.rounds}</a>
+    <a id="menuePlayers" href="players.xhtml">${text.players}</a>
+    <a id="menueSquads" href="squads.xhtml">${text.squads}</a>
+    <a id="menueClubs" href="clubs.xhtml">${text.clubs}</a>
+    <a id="menueMatches" href="matches.xhtml">${text.matches}</a>
+    <hr/>
+</ui:composition>
+</body>
+</html>
