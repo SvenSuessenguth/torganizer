@@ -3,10 +3,6 @@
 // SonarQube Scanner
 // Warnings Next Generation
 
-// http://pietervogelaar.nl/jenkinsfile-docker-pipeline-multi-stage
-// Initialize a LinkedHashMap / object to share between stages
-def pipelineContext = [:]
-
 pipeline {
   agent any
 
@@ -46,8 +42,7 @@ pipeline {
     stage ('docker') {
       steps {
         script {
-          dockerWeclient = docker.build("torganizer/webclient-${env.BUILD_ID}",  '-f ./webclient/Dockerfile .')
-          pipelineContext.dockerWebclient = dockerWebclient
+          dockerWeclient = docker.build("torganizer/webclient-${env.BUILD_ID}",  '-f ./webclient/Dockerfile ./webclient')
         }
       }
     }
