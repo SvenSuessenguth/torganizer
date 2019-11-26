@@ -40,11 +40,13 @@ pipeline {
     }
 
     stage ('docker') {
-      // docker build -t "torganizer/webclient" .
-      webclient = docker.build("torganizer/webclient", "-f Dockerfile ./webclient")
-      docker.withRegistry('http://localhost:8081/repository/docker-hosted/') {
-        webclient.push("${env.BUILD_NUMBER}")
-        webclient.push("latest")
+    steps {
+        // docker build -t "torganizer/webclient" .
+        webclient = docker.build("torganizer/webclient", "-f Dockerfile ./webclient")
+        docker.withRegistry('http://localhost:8081/repository/docker-hosted/') {
+          webclient.push("${env.BUILD_NUMBER}")
+          webclient.push("latest")
+        }
       }
     }
 
