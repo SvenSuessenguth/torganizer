@@ -39,18 +39,18 @@ pipeline {
       }
     }
 
-    stage ('docker') {
-      steps {
-        execute('docker build -t "torganizer/webclient" -f ./webclient/Dockerfile ./webclient')
-      }
-    }
-
     // on master-branch only
     stage('deploy') {
       when { branch 'master' }
       steps {
         // deploy already build artifact
         execute('mvn deploy -T 4C -DskipTests')
+      }
+    }
+
+    stage ('docker') {
+      steps {
+        execute('docker build -t "torganizer/webclient" -f ./webclient/Dockerfile ./webclient')
       }
     }
 
