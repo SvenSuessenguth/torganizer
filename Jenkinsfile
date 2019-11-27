@@ -41,9 +41,7 @@ pipeline {
 
     stage ('docker') {
       steps {
-        script {
-          dockerWeclient = docker.build("torganizer/webclient-${env.BUILD_ID}",  '-f ./webclient/Dockerfile ./webclient')
-        }
+        execute('docker build -t "torganizer/webclient" -f ./webclient/Dockerfile ./webclient')
       }
     }
 
@@ -100,8 +98,8 @@ pipeline {
 
 void execute(instruction) {
   if (isUnix()) {
-    sh instruction	
-  } else {	  
+    sh instruction
+  } else {
     bat instruction
   }
 }
