@@ -19,13 +19,14 @@ pipeline {
     maven 'apache-maven-3.6'
     jdk 'openjdk-13'
   }
-  
+
   stages {
     stage('compile') {
       steps {
         execute('mvn clean compile -T 4C')
       }
     }
+
     stage('test') {
       steps {
         execute('mvn test -T 4C')
@@ -56,7 +57,7 @@ pipeline {
 
     stage ('static-analysis') {
       steps{
-        // https://github.com/jenkinsci/warnings-ng-plugin/blob/master/doc/Documentation.md        
+        // https://github.com/jenkinsci/warnings-ng-plugin/blob/master/doc/Documentation.md
         execute('mvn checkstyle:checkstyle pmd:pmd pmd:cpd spotbugs:spotbugs javadoc:aggregate')
       }
       post {
