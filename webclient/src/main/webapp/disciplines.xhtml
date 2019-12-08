@@ -1,11 +1,11 @@
- <?xml version='1.0' encoding='UTF-8' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
 
 <html lang="en"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <head>
-  <title>.</title>
+    <title>.</title>
 </head>
 
 <ui:composition template="/WEB-INF/templates/template.xhtml">
@@ -21,8 +21,9 @@
 
         <script src="custom/opponents-table/opponents-table.js"></script>
 
-        <label for="disciplines">#{text.disciplines}</label> <select id="disciplines" autofocus
-                                                                     onchange="disciplines.showSelectDiscipline()" />
+        <label for="disciplines">#{text.disciplines}</label>
+        <select id="disciplines" autofocus="autofocus"
+                onchange="disciplines.showSelectDiscipline()"/>
         <hr/>
         <label for="name">#{text.name}</label><input id="name" value=""/><br/>
         <hr/>

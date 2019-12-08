@@ -9,6 +9,11 @@
   </featureManager>
 
   <!--
+   | CWWJP9991W    Thrown on startup, while dropping an non-existing table (@see persistence.xml)
+   +-->
+  <logging hideMessage="CWWJP9991W" />
+
+  <!--
    | Ignore "IllegalStateException: The orb is not available"
    | https://www-01.ibm.com/support/docview.wss?uid=ibm10728669
    +-->
@@ -57,7 +62,7 @@
    | https://www.ibm.com/support/knowledgecenter/en/SSHS8R_7.1.0/com.ibm.worklight.deploy.doc/admin/t_configuring_liberty_profile_for_my_sql_manually.html
    +-->
   <library id="DataSourceLibrary">
-    <file name="${shared.resource.dir}/postgresql-42.2.8.jar" />
+    <file name="${shared.resource.dir}/postgresql/postgresql-42.2.8.jar" />
   </library>
   <dataSource jndiName="jdbc/torganizerDS" transactional="true">
     <jdbcDriver libraryRef="DataSourceLibrary" />
@@ -71,7 +76,7 @@
      +-->
     <properties databaseName="torganizer"
       serverName="${env.dataSource_serverName}" portNumber="${env.dataSource_portNumber}"
-      user="${env.dataSource_user}" password="${env.dataSource_password}" useSSL="false" allowPublicKeyRetrieval="true" />
+      user="${env.dataSource_user}" password="${env.dataSource_password}" />
   </dataSource>
 </server>
 
