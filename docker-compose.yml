@@ -17,11 +17,6 @@ services:
     ports:
       - 9080:9080
     container_name: rest
-    environment:
-      dataSource_portNumber: 5432
-      dataSource_serverName: postgresql
-      dataSource_user: postgres
-      dataSource_password: postgres
   webclient:
     build: ./webclient
     networks:
@@ -29,8 +24,7 @@ services:
     ports:
       - 8080:8080
     container_name: webclient
-    environment:
-      resources_url: http://localhost:9080/rest/resources/
+
 networks:
   torganizer:
     driver: bridge
