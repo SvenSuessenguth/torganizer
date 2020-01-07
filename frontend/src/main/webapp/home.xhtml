@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>CDI ViewScoped example</title>
+</h:head>
+<h:body>
+	<h:form>
+	
+		<ui:repeat value="#{tournamentsState.tournaments}" var="tournament">
+			<div>
+				<h:outputText value="#{tournament.name}" />
+			</div>
+		</ui:repeat>
+		
+		<br />
+
+		<h:commandButton value="create" action="#{tournamentsController.create}">
+			<f:ajax execute="@form" render="@form" />
+		</h:commandButton>
+		
+	</h:form>
+</h:body>
+</html>

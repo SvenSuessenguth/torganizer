@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+
+<html lang="en"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<head>
+    <title>.</title>
+</head>
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="title">${text.tournaments}</ui:define>
+
+    <ui:define name="content">
+
+        Aktuelles Turnier: <h:outputText value="#{tournamentsState.current.name}" />
+
+        <h:form id="tournaments">
+            <c:set var="tournaments" value="#{tournamentsState.tournaments}" />
+            <c:set var="current" value="#{tournamentsState.current}" />
+
+            Anzahl: #{fn:length(tournaments)}
+            <h:dataTable value="#{tournaments}" var="tournament">
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    #{tournament.name}
+                </h:column>
+            </h:dataTable>
+
+            <h:inputText value="#{current.name}" />
+
+            <h:commandButton value="speichern" action="#{tournamentsController.saveSelected()}" />
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+</html>
+  

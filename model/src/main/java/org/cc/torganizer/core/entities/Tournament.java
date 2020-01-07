@@ -18,11 +18,7 @@ public class Tournament extends Entity {
 
   private Set<Gymnasium> gymnasiums = new HashSet<>();
 
-  /**
-   * Default.
-   */
   public Tournament() {
-    // gem. Bean-Spec.
   }
 
   public Tournament(Long id) {
