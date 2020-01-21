@@ -16,7 +16,7 @@
   <name>rest</name>
 
   <properties>
-    <javax.json.version>1.1.6</javax.json.version>
+    <jakarta.json.version>1.1.6</jakarta.json.version>
     <failOnMissingWebXml>false</failOnMissingWebXml>
   </properties>
 
@@ -36,7 +36,7 @@
      +-->
     <dependency>
       <groupId>org.glassfish</groupId><artifactId>jakarta.json</artifactId>
-      <version>${javax.json.version}</version><scope>test</scope>
+      <version>${jakarta.json.version}</version><scope>test</scope>
     </dependency>
   </dependencies>
 
