@@ -38,7 +38,7 @@
      +-->
     <activation.version>1.1.1</activation.version>
     <assertj-core.version>3.14.0</assertj-core.version>
-    <checkstyle.version>8.28</checkstyle.version>
+    <checkstyle.version>8.29</checkstyle.version>
     <jakarta.jakartaee-api.version>8.0.0</jakarta.jakartaee-api.version>
     <jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
     <jaxb-core.version>2.3.0.1</jaxb-core.version>
