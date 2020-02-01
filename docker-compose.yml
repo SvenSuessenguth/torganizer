@@ -8,30 +8,16 @@ services:
     ports:
       - 5432:5432
     container_name: postgresql
-  rest:
-    build: ./rest
-    networks:
-      - torganizer
-    depends_on:
-      - "postgresql"
-    ports:
-      - 9080:9080
-    container_name: rest
-    environment:
-      - dataSource_serverName=postgresql
-      - dataSource_portNumber=5432
-      - dataSource_user=postgres
-      - dataSource_password=postgres
-  webclient:
-    build: ./webclient
+  frontend:
+    build: ./frontend
     networks:
       - torganizer
     ports:
       - 8080:8080
-    container_name: webclient
-    environment:
-      - resources_url=http://localhost:9080/rest/resources/
-
+    container_name: frontend
+    env_file:
+      - ./frontend/src/main/liberty/config/server.env
+    
 networks:
   torganizer:
     driver: bridge

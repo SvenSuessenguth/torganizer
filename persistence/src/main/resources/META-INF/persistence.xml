@@ -28,11 +28,24 @@
     <mapping-file>META-INF/tournament-orm.xml</mapping-file>
 
     <properties>
+      <!--
+       |
+
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
+
+      <property name="eclipselink.ddl-generation" value="create-tables"/>
+      <property name="eclipselink.drop-ddl-jdbc-file-name" value="dropDDL_ddlGeneration.jdbc"/>
+      <property name="eclipselink.create-ddl-jdbc-file-name" value="createDDL_ddlGeneration.jdbc"/>
+      <property name="eclipselink.ddl-generation.output-mode" value="both"/>
+      <property name="eclipselink.application-location" value="c:\dev\ddl\"/>
+       |
+       +-->
+
       <!--
        | https://thoughts-on-java.org/hibernate-tips-create-initialize-database/
-       +-->
       <property name="javax.persistence.sql-load-script-source" value="META-INF/sample.sql"/>
+       |
+       +-->
     </properties>
   </persistence-unit>
 

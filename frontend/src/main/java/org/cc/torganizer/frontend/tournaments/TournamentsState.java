@@ -8,7 +8,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class TournamentsState implements Serializable {
   private Tournament current;
 
   @PostConstruct
-  public void postConstruct() throws URISyntaxException {
+  public void postConstruct() {
 
     tournaments = tournamentsRepository.read(0, 100);
 
