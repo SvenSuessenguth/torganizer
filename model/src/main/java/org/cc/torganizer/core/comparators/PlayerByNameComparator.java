@@ -3,7 +3,6 @@ package org.cc.torganizer.core.comparators;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Objects;
-
 import org.cc.torganizer.core.entities.Player;
 
 /**

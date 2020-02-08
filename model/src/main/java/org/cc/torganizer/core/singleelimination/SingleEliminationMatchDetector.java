@@ -2,7 +2,6 @@ package org.cc.torganizer.core.singleelimination;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.cc.torganizer.core.PendingMatchDetector;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Match;

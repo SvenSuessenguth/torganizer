@@ -1,7 +1,6 @@
 package org.cc.torganizer.core;
 
 import java.util.List;
-
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Match;
 import org.cc.torganizer.core.entities.System;

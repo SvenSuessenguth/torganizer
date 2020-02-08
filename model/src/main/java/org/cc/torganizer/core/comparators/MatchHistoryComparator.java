@@ -2,7 +2,6 @@ package org.cc.torganizer.core.comparators;
 
 import java.io.Serializable;
 import java.util.Comparator;
-
 import org.cc.torganizer.core.entities.Match;
 
 /**

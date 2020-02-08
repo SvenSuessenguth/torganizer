@@ -3,7 +3,6 @@ package org.cc.torganizer.core.roundrobin;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
 import org.cc.torganizer.core.OpponentToGroupsAssigner;
 import org.cc.torganizer.core.comparators.OpponentsByClubComparator;
 import org.cc.torganizer.core.entities.Group;

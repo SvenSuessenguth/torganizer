@@ -5,7 +5,6 @@ import static org.cc.torganizer.core.util.Checker.onlyNullValues;
 
 import java.io.Serializable;
 import java.util.Comparator;
-
 import org.cc.torganizer.core.entities.IPositional;
 
 /**

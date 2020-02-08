@@ -2,7 +2,6 @@ package org.cc.torganizer.core.entities;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.cc.torganizer.core.comparators.PositionalComparator;
 
 /**
