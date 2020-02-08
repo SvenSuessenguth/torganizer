@@ -26,7 +26,7 @@ public class TournamentsState implements Serializable {
   private Tournament current;
 
   /**
-   * Load tournaments to shown on view.
+   * Load tournaments to show on view.
    */
   @PostConstruct
   public void postConstruct() {
