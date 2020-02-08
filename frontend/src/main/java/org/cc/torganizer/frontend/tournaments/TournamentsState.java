@@ -18,7 +18,7 @@ import org.cc.torganizer.persistence.TournamentsRepository;
 public class TournamentsState implements Serializable {
 
   @Inject
-  TournamentsRepository tournamentsRepository;
+  private transient TournamentsRepository tournamentsRepository;
 
   private List<Tournament> tournaments = new ArrayList<>();
   private Tournament current;
