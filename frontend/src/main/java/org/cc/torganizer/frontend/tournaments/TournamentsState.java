@@ -23,6 +23,9 @@ public class TournamentsState implements Serializable {
   private List<Tournament> tournaments = new ArrayList<>();
   private Tournament current;
 
+  /**
+   * Load tournaments to shown on view.
+   */
   @PostConstruct
   public void postConstruct() {
 
