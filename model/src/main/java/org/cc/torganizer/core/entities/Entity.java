@@ -1,9 +1,11 @@
 package org.cc.torganizer.core.entities;
 
+import java.io.Serializable;
+
 /**
  * Diese klasse dieent nur der Verwaltung der ID, die zur Persistierung mit JPA benötigt wird.
  */
-public class Entity {
+public class Entity implements Serializable {
   private Long id;
 
   public Entity() {
