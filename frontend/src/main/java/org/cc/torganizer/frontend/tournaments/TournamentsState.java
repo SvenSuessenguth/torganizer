@@ -17,6 +17,8 @@ import org.cc.torganizer.persistence.TournamentsRepository;
 @SessionScoped
 public class TournamentsState implements Serializable {
 
+  private static final long serialVersionUID = -221858086249641203L;
+
   @Inject
   private transient TournamentsRepository tournamentsRepository;
 
