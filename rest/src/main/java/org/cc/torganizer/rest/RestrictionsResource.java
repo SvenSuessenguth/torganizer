@@ -11,7 +11,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-
 import org.cc.torganizer.core.entities.Restriction;
 import org.cc.torganizer.persistence.RestrictionsRepository;
 import org.cc.torganizer.rest.json.RestrictionJsonConverter;

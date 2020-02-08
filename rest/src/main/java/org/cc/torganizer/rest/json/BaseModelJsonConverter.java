@@ -16,7 +16,6 @@ import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonString;
 import javax.json.JsonValue;
-
 import org.cc.torganizer.core.entities.Entity;
 
 /**

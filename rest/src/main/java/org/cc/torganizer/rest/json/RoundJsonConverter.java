@@ -10,7 +10,6 @@ import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonValue;
-
 import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.core.entities.System;
 

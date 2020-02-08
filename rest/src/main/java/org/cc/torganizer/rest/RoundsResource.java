@@ -25,7 +25,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
-
 import org.cc.torganizer.core.OpponentToGroupsAssigner;
 import org.cc.torganizer.core.OpponentToGroupsAssignerFactory;
 import org.cc.torganizer.core.entities.Group;

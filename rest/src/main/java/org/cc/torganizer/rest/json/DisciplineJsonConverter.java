@@ -10,7 +10,6 @@ import javax.json.JsonArrayBuilder;
 import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
-
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Restriction;
 

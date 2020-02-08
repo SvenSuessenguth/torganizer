@@ -3,7 +3,6 @@ package org.cc.torganizer.rest.json;
 import java.util.Collection;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
-
 import org.cc.torganizer.core.entities.Entity;
 
 public interface ModelJsonConverter<T extends Entity> {
