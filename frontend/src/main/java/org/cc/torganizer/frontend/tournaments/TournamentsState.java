@@ -1,15 +1,14 @@
 package org.cc.torganizer.frontend.tournaments;
 
-import org.cc.torganizer.core.entities.Tournament;
-import org.cc.torganizer.persistence.TournamentsRepository;
-
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import org.cc.torganizer.core.entities.Tournament;
+import org.cc.torganizer.persistence.TournamentsRepository;
 
 /**
  * The current tournament is used for every following action. So this bean is in session-scope.
