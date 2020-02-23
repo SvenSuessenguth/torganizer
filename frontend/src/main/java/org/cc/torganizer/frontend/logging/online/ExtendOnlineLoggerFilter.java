@@ -2,7 +2,6 @@ package org.cc.torganizer.frontend.logging.online;
 
 import java.io.IOException;
 import java.util.UUID;
-import javax.enterprise.context.Conversation;
 import javax.inject.Inject;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;

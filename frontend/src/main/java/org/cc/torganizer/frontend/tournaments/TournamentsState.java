@@ -48,7 +48,7 @@ public class TournamentsState implements Serializable {
 
     tournaments = tournamentsRepository.read(0, 100);
 
-    if (current == null && this.tournaments.size() > 0) {
+    if (current == null && !this.tournaments.isEmpty()) {
       current = this.tournaments.get(0);
     }
   }

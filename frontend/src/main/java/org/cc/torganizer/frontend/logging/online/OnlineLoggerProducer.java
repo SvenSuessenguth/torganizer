@@ -1,26 +1,15 @@
 package org.cc.torganizer.frontend.logging.online;
 
 import java.lang.reflect.Proxy;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
-import javax.inject.Inject;
 import org.cc.torganizer.frontend.logging.ShortenedLoggerInvocationHandler;
 import org.cc.torganizer.frontend.logging.SimplifiedLogger;
 
 @RequestScoped
 public class OnlineLoggerProducer {
-
-  @Inject
-  private Conversation conversation;
-
-  @PostConstruct
-  public void postConstruct() {
-
-  }
 
   @Produces
   @Online
