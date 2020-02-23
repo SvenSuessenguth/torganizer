@@ -3,22 +3,21 @@ package org.cc.torganizer.frontend.tournaments;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.cc.torganizer.frontend.logging.SimplifiedLogger;
+import org.cc.torganizer.frontend.logging.online.Online;
 
 @Named
 @RequestScoped
 public class TournamentsController {
 
   @Inject
+  @Online
+  private SimplifiedLogger log;
+
+  @Inject
   private TournamentsState state;
 
-
   public void saveSelected() {
-    System.out.println("save selected with name: '" + state.getCurrent().getName() + "'");
-    
+    log.severe("save selected with name: '" + state.getCurrent().getName() + "'");
   }
-
-  public void createNew() {
-    System.out.println("create new with name: '" + state.getCurrent().getName() + "'");
-  }
-
 }

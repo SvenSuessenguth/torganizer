@@ -31,7 +31,7 @@
         </h:column>
       </h:dataTable>
 
-      <h:inputText value="#{current.name}"/>
+      <h:outputLabel for="currentTournamentName">Turnier</h:outputLabel><h:inputText id="currentTournamentName" value="#{current.name}"/>
 
       <h:commandButton value="speichern" action="#{tournamentsController.saveSelected()}"/>
     </h:form>

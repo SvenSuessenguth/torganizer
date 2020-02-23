@@ -25,6 +25,12 @@
       <version>${project.version}</version><scope>compile</scope>
     </dependency>
 
+    <dependency>
+      <groupId>com.ibm.websphere.appserver.api</groupId>
+      <artifactId>com.ibm.websphere.appserver.api.hpel</artifactId>
+      <version>2.0.37</version><scope>provided</scope>
+    </dependency>
+
     <!--
      | https://intellij-support.jetbrains.com/hc/en-us/community/posts/360001080800-faces-config-xml-errors-with-JEE-8-and-JSF-2-3
      +-->

@@ -8,6 +8,9 @@ services:
     ports:
       - 5432:5432
     container_name: postgresql
+    environment:
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_user_password
   frontend:
     build: ./frontend
     networks:
