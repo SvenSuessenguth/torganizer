@@ -5,11 +5,11 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.logging.Logger;
 
-public class ShortenedLoggerInvocationHandler implements InvocationHandler {
+public class SimplifiedLoggerInvocationHandler implements InvocationHandler {
 
   private Logger logger;
 
-  public ShortenedLoggerInvocationHandler(Logger logger) {
+  public SimplifiedLoggerInvocationHandler(Logger logger) {
     this.logger = logger;
   }
 

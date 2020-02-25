@@ -5,12 +5,17 @@ import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
-import org.cc.torganizer.frontend.logging.ShortenedLoggerInvocationHandler;
 import org.cc.torganizer.frontend.logging.SimplifiedLogger;
+import org.cc.torganizer.frontend.logging.SimplifiedLoggerInvocationHandler;
 
 @RequestScoped
 public class OnlineLoggerProducer {
 
+  /**
+   * producing a simplified facade for a JUL-Logger.
+   * @param injectionPoint information about the injectionPoint to create a JUL-logger
+   *                       with the right name
+   */
   @Produces
   @Online
   @Dependent
@@ -21,8 +26,8 @@ public class OnlineLoggerProducer {
     java.util.logging.Logger logger = java.util.logging.Logger.getLogger(name, null);
     Class<?>[] loggerInterfaces = new Class[]{SimplifiedLogger.class};
     ClassLoader classLoader = this.getClass().getClassLoader();
-    ShortenedLoggerInvocationHandler loggerInvocationHandler = new ShortenedLoggerInvocationHandler(logger);
+    SimplifiedLoggerInvocationHandler handler = new SimplifiedLoggerInvocationHandler(logger);
 
-    return (SimplifiedLogger) Proxy.newProxyInstance(classLoader, loggerInterfaces, loggerInvocationHandler);
+    return (SimplifiedLogger) Proxy.newProxyInstance(classLoader, loggerInterfaces, handler);
   }
 }

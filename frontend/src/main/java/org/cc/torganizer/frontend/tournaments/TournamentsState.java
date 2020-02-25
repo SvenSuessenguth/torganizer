@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
-import javax.enterprise.context.ConversationScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.cc.torganizer.core.entities.Tournament;
@@ -17,10 +16,8 @@ import org.cc.torganizer.persistence.TournamentsRepository;
  * The current tournament is used for every following action. So this bean is in session-scope.
  */
 @Named
-@ConversationScoped
+@ViewScoped
 public class TournamentsState implements Serializable {
-
-  private static final long serialVersionUID = -221858086249641203L;
 
   @Inject
   @Online
@@ -28,9 +25,6 @@ public class TournamentsState implements Serializable {
 
   @Inject
   private transient TournamentsRepository tournamentsRepository;
-
-  @Inject
-  private Conversation conversation;
 
   private List<Tournament> tournaments = new ArrayList<>();
   private Tournament current;
@@ -40,17 +34,17 @@ public class TournamentsState implements Serializable {
    */
   @PostConstruct
   public void postConstruct() {
-    log.severe("Conversation ist noch nicht gestartet");
+    initState();
+  }
 
-    conversation.begin();
-
-    log.severe("Conversation wurde gestartet");
-
+  protected void initState() {
     tournaments = tournamentsRepository.read(0, 100);
 
     if (current == null && !this.tournaments.isEmpty()) {
       current = this.tournaments.get(0);
     }
+
+    log.info("tournaments state is inited with the current tounament '" + current.getName() + "'");
   }
 
   public List<Tournament> getTournaments() {

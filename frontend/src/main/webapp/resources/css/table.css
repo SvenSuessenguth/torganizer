@@ -1,0 +1,37 @@
+/* https://www.smashingmagazine.com/2016/12/styling-web-components-using-a-shared-style-sheet/ */
+/* Declare the custom property API */
+* {
+    --table_border: 1px solid var(--input_border-color);
+    --table_border-collapse: collapse;
+
+    --th_background-color: #EBCFC4;
+    --th_border: 1px solid var(--input_border-color);
+    --th_padding: 2px 20px;
+
+    --tr_nth-child_odd_background-color: white;
+    --tr_nth-child_even_background-color: var(--color-primary-2);
+
+    --td_border: 1px solid var(--input_border-color);
+    --td_padding: 2px 20px;
+}
+
+table{
+    border: var(--table_border);
+    border-collapse: var(--table_border-collapse);
+
+}
+tr:nth-child(odd){
+    background-color: var(--tr_nth-child_odd_background-color);
+}
+tr:nth-child(even){
+    background-color: var(--tr_nth-child_even_background-color);
+}
+th{
+    background-color: var(--th_background-color);
+    border: var(--th_border);
+    padding: var(--th_padding);
+}
+td{
+    border: var(--td_border);
+    padding: var(--td_padding);
+}
