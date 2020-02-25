@@ -26,9 +26,10 @@ public class ExtendOnlineLoggerFilter implements Filter {
 
     // https://openliberty.io/blog/2019/12/03/custom-fields-json-logs.html
     // Neither 'extensionName' nor 'extensionValue' parameter can be null
-    LogRecordContext.addExtension("request", UUID.randomUUID().toString());
+    String requestId = UUID.randomUUID().toString();
+    LogRecordContext.addExtension("request", requestId);
 
-    log.info("Logging wurde um request.id erweitert");
+    log.info("logging extended with request.id '"+requestId+"'");
 
     chain.doFilter(request, response);
   }
