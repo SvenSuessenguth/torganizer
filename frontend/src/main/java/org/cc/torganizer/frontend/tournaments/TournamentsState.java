@@ -43,6 +43,9 @@ public class TournamentsState implements Serializable {
     if (current == null && !this.tournaments.isEmpty()) {
       current = this.tournaments.get(0);
     }
+    if (tournaments.isEmpty()) {
+      throw new RuntimeException("no tournament");
+    }
 
     log.info("tournaments state is inited with the current tounament '" + current.getName() + "'");
   }
