@@ -19,6 +19,8 @@ import org.cc.torganizer.persistence.TournamentsRepository;
 @ViewScoped
 public class TournamentsState implements Serializable {
 
+  private static final long serialVersionUID = 4070827997380138970L;
+
   @Inject
   @Online
   private SimplifiedLogger log;

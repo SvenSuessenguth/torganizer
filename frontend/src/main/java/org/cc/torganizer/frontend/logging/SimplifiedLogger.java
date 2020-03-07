@@ -1,6 +1,8 @@
 package org.cc.torganizer.frontend.logging;
 
-public interface SimplifiedLogger {
+import java.io.Serializable;
+
+public interface SimplifiedLogger extends Serializable {
   void severe(String msg);
 
   void info(String msg);
