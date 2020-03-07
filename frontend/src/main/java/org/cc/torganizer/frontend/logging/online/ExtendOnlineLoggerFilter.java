@@ -29,7 +29,7 @@ public class ExtendOnlineLoggerFilter implements Filter {
     String requestId = UUID.randomUUID().toString();
     LogRecordContext.addExtension("request", requestId);
 
-    log.info("logging extended with request.id '"+requestId+"'");
+    log.info("logging extended with request.id '" + requestId + "'");
 
     chain.doFilter(request, response);
   }
