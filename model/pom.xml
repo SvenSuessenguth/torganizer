@@ -17,7 +17,7 @@
 
   <properties>
     <hibernate-validator.version>6.1.2.Final</hibernate-validator.version>    
-    <javax.el.version>3.0.3</javax.el.version>
+    <javax.el.version>4.0.0-RC1</javax.el.version>
   </properties>
 
   <dependencies>
