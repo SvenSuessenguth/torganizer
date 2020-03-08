@@ -8,7 +8,7 @@ class ReducedLoggerTest {
 
   @Test
   public void testMethodenAusInterfaceInLoggerVorhanden() {
-    Class<SimplifiedLogger> reducedLoggerClass = SimplifiedLogger.class;
+    Class<SimplifiedLoggerFacade> reducedLoggerClass = SimplifiedLoggerFacade.class;
     Method[] reducedLoggerMethods = reducedLoggerClass.getMethods();
 
     Class<java.util.logging.Logger> loggerClass = java.util.logging.Logger.class;

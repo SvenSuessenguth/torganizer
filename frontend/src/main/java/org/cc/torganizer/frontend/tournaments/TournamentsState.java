@@ -1,5 +1,7 @@
 package org.cc.torganizer.frontend.tournaments;
 
+import static java.util.logging.Level.INFO;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +10,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.cc.torganizer.core.entities.Tournament;
-import org.cc.torganizer.frontend.logging.SimplifiedLogger;
+import org.cc.torganizer.frontend.logging.SimplifiedLoggerFacade;
 import org.cc.torganizer.frontend.logging.online.Online;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
@@ -23,7 +25,7 @@ public class TournamentsState implements Serializable {
 
   @Inject
   @Online
-  private SimplifiedLogger log;
+  private SimplifiedLoggerFacade logger;
 
   @Inject
   private transient TournamentsRepository tournamentsRepository;
@@ -44,7 +46,8 @@ public class TournamentsState implements Serializable {
 
     if (current == null && !this.tournaments.isEmpty()) {
       current = this.tournaments.get(0);
-      log.info("tournaments state is inited with the current tounament '" + current.getName() + "'");
+      logger.log(INFO, "tournaments state is inited with the current tounament '{0}'",
+          new Object[]{current});
     }
   }
 

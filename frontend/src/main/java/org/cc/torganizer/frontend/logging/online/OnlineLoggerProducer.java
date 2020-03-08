@@ -1,11 +1,12 @@
 package org.cc.torganizer.frontend.logging.online;
 
-import java.lang.reflect.Proxy;
+import static java.lang.reflect.Proxy.newProxyInstance;
+
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
-import org.cc.torganizer.frontend.logging.SimplifiedLogger;
+import org.cc.torganizer.frontend.logging.SimplifiedLoggerFacade;
 import org.cc.torganizer.frontend.logging.SimplifiedLoggerInvocationHandler;
 
 @RequestScoped
@@ -19,15 +20,15 @@ public class OnlineLoggerProducer {
   @Produces
   @Online
   @Dependent
-  public SimplifiedLogger produceOnlineLogger(InjectionPoint injectionPoint) {
+  public SimplifiedLoggerFacade produceOnlineLogger(InjectionPoint injectionPoint) {
     Class<?> declaringClass = injectionPoint.getMember().getDeclaringClass();
     String name = declaringClass.getName();
 
     java.util.logging.Logger logger = java.util.logging.Logger.getLogger(name, null);
-    Class<?>[] loggerInterfaces = new Class[]{SimplifiedLogger.class};
+    Class<?>[] loggerInterfaces = new Class[]{SimplifiedLoggerFacade.class};
     ClassLoader classLoader = this.getClass().getClassLoader();
     SimplifiedLoggerInvocationHandler handler = new SimplifiedLoggerInvocationHandler(logger);
 
-    return (SimplifiedLogger) Proxy.newProxyInstance(classLoader, loggerInterfaces, handler);
+    return (SimplifiedLoggerFacade) newProxyInstance(classLoader, loggerInterfaces, handler);
   }
 }

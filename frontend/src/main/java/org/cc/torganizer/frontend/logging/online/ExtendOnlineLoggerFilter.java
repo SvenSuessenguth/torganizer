@@ -10,7 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
-import org.cc.torganizer.frontend.logging.SimplifiedLogger;
+import org.cc.torganizer.frontend.logging.SimplifiedLoggerFacade;
 
 @WebFilter(urlPatterns = "/*")
 public class ExtendOnlineLoggerFilter implements Filter {
@@ -18,7 +18,7 @@ public class ExtendOnlineLoggerFilter implements Filter {
 
   @Inject
   @Online
-  private SimplifiedLogger log;
+  private SimplifiedLoggerFacade log;
 
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)

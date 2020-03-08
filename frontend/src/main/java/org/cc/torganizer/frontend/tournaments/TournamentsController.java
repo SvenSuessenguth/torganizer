@@ -4,7 +4,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.cc.torganizer.core.entities.Tournament;
-import org.cc.torganizer.frontend.logging.SimplifiedLogger;
+import org.cc.torganizer.frontend.logging.SimplifiedLoggerFacade;
 import org.cc.torganizer.frontend.logging.online.Online;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
@@ -14,7 +14,7 @@ public class TournamentsController {
 
   @Inject
   @Online
-  private SimplifiedLogger log;
+  private SimplifiedLoggerFacade logger;
 
   @Inject
   private TournamentsState state;
@@ -34,7 +34,7 @@ public class TournamentsController {
    * save the tournaments new name.
    */
   public void saveTournament() {
-    log.severe("save selected with name: '" + state.getCurrent().getName() + "'");
+    logger.severe("save selected with name: '" + state.getCurrent().getName() + "'");
 
     tournamentsRepository.update(state.getCurrent());
     state.initState();
@@ -44,7 +44,7 @@ public class TournamentsController {
    * creating and persist a new tournament.
    */
   public void newTournament() {
-    log.severe("new with name: '" + state.getCurrent().getName() + "'");
+    logger.severe("new with name: '" + state.getCurrent().getName() + "'");
 
     Tournament newTournament = new Tournament();
     newTournament.setName("Tournament");

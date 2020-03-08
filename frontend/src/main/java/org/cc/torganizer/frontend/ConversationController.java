@@ -5,7 +5,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.cc.torganizer.frontend.logging.SimplifiedLogger;
+import org.cc.torganizer.frontend.logging.SimplifiedLoggerFacade;
 import org.cc.torganizer.frontend.logging.online.Online;
 
 @Named
@@ -14,7 +14,7 @@ public class ConversationController {
 
   @Inject
   @Online
-  private SimplifiedLogger log;
+  private SimplifiedLoggerFacade log;
 
   @Inject
   private Conversation conversation;
