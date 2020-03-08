@@ -14,7 +14,7 @@ public class ConversationController {
 
   @Inject
   @Online
-  private SimplifiedLoggerFacade log;
+  private SimplifiedLoggerFacade logger;
 
   @Inject
   private Conversation conversation;
@@ -28,7 +28,7 @@ public class ConversationController {
   public void initConversation() {
     if (conversation.isTransient()) {
       conversation.begin();
-      log.info("conversation begin with id " + conversation.getId());
+      logger.info("conversation begin with id " + conversation.getId());
     }
   }
 

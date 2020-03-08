@@ -13,8 +13,7 @@ import javax.servlet.annotation.WebFilter;
 import org.cc.torganizer.frontend.logging.SimplifiedLoggerFacade;
 
 @WebFilter(urlPatterns = "/*")
-public class ExtendOnlineLoggerFilter implements Filter {
-
+public class OnlineExtendLoggerFilter implements Filter {
 
   @Inject
   @Online
