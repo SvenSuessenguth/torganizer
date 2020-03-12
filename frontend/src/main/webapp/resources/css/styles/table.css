@@ -15,23 +15,26 @@
     --td_padding: 2px 20px;
 }
 
-table{
+table {
     border: var(--table_border);
     border-collapse: var(--table_border-collapse);
-
 }
-tr:nth-child(odd){
+
+tr:nth-child(odd) {
     background-color: var(--tr_nth-child_odd_background-color);
 }
-tr:nth-child(even){
+
+tr:nth-child(even) {
     background-color: var(--tr_nth-child_even_background-color);
 }
-th{
+
+th {
     background-color: var(--th_background-color);
     border: var(--th_border);
     padding: var(--th_padding);
 }
-td{
+
+td {
     border: var(--td_border);
     padding: var(--td_padding);
 }

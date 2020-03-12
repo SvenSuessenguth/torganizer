@@ -14,7 +14,11 @@
 <ui:composition template="/WEB-INF/templates/template.xhtml">
   <ui:define name="title">${text.tournaments}</ui:define>
 
-  <ui:define name="content">
+  <ui:define name="css">
+    <h:outputStylesheet name="css/layouts/tournaments.css"/>
+  </ui:define>
+
+  <ui:define name="main">
     <f:event listener="#{conversationController.endConversation}" type="preRenderView"></f:event>
 
     #{text.current}: <h:outputText value="#{tournamentsState.current.name}"/>
@@ -22,22 +26,29 @@
     <h:form id="tournaments">
       <c:set var="tournaments" value="#{tournamentsState.tournaments}"/>
 
+      <div>
       #{text.count}: #{fn:length(tournaments)}
-      <h:dataTable value="#{tournaments}" var="tournament">
-        <h:column>
-          <f:facet name="header">Name</f:facet>
-          #{tournament.name}
-        </h:column>
-      </h:dataTable>
+      </div>
+      <br />
 
-      <h:outputLabel for="currentName">Turnier</h:outputLabel>
-      <h:inputText id="currentName" value="#{tournamentsController.currentName}"/>
-      <br/>
+      <section id="table">
+        <h:dataTable value="#{tournaments}" var="tournament">
+          <h:column>
+            <f:facet name="header">Name</f:facet>
+            #{tournament.name}
+          </h:column>
+        </h:dataTable>
+      </section>
 
-      <h:commandButton value="#{text.save}" action="#{tournamentsController.saveTournament()}"/>
-      <h:commandButton value="#{text.nju}" action="#{tournamentsController.newTournament()}" />
+      <section id="edit">
+        <h:outputLabel for="currentName">Turnier</h:outputLabel>
+        <h:inputText id="currentName" value="#{tournamentsController.currentName}"/>
+        <br/>
 
-      <h:commandButton value="#{text.delete}" action="#{tournamentsController.deleteTournament()}"/>
+        <h:commandButton id="save" value="#{text.save}" action="#{tournamentsController.save()}"/>
+        <h:commandButton id="new" value="#{text.nju}" action="#{tournamentsController.create()}"/>
+        <h:commandButton id="delete" value="#{text.delete}" action="#{tournamentsController.delete()}"/>
+      </section>
     </h:form>
   </ui:define>
 

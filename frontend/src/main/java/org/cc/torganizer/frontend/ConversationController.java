@@ -5,16 +5,14 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.cc.torganizer.frontend.logging.SimplifiedLoggerFacade;
-import org.cc.torganizer.frontend.logging.online.Online;
+import org.apache.logging.log4j.Logger;
 
 @Named
 @RequestScoped
 public class ConversationController {
 
   @Inject
-  @Online
-  private SimplifiedLoggerFacade logger;
+  private transient Logger logger;
 
   @Inject
   private Conversation conversation;

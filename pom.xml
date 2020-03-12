@@ -45,6 +45,8 @@
     <jaxb-impl.version>2.4.0-b180830.0438</jaxb-impl.version>
     <junit-jupiter.version>5.6.0</junit-jupiter.version>
     <junit-platform.version>1.3.0-RC1</junit-platform.version>
+	<log4j-api.version>2.13.1</log4j-api.version>
+	<log4j-core.version>${log4j-api.version}</log4j-core.version>
     <microprofile.version>3.3</microprofile.version>
     <mockito.version>3.3.0</mockito.version>
     <spotbugs.version>4.0.0</spotbugs.version>
@@ -86,6 +88,18 @@
       <dependency>
         <groupId>org.eclipse.microprofile</groupId><artifactId>microprofile</artifactId>
         <version>${microprofile.version}</version><type>pom</type><scope>provided</scope>
+      </dependency>
+
+      <!--
+       | https://logging.apache.org/log4j/2.x/maven-artifacts.html
+       +-->
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId>
+        <version>${log4j-api.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core</artifactId>
+        <version>${log4j-core.version}</version>
       </dependency>
 
       <dependency>
@@ -141,6 +155,17 @@
     </dependency>
     <dependency>
       <groupId>org.eclipse.microprofile</groupId><artifactId>microprofile</artifactId><type>pom</type>
+    </dependency>
+
+    <!--
+     | utility-libs
+     +-->
+    <!-- logging -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core</artifactId>
     </dependency>
 
     <!--

@@ -1,10 +1,10 @@
 input[type=button] {
-  background-color: var(--button_background-color);
-  padding: 0.1em 1em 0.1em 1em;
+    background-color: var(--button_background-color);
+    padding: 0.1em 1em 0.1em 1em;
 }
 
 input[type=button]:hover {
-  background-color: var(--button_background-color_hover);
+    background-color: var(--button_background-color_hover);
 }
 
 input[type=button][disabled=disabled]:hover {

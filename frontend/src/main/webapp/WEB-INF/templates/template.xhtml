@@ -19,12 +19,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon.ico']}" />
-    <h:outputStylesheet name="css/_style.css" />
+    <h:outputStylesheet name="css/styles/_styles.css" />
+    <ui:insert name="css"/>
   </h:head>
   
   <h:body>
     <main>
-      <ui:insert name="content">page content</ui:insert>
+      <ui:insert name="main">page content</ui:insert>
     </main>
 
   </h:body>
