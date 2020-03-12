@@ -42,7 +42,7 @@ public class TournamentsController {
    * creating and persist a new tournament.
    */
   public void create() {
-    logger.info("new with name: '" + state.getCurrent().getName() + "'");
+    logger.info("new with name: '{}'", state.getCurrent().getName());
 
     Tournament newTournament = new Tournament();
     newTournament.setName("Tournament");
@@ -50,12 +50,5 @@ public class TournamentsController {
     tournamentsRepository.create(newTournament);
     state.setCurrent(newTournament);
     state.initState();
-  }
-
-  public void delete() {
-  }
-
-  public void start() {
-
   }
 }
