@@ -12,7 +12,7 @@ import org.cc.torganizer.persistence.TournamentsRepository;
 public class TournamentsController {
 
   @Inject
-  private transient Logger logger;
+  private Logger logger;
 
   @Inject
   private TournamentsState state;

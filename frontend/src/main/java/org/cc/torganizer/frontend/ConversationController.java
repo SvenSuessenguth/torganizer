@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 public class ConversationController {
 
   @Inject
-  private transient Logger logger;
+  private Logger logger;
 
   @Inject
   private Conversation conversation;
@@ -26,7 +26,7 @@ public class ConversationController {
   public void initConversation() {
     if (conversation.isTransient()) {
       conversation.begin();
-      logger.info("conversation begin with id " + conversation.getId());
+      logger.info("conversation begin with id '{}'", conversation.getId());
     }
   }
 
