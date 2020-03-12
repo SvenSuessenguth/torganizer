@@ -12,7 +12,7 @@
        | for requestId, hostName, ipAddress see class OnlineExtendLoggingFilter
        +-->
       <PatternLayout
-        pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS}  %X{requestId} %X{hostName} %X{ipAddress} [%t] %c{1} - %msg%n" />
+        pattern="[%-5level] %c{1} %d{yyyy-MM-dd HH:mm:ss.SSS} %X{requestId} %X{hostName} %X{ipAddress} [%t] - %msg%n" />
     </Console>
   </Appenders>
 
