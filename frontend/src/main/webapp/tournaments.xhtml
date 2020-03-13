@@ -19,17 +19,18 @@
   </ui:define>
 
   <ui:define name="main">
-    <f:event listener="#{conversationController.endConversation}" type="preRenderView"></f:event>
+    <f:event listener="#{conversationController.endConversation}" type="preRenderView" />
 
-    #{text.current}: <h:outputText value="#{tournamentsState.current.name}"/>
+    <c:set var="current" value="#{tournamentsState.current}"/>
+    #{text.current}: <h:outputText value="#{current==null?'':current.name}"/>
 
     <h:form id="tournaments">
       <c:set var="tournaments" value="#{tournamentsState.tournaments}"/>
 
       <div>
-      #{text.count}: #{fn:length(tournaments)}
+        #{text.count}: #{fn:length(tournaments)}
       </div>
-      <br />
+      <br/>
 
       <section id="table">
         <h:dataTable value="#{tournaments}" var="tournament">
@@ -42,12 +43,17 @@
 
       <section id="edit">
         <h:outputLabel for="currentName">Turnier</h:outputLabel>
-        <h:inputText id="currentName" value="#{tournamentsController.currentName}"/>
+        <h:inputText id="currentName" binding="#{tournamentsController.uiCurrentName}"
+                     value="#{tournamentsController.currentName}"
+                     validator="tournamentsNameValidator"
+                     styleClass="#{component.valid ? 'validation-ok' : 'validation-fail'}" />
         <br/>
 
         <h:commandButton id="save" value="#{text.save}" action="#{tournamentsController.save()}"/>
         <h:commandButton id="new" value="#{text.nju}" action="#{tournamentsController.create()}"/>
         <h:commandButton id="delete" value="#{text.delete}" action="#{tournamentsController.delete()}"/>
+        <hr/>
+        <h:commandButton id="start" value="#{text.start}" action="#{tournamentsController.start()}"/>
       </section>
     </h:form>
   </ui:define>

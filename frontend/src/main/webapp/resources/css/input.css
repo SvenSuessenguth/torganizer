@@ -1,0 +1,13 @@
+input {
+    border: 1px solid var(--input_border-color);
+    padding: 2px 2px;
+}
+
+input[type="text"].validation-fail {
+    border-color: red;
+    color: red;
+}
+
+input[type="text"].validation-ok {
+    color: blue;
+}

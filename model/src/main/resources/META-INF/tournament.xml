@@ -18,7 +18,9 @@
         <message>{tournament.name.pattern}</message>
         <element name="regexp">^[A-Z].*</element>
       </constraint>
-      <constraint annotation="javax.validation.constraints.NotBlank" />
+      <constraint annotation="javax.validation.constraints.NotBlank" >
+        <message>{tournament.name.blank}</message>
+      </constraint>
       <constraint annotation="javax.validation.constraints.NotNull"/>
       <constraint annotation="javax.validation.constraints.Size">
         <message>{tournament.name.size}</message>

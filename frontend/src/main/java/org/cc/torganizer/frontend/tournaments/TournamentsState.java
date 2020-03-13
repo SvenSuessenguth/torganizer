@@ -30,6 +30,11 @@ public class TournamentsState implements Serializable {
   private Tournament current;
 
   /**
+   * new name to set for current or new tournament.
+   */
+  private String currentsNewName;
+
+  /**
    * Load tournaments to show on view.
    */
   @PostConstruct
@@ -56,5 +61,13 @@ public class TournamentsState implements Serializable {
 
   public void setCurrent(Tournament current) {
     this.current = current;
+  }
+
+  public void setCurrentsNewName(String currentsNewName) {
+    this.currentsNewName = currentsNewName;
+  }
+
+  public String getCurrentsNewName() {
+    return currentsNewName;
   }
 }

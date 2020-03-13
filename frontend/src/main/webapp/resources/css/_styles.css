@@ -1,6 +1,7 @@
 /** https://stackoverflow.com/questions/16590739/empty-css-while-using-import-in-a-css-link */
 @import url("#{resource['css:button.css']}");
-@import url("#{resource['css:table.css']}"); /* CSS - Cascading Style Sheet */
+@import url("#{resource['css:table.css']}");
+@import url("#{resource['css:input.css']}");
 
 :root {
     --body_background-color: #F4EEE1;
@@ -11,17 +12,8 @@
     --button_background-color_hover: #C4BDAC;
 }
 
-input {
-    border: 1px solid var(--input_border-color);
-    padding: 2px 2px;
-}
-
 .disabledLink {
     pointer-events: none;
     cursor: default;
     text-decoration: none;
-}
-
-.violation {
-    color: red;
 }
