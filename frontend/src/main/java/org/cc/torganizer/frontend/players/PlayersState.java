@@ -27,8 +27,6 @@ public class PlayersState implements Serializable {
   @Inject
   private TournamentsState tournamentsState;
 
-  private Tournament currentTournament;
-
   private List<Player> players;
   private List<Club> clubs;
 
@@ -39,7 +37,7 @@ public class PlayersState implements Serializable {
 
   @PostConstruct
   public void postConstruct() {
-    currentTournament = tournamentsState.getCurrent();
+    Tournament currentTournament = tournamentsState.getCurrent();
     players = tournamentsRepository.getPlayersOrderedByLastName(currentTournament.getId(), offset, maxResults);
     clubs = clubsRepository.read(0, 1000);
 
