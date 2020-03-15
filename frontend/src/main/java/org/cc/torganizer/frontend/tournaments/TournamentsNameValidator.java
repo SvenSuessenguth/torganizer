@@ -18,7 +18,7 @@ import org.cc.torganizer.core.entities.Tournament;
 public class TournamentsNameValidator implements Validator<String> {
 
   @Override
-  public void validate(FacesContext facesContext, UIComponent uiComponent, String tournamentsName) throws ValidatorException {
+  public void validate(FacesContext facesContext, UIComponent uiComponent, String tournamentsName) {
 
     // to keep it simple a new tournament with the given name is created and then validated
     Tournament tournament = new Tournament();
