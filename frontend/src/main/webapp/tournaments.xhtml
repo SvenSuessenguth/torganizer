@@ -51,7 +51,7 @@
         <h:commandButton id="new" value="#{text.nju}" action="#{tournamentsController.create()}"/>
         <h:commandButton id="delete" value="#{text.delete}" action="#{tournamentsController.delete()}"/>
         <hr/>
-        <h:commandButton id="start" value="#{text.start}" action="#{tournamentsController.start()}"/>
+        <h:commandButton id="start" value="#{text.start}" action="players?faces-redirect=true"/>
       </section>
     </h:form>
   </ui:define>

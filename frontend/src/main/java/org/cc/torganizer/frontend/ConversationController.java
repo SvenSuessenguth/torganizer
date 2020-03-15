@@ -23,7 +23,7 @@ public class ConversationController {
   /**
    * init conversation on starting to edit the 'content' of a selected tournament.
    */
-  public void initConversation() {
+  public void startConversation() {
     if (conversation.isTransient()) {
       conversation.begin();
       logger.info("conversation begin with id '{}'", conversation.getId());
