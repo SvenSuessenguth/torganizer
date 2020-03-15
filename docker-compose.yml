@@ -9,8 +9,8 @@ services:
       - 5432:5432
     container_name: postgresql
     environment:
-      POSTGRES_USER: test_user
-      POSTGRES_PASSWORD: test_user_password
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
   frontend:
     build: ./frontend
     networks:

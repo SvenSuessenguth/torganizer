@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <parent>
     <groupId>org.cc.torganizer</groupId>
@@ -17,25 +17,82 @@
 
   <properties>
     <failOnMissingWebXml>false</failOnMissingWebXml>
+    <!--
+     | https://openliberty.io/guides/maven-intro.html
+     +-->
+    <version.liberty-maven-plugin>3.2</version.liberty-maven-plugin>
+    <liberty.var.default.http.port>9080</liberty.var.default.http.port>
+    <liberty.var.default.https.port>9443</liberty.var.default.https.port>
+    <liberty.var.app.context.root>${project.artifactId}</liberty.var.app.context.root>
   </properties>
 
   <dependencies>
     <dependency>
-      <groupId>org.cc.torganizer</groupId><artifactId>persistence</artifactId>
-      <version>${project.version}</version><scope>compile</scope>
+      <groupId>org.cc.torganizer</groupId>
+      <artifactId>persistence</artifactId>
+      <version>${project.version}</version>
+      <scope>compile</scope>
     </dependency>
 
     <!--
      | https://intellij-support.jetbrains.com/hc/en-us/community/posts/360001080800-faces-config-xml-errors-with-JEE-8-and-JSF-2-3
      +-->
     <dependency>
-      <groupId>org.glassfish</groupId><artifactId>javax.faces</artifactId>
-      <version>2.4.0</version><scope>provided</scope>
+      <groupId>org.glassfish</groupId>
+      <artifactId>javax.faces</artifactId>
+      <version>2.4.0</version>
+      <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>42.2.11</version>
+      <scope>provided</scope>
+    </dependency>
+
   </dependencies>
 
   <build>
     <finalName>frontend</finalName>
+    <plugins>
+      <!--
+       | configured to used postgresql as datasource.
+       | https://github.com/OpenLiberty/sample-acmegifts/blob/master/microservice-occasion/pom.xml
+       +-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.1.2</version>
+        <executions>
+          <execution>
+            <id>copy-postgresql-dependency</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <includeArtifactIds>postgresql</includeArtifactIds>
+              <outputDirectory>${project.build.directory}/liberty/wlp/usr/shared/resources/postgresql/</outputDirectory>
+              <stripVersion>true</stripVersion>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>io.openliberty.tools</groupId>
+        <artifactId>liberty-maven-plugin</artifactId>
+        <version>${version.liberty-maven-plugin}</version>
+        <configuration>
+          <serverStartTimeout>100</serverStartTimeout>
+          <runtimeArtifact>
+            <groupId>io.openliberty</groupId>
+            <artifactId>openliberty-javaee8</artifactId>
+            <version>20.0.0.3</version>
+            <type>zip</type>
+          </runtimeArtifact>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 
 </project>
