@@ -4,22 +4,51 @@
 <html lang="en"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
   <title>.</title>
 </h:head>
 
 <ui:composition template="/WEB-INF/templates/template.xhtml">
-  <ui:define name="title">${text.tournaments}</ui:define>
+  <ui:define name="title">${text.players}</ui:define>
 
   <ui:define name="css">
-    <h:outputStylesheet name="css/layouts/tournaments.css"/>
+    <h:outputStylesheet name="css/layouts/players.css"/>
   </ui:define>
 
   <ui:define name="main">
     <f:event listener="#{conversationController.startConversation}" type="preRenderView"/>
+    <c:set var="current" value="#{playersState.current}"/>
 
     <h:form>
+      <h:dataTable value="#{playersState.players}" var="player">
+        <h:column>
+          <f:facet name="header">Vorname</f:facet>
+          <h:outputText value="#{player.person.firstName}"/>
+        </h:column>
+        <h:column>
+          <f:facet name="header">Nachname</f:facet>
+          <h:outputText value="#{player.person.lastName}"/>
+        </h:column>
+        <h:column>
+          <f:facet name="header">Verein</f:facet>
+          <h:outputText value="#{player.club.name}"/>
+        </h:column>
+      </h:dataTable>
+
+      <h:inputText value="#{current.person.firstName}"/>
+      <h:inputText value="#{current.person.lastName}"/>
+      <h:inputText a:type="date" value="#{current.person.dateOfBirth}"/>
+Hallo
+      <h:selectOneMenu value="#{playersState.currentClub}" converter="#{clubConverter}" >
+        <f:selectItems value="#{playersState.clubs}" var="club"
+                       itemValue="#{club}"
+                       itemLabel="#{club.name}"/>
+        <f:converter converterId="clubConverter"/>
+      </h:selectOneMenu>
+
       <h:commandButton action="#{playersController.save()}" value="#{text.save}"/>
       <h:commandButton action="#{playersController.create()}" value="#{text.nju}"/>
       <h:commandButton action="#{playersController.delete()}" value="#{text.delete}"/>
