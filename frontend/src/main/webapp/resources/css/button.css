@@ -1,13 +1,19 @@
-input[type=button] {
+:root {
+    --button_border-color: #999999;
+    --button_background-color: #D3C4BE;
+    --button_background-color_hover: #C4BDAC;
+}
+
+input[type=submit] {
     background-color: var(--button_background-color);
     padding: 0.1em 1em 0.1em 1em;
 }
 
-input[type=button]:hover {
+input[type=submit]:hover {
     background-color: var(--button_background-color_hover);
 }
 
-input[type=button][disabled=disabled]:hover {
+input[type=submit][disabled=disabled]:hover {
     background-color: var(--button_background-color);
 }
 

@@ -25,18 +25,16 @@
     #{text.current}: <h:outputText value="#{current==null?'':current.name}"/>
 
     <h:form id="tournaments">
-      <c:set var="tournaments" value="#{tournamentsState.tournaments}"/>
-
       <div>
-        #{text.count}: #{fn:length(tournaments)}
+        #{text.count}: #{fn:length(tournamentsState.tournaments)}
       </div>
       <br/>
 
       <section id="table">
-        <h:dataTable value="#{tournaments}" var="tournament">
+        <h:dataTable value="#{tournamentsState.tournaments}" var="tournament">
           <h:column>
             <f:facet name="header">Name</f:facet>
-            #{tournament.name}
+            <h:commandLink actionListener="#{tournamentsController.select(tournament)}" value="#{tournament.name}"/>
           </h:column>
         </h:dataTable>
       </section>

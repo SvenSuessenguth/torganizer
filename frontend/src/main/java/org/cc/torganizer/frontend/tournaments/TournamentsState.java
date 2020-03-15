@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -27,6 +29,7 @@ public class TournamentsState implements Serializable {
   private transient TournamentsRepository tournamentsRepository;
 
   private List<Tournament> tournaments = new ArrayList<>();
+
   private Tournament current;
 
   /**

@@ -6,10 +6,6 @@
 :root {
     --body_background-color: #F4EEE1;
     --header_background-color: #E4DAC2;
-
-    --input_border-color: #999999;
-    --button_background-color: #D3C4BE;
-    --button_background-color_hover: #C4BDAC;
 }
 
 .disabledLink {

@@ -1,5 +1,11 @@
+:root {
+    --button_border-color: #999999;
+    --button_background-color: #D3C4BE;
+    --button_background-color_hover: #C4BDAC;
+}
+
 input {
-    border: 1px solid var(--input_border-color);
+    border: 1px solid var(--button_border-color);
     padding: 2px 2px;
 }
 
@@ -9,5 +15,5 @@ input[type="text"].validation-fail {
 }
 
 input[type="text"].validation-ok {
-    color: blue;
+    color: black;
 }
