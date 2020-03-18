@@ -1,12 +1,14 @@
 package org.cc.torganizer.frontend.players;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.cc.torganizer.core.entities.Club;
+import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.frontend.tournaments.TournamentsState;
@@ -70,6 +72,10 @@ public class PlayersState implements Serializable {
 
   public List<Club> getClubs() {
     return clubs;
+  }
+
+  public List<Gender> getGenders() {
+    return Arrays.asList(Gender.values());
   }
 
   public Club getCurrentClub() {

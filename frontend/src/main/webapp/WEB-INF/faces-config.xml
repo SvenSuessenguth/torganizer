@@ -21,7 +21,11 @@
 
     <resource-bundle>
       <base-name>org.cc.torganizer.text</base-name>
-      <var>text</var>
+      <var>i18nText</var>
+    </resource-bundle>
+    <resource-bundle>
+      <base-name>gender</base-name>
+      <var>i18nGender</var>
     </resource-bundle>
   </application>
 

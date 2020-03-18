@@ -12,7 +12,7 @@
 </h:head>
 
 <ui:composition template="/WEB-INF/templates/template.xhtml">
-  <ui:define name="title">${text.tournaments}</ui:define>
+  <ui:define name="title">${i18nText.tournaments}</ui:define>
 
   <ui:define name="css">
     <h:outputStylesheet name="css/layouts/tournaments.css"/>
@@ -22,11 +22,11 @@
     <f:event listener="#{conversationController.endConversation}" type="preRenderView" />
 
     <c:set var="current" value="#{tournamentsState.current}"/>
-    #{text.current}: <h:outputText value="#{current==null?'':current.name}"/>
+    #{i18nText.current}: <h:outputText value="#{current==null?'':current.name}"/>
 
     <h:form id="tournaments">
       <div>
-        #{text.count}: #{fn:length(tournamentsState.tournaments)}
+        #{i18nText.count}: #{fn:length(tournamentsState.tournaments)}
       </div>
       <br/>
 
@@ -47,11 +47,11 @@
                      styleClass="#{component.valid ? 'validation-ok' : 'validation-fail'}" />
         <br/>
 
-        <h:commandButton id="save" value="#{text.save}" action="#{tournamentsController.save()}"/>
-        <h:commandButton id="new" value="#{text.nju}" action="#{tournamentsController.create()}"/>
-        <h:commandButton id="delete" value="#{text.delete}" action="#{tournamentsController.delete()}"/>
+        <h:commandButton id="save" value="#{i18nText.save}" action="#{tournamentsController.save()}"/>
+        <h:commandButton id="new" value="#{i18nText.nju}" action="#{tournamentsController.create()}"/>
+        <h:commandButton id="delete" value="#{i18nText.delete}" action="#{tournamentsController.delete()}"/>
         <hr/>
-        <h:commandButton id="start" value="#{text.start}" action="players?faces-redirect=true"/>
+        <h:commandButton id="start" value="#{i18nText.start}" action="players?faces-redirect=true"/>
       </section>
     </h:form>
   </ui:define>

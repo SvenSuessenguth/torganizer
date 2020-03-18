@@ -12,7 +12,7 @@
 </h:head>
 
 <ui:composition template="/WEB-INF/templates/template.xhtml">
-  <ui:define name="title">${text.players}</ui:define>
+  <ui:define name="title">${i18nText.players}</ui:define>
 
   <ui:define name="css">
     <h:outputStylesheet name="css/layouts/players.css"/>
@@ -42,6 +42,13 @@
       <h:inputText value="#{current.person.lastName}"/>
       <h:inputText a:type="date" value="#{current.person.dateOfBirth}"/>
 
+      <h:selectOneMenu value="#{current.person.gender}" >
+        <f:selectItems value="#{playersState.genders}" var="gender"
+                       itemValue="#{gender}"
+                       itemLabel="#{i18nGender[gender]}"/>
+        <f:converter converterId="genderConverter"/>
+      </h:selectOneMenu>
+
       <h:selectOneMenu value="#{playersState.currentClub}" converter="#{clubConverter}" >
         <f:selectItems value="#{playersState.clubs}" var="club"
                        itemValue="#{club}"
@@ -49,9 +56,9 @@
         <f:converter converterId="clubConverter"/>
       </h:selectOneMenu>
 
-      <h:commandButton action="#{playersController.save()}" value="#{text.save}"/>
-      <h:commandButton action="#{playersController.create()}" value="#{text.nju}"/>
-      <h:commandButton action="#{playersController.delete()}" value="#{text.delete}"/>
+      <h:commandButton action="#{playersController.save()}" value="#{i18nText.save}"/>
+      <h:commandButton action="#{playersController.create()}" value="#{i18nText.nju}"/>
+      <h:commandButton action="#{playersController.delete()}" value="#{i18nText.delete}"/>
     </h:form>
   </ui:define>
 
