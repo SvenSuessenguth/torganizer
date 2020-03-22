@@ -1,15 +1,11 @@
 package org.cc.torganizer.frontend.converter;
 
-import java.util.Locale;
-import java.util.ResourceBundle;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
-import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Gender;
-import org.cc.torganizer.persistence.ClubsRepository;
 
 @FacesConverter(value = "genderConverter")
 public class GenderConverter implements Converter<Gender> {

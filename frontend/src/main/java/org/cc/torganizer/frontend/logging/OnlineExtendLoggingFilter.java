@@ -23,9 +23,6 @@ public class OnlineExtendLoggingFilter implements Filter {
       ThreadContext.put("hostName", request.getServerName());
 
       chain.doFilter(request, response);
-
-    } catch (Exception exc) {
-      System.out.println(exc);
     } finally {
       ThreadContext.clearAll();
     }
