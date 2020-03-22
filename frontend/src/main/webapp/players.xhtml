@@ -22,43 +22,50 @@
     <f:event listener="#{conversationController.startConversation}" type="preRenderView"/>
     <c:set var="current" value="#{playersState.current}"/>
 
-    <h:form>
-      <h:dataTable value="#{playersState.players}" var="player">
+    <h:form id="playersForm">
+      <h:dataTable id="allPlayers" value="#{playersState.players}" var="player">
         <h:column>
           <f:facet name="header">Vorname</f:facet>
-          <h:outputText value="#{player.person.firstName}"/>
+          <h:commandLink actionListener="#{playersController.select(player)}" value="#{player.person.firstName}">
+            <f:ajax execute="@this" render="playersForm" />
+          </h:commandLink>
         </h:column>
         <h:column>
           <f:facet name="header">Nachname</f:facet>
-          <h:outputText value="#{player.person.lastName}"/>
+          <h:commandLink actionListener="#{playersController.select(player)}" value="#{player.person.lastName}">
+            <f:ajax execute="@this" render="playersForm" />
+          </h:commandLink>
         </h:column>
         <h:column>
           <f:facet name="header">Verein</f:facet>
-          <h:outputText value="#{player.club.name}"/>
+          <h:commandLink actionListener="#{playersController.select(player)}" value="#{player.club.name}">
+            <f:ajax execute="@this" render="playersForm" />
+          </h:commandLink>
         </h:column>
       </h:dataTable>
 
-      <h:inputText value="#{current.person.firstName}"/>
-      <h:inputText value="#{current.person.lastName}"/>
-      <h:inputText a:type="date" value="#{current.person.dateOfBirth}"/>
+      <h:inputText id="playersFirstName" value="#{current.person.firstName}"/>
+      <h:inputText id="playersLastName" value="#{current.person.lastName}"/>
+      <h:inputText id="playersDateOfBirth" a:type="date" value="#{current.person.dateOfBirth}">
+        <f:convertDateTime pattern = "yyyy-MM-dd" type="localDate" />
+      </h:inputText>
 
-      <h:selectOneMenu value="#{current.person.gender}" >
+      <h:selectOneMenu id="playersGender" value="#{current.person.gender}" >
         <f:selectItems value="#{playersState.genders}" var="gender"
                        itemValue="#{gender}"
                        itemLabel="#{i18nGender[gender]}"/>
         <f:converter converterId="genderConverter"/>
       </h:selectOneMenu>
 
-      <h:selectOneMenu value="#{playersState.currentClub}" converter="#{clubConverter}" >
+      <h:selectOneMenu id="playersClub" value="#{playersState.currentClubId}">
         <f:selectItems value="#{playersState.clubs}" var="club"
-                       itemValue="#{club}"
+                       itemValue="#{club.id}"
                        itemLabel="#{club.name}"/>
-        <f:converter converterId="clubConverter"/>
       </h:selectOneMenu>
 
-      <h:commandButton action="#{playersController.save()}" value="#{i18nText.save}"/>
-      <h:commandButton action="#{playersController.create()}" value="#{i18nText.nju}"/>
-      <h:commandButton action="#{playersController.delete()}" value="#{i18nText.delete}"/>
+      <h:commandButton id="playersSave" action="#{playersController.save()}" value="#{i18nText.save}" />
+      <h:commandButton id="playersCreate" action="#{playersController.create()}" value="#{i18nText.nju}" />
+      <h:commandButton id="playersDelete" action="#{playersController.delete()}" value="#{i18nText.delete}" />
     </h:form>
   </ui:define>
 

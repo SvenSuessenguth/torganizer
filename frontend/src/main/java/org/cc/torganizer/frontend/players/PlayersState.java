@@ -18,7 +18,7 @@ import org.cc.torganizer.persistence.TournamentsRepository;
 @Named
 @ConversationScoped
 public class PlayersState implements Serializable {
-  
+
   private static final long serialVersionUID = 3683970655136738688L;
 
   @Inject
@@ -34,7 +34,16 @@ public class PlayersState implements Serializable {
   private List<Club> clubs;
 
   private Player current;
-  private Club currentClub;
+
+  public String getCurrentClubId() {
+    return currentClubId;
+  }
+
+  public void setCurrentClubId(String currentClubId) {
+    this.currentClubId = currentClubId;
+  }
+
+  private String currentClubId;
 
   private int offset = 0;
   public static int MAX_PLAYERS_RESULTS = 10;
@@ -51,10 +60,6 @@ public class PlayersState implements Serializable {
       current = players.get(0);
     } else {
       current = new Player("", "", null);
-    }
-
-    if (!clubs.isEmpty()) {
-      currentClub = clubs.get(0);
     }
   }
 
@@ -78,16 +83,7 @@ public class PlayersState implements Serializable {
     return Arrays.asList(Gender.values());
   }
 
-  public Club getCurrentClub() {
-    return currentClub;
-  }
-
-  public void setCurrentClub(Club currentClub) {
-    this.currentClub = currentClub;
-  }
-
   public void setOffset(int offset) {
     this.offset = offset;
   }
-
 }

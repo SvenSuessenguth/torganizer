@@ -51,7 +51,7 @@ public class TournamentsController {
     tournamentsRepository.update(current);
     state.initState();
 
-    logger.info("save selected with name: '{}'", current.getName());
+    logger.info("save with name: '{}'", current.getName());
   }
 
   /**

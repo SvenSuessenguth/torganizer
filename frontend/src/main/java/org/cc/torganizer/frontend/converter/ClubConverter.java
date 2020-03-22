@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.persistence.ClubsRepository;
 
-@FacesConverter(value = "clubConverter")
+@FacesConverter(value = "clubConverter", managed = true)
 public class ClubConverter implements Converter<Club> {
 
   @Inject
@@ -16,7 +16,7 @@ public class ClubConverter implements Converter<Club> {
 
   @Override
   public Club getAsObject(FacesContext facesContext, UIComponent uiComponent, String value) {
-    if (value.isEmpty()) {
+    if (value == null || value.isEmpty()) {
       return null;
     }
     Long id = Long.valueOf(value);

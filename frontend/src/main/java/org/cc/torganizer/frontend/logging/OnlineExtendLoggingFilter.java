@@ -24,6 +24,8 @@ public class OnlineExtendLoggingFilter implements Filter {
 
       chain.doFilter(request, response);
 
+    } catch (Exception exc) {
+      System.out.println(exc);
     } finally {
       ThreadContext.clearAll();
     }
