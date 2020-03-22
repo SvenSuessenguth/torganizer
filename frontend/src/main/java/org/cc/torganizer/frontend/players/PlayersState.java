@@ -19,6 +19,8 @@ import org.cc.torganizer.persistence.TournamentsRepository;
 @ConversationScoped
 public class PlayersState implements Serializable {
 
+  public static final int MAX_PLAYERS_RESULTS = 10;
+
   private static final long serialVersionUID = 3683970655136738688L;
 
   @Inject
@@ -35,18 +37,9 @@ public class PlayersState implements Serializable {
 
   private Player current;
 
-  public String getCurrentClubId() {
-    return currentClubId;
-  }
-
-  public void setCurrentClubId(String currentClubId) {
-    this.currentClubId = currentClubId;
-  }
-
   private String currentClubId;
 
   private int offset = 0;
-  public static int MAX_PLAYERS_RESULTS = 10;
 
   @PostConstruct
   public void postConstruct() {
@@ -81,6 +74,14 @@ public class PlayersState implements Serializable {
 
   public List<Gender> getGenders() {
     return Arrays.asList(Gender.values());
+  }
+
+  public String getCurrentClubId() {
+    return currentClubId;
+  }
+
+  public void setCurrentClubId(String currentClubId) {
+    this.currentClubId = currentClubId;
   }
 
   public void setOffset(int offset) {
