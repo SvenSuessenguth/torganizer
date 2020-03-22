@@ -24,10 +24,6 @@ public class GenderConverter implements Converter<Gender> {
 
   @Override
   public String getAsString(FacesContext facesContext, UIComponent uiComponent, Gender gender) {
-    // translate gender to language in UI
-//    Locale locale = facesContext.getViewRoot().getLocale();
-//    ResourceBundle genderI18N = ResourceBundle.getBundle("gender", locale);
-
     return gender == null ? "" : "" + gender.name();
   }
 }
