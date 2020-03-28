@@ -9,7 +9,6 @@ import org.apache.logging.log4j.Logger;
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.core.entities.Status;
 import org.cc.torganizer.frontend.Numbers;
 import org.cc.torganizer.frontend.tournaments.TournamentsState;
 import org.cc.torganizer.persistence.ClubsRepository;
