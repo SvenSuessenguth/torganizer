@@ -1,5 +1,7 @@
 package org.cc.torganizer.persistence;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,6 +23,7 @@ public abstract class Repository<T extends Entity> {
    */
   public T create(T t) {
     t.setId(null);
+    t.setLastUpdate(new Date(System.currentTimeMillis()));
 
     entityManager.persist(t);
     entityManager.flush();
@@ -57,7 +60,7 @@ public abstract class Repository<T extends Entity> {
    * Updating the Database with the entities data.
    */
   public T update(T t) {
-    entityManager.merge(t);
-    return t;
+    t.setLastUpdate(new Date(System.currentTimeMillis()));
+    return entityManager.merge(t);
   }
 }

@@ -46,4 +46,14 @@ class PersonsRepositoryTest extends AbstractDbUnitJpaTest {
 
     assertThat(allUnknownPersons).isEmpty();
   }
+
+
+  @Test
+  void testCreate() {
+    Person person = new Person("firstName", "lastName");
+
+    repository.create(person);
+
+    assertThat(person.getId()).isNotNull();
+  }
 }

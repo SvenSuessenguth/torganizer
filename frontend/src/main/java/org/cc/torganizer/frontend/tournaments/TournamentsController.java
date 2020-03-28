@@ -48,7 +48,8 @@ public class TournamentsController {
     Tournament current = state.getCurrent();
     current.setName(state.getCurrentsNewName());
 
-    tournamentsRepository.update(current);
+    Tournament updated = tournamentsRepository.update(current);
+    state.setCurrent(updated);
     state.initState();
 
     logger.info("save with name: '{}'", current.getName());
@@ -64,8 +65,8 @@ public class TournamentsController {
     newTournament.setName(state.getCurrentsNewName());
 
     newTournament = tournamentsRepository.create(newTournament);
-    state.setCurrent(newTournament);
     state.initState();
+    state.setCurrent(newTournament);
   }
 
 

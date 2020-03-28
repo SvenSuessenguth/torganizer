@@ -7,9 +7,14 @@
   <mapped-superclass class="org.cc.torganizer.core.entities.Entity">
     <attributes>
       <id name="id" access="PROPERTY">
-        <column name="_ID"/>
-        <generated-value strategy="IDENTITY"/>
+        <column name="_ID" updatable="false" nullable="false"/>
+        <generated-value strategy="SEQUENCE" generator="entity_generator"/>
+        <sequence-generator name="entity_generator" sequence-name="entity_seq" allocation-size="50" initial-value="100" />
       </id>
+      <basic name="lastUpdate">
+        <column name="_LAST_UPDATE" nullable="true" />
+        <temporal>TIMESTAMP</temporal>
+      </basic>
     </attributes>
   </mapped-superclass>
 

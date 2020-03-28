@@ -19,7 +19,7 @@ import org.cc.torganizer.persistence.TournamentsRepository;
 @ConversationScoped
 public class PlayersState implements Serializable {
 
-  public static final int MAX_PLAYERS_RESULTS = 10;
+  public static final int MAX_PLAYERS_RESULTS = 50;
 
   private static final long serialVersionUID = 3683970655136738688L;
 
@@ -43,6 +43,10 @@ public class PlayersState implements Serializable {
 
   @PostConstruct
   public void postConstruct() {
+    initState();
+  }
+
+  protected void initState() {
     Tournament currentTournament = tournamentsState.getCurrent();
     Long tournamentId = currentTournament.getId();
     players = tournamentsRepository.getPlayersOrderedByLastName(tournamentId,
