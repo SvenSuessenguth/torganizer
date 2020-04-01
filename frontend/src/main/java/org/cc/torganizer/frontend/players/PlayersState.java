@@ -37,7 +37,7 @@ public class PlayersState implements Serializable {
 
   private Player current;
 
-  private String currentClubId;
+  private Long currentClubId;
 
   private int offset = 0;
 
@@ -52,6 +52,11 @@ public class PlayersState implements Serializable {
     players = tournamentsRepository.getPlayersOrderedByLastName(tournamentId,
         offset, MAX_PLAYERS_RESULTS);
     clubs = clubsRepository.read(0, 1000);
+
+    // pre-assignment
+    if(!clubs.isEmpty()){
+      currentClubId = clubs.get(0).getId();
+    }
 
     if (!players.isEmpty()) {
       current = players.get(0);
@@ -80,11 +85,11 @@ public class PlayersState implements Serializable {
     return Arrays.asList(Gender.values());
   }
 
-  public String getCurrentClubId() {
+  public Long getCurrentClubId() {
     return currentClubId;
   }
 
-  public void setCurrentClubId(String currentClubId) {
+  public void setCurrentClubId(Long currentClubId) {
     this.currentClubId = currentClubId;
   }
 

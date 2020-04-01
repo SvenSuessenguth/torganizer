@@ -65,6 +65,7 @@ public class TournamentsController {
     newTournament.setName(state.getCurrentsNewName());
 
     newTournament = tournamentsRepository.create(newTournament);
+
     state.initState();
     state.setCurrent(newTournament);
   }

@@ -39,13 +39,12 @@ public class PlayersController {
 
   public void save() {
     logger.info("save player");
-    Long clubId = new Numbers().getLong(playersState.getCurrentClubId());
+    Long clubId = playersState.getCurrentClubId();
     Club club = clubsRepository.read(clubId);
 
     Player current = playersState.getCurrent();
     current.setClub(club);
     Player updated = playersRepository.update(current);
-    playersState.initState();
     playersState.setCurrent(updated);
   }
 
@@ -74,8 +73,19 @@ public class PlayersController {
     playersState.setCurrent(newPlayer);
   }
 
+  /**
+   * Deleting a player is not possible, if the player has completed any match
+   */
   public void delete() {
     logger.info("delete player");
+
+    // delete from tournament and from players/persons-tables
+    Long tId = tournamentsState.getCurrent().getId();
+    Long pId = playersState.getCurrent().getId();
+
+    tournamentsRepository.removePlayer(tId, pId);
+    playersRepository.delete(pId);
+    playersState.initState();
   }
 
   public void select(Player player) {
