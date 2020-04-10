@@ -1,5 +1,6 @@
 package org.cc.torganizer.core.comparators;
 
+import org.cc.torganizer.core.comparators.player.PlayerByLastNameComparator;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,11 +10,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class PlayerByNameComparatorTest {
 
-  private PlayerByNameComparator comparator;
+  private PlayerByLastNameComparator comparator;
 
   @BeforeEach
   void setUp() {
-    comparator = new PlayerByNameComparator();
+    comparator = new PlayerByLastNameComparator();
   }
 
   @Test

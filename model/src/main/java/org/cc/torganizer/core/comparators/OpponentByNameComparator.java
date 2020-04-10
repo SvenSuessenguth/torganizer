@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import org.cc.torganizer.core.comparators.player.PlayerByLastNameComparator;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Player;
 
@@ -39,7 +40,7 @@ public class OpponentByNameComparator implements Comparator<Opponent>, Serializa
       return -1;
     }
 
-    PlayerByNameComparator pbnComparator = new PlayerByNameComparator();
+    PlayerByLastNameComparator pbnComparator = new PlayerByLastNameComparator();
 
 
     o1Players.sort(pbnComparator);

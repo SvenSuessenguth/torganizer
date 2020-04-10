@@ -1,12 +1,18 @@
 package org.cc.torganizer.frontend.players;
 
+import static org.cc.torganizer.core.comparators.player.PlayerOrder.BY_LAST_UPDATE;
+
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.cc.torganizer.core.comparators.player.PlayerComparator;
+import org.cc.torganizer.core.comparators.player.PlayerComparatorProvider;
+import org.cc.torganizer.core.comparators.player.PlayerOrder;
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Player;
@@ -34,6 +40,9 @@ public class PlayersState implements Serializable {
   @Inject
   private TournamentsState tournamentsState;
 
+  @Inject
+  private PlayerComparatorProvider playerComparatorProvider;
+
   private List<Player> players;
 
   private List<Club> clubs;
@@ -41,6 +50,8 @@ public class PlayersState implements Serializable {
   private Player current;
 
   private Long currentClubId;
+
+  private PlayerOrder playerOrder = BY_LAST_UPDATE;
 
   @PostConstruct
   public void postConstruct() {
@@ -50,12 +61,16 @@ public class PlayersState implements Serializable {
   protected void initState() {
     Tournament currentTournament = tournamentsState.getCurrent();
     Long tournamentId = currentTournament.getId();
-    players = tournamentsRepository.getPlayersOrderedByLastName(tournamentId,
+    players = tournamentsRepository.getPlayers(tournamentId,
         0, MAX_PLAYERS_RESULTS);
+
+    PlayerComparator pc = playerComparatorProvider.get(playerOrder);
+    Collections.sort(players, pc);
+
     clubs = clubsRepository.read(0, MAX_CLUBS_RESULTS);
 
     // pre-assignment
-    if(!clubs.isEmpty()){
+    if (!clubs.isEmpty()) {
       currentClubId = clubs.get(0).getId();
     }
 
@@ -92,5 +107,10 @@ public class PlayersState implements Serializable {
 
   public void setCurrentClubId(Long currentClubId) {
     this.currentClubId = currentClubId;
+  }
+
+  public void orderPlayers() {
+    PlayerComparator comparator = playerComparatorProvider.get(playerOrder);
+    Collections.sort(players, comparator);
   }
 }

@@ -45,6 +45,7 @@ public class PlayersController {
     current.setClub(club);
     Player updated = playersRepository.update(current);
     playersState.setCurrent(updated);
+    playersState.orderPlayers();
   }
 
   public void create() {
