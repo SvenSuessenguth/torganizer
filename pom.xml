@@ -289,7 +289,7 @@
           <groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId>
           <version>${maven-compiler-plugin.version}</version>
           <configuration>
-            <release>12</release>
+            <release>11</release>
           </configuration>
         </plugin>
         <plugin>

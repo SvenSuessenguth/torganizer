@@ -32,7 +32,7 @@ public abstract class AbstractDbUnitJpaTest {
   @BeforeEach
   public void initTestFixture() {
     // Get the entity manager for the tests.
-    entityManagerFactory = Persistence.createEntityManagerFactory("torganizerTest");
+    entityManagerFactory = Persistence.createEntityManagerFactory("torganizer.test");
     entityManager = entityManagerFactory.createEntityManager();
     connection = ((SessionImpl) (entityManager.getDelegate())).connection();
     entityManager.getTransaction().begin();

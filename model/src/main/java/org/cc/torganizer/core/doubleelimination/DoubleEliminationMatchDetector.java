@@ -68,7 +68,7 @@ import org.cc.torganizer.core.util.Checker;
  * </pre>
  *
  * <p>Das Finale wird nur einfach gespielt, auch wenn der Verlierer des Finales aus
- * dem Upper-Bracket stammt und bisher nich nicht verloren hat.
+ * dem Upper-Bracket stammt und bisher noch nicht verloren hat.
  *
  * @see <a
  *     href="https://groups.google.com/forum/?fromgroups#!topic/rec.sport.table-soccer/CCUadSrQymk">rec.sport.table-soccer</a>
