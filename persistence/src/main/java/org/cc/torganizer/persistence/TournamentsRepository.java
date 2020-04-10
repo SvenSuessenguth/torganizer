@@ -1,5 +1,6 @@
 package org.cc.torganizer.persistence;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -69,6 +70,19 @@ public class TournamentsRepository extends Repository<Tournament> {
   // Tournaments players
   //
   //-----------------------------------------------------------------------------------------------
+  public List<Player> getPlayers(Long tournamentId, Integer offset,
+                                                  Integer maxResults) {
+    offset = offset == null ? DEFAULT_OFFSET : offset;
+    maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
+
+    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Tournament.findPlayers",
+        Player.class);
+    namedQuery.setParameter("id", tournamentId);
+    namedQuery.setFirstResult(offset);
+    namedQuery.setMaxResults(maxResults);
+
+    return namedQuery.getResultList();
+  }
 
   /**
    * Getting the Players (offset to maxResults) of the given tournament ordered by last name.

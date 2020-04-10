@@ -1,16 +1,23 @@
 package org.cc.torganizer.persistence;
 
-import org.cc.torganizer.core.entities.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
 import javax.persistence.Query;
 import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.*;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Root;
+import org.cc.torganizer.core.entities.Discipline;
+import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.core.entities.Squad;
+import org.cc.torganizer.core.entities.Tournament;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
 
@@ -24,7 +31,7 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  void testCriteriaCountOpponents(){
+  void testCriteriaCountOpponents() {
 
     CriteriaBuilder cb = entityManager.getCriteriaBuilder();
     CriteriaQuery<Tuple> cq = cb.createTupleQuery();
@@ -41,7 +48,7 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  void testCriteriaCountPlayers(){
+  void testCriteriaCountPlayers() {
 
     CriteriaBuilder cb = entityManager.getCriteriaBuilder();
     CriteriaQuery<Tuple> cq = cb.createTupleQuery();
@@ -49,10 +56,10 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
     Join<Tournament, Opponent> tournamentOpponentJoin = tournament.join("opponents", JoinType.LEFT);
     cq.select(cb.tuple(tournament, cb.count(tournamentOpponentJoin)));
     cq.where(
-      cb.and(
-        cb.equal(tournament.get("id"), 1L),
-        cb.equal(tournamentOpponentJoin.type(), Player.class)
-      )
+        cb.and(
+            cb.equal(tournament.get("id"), 1L),
+            cb.equal(tournamentOpponentJoin.type(), Player.class)
+        )
     );
 
     List<Tuple> result = entityManager.createQuery(cq).getResultList();
@@ -62,17 +69,17 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  void testCriteriaCountSquads(){
+  void testCriteriaCountSquads() {
     CriteriaBuilder cb = entityManager.getCriteriaBuilder();
     CriteriaQuery<Tuple> cq = cb.createTupleQuery();
     Root<Tournament> tournament = cq.from(Tournament.class);
     Join<Tournament, Opponent> tournamentOpponentJoin = tournament.join("opponents", JoinType.LEFT);
     cq.select(cb.tuple(tournament, cb.count(tournamentOpponentJoin)));
     cq.where(
-      cb.and(
-        cb.equal(tournament.get("id"), 1L),
-        cb.equal(tournamentOpponentJoin.type(), Squad.class)
-      )
+        cb.and(
+            cb.equal(tournament.get("id"), 1L),
+            cb.equal(tournamentOpponentJoin.type(), Squad.class)
+        )
     );
 
     List<Tuple> result = entityManager.createQuery(cq).getResultList();
@@ -82,40 +89,54 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  void testCriteriaListPlayersOrderedByLastName(){
+  void testCriteriaListPlayersOrderedByLastName() {
     List<Player> players = repository.getPlayersOrderedByLastName(1L, 0, 5);
 
     assertThat(players.get(0).getPerson().getLastName()).isEqualTo("Aöüß");
   }
 
   @Test
-  void testGetTournament(){
+  void testCriteriaFindPlayers1000() {
+    List<Player> players = repository.getPlayers(1L, 0, 1000);
+
+    assertThat(players).hasSize(2);
+  }
+
+  @Test
+  void testCriteriaFindPlayers1() {
+    List<Player> players = repository.getPlayers(1L, 0, 1);
+
+    assertThat(players).hasSize(1);
+  }
+
+  @Test
+  void testGetTournament() {
     Tournament t = repository.read(1L);
 
     assertThat(t).isNotNull();
   }
 
   @Test
-  void testGetTournaments(){
-    List<Tournament> tournaments = repository.read(0,10);
+  void testGetTournaments() {
+    List<Tournament> tournaments = repository.read(0, 10);
 
     assertThat(tournaments).hasSize(2);
   }
 
   @Test
-  void testGetTournaments_usingMaxResults(){
-    List<Tournament> tournaments = repository.read(0,1);
+  void testGetTournaments_usingMaxResults() {
+    List<Tournament> tournaments = repository.read(0, 1);
 
     assertThat(tournaments).hasSize(1);
   }
 
   @Test
-  void testAddPlayer(){
+  void testAddPlayer() {
     long countBefore = repository.countPlayers(1L);
     repository.addPlayer(1L, 6L);
     long countAfter = repository.countPlayers(1L);
 
-    assertThat(countBefore).isEqualTo(countAfter-1);
+    assertThat(countBefore).isEqualTo(countAfter - 1);
   }
 
   @Test
