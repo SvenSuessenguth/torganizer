@@ -75,7 +75,7 @@ public class PlayersController {
   }
 
   /**
-   * Deleting a player is not possible, if the player has completed any match
+   * Deleting a player is not possible, if the player has already completed any match
    */
   public void delete() {
     logger.info("delete player");
