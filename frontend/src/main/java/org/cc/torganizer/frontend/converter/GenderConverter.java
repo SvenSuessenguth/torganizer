@@ -10,9 +10,6 @@ import org.cc.torganizer.core.entities.Gender;
 @FacesConverter(value = "genderConverter")
 public class GenderConverter implements Converter<Gender> {
 
-  @Inject
-  private FacesContext facesContext;
-
   @Override
   public Gender getAsObject(FacesContext facesContext, UIComponent uiComponent, String value) {
     if (value.isEmpty()) {

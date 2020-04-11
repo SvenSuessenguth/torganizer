@@ -3,6 +3,7 @@ package org.cc.torganizer.frontend.players;
 import static org.cc.torganizer.core.entities.Status.ACTIVE;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.logging.log4j.Logger;
@@ -90,5 +91,9 @@ public class PlayersController {
 
   public void select(Player player) {
     playersState.setCurrent(player);
+  }
+
+  public void orderPlayers(AjaxBehaviorEvent event) {
+    playersState.orderPlayers();
   }
 }

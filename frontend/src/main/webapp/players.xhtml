@@ -23,6 +23,16 @@
     <c:set var="current" value="#{playersState.current}"/>
 
     <h:form id="playersForm">
+
+      <h:outputLabel for="playerOrder">${i18nText.sort_by}</h:outputLabel>
+      <h:selectOneMenu id="playerOrder" value="#{playersState.playerOrder}" >
+        <f:selectItems value="#{playersState.playerOrders}" var="playerOrder"
+                       itemValue="#{playerOder}"
+                       itemLabel="#{i18nPlayerOrder[playerOrder]}"/>
+        <f:converter converterId="playerOrderConverter"/>
+        <f:ajax listener="#{playersController.orderPlayers}" render="allPlayers" />
+      </h:selectOneMenu>
+
       <h:dataTable id="allPlayers" value="#{playersState.players}" var="player">
         <h:column>
           <f:facet name="header">Vorname</f:facet>

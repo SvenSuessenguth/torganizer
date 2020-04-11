@@ -81,6 +81,11 @@ public class PlayersState implements Serializable {
     }
   }
 
+  public void orderPlayers() {
+    PlayerComparator comparator = playerComparatorProvider.get(playerOrder);
+    Collections.sort(players, comparator);
+  }
+
   public Player getCurrent() {
     return current;
   }
@@ -109,8 +114,14 @@ public class PlayersState implements Serializable {
     this.currentClubId = currentClubId;
   }
 
-  public void orderPlayers() {
-    PlayerComparator comparator = playerComparatorProvider.get(playerOrder);
-    Collections.sort(players, comparator);
+  public PlayerOrder getPlayerOrder() {
+    return playerOrder;
+  }
+
+  public void setPlayerOrder(PlayerOrder playerOrder) {
+    this.playerOrder = playerOrder;
+  }
+  public List<PlayerOrder> getPlayerOrders() {
+    return Arrays.asList(PlayerOrder.values());
   }
 }
