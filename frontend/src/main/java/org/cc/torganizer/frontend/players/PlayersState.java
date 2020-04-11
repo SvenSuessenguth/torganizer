@@ -4,7 +4,6 @@ import static org.cc.torganizer.core.comparators.player.PlayerOrder.BY_LAST_UPDA
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ConversationScoped;
@@ -58,14 +57,14 @@ public class PlayersState implements Serializable {
     initState();
   }
 
-  protected void initState() {
+  public void initState() {
     Tournament currentTournament = tournamentsState.getCurrent();
     Long tournamentId = currentTournament.getId();
     players = tournamentsRepository.getPlayers(tournamentId,
         0, MAX_PLAYERS_RESULTS);
 
     PlayerComparator pc = playerComparatorProvider.get(playerOrder);
-    Collections.sort(players, pc);
+    players.sort(pc);
 
     clubs = clubsRepository.read(0, MAX_CLUBS_RESULTS);
 
@@ -79,11 +78,6 @@ public class PlayersState implements Serializable {
     } else {
       current = new Player("", "", null);
     }
-  }
-
-  public void orderPlayers() {
-    PlayerComparator comparator = playerComparatorProvider.get(playerOrder);
-    Collections.sort(players, comparator);
   }
 
   public Player getCurrent() {
@@ -121,6 +115,7 @@ public class PlayersState implements Serializable {
   public void setPlayerOrder(PlayerOrder playerOrder) {
     this.playerOrder = playerOrder;
   }
+
   public List<PlayerOrder> getPlayerOrders() {
     return Arrays.asList(PlayerOrder.values());
   }

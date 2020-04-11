@@ -1,0 +1,14 @@
+package org.cc.torganizer.frontend.players.actions;
+
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
+import org.cc.torganizer.core.entities.Player;
+
+@RequestScoped
+@Named
+public class SelectPlayer extends Action {
+
+  public void execute(Player player) {
+    playersState.setCurrent(player);
+  }
+}

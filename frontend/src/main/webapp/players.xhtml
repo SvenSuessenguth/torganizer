@@ -25,31 +25,31 @@
     <h:form id="playersForm">
 
       <h:outputLabel for="playerOrder">${i18nText.sort_by}</h:outputLabel>
-      <h:selectOneMenu id="playerOrder" value="#{playersState.playerOrder}" >
+      <h:selectOneMenu id="playerOrder" value="#{playersState.playerOrder}">
         <f:selectItems value="#{playersState.playerOrders}" var="playerOrder"
-                       itemValue="#{playerOder}"
+                       itemValue="#{playerOrder}"
                        itemLabel="#{i18nPlayerOrder[playerOrder]}"/>
         <f:converter converterId="playerOrderConverter"/>
-        <f:ajax listener="#{playersController.orderPlayers}" render="allPlayers" />
+        <f:ajax listener="#{orderPlayers.execute}" render="allPlayers"/>
       </h:selectOneMenu>
 
       <h:dataTable id="allPlayers" value="#{playersState.players}" var="player">
         <h:column>
           <f:facet name="header">Vorname</f:facet>
-          <h:commandLink actionListener="#{playersController.select(player)}" value="#{player.person.firstName}">
-            <f:ajax execute="@this" render="playersForm" />
+          <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.person.firstName}">
+            <f:ajax execute="@this" render="playersForm"/>
           </h:commandLink>
         </h:column>
         <h:column>
           <f:facet name="header">Nachname</f:facet>
-          <h:commandLink actionListener="#{playersController.select(player)}" value="#{player.person.lastName}">
-            <f:ajax execute="@this" render="playersForm" />
+          <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.person.lastName}">
+            <f:ajax execute="@this" render="playersForm"/>
           </h:commandLink>
         </h:column>
         <h:column>
           <f:facet name="header">Verein</f:facet>
-          <h:commandLink actionListener="#{playersController.select(player)}" value="#{player.club.name}">
-            <f:ajax execute="@this" render="playersForm" />
+          <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.club.name}">
+            <f:ajax execute="@this" render="playersForm"/>
           </h:commandLink>
         </h:column>
       </h:dataTable>
@@ -57,10 +57,10 @@
       <h:inputText id="playersFirstName" value="#{current.person.firstName}"/>
       <h:inputText id="playersLastName" value="#{current.person.lastName}"/>
       <h:inputText id="playersDateOfBirth" a:type="date" value="#{current.person.dateOfBirth}">
-        <f:convertDateTime pattern = "yyyy-MM-dd" type="localDate" />
+        <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
       </h:inputText>
 
-      <h:selectOneMenu id="playersGender" value="#{current.person.gender}" >
+      <h:selectOneMenu id="playersGender" value="#{current.person.gender}">
         <f:selectItems value="#{playersState.genders}" var="gender"
                        itemValue="#{gender}"
                        itemLabel="#{i18nGender[gender]}"/>
@@ -73,9 +73,9 @@
                        itemLabel="#{club.name}"/>
       </h:selectOneMenu>
 
-      <h:commandButton id="playersSave" action="#{playersController.save()}" value="#{i18nText.save}" />
-      <h:commandButton id="playersCreate" action="#{playersController.create()}" value="#{i18nText.nju}" />
-      <h:commandButton id="playersDelete" action="#{playersController.delete()}" value="#{i18nText.delete}" />
+      <h:commandButton id="playersSave" action="#{savePlayer.exeute()}" value="#{i18nText.save}"/>
+      <h:commandButton id="playersCreate" action="#{createPlayer.execute()}" value="#{i18nText.nju}"/>
+      <h:commandButton id="playersDelete" action="#{deletePlayer.execute()}" value="#{i18nText.delete}"/>
     </h:form>
   </ui:define>
 
