@@ -93,6 +93,7 @@ public class PlayersController {
     playersState.setCurrent(player);
   }
 
+  @SuppressWarnings("unused")
   public void orderPlayers(AjaxBehaviorEvent event) {
     playersState.orderPlayers();
   }
