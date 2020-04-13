@@ -3,10 +3,6 @@ package org.cc.torganizer.frontend.tournaments;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ConversationScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ComponentSystemEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -40,15 +36,24 @@ public class TournamentsState implements Serializable {
   /**
    * new name to set for current or new tournament.
    */
-  private String currentsNewName;
+  private String currentName;
 
   public void initState() {
     tournaments = tournamentsRepository.read(0, 100);
 
-    if (current == null && !this.tournaments.isEmpty()) {
+    if (current != null && current.getId() != null) {
+      return;
+    }
+
+    if ((current == null || current.getId() == null) && !this.tournaments.isEmpty()) {
       current = this.tournaments.get(0);
+      currentName = current.getName();
       appState.setCurrent(current);
       logger.info("tournaments state is inited with the current tounament '{}'", current.getName());
+    } else {
+      current = new Tournament();
+      current.setName("Tournament");
+      currentName = current.getName();
     }
   }
 
@@ -64,11 +69,11 @@ public class TournamentsState implements Serializable {
     this.current = current;
   }
 
-  public void setCurrentsNewName(String currentsNewName) {
-    this.currentsNewName = currentsNewName;
+  public void setCurrentName(String currentName) {
+    this.currentName = currentName;
   }
 
-  public String getCurrentsNewName() {
-    return currentsNewName;
+  public String getCurrentName() {
+    return currentName;
   }
 }

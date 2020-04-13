@@ -6,9 +6,9 @@ import org.cc.torganizer.core.entities.Player;
 
 @RequestScoped
 @Named
-public class SelectPlayer extends Action {
+public class SelectPlayer extends PlayersAction {
 
   public void execute(Player player) {
-    playersState.setCurrent(player);
+    state.setCurrent(player);
   }
 }

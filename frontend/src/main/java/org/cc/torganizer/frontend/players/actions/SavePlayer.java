@@ -9,20 +9,20 @@ import org.cc.torganizer.core.entities.Player;
 
 @RequestScoped
 @Named
-public class SavePlayer extends Action {
+public class SavePlayer extends PlayersAction {
 
   @Inject
   private Logger logger;
 
   public void exeute() {
     logger.info("save player");
-    Long clubId = playersState.getCurrentClubId();
+    Long clubId = state.getCurrentClubId();
     Club club = clubsRepository.read(clubId);
 
-    Player current = playersState.getCurrent();
+    Player current = state.getCurrent();
     current.setClub(club);
     Player updated = playersRepository.update(current);
-    playersState.setCurrent(updated);
+    state.setCurrent(updated);
     playersService.orderPlayers();
   }
 }

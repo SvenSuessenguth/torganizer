@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 @RequestScoped
 @Named
-public class DeletePlayer extends Action {
+public class DeletePlayer extends PlayersAction {
 
   @Inject
   private Logger logger;
@@ -20,7 +20,7 @@ public class DeletePlayer extends Action {
 
     // delete from tournament and from players/persons-tables
     Long tId = appState.getCurrent().getId();
-    Long pId = playersState.getCurrent().getId();
+    Long pId = state.getCurrent().getId();
 
     tournamentsRepository.removePlayer(tId, pId);
     playersRepository.delete(pId);

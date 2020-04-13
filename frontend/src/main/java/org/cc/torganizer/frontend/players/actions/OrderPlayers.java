@@ -6,7 +6,7 @@ import javax.inject.Named;
 
 @RequestScoped
 @Named
-public class OrderPlayers extends Action {
+public class OrderPlayers extends PlayersAction {
 
   @SuppressWarnings("unused")
   public void execute(AjaxBehaviorEvent event) {

@@ -3,7 +3,6 @@ package org.cc.torganizer.frontend;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.logging.log4j.Logger;

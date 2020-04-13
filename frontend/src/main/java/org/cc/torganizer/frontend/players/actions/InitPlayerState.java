@@ -16,7 +16,7 @@ import org.cc.torganizer.persistence.TournamentsRepository;
 
 @RequestScoped
 @Named
-public class InitPlayerState extends Action {
+public class InitPlayerState extends PlayersAction {
 
   public static final int MAX_PLAYERS_RESULTS = 1000;
 

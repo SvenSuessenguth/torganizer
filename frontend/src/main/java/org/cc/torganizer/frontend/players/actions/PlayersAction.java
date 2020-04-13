@@ -4,15 +4,14 @@ import javax.inject.Inject;
 import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.players.PlayersService;
 import org.cc.torganizer.frontend.players.PlayersState;
-import org.cc.torganizer.frontend.tournaments.TournamentsState;
 import org.cc.torganizer.persistence.ClubsRepository;
 import org.cc.torganizer.persistence.PlayersRepository;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
-public class Action {
+public abstract class PlayersAction {
 
   @Inject
-  protected PlayersState playersState;
+  protected PlayersState state;
 
   @Inject
   protected ClubsRepository clubsRepository;

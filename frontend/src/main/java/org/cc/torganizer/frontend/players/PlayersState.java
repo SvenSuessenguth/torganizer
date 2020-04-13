@@ -5,15 +5,12 @@ import static org.cc.torganizer.core.comparators.player.PlayerOrder.BY_LAST_UPDA
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
-import javax.enterprise.context.ConversationScoped;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 import org.cc.torganizer.core.comparators.player.PlayerOrder;
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.frontend.tournaments.TournamentsState;
 
 @Named
 @ViewScoped

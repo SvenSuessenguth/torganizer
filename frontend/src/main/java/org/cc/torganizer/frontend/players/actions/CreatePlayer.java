@@ -13,7 +13,7 @@ import org.cc.torganizer.persistence.ClubsRepository;
 
 @RequestScoped
 @Named
-public class CreatePlayer extends Action {
+public class CreatePlayer extends PlayersAction {
 
   @Inject
   private Logger logger;
@@ -24,14 +24,14 @@ public class CreatePlayer extends Action {
   public void execute() {
     logger.info("create player");
 
-    Player currentPlayer = playersState.getCurrent();
+    Player currentPlayer = state.getCurrent();
     Person currentPerson = currentPlayer.getPerson();
 
     Person newPerson = new Person(currentPerson.getFirstName(), currentPerson.getLastName());
     newPerson.setGender(currentPerson.getGender());
     newPerson.setDateOfBirth(currentPerson.getDateOfBirth());
 
-    Long clubId = playersState.getCurrentClubId();
+    Long clubId = state.getCurrentClubId();
     Club club = clubsRepository.read(clubId);
 
     Player newPlayer = new Player(newPerson);
@@ -46,6 +46,6 @@ public class CreatePlayer extends Action {
     tournamentsRepository.addPlayer(currentTournamentsId, newPlayerId);
 
     initPlayerState.execute(true);
-    playersState.setCurrent(newPlayer);
+    state.setCurrent(newPlayer);
   }
 }
