@@ -22,12 +22,17 @@ public class InitPlayerState extends PlayersAction {
   @Inject
   private PlayerComparatorProvider playerComparatorProvider;
 
-  public void execute(boolean refresh) {
+  public String execute(boolean refresh) {
+    // prevent multiple initiallizations without any need
     if (!refresh && state.getPlayers() != null) {
-      return;
+      return "";
     }
 
     Tournament currentTournament = appState.getCurrent();
+    // if no tournament is selected redirect to tournaments page
+    if(currentTournament==null || currentTournament.getId()==null) {
+      return "tournaments";
+    }
     Long tournamentId = currentTournament.getId();
 
     List<Player> players = tournamentsRepository.getPlayers(tournamentId,
@@ -55,5 +60,6 @@ public class InitPlayerState extends PlayersAction {
     }
     state.setCurrent(current);
 
+    return "";
   }
 }
