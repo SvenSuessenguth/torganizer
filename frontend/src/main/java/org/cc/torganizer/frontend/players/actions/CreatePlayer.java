@@ -18,9 +18,6 @@ public class CreatePlayer extends PlayersAction {
   @Inject
   private Logger logger;
 
-  @Inject
-  private ClubsRepository clubsRepository;
-
   public void execute() {
     logger.info("create player");
 

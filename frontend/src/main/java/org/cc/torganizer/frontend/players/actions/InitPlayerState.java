@@ -29,13 +29,10 @@ public class InitPlayerState extends PlayersAction {
   private ClubsRepository clubsRepository;
 
   @Inject
-  private PlayersState playersState;
-
-  @Inject
   private PlayerComparatorProvider playerComparatorProvider;
 
   public void execute(boolean refresh) {
-    if (!refresh && playersState.getPlayers() != null) {
+    if (!refresh && state.getPlayers() != null) {
       return;
     }
 
@@ -44,19 +41,19 @@ public class InitPlayerState extends PlayersAction {
 
     List<Player> players = tournamentsRepository.getPlayers(tournamentId,
         0, MAX_PLAYERS_RESULTS);
-    playersState.setPlayers(players);
+    state.setPlayers(players);
 
-    PlayerOrder playerOrder = playersState.getPlayerOrder();
+    PlayerOrder playerOrder = state.getPlayerOrder();
     PlayerComparator pc = playerComparatorProvider.get(playerOrder);
     players.sort(pc);
 
     List<Club> clubs = clubsRepository.read(0, MAX_CLUBS_RESULTS);
-    playersState.setClubs(clubs);
+    state.setClubs(clubs);
 
     // pre-assignment
     if (!clubs.isEmpty()) {
       Long currentClubId = clubs.get(0).getId();
-      playersState.setCurrentClubId(currentClubId);
+      state.setCurrentClubId(currentClubId);
     }
 
     Player current;
@@ -65,7 +62,7 @@ public class InitPlayerState extends PlayersAction {
     } else {
       current = new Player("", "", null);
     }
-    playersState.setCurrent(current);
+    state.setCurrent(current);
 
   }
 }
