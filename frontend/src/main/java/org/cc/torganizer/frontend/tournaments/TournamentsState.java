@@ -4,11 +4,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ConversationScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.logging.log4j.Logger;
 import org.cc.torganizer.core.entities.Tournament;
+import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
 /**
@@ -26,6 +30,9 @@ public class TournamentsState implements Serializable {
   @Inject
   private transient TournamentsRepository tournamentsRepository;
 
+  @Inject
+  private ApplicationState appState;
+
   private List<Tournament> tournaments = new ArrayList<>();
 
   private Tournament current;
@@ -35,19 +42,12 @@ public class TournamentsState implements Serializable {
    */
   private String currentsNewName;
 
-  /**
-   * Load tournaments to show on view.
-   */
-  @PostConstruct
-  public void postConstruct() {
-    initState();
-  }
-
-  protected void initState() {
+  public void initState() {
     tournaments = tournamentsRepository.read(0, 100);
 
     if (current == null && !this.tournaments.isEmpty()) {
       current = this.tournaments.get(0);
+      appState.setCurrent(current);
       logger.info("tournaments state is inited with the current tounament '{}'", current.getName());
     }
   }

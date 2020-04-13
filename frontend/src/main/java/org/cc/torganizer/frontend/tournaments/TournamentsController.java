@@ -8,6 +8,7 @@ import javax.inject.Named;
 import javax.transaction.Transactional;
 import org.apache.logging.log4j.Logger;
 import org.cc.torganizer.core.entities.Tournament;
+import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
 @Named
@@ -24,7 +25,7 @@ public class TournamentsController {
   private TournamentsRepository tournamentsRepository;
 
   @Inject
-  private FacesContext facesContext;
+  private ApplicationState appState;
 
   private UIComponent uiCurrentName;
 
@@ -39,6 +40,7 @@ public class TournamentsController {
 
   public void select(Tournament selected) {
     state.setCurrent(selected);
+    appState.setCurrent(selected);
   }
 
   /**
@@ -68,6 +70,7 @@ public class TournamentsController {
 
     state.initState();
     state.setCurrent(newTournament);
+    appState.setCurrent(newTournament);
   }
 
 
@@ -83,6 +86,7 @@ public class TournamentsController {
     current = tournamentsRepository.read(current.getId());
     tournamentsRepository.delete(current);
     state.setCurrent(null);
+    appState.setCurrent(null);
     state.initState();
   }
 

@@ -1,6 +1,7 @@
 package org.cc.torganizer.frontend.players.actions;
 
 import javax.inject.Inject;
+import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.players.PlayersService;
 import org.cc.torganizer.frontend.players.PlayersState;
 import org.cc.torganizer.frontend.tournaments.TournamentsState;
@@ -23,8 +24,11 @@ public class Action {
   protected PlayersService playersService;
 
   @Inject
-  protected TournamentsState tournamentsState;
+  protected ApplicationState appState;
 
   @Inject
   protected TournamentsRepository tournamentsRepository;
+
+  @Inject
+  protected InitPlayerState initPlayerState;
 }

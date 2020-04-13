@@ -28,7 +28,16 @@
     <header>
       <h:messages />
     </header>
+    <nav id="nav">
+      <h:form id="navForm">
+        <h:commandLink id="linkTournaments" value="tournaments " action="tournaments?faces-redirect=true"/>
+        <h:commandLink id="linkPlayers" value="players" action="players?faces-redirect=true" disabled="#{applicationState.current == null}"/>
+      </h:form>
+      <hr />
+    </nav>
     <main>
+      <h:outputText value="#{applicationState.current.name}" />
+      <hr />
       <ui:insert name="main">page content</ui:insert>
     </main>
 

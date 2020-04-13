@@ -19,11 +19,11 @@ public class DeletePlayer extends Action {
     logger.info("delete player");
 
     // delete from tournament and from players/persons-tables
-    Long tId = tournamentsState.getCurrent().getId();
+    Long tId = appState.getCurrent().getId();
     Long pId = playersState.getCurrent().getId();
 
     tournamentsRepository.removePlayer(tId, pId);
     playersRepository.delete(pId);
-    playersState.initState();
+    initPlayerState.execute(true);
   }
 }

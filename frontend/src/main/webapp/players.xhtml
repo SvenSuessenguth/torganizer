@@ -19,40 +19,43 @@
   </ui:define>
 
   <ui:define name="main">
-    <f:event listener="#{conversationController.startConversation}" type="preRenderView"/>
+    <f:event listener="#{initPlayerState.execute(false)}" type="preRenderView"/>
     <c:set var="current" value="#{playersState.current}"/>
 
     <h:form id="playersForm">
 
-      <h:outputLabel for="playerOrder">${i18nText.sort_by}</h:outputLabel>
-      <h:selectOneMenu id="playerOrder" value="#{playersState.playerOrder}">
-        <f:selectItems value="#{playersState.playerOrders}" var="playerOrder"
-                       itemValue="#{playerOrder}"
-                       itemLabel="#{i18nPlayerOrder[playerOrder]}"/>
-        <f:converter converterId="playerOrderConverter"/>
-        <f:ajax listener="#{orderPlayers.execute}" render="allPlayers"/>
-      </h:selectOneMenu>
+      <h:panelGroup rendered="#{not empty playersState.players}">
+        <h:outputLabel for="playerOrder">${i18nText.sort_by}</h:outputLabel>
+        <h:selectOneMenu id="playerOrder" value="#{playersState.playerOrder}">
+          <f:selectItems value="#{playersState.playerOrders}" var="playerOrder"
+                         itemValue="#{playerOrder}"
+                         itemLabel="#{i18nPlayerOrder[playerOrder]}"/>
+          <f:converter converterId="playerOrderConverter"/>
+          <f:ajax listener="#{orderPlayers.execute}" render="allPlayers"/>
+        </h:selectOneMenu>
 
-      <h:dataTable id="allPlayers" value="#{playersState.players}" var="player">
-        <h:column>
-          <f:facet name="header">Vorname</f:facet>
-          <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.person.firstName}">
-            <f:ajax execute="@this" render="playersForm"/>
-          </h:commandLink>
-        </h:column>
-        <h:column>
-          <f:facet name="header">Nachname</f:facet>
-          <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.person.lastName}">
-            <f:ajax execute="@this" render="playersForm"/>
-          </h:commandLink>
-        </h:column>
-        <h:column>
-          <f:facet name="header">Verein</f:facet>
-          <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.club.name}">
-            <f:ajax execute="@this" render="playersForm"/>
-          </h:commandLink>
-        </h:column>
-      </h:dataTable>
+        <h:dataTable id="allPlayers" value="#{playersState.players}" var="player"
+                     style="margin-bottom: 10px; margin-top: 10px">
+          <h:column>
+            <f:facet name="header">Vorname</f:facet>
+            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.person.firstName}">
+              <f:ajax execute="@this" render="playersForm"/>
+            </h:commandLink>
+          </h:column>
+          <h:column>
+            <f:facet name="header">Nachname</f:facet>
+            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.person.lastName}">
+              <f:ajax execute="@this" render="playersForm"/>
+            </h:commandLink>
+          </h:column>
+          <h:column>
+            <f:facet name="header">Verein</f:facet>
+            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.club.name}">
+              <f:ajax execute="@this" render="playersForm"/>
+            </h:commandLink>
+          </h:column>
+        </h:dataTable>
+      </h:panelGroup>
 
       <h:inputText id="playersFirstName" value="#{current.person.firstName}"/>
       <h:inputText id="playersLastName" value="#{current.person.lastName}"/>
@@ -73,9 +76,11 @@
                        itemLabel="#{club.name}"/>
       </h:selectOneMenu>
 
-      <h:commandButton id="playersSave" action="#{savePlayer.exeute()}" value="#{i18nText.save}"/>
-      <h:commandButton id="playersCreate" action="#{createPlayer.execute()}" value="#{i18nText.nju}"/>
-      <h:commandButton id="playersDelete" action="#{deletePlayer.execute()}" value="#{i18nText.delete}"/>
+      <h:panelGroup style="display: block">
+        <h:commandButton id="playersSave" action="#{savePlayer.exeute()}" value="#{i18nText.save}"/>
+        <h:commandButton id="playersCreate" action="#{createPlayer.execute()}" value="#{i18nText.create}"/>
+        <h:commandButton id="playersDelete" action="#{deletePlayer.execute()}" value="#{i18nText.delete}"/>
+      </h:panelGroup>
     </h:form>
   </ui:define>
 

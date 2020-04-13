@@ -3,6 +3,7 @@ package org.cc.torganizer.frontend;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.logging.log4j.Logger;
@@ -20,10 +21,7 @@ public class ConversationController {
   @Inject
   private FacesContext facesContext;
 
-  /**
-   * init conversation on starting to edit the 'content' of a selected tournament.
-   */
-  public void startConversation() {
+  public void beginConversation() {
     if (conversation.isTransient()) {
       conversation.begin();
       logger.info("conversation begin with id '{}'", conversation.getId());

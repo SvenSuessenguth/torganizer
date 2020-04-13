@@ -6,8 +6,10 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.logging.log4j.Logger;
+import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.persistence.ClubsRepository;
 
 @RequestScoped
 @Named
@@ -15,6 +17,9 @@ public class CreatePlayer extends Action {
 
   @Inject
   private Logger logger;
+
+  @Inject
+  private ClubsRepository clubsRepository;
 
   public void execute() {
     logger.info("create player");
@@ -26,18 +31,21 @@ public class CreatePlayer extends Action {
     newPerson.setGender(currentPerson.getGender());
     newPerson.setDateOfBirth(currentPerson.getDateOfBirth());
 
+    Long clubId = playersState.getCurrentClubId();
+    Club club = clubsRepository.read(clubId);
+
     Player newPlayer = new Player(newPerson);
     newPlayer.setLastMatch(null);
-    newPlayer.setClub(currentPlayer.getClub());
+    newPlayer.setClub(club);
     newPlayer.setStatus(ACTIVE);
 
     playersRepository.create(newPlayer);
 
-    Long currentTournamentsId = tournamentsState.getCurrent().getId();
+    Long currentTournamentsId = appState.getCurrent().getId();
     Long newPlayerId = newPlayer.getId();
     tournamentsRepository.addPlayer(currentTournamentsId, newPlayerId);
 
-    playersState.initState();
+    initPlayerState.execute(true);
     playersState.setCurrent(newPlayer);
   }
 }

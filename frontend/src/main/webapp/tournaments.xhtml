@@ -19,7 +19,8 @@
   </ui:define>
 
   <ui:define name="main">
-    <f:event listener="#{conversationController.endConversation}" type="preRenderView" />
+    <f:event listener="#{conversationController.beginConversation}" type="preRenderView" />
+    <f:event listener="#{tournamentsState.initState}" type="preRenderView" />
 
     <c:set var="current" value="#{tournamentsState.current}"/>
     #{i18nText.current}: <h:outputText value="#{current==null?'':current.name}"/>
@@ -48,10 +49,8 @@
         <br/>
 
         <h:commandButton id="save" value="#{i18nText.save}" action="#{tournamentsController.save()}"/>
-        <h:commandButton id="new" value="#{i18nText.nju}" action="#{tournamentsController.create()}"/>
+        <h:commandButton id="new" value="#{i18nText.create}" action="#{tournamentsController.create()}"/>
         <h:commandButton id="delete" value="#{i18nText.delete}" action="#{tournamentsController.delete()}"/>
-        <hr/>
-        <h:commandButton id="start" value="#{i18nText.start}" action="players?faces-redirect=true"/>
       </section>
     </h:form>
   </ui:define>
