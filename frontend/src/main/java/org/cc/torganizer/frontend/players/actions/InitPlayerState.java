@@ -10,9 +10,6 @@ import org.cc.torganizer.core.comparators.player.PlayerOrder;
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Tournament;
-import org.cc.torganizer.frontend.players.PlayersState;
-import org.cc.torganizer.persistence.ClubsRepository;
-import org.cc.torganizer.persistence.TournamentsRepository;
 
 @RequestScoped
 @Named
@@ -21,12 +18,6 @@ public class InitPlayerState extends PlayersAction {
   public static final int MAX_PLAYERS_RESULTS = 1000;
 
   public static final int MAX_CLUBS_RESULTS = 1000;
-
-  @Inject
-  private TournamentsRepository tournamentsRepository;
-
-  @Inject
-  private ClubsRepository clubsRepository;
 
   @Inject
   private PlayerComparatorProvider playerComparatorProvider;
