@@ -25,7 +25,7 @@
     <h:form id="playersForm">
 
       <h:panelGroup rendered="#{not empty playersState.players}">
-        <h:outputLabel for="playerOrder">${i18nText.sort_by}</h:outputLabel>
+        <h:outputLabel for="playerOrder">${i18nText.sort_by} </h:outputLabel>
         <h:selectOneMenu id="playerOrder" value="#{playersState.playerOrder}">
           <f:selectItems value="#{playersState.playerOrders}" var="playerOrder"
                          itemValue="#{playerOrder}"
@@ -53,6 +53,10 @@
             <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.club.name}">
               <f:ajax execute="@this" render="playersForm"/>
             </h:commandLink>
+          </h:column>
+          <h:column rendered="#{facesContext.isProjectStage('Development')}">
+            <f:facet name="header">ID</f:facet>
+            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.id}" />
           </h:column>
         </h:dataTable>
       </h:panelGroup>
