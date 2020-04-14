@@ -1,21 +1,22 @@
 package org.cc.torganizer.frontend.clubs.actions;
 
 import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.cc.torganizer.core.entities.Club;
+import org.cc.torganizer.frontend.ApplicationMessages;
 
 @RequestScoped
 @Named
 public class DeleteClub extends ClubsAction {
 
+  public static final String CLUBS_I18N_BASE_NAME = "org.cc.torganizer.frontend.clubs";
+
   @Inject
   private InitClubsState initClubsState;
 
   @Inject
-  private FacesContext facesContext;
+  private ApplicationMessages appMessages;
 
   /**
    * A club can only be deleted if it has no linked players.
@@ -27,9 +28,9 @@ public class DeleteClub extends ClubsAction {
     Long count = clubsRepository.countPlayers(current);
 
     if (count > 0) {
-      FacesMessage message = new FacesMessage("Der Verein " + current.getName() + " kann nicht gelöscht werden, da noch Mitglieder verknüpft sind.");
-      facesContext.addMessage(null, message);
-    }else {
+      appMessages.addMessage(CLUBS_I18N_BASE_NAME, "no_delete_linked_players",
+          new Object[]{current.getName()});
+    } else {
       clubsRepository.delete(id);
       initClubsState.execute();
     }
