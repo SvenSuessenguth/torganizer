@@ -14,6 +14,9 @@ public class SavePlayer extends PlayersAction {
   @Inject
   private Logger logger;
 
+  @Inject
+  private OrderPlayers orderPlayers;
+
   public void exeute() {
     logger.info("save player");
     Long clubId = state.getCurrentClubId();
@@ -23,6 +26,6 @@ public class SavePlayer extends PlayersAction {
     current.setClub(club);
     Player updated = playersRepository.update(current);
     state.setCurrent(updated);
-    playersService.orderPlayers();
+    orderPlayers.execute();
   }
 }

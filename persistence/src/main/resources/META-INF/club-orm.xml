@@ -7,6 +7,12 @@
   <named-query name="Club.findAll">
     <query>SELECT c FROM Club c</query>
   </named-query>
+  <named-query name="Club.findPlayers">
+    <query>SELECT p FROM Player p WHERE p.club = :club</query>
+  </named-query>
+  <named-query name="Club.countPlayers">
+    <query>SELECT COUNT(p) FROM Player p WHERE p.club = :club</query>
+  </named-query>
 
   <entity class="org.cc.torganizer.core.entities.Club" access="FIELD">
     <table name="_CLUBS" />

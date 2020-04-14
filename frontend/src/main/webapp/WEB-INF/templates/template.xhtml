@@ -31,7 +31,8 @@
     <nav id="nav">
       <h:form id="navForm">
         <h:commandLink id="linkTournaments" value="tournaments " action="tournaments?faces-redirect=true"/>
-        <h:commandLink id="linkPlayers" value="players" action="players?faces-redirect=true" disabled="#{applicationState.current == null}"/>
+        <h:commandLink id="linkPlayers" value="players " action="players?faces-redirect=true" disabled="#{applicationState.current == null}"/>
+        <h:commandLink id="linkClubs" value="clubs" action="clubs?faces-redirect=true" disabled="#{applicationState.current == null}"/>
       </h:form>
       <hr />
     </nav>

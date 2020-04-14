@@ -5,6 +5,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import org.cc.torganizer.core.entities.Club;
+import org.cc.torganizer.core.entities.Player;
 
 @Stateless
 public class ClubsRepository extends Repository<Club> {
@@ -41,5 +42,18 @@ public class ClubsRepository extends Repository<Club> {
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
     return namedQuery.getResultList();
+  }
+
+  public List<Player> getPlayers(Club club) {
+    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Club.findPlayers", Player.class);
+    namedQuery.setParameter("club", club);
+    return namedQuery.getResultList();
+  }
+
+  public Long countPlayers(Club club) {
+    TypedQuery<Long> namedQuery = entityManager.createNamedQuery("Club.countPlayers", Long.class);
+    namedQuery.setParameter("club", club);
+
+    return namedQuery.getSingleResult();
   }
 }

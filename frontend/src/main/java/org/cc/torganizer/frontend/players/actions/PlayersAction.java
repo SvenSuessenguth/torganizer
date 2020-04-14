@@ -2,7 +2,6 @@ package org.cc.torganizer.frontend.players.actions;
 
 import javax.inject.Inject;
 import org.cc.torganizer.frontend.ApplicationState;
-import org.cc.torganizer.frontend.players.PlayersService;
 import org.cc.torganizer.frontend.players.PlayersState;
 import org.cc.torganizer.persistence.ClubsRepository;
 import org.cc.torganizer.persistence.PlayersRepository;
@@ -18,9 +17,6 @@ public abstract class PlayersAction {
 
   @Inject
   protected PlayersRepository playersRepository;
-
-  @Inject
-  protected PlayersService playersService;
 
   @Inject
   protected ApplicationState appState;
