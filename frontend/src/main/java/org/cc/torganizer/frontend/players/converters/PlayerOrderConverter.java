@@ -1,4 +1,4 @@
-package org.cc.torganizer.frontend.converter;
+package org.cc.torganizer.frontend.players.converters;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
