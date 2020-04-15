@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite">
+
+<cc:interface name="squad"
+              displayName="squad"
+              preferred="true"
+              expert="false"
+              shortDescription="Show information on player of squad">
+
+  <cc:attribute name="squad" required="true" type="org.cc.torganizer.core.entities.Squad"/>
+  <cc:attribute name="showFirstNames" default="false" type="boolean"/>
+  <cc:attribute name="showLastNames" default="false" type="boolean"/>
+  <cc:attribute name="showClubs" default="false" type="boolean"/>
+  <cc:actionSource name="selectEvent"/>
+</cc:interface>
+<cc:implementation>
+
+  <c:set var="gridTemplateColumns" value="#{cc.attrs.showFirstNames?'auto':''}
+                                          #{cc.attrs.showLastNames?'auto':''}
+                                          #{cc.attrs.showClubs?'auto':''}"/>
+  <h:commandLink id="selectEvent">
+    <div style="display: grid; grid-template-columns: #{gridTemplateColumns}; width: 1%; grid-column-gap: 5px;">
+      <ui:repeat value="#{cc.attrs.squad.players}" var="player">
+        <h:panelGroup rendered="#{cc.attrs.showFirstNames=='true'}">
+          <span><h:outputText value="#{player.person.firstName}"/></span>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{cc.attrs.showLastNames}">
+          <span><h:outputText value="#{player.person.lastName}"/></span>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{cc.attrs.showClubs}">
+          <span>
+            <h:outputText value="#{player.club==null?'-':player.club.name}"/>
+          </span>
+        </h:panelGroup>
+      </ui:repeat>
+    </div>
+  </h:commandLink>
+</cc:implementation>
+
+</html>

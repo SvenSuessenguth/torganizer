@@ -24,8 +24,8 @@ public class SavePlayer extends PlayersAction {
 
     Player current = state.getCurrent();
     current.setClub(club);
-    Player updated = playersRepository.update(current);
-    state.setCurrent(updated);
+    playersRepository.update(current);
+    state.setCurrent(new Player());
     orderPlayers.execute();
   }
 }

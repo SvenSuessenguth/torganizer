@@ -6,4 +6,8 @@ import javax.inject.Named;
 @RequestScoped
 @Named
 public class SaveSquad extends SquadsAction {
+
+  public void execute(){
+
+  }
 }

@@ -5,8 +5,9 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:tc="http://xmlns.jcp.org/jsf/composite/components">
 <h:head>
   <title>.</title>
 </h:head>
@@ -22,10 +23,66 @@
     <f:event listener="#{initSquadsState.execute(false)}" type="preRenderView"/>
     <c:set var="current" value="#{squadsState.current}"/>
 
-    <h:form id="playersForm">
+    <h:form id="squadsForm">
+      <!--
+       | all players
+       +-->
+      <h:dataTable id="allPlayers" value="#{squadsState.players}" var="player"
+                   style="margin-bottom: 10px; margin-top: 10px">
+        <h:column>
+          <f:facet name="header">Vorname</f:facet>
+          <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.person.firstName}">
+            <f:ajax execute="@this" render="playersForm"/>
+          </h:commandLink>
+        </h:column>
+        <h:column>
+          <f:facet name="header">Nachname</f:facet>
+          <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.person.lastName}">
+            <f:ajax execute="@this" render="playersForm"/>
+          </h:commandLink>
+        </h:column>
+        <h:column>
+          <f:facet name="header">Verein</f:facet>
+          <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.club.name}">
+            <f:ajax execute="@this" render="playersForm"/>
+          </h:commandLink>
+        </h:column>
+        <h:column rendered="#{facesContext.isProjectStage('Development')}">
+          <f:facet name="header">ID</f:facet>
+          <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.id}" />
+        </h:column>
+      </h:dataTable>
+
+      <!--
+       | current squad
+       +-->
+
+      <!--
+       | all squads
+       +-->
+      <h:outputLabel for="squadsCount" value="Anzahl"/><h:outputText id="squadsCount" value="#{fn:length(squadsState.squads)}" />
+      <h:dataTable id="allSquads" value="#{squadsState.squads}" var="squad"
+                   style="margin-bottom: 10px; margin-top: 10px">
+        <h:column>
+          <f:facet name="header">Vornamen</f:facet>
+          <tc:squad id="firstName#{squad.id}" squad="#{squad}" showFirstNames="true" />
+        </h:column>
+        <h:column>
+          <f:facet name="header">Nachnamen</f:facet>
+          <tc:squad id="lastName#{squad.id}" squad="#{squad}" showLastNames="true" />
+        </h:column>
+        <h:column>
+          <f:facet name="header">Vereine</f:facet>
+          <tc:squad id="club#{squad.id}" squad="#{squad}" showClubs="true" />
+        </h:column>
+        <h:column rendered="#{facesContext.isProjectStage('Development')}">
+          <f:facet name="header">ID</f:facet>
+          #{squad.id}
+        </h:column>
+      </h:dataTable>
 
       <h:panelGroup style="display: block">
-        <h:commandButton id="squadsSave" action="#{saveSquad.exeute()}" value="#{i18nText.save}"/>
+        <h:commandButton id="squadsSave" action="#{saveSquad.execute()}" value="#{i18nText.save}"/>
         <h:commandButton id="squadsCreate" action="#{createSquad.execute()}" value="#{i18nText.create}"/>
         <h:commandButton id="squadsDelete" action="#{deleteSquad.execute()}" value="#{i18nText.delete}"/>
       </h:panelGroup>
@@ -34,4 +91,3 @@
 
 </ui:composition>
 </html>
-  
