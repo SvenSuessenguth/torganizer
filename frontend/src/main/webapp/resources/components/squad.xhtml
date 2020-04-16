@@ -27,13 +27,17 @@
     <div style="display: grid; grid-template-columns: #{gridTemplateColumns}; width: 1%; grid-column-gap: 5px;">
       <ui:repeat value="#{cc.attrs.squad.players}" var="player">
         <h:panelGroup rendered="#{cc.attrs.showFirstNames=='true'}">
-          <span><h:outputText value="#{player.person.firstName}"/></span>
+          <span style="white-space: nowrap;">
+            <h:outputText value="#{player.person.firstName}"/>
+          </span>
         </h:panelGroup>
         <h:panelGroup rendered="#{cc.attrs.showLastNames}">
-          <span><h:outputText value="#{player.person.lastName}"/></span>
+          <span style="white-space: nowrap;">
+            <h:outputText value="#{player.person.lastName}"/>
+          </span>
         </h:panelGroup>
         <h:panelGroup rendered="#{cc.attrs.showClubs}">
-          <span>
+          <span style="white-space: nowrap;">
             <h:outputText value="#{player.club==null?'-':player.club.name}"/>
           </span>
         </h:panelGroup>

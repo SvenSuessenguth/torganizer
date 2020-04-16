@@ -20,7 +20,6 @@
   </ui:define>
 
   <ui:define name="main">
-    <f:event listener="#{initSquadsState.execute(false)}" type="preRenderView"/>
     <c:set var="current" value="#{squadsState.current}"/>
 
     <h:form id="squadsForm">
@@ -31,31 +30,33 @@
                    style="margin-bottom: 10px; margin-top: 10px">
         <h:column>
           <f:facet name="header">Vorname</f:facet>
-          <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.person.firstName}">
-            <f:ajax execute="@this" render="playersForm"/>
+          <h:commandLink actionListener="#{addPlayerToSquad.execute(player)}" value="#{player.person.firstName}">
+            <f:ajax execute="@this" render="squadsForm"/>
           </h:commandLink>
         </h:column>
         <h:column>
           <f:facet name="header">Nachname</f:facet>
-          <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.person.lastName}">
-            <f:ajax execute="@this" render="playersForm"/>
+          <h:commandLink actionListener="#{addPlayerToSquad.execute(player)}" value="#{player.person.lastName}">
+            <f:ajax execute="@this" render="squadsForm"/>
           </h:commandLink>
         </h:column>
         <h:column>
           <f:facet name="header">Verein</f:facet>
-          <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.club.name}">
-            <f:ajax execute="@this" render="playersForm"/>
+          <h:commandLink actionListener="#{addPlayerToSquad.execute(player)}" value="#{player.club.name}">
+            <f:ajax execute="@this" render="squadsForm"/>
           </h:commandLink>
         </h:column>
         <h:column rendered="#{facesContext.isProjectStage('Development')}">
           <f:facet name="header">ID</f:facet>
-          <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.id}" />
+          <h:commandLink actionListener="#{addPlayerToSquad.execute(player)}" value="#{player.id}" />
         </h:column>
       </h:dataTable>
 
       <!--
        | current squad
        +-->
+      <tc:squad id="currentSquad" squad="#{squadsState.current}"
+                showFirstNames="true" showLastNames="true" showClubs="true"/>
 
       <!--
        | all squads

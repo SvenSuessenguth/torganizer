@@ -15,12 +15,7 @@ public class InitSquadsState extends SquadsAction {
   public static final int MAX_SQUADS_RESULTS = 1000;
   public static final int MAX_PLAYERS_RESULTS = 1000;
 
-  public String execute(boolean refresh) {
-    // prevent multiple initiallizations without any need
-    if (!refresh && state.getSquads() != null) {
-      return null;
-    }
-
+  public String execute() {
     Tournament currentTournament = applicationState.getCurrent();
     // if no tournament is selected redirect to tournaments page
     if (currentTournament == null || currentTournament.getId() == null) {
