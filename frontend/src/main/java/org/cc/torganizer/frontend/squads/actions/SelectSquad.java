@@ -9,5 +9,6 @@ import org.cc.torganizer.core.entities.Squad;
 public class SelectSquad extends SquadsAction {
 
   public void execute(Squad selected) {
+    // TBD
   }
 }

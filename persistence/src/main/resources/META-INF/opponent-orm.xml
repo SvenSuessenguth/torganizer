@@ -45,13 +45,13 @@
   <entity class="org.cc.torganizer.core.entities.Squad" access="FIELD">
     <table name="_SQUADS" />
     <attributes>
-      <one-to-many name="players">
+      <many-to-many name="players">
          <join-table name="_SQUAD_PLAYERS">
            <join-column name="_SQUAD_ID" referenced-column-name="_ID"/>
-           <inverse-join-column name="_PLAYER_ID" referenced-column-name="_ID" unique="true" />
+           <inverse-join-column name="_PLAYER_ID" referenced-column-name="_ID" />
          </join-table>
          <cascade><cascade-all /></cascade>
-       </one-to-many>
+       </many-to-many>
     </attributes>
   </entity>
   

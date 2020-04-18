@@ -18,7 +18,7 @@
   </ui:define>
 
   <ui:define name="main">
-    <f:event listener="#{initClubsState.execute()}" type="preRenderView"/>
+    <f:event listener="#{synchronizeClubsState.execute()}" type="preRenderView"/>
     <c:set var="current" value="#{clubsState.current}"/>
 
     <h:form id="clubsForm">

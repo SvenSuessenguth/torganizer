@@ -4,6 +4,7 @@
 <html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:cc="http://xmlns.jcp.org/jsf/composite">
 
 <cc:interface name="squad"
@@ -16,34 +17,39 @@
   <cc:attribute name="showFirstNames" default="false" type="boolean"/>
   <cc:attribute name="showLastNames" default="false" type="boolean"/>
   <cc:attribute name="showClubs" default="false" type="boolean"/>
-  <cc:actionSource name="selectEvent"/>
+  <cc:attribute name="selectPlayerAction"/>
+  <cc:attribute name="selectSquadAction"/>
 </cc:interface>
 <cc:implementation>
+
+  <c:if test="#{cc.attrs.selectPlayerAction != null and cc.attrs.selectSquadAction != null}">
+    <h:outputText value="Es kann nur eine Action registriert werden"/>
+  </c:if>
 
   <c:set var="gridTemplateColumns" value="#{cc.attrs.showFirstNames?'auto':''}
                                           #{cc.attrs.showLastNames?'auto':''}
                                           #{cc.attrs.showClubs?'auto':''}"/>
-  <h:commandLink id="selectEvent">
+
+  <h:commandLink action="#{cc.attrs.selectSquadAction.execute(cc.attrs.squad)}" disabled="#{cc.attrs.selectSquadAction == null}">
     <div style="display: grid; grid-template-columns: #{gridTemplateColumns}; width: 1%; grid-column-gap: 5px;">
-      <ui:repeat value="#{cc.attrs.squad.players}" var="player">
+      <ui:repeat value="#{cc.attrs.squad.players}" var="player" varStatus="status">
         <h:panelGroup rendered="#{cc.attrs.showFirstNames=='true'}">
-          <span style="white-space: nowrap;">
-            <h:outputText value="#{player.person.firstName}"/>
-          </span>
+          <h:commandLink style="white-space: nowrap;" action="#{cc.attrs.selectPlayerAction.execute(player)}"
+                         value="#{player.person.firstName}" disabled="#{cc.attrs.selectPlayerAction == null}"/>
         </h:panelGroup>
         <h:panelGroup rendered="#{cc.attrs.showLastNames}">
-          <span style="white-space: nowrap;">
-            <h:outputText value="#{player.person.lastName}"/>
-          </span>
+          <h:commandLink style="white-space: nowrap;" action="#{cc.attrs.selectPlayerAction.execute(player)}"
+                         value="#{player.person.lastName}" disabled="#{cc.attrs.selectPlayerAction == null}"/>
         </h:panelGroup>
         <h:panelGroup rendered="#{cc.attrs.showClubs}">
-          <span style="white-space: nowrap;">
-            <h:outputText value="#{player.club==null?'-':player.club.name}"/>
-          </span>
+          <h:commandLink style="white-space: nowrap;" action="#{cc.attrs.selectPlayerAction.execute(player)}"
+                         value="#{player.club==null?'-':player.club.name}"
+                         disabled="#{cc.attrs.selectPlayerAction == null}"/>
         </h:panelGroup>
       </ui:repeat>
     </div>
   </h:commandLink>
+
 </cc:implementation>
 
 </html>

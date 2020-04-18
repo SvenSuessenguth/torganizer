@@ -32,14 +32,14 @@
     <nav id="nav">
       <h:form id="navForm">
         <h:commandLink id="linkTournaments" value="tournaments " action="tournaments?faces-redirect=true"/>
-        <h:commandLink id="linkPlayers" value="players " action="players?faces-redirect=true" disabled="#{applicationState.current == null}"/>
-        <h:commandLink id="linkSquads" value="squads " action="squads?faces-redirect=true" disabled="#{applicationState.current == null}"/>
-        <h:commandLink id="linkClubs" value="clubs " action="clubs?faces-redirect=true" disabled="#{applicationState.current == null}"/>
+        <h:commandLink id="linkPlayers" value="players " action="players?faces-redirect=true" disabled="#{applicationState.tournament == null}"/>
+        <h:commandLink id="linkSquads" value="squads " action="squads?faces-redirect=true" disabled="#{applicationState.tournament == null}"/>
+        <h:commandLink id="linkClubs" value="clubs " action="clubs?faces-redirect=true" disabled="#{applicationState.tournament == null}"/>
       </h:form>
       <hr />
     </nav>
     <main>
-      <h:outputText value="#{applicationState.current.name}" />
+      <h:outputText value="#{applicationState.tournament.name}" />
       <hr />
       <ui:insert name="main">page content</ui:insert>
     </main>

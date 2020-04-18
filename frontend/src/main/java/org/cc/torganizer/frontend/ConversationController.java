@@ -7,6 +7,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Start and ends a conversation.
+ */
 @Named
 @RequestScoped
 public class ConversationController {
@@ -20,6 +23,9 @@ public class ConversationController {
   @Inject
   private FacesContext facesContext;
 
+  /**
+   * starts a conversation.
+   */
   public void beginConversation() {
     if (conversation.isTransient()) {
       conversation.begin();

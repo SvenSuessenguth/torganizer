@@ -13,13 +13,16 @@ public class SaveTournament extends TournamentsAction {
   @Inject
   private Logger logger;
 
+  /**
+   * save changes on already persisted tournament.
+   */
   public void execute() {
     Tournament current = state.getCurrent();
     current.setName(state.getCurrentName());
 
     Tournament updated = tournamentsRepository.update(current);
     state.setCurrent(updated);
-    state.initState();
+    state.synchronize();
 
     logger.info("save with name: '{}'", current.getName());
   }

@@ -11,6 +11,9 @@ public class PlayerComparatorProvider {
   @Inject
   private Instance<PlayerComparator> playerComparators;
 
+  /**
+   * providing the comparartor by the given playerOrder.
+   */
   public PlayerComparator get(PlayerOrder playerOrder) {
 
     for (PlayerComparator pc : playerComparators) {

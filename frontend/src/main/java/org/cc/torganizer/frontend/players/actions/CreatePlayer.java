@@ -17,6 +17,9 @@ public class CreatePlayer extends PlayersAction {
   @Inject
   private Logger logger;
 
+  /**
+   * creating a player with adding to current tournament.
+   */
   public void execute() {
     logger.info("create player");
 
@@ -28,7 +31,10 @@ public class CreatePlayer extends PlayersAction {
     newPerson.setDateOfBirth(currentPerson.getDateOfBirth());
 
     Long clubId = state.getCurrentClubId();
-    Club club = clubsRepository.read(clubId);
+    Club club = null;
+    if (clubId != null) {
+      club = clubsRepository.read(clubId);
+    }
 
     Player newPlayer = new Player(newPerson);
     newPlayer.setLastMatch(null);
@@ -37,11 +43,11 @@ public class CreatePlayer extends PlayersAction {
 
     playersRepository.create(newPlayer);
 
-    Long currentTournamentsId = appState.getCurrent().getId();
+    Long tournamentsId = applicationState.getTournamentId();
     Long newPlayerId = newPlayer.getId();
-    tournamentsRepository.addPlayer(currentTournamentsId, newPlayerId);
+    tournamentsRepository.addPlayer(tournamentsId, newPlayerId);
 
-    initPlayerState.execute(true);
+    initPlayerState.execute();
     state.setCurrent(newPlayer);
   }
 }

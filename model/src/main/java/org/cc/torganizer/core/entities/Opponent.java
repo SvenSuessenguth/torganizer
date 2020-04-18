@@ -25,8 +25,4 @@ public abstract class Opponent extends Entity {
   public void setStatus(Status inStatus) {
     this.status = inStatus;
   }
-
-  public boolean isBye() {
-    return this instanceof Bye;
-  }
 }

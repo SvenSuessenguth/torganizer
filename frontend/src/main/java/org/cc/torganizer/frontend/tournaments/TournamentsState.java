@@ -3,12 +3,14 @@ package org.cc.torganizer.frontend.tournaments;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.logging.log4j.Logger;
 import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.frontend.ApplicationState;
+import org.cc.torganizer.frontend.State;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
 /**
@@ -16,7 +18,7 @@ import org.cc.torganizer.persistence.TournamentsRepository;
  */
 @Named
 @ViewScoped
-public class TournamentsState implements Serializable {
+public class TournamentsState extends State implements Serializable {
 
   private static final long serialVersionUID = 4070827997380138970L;
 
@@ -38,7 +40,13 @@ public class TournamentsState implements Serializable {
    */
   private String currentName;
 
-  public void initState() {
+  @PostConstruct
+  public void postConstruct() {
+    synchronize();
+  }
+
+  @Override
+  public void synchronize() {
     tournaments = tournamentsRepository.read(0, 100);
 
     if (current != null && current.getId() != null) {
@@ -48,7 +56,7 @@ public class TournamentsState implements Serializable {
     if ((current == null || current.getId() == null) && !this.tournaments.isEmpty()) {
       current = this.tournaments.get(0);
       currentName = current.getName();
-      appState.setCurrent(current);
+      appState.setTournament(current);
       logger.info("tournaments state is inited with the current tounament '{}'", current.getName());
     } else {
       current = new Tournament();

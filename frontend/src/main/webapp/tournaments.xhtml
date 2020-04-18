@@ -20,7 +20,6 @@
 
   <ui:define name="main">
     <f:event listener="#{conversationController.beginConversation}" type="preRenderView"/>
-    <f:event listener="#{tournamentsState.initState}" type="preRenderView"/>
 
     <c:set var="current" value="#{tournamentsState.current}"/>
     #{i18nText.current}: <h:outputText value="#{current==null?'':current.name}"/>

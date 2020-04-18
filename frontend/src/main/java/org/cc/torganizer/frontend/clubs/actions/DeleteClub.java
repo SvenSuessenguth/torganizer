@@ -13,7 +13,7 @@ public class DeleteClub extends ClubsAction {
   public static final String CLUBS_I18N_BASE_NAME = "org.cc.torganizer.frontend.clubs";
 
   @Inject
-  private InitClubsState initClubsState;
+  private SynchronizeClubsState initClubsState;
 
   @Inject
   private ApplicationMessages appMessages;

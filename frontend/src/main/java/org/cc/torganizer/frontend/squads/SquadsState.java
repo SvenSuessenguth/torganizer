@@ -10,11 +10,15 @@ import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.frontend.ApplicationState;
+import org.cc.torganizer.frontend.State;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
 @ViewScoped
 @Named
-public class SquadsState implements Serializable {
+public class SquadsState extends State implements Serializable {
+
+  public static final int MAX_SQUADS_RESULTS = 1000;
+  public static final int MAX_PLAYERS_RESULTS = 1000;
 
   private Squad current;
   private List<Squad> squads;
@@ -27,15 +31,16 @@ public class SquadsState implements Serializable {
 
   @PostConstruct
   public void postConstruct() {
-    Tournament currentTournament = applicationState.getCurrent();
-    // if no tournament is selected redirect to tournaments page
-    if (currentTournament == null || currentTournament.getId() == null) {
-      return;
-    }
+    synchronize();
+  }
+
+  @Override
+  public void synchronize() {
+    Tournament currentTournament = applicationState.getTournament();
     Long tournamentId = currentTournament.getId();
 
-    squads = tournamentsRepository.getSquads(tournamentId, 0, 1000);
-    players = tournamentsRepository.getPlayers(tournamentId, 0, 1000);
+    squads = tournamentsRepository.getSquads(tournamentId, 0, MAX_SQUADS_RESULTS);
+    players = tournamentsRepository.getPlayers(tournamentId, 0, MAX_PLAYERS_RESULTS);
 
     if (!squads.isEmpty()) {
       current = squads.get(0);
@@ -43,7 +48,6 @@ public class SquadsState implements Serializable {
       current = new Squad();
     }
   }
-
 
   public Squad getCurrent() {
     return current;

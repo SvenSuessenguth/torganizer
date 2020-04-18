@@ -19,7 +19,8 @@ public class PlayerOrderConverter implements Converter<PlayerOrder> {
   }
 
   @Override
-  public String getAsString(FacesContext facesContext, UIComponent uiComponent, PlayerOrder playerOrder) {
+  public String getAsString(FacesContext facesContext, UIComponent uiComponent,
+                            PlayerOrder playerOrder) {
     return playerOrder == null ? "" : "" + playerOrder.name();
   }
 }

@@ -70,6 +70,10 @@ public class TournamentsRepository extends Repository<Tournament> {
   // Tournaments players
   //
   //-----------------------------------------------------------------------------------------------
+
+  /**
+   * reading all players from the given tournament.
+   */
   public List<Player> getPlayers(Long tournamentId, Integer offset,
                                                   Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
@@ -124,10 +128,9 @@ public class TournamentsRepository extends Repository<Tournament> {
    * Add a player to a tournament.
    */
   public Player addPlayer(Long tournamentId, Long playerId) {
-    Player player = entityManager.find(Player.class, (Object) playerId);
+    Player player = entityManager.find(Player.class, playerId);
     Tournament tournament = entityManager.find(Tournament.class, tournamentId);
 
-    // persist tournament
     Set<Opponent> opponents = tournament.getOpponents();
     opponents.add(player);
     entityManager.persist(tournament);

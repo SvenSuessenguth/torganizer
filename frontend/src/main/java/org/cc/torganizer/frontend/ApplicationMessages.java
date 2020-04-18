@@ -18,6 +18,9 @@ public class ApplicationMessages {
     addMessage(null, baseName, key, arguments);
   }
 
+  /**
+   * Add FacesMessage to context.
+   */
   public void addMessage(String clientId, String baseName, String key, Object[] arguments) {
     Locale locale = facesContext.getViewRoot().getLocale();
     ResourceBundle bundle = ResourceBundle.getBundle(baseName, locale);

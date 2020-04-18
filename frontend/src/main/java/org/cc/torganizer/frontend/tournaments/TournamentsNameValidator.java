@@ -37,12 +37,15 @@ public class TournamentsNameValidator implements Validator<String> {
     return validator.validate(newTournament);
   }
 
-  private Collection<FacesMessage> createFacesMessages(Set<ConstraintViolation<Tournament>> constraintViolations) {
+  private Collection<FacesMessage> createFacesMessages(
+      Set<ConstraintViolation<Tournament>> constraintViolations) {
+
     Collection<FacesMessage> facesMessages = new ArrayList<>(constraintViolations.size());
 
     for (ConstraintViolation violation : constraintViolations) {
       String messageText = violation.getMessage();
-      FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, messageText, messageText);
+      FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+          messageText, messageText);
       facesMessages.add(facesMessage);
     }
 

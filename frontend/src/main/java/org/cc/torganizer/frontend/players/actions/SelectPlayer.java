@@ -9,6 +9,9 @@ import org.cc.torganizer.core.entities.Player;
 @Named
 public class SelectPlayer extends PlayersAction {
 
+  /**
+   * selecting a player on UI.
+   */
   public void execute(Player player) {
     state.setCurrent(player);
     Club club = player.getClub();

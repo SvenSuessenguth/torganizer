@@ -19,7 +19,7 @@
   </ui:define>
 
   <ui:define name="main">
-    <f:event listener="#{initPlayerState.execute(false)}" type="preRenderView"/>
+    <f:event listener="#{synchronizePlayerState.execute(false)}" type="preRenderView"/>
     <c:set var="current" value="#{playersState.current}"/>
 
     <h:form id="playersForm">

@@ -2,13 +2,16 @@ package org.cc.torganizer.persistence;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import org.cc.torganizer.core.comparators.OpponentByNameComparator;
+import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
+import org.cc.torganizer.core.entities.Tournament;
 
 @Stateless
 public class SquadsRepository extends Repository<Squad> {
@@ -72,6 +75,22 @@ public class SquadsRepository extends Repository<Squad> {
   // Squads players
   //
   //-----------------------------------------------------------------------------------------------
+
+  /**
+   * adding a player to an already persisted squad.
+   */
+  public Player addPlayer(Long squadId, Long playerId) {
+    Player player = entityManager.find(Player.class, playerId);
+    Squad squad = entityManager.find(Squad.class, squadId);
+
+    Set<Player> players = squad.getPlayers();
+    players.add(player);
+    entityManager.persist(squad);
+    // to get the id
+    entityManager.flush();
+
+    return player;
+  }
 
   /**
    * Getting all players which are related to the squad with the given id.

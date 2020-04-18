@@ -24,8 +24,8 @@ public class CreateTournament extends TournamentsAction {
 
     newTournament = tournamentsRepository.create(newTournament);
 
-    state.initState();
+    state.synchronize();
     state.setCurrent(newTournament);
-    appState.setCurrent(newTournament);
+    appState.setTournament(newTournament);
   }
 }

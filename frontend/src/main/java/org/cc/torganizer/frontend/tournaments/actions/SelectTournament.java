@@ -8,10 +8,13 @@ import org.cc.torganizer.core.entities.Tournament;
 @Named
 public class SelectTournament extends TournamentsAction {
 
+  /**
+   * select tournament in UI.
+   */
   public void execute(Tournament selected) {
     state.setCurrent(selected);
     state.setCurrentName(selected.getName());
 
-    appState.setCurrent(selected);
+    appState.setTournament(selected);
   }
 }

@@ -6,9 +6,8 @@ import org.cc.torganizer.core.entities.Player;
 
 @RequestScoped
 @Named
-public class AddPlayerToSquad extends SquadsAction {
-
+public class RemovePlayerFromSquad extends SquadsAction {
   public void execute(Player player) {
-    state.getCurrent().addPlayer(player);
+    state.getCurrent().getPlayers().remove(player);
   }
 }

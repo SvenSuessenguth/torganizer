@@ -19,11 +19,11 @@ public abstract class PlayersAction {
   protected PlayersRepository playersRepository;
 
   @Inject
-  protected ApplicationState appState;
+  protected ApplicationState applicationState;
 
   @Inject
   protected TournamentsRepository tournamentsRepository;
 
   @Inject
-  protected InitPlayerState initPlayerState;
+  protected SynchronizePlayerState initPlayerState;
 }

@@ -14,6 +14,9 @@ public class DeleteTournament extends TournamentsAction {
   @Inject
   private Logger logger;
 
+  /**
+   * deleting a tournament.
+   */
   @Transactional
   public void execute() {
     Tournament current = state.getCurrent();
@@ -26,7 +29,7 @@ public class DeleteTournament extends TournamentsAction {
     current = tournamentsRepository.read(current.getId());
     tournamentsRepository.delete(current);
     state.setCurrent(null);
-    appState.setCurrent(null);
-    state.initState();
+    appState.setTournament(null);
+    state.synchronize();
   }
 }

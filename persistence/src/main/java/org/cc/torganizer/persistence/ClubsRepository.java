@@ -44,12 +44,19 @@ public class ClubsRepository extends Repository<Club> {
     return namedQuery.getResultList();
   }
 
+  /**
+   * reading all players from athe given club.
+   */
   public List<Player> getPlayers(Club club) {
-    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Club.findPlayers", Player.class);
+    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Club.findPlayers",
+        Player.class);
     namedQuery.setParameter("club", club);
     return namedQuery.getResultList();
   }
 
+  /**
+   * count the players from the given club.
+   */
   public Long countPlayers(Club club) {
     TypedQuery<Long> namedQuery = entityManager.createNamedQuery("Club.countPlayers", Long.class);
     namedQuery.setParameter("club", club);

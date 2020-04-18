@@ -48,37 +48,57 @@
         </h:column>
         <h:column rendered="#{facesContext.isProjectStage('Development')}">
           <f:facet name="header">ID</f:facet>
-          <h:commandLink actionListener="#{addPlayerToSquad.execute(player)}" value="#{player.id}" />
+          <h:commandLink actionListener="#{addPlayerToSquad.execute(player)}" value="#{player.id}"/>
         </h:column>
       </h:dataTable>
 
       <!--
        | current squad
        +-->
-      <tc:squad id="currentSquad" squad="#{squadsState.current}"
-                showFirstNames="true" showLastNames="true" showClubs="true"/>
+      <h:dataTable value="#{squadsState.current.players}" var="player">
+        <h:column>
+          <f:facet name="header">Vorname</f:facet>
+          <h:commandLink value="#{player.person.firstName}" style="white-space: nowrap;"
+                         action="#{removePlayerFromSquad.execute(player)}"/>
+        </h:column>
+        <h:column>
+          <f:facet name="header">Nachnamen</f:facet>
+          <h:commandLink value="#{player.person.lastName}" style="white-space: nowrap;"
+                         action="#{removePlayerFromSquad.execute(player)}"/>
+        </h:column>
+        <h:column>
+          <f:facet name="header">Vereine</f:facet>
+          <h:commandLink value="#{player.club!=null?player.club.name:'-'}" style="white-space: nowrap;"
+                         action="#{removePlayerFromSquad.execute(player)}"/>
+        </h:column>
+        <h:column rendered="#{facesContext.isProjectStage('Development')}">
+          <f:facet name="header">ID</f:facet>
+          <h:outputText value="#{player.id}" />
+        </h:column>
+      </h:dataTable>
 
       <!--
        | all squads
        +-->
-      <h:outputLabel for="squadsCount" value="Anzahl"/><h:outputText id="squadsCount" value="#{fn:length(squadsState.squads)}" />
+      <h:outputLabel for="squadsCount" value="Anzahl"/><h:outputText id="squadsCount"
+                                                                     value="#{fn:length(squadsState.squads)}"/>
       <h:dataTable id="allSquads" value="#{squadsState.squads}" var="squad"
                    style="margin-bottom: 10px; margin-top: 10px">
         <h:column>
           <f:facet name="header">Vornamen</f:facet>
-          <tc:squad id="firstName#{squad.id}" squad="#{squad}" showFirstNames="true" />
+          <tc:squad id="firstName#{squad.id}" squad="#{squad}" showFirstNames="true"/>
         </h:column>
         <h:column>
           <f:facet name="header">Nachnamen</f:facet>
-          <tc:squad id="lastName#{squad.id}" squad="#{squad}" showLastNames="true" />
+          <tc:squad id="lastName#{squad.id}" squad="#{squad}" showLastNames="true"/>
         </h:column>
         <h:column>
           <f:facet name="header">Vereine</f:facet>
-          <tc:squad id="club#{squad.id}" squad="#{squad}" showClubs="true" />
+          <tc:squad id="club#{squad.id}" squad="#{squad}" showClubs="true"/>
         </h:column>
         <h:column rendered="#{facesContext.isProjectStage('Development')}">
           <f:facet name="header">ID</f:facet>
-          #{squad.id}
+          <h:outputText value="#{squad.id}" />
         </h:column>
       </h:dataTable>
 

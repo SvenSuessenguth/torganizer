@@ -17,6 +17,9 @@ public class SavePlayer extends PlayersAction {
   @Inject
   private OrderPlayers orderPlayers;
 
+  /**
+   * persisting changes to a already persisted player.
+   */
   public void exeute() {
     logger.info("save player");
     Long clubId = state.getCurrentClubId();

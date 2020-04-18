@@ -8,9 +8,7 @@ import org.cc.torganizer.core.entities.Squad;
 @Named
 public class SaveSquad extends SquadsAction {
 
-  public void execute(){
-
-
+  public void execute() {
     state.setCurrent(new Squad());
   }
 }

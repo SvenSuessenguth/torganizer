@@ -22,6 +22,9 @@ public class OrderPlayers extends PlayersAction {
     execute();
   }
 
+  /**
+   * ordering players with given order rule.
+   */
   public void execute() {
     PlayerOrder playerOrder = state.getPlayerOrder();
     List<Player> players = state.getPlayers();

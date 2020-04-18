@@ -9,14 +9,18 @@ import org.cc.torganizer.core.entities.Tournament;
 @Named
 public class ApplicationState implements Serializable {
 
-  private Tournament current;
+  private Tournament tournament;
 
-  public Tournament getCurrent() {
-    return current;
+  public Tournament getTournament() {
+    return tournament;
   }
 
-  public void setCurrent(Tournament current) {
-    this.current = current;
+  public void setTournament(Tournament tournament) {
+    this.tournament = tournament;
+  }
+
+  public Long getTournamentId() {
+    return tournament.getId();
   }
 
 }
