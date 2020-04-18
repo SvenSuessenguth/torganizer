@@ -86,15 +86,15 @@
                    style="margin-bottom: 10px; margin-top: 10px">
         <h:column>
           <f:facet name="header">Vornamen</f:facet>
-          <tc:squad id="firstName#{squad.id}" squad="#{squad}" showFirstNames="true"/>
+          <tc:squad id="firstName#{squad.id}" squad="#{squad}" showFirstNames="true" selectSquadAction="#{selectSquad}"/>
         </h:column>
         <h:column>
           <f:facet name="header">Nachnamen</f:facet>
-          <tc:squad id="lastName#{squad.id}" squad="#{squad}" showLastNames="true"/>
+          <tc:squad id="lastName#{squad.id}" squad="#{squad}" showLastNames="true" selectSquadAction="#{selectSquad}"/>
         </h:column>
         <h:column>
           <f:facet name="header">Vereine</f:facet>
-          <tc:squad id="club#{squad.id}" squad="#{squad}" showClubs="true"/>
+          <tc:squad id="club#{squad.id}" squad="#{squad}" showClubs="true" selectSquadAction="#{selectSquad}"/>
         </h:column>
         <h:column rendered="#{facesContext.isProjectStage('Development')}">
           <f:facet name="header">ID</f:facet>
