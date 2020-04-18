@@ -1,11 +1,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+<html lang="en"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:cc="http://xmlns.jcp.org/jsf/composite">
+
+<head>
+  <title>squad</title>
+</head>
 
 <cc:interface name="squad"
               displayName="squad"
@@ -30,7 +34,8 @@
                                           #{cc.attrs.showLastNames?'auto':''}
                                           #{cc.attrs.showClubs?'auto':''}"/>
 
-  <h:commandLink action="#{cc.attrs.selectSquadAction.execute(cc.attrs.squad)}" disabled="#{cc.attrs.selectSquadAction == null}">
+  <h:commandLink action="#{cc.attrs.selectSquadAction.execute(cc.attrs.squad)}"
+                 disabled="#{cc.attrs.selectSquadAction == null}">
     <div style="display: grid; grid-template-columns: #{gridTemplateColumns}; width: 1%; grid-column-gap: 5px;">
       <ui:repeat value="#{cc.attrs.squad.players}" var="player" varStatus="status">
         <h:panelGroup rendered="#{cc.attrs.showFirstNames=='true'}">
