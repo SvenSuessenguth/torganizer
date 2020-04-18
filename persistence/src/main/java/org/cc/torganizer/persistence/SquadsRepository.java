@@ -8,10 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import org.cc.torganizer.core.comparators.OpponentByNameComparator;
-import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
-import org.cc.torganizer.core.entities.Tournament;
 
 @Stateless
 public class SquadsRepository extends Repository<Squad> {

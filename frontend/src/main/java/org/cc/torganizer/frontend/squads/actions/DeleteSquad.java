@@ -7,6 +7,6 @@ import javax.inject.Named;
 @Named
 public class DeleteSquad extends SquadsAction {
   public void execute() {
-    
+    throw new UnsupportedOperationException();
   }
 }
