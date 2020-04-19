@@ -51,7 +51,8 @@
           </h:column>
           <h:column>
             <f:facet name="header">Verein</f:facet>
-            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.club.name}"
+            <h:commandLink actionListener="#{selectPlayer.execute(player)}"
+                           value="#{player.club!=null?player.club.name:'-'}"
                            immediate="true">
               <f:ajax execute="@this" render="playersForm"/>
             </h:commandLink>
@@ -86,6 +87,7 @@
 
         <h:outputLabel for="playersClub" value="#{i18nText.club}"/>
         <h:selectOneMenu id="playersClub" value="#{playersState.currentClubId}">
+          <f:selectItem itemValue="#{null}" itemLabel="-"/>
           <f:selectItems value="#{playersState.clubs}" var="club"
                          itemValue="#{club.id}"
                          itemLabel="#{club.name}"/>
@@ -96,7 +98,7 @@
       <h:panelGroup style="display: block">
         <h:commandButton id="playersCreate" action="#{createPlayer.execute()}" value="#{i18nText.create}"
                          disabled="#{playersState.current.id == null}"/>
-        <h:commandButton id="playersSave" action="#{savePlayer.exeute()}" value="#{i18nText.save}"/>
+        <h:commandButton id="playersSave" action="#{savePlayer.execute()}" value="#{i18nText.save}"/>
         <h:commandButton id="playersDelete" action="#{deletePlayer.execute()}" value="#{i18nText.delete}"
                          disabled="#{playersState.current.id == null}"/>
       </h:panelGroup>

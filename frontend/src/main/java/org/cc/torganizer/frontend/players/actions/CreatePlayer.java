@@ -15,10 +15,7 @@ public class CreatePlayer extends PlayersAction {
    * creating a player without persisting it.
    */
   public void execute() {
-    List<Club> clubs = clubsRepository.read(0, 1);
-
     Player player = new Player(new Person());
-    player.setClub(clubs.get(0));
     state.setCurrent(player);
   }
 }

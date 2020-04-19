@@ -33,8 +33,8 @@
       <h:form id="navForm">
         <h:commandLink id="linkTournaments" value="tournaments " action="tournaments?faces-redirect=true"/>
         <h:commandLink id="linkClubs" value="clubs " action="clubs?faces-redirect=true" disabled="#{applicationState.tournament == null}"/>
-        <h:commandLink id="linkPlayers" value="players " action="players?faces-redirect=true" disabled="#{applicationState.tournament == null || applicationState.clubsCount == 0}"/>
-        <h:commandLink id="linkSquads" value="squads " action="squads?faces-redirect=true" disabled="#{applicationState.tournament == null || applicationState.clubsCount == 0}"/>
+        <h:commandLink id="linkPlayers" value="players " action="players?faces-redirect=true" disabled="#{applicationState.tournament == null}"/>
+        <h:commandLink id="linkSquads" value="squads " action="squads?faces-redirect=true" disabled="#{applicationState.tournament == null}"/>
       </h:form>
       <hr />
     </nav>

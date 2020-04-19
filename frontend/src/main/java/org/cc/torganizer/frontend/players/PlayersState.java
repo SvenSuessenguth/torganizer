@@ -58,10 +58,7 @@ public class PlayersState extends State implements Serializable {
     players.sort(pc);
 
     clubs = clubsRepository.read(0, 1000);
-
-    Club club = clubs.get(0);
     current = new Player(new Person());
-    current.setClub(club);
   }
 
   private List<Player> players;
@@ -113,6 +110,7 @@ public class PlayersState extends State implements Serializable {
   }
 
   public void setCurrentClubId(Long clubId) {
+    current.setClub(null);
     for (Club club : clubs) {
       if (club.getId().equals(clubId)) {
         current.setClub(club);
@@ -121,6 +119,6 @@ public class PlayersState extends State implements Serializable {
   }
 
   public Long getCurrentClubId() {
-    return current.getClub().getId();
+    return current.getClub() == null ? null : current.getClub().getId();
   }
 }

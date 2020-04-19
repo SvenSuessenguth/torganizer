@@ -22,7 +22,7 @@ public class SavePlayer extends PlayersAction {
   /**
    * persisting changes to a already persisted player.
    */
-  public void exeute() {
+  public void execute() {
     logger.info("save player");
 
     Player player = state.getCurrent();
