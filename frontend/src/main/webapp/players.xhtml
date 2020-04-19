@@ -37,47 +37,61 @@
                      style="margin-bottom: 10px; margin-top: 10px">
           <h:column>
             <f:facet name="header">Vorname</f:facet>
-            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.person.firstName}">
-              <f:ajax execute="@this" render="playersForm"/>
+            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.person.firstName}"
+                           immediate="true">
+              <f:ajax execute="@this" render="playersForm" immediate="true"/>
             </h:commandLink>
           </h:column>
           <h:column>
             <f:facet name="header">Nachname</f:facet>
-            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.person.lastName}">
+            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.person.lastName}"
+                           immediate="true">
               <f:ajax execute="@this" render="playersForm"/>
             </h:commandLink>
           </h:column>
           <h:column>
             <f:facet name="header">Verein</f:facet>
-            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.club.name}">
+            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.club.name}"
+                           immediate="true">
               <f:ajax execute="@this" render="playersForm"/>
             </h:commandLink>
           </h:column>
           <h:column rendered="#{facesContext.isProjectStage('Development')}">
             <f:facet name="header">ID</f:facet>
-            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.id}"/>
+            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.id}" immediate="true"/>
           </h:column>
         </h:dataTable>
       </h:panelGroup>
 
-      <h:inputText id="playersFirstName" value="#{current.person.firstName}"/>
-      <h:inputText id="playersLastName" value="#{current.person.lastName}"/>
-      <h:inputText id="playersDateOfBirth" a:type="date" value="#{current.person.dateOfBirth}">
-        <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
-      </h:inputText>
+      <h:panelGroup
+        style="display: grid; grid-template-columns: auto auto; width: 1%; grid-column-gap: 5px; grid-row-gap: 5px;">
+        <h:outputLabel for="playersFirstName" value="#{i18nText.first_name}"/>
+        <h:inputText id="playersFirstName" value="#{current.person.firstName}" a:placeholder="#{i18nText.first_name}"/>
 
-      <h:selectOneMenu id="playersGender" value="#{current.person.gender}">
-        <f:selectItems value="#{playersState.genders}" var="gender"
-                       itemValue="#{gender}"
-                       itemLabel="#{i18nGender[gender]}"/>
-        <f:converter converterId="genderConverter"/>
-      </h:selectOneMenu>
+        <h:outputLabel for="playersFirstName" value="#{i18nText.last_name}"/>
+        <h:inputText id="playersLastName" value="#{current.person.lastName}" a:placeholder="#{i18nText.last_name}"/>
 
-      <h:selectOneMenu id="playersClub" value="#{playersState.currentClubId}">
-        <f:selectItems value="#{playersState.clubs}" var="club"
-                       itemValue="#{club.id}"
-                       itemLabel="#{club.name}"/>
-      </h:selectOneMenu>
+        <h:outputLabel for="playersDateOfBirth" value="#{i18nText.date_of_birth}"/>
+        <h:inputText id="playersDateOfBirth" a:type="date" value="#{current.person.dateOfBirth}">
+          <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
+        </h:inputText>
+
+        <h:outputLabel for="playersGender" value="#{i18nText.gender}"/>
+        <h:selectOneMenu id="playersGender" value="#{current.person.gender}">
+          <f:selectItems value="#{playersState.genders}" var="gender"
+                         itemValue="#{gender}"
+                         itemLabel="#{i18nGender[gender]}"/>
+          <f:converter converterId="genderConverter"/>
+        </h:selectOneMenu>
+
+        <h:outputLabel for="playersClub" value="#{i18nText.club}"/>
+        <h:selectOneMenu id="playersClub" value="#{playersState.currentClubId}">
+          <f:selectItems value="#{playersState.clubs}" var="club"
+                         itemValue="#{club.id}"
+                         itemLabel="#{club.name}"/>
+        </h:selectOneMenu>
+      </h:panelGroup>
+      <br/>
 
       <h:panelGroup style="display: block">
         <h:commandButton id="playersCreate" action="#{createPlayer.execute()}" value="#{i18nText.create}"

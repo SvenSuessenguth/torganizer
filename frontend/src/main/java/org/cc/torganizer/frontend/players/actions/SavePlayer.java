@@ -26,7 +26,6 @@ public class SavePlayer extends PlayersAction {
     logger.info("save player");
 
     Player player = state.getCurrent();
-
     Long tournamentId = applicationState.getTournamentId();
 
     if (player.getId() == null) {

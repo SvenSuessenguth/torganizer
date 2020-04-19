@@ -59,13 +59,9 @@ public class PlayersState extends State implements Serializable {
 
     clubs = clubsRepository.read(0, 1000);
 
-    if (!players.isEmpty()) {
-      current = players.get(0);
-    } else {
-      Club club = clubs.get(0);
-      current = new Player(new Person());
-      current.setClub(club);
-    }
+    Club club = clubs.get(0);
+    current = new Player(new Person());
+    current.setClub(club);
   }
 
   private List<Player> players;
@@ -117,12 +113,13 @@ public class PlayersState extends State implements Serializable {
   }
 
   public void setCurrentClubId(Long clubId) {
-    for(Club club : clubs){
-      if(club.getId().equals(clubId)) {
+    for (Club club : clubs) {
+      if (club.getId().equals(clubId)) {
         current.setClub(club);
       }
     }
   }
+
   public Long getCurrentClubId() {
     return current.getClub().getId();
   }
