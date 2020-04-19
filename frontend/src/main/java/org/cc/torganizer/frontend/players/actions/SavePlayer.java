@@ -4,8 +4,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.logging.log4j.Logger;
-import org.cc.torganizer.core.entities.Club;
-import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 
 @RequestScoped

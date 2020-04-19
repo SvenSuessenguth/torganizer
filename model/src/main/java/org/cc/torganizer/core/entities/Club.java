@@ -1,7 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.util.Objects;
-
 /**
  * Club.
  */

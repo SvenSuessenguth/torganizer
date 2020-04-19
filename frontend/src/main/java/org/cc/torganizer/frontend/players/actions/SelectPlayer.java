@@ -2,7 +2,6 @@ package org.cc.torganizer.frontend.players.actions;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Player;
 
 @RequestScoped
