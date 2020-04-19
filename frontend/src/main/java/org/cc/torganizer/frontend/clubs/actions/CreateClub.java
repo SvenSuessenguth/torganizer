@@ -15,12 +15,7 @@ public class CreateClub extends ClubsAction {
    * creating a club.
    */
   public void execute() {
-    String name = state.getCurrent().getName();
-    Club club = new Club(name);
-
-    club = clubsRepository.create(club);
+    Club club = new Club();
     state.setCurrent(club);
-
-    applicationState.synchronize();
   }
 }

@@ -13,9 +13,6 @@ public class DeleteClub extends ClubsAction {
   public static final String CLUBS_I18N_BASE_NAME = "org.cc.torganizer.frontend.clubs";
 
   @Inject
-  private SynchronizeClubsState initClubsState;
-
-  @Inject
   private ApplicationMessages appMessages;
 
   /**
@@ -25,14 +22,15 @@ public class DeleteClub extends ClubsAction {
     Club current = state.getCurrent();
     Long id = current.getId();
 
-    Long count = clubsRepository.countPlayers(current);
+    Long clubsPlayers = clubsRepository.countPlayers(current);
 
-    if (count > 0) {
+    if (clubsPlayers > 0) {
       appMessages.addMessage(CLUBS_I18N_BASE_NAME, "no_delete_linked_players",
           new Object[]{current.getName()});
     } else {
       clubsRepository.delete(id);
-      initClubsState.execute();
+      state.synchronize();
+      applicationState.synchronize();
     }
   }
 }

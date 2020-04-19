@@ -10,6 +10,14 @@ public class SaveClub extends ClubsAction {
 
   public void execute() {
     Club current = state.getCurrent();
-    clubsRepository.update(current);
+
+    if (current.getId() == null) {
+      clubsRepository.create(current);
+    } else {
+      clubsRepository.update(current);
+    }
+    
+    state.synchronize();
+    applicationState.synchronize();
   }
 }

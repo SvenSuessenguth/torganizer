@@ -37,34 +37,31 @@
                      style="margin-bottom: 10px; margin-top: 10px">
           <h:column>
             <f:facet name="header">Vorname</f:facet>
-            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.person.firstName}"
-                           immediate="true">
-              <f:ajax execute="@this" render="playersForm" immediate="true"/>
+            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.person.firstName}">
+              <f:ajax render="playersForm" immediate="true"/>
             </h:commandLink>
           </h:column>
           <h:column>
             <f:facet name="header">Nachname</f:facet>
-            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.person.lastName}"
-                           immediate="true">
-              <f:ajax execute="@this" render="playersForm"/>
+            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.person.lastName}">
+              <f:ajax render="playersForm" immediate="true"/>
             </h:commandLink>
           </h:column>
           <h:column>
             <f:facet name="header">Verein</f:facet>
             <h:commandLink actionListener="#{selectPlayer.execute(player)}"
-                           value="#{player.club!=null?player.club.name:'-'}"
-                           immediate="true">
-              <f:ajax execute="@this" render="playersForm"/>
+                           value="#{player.club!=null?player.club.name:'-'}">
+              <f:ajax render="playersForm" immediate="true"/>
             </h:commandLink>
           </h:column>
           <h:column rendered="#{facesContext.isProjectStage('Development')}">
             <f:facet name="header">ID</f:facet>
-            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.id}" immediate="true"/>
+            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.id}" />
           </h:column>
         </h:dataTable>
       </h:panelGroup>
 
-      <h:panelGroup
+      <h:panelGroup id="currentPlayerData"
         style="display: grid; grid-template-columns: auto auto; width: 1%; grid-column-gap: 5px; grid-row-gap: 5px;">
         <h:outputLabel for="playersFirstName" value="#{i18nText.first_name}"/>
         <h:inputText id="playersFirstName" value="#{current.person.firstName}" a:placeholder="#{i18nText.first_name}"/>
@@ -95,7 +92,7 @@
       </h:panelGroup>
       <br/>
 
-      <h:panelGroup style="display: block">
+      <h:panelGroup id="playersCommands" style="display: block">
         <h:commandButton id="playersCreate" action="#{createPlayer.execute()}" value="#{i18nText.create}"
                          disabled="#{playersState.current.id == null}"/>
         <h:commandButton id="playersSave" action="#{savePlayer.execute()}" value="#{i18nText.save}"/>

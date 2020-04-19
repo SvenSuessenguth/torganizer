@@ -28,12 +28,7 @@ public class ClubsState extends State implements Serializable {
   @Override
   public void synchronize() {
     clubs = clubsRepository.read(0, 1000);
-
-    if (current == null && !clubs.isEmpty()) {
-      current = clubs.get(0);
-    } else if (current == null && clubs.isEmpty()) {
-      current = new Club();
-    }
+    current = new Club();
   }
 
   public List<Club> getClubs() {

@@ -11,7 +11,9 @@ public class SelectPlayer extends PlayersAction {
   /**
    * selecting a player on UI.
    */
-  public void execute(Player player) {
+  public String execute(Player player) {
     state.setCurrent(player);
+
+    return null;
   }
 }
