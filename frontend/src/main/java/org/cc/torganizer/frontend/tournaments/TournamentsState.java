@@ -35,11 +35,6 @@ public class TournamentsState extends State implements Serializable {
 
   private Tournament current;
 
-  /**
-   * new name to set for current or new tournament.
-   */
-  private String currentName;
-
   @PostConstruct
   public void postConstruct() {
     synchronize();
@@ -55,13 +50,10 @@ public class TournamentsState extends State implements Serializable {
 
     if ((current == null || current.getId() == null) && !this.tournaments.isEmpty()) {
       current = this.tournaments.get(0);
-      currentName = current.getName();
       appState.setTournament(current);
       logger.info("tournaments state is inited with the current tounament '{}'", current.getName());
     } else {
       current = new Tournament();
-      current.setName("Tournament");
-      currentName = current.getName();
     }
   }
 
@@ -75,13 +67,5 @@ public class TournamentsState extends State implements Serializable {
 
   public void setCurrent(Tournament current) {
     this.current = current;
-  }
-
-  public void setCurrentName(String currentName) {
-    this.currentName = currentName;
-  }
-
-  public String getCurrentName() {
-    return currentName;
   }
 }

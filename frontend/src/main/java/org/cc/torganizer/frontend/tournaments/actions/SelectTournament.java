@@ -13,7 +13,6 @@ public class SelectTournament extends TournamentsAction {
    */
   public void execute(Tournament selected) {
     state.setCurrent(selected);
-    state.setCurrentName(selected.getName());
 
     appState.setTournament(selected);
   }

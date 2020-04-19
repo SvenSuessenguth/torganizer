@@ -18,11 +18,13 @@ public class SaveTournament extends TournamentsAction {
    */
   public void execute() {
     Tournament current = state.getCurrent();
-    current.setName(state.getCurrentName());
 
-    Tournament updated = tournamentsRepository.update(current);
-    state.setCurrent(updated);
-    state.synchronize();
+    if(current.getId()!=null) {
+       tournamentsRepository.update(current);
+    }else {
+      tournamentsRepository.create(current);
+      state.synchronize();
+    }
 
     logger.info("save with name: '{}'", current.getName());
   }
