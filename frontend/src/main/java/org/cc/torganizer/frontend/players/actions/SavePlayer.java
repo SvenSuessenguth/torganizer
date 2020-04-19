@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.logging.log4j.Logger;
 import org.cc.torganizer.core.entities.Club;
+import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 
 @RequestScoped
@@ -17,18 +18,28 @@ public class SavePlayer extends PlayersAction {
   @Inject
   private OrderPlayers orderPlayers;
 
+  @Inject
+  private CreatePlayer createPlayer;
+
   /**
    * persisting changes to a already persisted player.
    */
   public void exeute() {
     logger.info("save player");
-    Long clubId = state.getCurrentClubId();
-    Club club = clubsRepository.read(clubId);
 
-    Player current = state.getCurrent();
-    current.setClub(club);
-    playersRepository.update(current);
-    state.setCurrent(new Player());
-    orderPlayers.execute();
+    Player player = state.getCurrent();
+
+    Long tournamentId = applicationState.getTournamentId();
+
+    if (player.getId() == null) {
+      playersRepository.create(player);
+      tournamentsRepository.addPlayer(tournamentId, player.getId());
+      state.synchronize();
+      orderPlayers.execute();
+    } else {
+      playersRepository.update(player);
+    }
+
+    createPlayer.execute();
   }
 }

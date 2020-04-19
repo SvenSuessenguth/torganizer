@@ -1,24 +1,18 @@
 package org.cc.torganizer.core.entities;
 
+import java.util.Objects;
+
 /**
- * Verein.
+ * Club.
  */
 public class Club extends Entity {
 
   private String name;
 
-  /**
-   * Default.
-   */
   public Club() {
-    // gem. Bean-Spec.
+    // default
   }
 
-  /**
-   * Konstruktor.
-   *
-   * @param name Name des Clubs
-   */
   public Club(String name) {
     this.name = name;
   }

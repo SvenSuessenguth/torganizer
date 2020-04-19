@@ -55,7 +55,7 @@
           </h:column>
           <h:column rendered="#{facesContext.isProjectStage('Development')}">
             <f:facet name="header">ID</f:facet>
-            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.id}" />
+            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.id}"/>
           </h:column>
         </h:dataTable>
       </h:panelGroup>
@@ -80,9 +80,11 @@
       </h:selectOneMenu>
 
       <h:panelGroup style="display: block">
+        <h:commandButton id="playersCreate" action="#{createPlayer.execute()}" value="#{i18nText.create}"
+                         disabled="#{playersState.current.id == null}"/>
         <h:commandButton id="playersSave" action="#{savePlayer.exeute()}" value="#{i18nText.save}"/>
-        <h:commandButton id="playersCreate" action="#{createPlayer.execute()}" value="#{i18nText.create}"/>
-        <h:commandButton id="playersDelete" action="#{deletePlayer.execute()}" value="#{i18nText.delete}"/>
+        <h:commandButton id="playersDelete" action="#{deletePlayer.execute()}" value="#{i18nText.delete}"
+                         disabled="#{playersState.current.id == null}"/>
       </h:panelGroup>
     </h:form>
   </ui:define>

@@ -3,6 +3,7 @@ package org.cc.torganizer.persistence;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Player;
@@ -42,6 +43,11 @@ public class ClubsRepository extends Repository<Club> {
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
     return namedQuery.getResultList();
+  }
+
+  public long count() {
+    Query query = entityManager.createQuery("SELECT count(c) FROM Club c");
+    return (long) query.getSingleResult();
   }
 
   /**

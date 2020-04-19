@@ -25,13 +25,13 @@ public class DeletePlayer extends PlayersAction {
     Long playerId = state.getCurrent().getId();
 
     if (tournamentId == null || playerId == null) {
-      FacesMessage message = new FacesMessage("Fehbler beim löschen eines Players");
+      FacesMessage message = new FacesMessage("Fehler beim Löschen eines Players");
       FacesContext.getCurrentInstance().addMessage(null, message);
       return;
     }
 
     tournamentsRepository.removePlayer(tournamentId, playerId);
     playersRepository.delete(playerId);
-    initPlayerState.execute();
+    state.synchronize();
   }
 }

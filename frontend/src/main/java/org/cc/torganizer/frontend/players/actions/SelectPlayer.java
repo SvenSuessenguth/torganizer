@@ -14,9 +14,5 @@ public class SelectPlayer extends PlayersAction {
    */
   public void execute(Player player) {
     state.setCurrent(player);
-    Club club = player.getClub();
-    if (club != null) {
-      state.setCurrentClubId(club.getId());
-    }
   }
 }

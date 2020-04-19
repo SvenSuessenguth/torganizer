@@ -14,6 +14,7 @@ import org.cc.torganizer.core.comparators.player.PlayerComparatorProvider;
 import org.cc.torganizer.core.comparators.player.PlayerOrder;
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Gender;
+import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.frontend.ApplicationState;
@@ -58,16 +59,12 @@ public class PlayersState extends State implements Serializable {
 
     clubs = clubsRepository.read(0, 1000);
 
-
-    // pre-assignment
-    if (!clubs.isEmpty()) {
-      currentClubId = clubs.get(0).getId();
-    }
-
     if (!players.isEmpty()) {
       current = players.get(0);
     } else {
-      current = new Player("", "", null);
+      Club club = clubs.get(0);
+      current = new Player(new Person());
+      current.setClub(club);
     }
   }
 
@@ -76,8 +73,6 @@ public class PlayersState extends State implements Serializable {
   private List<Club> clubs;
 
   private Player current;
-
-  private Long currentClubId;
 
   private PlayerOrder playerOrder = BY_LAST_UPDATE;
 
@@ -109,14 +104,6 @@ public class PlayersState extends State implements Serializable {
     return Arrays.asList(Gender.values());
   }
 
-  public Long getCurrentClubId() {
-    return currentClubId;
-  }
-
-  public void setCurrentClubId(Long currentClubId) {
-    this.currentClubId = currentClubId;
-  }
-
   public PlayerOrder getPlayerOrder() {
     return playerOrder;
   }
@@ -127,5 +114,16 @@ public class PlayersState extends State implements Serializable {
 
   public List<PlayerOrder> getPlayerOrders() {
     return Arrays.asList(PlayerOrder.values());
+  }
+
+  public void setCurrentClubId(Long clubId) {
+    for(Club club : clubs){
+      if(club.getId().equals(clubId)) {
+        current.setClub(club);
+      }
+    }
+  }
+  public Long getCurrentClubId() {
+    return current.getClub().getId();
   }
 }

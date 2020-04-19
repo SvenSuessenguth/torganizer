@@ -20,5 +20,7 @@ public class CreateClub extends ClubsAction {
 
     club = clubsRepository.create(club);
     state.setCurrent(club);
+
+    applicationState.synchronize();
   }
 }
