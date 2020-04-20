@@ -4,7 +4,7 @@
 <html lang="en"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:fn="http://java.sun.com/jsp/jstl/functions"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
@@ -19,10 +19,6 @@
   </ui:define>
 
   <ui:define name="main">
-
-    <c:set var="current" value="#{tournamentsState.current}"/>
-    #{i18nText.current}: <h:outputText value="#{current==null?'':current.name}"/>
-
     <h:form id="tournamentsForm">
       <div>
         #{i18nText.count}: #{fn:length(tournamentsState.tournaments)}
@@ -51,19 +47,19 @@
         <h:outputLabel for="currentName">#{i18nText.tournament}</h:outputLabel>
         &#160;
         <h:inputText id="currentName" value="#{tournamentsState.current.name}"
-                     label="#{i18nText.tournament}"
+                     label="#{i18nText.tournament}" a:autofocus="true"
                      styleClass="#{component.valid ? 'validation-ok' : 'validation-fail'}"/>
         <br/>
 
         <h:commandButton id="saveTournament" value="#{i18nText.save}" action="#{saveTournament.execute()}" />
         <h:commandButton id="deleteTournament" value="#{i18nText.delete}" action="#{deleteTournament.execute()}"
                          disabled="#{tournamentsState.current.id==null}"/>
-        <h:commandButton id="cancelTournament" action="#{cancelTournament.execute()}" value="#{i18nText.cancel}"
-                         type="submit" immediate="true"/>
+        <h:commandButton id="cancelTournament" action="tournaments?faces-redirect=true" value="#{i18nText.cancel}"
+                         type="submit" immediate="true" disabled="#{tournamentsState.current.id == null}">
+        </h:commandButton>
       </section>
     </h:form>
   </ui:define>
-
 </ui:composition>
 </html>
   

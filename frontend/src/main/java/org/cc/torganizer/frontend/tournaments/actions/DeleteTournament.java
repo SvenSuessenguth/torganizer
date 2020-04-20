@@ -20,16 +20,20 @@ public class DeleteTournament extends TournamentsAction {
   @Transactional
   public void execute() {
     Tournament current = state.getCurrent();
-    if (current == null || current.getId() == null) {
+    Long currentTournamentId = current.getId();
+    if (current == null || currentTournamentId == null) {
       return;
     }
 
-    logger.info("delete with name: '{}' id: '{}'", current.getName(), current.getId());
+    logger.info("delete with name: '{}' currentTournamentId: '{}'", current.getName(), currentTournamentId);
 
-    current = tournamentsRepository.read(current.getId());
+    current = tournamentsRepository.read(currentTournamentId);
     tournamentsRepository.delete(current);
 
     state.synchronize();
-    state.setCurrent(new Tournament());
+
+    if(appState.getTournamentId()==currentTournamentId) {
+      appState.setTournament(null);
+    }
   }
 }
