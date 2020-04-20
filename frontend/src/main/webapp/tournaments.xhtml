@@ -24,7 +24,7 @@
     <c:set var="current" value="#{tournamentsState.current}"/>
     #{i18nText.current}: <h:outputText value="#{current==null?'':current.name}"/>
 
-    <h:form id="tournaments">
+    <h:form id="tournamentsForm">
       <div>
         #{i18nText.count}: #{fn:length(tournamentsState.tournaments)}
       </div>
@@ -39,15 +39,18 @@
           </h:column>
           <h:column rendered="#{facesContext.isProjectStage('Development')}">
             <f:facet name="header">ID</f:facet>
-            <h:commandLink actionListener="#{selectTournament.execute(tournament)}" value="#{tournament.id}"/>
+            <h:commandLink actionListener="#{selectTournament.execute(tournament)}" value="#{tournament.id}">
+              <f:ajax render="tournamentsForm" immediate="true"/>
+            </h:commandLink>
           </h:column>
         </h:dataTable>
       </section>
 
       <section id="edit">
-        <h:outputLabel for="currentName">Turnier</h:outputLabel>
+        <h:outputLabel for="currentName">#{i18nText.tournament}</h:outputLabel>
+        &#160;
         <h:inputText id="currentName" value="#{tournamentsState.current.name}"
-                     validator="tournamentsNameValidator"
+                     label="#{i18nText.tournament}"
                      styleClass="#{component.valid ? 'validation-ok' : 'validation-fail'}"/>
         <br/>
 

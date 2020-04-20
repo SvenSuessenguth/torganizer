@@ -37,13 +37,13 @@
                      style="margin-bottom: 10px; margin-top: 10px">
           <h:column>
             <f:facet name="header">Vorname</f:facet>
-            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.person.firstName}">
-              <f:ajax render="playersForm" immediate="true"/>
+            <h:commandLink action="#{selectPlayer.execute(player)}" value="#{player.person.firstName}">
+              <f:ajax render="playersForm" immediate="true" />
             </h:commandLink>
           </h:column>
           <h:column>
             <f:facet name="header">Nachname</f:facet>
-            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.person.lastName}">
+            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.person.lastName}" >
               <f:ajax render="playersForm" immediate="true"/>
             </h:commandLink>
           </h:column>
@@ -56,18 +56,20 @@
           </h:column>
           <h:column rendered="#{facesContext.isProjectStage('Development')}">
             <f:facet name="header">ID</f:facet>
-            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.id}" />
+            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.id}"/>
           </h:column>
         </h:dataTable>
       </h:panelGroup>
 
       <h:panelGroup id="currentPlayerData"
-        style="display: grid; grid-template-columns: auto auto; width: 1%; grid-column-gap: 5px; grid-row-gap: 5px;">
+                    style="display: grid; grid-template-columns: auto auto; width: 1%; grid-column-gap: 5px; grid-row-gap: 5px;">
         <h:outputLabel for="playersFirstName" value="#{i18nText.first_name}"/>
-        <h:inputText id="playersFirstName" value="#{current.person.firstName}" a:placeholder="#{i18nText.first_name}"/>
+        <h:inputText id="playersFirstName" value="#{current.person.firstName}" a:placeholder="#{i18nText.first_name}"
+                     label="#{i18nText.first_name}" style="#{component.valid?'':'border-color:red;'}"/>
 
-        <h:outputLabel for="playersFirstName" value="#{i18nText.last_name}"/>
-        <h:inputText id="playersLastName" value="#{current.person.lastName}" a:placeholder="#{i18nText.last_name}"/>
+        <h:outputLabel for="playersLastName" value="#{i18nText.last_name}"/>
+        <h:inputText id="playersLastName" value="#{current.person.lastName}" a:placeholder="#{i18nText.last_name}"
+                     label="#{i18nText.last_name}" style="#{component.valid?'':'border-color:red;'}"/>
 
         <h:outputLabel for="playersDateOfBirth" value="#{i18nText.date_of_birth}"/>
         <h:inputText id="playersDateOfBirth" a:type="date" value="#{current.person.dateOfBirth}">
@@ -93,11 +95,11 @@
       <br/>
 
       <h:panelGroup id="playersCommands" style="display: block">
-        <h:commandButton id="playersCreate" action="#{createPlayer.execute()}" value="#{i18nText.create}"
-                         disabled="#{playersState.current.id == null}"/>
         <h:commandButton id="playersSave" action="#{savePlayer.execute()}" value="#{i18nText.save}"/>
         <h:commandButton id="playersDelete" action="#{deletePlayer.execute()}" value="#{i18nText.delete}"
                          disabled="#{playersState.current.id == null}"/>
+        <h:commandButton id="playersCancel" action="#{createPlayer.execute()}" value="#{i18nText.cancel}"
+                         type="submit" immediate="true"/>
       </h:panelGroup>
     </h:form>
   </ui:define>
