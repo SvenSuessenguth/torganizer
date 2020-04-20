@@ -10,7 +10,7 @@ import java.util.Set;
  */
 public class Tournament extends Entity {
 
-  private String name;
+  private String name = "";
 
   private Set<Opponent> opponents = new HashSet<>();
 

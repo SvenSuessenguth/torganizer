@@ -27,6 +27,7 @@ public class SaveTournament extends TournamentsAction {
     }else {
       tournamentsRepository.create(current);
       state.synchronize();
+      appState.setTournament(current);
     }
 
     cancelTournament.execute();

@@ -35,12 +35,16 @@
         </h:dataTable>
       </h:panelGroup>
 
-      <h:inputText id="clubName" value="#{clubsState.current.name}"/>
+      <h:outputLabel for="clubName" value="#{i18nText.club}"/>&#160;
+      <h:inputText id="clubName" label="#{i18nText.club}" value="#{clubsState.current.name}"
+                   styleClass="#{component.valid ? 'validation-ok' : 'validation-fail'}"/>
 
       <h:panelGroup style="display: block">
-        <h:commandButton id="clubsSave" action="#{saveClub.execute()}" value="#{i18nText.save}"/>
-        <h:commandButton id="clubsDelete" action="#{deleteClub.execute()}" value="#{i18nText.delete}"/>
-        <h:commandButton id="clubsCreate" action="#{cancelClub.execute()}" value="#{i18nText.cancel}"/>
+        <h:commandButton id="saveClue" action="#{saveClub.execute()}" value="#{i18nText.save}"/>
+        <h:commandButton id="deleteClub" action="#{deleteClub.execute()}" value="#{i18nText.delete}"
+                         disabled="#{clubsState.current.id == null}"/>
+        <h:commandButton id="cancelClub" action="#{cancelClub.execute()}" value="#{i18nText.cancel}"
+                         type="submit" immediate="true"/>
       </h:panelGroup>
     </h:form>
   </ui:define>
