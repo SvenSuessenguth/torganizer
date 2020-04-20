@@ -20,7 +20,7 @@ public class DeletePlayer extends PlayersAction {
   private ApplicationMessages applicationMessages;
 
   @Inject
-  private CreatePlayer createPlayer;
+  private CancelPlayer createPlayer;
 
   /**
    * Deleting a player is not possible, if the player has already completed any match.

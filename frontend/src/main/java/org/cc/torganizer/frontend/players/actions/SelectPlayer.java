@@ -14,6 +14,6 @@ public class SelectPlayer extends PlayersAction {
   public String execute(Player player) {
     state.setCurrent(player);
 
-    return null;
+    return "";
   }
 }

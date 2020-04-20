@@ -4,7 +4,6 @@
 <html lang="en"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
   <title>.</title>
@@ -18,9 +17,6 @@
   </ui:define>
 
   <ui:define name="main">
-    <f:event listener="#{synchronizeClubsState.execute()}" type="preRenderView"/>
-    <c:set var="current" value="#{clubsState.current}"/>
-
     <h:form id="clubsForm">
 
       <h:panelGroup rendered="#{not empty clubsState.clubs}">
@@ -28,7 +24,7 @@
                      style="margin-bottom: 10px; margin-top: 10px">
           <h:column>
             <f:facet name="header">Name</f:facet>
-            <h:commandLink actionListener="#{selectClub.execute(club)}" value="#{club.name}">
+            <h:commandLink action="#{selectClub.execute(club)}" value="#{club.name}">
               <f:ajax execute="@this" render="clubsForm"/>
             </h:commandLink>
           </h:column>
@@ -39,12 +35,12 @@
         </h:dataTable>
       </h:panelGroup>
 
-      <h:inputText id="clubName" value="#{current.name}"/>
+      <h:inputText id="clubName" value="#{clubsState.current.name}"/>
 
       <h:panelGroup style="display: block">
         <h:commandButton id="clubsSave" action="#{saveClub.execute()}" value="#{i18nText.save}"/>
-        <h:commandButton id="clubsCreate" action="#{createClub.execute()}" value="#{i18nText.create}"/>
         <h:commandButton id="clubsDelete" action="#{deleteClub.execute()}" value="#{i18nText.delete}"/>
+        <h:commandButton id="clubsCreate" action="#{cancelClub.execute()}" value="#{i18nText.cancel}"/>
       </h:panelGroup>
     </h:form>
   </ui:define>

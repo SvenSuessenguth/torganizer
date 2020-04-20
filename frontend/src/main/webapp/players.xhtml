@@ -19,9 +19,8 @@
   </ui:define>
 
   <ui:define name="main">
-    <c:set var="current" value="#{playersState.current}"/>
-
     <h:form id="playersForm">
+      <c:set var="current" value="#{playersState.current}"/>
 
       <h:panelGroup rendered="#{not empty playersState.players}">
         <h:outputLabel for="playerOrder">${i18nText.sort_by} </h:outputLabel>
@@ -38,20 +37,20 @@
           <h:column>
             <f:facet name="header">Vorname</f:facet>
             <h:commandLink action="#{selectPlayer.execute(player)}" value="#{player.person.firstName}">
-              <f:ajax render="playersForm" immediate="true" />
+              <f:ajax render="playersForm" immediate="true" execute="@this"/>
             </h:commandLink>
           </h:column>
           <h:column>
             <f:facet name="header">Nachname</f:facet>
-            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.person.lastName}" >
-              <f:ajax render="playersForm" immediate="true"/>
+            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.person.lastName}">
+              <f:ajax render="playersForm" immediate="true" execute="@this"/>
             </h:commandLink>
           </h:column>
           <h:column>
             <f:facet name="header">Verein</f:facet>
             <h:commandLink actionListener="#{selectPlayer.execute(player)}"
                            value="#{player.club!=null?player.club.name:'-'}">
-              <f:ajax render="playersForm" immediate="true"/>
+              <f:ajax render="playersForm" immediate="true" execute="@this"/>
             </h:commandLink>
           </h:column>
           <h:column rendered="#{facesContext.isProjectStage('Development')}">
@@ -98,7 +97,7 @@
         <h:commandButton id="playersSave" action="#{savePlayer.execute()}" value="#{i18nText.save}"/>
         <h:commandButton id="playersDelete" action="#{deletePlayer.execute()}" value="#{i18nText.delete}"
                          disabled="#{playersState.current.id == null}"/>
-        <h:commandButton id="playersCancel" action="#{createPlayer.execute()}" value="#{i18nText.cancel}"
+        <h:commandButton id="playersCancel" action="#{cancelPlayer.execute()}" value="#{i18nText.cancel}"
                          type="submit" immediate="true"/>
       </h:panelGroup>
     </h:form>

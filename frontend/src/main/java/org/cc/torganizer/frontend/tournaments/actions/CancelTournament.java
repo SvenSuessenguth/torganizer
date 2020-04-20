@@ -6,13 +6,15 @@ import org.cc.torganizer.core.entities.Tournament;
 
 @RequestScoped
 @Named
-public class CreateTournament extends TournamentsAction {
+public class CancelTournament extends TournamentsAction {
 
   /**
    * creating a new tournament.
    */
-  public void execute() {
+  public String execute() {
     Tournament newTournament = new Tournament();
     state.setCurrent(newTournament);
+
+    return null;
   }
 }

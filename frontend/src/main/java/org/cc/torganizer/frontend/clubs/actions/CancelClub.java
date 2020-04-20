@@ -9,13 +9,15 @@ import org.cc.torganizer.core.entities.Club;
  */
 @RequestScoped
 @Named
-public class CreateClub extends ClubsAction {
+public class CancelClub extends ClubsAction {
 
   /**
    * creating a club.
    */
-  public void execute() {
+  public String execute() {
     Club club = new Club();
     state.setCurrent(club);
+
+    return null;
   }
 }

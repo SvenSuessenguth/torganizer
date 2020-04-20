@@ -28,8 +28,8 @@ public class DeleteTournament extends TournamentsAction {
 
     current = tournamentsRepository.read(current.getId());
     tournamentsRepository.delete(current);
-    state.setCurrent(new Tournament());
-    appState.setTournament(null);
+
     state.synchronize();
+    state.setCurrent(new Tournament());
   }
 }

@@ -13,9 +13,6 @@ public abstract class PlayersAction {
   protected PlayersState state;
 
   @Inject
-  protected ClubsRepository clubsRepository;
-
-  @Inject
   protected PlayersRepository playersRepository;
 
   @Inject
@@ -23,7 +20,4 @@ public abstract class PlayersAction {
 
   @Inject
   protected TournamentsRepository tournamentsRepository;
-
-  @Inject
-  protected SynchronizePlayerState initPlayerState;
 }

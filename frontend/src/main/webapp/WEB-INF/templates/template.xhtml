@@ -39,7 +39,7 @@
       <hr />
     </nav>
     <main>
-      <h:outputText value="#{applicationState.tournament.name}" />
+      <h:outputText id="currentTournament" value="#{applicationState.tournament.name}" />
       <hr />
       <ui:insert name="main">page content</ui:insert>
     </main>

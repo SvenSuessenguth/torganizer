@@ -17,7 +17,7 @@ public class SavePlayer extends PlayersAction {
   private OrderPlayers orderPlayers;
 
   @Inject
-  private CreatePlayer createPlayer;
+  private CancelPlayer createPlayer;
 
   /**
    * persisting changes to a already persisted player.
@@ -32,11 +32,11 @@ public class SavePlayer extends PlayersAction {
       playersRepository.create(player);
       tournamentsRepository.addPlayer(tournamentId, player.getId());
       state.synchronize();
-      orderPlayers.execute();
     } else {
       playersRepository.update(player);
     }
 
+    orderPlayers.execute();
     createPlayer.execute();
   }
 }

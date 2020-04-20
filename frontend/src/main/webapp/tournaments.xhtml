@@ -19,7 +19,6 @@
   </ui:define>
 
   <ui:define name="main">
-    <f:event listener="#{conversationController.beginConversation}" type="preRenderView"/>
 
     <c:set var="current" value="#{tournamentsState.current}"/>
     #{i18nText.current}: <h:outputText value="#{current==null?'':current.name}"/>
@@ -35,7 +34,9 @@
                      rendered="#{not empty tournamentsState.tournaments}">
           <h:column>
             <f:facet name="header">Name</f:facet>
-            <h:commandLink actionListener="#{selectTournament.execute(tournament)}" value="#{tournament.name}"/>
+            <h:commandLink actionListener="#{selectTournament.execute(tournament)}" value="#{tournament.name}">
+              <f:ajax execute="@this" immediate="true" render="currentTournament tournamentsForm" />
+            </h:commandLink>
           </h:column>
           <h:column rendered="#{facesContext.isProjectStage('Development')}">
             <f:facet name="header">ID</f:facet>
@@ -54,12 +55,13 @@
                      styleClass="#{component.valid ? 'validation-ok' : 'validation-fail'}"/>
         <br/>
 
-        <h:commandButton id="new" value="#{i18nText.create}" action="#{createTournament.execute()}"
-                         disabled="#{tournamentsState.current.id == null}"/>
-        <h:commandButton id="save" value="#{i18nText.save}" action="#{saveTournament.execute()}"
-                         disabled="#{tournamentsState.current == null}"/>
-        <h:commandButton id="delete" value="#{i18nText.delete}" action="#{deleteTournament.execute()}"
+        <h:commandButton id="tournamentsSave" value="#{i18nText.save}" action="#{saveTournament.execute()}"/>
+        <h:commandButton id="tournamentsDelete" value="#{i18nText.delete}" action="#{deleteTournament.execute()}"
                          disabled="#{tournamentsState.current.id==null}"/>
+        <h:commandButton id="tournamentsCancel" value="#{i18nText.cancel}" action="#{cancelTournament.execute()}"
+                         immediate="true">
+          <f:ajax immediate="true" render="tournamentsForm" />
+        </h:commandButton>
       </section>
     </h:form>
   </ui:define>

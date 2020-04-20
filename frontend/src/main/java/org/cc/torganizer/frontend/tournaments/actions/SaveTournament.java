@@ -13,6 +13,9 @@ public class SaveTournament extends TournamentsAction {
   @Inject
   private Logger logger;
 
+  @Inject
+  private CancelTournament cancelTournament;
+
   /**
    * save changes on already persisted tournament.
    */
@@ -25,6 +28,8 @@ public class SaveTournament extends TournamentsAction {
       tournamentsRepository.create(current);
       state.synchronize();
     }
+
+    cancelTournament.execute();
 
     logger.info("save with name: '{}'", current.getName());
   }
