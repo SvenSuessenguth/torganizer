@@ -143,17 +143,17 @@ public class TournamentsRepository extends Repository<Tournament> {
   /**
    * Removing a player from a tournament.
    */
-  public Player removePlayer(Long tournamentId, Long playerId) {
-    Player player = entityManager.find(Player.class, playerId);
+  public Opponent removeOpponent(Long tournamentId, Long opponentId) {
+    Opponent opponent = entityManager.find(Opponent.class, opponentId);
     Tournament tournament = entityManager.find(Tournament.class, tournamentId);
 
     // persist tournament
-    tournament.getOpponents().remove(player);
+    tournament.getOpponents().remove(opponent);
     entityManager.persist(tournament);
     // to get the id
     entityManager.flush();
 
-    return player;
+    return opponent;
   }
 
   /**

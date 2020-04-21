@@ -2,11 +2,24 @@ package org.cc.torganizer.frontend.squads.actions;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.core.entities.Squad;
 
 @RequestScoped
 @Named
 public class DeleteSquad extends SquadsAction {
   public void execute() {
-    throw new UnsupportedOperationException();
+    // delete from tournament and from squads-tables
+    Long tournamentId = applicationState.getTournamentId();
+    Squad squad = state.getCurrent();
+    Long squadId = squad.getId();
+
+    if (tournamentId == null || squad == null) {
+      return;
+    }
+
+    tournamentsRepository.removeOpponent(tournamentId, squadId);
+    squadsRepository.delete(squadId);
+    state.synchronize();
   }
 }

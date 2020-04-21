@@ -42,11 +42,7 @@ public class SquadsState extends State implements Serializable {
     squads = tournamentsRepository.getSquads(tournamentId, 0, MAX_SQUADS_RESULTS);
     players = tournamentsRepository.getPlayers(tournamentId, 0, MAX_PLAYERS_RESULTS);
 
-    if (!squads.isEmpty()) {
-      current = squads.get(0);
-    } else {
-      current = new Squad();
-    }
+    current = new Squad();
   }
 
   public Squad getCurrent() {

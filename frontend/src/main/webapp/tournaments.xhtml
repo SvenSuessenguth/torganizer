@@ -31,7 +31,7 @@
           <h:column>
             <f:facet name="header">Name</f:facet>
             <h:commandLink actionListener="#{selectTournament.execute(tournament)}" value="#{tournament.name}">
-              <f:ajax execute="@this" immediate="true" render="tournamentsForm currentTournament"/>
+              <f:ajax execute="@this" immediate="true" render="tournamentsForm currentTournament navForm"/>
             </h:commandLink>
           </h:column>
           <h:column rendered="#{facesContext.isProjectStage('Development')}">
@@ -55,8 +55,7 @@
         <h:commandButton id="deleteTournament" value="#{i18nText.delete}" action="#{deleteTournament.execute()}"
                          disabled="#{tournamentsState.current.id==null}"/>
         <h:commandButton id="cancelTournament" action="tournaments?faces-redirect=true" value="#{i18nText.cancel}"
-                         type="submit" immediate="true" disabled="#{tournamentsState.current.id == null}">
-        </h:commandButton>
+                         type="submit" immediate="true" disabled="#{tournamentsState.current.id == null}" />
       </section>
     </h:form>
   </ui:define>

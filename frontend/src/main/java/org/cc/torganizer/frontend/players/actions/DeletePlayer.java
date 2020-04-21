@@ -39,7 +39,7 @@ public class DeletePlayer extends PlayersAction {
       return;
     }
 
-    tournamentsRepository.removePlayer(tournamentId, playerId);
+    tournamentsRepository.removeOpponent(tournamentId, playerId);
     playersRepository.delete(playerId);
     state.synchronize();
   }

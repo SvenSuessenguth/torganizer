@@ -196,7 +196,7 @@ public class TournamentsResource extends AbstractResource {
   public JsonObject removePlayer(@PathParam("tid") Long tournamentId,
                                  @PathParam("pid") Long playerId) {
 
-    Player player = tournamentsRepo.removePlayer(tournamentId, playerId);
+    Player player = (Player) tournamentsRepo.removeOpponent(tournamentId, playerId);
     PlayerJsonConverter playerConverter =
         (PlayerJsonConverter) opponentConverterProvider.getConverter(PLAYER);
 

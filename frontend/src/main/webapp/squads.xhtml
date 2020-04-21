@@ -104,8 +104,9 @@
 
       <h:panelGroup style="display: block">
         <h:commandButton id="squadsSave" action="#{saveSquad.execute()}" value="#{i18nText.save}"/>
-        <h:commandButton id="squadsCreate" action="#{createSquad.execute()}" value="#{i18nText.create}"/>
         <h:commandButton id="squadsDelete" action="#{deleteSquad.execute()}" value="#{i18nText.delete}"/>
+        <h:commandButton id="cancelSquad" action="squads?faces-redirect=true" value="#{i18nText.cancel}"
+                         type="submit" immediate="true" disabled="#{squadsState.current.id == null}" />
       </h:panelGroup>
     </h:form>
   </ui:define>

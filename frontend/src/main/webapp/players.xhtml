@@ -64,7 +64,8 @@
                     style="display: grid; grid-template-columns: auto auto; width: 1%; grid-column-gap: 5px; grid-row-gap: 5px;">
         <h:outputLabel for="playersFirstName" value="#{i18nText.first_name}"/>
         <h:inputText id="playersFirstName" value="#{current.person.firstName}" a:placeholder="#{i18nText.first_name}"
-                     label="#{i18nText.first_name}" style="#{component.valid?'':'border-color:red;'}"/>
+                     label="#{i18nText.first_name}" a:autofocus="true"
+                     style="#{component.valid?'':'border-color:red;'}"/>
 
         <h:outputLabel for="playersLastName" value="#{i18nText.last_name}"/>
         <h:inputText id="playersLastName" value="#{current.person.lastName}" a:placeholder="#{i18nText.last_name}"
@@ -97,8 +98,8 @@
         <h:commandButton id="playersSave" action="#{savePlayer.execute()}" value="#{i18nText.save}"/>
         <h:commandButton id="playersDelete" action="#{deletePlayer.execute()}" value="#{i18nText.delete}"
                          disabled="#{playersState.current.id == null}"/>
-        <h:commandButton id="playersCancel" action="#{cancelPlayer.execute()}" value="#{i18nText.cancel}"
-                         type="submit" immediate="true"/>
+        <h:commandButton id="cancelPlayer" action="players?faces-redirect=true" value="#{i18nText.cancel}"
+                         type="submit" immediate="true" disabled="#{playersState.current.id == null}"/>
       </h:panelGroup>
     </h:form>
   </ui:define>
