@@ -133,7 +133,7 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
   @Test
   void testAddPlayer() {
     long countBefore = repository.countPlayers(1L);
-    repository.addPlayer(1L, 6L);
+    repository.addOpponent(1L, 6L);
     long countAfter = repository.countPlayers(1L);
 
     assertThat(countBefore).isEqualTo(countAfter - 1);

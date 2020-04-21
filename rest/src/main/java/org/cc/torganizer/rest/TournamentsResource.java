@@ -177,7 +177,7 @@ public class TournamentsResource extends AbstractResource {
   @Path("/{tid}/players")
   public JsonObject addPlayer(@PathParam("tid") Long tournamentId,
                               @QueryParam("pid") Long playerId) {
-    Player player = tournamentsRepo.addPlayer(tournamentId, playerId);
+    Player player = (Player) tournamentsRepo.addOpponent(tournamentId, playerId);
     PlayerJsonConverter playerConverter =
         (PlayerJsonConverter) opponentConverterProvider.getConverter(PLAYER);
 
@@ -230,7 +230,7 @@ public class TournamentsResource extends AbstractResource {
   @POST
   @Path("/{id}/squads")
   public JsonObject addSquad(@PathParam("id") Long tournamentId, @QueryParam("sid") Long squadId) {
-    Squad squad = tournamentsRepo.addSquad(tournamentId, squadId);
+    Squad squad = (Squad) tournamentsRepo.addOpponent(tournamentId, squadId);
     SquadJsonConverter squadConverter =
         (SquadJsonConverter) opponentConverterProvider.getConverter(SQUAD);
 

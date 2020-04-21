@@ -42,7 +42,7 @@
         </h:column>
         <h:column>
           <f:facet name="header">Verein</f:facet>
-          <h:commandLink actionListener="#{addPlayerToSquad.execute(player)}" value="#{player.club.name}">
+          <h:commandLink actionListener="#{addPlayerToSquad.execute(player)}" value="#{player.club!=null?player.club.name:'-'}">
             <f:ajax execute="@this" render="squadsForm"/>
           </h:commandLink>
         </h:column>

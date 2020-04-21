@@ -127,17 +127,17 @@ public class TournamentsRepository extends Repository<Tournament> {
   /**
    * Add a player to a tournament.
    */
-  public Player addPlayer(Long tournamentId, Long playerId) {
-    Player player = entityManager.find(Player.class, playerId);
+  public Opponent addOpponent(Long tournamentId, Long opponentId) {
+    Opponent opponent = entityManager.find(Opponent.class, opponentId);
     Tournament tournament = entityManager.find(Tournament.class, tournamentId);
 
     Set<Opponent> opponents = tournament.getOpponents();
-    opponents.add(player);
+    opponents.add(opponent);
     entityManager.persist(tournament);
     // to get the id
     entityManager.flush();
 
-    return player;
+    return opponent;
   }
 
   /**
@@ -171,20 +171,6 @@ public class TournamentsRepository extends Repository<Tournament> {
   // Tournaments squads
   //
   //-----------------------------------------------------------------------------------------------
-
-  /**
-   * Adding a squad to a tournament.
-   */
-  public Squad addSquad(Long tournamentId, Long squadId) {
-    Squad squad = entityManager.find(Squad.class, squadId);
-    Tournament tournament = entityManager.find(Tournament.class, tournamentId);
-
-    // persist tournament
-    tournament.getOpponents().add(squad);
-    entityManager.persist(tournament);
-
-    return squad;
-  }
 
   /**
    * Getting the squads from offset o maxResults from a tournament.

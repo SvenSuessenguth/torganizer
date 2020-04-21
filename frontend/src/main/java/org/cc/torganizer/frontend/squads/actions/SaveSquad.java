@@ -16,8 +16,7 @@ public class SaveSquad extends SquadsAction {
 
     if (squad.getId() == null) {
       squadsRepository.create(squad);
-      tournamentsRepository.addSquad(tournamentId, squad.getId());
-
+      tournamentsRepository.addOpponent(tournamentId, squad.getId());
     } else {
       squadsRepository.update(squad);
     }

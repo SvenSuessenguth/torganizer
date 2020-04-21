@@ -30,7 +30,7 @@ public class SavePlayer extends PlayersAction {
 
     if (player.getId() == null) {
       playersRepository.create(player);
-      tournamentsRepository.addPlayer(tournamentId, player.getId());
+      tournamentsRepository.addOpponent(tournamentId, player.getId());
       state.synchronize();
     } else {
       playersRepository.update(player);

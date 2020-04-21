@@ -18,7 +18,7 @@ public class CreateSquad extends SquadsAction {
     squadsRepository.create(newSquad);
 
     Long tournamentId = applicationState.getTournamentId();
-    tournamentsRepository.addSquad(tournamentId, newSquad.getId());
+    tournamentsRepository.addOpponent(tournamentId, newSquad.getId());
 
     for (Player p : current.getPlayers()) {
       Player p2 = playersRepository.read(p.getId());
