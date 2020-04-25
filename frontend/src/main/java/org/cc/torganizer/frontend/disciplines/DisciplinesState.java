@@ -43,7 +43,6 @@ public class DisciplinesState extends State implements Serializable {
 
     Long tournamentId = applicationState.getTournamentId();
     disciplines = tournamentsRepository.getDisciplines(tournamentId, 0, 1000);
-    System.out.println(disciplines);
   }
 
   public Gender[] getGenders() {

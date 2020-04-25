@@ -3,7 +3,6 @@ package org.cc.torganizer.frontend.players.actions;
 import javax.inject.Inject;
 import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.players.PlayersState;
-import org.cc.torganizer.persistence.ClubsRepository;
 import org.cc.torganizer.persistence.PlayersRepository;
 import org.cc.torganizer.persistence.TournamentsRepository;
 

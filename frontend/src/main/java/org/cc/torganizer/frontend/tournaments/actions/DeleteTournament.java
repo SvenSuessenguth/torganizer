@@ -20,11 +20,12 @@ public class DeleteTournament extends TournamentsAction {
   @Transactional
   public void execute() {
     Tournament current = state.getCurrent();
-    Long currentTournamentId = current.getId();
-    if (current == null || currentTournamentId == null) {
+
+    if (current == null || current.getId() == null) {
       return;
     }
 
+    Long currentTournamentId = current.getId();
     logger.info("delete with name: '{}' currentTournamentId: '{}'", current.getName(), currentTournamentId);
 
     current = tournamentsRepository.read(currentTournamentId);
@@ -32,7 +33,7 @@ public class DeleteTournament extends TournamentsAction {
 
     state.synchronize();
 
-    if(appState.getTournamentId()==currentTournamentId) {
+    if (appState.getTournamentId() == currentTournamentId) {
       appState.setTournament(null);
     }
   }
