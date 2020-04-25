@@ -2,7 +2,6 @@ package org.cc.torganizer.frontend.squads.actions;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 
 @RequestScoped
@@ -12,12 +11,12 @@ public class DeleteSquad extends SquadsAction {
     // delete from tournament and from squads-tables
     Long tournamentId = applicationState.getTournamentId();
     Squad squad = state.getCurrent();
-    Long squadId = squad.getId();
 
     if (tournamentId == null || squad == null) {
       return;
     }
 
+    Long squadId = squad.getId();
     tournamentsRepository.removeOpponent(tournamentId, squadId);
     squadsRepository.delete(squadId);
     state.synchronize();
