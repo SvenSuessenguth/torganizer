@@ -1,5 +1,6 @@
 package org.cc.torganizer.frontend.tournaments.actions;
 
+import java.util.Objects;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -33,7 +34,7 @@ public class DeleteTournament extends TournamentsAction {
 
     state.synchronize();
 
-    if (appState.getTournamentId() == currentTournamentId) {
+    if (Objects.equals(appState.getTournamentId(), currentTournamentId)) {
       appState.setTournament(null);
     }
   }
