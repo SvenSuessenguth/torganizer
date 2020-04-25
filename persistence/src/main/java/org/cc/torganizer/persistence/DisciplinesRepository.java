@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -212,6 +213,10 @@ public class DisciplinesRepository extends Repository<Discipline> {
     }
 
     return round;
+  }
 
+  public long count() {
+    Query query = entityManager.createQuery("SELECT count(d) FROM Discipline d");
+    return (long) query.getSingleResult();
   }
 }

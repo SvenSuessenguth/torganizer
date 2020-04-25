@@ -76,7 +76,7 @@
           <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
         </h:inputText>
 
-        <h:outputLabel for="playersGender" value="#{i18nText.gender}"/>
+        <h:outputLabel for="playersGender" value="#{i18nGender.GENDER}"/>
         <h:selectOneMenu id="playersGender" value="#{current.person.gender}">
           <f:selectItems value="#{playersState.genders}" var="gender"
                          itemValue="#{gender}"

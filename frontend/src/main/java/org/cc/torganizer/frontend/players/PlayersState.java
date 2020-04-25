@@ -26,8 +26,6 @@ import org.cc.torganizer.persistence.TournamentsRepository;
 @ViewScoped
 public class PlayersState extends State implements Serializable {
 
-  private static final long serialVersionUID = 3683970655136738688L;
-
   @Inject
   private ApplicationState applicationState;
 

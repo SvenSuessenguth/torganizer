@@ -1,13 +1,19 @@
 package org.cc.torganizer.persistence;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.time.LocalDate;
+import java.util.List;
+import org.cc.torganizer.core.entities.AgeRestriction;
+import org.cc.torganizer.core.entities.Discipline;
+import org.cc.torganizer.core.entities.Gender;
+import org.cc.torganizer.core.entities.GenderRestriction;
 import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.OpponentType;
+import org.cc.torganizer.core.entities.OpponentTypeRestriction;
 import org.cc.torganizer.core.entities.Round;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
 
@@ -29,7 +35,7 @@ class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  void testGetDisciplineId_existing(){
+  void testGetDisciplineId_existing() {
     // testdata:
     // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="3" />
     Long id = repository.getDisciplineId(3L);
@@ -38,7 +44,7 @@ class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  void testGetRoundId_roundDoesNotExist(){
+  void testGetRoundId_roundDoesNotExist() {
     // testdata:
     // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="1" />
     Long id = repository.getDisciplineId(-1L);
@@ -47,7 +53,7 @@ class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  void testGetRoundByPosition_roundExisting(){
+  void testGetRoundByPosition_roundExisting() {
     // testdata:
     // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="1" />
     Round round = repository.getRoundByPosition(1L, 2);
@@ -56,7 +62,7 @@ class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  void testGetRoundByPosition_roundNotExisting(){
+  void testGetRoundByPosition_roundNotExisting() {
     // testdata:
     // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="1" />
     Round round = repository.getRoundByPosition(1L, 4);
@@ -65,11 +71,41 @@ class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  void testGetRoundByPosition_disciplineNotExisting(){
+  void testGetRoundByPosition_disciplineNotExisting() {
     // testdata:
     // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="1" />
     Round round = repository.getRoundByPosition(2L, 2);
 
     assertThat(round).isNull();
+  }
+
+  @Test
+  public void testCreate() {
+    Discipline discipline = new Discipline();
+    discipline.setName("test");
+
+    GenderRestriction genderRestriction = new GenderRestriction();
+    genderRestriction.setGender(Gender.FEMALE);
+    discipline.addRestriction(genderRestriction);
+
+    OpponentTypeRestriction opponentTypeRestriction = new OpponentTypeRestriction();
+    opponentTypeRestriction.setOpponentType(OpponentType.SQUAD);
+    discipline.addRestriction(opponentTypeRestriction);
+
+    AgeRestriction ageRestriction = new AgeRestriction();
+    ageRestriction.setMaxDateOfBirth(LocalDate.now());
+    ageRestriction.setMinDateOfBirth(LocalDate.now().minusYears(1));
+    discipline.addRestriction(ageRestriction);
+
+    long countBefore = repository.count();
+    repository.create(discipline);
+    long countAfter = repository.count();
+
+    assertThat(countBefore).isEqualTo(countAfter - 1);
+    assertThat(discipline.getId()).isNotNull();
+
+    assertThat(genderRestriction.getId()).isNotNull();
+    assertThat(opponentTypeRestriction.getId()).isNotNull();
+    assertThat(ageRestriction.getId()).isNotNull();
   }
 }

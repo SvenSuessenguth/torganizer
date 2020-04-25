@@ -24,6 +24,20 @@
 
     <h:form id="squadsForm">
       <!--
+       | Filter für players
+       +-->
+      <h:panelGroup id="squadsFilter">
+        <h:outputLabel for="filterGender" value="#{i18nText.gender}"/>
+        <h:selectOneMenu id="filterGender" value="#{squadsState.gender}" onchange="submit()">
+          <f:selectItems value="#{squadsState.genders}" var="gender"
+                         itemValue="#{gender}"
+                         itemLabel="#{i18nGender[gender]}"/>
+          <f:converter converterId="genderConverter"/>
+        </h:selectOneMenu>
+
+      </h:panelGroup>
+
+      <!--
        | all players
        +-->
       <h:dataTable id="allPlayers" value="#{squadsState.players}" var="player"

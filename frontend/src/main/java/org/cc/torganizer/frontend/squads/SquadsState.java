@@ -1,11 +1,15 @@
 package org.cc.torganizer.frontend.squads;
 
+import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
+
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 import org.cc.torganizer.core.entities.Tournament;
@@ -23,6 +27,9 @@ public class SquadsState extends State implements Serializable {
   private Squad current;
   private List<Squad> squads;
   private List<Player> players;
+
+  // Filter
+  private Gender gender = UNKNOWN;
 
   @Inject
   private ApplicationState applicationState;
@@ -62,10 +69,28 @@ public class SquadsState extends State implements Serializable {
   }
 
   public List<Player> getPlayers() {
-    return players;
+    // filter by gender
+    List<Player> filtered = players
+        .stream()
+        .filter(p -> p.getPerson().fitsGender(gender))
+        .collect(Collectors.toList());
+
+    return filtered;
   }
 
   public void setPlayers(List<Player> players) {
     this.players = players;
+  }
+
+  public Gender[] getGenders() {
+    return Gender.values();
+  }
+
+  public Gender getGender() {
+    return gender;
+  }
+
+  public void setGender(Gender gender) {
+    this.gender = gender;
   }
 }

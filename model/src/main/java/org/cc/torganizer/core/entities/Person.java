@@ -1,5 +1,7 @@
 package org.cc.torganizer.core.entities;
 
+import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
+
 import java.time.LocalDate;
 
 /**
@@ -13,7 +15,7 @@ public class Person extends Entity {
 
   private LocalDate dateOfBirth;
 
-  private Gender gender = Gender.UNKNOWN;
+  private Gender gender = UNKNOWN;
 
   public Person() {
     // gem. Bean-Spec.
@@ -73,5 +75,14 @@ public class Person extends Entity {
     assert this.gender != null;
 
     this.gender = gender;
+  }
+
+  public boolean fitsGender(Gender gender) {
+    // no statement can be made, so return true
+    if (gender == null || this.gender == null) {
+      return true;
+    }
+
+    return gender.equals(this.gender) || UNKNOWN.equals(gender);
   }
 }

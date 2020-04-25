@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+
+<html lang="en"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+  <title>.</title>
+</h:head>
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+  <ui:define name="title">${i18nText.disciplines}</ui:define>
+
+  <ui:define name="css">
+    <h:outputStylesheet name="css/layouts/players.css"/>
+  </ui:define>
+
+  <ui:define name="main">
+    <h:form id="disciplinesForm">
+      <h:dataTable value="#{disciplinesState.disciplines}" var="discipline">
+        <h:column>
+          <f:facet name="header">Bezeichnung</f:facet>
+          <h:commandLink action="#{selectDiscipline.execute(discipline)}" value="#{discipline.name}">
+            <f:ajax render="disciplinesForm" immediate="true" execute="@this"/>
+          </h:commandLink>
+        </h:column>
+      </h:dataTable>
+
+
+      <h:outputLabel for="disciplinesName" value="#{i18nText.name}"/>
+      <h:inputText id="disciplinesName" value="#{disciplinesState.discipline.name}"/>
+
+      <!--
+       | restrictions
+       +-->
+      <h4>#{text.age}</h4>
+      <h:outputLabel for="min-date-of-birth" value="#{text.from}"/>
+      <h:inputText id="min-date-of-birth" a:type="date"
+                   value="#{disciplinesState.discipline.ageRestriction.minDateOfBirth}">
+        <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
+      </h:inputText>
+      <h:outputLabel for="max-date-of-birth" value="#{text.to}"/>
+      <h:inputText id="max-date-of-birth" a:type="date"
+                   value="#{disciplinesState.discipline.ageRestriction.maxDateOfBirth}">
+        <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
+      </h:inputText>
+
+      <h4>#{i18nGender.GENDER}</h4>
+      <h:selectOneMenu id="disciplinesGender" value="#{disciplinesState.discipline.genderRestriction.gender}">
+        <f:selectItems value="#{disciplinesState.genders}" var="gender"
+                       itemValue="#{gender}"
+                       itemLabel="#{i18nGender[gender]}"/>
+        <f:converter converterId="genderConverter"/>
+      </h:selectOneMenu>
+
+      <h4>#{i18nOpponentType.OPPONENT_TYPE}</h4>
+      <h:selectOneMenu id="opponent-type" value="#{disciplinesState.discipline.opponentTypeRestriction.opponentType}">
+        <f:selectItems value="#{disciplinesState.opponentTypes}" var="opponentType"
+                       itemValue="#{opponentType}"
+                       itemLabel="#{i18nOpponentType[opponentType]}"/>
+        <f:converter converterId="opponentTypeConverter"/>
+      </h:selectOneMenu>
+
+      <h:panelGroup id="disciplinesCommands" style="display: block">
+        <h:commandButton id="disciplinesSave" action="#{saveDiscipline.execute()}" value="#{i18nText.save}"/>
+        <h:commandButton id="disciplinesDelete" action="#{deleteDiscipline.execute()}" value="#{i18nText.delete}"
+                         disabled="#{disciplinesState.discipline.id == null}"/>
+        <h:commandButton id="disciplinesCancel" action="discipliness?faces-redirect=true" value="#{i18nText.cancel}"
+                         type="submit" immediate="true" disabled="#{disciplinesState.discipline.id == null}"/>
+      </h:panelGroup>
+    </h:form>
+  </ui:define>
+</ui:composition>
+</html>

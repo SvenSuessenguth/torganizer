@@ -1,6 +1,9 @@
 package org.cc.torganizer.core.entities;
 
 import static java.util.Collections.unmodifiableList;
+import static org.cc.torganizer.core.entities.Restriction.Discriminator.AGE_RESTRICTION;
+import static org.cc.torganizer.core.entities.Restriction.Discriminator.GENDER_RESTRICTION;
+import static org.cc.torganizer.core.entities.Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -161,6 +164,18 @@ public class Discipline extends Entity {
     }
 
     return null;
+  }
+
+  public GenderRestriction getGenderRestriction() {
+    return (GenderRestriction) getRestriction(GENDER_RESTRICTION);
+  }
+
+  public AgeRestriction getAgeRestriction() {
+    return (AgeRestriction) getRestriction(AGE_RESTRICTION);
+  }
+
+  public OpponentTypeRestriction getOpponentTypeRestriction() {
+    return (OpponentTypeRestriction) getRestriction(OPPONENT_TYPE_RESTRICTION);
   }
 
   /**

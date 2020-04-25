@@ -1,49 +1,54 @@
 <!DOCTYPE html>
 
 <html xml:lang="de" lang="de"
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-  <f:view>
+<f:view>
   <h:head id="template-head">
     <title><ui:insert name="title">Torganizer</ui:insert></title>
     <link rel="canonical" href="./tournaments.jsf"/>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="Description" content="Torganizer" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="Description" content="Torganizer"/>
 
     <!--
      | https://developers.google.com/web/tools/lighthouse/audits/has-viewport-meta-tag?utm_source=lighthouse&utm_medium=devtools
      +-->
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon.ico']}" />
-    <h:outputStylesheet name="css/_styles.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon.ico']}"/>
+    <h:outputStylesheet name="css/_styles.css"/>
     <!-- page specific css e.g. for layouting -->
     <ui:insert name="css"/>
   </h:head>
-  
+
   <h:body>
     <ui:debug/>
     <header>
-      <h:messages />
+      <h:messages/>
     </header>
     <nav id="nav">
       <h:form id="navForm">
         <h:commandLink id="linkTournaments" value="tournaments " action="tournaments?faces-redirect=true"/>
-        <h:commandLink id="linkClubs" value="clubs " action="clubs?faces-redirect=true" disabled="#{applicationState.tournament == null}"/>
-        <h:commandLink id="linkPlayers" value="players " action="players?faces-redirect=true" disabled="#{applicationState.tournament == null}"/>
-        <h:commandLink id="linkSquads" value="squads " action="squads?faces-redirect=true" disabled="#{applicationState.tournament == null}"/>
+        <h:commandLink id="linkClubs" value="clubs " action="clubs?faces-redirect=true"
+                       disabled="#{applicationState.tournament == null}"/>
+        <h:commandLink id="linkPlayers" value="players " action="players?faces-redirect=true"
+                       disabled="#{applicationState.tournament == null}"/>
+        <h:commandLink id="linkSquads" value="squads " action="squads?faces-redirect=true"
+                       disabled="#{applicationState.tournament == null}"/>
+        <h:commandLink id="linkDisciplines" value="diciplines " action="disciplines?faces-redirect=true"
+                       disabled="#{applicationState.tournament == null}"/>
       </h:form>
-      <hr />
+      <hr/>
     </nav>
     <main id="main">
-      <h:outputText id="currentTournament" value="#{applicationState.tournament.name}" />
-      <hr />
+      <h:outputText id="currentTournament" value="#{applicationState.tournament.name}"/>
+      <hr/>
       <ui:insert name="main">page content</ui:insert>
     </main>
 
   </h:body>
-  </f:view>
+</f:view>
 </html>

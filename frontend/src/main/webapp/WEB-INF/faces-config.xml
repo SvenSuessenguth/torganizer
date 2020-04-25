@@ -11,14 +11,21 @@
     </locale-config>
 
     <resource-bundle>
-      <base-name>org.cc.torganizer.text</base-name><var>i18nText</var>
+      <base-name>org.cc.torganizer.text</base-name>
+      <var>i18nText</var>
     </resource-bundle>
     <resource-bundle>
-      <base-name>gender</base-name><var>i18nGender</var>
+      <base-name>gender</base-name>
+      <var>i18nGender</var>
     </resource-bundle>
     <resource-bundle>
-      <base-name>playerOrder</base-name><var>i18nPlayerOrder</var>
+      <base-name>opponentType</base-name>
+      <var>i18nOpponentType</var>
+    </resource-bundle>
+    <resource-bundle>
+      <base-name>playerOrder</base-name>
+      <var>i18nPlayerOrder</var>
     </resource-bundle>
   </application>
-
+  
 </faces-config>
