@@ -16,8 +16,7 @@ public class SaveClub extends ClubsAction {
     } else {
       clubsRepository.update(current);
     }
-    
+
     state.synchronize();
-    applicationState.synchronize();
   }
 }

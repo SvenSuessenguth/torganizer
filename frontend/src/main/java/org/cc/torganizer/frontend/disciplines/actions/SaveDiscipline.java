@@ -29,6 +29,5 @@ public class SaveDiscipline extends DisciplinesAction {
     tournamentsRepository.addDiscipline(tournamentId, discipline);
 
     state.synchronize();
-    applicationState.synchronize();
   }
 }

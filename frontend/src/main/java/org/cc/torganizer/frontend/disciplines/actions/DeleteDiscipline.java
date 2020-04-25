@@ -30,7 +30,6 @@ public class DeleteDiscipline extends DisciplinesAction {
     } else {
       disciplinesRepository.delete(id);
       state.synchronize();
-      applicationState.synchronize();
     }
   }
 }

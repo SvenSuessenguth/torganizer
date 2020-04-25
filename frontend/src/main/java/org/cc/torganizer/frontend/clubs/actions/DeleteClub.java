@@ -30,7 +30,6 @@ public class DeleteClub extends ClubsAction {
     } else {
       clubsRepository.delete(id);
       state.synchronize();
-      applicationState.synchronize();
     }
   }
 }
