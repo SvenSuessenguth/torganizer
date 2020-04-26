@@ -4,11 +4,6 @@
 // Warnings Next Generation
 
 pipeline {
-  // https://medium.com/@gustavo.guss/jenkins-building-docker-image-and-sending-to-registry-64b84ea45ee9
-  environment {
-    registry = "suessenguth/org.cc.torganizer"
-    registryCredential = "dockerhub"
-  }
 
   agent any
 
@@ -58,12 +53,6 @@ pipeline {
     stage ('docker') {
       steps {
         execute('docker build -t "torganizer/frontend" -f ./frontend/Dockerfile ./frontend')
-        script {
-          docker.withRegistry( '', registryCredential ) {
-            execute('docker push suessenguth/org.cc.torganizer:latest')
-          }
-        }
-        execute('docker rmi $registry:$BUILD_NUMBER')
       }
     }
 
