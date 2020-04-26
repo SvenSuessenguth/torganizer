@@ -61,4 +61,12 @@ class RestrictionsRepositoryTest extends AbstractDbUnitJpaTest {
     OpponentTypeRestriction otRestriction = (OpponentTypeRestriction) restriction;
     assertThat(otRestriction.getOpponentType()).isEqualTo(PLAYER);
   }
+
+  @Test
+  public void testCreateAgeRestrictionWithNull() {
+    AgeRestriction ageRestriction = new AgeRestriction();
+    repository.create(ageRestriction);
+
+    assertThat(ageRestriction.getId()).isNotNull();
+  }
 }

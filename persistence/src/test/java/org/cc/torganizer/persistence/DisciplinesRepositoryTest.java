@@ -18,12 +18,16 @@ import org.junit.jupiter.api.Test;
 class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
 
   private DisciplinesRepository repository;
+  private RestrictionsRepository restrictionsRepository;
+
 
   @BeforeEach
   void before() throws Exception {
     super.initDatabase("test-data-tournament.xml");
 
     repository = new DisciplinesRepository(entityManager);
+    restrictionsRepository = new RestrictionsRepository(entityManager);
+
   }
 
   @Test
@@ -86,15 +90,20 @@ class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
 
     GenderRestriction genderRestriction = new GenderRestriction();
     genderRestriction.setGender(Gender.FEMALE);
-    discipline.addRestriction(genderRestriction);
 
     OpponentTypeRestriction opponentTypeRestriction = new OpponentTypeRestriction();
     opponentTypeRestriction.setOpponentType(OpponentType.SQUAD);
-    discipline.addRestriction(opponentTypeRestriction);
 
     AgeRestriction ageRestriction = new AgeRestriction();
     ageRestriction.setMaxDateOfBirth(LocalDate.now());
     ageRestriction.setMinDateOfBirth(LocalDate.now().minusYears(1));
+
+    restrictionsRepository.create(ageRestriction);
+    restrictionsRepository.create(genderRestriction);
+    restrictionsRepository.create(opponentTypeRestriction);
+
+    discipline.addRestriction(genderRestriction);
+    discipline.addRestriction(opponentTypeRestriction);
     discipline.addRestriction(ageRestriction);
 
     long countBefore = repository.count();

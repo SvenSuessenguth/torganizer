@@ -28,17 +28,16 @@
         </join-table>
         <cascade><cascade-all/></cascade>
       </one-to-many>
-       <one-to-many name="restrictions" fetch="EAGER">
+       <many-to-many name="restrictions" fetch="EAGER">
          <join-table name="_DISCIPLINES_RESTRICTIONS">
            <join-column name="_DISCIPLINE_ID" referenced-column-name="_ID"/>
-           <inverse-join-column name="_RESTRICTION_ID" referenced-column-name="_ID" unique="false" />
+           <inverse-join-column name="_RESTRICTION_ID" referenced-column-name="_ID" />
          </join-table>
-         <cascade><cascade-all /></cascade>
-       </one-to-many>
+       </many-to-many>
       <many-to-many name="opponents">
         <join-table name="_DISCIPLINES_OPPONENTS">
           <join-column name="_DISCIPLINE_ID" referenced-column-name="_ID"/>
-          <inverse-join-column name="_OPPONENT_ID" referenced-column-name="_ID" unique="true" />
+          <inverse-join-column name="_OPPONENT_ID" referenced-column-name="_ID" />
         </join-table>
         <cascade><cascade-all/></cascade>
       </many-to-many>

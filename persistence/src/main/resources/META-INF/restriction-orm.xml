@@ -17,10 +17,10 @@
     <table name="_AGE_RESTRICTIONS" />
     <attributes>
       <basic name="maxDateOfBirth">
-        <column name="_MAX_DATE_OF_BIRTH"/>
+        <column name="_MAX_DATE_OF_BIRTH" nullable="true"/>
       </basic>
       <basic name="minDateOfBirth">
-        <column name="_MIN_DATE_OF_BIRTH"/>
+        <column name="_MIN_DATE_OF_BIRTH" nullable="true"/>
       </basic>
     </attributes>
   </entity>

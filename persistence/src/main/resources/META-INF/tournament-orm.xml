@@ -30,28 +30,26 @@
     <table name="_TOURNAMENTS" />
     <attributes>
        <basic name="name"><column name="_NAME"/></basic>
-       <one-to-many name="opponents">
+      <one-to-many name="opponents">
          <join-table name="_TOURNAMENT_OPPONENTS">
            <join-column name="_TOURNAMENT_ID" referenced-column-name="_ID"/>
            <inverse-join-column name="_OPPONENT_ID" referenced-column-name="_ID" unique="true" />
          </join-table>
          <cascade><cascade-all/></cascade>
        </one-to-many>
-       <one-to-many name="disciplines">
+      <one-to-many name="gymnasiums">
+        <join-table name="_TOURNAMENT_GYMNASIUMS">
+          <join-column name="_TOURNAMENT_ID" referenced-column-name="_ID"/>
+          <inverse-join-column name="_GYMNASIUM_ID" referenced-column-name="_ID" unique="true" />
+        </join-table>
+        <cascade><cascade-all/></cascade>
+      </one-to-many>
+      <many-to-many name="disciplines">
          <join-table name="_TOURNAMENT_DISCIPLINES">
            <join-column name="_TOURNAMENT_ID" referenced-column-name="_ID"/>
-           <inverse-join-column name="_DISCIPLINE_ID" referenced-column-name="_ID" unique="true" />
+           <inverse-join-column name="_DISCIPLINE_ID" referenced-column-name="_ID" />
          </join-table>
-         <cascade><cascade-all/></cascade>
-       </one-to-many>
-
-       <one-to-many name="gymnasiums">
-         <join-table name="_TOURNAMENT_GYMNASIUMS">
-           <join-column name="_TOURNAMENT_ID" referenced-column-name="_ID"/>
-           <inverse-join-column name="_GYMNASIUM_ID" referenced-column-name="_ID" unique="true" />
-         </join-table>
-         <cascade><cascade-all/></cascade>
-       </one-to-many>
+       </many-to-many>
      </attributes>
   </entity>
 
