@@ -58,11 +58,13 @@ pipeline {
     stage ('docker') {
       steps {
         //execute('docker build -t "torganizer/frontend" -f ./frontend/Dockerfile ./frontend')
-		docker.build registry + ":$BUILD_NUMBER"
-		docker.withRegistry( '', registryCredential ) {
-          dockerImage.push()
-		}
-		execute("docker rmi $registry:$BUILD_NUMBER")
+        script {
+          docker.build registry + ":$BUILD_NUMBER"
+          docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+          }
+        }
+        execute("docker rmi $registry:$BUILD_NUMBER")
       }
     }
 
