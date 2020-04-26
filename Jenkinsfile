@@ -60,7 +60,7 @@ pipeline {
         execute('docker build -t "torganizer/frontend" -f ./frontend/Dockerfile ./frontend')
         script {
           docker.withRegistry( '', registryCredential ) {
-            dockerImage.push()
+            execute('docker push suessenguth/org.cc.torganizer:latest')
           }
         }
         execute('docker rmi $registry:$BUILD_NUMBER')
