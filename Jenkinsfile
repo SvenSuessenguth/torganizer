@@ -64,7 +64,7 @@ pipeline {
             dockerImage.push()
           }
         }
-        execute("docker rmi $registry:$BUILD_NUMBER")
+        execute('docker rmi $registry:$BUILD_NUMBER')
       }
     }
 
