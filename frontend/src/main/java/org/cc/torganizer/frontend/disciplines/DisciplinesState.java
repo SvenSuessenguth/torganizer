@@ -10,6 +10,7 @@ import org.cc.torganizer.core.entities.AgeRestriction;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.GenderRestriction;
+import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.OpponentType;
 import org.cc.torganizer.core.entities.OpponentTypeRestriction;
 import org.cc.torganizer.frontend.ApplicationState;
@@ -22,6 +23,7 @@ public class DisciplinesState extends State implements Serializable {
 
   private Discipline discipline;
   private List<Discipline> disciplines;
+  private List<Opponent> assignableOpponents;
 
   @Inject
   private TournamentsRepository tournamentsRepository;
@@ -43,6 +45,14 @@ public class DisciplinesState extends State implements Serializable {
 
     Long tournamentId = applicationState.getTournamentId();
     disciplines = tournamentsRepository.getDisciplines(tournamentId, 0, 1000);
+
+    synchronizeOpponents();
+  }
+
+  public void synchronizeOpponents() {
+    Long tournamentId = applicationState.getTournamentId();
+    assignableOpponents = tournamentsRepository.getAssignableOpponentsForDiscipline(tournamentId,
+        discipline, 0, 1000);
   }
 
   public Gender[] getGenders() {
@@ -63,5 +73,9 @@ public class DisciplinesState extends State implements Serializable {
 
   public void setDiscipline(Discipline discipline) {
     this.discipline = discipline;
+  }
+
+  public List<Opponent> getAssignableOpponents() {
+    return assignableOpponents;
   }
 }

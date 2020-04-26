@@ -2,21 +2,23 @@ package org.cc.torganizer.frontend.disciplines.actions;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+import org.cc.torganizer.core.entities.AgeRestriction;
 import org.cc.torganizer.core.entities.Discipline;
+import org.cc.torganizer.core.entities.GenderRestriction;
+import org.cc.torganizer.core.entities.OpponentTypeRestriction;
 
 /**
- * Action to create a club.
+ * Cancel editing the current discipline.
  */
 @RequestScoped
 @Named
 public class CancelDiscipline extends DisciplinesAction {
 
   /**
-   * creating a club.
+   * cancel.
    */
   public String execute() {
-    Discipline discipline = new Discipline();
-    state.setDiscipline(discipline);
+    state.synchronize();
 
     return null;
   }

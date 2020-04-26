@@ -35,7 +35,6 @@
       <!--
        | restrictions
        +-->
-      <h4>#{text.age}</h4>
       <h:outputLabel for="min-date-of-birth" value="#{text.from}"/>
       <h:inputText id="min-date-of-birth" a:type="date"
                    value="#{disciplinesState.discipline.ageRestriction.minDateOfBirth}">
@@ -47,7 +46,6 @@
         <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
       </h:inputText>
 
-      <h4>#{i18nGender.GENDER}</h4>
       <h:selectOneMenu id="disciplinesGender" value="#{disciplinesState.discipline.genderRestriction.gender}">
         <f:selectItems value="#{disciplinesState.genders}" var="gender"
                        itemValue="#{gender}"
@@ -55,7 +53,6 @@
         <f:converter converterId="genderConverter"/>
       </h:selectOneMenu>
 
-      <h4>#{i18nOpponentType.OPPONENT_TYPE}</h4>
       <h:selectOneMenu id="opponent-type" value="#{disciplinesState.discipline.opponentTypeRestriction.opponentType}">
         <f:selectItems value="#{disciplinesState.opponentTypes}" var="opponentType"
                        itemValue="#{opponentType}"
@@ -64,12 +61,25 @@
       </h:selectOneMenu>
 
       <h:panelGroup id="disciplinesCommands" style="display: block">
+        #{disciplinesState.discipline.id}
         <h:commandButton id="disciplinesSave" action="#{saveDiscipline.execute()}" value="#{i18nText.save}"/>
         <h:commandButton id="disciplinesDelete" action="#{deleteDiscipline.execute()}" value="#{i18nText.delete}"
                          disabled="#{disciplinesState.discipline.id == null}"/>
-        <h:commandButton id="disciplinesCancel" action="discipliness?faces-redirect=true" value="#{i18nText.cancel}"
+        <h:commandButton id="disciplinesCancel" action="disciplines?faces-redirect=true" value="#{i18nText.cancel}"
                          type="submit" immediate="true" disabled="#{disciplinesState.discipline.id == null}"/>
       </h:panelGroup>
+
+      <!--
+       | assignable opponents
+       +-->
+      <h:dataTable value="#{disciplinesState.assignableOpponents}" var="opponent">
+        <h:column>
+          <f:facet name="header">Opponent</f:facet>
+          <h:commandLink action="#{addOpponentToDiscipline.execute(opponent)}" value="#{opponent.players}">
+            <f:ajax render="disciplinesForm" immediate="true" execute="@this"/>
+          </h:commandLink>
+        </h:column>
+      </h:dataTable>
     </h:form>
   </ui:define>
 </ui:composition>

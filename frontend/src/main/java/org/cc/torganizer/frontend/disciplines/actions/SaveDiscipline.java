@@ -21,22 +21,25 @@ public class SaveDiscipline extends DisciplinesAction {
   public void execute() {
     // new restrictions should be persisted also
     Discipline discipline = state.getDiscipline();
-    for(Restriction restriction : discipline.getRestrictions()){
-      if(restriction.getId()==null) {
+    for (Restriction restriction : discipline.getRestrictions()) {
+      if (restriction.getId() == null) {
         restrictionsRepository.create(restriction);
+      } else {
+        restrictionsRepository.update(restriction);
       }
     }
 
     if (discipline.getId() == null) {
       // saving restrictions
       disciplinesRepository.create(discipline);
+      Long tournamentId = applicationState.getTournamentId();
+      tournamentsRepository.addDiscipline(tournamentId, discipline);
     } else {
       disciplinesRepository.update(discipline);
     }
 
-    Long tournamentId = applicationState.getTournamentId();
-    tournamentsRepository.addDiscipline(tournamentId, discipline);
-
     state.synchronize();
+    state.setDiscipline(discipline);
+    state.synchronizeOpponents();
   }
 }
