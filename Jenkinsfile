@@ -57,9 +57,8 @@ pipeline {
 
     stage ('docker') {
       steps {
-        //execute('docker build -t "torganizer/frontend" -f ./frontend/Dockerfile ./frontend')
+        execute('docker build -t "torganizer/frontend" -f ./frontend/Dockerfile ./frontend')
         script {
-          docker.build registry + ":$BUILD_NUMBER"
           docker.withRegistry( '', registryCredential ) {
             dockerImage.push()
           }

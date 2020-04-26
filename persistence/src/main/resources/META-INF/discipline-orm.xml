@@ -21,13 +21,6 @@
     <table name="_DISCIPLINES" />
     <attributes>
        <basic name="name"><column name="_NAME" nullable="false" /></basic>
-       <one-to-many name="opponents">
-         <join-table name="_DISCIPLINES_OPPONENTS">
-           <join-column name="_DISCIPLINE_ID" referenced-column-name="_ID"/>
-           <inverse-join-column name="_OPPONENT_ID" referenced-column-name="_ID" unique="true" />
-         </join-table>
-         <cascade><cascade-all/></cascade>
-       </one-to-many>
       <one-to-many name="rounds">
         <join-table name="_DISCIPLINES_ROUNDS">
           <join-column name="_DISCIPLINE_ID" referenced-column-name="_ID"/>
@@ -42,6 +35,13 @@
          </join-table>
          <cascade><cascade-all /></cascade>
        </one-to-many>
+      <many-to-many name="opponents">
+        <join-table name="_DISCIPLINES_OPPONENTS">
+          <join-column name="_DISCIPLINE_ID" referenced-column-name="_ID"/>
+          <inverse-join-column name="_OPPONENT_ID" referenced-column-name="_ID" unique="true" />
+        </join-table>
+        <cascade><cascade-all/></cascade>
+      </many-to-many>
      </attributes>
   </entity>
   
