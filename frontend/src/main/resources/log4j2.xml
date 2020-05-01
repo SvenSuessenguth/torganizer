@@ -3,6 +3,27 @@
 <Configuration status="INFO">
 
   <Appenders>
+    <Failover name="failover" primary="rollingfile">
+      <Failovers>
+        <AppenderRef ref="console"/>
+      </Failovers>
+    </Failover>
+
+    <RollingFile name="rollingfile" fileName="logs/app.log" filePattern="logs/app-%d{MM-dd-yyyy}.log.gz"
+                 ignoreExceptions="false">
+      <TimeBasedTriggeringPolicy/>
+
+      <!--
+       | https://logging.apache.org/log4j/2.x/manual/lookups.html#DockerLookup
+       +-->
+      <JsonLayout compact="true" complete="true" eventEol="true" includeTimeMillis="true">
+        <KeyValuePair key="requestId" value="$${ctx:requestId}"/>
+        <KeyValuePair key="containerId" value="${docker:containerId}"/>
+        <KeyValuePair key="containerName" value="${docker:containerName}"/>
+        <KeyValuePair key="imageName" value="${docker:imageName}"/>
+      </JsonLayout>
+    </RollingFile>
+
     <Console name="console" target="SYSTEM_OUT">
       <!--
        | [%t]     thread
@@ -12,13 +33,13 @@
        | for requestId, hostName, ipAddress see class OnlineExtendLoggingFilter
        +-->
       <PatternLayout
-        pattern="[%-5level] %c{1} %d{yyyy-MM-dd HH:mm:ss.SSS} %X{requestId} %X{hostName} %X{ipAddress} [%t] - %msg%n" />
+        pattern="[%-5level] %c{1} %d{yyyy-MM-dd HH:mm:ss.SSS} %X{requestId} %X{hostName} %X{ipAddress} [%t] - %msg%n"/>
     </Console>
   </Appenders>
 
   <Loggers>
     <Root level="debug" additivity="false">
-      <AppenderRef ref="console" />
+      <AppenderRef ref="failover"/>
     </Root>
   </Loggers>
 </Configuration>

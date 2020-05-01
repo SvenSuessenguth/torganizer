@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.logging.log4j.Logger;
 import org.cc.torganizer.core.entities.Tournament;
+import org.eclipse.microprofile.metrics.annotation.Counted;
 
 @RequestScoped
 @Named
