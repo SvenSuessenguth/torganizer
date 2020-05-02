@@ -1,8 +1,3 @@
-// Jenkins need to install the following additional plugins:
-// https://updates.jenkins.io/download/plugins/
-// SonarQube Scanner
-// Warnings Next Generation
-
 pipeline {
 
   agent any
@@ -25,13 +20,15 @@ pipeline {
       stages {		  
         stage('compile') {                      		  
 		  steps {
-		    tool name: ${jdk}, type: 'jdk'
+		    jdk = tool name: ${jdk}, type: 'jdk'
+            env.JAVA_HOME = "${jdk}"
             execute("mvn compile -T 4C")
           }
         }
 		stage('test') {		
 		  steps {
-		    tool name: ${jdk}, type: 'jdk'
+		    jdk = tool name: ${jdk}, type: 'jdk'
+            env.JAVA_HOME = "${jdk}"
             execute("mvn test -T 4C")
           }
         }
