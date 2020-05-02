@@ -21,7 +21,7 @@ pipeline {
           stage('compile') {
             tools {
               maven 'apache-maven-3.6'
-              jdk "${JDK}"
+              jdk JDK
             }
           
 		    steps {
