@@ -16,10 +16,7 @@ pipeline {
       matrix {
         agent any
         axes {
-          axis {
-            name 'jdk'
-            values 'openjdk-8', 'openjdk-13'
-          }                    
+          jdk('openjdk-8', 'openjdk-13')                              
         }
         stages {
           stage('compile') {
