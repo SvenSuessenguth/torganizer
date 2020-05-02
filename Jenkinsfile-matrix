@@ -20,7 +20,7 @@ pipeline {
 			values 'openjdk-8', 'openjdk-13'
 		  }
         }
-      }
+      
 		
       stages {		  
         stage('compile') {                      
@@ -35,6 +35,7 @@ pipeline {
         }
       }
     }
+	}
   }
 }
 
