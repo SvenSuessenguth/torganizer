@@ -8,7 +8,7 @@ pipeline {
   agent any
 
   stages {
-    stage('BuildAndTest') {
+    stage('jdks') {
       matrix {
         agent any
         axes {
@@ -21,9 +21,10 @@ pipeline {
           stage('compile') {
 		  tools {
             maven 'apache-maven-3.6'
-            jdk ${JDK}
-  }
-            steps {
+            jdk "${JDK}"
+          }
+          
+		  steps {
               echo "compile with ${JDK}"
 			  echo java -version
 			  
