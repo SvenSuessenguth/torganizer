@@ -7,6 +7,10 @@ pipeline {
 
   agent any
 
+  tools {
+    maven 'apache-maven-3.6'
+  }
+			
   stages {
     stage('jdks') {
       matrix {
@@ -19,12 +23,15 @@ pipeline {
         }
         stages {
           stage('compile') {
-            tools {
-              maven 'apache-maven-3.6'
-            }
+            
           
 		    steps {
-			  execute("mvn compile test -T 4C")
+			  execute("mvn compile -T 4C")
+            }
+          }
+		  stage('test') {            
+		    steps {
+			  execute("mvn test -T 4C")
             }
           }
         }
