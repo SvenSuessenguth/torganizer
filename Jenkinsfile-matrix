@@ -14,13 +14,18 @@ pipeline {
   stages {
     stage('jdks') {
       matrix {
-        agent any
         axes {
-          jdk('openjdk-8', 'openjdk-13')                              
+		  axis {
+		    name 'jdk'
+			values 'openjdk-8', 'openjdk-13'
+		  }
         }
         stages {
-          stage('compile') {
-            
+		  tools {
+		    maven 'apache-maven-3.6'
+		  }
+		  
+          stage('compile') {            
           
 		    steps {
 			  execute("mvn compile -T 4C")
