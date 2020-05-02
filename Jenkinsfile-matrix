@@ -17,17 +17,18 @@ pipeline {
         }
       
 		
-      stages {		  
-	    jdk = tool name: ${jdk}, type: 'jdk'
-        env.JAVA_HOME = "${jdk}"
+      stages {		  	    
 		
         stage('compile') {                      		  
-		  steps {		    
+		  jdk = tool name: ${jdk}, type: 'jdk'
+          env.JAVA_HOME = "${jdk}"		  
+		  steps {          
             execute("mvn compile -T 4C")
           }
         }
 		stage('test') {		
-		
+		  jdk = tool name: ${jdk}, type: 'jdk'
+          env.JAVA_HOME = "${jdk}"
 		  steps {		    
             execute("mvn test -T 4C")
           }
