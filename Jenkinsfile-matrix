@@ -13,7 +13,7 @@ pipeline {
         agent any
         axes {
           axis {
-            name 'JDK'
+            name 'JavaDevelopmentKit'
             values 'openjdk-8', 'openjdk-13'
           }                    
         }
@@ -21,10 +21,11 @@ pipeline {
           stage('compile') {
             tools {
               maven 'apache-maven-3.6'
-              jdk JDK
             }
           
 		    steps {
+			  jdk = tool name: ${JavaDevelopmentKit}
+			  env.JAVA_HOME = "${jdk}"
               execute("java -version")
             }
           }
