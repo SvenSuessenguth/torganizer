@@ -11,7 +11,7 @@ pipeline {
     maven 'apache-maven-3.6'
   }
 			
-  stages {
+  stages {  
     stage('jdks') {
       matrix {
         axes {
@@ -20,27 +20,24 @@ pipeline {
 			values 'openjdk-8', 'openjdk-13'
 		  }
         }
-        stages {
-		  tools {
-		    maven 'apache-maven-3.6'
-		  }
-		  
-          stage('compile') {            
-          
-		    steps {
-			  execute("mvn compile -T 4C")
-            }
+      }
+		
+      stages {		  
+        stage('compile') {                      
+		  steps {
+            execute("mvn compile -T 4C")
           }
-		  stage('test') {            
-		    steps {
-			  execute("mvn test -T 4C")
-            }
+        }
+		stage('test') {            
+		  steps {
+            execute("mvn test -T 4C")
           }
         }
       }
     }
   }
 }
+
 
 void execute(instruction) {
   if (isUnix()) {
