@@ -19,19 +19,25 @@ pipeline {
         }
         stages {
           stage('compile') {
-		  tools {
-            maven 'apache-maven-3.6'
-            jdk "${JDK}"
-          }
+            tools {
+              maven 'apache-maven-3.6'
+              jdk "${JDK}"
+            }
           
-		  steps {
-              echo "compile with ${JDK}"
-			  echo java -version
-			  
+		    steps {
+              execute("java -version")
             }
           }
         }
       }
     }
+  }
+}
+
+void execute(instruction) {
+  if (isUnix()) {
+    sh instruction
+  } else {
+    bat instruction
   }
 }
