@@ -24,7 +24,7 @@ pipeline {
             }
           
 		    steps {
-			  execute("java -version")
+			  execute("mvn compile test -T 4C")
             }
           }
         }
