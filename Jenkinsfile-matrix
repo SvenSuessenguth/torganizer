@@ -1,0 +1,36 @@
+// Jenkins need to install the following additional plugins:
+// https://updates.jenkins.io/download/plugins/
+// SonarQube Scanner
+// Warnings Next Generation
+
+pipeline {
+
+  agent any
+
+  stages {
+    stage('BuildAndTest') {
+      matrix {
+        agent any
+        axes {
+          axis {
+            name 'JDK'
+            values 'openjdk-8', 'openjdk-13'
+          }                    
+        }
+        stages {
+          stage('compile') {
+		  tools {
+            maven 'apache-maven-3.6'
+            jdk ${JDK}
+  }
+            steps {
+              echo "compile with ${JDK}"
+			  echo java -version
+			  
+            }
+          }
+        }
+      }
+    }
+  }
+}
