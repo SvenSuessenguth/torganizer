@@ -16,7 +16,6 @@ pipeline {
       matrix {
         axes {
 		  axis {
-		    type 'jdk'
 		    name 'jdk'
 			values 'openjdk-8', 'openjdk-13'
 		  }
@@ -24,13 +23,15 @@ pipeline {
       
 		
       stages {		  
-        stage('compile') {                      
+        stage('compile') {                      		  
 		  steps {
+		    tool name: ${jdk}, type: 'jdk'
             execute("mvn compile -T 4C")
           }
         }
-		stage('test') {            
+		stage('test') {		
 		  steps {
+		    tool name: ${jdk}, type: 'jdk'
             execute("mvn test -T 4C")
           }
         }
