@@ -1,6 +1,5 @@
 package org.cc.torganizer.persistence;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -75,7 +74,7 @@ public class TournamentsRepository extends Repository<Tournament> {
    * reading all players from the given tournament.
    */
   public List<Player> getPlayers(Long tournamentId, Integer offset,
-                                                  Integer maxResults) {
+                                 Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
