@@ -11,17 +11,24 @@ pipeline {
       matrix {
         axes {
           axis {
-            name 'JDK_VERSION'
-            values 'openjdk-8', 'openjdk-13'
+            name 'jdkVersion'
+            values 'openjdk-8'
           }
         }
+
         stages {
           stage('compile') {
+            tools {
+             jdk '${jdkVersion}'
+            }
             steps {
               execute("mvn compile -T 4C")
             }
           }
           stage('test') {
+            tools {
+             jdk '${jdkVersion}'
+            }
             steps {
               execute("mvn test -T 4C")
             }
