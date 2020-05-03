@@ -98,7 +98,7 @@ public class RoundsRepository extends Repository<Round> {
     Integer foundOpponentsSize = notAssignedOpponents.size();
     maxResults = maxResults > foundOpponentsSize ? foundOpponentsSize : maxResults;
 
-    return new HashSet(notAssignedOpponents.subList(offset, maxResults));
+    return new HashSet<>(notAssignedOpponents.subList(offset, maxResults));
   }
 
   /**

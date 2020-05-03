@@ -5,7 +5,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.logging.log4j.Logger;
 import org.cc.torganizer.core.entities.Tournament;
-import org.eclipse.microprofile.metrics.annotation.Counted;
 
 @RequestScoped
 @Named
@@ -23,9 +22,9 @@ public class SaveTournament extends TournamentsAction {
   public void execute() {
     Tournament current = state.getCurrent();
 
-    if(current.getId()!=null) {
-       tournamentsRepository.update(current);
-    }else {
+    if (current.getId() != null) {
+      tournamentsRepository.update(current);
+    } else {
       tournamentsRepository.create(current);
       state.synchronize();
       appState.setTournament(current);
