@@ -29,10 +29,7 @@ pipeline {
              jdk "${jdkVersion}"
             }
             steps {
-              echo "-----------------------------------------------------------------------------------"
-              execute("java -version")
-              echo "-----------------------------------------------------------------------------------"
-              execute("mvn clean compile")
+              execute("mvn clean test")
             }
           }
         }
