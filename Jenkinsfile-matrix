@@ -26,7 +26,7 @@ pipeline {
              jdk "${jdkVersion}"
             }
             steps {
-              execute("mvn test -T 4C")
+              execute("mvn clean test -T 4C")
             }
           }
         }
