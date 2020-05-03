@@ -19,7 +19,7 @@ import org.cc.torganizer.persistence.TournamentsRepository;
 
 @ViewScoped
 @Named
-public class SquadsState extends State implements Serializable {
+public class SquadsState implements Serializable, State {
 
   public static final int MAX_SQUADS_RESULTS = 1000;
   public static final int MAX_PLAYERS_RESULTS = 1000;

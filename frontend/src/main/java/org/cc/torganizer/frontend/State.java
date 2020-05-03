@@ -1,6 +1,6 @@
 package org.cc.torganizer.frontend;
 
-public abstract class State {
+public interface State {
 
   /**
    * synchronizing the cahed data in the state with actual data from the dbms.

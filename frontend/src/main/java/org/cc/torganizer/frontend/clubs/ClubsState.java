@@ -12,7 +12,7 @@ import org.cc.torganizer.persistence.ClubsRepository;
 
 @ViewScoped
 @Named
-public class ClubsState extends State implements Serializable {
+public class ClubsState implements Serializable, State {
 
   private List<Club> clubs;
   private Club current;

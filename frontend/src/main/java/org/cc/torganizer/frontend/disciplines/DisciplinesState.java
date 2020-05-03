@@ -19,7 +19,7 @@ import org.cc.torganizer.persistence.TournamentsRepository;
 
 @ViewScoped
 @Named
-public class DisciplinesState extends State implements Serializable {
+public class DisciplinesState implements Serializable, State {
 
   private Discipline discipline;
   private List<Discipline> disciplines;

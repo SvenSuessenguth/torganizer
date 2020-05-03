@@ -17,7 +17,7 @@ import org.cc.torganizer.persistence.TournamentsRepository;
  */
 @Named
 @ViewScoped
-public class TournamentsState extends State implements Serializable {
+public class TournamentsState implements Serializable, State {
 
   @Inject
   private transient TournamentsRepository tournamentsRepository;
