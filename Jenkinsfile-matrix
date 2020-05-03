@@ -12,7 +12,7 @@ pipeline {
         axes {
           axis {
             name 'jdkVersion'
-            values 'openjdk-8', 'openjdk-11', 'openjdk-13', 'openjdk-14'
+            values 'openjdk-8'
           }
         }
 
@@ -22,9 +22,7 @@ pipeline {
              jdk "${jdkVersion}"
             }
             steps {
-              withEnv(["JAVA_HOME=${tool jdkVersion}", "PATH=${tool jdkVersion}/bin:${env.PATH}"]) {
-                execute("mvn clean test -T 4C")
-              }
+              execute("mvn clean test -T 4C")
             }
           }
         }
