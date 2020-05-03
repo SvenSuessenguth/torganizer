@@ -44,7 +44,7 @@ public class ConstraintViolationExceptionMapper
             .add("propertyPath", violation.getPropertyPath().toString())
             .add("invalidValue", violation.getInvalidValue().toString()))
         .forEach(arrayBuilder::add);
-    
+
     objectBuilder.add("violations", arrayBuilder);
 
     return objectBuilder.build();

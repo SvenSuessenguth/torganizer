@@ -17,7 +17,6 @@ public class OpponentJsonConverterProvider {
   /**
    * Providing the converter for the given opponentType.
    */
-  @SuppressWarnings("rawtypes")
   public BaseModelJsonConverter getConverter(OpponentType opponentType) {
     for (OpponentJsonConverter converter : opponentConverters) {
       if (Objects.equals(opponentType, converter.getOpponentType())) {
@@ -31,7 +30,6 @@ public class OpponentJsonConverterProvider {
    * Providing the converter for the first opponent found in the collection. To run properly, all
    * opponents must have the same opponentType.
    */
-  @SuppressWarnings("rawtypes")
   public BaseModelJsonConverter getConverter(Collection<Opponent> opponents) {
 
     OpponentType opponentType;
