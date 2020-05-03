@@ -19,7 +19,7 @@ pipeline {
         stages {
           stage('compile') {
             tools {
-             jdk ${jdkVersion}
+             jdk "${jdkVersion}"
             }
             steps {
               execute("mvn compile -T 4C")
@@ -27,7 +27,7 @@ pipeline {
           }
           stage('test') {
             tools {
-             jdk ${jdkVersion}
+             jdk "${jdkVersion}"
             }
             steps {
               execute("mvn test -T 4C")
