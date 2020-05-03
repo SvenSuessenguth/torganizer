@@ -3,6 +3,7 @@ package org.cc.torganizer.frontend.tournaments;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -40,15 +41,10 @@ public class TournamentsNameValidator implements Validator<String> {
   private Collection<FacesMessage> createFacesMessages(
       Set<ConstraintViolation<Tournament>> constraintViolations) {
 
-    Collection<FacesMessage> facesMessages = new ArrayList<>(constraintViolations.size());
-
-    for (ConstraintViolation violation : constraintViolations) {
-      String messageText = violation.getMessage();
-      FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-          messageText, messageText);
-      facesMessages.add(facesMessage);
-    }
-
-    return facesMessages;
+    return constraintViolations
+        .stream()
+        .map(ConstraintViolation::getMessage)
+        .map(messageText -> new FacesMessage(FacesMessage.SEVERITY_ERROR, messageText, messageText))
+        .collect(Collectors.toCollection(() -> new ArrayList<>(constraintViolations.size())));
   }
 }

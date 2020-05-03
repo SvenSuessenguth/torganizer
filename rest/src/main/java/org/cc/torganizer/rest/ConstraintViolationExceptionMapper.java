@@ -31,20 +31,20 @@ public class ConstraintViolationExceptionMapper
         .build();
   }
 
-  @SuppressWarnings("rawtypes")
   protected JsonObject toJsonObject(Set<ConstraintViolation<?>> constraintViolations) {
     JsonBuilderFactory factory = Json.createBuilderFactory(new HashMap<>());
     JsonObjectBuilder objectBuilder = factory.createObjectBuilder();
     objectBuilder.add("violations-count", constraintViolations.size());
 
     JsonArrayBuilder arrayBuilder = factory.createArrayBuilder();
-    for (ConstraintViolation violation : constraintViolations) {
-      arrayBuilder.add(
-          Json.createObjectBuilder()
-              .add("message", violation.getMessage())
-              .add("propertyPath", violation.getPropertyPath().toString())
-              .add("invalidValue", violation.getInvalidValue().toString()));
-    }
+    constraintViolations
+        .stream()
+        .map(violation -> Json.createObjectBuilder()
+            .add("message", violation.getMessage())
+            .add("propertyPath", violation.getPropertyPath().toString())
+            .add("invalidValue", violation.getInvalidValue().toString()))
+        .forEach(arrayBuilder::add);
+    
     objectBuilder.add("violations", arrayBuilder);
 
     return objectBuilder.build();
