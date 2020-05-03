@@ -22,7 +22,7 @@ pipeline {
              jdk "${jdkVersion}"
             }
             steps {
-              withEnv(["JAVA_HOME=${tool ${jdkVersion}}", "PATH=${tool ${jdkVersion}}/bin:${env.PATH}"]) {
+              withEnv(["JAVA_HOME=${tool jdkVersion}", "PATH=${tool jdkVersion}/bin:${env.PATH}"]) {
                 execute("mvn clean test -T 4C")
               }
             }
