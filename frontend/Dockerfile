@@ -1,4 +1,4 @@
-FROM openliberty/open-liberty:20.0.0.4-full-java8-openj9
+FROM open-liberty:20.0.0.4-full-java8-openj9
 
 COPY --chown=1001:0  /target/frontend.war /config/dropins/
 COPY --chown=1001:0 /src/main/liberty/config/server.xml /config/
