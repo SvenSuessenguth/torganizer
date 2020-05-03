@@ -72,7 +72,7 @@ public class GroupJsonConverter extends BaseModelJsonConverter<Group> {
    * Add the Oppontens from the group converted as json to the groupJson.
    */
   public JsonObject addOpponents(JsonObject groupJson, Collection<Opponent> opponents) {
-    BaseModelJsonConverter converter = opponentJsonConverterProvider.getConverter(opponents);
+    BaseModelJsonConverter<Opponent> converter = opponentJsonConverterProvider.getConverter(opponents);
     JsonArray opponentsJsonArray = converter == null
         ? EMPTY_OPPONENT_ARRAY
         : converter.toJsonArray(opponents);

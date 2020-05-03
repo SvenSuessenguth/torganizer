@@ -70,12 +70,10 @@ public class SquadsState implements Serializable, State {
 
   public List<Player> getPlayers() {
     // filter by gender
-    List<Player> filtered = players
+    return players
         .stream()
         .filter(p -> p.getPerson().fitsGender(gender))
         .collect(Collectors.toList());
-
-    return filtered;
   }
 
   public void setPlayers(List<Player> players) {

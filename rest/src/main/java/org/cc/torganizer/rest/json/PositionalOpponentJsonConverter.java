@@ -11,6 +11,7 @@ import javax.json.JsonArrayBuilder;
 import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
 import javax.json.JsonPatch;
+import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.PositionalOpponent;
 
 @RequestScoped
@@ -21,7 +22,7 @@ public class PositionalOpponentJsonConverter extends BaseModelJsonConverter<Posi
 
   @Override
   public JsonObject toJsonObject(PositionalOpponent positionalOpponent) {
-    ModelJsonConverter converter = getConverter(positionalOpponent);
+    ModelJsonConverter<Opponent> converter = getConverter(positionalOpponent);
 
     JsonObject jsonObject = converter.toJsonObject(positionalOpponent.getOpponent());
 
@@ -53,16 +54,7 @@ public class PositionalOpponentJsonConverter extends BaseModelJsonConverter<Posi
     return Collections.emptyList();
   }
 
-
-  protected ModelJsonConverter getConverter(Collection<PositionalOpponent> positionalOpponents) {
-    if (positionalOpponents == null || positionalOpponents.isEmpty()) {
-      return null;
-    }
-
-    return getConverter(positionalOpponents.iterator().next());
-  }
-
-  protected ModelJsonConverter getConverter(PositionalOpponent positionalOpponent) {
+  protected ModelJsonConverter<Opponent> getConverter(PositionalOpponent positionalOpponent) {
     if (positionalOpponent == null) {
       return null;
     }
