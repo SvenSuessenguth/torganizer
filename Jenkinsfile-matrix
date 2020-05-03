@@ -1,8 +1,8 @@
+// https://issues.jenkins-ci.org/browse/JENKINS-60801
+
 pipeline {
 
-  agent {
-    label 'master'
-  }
+  agent any
 
   options {
     buildDiscarder(logRotator(daysToKeepStr: '3', numToKeepStr: '3', artifactNumToKeepStr: '3'))
@@ -29,6 +29,9 @@ pipeline {
              jdk "${jdkVersion}"
             }
             steps {
+              echo "-----------------------------------------------------------------------------------"
+              execute("java -version")
+              echo "-----------------------------------------------------------------------------------"
               execute("mvn clean compile")
             }
           }
