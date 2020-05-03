@@ -2,6 +2,11 @@ pipeline {
 
   agent any
 
+  options {
+    buildDiscarder(logRotator(daysToKeepStr: '3', numToKeepStr: '3', artifactNumToKeepStr: '3'))
+    durabilityHint('PERFORMANCE_OPTIMIZED')
+  
+
   tools {
     maven 'apache-maven-3.6'
   }
@@ -12,7 +17,7 @@ pipeline {
         axes {
           axis {
             name 'jdkVersion'
-            values 'openjdk-8'
+            values 'openjdk-14'
           }
         }
 
