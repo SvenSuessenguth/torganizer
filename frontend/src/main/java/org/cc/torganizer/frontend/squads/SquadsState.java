@@ -3,6 +3,7 @@ package org.cc.torganizer.frontend.squads;
 import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
@@ -24,11 +25,12 @@ public class SquadsState implements Serializable, State {
 
   public static final int MAX_SQUADS_RESULTS = 1000;
   public static final int MAX_PLAYERS_RESULTS = 1000;
-  public static final int ALL_PLAYERS_TABLE_SIZE = 10;
+  public static final int ALL_PLAYERS_TABLE_SIZE = 2;
 
   private Squad current;
   private List<Squad> squads;
   private List<Player> players;
+  private int allPlayersTableIndex = 0;
 
   // Filter
   private Gender gender = UNKNOWN;
@@ -77,13 +79,19 @@ public class SquadsState implements Serializable, State {
         .filter(p -> p.getPerson().fitsGender(gender))
         .collect(Collectors.toList());
 
+    // fill chunk of players
+    List<Player> chunk = new ArrayList<>();
+    int fromIndex = allPlayersTableIndex * ALL_PLAYERS_TABLE_SIZE;
+    int toIndex = Math.min(fromIndex + ALL_PLAYERS_TABLE_SIZE, collect.size());
+    chunk.addAll(collect.subList(fromIndex, toIndex));
+
     // fill up to 10 to show not only table headers
-    int playersCount = collect.size();
-    for(int i = 0; i < ALL_PLAYERS_TABLE_SIZE - playersCount ; i++) {
-      collect.add(new Player(new Person()));
+    int playersCount = chunk.size();
+    for (int i = 0; i < ALL_PLAYERS_TABLE_SIZE - playersCount; i++) {
+      chunk.add(new Player(new Person()));
     }
 
-    return collect;
+    return chunk;
   }
 
   public void setPlayers(List<Player> players) {
@@ -100,5 +108,21 @@ public class SquadsState implements Serializable, State {
 
   public void setGender(Gender gender) {
     this.gender = gender;
+  }
+
+  public void nextAllPlayersTableChunk() {
+    allPlayersTableIndex += 1;
+  }
+
+  public void prevAllPlayersTableChunk() {
+    allPlayersTableIndex -= 1;
+  }
+
+  public boolean hasPrevAllPlayersTableChunk() {
+    return allPlayersTableIndex > 0;
+  }
+
+  public boolean hasNextAllPlayersTableChunk() {
+    return players.size() > (allPlayersTableIndex + 1) * ALL_PLAYERS_TABLE_SIZE;
   }
 }

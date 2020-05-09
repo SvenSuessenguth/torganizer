@@ -1,0 +1,7 @@
+label[disabled="disabled"] {
+    color: lightgray;
+}
+
+label[disabled="enabled"] {
+    color: black;
+}

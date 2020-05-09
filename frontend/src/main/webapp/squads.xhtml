@@ -23,6 +23,7 @@
     <c:set var="current" value="#{squadsState.current}"/>
 
     <h:form id="squadsForm">
+
       <!--
        | Filter für players
        +-->
@@ -41,7 +42,7 @@
        | all players
        +-->
       <h:dataTable id="allPlayers" value="#{squadsState.players}" var="player"
-                   style="margin-bottom: 10px; margin-top: 10px" >
+                   style="margin-bottom: 10px; margin-top: 10px">
         <h:column>
           <f:facet name="header">Vorname</f:facet>
           <h:commandLink actionListener="#{addPlayerToSquad.execute(player)}" value="#{player.person.firstName}">
@@ -56,7 +57,8 @@
         </h:column>
         <h:column>
           <f:facet name="header">Verein</f:facet>
-          <h:commandLink actionListener="#{addPlayerToSquad.execute(player)}" value="#{player.club!=null?player.club.name:''}">
+          <h:commandLink actionListener="#{addPlayerToSquad.execute(player)}"
+                         value="#{player.club!=null?player.club.name:''}">
             <f:ajax execute="@this" render="squadsForm"/>
           </h:commandLink>
           <!-- to have the correct height -->
@@ -68,6 +70,14 @@
         </h:column>
       </h:dataTable>
       <!-- pagination -->
+      <h:commandLink value="&#8701;"
+                     style="#{squadsState.hasPrevAllPlayersTableChunk()?'color:black;':'color:lightgray;'}"
+                     disabled="#{!squadsState.hasPrevAllPlayersTableChunk()}"
+                     action="#{squadsState.prevAllPlayersTableChunk}"/>
+      <h:commandLink value="&#8702;"
+                     style="#{squadsState.hasNextAllPlayersTableChunk()?'color:black;':'color:lightgray;'}"
+                     disabled="#{!squadsState.hasNextAllPlayersTableChunk()}"
+                     action="#{squadsState.nextAllPlayersTableChunk}"/>
 
       <!--
        | current squad
@@ -90,7 +100,7 @@
         </h:column>
         <h:column rendered="#{facesContext.isProjectStage('Development')}">
           <f:facet name="header">ID</f:facet>
-          <h:outputText value="#{player.id}" />
+          <h:outputText value="#{player.id}"/>
         </h:column>
       </h:dataTable>
 
@@ -103,7 +113,8 @@
                    style="margin-bottom: 10px; margin-top: 10px">
         <h:column>
           <f:facet name="header">Vornamen</f:facet>
-          <tc:squad id="firstName#{squad.id}" squad="#{squad}" showFirstNames="true" selectSquadAction="#{selectSquad}"/>
+          <tc:squad id="firstName#{squad.id}" squad="#{squad}" showFirstNames="true"
+                    selectSquadAction="#{selectSquad}"/>
         </h:column>
         <h:column>
           <f:facet name="header">Nachnamen</f:facet>
@@ -115,7 +126,7 @@
         </h:column>
         <h:column rendered="#{facesContext.isProjectStage('Development')}">
           <f:facet name="header">ID</f:facet>
-          <h:outputText value="#{squad.id}" />
+          <h:outputText value="#{squad.id}"/>
         </h:column>
       </h:dataTable>
 
@@ -123,7 +134,7 @@
         <h:commandButton id="squadsSave" action="#{saveSquad.execute()}" value="#{i18nText.save}"/>
         <h:commandButton id="squadsDelete" action="#{deleteSquad.execute()}" value="#{i18nText.delete}"/>
         <h:commandButton id="cancelSquad" action="squads?faces-redirect=true" value="#{i18nText.cancel}"
-                         type="submit" immediate="true" disabled="#{squadsState.current.id == null}" />
+                         type="submit" immediate="true" disabled="#{squadsState.current.id == null}"/>
       </h:panelGroup>
     </h:form>
   </ui:define>

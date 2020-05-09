@@ -1,0 +1,7 @@
+a[disabled="disabled"] {
+    color: lightgray;
+}
+
+a[disabled="enabled"] {
+    color: black;
+}

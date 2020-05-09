@@ -1,4 +1,6 @@
 /** https://stackoverflow.com/questions/16590739/empty-css-while-using-import-in-a-css-link */
+@import url("#{resource['css:label.css']}");
+@import url("#{resource['css:link.css']}");
 @import url("#{resource['css:button.css']}");
 @import url("#{resource['css:table.css']}");
 @import url("#{resource['css:input.css']}");
