@@ -1,4 +1,5 @@
 # frontend
 
-docker build -t "org.cc.torganizer/frontend" .  
-docker run -d -p 8080:8080 --name frontend --network=torganizer "torganizer/frontend":latest
+docker network create -d bridge carboncopy  
+docker build -t "carboncopy/frontend" .  
+docker run -d -p 8080:8080 --name frontend --network=carboncopy "carboncopy/frontend":latest
