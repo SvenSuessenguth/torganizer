@@ -10,6 +10,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.cc.torganizer.core.entities.Gender;
+import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 import org.cc.torganizer.core.entities.Tournament;
@@ -23,6 +24,7 @@ public class SquadsState implements Serializable, State {
 
   public static final int MAX_SQUADS_RESULTS = 1000;
   public static final int MAX_PLAYERS_RESULTS = 1000;
+  public static final int ALL_PLAYERS_TABLE_SIZE = 10;
 
   private Squad current;
   private List<Squad> squads;
@@ -70,10 +72,18 @@ public class SquadsState implements Serializable, State {
 
   public List<Player> getPlayers() {
     // filter by gender
-    return players
+    List<Player> collect = players
         .stream()
         .filter(p -> p.getPerson().fitsGender(gender))
         .collect(Collectors.toList());
+
+    // fill up to 10 to show not only table headers
+    int playersCount = collect.size();
+    for(int i = 0; i < ALL_PLAYERS_TABLE_SIZE - playersCount ; i++) {
+      collect.add(new Player(new Person()));
+    }
+
+    return collect;
   }
 
   public void setPlayers(List<Player> players) {
