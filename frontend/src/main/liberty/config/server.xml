@@ -52,11 +52,11 @@
    | https://www.ibm.com/support/knowledgecenter/en/SS7K4U_liberty/com.ibm.websphere.wlp.zseries.doc/ae/twlp_dep_configuring_ds.html 
    | https://www.ibm.com/support/knowledgecenter/en/SSHS8R_7.1.0/com.ibm.worklight.deploy.doc/admin/t_configuring_liberty_profile_for_my_sql_manually.html
    +-->
-  <library id="DataSourceLibrary">
+  <library id="dataSourceLibrary">
     <file name="${shared.resource.dir}/postgresql/postgresql.jar" />
   </library>
   <dataSource jndiName="jdbc/torganizerDS" transactional="true">
-    <jdbcDriver libraryRef="DataSourceLibrary" />
+    <jdbcDriver libraryRef="dataSourceLibrary" />
     <!--
      |                          | postgresql     | mysql
      | ___________________________________________________________

@@ -65,6 +65,7 @@
      +-->
     <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+    <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
     <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
     <maven-install-plugin.version>3.0.0-M1</maven-install-plugin.version>
     <maven-checkstyle-plugin>3.1.1</maven-checkstyle-plugin>
@@ -189,7 +190,7 @@
     <dependency>
       <groupId>org.mockito</groupId><artifactId>mockito-junit-jupiter</artifactId>
     </dependency>
-	
+
     <!--
      | dependencies for the new module-system
      +-->
@@ -208,12 +209,13 @@
   </dependencies>
 
   <modules>
+    <module>docker</module>
+    <module>documentation</module>
+    <module>frontend</module>
     <module>model</module>
     <module>persistence</module>
     <module>rest</module>
     <module>webclient</module>
-    <module>frontend</module>
-    <module>documentation</module>	
   </modules>
 
   <build>
@@ -276,7 +278,7 @@
           <groupId>org.sonarsource.scanner.maven</groupId><artifactId>sonar-maven-plugin</artifactId>
           <version>${sonar-maven-plugin.version}</version>
         </plugin>
-		
+
         <!-- 
          | mvn versions:display-plugin-updates shows a warning
          | [WARNING] The following plugins do not have their version specified:
@@ -405,13 +407,12 @@
       <plugin>
         <groupId>com.github.spotbugs</groupId><artifactId>spotbugs-maven-plugin</artifactId>
       </plugin>
-	  
-	   <plugin>
-          <groupId>org.owasp</groupId><artifactId>dependency-check-maven</artifactId>
-          <configuration>
-            <skipProvidedScope>true</skipProvidedScope>
-          </configuration>
-        </plugin>
+      <plugin>
+        <groupId>org.owasp</groupId><artifactId>dependency-check-maven</artifactId>
+        <configuration>
+          <skipProvidedScope>true</skipProvidedScope>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
