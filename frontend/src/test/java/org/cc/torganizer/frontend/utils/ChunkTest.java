@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
 import java.util.Collection;
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +24,9 @@ class ChunkTest {
     int chunkIndex = 1; // index begins an 0
 
     Collection<String> actual = chunk.get(all, chunkSize, chunkIndex);
+    Collection<String> expected = Arrays.asList("3", "4");
 
-    assertThat(actual).containsExactlyInAnyOrder("3", "4");
+    assertThat(actual).hasSameSizeAs(expected);
+    assertThat(actual).containsAll(expected);
   }
 }
