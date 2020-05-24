@@ -4,6 +4,7 @@ import static org.cc.torganizer.core.comparators.player.PlayerOrder.BY_LAST_UPDA
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -19,12 +20,15 @@ import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.State;
+import org.cc.torganizer.frontend.utils.Chunk;
 import org.cc.torganizer.persistence.ClubsRepository;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
-@Named
 @ViewScoped
+@Named
 public class PlayersState implements Serializable, State {
+
+  public static final int ALL_PLAYERS_CHUNK_SIZE = 10;
 
   @Inject
   private ApplicationState applicationState;
@@ -37,6 +41,16 @@ public class PlayersState implements Serializable, State {
 
   @Inject
   private ClubsRepository clubsRepository;
+
+  private int allPlayersChunkIndex = 0;
+
+  private List<Player> players;
+
+  private List<Club> clubs;
+
+  private Player current;
+
+  private PlayerOrder playerOrder = BY_LAST_UPDATE;
 
   @PostConstruct
   public void postConstruct() {
@@ -59,14 +73,6 @@ public class PlayersState implements Serializable, State {
     current = new Player(new Person());
   }
 
-  private List<Player> players;
-
-  private List<Club> clubs;
-
-  private Player current;
-
-  private PlayerOrder playerOrder = BY_LAST_UPDATE;
-
   public Player getCurrent() {
     return current;
   }
@@ -79,8 +85,17 @@ public class PlayersState implements Serializable, State {
     return players;
   }
 
-  public void setPlayers(List<Player> players) {
-    this.players = players;
+  public Collection<Player> getPlayersChunk() {
+    Chunk<Player> chunk = new Chunk<>();
+    Collection<Player> playersChunk = chunk.get(this.players, ALL_PLAYERS_CHUNK_SIZE, allPlayersChunkIndex);
+
+    // up to ALL_PLAYERS_CHUNK_SIZE
+    int startIndex = playersChunk.size();
+    for (int i = startIndex; i < ALL_PLAYERS_CHUNK_SIZE; i++) {
+      playersChunk.add(new Player(new Person()));
+    }
+
+    return playersChunk;
   }
 
   public List<Club> getClubs() {
@@ -118,5 +133,21 @@ public class PlayersState implements Serializable, State {
 
   public Long getCurrentClubId() {
     return current.getClub() == null ? null : current.getClub().getId();
+  }
+
+  public int getAllPlayersChunkIndex() {
+    return allPlayersChunkIndex;
+  }
+
+  public void setAllPlayersChunkIndex(int allPlayersChunkIndex) {
+    this.allPlayersChunkIndex = allPlayersChunkIndex;
+  }
+
+  public boolean isNextAllPlayersChunkAvailable() {
+    return (this.allPlayersChunkIndex + 1) * ALL_PLAYERS_CHUNK_SIZE < players.size();
+  }
+
+  public boolean isPrevAllPlayersChunkAvailable() {
+    return allPlayersChunkIndex > 0;
   }
 }

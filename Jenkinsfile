@@ -18,7 +18,7 @@ pipeline {
 
   tools {
     maven 'apache-maven-3.6'
-    jdk 'openjdk-8'
+    jdk 'openjdk-11'
   }
 
   stages {
