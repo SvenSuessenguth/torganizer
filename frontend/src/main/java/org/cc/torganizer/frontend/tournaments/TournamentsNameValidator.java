@@ -1,7 +1,10 @@
 package org.cc.torganizer.frontend.tournaments;
 
+import static javax.faces.application.FacesMessage.SEVERITY_ERROR;
+
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.faces.application.FacesMessage;
@@ -18,10 +21,11 @@ import org.cc.torganizer.core.entities.Tournament;
 @FacesValidator("tournamentsNameValidator")
 public class TournamentsNameValidator implements Validator<String> {
 
+
   @Override
   public void validate(FacesContext facesContext, UIComponent uiComponent, String tournamentsName) {
 
-    // to keep it simple a new tournament with the given name is created and then validated
+    // to keep it simple a new tournament with the given name/id is created and then validated
     Tournament tournament = new Tournament();
     tournament.setName(tournamentsName);
     Set<ConstraintViolation<Tournament>> constraintViolations = validate(tournament);

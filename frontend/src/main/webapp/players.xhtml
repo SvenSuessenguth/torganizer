@@ -80,12 +80,12 @@
         <h:inputText id="playersFirstName" value="#{playersState.current.person.firstName}"
                      a:placeholder="#{i18nText.first_name}" a:autofocus="true"
                      label="#{i18nText.first_name}"
-                     style="#{component.valid?'':'border-color:red;'}"/>
+                     style="#{component.valid?'validation-ok' : 'validation-fail'}"/>
 
         <h:outputLabel for="playersLastName" value="#{i18nText.last_name}"/>
         <h:inputText id="playersLastName" value="#{playersState.current.person.lastName}"
                      a:placeholder="#{i18nText.last_name}"
-                     label="#{i18nText.last_name}" style="#{component.valid?'':'border-color:red;'}"/>
+                     label="#{i18nText.last_name}" style="#{component.valid?'validation-ok' : 'validation-fail'}"/>
 
         <h:outputLabel for="playersDateOfBirth" value="#{i18nText.date_of_birth}"/>
         <h:inputText id="playersDateOfBirth" a:type="date" value="#{playersState.current.person.dateOfBirth}">

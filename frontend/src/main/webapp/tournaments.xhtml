@@ -44,10 +44,10 @@
       </section>
 
       <section id="edit">
-        <h:outputLabel for="currentName">#{i18nText.tournament}</h:outputLabel>
+        <h:outputLabel for="currentName" value="#{i18nText.tournament}" />
         &#160;
-        <h:inputText id="currentName" value="#{tournamentsState.current.name}"
-                     label="#{i18nText.tournament}" a:autofocus="true"
+        <h:inputText id="currentName" value="#{tournamentsState.current.name}" validator="tournamentsNameValidator"
+                     label="#{i18nText.tournament}" a:autofocus="true" binding="#{tournamentsBacking.nameInputText}"
                      styleClass="#{component.valid ? 'validation-ok' : 'validation-fail'}"/>
         <br/>
 

@@ -1,8 +1,12 @@
 package org.cc.torganizer.core.entities;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import org.cc.torganizer.core.comparators.player.PlayerByLastNameComparator;
 
 /**
  * Ein Squad ist eine Zusammenfassung mehrerer Players. Dies kann z.B. im
@@ -32,12 +36,16 @@ public class Squad extends Opponent {
     players.add(player);
   }
 
+  public void removePlayer(Player p) {
+    players.remove(p);
+  }
+
   public void addPlayers(Collection<Player> players) {
     this.players.addAll(players);
   }
 
   @Override
-  public Set<Player> getPlayers() {
+  public Collection<Player> getPlayers() {
     return players;
   }
 

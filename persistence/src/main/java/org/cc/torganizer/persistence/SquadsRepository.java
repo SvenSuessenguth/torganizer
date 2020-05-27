@@ -1,8 +1,8 @@
 package org.cc.torganizer.persistence;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -81,7 +81,7 @@ public class SquadsRepository extends Repository<Squad> {
     Player player = entityManager.find(Player.class, playerId);
     Squad squad = entityManager.find(Squad.class, squadId);
 
-    Set<Player> players = squad.getPlayers();
+    Collection<Player> players = squad.getPlayers();
     players.add(player);
     entityManager.persist(squad);
     // to get the id

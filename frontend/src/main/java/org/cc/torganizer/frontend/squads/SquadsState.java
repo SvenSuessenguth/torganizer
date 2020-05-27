@@ -25,7 +25,8 @@ public class SquadsState implements Serializable, State {
 
   public static final int MAX_SQUADS_RESULTS = 1000;
   public static final int MAX_PLAYERS_RESULTS = 1000;
-  public static final int ALL_PLAYERS_TABLE_SIZE = 2;
+  public static final int ALL_PLAYERS_TABLE_SIZE = 10;
+  public static final int CURRENT_SQUAD_PLAYERS_TABLE_SIZE = 2;
 
   private Squad current;
   private List<Squad> squads;
@@ -53,7 +54,12 @@ public class SquadsState implements Serializable, State {
     squads = tournamentsRepository.getSquads(tournamentId, 0, MAX_SQUADS_RESULTS);
     players = tournamentsRepository.getPlayers(tournamentId, 0, MAX_PLAYERS_RESULTS);
 
+    // to show table, add empty players with no id, which are replaced
+    // when actual players are added
     current = new Squad();
+    for (int i = 0; i < CURRENT_SQUAD_PLAYERS_TABLE_SIZE; i++) {
+      current.addPlayer(new Player(new Person()));
+    }
   }
 
   public Squad getCurrent() {

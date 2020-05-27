@@ -1,5 +1,6 @@
 package org.cc.torganizer.core.entities;
 
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -9,12 +10,7 @@ public abstract class Opponent extends Entity {
 
   private Status status = Status.ACTIVE;
 
-  /**
-   * Gibt eine Liste aller Players zurueck, die teil des Opponents sind.
-   *
-   * @return Liste aller Players dieses Opponents.
-   */
-  public abstract Set<Player> getPlayers();
+  public abstract Collection<Player> getPlayers();
 
   public abstract OpponentType getOpponentType();
 
