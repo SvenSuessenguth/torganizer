@@ -5,7 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:tc="http://xmlns.jcp.org/jsf/composite/components">
 <h:head>
   <title>.</title>
 </h:head>
@@ -46,7 +47,7 @@
         <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
       </h:inputText>
 
-      <h:selectOneMenu id="disciplinesGender" value="#{disciplinesState.discipline.genderRestriction.gender}">
+      <h:selectOneMenu id="disciplinesGender" value="#{disciplinesState.discipline.genderRestriction.gender}" onchange="submit()">
         <f:selectItems value="#{disciplinesState.genders}" var="gender"
                        itemValue="#{gender}"
                        itemLabel="#{i18nGender[gender]}"/>
@@ -61,7 +62,6 @@
       </h:selectOneMenu>
 
       <h:panelGroup id="disciplinesCommands" style="display: block">
-        #{disciplinesState.discipline.id}
         <h:commandButton id="disciplinesSave" action="#{saveDiscipline.execute()}" value="#{i18nText.save}"/>
         <h:commandButton id="disciplinesDelete" action="#{deleteDiscipline.execute()}" value="#{i18nText.delete}"
                          disabled="#{disciplinesState.discipline.id == null}"/>
@@ -74,10 +74,23 @@
        +-->
       <h:dataTable value="#{disciplinesState.assignableOpponents}" var="opponent">
         <h:column>
-          <f:facet name="header">Opponent</f:facet>
-          <h:commandLink action="#{addOpponentToDiscipline.execute(opponent)}" value="#{opponent.players}">
-            <f:ajax render="disciplinesForm" immediate="true" execute="@this"/>
-          </h:commandLink>
+          <f:facet name="header">Vornamen</f:facet>
+          <tc:opponent id="firstName#{opponent.id}" opponent="#{opponent}" showFirstNames="true"
+                       selectOpponentAction="#{addOpponentToDiscipline}"/>
+        </h:column>
+        <h:column>
+          <f:facet name="header">Nachnamen</f:facet>
+          <tc:opponent id="lastName#{opponent.id}" opponent="#{opponent}" showLastNames="true"
+                       selectOpponentAction="#{addOpponentToDiscipline}"/>
+        </h:column>
+        <h:column>
+          <f:facet name="header">Vereine</f:facet>
+          <tc:opponent id="club#{opponent.id}" opponent="#{opponent}" showClubs="true"
+                       selectOpponentAction="#{addOpponentToDiscipline}"/>
+        </h:column>
+        <h:column rendered="#{facesContext.isProjectStage('Development')}">
+          <f:facet name="header">ID</f:facet>
+          <h:outputText value="#{opponent.id}"/>
         </h:column>
       </h:dataTable>
     </h:form>
