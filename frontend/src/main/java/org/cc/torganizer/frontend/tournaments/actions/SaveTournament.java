@@ -36,14 +36,13 @@ public class SaveTournament extends TournamentsAction {
 
     // can't save two tournaments with same name
     for (Tournament t : state.getTournaments()) {
-      if (Objects.equals(t.getName(), current.getName())) {
-        if (!Objects.equals(t.getId(), current.getId())) {
-          FacesMessage facesMessage = new FacesMessage(SEVERITY_ERROR, "Zwei Turniere mit dem selben Namen", "Fehler");
-          facesContext.addMessage(tournamentsBacking.getNameClientId(), facesMessage);
-          tournamentsBacking.getNameInputText().setValid(false);
+      if (Objects.equals(t.getName(), current.getName()) &&
+          !Objects.equals(t.getId(), current.getId())) {
+        FacesMessage facesMessage = new FacesMessage(SEVERITY_ERROR, "Zwei Turniere mit dem selben Namen", "Fehler");
+        facesContext.addMessage(tournamentsBacking.getNameClientId(), facesMessage);
+        tournamentsBacking.getNameInputText().setValid(false);
 
-          return;
-        }
+        return;
       }
     }
 

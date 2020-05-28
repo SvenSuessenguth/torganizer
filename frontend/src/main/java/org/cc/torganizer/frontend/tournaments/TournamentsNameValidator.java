@@ -1,10 +1,7 @@
 package org.cc.torganizer.frontend.tournaments;
 
-import static javax.faces.application.FacesMessage.SEVERITY_ERROR;
-
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.faces.application.FacesMessage;
