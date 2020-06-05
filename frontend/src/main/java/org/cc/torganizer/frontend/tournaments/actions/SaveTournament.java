@@ -11,6 +11,7 @@ import javax.inject.Named;
 import org.apache.logging.log4j.Logger;
 import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.frontend.tournaments.TournamentsBacking;
+import org.eclipse.microprofile.metrics.annotation.Counted;
 
 @RequestScoped
 @Named
@@ -31,6 +32,7 @@ public class SaveTournament extends TournamentsAction {
   /**
    * save changes on already persisted tournament.
    */
+  @Counted(name="tournaments.save.counter")
   public void execute() {
     Tournament current = state.getCurrent();
 

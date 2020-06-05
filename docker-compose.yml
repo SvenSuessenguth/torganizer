@@ -1,6 +1,13 @@
 version: '3.7'
 
 services:
+  prometheus:
+    build: ./docker/prometheus
+    networks:
+      - torganizer
+    ports:
+      - 9090:9090
+    container_name: prometheus
   postgresql:
     build: ./docker/postgresql
     networks:

@@ -17,8 +17,8 @@
   
   <properties>
     <dbunit.version>2.7.0</dbunit.version>
-    <hibernate-core.version>5.4.16.Final</hibernate-core.version>
-    <hibernate-c3p0.version>5.4.16.Final</hibernate-c3p0.version>
+    <hibernate-core.version>5.4.17.Final</hibernate-core.version>
+    <hibernate-c3p0.version>5.4.17.Final</hibernate-c3p0.version>
     <c3p0.version>0.9.5.5</c3p0.version>
     <h2.version>1.4.200</h2.version>
     <slf4j.version>2.0.0-alpha1</slf4j.version>
