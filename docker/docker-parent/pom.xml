@@ -31,7 +31,7 @@
               <artifactItems>
                 <artifactItem>
                   <groupId>org.postgresql</groupId><artifactId>postgresql</artifactId>
-                  <version>42.2.12</version>
+                  <version>42.2.14</version>
                 </artifactItem>
               </artifactItems>
             </configuration>
