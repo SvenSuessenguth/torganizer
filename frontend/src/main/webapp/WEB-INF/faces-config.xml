@@ -28,4 +28,12 @@
     </resource-bundle>
   </application>
   
+  <navigation-rule>
+    <from-view-id>*</from-view-id>
+    <navigation-case>
+      <from-outcome>rounds</from-outcome>
+      <to-view-id>/rounds.xhtml</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+  
 </faces-config>

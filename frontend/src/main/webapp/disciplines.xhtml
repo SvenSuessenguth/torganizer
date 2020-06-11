@@ -15,11 +15,13 @@
   <ui:define name="title">${i18nText.disciplines}</ui:define>
 
   <ui:define name="css">
-    <h:outputStylesheet name="css/layouts/players.css"/>
+    <h:outputStylesheet name="css/layouts/disciplines.css"/>
   </ui:define>
 
   <ui:define name="main">
     <h:form id="disciplinesForm">
+      <h:commandButton action="rounds" value="rounds" />
+
       <h:dataTable value="#{disciplinesState.disciplines}" var="discipline">
         <h:column>
           <f:facet name="header">Bezeichnung</f:facet>
@@ -47,7 +49,8 @@
         <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
       </h:inputText>
 
-      <h:selectOneMenu id="disciplinesGender" value="#{disciplinesState.discipline.genderRestriction.gender}" onchange="submit()">
+      <h:selectOneMenu id="disciplinesGender" value="#{disciplinesState.discipline.genderRestriction.gender}"
+                       onchange="submit()">
         <f:selectItems value="#{disciplinesState.genders}" var="gender"
                        itemValue="#{gender}"
                        itemLabel="#{i18nGender[gender]}"/>

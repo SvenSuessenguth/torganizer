@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.cc.torganizer.core.entities.AgeRestriction;
@@ -16,10 +16,9 @@ import org.cc.torganizer.core.entities.OpponentType;
 import org.cc.torganizer.core.entities.OpponentTypeRestriction;
 import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.State;
-import org.cc.torganizer.persistence.DisciplinesRepository;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
-@ViewScoped
+@ConversationScoped
 @Named
 public class DisciplinesState implements Serializable, State {
 
@@ -29,9 +28,6 @@ public class DisciplinesState implements Serializable, State {
 
   @Inject
   private TournamentsRepository tournamentsRepository;
-
-  @Inject
-  private DisciplinesRepository disciplinesRepository;
 
   @Inject
   private ApplicationState applicationState;
