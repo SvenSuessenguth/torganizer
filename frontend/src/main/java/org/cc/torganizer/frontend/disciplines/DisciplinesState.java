@@ -54,6 +54,9 @@ public class DisciplinesState implements Serializable, State {
     synchronizeOpponents();
   }
 
+  /**
+   * Synchronizing current discipline with database.
+   */
   public void synchronizeOpponents() {
     Long tournamentId = applicationState.getTournamentId();
     assignableOpponents = tournamentsRepository.getAssignableOpponentsForDiscipline(tournamentId,
@@ -80,11 +83,14 @@ public class DisciplinesState implements Serializable, State {
     this.discipline = discipline;
   }
 
+  /**
+   * Getting opponents that can be assigned to the current discipline.
+   */
   public List<Opponent> getAssignableOpponents() {
     List<Opponent> result = new ArrayList<>(assignableOpponents);
 
     // remove opponents already added to discipline
-    for(Opponent opponent : discipline.getOpponents()) {
+    for (Opponent opponent : discipline.getOpponents()) {
       result.remove(opponent);
     }
 

@@ -86,6 +86,9 @@ public class Discipline extends Entity {
     return unmodifiableList(rounds);
   }
 
+  /**
+   * Getting the round with bthe given index.
+   */
   public Round getRound(int index) {
     Round round = null;
     for (Round r : getRounds()) {
@@ -108,6 +111,9 @@ public class Discipline extends Entity {
     }
   }
 
+  /**
+   * Getting the players of the discipline.
+   */
   public Set<Player> getPlayers() {
     Set<Player> players = new HashSet<>();
 
