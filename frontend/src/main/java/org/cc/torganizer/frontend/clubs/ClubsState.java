@@ -1,6 +1,5 @@
 package org.cc.torganizer.frontend.clubs;
 
-import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -12,7 +11,7 @@ import org.cc.torganizer.persistence.ClubsRepository;
 
 @ViewScoped
 @Named
-public class ClubsState implements Serializable, State {
+public class ClubsState implements State {
 
   private List<Club> clubs;
   private Club current;

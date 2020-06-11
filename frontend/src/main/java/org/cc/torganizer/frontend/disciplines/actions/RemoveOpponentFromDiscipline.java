@@ -9,6 +9,9 @@ import org.cc.torganizer.core.entities.Opponent;
 @Named
 public class RemoveOpponentFromDiscipline extends DisciplinesAction {
 
+  /**
+   * Removing an opponent from the current discipline.
+   */
   public void execute(Opponent opponent) {
     Discipline discipline = state.getDiscipline();
     discipline.removeOpponent(opponent);

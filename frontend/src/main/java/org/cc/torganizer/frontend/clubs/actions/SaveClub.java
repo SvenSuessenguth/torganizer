@@ -8,6 +8,9 @@ import org.cc.torganizer.core.entities.Club;
 @Named
 public class SaveClub extends ClubsAction {
 
+  /**
+   * Saving a club.
+   */
   public void execute() {
     Club current = state.getCurrent();
 

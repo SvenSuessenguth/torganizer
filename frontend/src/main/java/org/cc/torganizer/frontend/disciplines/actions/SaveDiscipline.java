@@ -18,6 +18,9 @@ public class SaveDiscipline extends DisciplinesAction {
   @Inject
   private RestrictionsRepository restrictionsRepository;
 
+  /**
+   * Persisting a discipline.
+   */
   public void execute() {
     // new restrictions should be persisted also
     Discipline discipline = state.getDiscipline();

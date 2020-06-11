@@ -9,6 +9,9 @@ import org.cc.torganizer.core.entities.Opponent;
 @Named
 public class AddOpponentToDiscipline extends DisciplinesAction {
 
+  /**
+   * Adding an opponent to the current discipline.
+   */
   public void execute(Opponent opponent) {
     Discipline discipline = state.getDiscipline();
     discipline.addOpponent(opponent);

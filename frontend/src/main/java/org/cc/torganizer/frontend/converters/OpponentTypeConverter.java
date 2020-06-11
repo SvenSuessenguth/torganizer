@@ -10,7 +10,8 @@ import org.cc.torganizer.core.entities.OpponentType;
 public class OpponentTypeConverter implements Converter<OpponentType> {
 
   @Override
-  public OpponentType getAsObject(FacesContext facesContext, UIComponent uiComponent, String value) {
+  public OpponentType getAsObject(FacesContext facesContext, UIComponent uiComponent,
+                                  String value) {
     if (value.isEmpty()) {
       return null;
     }
@@ -19,7 +20,8 @@ public class OpponentTypeConverter implements Converter<OpponentType> {
   }
 
   @Override
-  public String getAsString(FacesContext facesContext, UIComponent uiComponent, OpponentType opponentType) {
+  public String getAsString(FacesContext facesContext, UIComponent uiComponent,
+                            OpponentType opponentType) {
     return opponentType == null ? "" : "" + opponentType.name();
   }
 }
