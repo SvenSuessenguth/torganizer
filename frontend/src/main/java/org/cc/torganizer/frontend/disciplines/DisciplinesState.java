@@ -1,6 +1,7 @@
 package org.cc.torganizer.frontend.disciplines;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -15,6 +16,7 @@ import org.cc.torganizer.core.entities.OpponentType;
 import org.cc.torganizer.core.entities.OpponentTypeRestriction;
 import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.State;
+import org.cc.torganizer.persistence.DisciplinesRepository;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
 @ViewScoped
@@ -27,6 +29,9 @@ public class DisciplinesState implements Serializable, State {
 
   @Inject
   private TournamentsRepository tournamentsRepository;
+
+  @Inject
+  private DisciplinesRepository disciplinesRepository;
 
   @Inject
   private ApplicationState applicationState;
@@ -76,6 +81,13 @@ public class DisciplinesState implements Serializable, State {
   }
 
   public List<Opponent> getAssignableOpponents() {
-    return assignableOpponents;
+    List<Opponent> result = new ArrayList<>(assignableOpponents);
+
+    // remove opponents already added to discipline
+    for(Opponent opponent : discipline.getOpponents()) {
+      result.remove(opponent);
+    }
+
+    return result;
   }
 }

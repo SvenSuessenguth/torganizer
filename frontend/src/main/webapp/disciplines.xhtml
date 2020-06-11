@@ -93,6 +93,31 @@
           <h:outputText value="#{opponent.id}"/>
         </h:column>
       </h:dataTable>
+
+      <!--
+       | opponents
+       +-->
+      <h:dataTable value="#{disciplinesState.discipline.opponents}" var="opponent">
+        <h:column>
+          <f:facet name="header">Vornamen</f:facet>
+          <tc:opponent id="firstName#{opponent.id}" opponent="#{opponent}" showFirstNames="true"
+                       selectOpponentAction="#{removeOpponentFromDiscipline}"/>
+        </h:column>
+        <h:column>
+          <f:facet name="header">Nachnamen</f:facet>
+          <tc:opponent id="lastName#{opponent.id}" opponent="#{opponent}" showLastNames="true"
+                       selectOpponentAction="#{removeOpponentFromDiscipline}"/>
+        </h:column>
+        <h:column>
+          <f:facet name="header">Vereine</f:facet>
+          <tc:opponent id="club#{opponent.id}" opponent="#{opponent}" showClubs="true"
+                       selectOpponentAction="#{removeOpponentFromDiscipline}"/>
+        </h:column>
+        <h:column rendered="#{facesContext.isProjectStage('Development')}">
+          <f:facet name="header">ID</f:facet>
+          <h:outputText value="#{opponent.id}"/>
+        </h:column>
+      </h:dataTable>
     </h:form>
   </ui:define>
 </ui:composition>

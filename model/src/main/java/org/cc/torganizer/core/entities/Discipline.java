@@ -59,10 +59,7 @@ public class Discipline extends Entity {
   }
 
   /**
-   * Hinzufuegen eines Opponents zur Disziplin inklusive pruefen der
-   * Restriktionen.
-   *
-   * @param opponent Opponent, der der Disziplin hinzugefuegt werden soll. *
+   * Add opponent only if all restrictions are fullfilled.
    */
   public void addOpponent(Opponent opponent) {
     // pruefen aller restrictions und werfen einer RestrictionException
@@ -73,15 +70,13 @@ public class Discipline extends Entity {
       }
     }
 
-    // erst hinzufuegen, wenn keine Restriction greift
     this.getOpponents().add(opponent);
   }
 
-  /**
-   * Hinzufuegen einer Runde, die in dieser Disziplin gespielt werden soll.
-   *
-   * @param round Runde.
-   */
+  public void removeOpponent(Opponent opponent) {
+    this.getOpponents().remove(opponent);
+  }
+
   public void addRound(Round round) {
     round.setPosition(rounds.size());
     rounds.add(round);
@@ -91,12 +86,6 @@ public class Discipline extends Entity {
     return unmodifiableList(rounds);
   }
 
-  /**
-   * Lesen einer bestimmten Runde, die in der Disziplin gespielt werden soll.
-   *
-   * @param index Index der gesuchten Runde.
-   * @return Runde mit dem geforderten Index.
-   */
   public Round getRound(int index) {
     Round round = null;
     for (Round r : getRounds()) {
@@ -119,11 +108,6 @@ public class Discipline extends Entity {
     }
   }
 
-  /**
-   * Liste aller Player, die aus dem Opponents erstellt wird.
-   *
-   * @return Liste aller Player
-   */
   public Set<Player> getPlayers() {
     Set<Player> players = new HashSet<>();
 
