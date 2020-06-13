@@ -3,7 +3,6 @@ package org.cc.torganizer.frontend;
 import java.io.Serializable;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Named;
-import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Tournament;
 
 @ConversationScoped

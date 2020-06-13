@@ -22,5 +22,6 @@ public class RoundsState implements Serializable, State {
 
   @Override
   public void synchronize() {
+    throw new UnsupportedOperationException();
   }
 }
