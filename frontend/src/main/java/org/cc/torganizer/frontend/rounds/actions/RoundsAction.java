@@ -1,14 +1,13 @@
-package org.cc.torganizer.frontend.squads.actions;
+package org.cc.torganizer.frontend.rounds.actions;
 
 import javax.inject.Inject;
 import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.squads.SquadsState;
-import org.cc.torganizer.frontend.tournaments.TournamentsState;
 import org.cc.torganizer.persistence.PlayersRepository;
 import org.cc.torganizer.persistence.SquadsRepository;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
-public abstract class SquadsAction {
+public abstract class RoundsAction {
 
   @Inject
   protected SquadsState state;

@@ -23,7 +23,9 @@
 
   <ui:define name="main">
     <h:form id="roundsForm">
-      <h:outputText value="Discipline-ID: #{disciplinesState.discipline.id}"/>
+      <h:outputText value="#{i18nText.rounds} (#{disciplinesState.discipline.name})" />
+      <br />
+      <h:outputText value="#{i18nText.round}" />&#9665; <h:inputText value="#{roundsState.round}" /> &#9655;
     </h:form>
   </ui:define>
 </ui:composition>

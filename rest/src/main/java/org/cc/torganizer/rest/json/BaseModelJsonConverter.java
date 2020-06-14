@@ -23,7 +23,6 @@ import org.cc.torganizer.core.entities.Entity;
  */
 public abstract class BaseModelJsonConverter<T extends Entity> implements ModelJsonConverter<T> {
 
-
   /**
    * This method use the attribute 'id' from the jsonObject to find the proper entity-object
    * from the collection of entit-objects (models).

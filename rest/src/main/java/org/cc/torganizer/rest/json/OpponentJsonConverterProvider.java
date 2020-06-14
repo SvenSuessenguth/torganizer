@@ -12,17 +12,18 @@ import org.cc.torganizer.core.entities.OpponentType;
 public class OpponentJsonConverterProvider {
 
   @Inject
-  private Instance<OpponentJsonConverter> opponentConverters;
+  private Instance<BaseModelJsonConverter<Opponent>> opponentConverters;
 
   /**
    * Providing the converter for the given opponentType.
    */
-  public BaseModelJsonConverter getConverter(OpponentType opponentType) {
-    for (OpponentJsonConverter converter : opponentConverters) {
-      if (Objects.equals(opponentType, converter.getOpponentType())) {
-        return (BaseModelJsonConverter) converter;
+  public BaseModelJsonConverter<Opponent> getConverter(OpponentType opponentType) {
+    for (BaseModelJsonConverter<Opponent> converter : opponentConverters) {
+      if (Objects.equals(opponentType, ((OpponentJsonConverter) converter).getOpponentType())) {
+        return converter;
       }
     }
+    
     return null;
   }
 
@@ -30,7 +31,7 @@ public class OpponentJsonConverterProvider {
    * Providing the converter for the first opponent found in the collection. To run properly, all
    * opponents must have the same opponentType.
    */
-  public BaseModelJsonConverter getConverter(Collection<Opponent> opponents) {
+  public BaseModelJsonConverter<Opponent> getConverter(Collection<Opponent> opponents) {
 
     OpponentType opponentType;
     if (opponents.isEmpty()) {

@@ -4,6 +4,8 @@ import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
 import static org.cc.torganizer.core.entities.OpponentType.SQUAD;
 import static org.cc.torganizer.core.entities.Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import javax.ejb.Stateless;
@@ -37,8 +39,6 @@ import org.cc.torganizer.persistence.TournamentsRepository;
 import org.cc.torganizer.rest.json.BaseModelJsonConverter;
 import org.cc.torganizer.rest.json.DisciplineJsonConverter;
 import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
-import org.cc.torganizer.rest.json.PlayerJsonConverter;
-import org.cc.torganizer.rest.json.SquadJsonConverter;
 import org.cc.torganizer.rest.json.TournamentJsonConverter;
 
 @Stateless
@@ -132,13 +132,14 @@ public class TournamentsResource extends AbstractResource {
   @Path("/{id}/players")
   public JsonArray players(@PathParam("id") Long tournamentId, @QueryParam("offset") Integer offset,
                            @QueryParam("maxResults") Integer maxResults) {
-    List<Player> players = tournamentsRepo.getPlayersOrderedByLastName(tournamentId, offset,
+    Collection<Player> players = tournamentsRepo.getPlayersOrderedByLastName(tournamentId, offset,
         maxResults);
 
-    PlayerJsonConverter playerConverter =
-        (PlayerJsonConverter) opponentConverterProvider.getConverter(PLAYER);
+    BaseModelJsonConverter<Opponent> playerConverter =
+        opponentConverterProvider.getConverter(PLAYER);
 
-    return playerConverter.toJsonArray(players);
+    Collection<Opponent> opponents = new ArrayList<>(players);
+    return playerConverter.toJsonArray(opponents);
   }
 
   /**
@@ -150,7 +151,6 @@ public class TournamentsResource extends AbstractResource {
    * @param maxResults   max results
    * @return JasonArray with the assignable opponents
    */
-  @SuppressWarnings("unchecked")
   @GET
   @Path("/{id}/assignable-opponents")
   public JsonArray getAssignableOpponents(@PathParam("id") Long tournamentId,
@@ -178,10 +178,9 @@ public class TournamentsResource extends AbstractResource {
   public JsonObject addPlayer(@PathParam("tid") Long tournamentId,
                               @QueryParam("pid") Long playerId) {
     Player player = (Player) tournamentsRepo.addOpponent(tournamentId, playerId);
-    PlayerJsonConverter playerConverter =
-        (PlayerJsonConverter) opponentConverterProvider.getConverter(PLAYER);
+    BaseModelJsonConverter<Opponent> converter = opponentConverterProvider.getConverter(PLAYER);
 
-    return playerConverter.toJsonObject(player);
+    return converter.toJsonObject(player);
   }
 
   /**
@@ -197,10 +196,9 @@ public class TournamentsResource extends AbstractResource {
                                  @PathParam("pid") Long playerId) {
 
     Player player = (Player) tournamentsRepo.removeOpponent(tournamentId, playerId);
-    PlayerJsonConverter playerConverter =
-        (PlayerJsonConverter) opponentConverterProvider.getConverter(PLAYER);
+    BaseModelJsonConverter<Opponent> converter = opponentConverterProvider.getConverter(PLAYER);
 
-    return playerConverter.toJsonObject(player);
+    return converter.toJsonObject(player);
   }
 
   @GET
@@ -218,10 +216,10 @@ public class TournamentsResource extends AbstractResource {
                           @QueryParam("maxResults") Integer maxResults) {
 
     List<Squad> squads = tournamentsRepo.getSquads(tournamentId, offset, maxResults);
-    SquadJsonConverter squadConverter =
-        (SquadJsonConverter) opponentConverterProvider.getConverter(SQUAD);
+    BaseModelJsonConverter<Opponent> converter = opponentConverterProvider.getConverter(SQUAD);
 
-    return squadConverter.toJsonArray(squads);
+    Collection<Opponent> opponents = new ArrayList<>(squads);
+    return converter.toJsonArray(opponents);
   }
 
   /**
@@ -231,10 +229,9 @@ public class TournamentsResource extends AbstractResource {
   @Path("/{id}/squads")
   public JsonObject addSquad(@PathParam("id") Long tournamentId, @QueryParam("sid") Long squadId) {
     Squad squad = (Squad) tournamentsRepo.addOpponent(tournamentId, squadId);
-    SquadJsonConverter squadConverter =
-        (SquadJsonConverter) opponentConverterProvider.getConverter(SQUAD);
+    BaseModelJsonConverter<Opponent> converter = opponentConverterProvider.getConverter(SQUAD);
 
-    return squadConverter.toJsonObject(squad);
+    return converter.toJsonObject(squad);
   }
 
   @GET
