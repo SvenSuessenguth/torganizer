@@ -9,9 +9,11 @@
 :root {
     --body_background-color: #F4EEE1;
     --header_background-color: #E4DAC2;
+
+    --disabled-color: lightgray;
 }
 
-.disabledLink {
+.disabled {
     pointer-events: none;
     cursor: default;
     text-decoration: none;

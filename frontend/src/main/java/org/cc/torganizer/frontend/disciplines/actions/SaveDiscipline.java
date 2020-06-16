@@ -5,7 +5,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Restriction;
+import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.persistence.RestrictionsRepository;
+import org.cc.torganizer.persistence.RoundsRepository;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
 @RequestScoped
@@ -17,6 +19,9 @@ public class SaveDiscipline extends DisciplinesAction {
 
   @Inject
   private RestrictionsRepository restrictionsRepository;
+
+  @Inject
+  private RoundsRepository roundsRepository;
 
   /**
    * Persisting a discipline.
@@ -37,6 +42,11 @@ public class SaveDiscipline extends DisciplinesAction {
       disciplinesRepository.create(discipline);
       Long tournamentId = applicationState.getTournamentId();
       tournamentsRepository.addDiscipline(tournamentId, discipline);
+
+      Round round = new Round();
+      roundsRepository.create(round);
+      discipline.addRound(round);
+      disciplinesRepository.update(discipline);
     } else {
       disciplinesRepository.update(discipline);
     }

@@ -19,6 +19,7 @@ class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
 
   private DisciplinesRepository repository;
   private RestrictionsRepository restrictionsRepository;
+  private RoundsRepository roundsRepository;
 
 
   @BeforeEach
@@ -27,7 +28,7 @@ class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
 
     repository = new DisciplinesRepository(entityManager);
     restrictionsRepository = new RestrictionsRepository(entityManager);
-
+    roundsRepository = new RoundsRepository(entityManager, repository);
   }
 
   @Test
@@ -116,5 +117,24 @@ class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
     assertThat(genderRestriction.getId()).isNotNull();
     assertThat(opponentTypeRestriction.getId()).isNotNull();
     assertThat(ageRestriction.getId()).isNotNull();
+  }
+
+  @Test
+  public void testPersistNewRound() {
+    Discipline discipline = repository.read(1L);
+    int roundsCount = discipline.getRounds().size();
+
+    Round round = new Round();
+    roundsRepository.create(round);
+    discipline.addRound(round);
+    repository.update(discipline);
+
+    assertThat(discipline).isNotNull();
+    assertThat(round.getId()).isNotNull();
+
+    Discipline discipline2 = repository.read(1L);
+    int roundsCount2 = discipline2.getRounds().size();
+
+    assertThat(roundsCount).isLessThan(roundsCount2);
   }
 }

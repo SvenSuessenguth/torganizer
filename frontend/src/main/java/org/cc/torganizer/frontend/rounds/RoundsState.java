@@ -28,6 +28,7 @@ public class RoundsState implements Serializable, State {
   @Override
   public void synchronize() {
     Discipline discipline = disciplinesState.getDiscipline();
+    round = discipline.getRound(0);
   }
 
   public List<Round> getRounds() {
@@ -35,6 +36,23 @@ public class RoundsState implements Serializable, State {
     return discipline.getRounds();
   }
 
+  public Round getRound() {
+    return round;
+  }
 
+  public void setRound(Round round) {
+    this.round = round;
+  }
 
+  public boolean isLastRound() {
+    Discipline discipline = disciplinesState.getDiscipline();
+    int highestPostion = 0;
+    for (Round r : discipline.getRounds()) {
+      if (r.getPosition() > highestPostion) {
+        highestPostion = r.getPosition();
+      }
+    }
+
+    return round.getPosition() == highestPostion;
+  }
 }

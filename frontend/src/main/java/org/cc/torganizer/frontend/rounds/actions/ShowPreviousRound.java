@@ -7,16 +7,14 @@ import org.cc.torganizer.core.entities.Round;
 
 @RequestScoped
 @Named
-public class CreateRoundAction extends RoundsAction {
-
+public class ShowPreviousRound extends RoundsAction {
   public void execute() {
+    Round round = roundsState.getRound();
     Discipline discipline = disciplinesState.getDiscipline();
-    Round round = new Round();
-    roundsRepository.create(round);
 
-    discipline.addRound(round);
-    disciplinesRepository.update(discipline);
+    int position = round.getPosition();
 
-    roundsState.setRound(round);
+    Round newRound = discipline.getRound(position - 1);
+    roundsState.setRound(newRound);
   }
 }

@@ -82,6 +82,10 @@ public class Discipline extends Entity {
     rounds.add(round);
   }
 
+  public void removeRound(Round round) {
+    rounds.remove(round);
+  }
+
   public List<Round> getRounds() {
     return unmodifiableList(rounds);
   }
