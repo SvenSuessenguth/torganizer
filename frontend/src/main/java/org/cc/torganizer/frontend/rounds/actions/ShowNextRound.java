@@ -8,6 +8,6 @@ import javax.inject.Named;
 public class ShowNextRound extends RoundsAction {
 
   public void execute() {
-
+    throw new UnsupportedOperationException();
   }
 }
