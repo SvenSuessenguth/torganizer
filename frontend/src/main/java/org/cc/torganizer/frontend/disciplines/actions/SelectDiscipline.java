@@ -11,10 +11,5 @@ public class SelectDiscipline extends DisciplinesAction {
 
   public void execute(Discipline discipline) {
     state.setDiscipline(discipline);
-
-    // some already persisted disciplines have no round...
-    if (discipline.getRounds().isEmpty()) {
-      discipline.addRound(new Round());
-    }
   }
 }
