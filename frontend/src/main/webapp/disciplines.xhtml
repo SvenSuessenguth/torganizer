@@ -20,7 +20,7 @@
 
   <ui:define name="main">
     <h:form id="disciplinesForm">
-      <h:commandButton action="rounds" value="rounds" />
+      <h:commandButton action="rounds" value="rounds"/>
 
       <h:dataTable value="#{disciplinesState.disciplines}" var="discipline">
         <h:column>
@@ -31,37 +31,58 @@
         </h:column>
       </h:dataTable>
 
-      <h:outputLabel for="disciplinesName" value="#{i18nText.name}"/>
-      <h:inputText id="disciplinesName" value="#{disciplinesState.discipline.name}"/>
-
+      <hr />
+      #{disciplinesState.discipline}<br />
+      #{disciplinesState.discipline.id}<br />
+      #{disciplinesState.discipline.name}
+      <hr />
       <!--
-       | restrictions
+       | name and restrictions
        +-->
-      <h:outputLabel for="min-date-of-birth" value="#{text.from}"/>
-      <h:inputText id="min-date-of-birth" a:type="date"
-                   value="#{disciplinesState.discipline.ageRestriction.minDateOfBirth}">
-        <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
-      </h:inputText>
-      <h:outputLabel for="max-date-of-birth" value="#{text.to}"/>
-      <h:inputText id="max-date-of-birth" a:type="date"
-                   value="#{disciplinesState.discipline.ageRestriction.maxDateOfBirth}">
-        <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
-      </h:inputText>
+      <h:panelGroup style="display: grid; grid-template-columns: auto auto auto auto; max-width: 28em; grid-gap: 0.25em">
+        <h:outputLabel for="disciplinesName" value="#{i18nText.name}"/>
+        <span />
+        <h:inputText id="disciplinesName" value="#{disciplinesState.discipline.name}"/>
+        <span />
 
-      <h:selectOneMenu id="disciplinesGender" value="#{disciplinesState.discipline.genderRestriction.gender}"
-                       onchange="submit()">
-        <f:selectItems value="#{disciplinesState.genders}" var="gender"
-                       itemValue="#{gender}"
-                       itemLabel="#{i18nGender[gender]}"/>
-        <f:converter converterId="genderConverter"/>
-      </h:selectOneMenu>
+        <h:outputText value="Altersbeschränkung"/>
+        <h:outputLabel value="von" for="minDateOfBirth" />
+        <h:inputText id="minDateOfBirth" a:type="date"
+                     value="#{disciplinesState.discipline.ageRestriction.minDateOfBirth}">
+          <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
+        </h:inputText>
+        <span />
 
-      <h:selectOneMenu id="opponent-type" value="#{disciplinesState.discipline.opponentTypeRestriction.opponentType}">
-        <f:selectItems value="#{disciplinesState.opponentTypes}" var="opponentType"
-                       itemValue="#{opponentType}"
-                       itemLabel="#{i18nOpponentType[opponentType]}"/>
-        <f:converter converterId="opponentTypeConverter"/>
-      </h:selectOneMenu>
+        <span />
+        <h:outputLabel value="bis" for="maxDateOfBirth" />
+        <h:inputText id="maxDateOfBirth" a:type="date"
+                     value="#{disciplinesState.discipline.ageRestriction.maxDateOfBirth}">
+          <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
+        </h:inputText>
+        <span />
+
+        <h:outputLabel value="Geschlecht" for="disciplinesGender"/>
+        <span />
+        <h:selectOneMenu id="disciplinesGender" value="#{disciplinesState.discipline.genderRestriction.gender}"
+                         onchange="submit()">
+          <f:selectItems value="#{disciplinesState.genders}" var="gender"
+                         itemValue="#{gender}"
+                         itemLabel="#{i18nGender[gender]}"/>
+          <f:converter converterId="genderConverter"/>
+        </h:selectOneMenu>
+        <span />
+
+
+        <h:outputLabel value="Gegner" for="opponentType"/>
+        <span />
+        <h:selectOneMenu id="opponentType" value="#{disciplinesState.discipline.opponentTypeRestriction.opponentType}">
+          <f:selectItems value="#{disciplinesState.opponentTypes}" var="opponentType"
+                         itemValue="#{opponentType}"
+                         itemLabel="#{i18nOpponentType[opponentType]}"/>
+          <f:converter converterId="opponentTypeConverter"/>
+        </h:selectOneMenu>
+        <span />
+      </h:panelGroup>
 
       <h:panelGroup id="disciplinesCommands" style="display: block">
         <h:commandButton id="disciplinesSave" action="#{saveDiscipline.execute()}" value="#{i18nText.save}"/>
@@ -74,7 +95,8 @@
       <!--
        | assignable opponents
        +-->
-      <h:dataTable value="#{disciplinesState.assignableOpponents}" var="opponent">
+      <h:dataTable value="#{disciplinesState.assignableOpponents}" var="opponent"
+                   rendered="#{not empty disciplinesState.discipline.id}">
         <h:column>
           <f:facet name="header">Vornamen</f:facet>
           <tc:opponent id="firstName#{opponent.id}" opponent="#{opponent}" showFirstNames="true"
@@ -99,7 +121,8 @@
       <!--
        | opponents
        +-->
-      <h:dataTable value="#{disciplinesState.discipline.opponents}" var="opponent">
+      <h:dataTable value="#{disciplinesState.discipline.opponents}" var="opponent"
+                   rendered="#{not empty disciplinesState.discipline.id}">
         <h:column>
           <f:facet name="header">Vornamen</f:facet>
           <tc:opponent id="firstName#{opponent.id}" opponent="#{opponent}" showFirstNames="true"

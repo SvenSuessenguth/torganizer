@@ -17,13 +17,12 @@ public class CancelDiscipline extends DisciplinesAction {
   /**
    * cancel.
    */
-  public String execute() {
+  public void execute() {
     Discipline discipline = new Discipline();
     discipline.addRestriction(new GenderRestriction());
     discipline.addRestriction(new OpponentTypeRestriction());
     discipline.addRestriction(new AgeRestriction());
 
-
-    return null;
+    state.setDiscipline(discipline);
   }
 }
