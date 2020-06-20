@@ -43,16 +43,15 @@ public class SaveDiscipline extends DisciplinesAction {
       Long tournamentId = applicationState.getTournamentId();
       tournamentsRepository.addDiscipline(tournamentId, discipline);
 
+      // every discipline must have at least one round
       Round round = new Round();
       roundsRepository.create(round);
       discipline.addRound(round);
-      disciplinesRepository.update(discipline);
-    } else {
-      disciplinesRepository.update(discipline);
     }
+
+    disciplinesRepository.update(discipline);
 
     state.synchronize();
     state.setDiscipline(discipline);
-    state.synchronizeOpponents();
   }
 }

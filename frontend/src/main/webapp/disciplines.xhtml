@@ -67,7 +67,7 @@
         <h:commandButton id="disciplinesSave" action="#{saveDiscipline.execute()}" value="#{i18nText.save}"/>
         <h:commandButton id="disciplinesDelete" action="#{deleteDiscipline.execute()}" value="#{i18nText.delete}"
                          disabled="#{disciplinesState.discipline.id == null}"/>
-        <h:commandButton id="disciplinesCancel" action="disciplines?faces-redirect=true" value="#{i18nText.cancel}"
+        <h:commandButton id="disciplinesCancel" action="#{cancelDiscipline.execute}" value="#{i18nText.cancel}"
                          type="submit" immediate="true" disabled="#{disciplinesState.discipline.id == null}"/>
       </h:panelGroup>
 

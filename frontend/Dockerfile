@@ -1,4 +1,4 @@
-FROM carboncopy/torganizer:latest
+FROM carboncopy/torganizer-base:latest
 
 COPY --chown=1001:0  /target/frontend.war /config/dropins/
 COPY --chown=1001:0 /src/main/liberty/config/server.xml /config/

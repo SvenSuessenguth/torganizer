@@ -29,20 +29,19 @@
       <br/>
 
       <h:outputText value="#{i18nText.round}"/>
-      <h:commandLink value="&#9665;"
-                     style="#{round.position gt 0 ? 'color:black;' : 'color:lightgray;'}"
+      <h:commandLink value="&#9665;" title="prev"
+                     style="#{round.position lt 1 ? 'color:lightgray;' : 'color:black;'}"
                      disabled="#{round.position lt 1}"
-                     action="#{showPreviousRound}">
+                     action="#{showPreviousRound.execute}">
         <f:ajax render="@form" immediate="true" execute="@this"/>
       </h:commandLink>
       <h:outputText value="#{roundsState.round.position}"/>
-      <h:commandLink value="&#9655;"
-                     style="#{round.position gt 0 ? 'color:black;' : 'color:lightgray;'}"
+      <h:commandLink value="&#9655;" title="next"
+                     style="#{roundsState.lastRound ? 'color:lightgray;' : 'color:black;'}"
                      disabled="#{roundsState.lastRound}"
-                     action="#{showNextRound}" />
-      <h:commandLink value="&#8862;" action="#{createRoundAction.execute()}" />
-      <h:commandLink value="&#9988;" action="#{deleteRoundAction.execute()}" />
-
+                     action="#{showNextRound.execute}" />
+      <h:commandButton value="new" action="#{createRoundAction.execute()}" />
+      <h:commandButton value="delete" action="#{deleteRoundAction.execute()}" />
     </h:form>
   </ui:define>
 </ui:composition>

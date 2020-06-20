@@ -34,16 +34,17 @@ public class DisciplinesState implements Serializable, State {
 
   @PostConstruct
   public void postConstruct() {
-    synchronize();
-  }
-
-  @Override
-  public void synchronize() {
+    // round is added on saving the discipline
     discipline = new Discipline();
     discipline.addRestriction(new GenderRestriction());
     discipline.addRestriction(new OpponentTypeRestriction());
     discipline.addRestriction(new AgeRestriction());
 
+    synchronize();
+  }
+
+  @Override
+  public void synchronize() {
     Long tournamentId = applicationState.getTournamentId();
     disciplines = tournamentsRepository.getDisciplines(tournamentId, 0, 1000);
 
