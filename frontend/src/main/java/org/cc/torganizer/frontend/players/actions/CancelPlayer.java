@@ -12,8 +12,10 @@ public class CancelPlayer extends PlayersAction {
   /**
    * creating a player without persisting it.
    */
-  public void execute() {
+  public String execute() {
     Player player = new Player(new Person());
     state.setCurrent(player);
+
+    return null;
   }
 }

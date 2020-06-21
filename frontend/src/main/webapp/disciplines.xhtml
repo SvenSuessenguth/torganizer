@@ -31,11 +31,6 @@
         </h:column>
       </h:dataTable>
 
-      <hr />
-      #{disciplinesState.discipline}<br />
-      #{disciplinesState.discipline.id}<br />
-      #{disciplinesState.discipline.name}
-      <hr />
       <!--
        | name and restrictions
        +-->
@@ -89,7 +84,9 @@
         <h:commandButton id="disciplinesDelete" action="#{deleteDiscipline.execute()}" value="#{i18nText.delete}"
                          disabled="#{disciplinesState.discipline.id == null}"/>
         <h:commandButton id="disciplinesCancel" action="#{cancelDiscipline.execute}" value="#{i18nText.cancel}"
-                         type="submit" immediate="true" disabled="#{disciplinesState.discipline.id == null}"/>
+                         disabled="#{disciplinesState.discipline.id == null}">
+          <f:ajax render="disciplinesForm" immediate="true" execute="@this"/>
+        </h:commandButton>
       </h:panelGroup>
 
       <!--

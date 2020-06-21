@@ -34,6 +34,10 @@
       <from-outcome>rounds</from-outcome>
       <to-view-id>/rounds.xhtml</to-view-id>
     </navigation-case>
+    <navigation-case>
+      <from-outcome>disciplines</from-outcome>
+      <to-view-id>/disciplines.xhtml</to-view-id>
+    </navigation-case>
   </navigation-rule>
   
 </faces-config>

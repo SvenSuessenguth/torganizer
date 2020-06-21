@@ -67,7 +67,7 @@
           <h:commandLink value="&#8702;"
                          style="#{playersState.nextAllPlayersChunkAvailable?'color:black;':'color:lightgray;'}"
                          disabled="#{!playersState.nextAllPlayersChunkAvailable}"
-                         action="#{nextAllPlayersChunk.execute}" >
+                         action="#{nextAllPlayersChunk.execute}">
             <f:ajax render="@form" immediate="true" execute="@this"/>
           </h:commandLink>
         </h:panelGroup>
@@ -115,7 +115,9 @@
         <h:commandButton id="playersDelete" action="#{deletePlayer.execute()}" value="#{i18nText.delete}"
                          disabled="#{playersState.current.id == null}"/>
         <h:commandButton id="cancelPlayer" action="#{cancelPlayer.execute}" value="#{i18nText.cancel}"
-                         type="submit" disabled="#{playersState.current.id == null}" immediate="true"/>
+                         disabled="#{playersState.current.id == null}">
+          <f:ajax render="playersForm" immediate="true" execute="@this"/>
+        </h:commandButton>
       </h:panelGroup>
     </h:form>
   </ui:define>

@@ -11,7 +11,6 @@ public class DeleteRoundAction extends RoundsAction {
   public void execute() {
     // only last round in discipline with no opponents can be deleted
     // ... checks are coming
-
     Round round = roundsState.getRound();
 
     Discipline discipline = disciplinesState.getDiscipline();
@@ -19,5 +18,7 @@ public class DeleteRoundAction extends RoundsAction {
     disciplinesRepository.update(discipline);
 
     roundsRepository.delete(round.getId());
+
+    roundsState.synchronize();
   }
 }
