@@ -20,7 +20,7 @@
 
   <ui:define name="main">
     <h:form id="disciplinesForm">
-      <h:commandButton action="rounds" value="rounds"/>
+      <h:commandButton action="rounds" value="rounds" disabled="#{empty disciplinesState.discipline.id}"/>
 
       <h:dataTable value="#{disciplinesState.disciplines}" var="discipline">
         <h:column>

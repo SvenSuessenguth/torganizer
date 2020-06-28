@@ -7,7 +7,7 @@ import org.cc.torganizer.core.entities.Round;
 
 @RequestScoped
 @Named
-public class CreateRoundAction extends RoundsAction {
+public class SaveRoundAction extends RoundsAction {
 
   public void execute() {
     Discipline discipline = disciplinesState.getDiscipline();

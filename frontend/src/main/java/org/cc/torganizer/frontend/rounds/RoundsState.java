@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Round;
+import org.cc.torganizer.core.entities.System;
 import org.cc.torganizer.frontend.State;
 import org.cc.torganizer.frontend.disciplines.DisciplinesState;
 
@@ -19,6 +20,7 @@ public class RoundsState implements Serializable, State {
   private DisciplinesState disciplinesState;
 
   private Round round;
+  private int newGroupsCount;
 
   @PostConstruct
   public void postConstruct() {
@@ -55,4 +57,17 @@ public class RoundsState implements Serializable, State {
 
     return round.getPosition() == highestPostion;
   }
+
+  public int getNewGroupsCount() {
+    return newGroupsCount;
+  }
+
+  public void setNewGroupsCount(int newGroupsCount) {
+    this.newGroupsCount = newGroupsCount;
+  }
+
+  public System[] getSystems() {
+    return System.values();
+  }
+
 }

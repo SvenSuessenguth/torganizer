@@ -19,6 +19,10 @@
       <var>i18nGender</var>
     </resource-bundle>
     <resource-bundle>
+      <base-name>system</base-name>
+      <var>i18nSystem</var>
+    </resource-bundle>
+    <resource-bundle>
       <base-name>opponentType</base-name>
       <var>i18nOpponentType</var>
     </resource-bundle>

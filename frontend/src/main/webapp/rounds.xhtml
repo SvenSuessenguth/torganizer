@@ -39,9 +39,24 @@
       <h:commandLink value="&#9655;" title="next"
                      style="#{roundsState.lastRound ? 'color:lightgray;' : 'color:black;'}"
                      disabled="#{roundsState.lastRound}"
-                     action="#{showNextRound.execute}" />
-      <h:commandButton value="new" action="#{createRoundAction.execute()}" />
-      <h:commandButton value="delete" action="#{deleteRoundAction.execute()}" />
+                     action="#{showNextRound.execute}"/>
+      <br/>
+      System
+      <h:selectOneMenu id="roundsSystem" value="#{roundsState.round.system}">
+        <f:selectItems value="#{roundsState.systems}" var="system"
+                       itemValue="#{system}"
+                       itemLabel="#{i18nSystem[system]}"/>
+        <f:converter converterId="systemConverter"/>
+      </h:selectOneMenu>
+      <br/>
+
+      Gruppen <h:inputText value="#{roundsState.newGroupsCount}"/>
+      <br />
+      <h:commandButton value="#{i18nText.save}" action="#{saveRoundAction.execute()}"/>
+      <h:commandButton value="#{i18nText.delete}" action="#{deleteRoundAction.execute()}"/>
+      <h:commandButton value="#{i18nText.cancel}" action="#{cancelRoundAction.execute()}"/>
+
+
     </h:form>
   </ui:define>
 </ui:composition>
