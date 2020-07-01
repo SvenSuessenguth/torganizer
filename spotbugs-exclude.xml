@@ -1,10 +1,14 @@
 <FindBugsFilter>
+  <!--
+   | https://spotbugs.readthedocs.io/en/stable/bugDescriptions.html#snvi-class-is-serializable-but-doesn-t-define-serialversionuid-se-no-serialversionid
+   +-->
   <Match>
-    <!--
-	 | https://spotbugs.readthedocs.io/en/stable/bugDescriptions.html#snvi-class-is-serializable-but-doesn-t-define-serialversionuid-se-no-serialversionid
-	 +-->
     <Bug pattern="SE_NO_SERIALVERSIONID" />
-	  <Bug pattern="EI_EXPOSE_REP2" />
+  </Match>
+  <Match>
+    <Bug pattern="EI_EXPOSE_REP2" />
+  </Match>
+  <Match>
     <Bug pattern="SE_BAD_FIELD" />
   </Match>
 </FindBugsFilter>
