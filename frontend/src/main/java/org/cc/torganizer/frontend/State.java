@@ -5,5 +5,5 @@ public interface State {
   /**
    * synchronizing the cached data in the state with actual data from the dbms.
    */
-  public abstract void synchronize();
+  void synchronize();
 }

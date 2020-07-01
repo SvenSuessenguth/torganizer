@@ -3,7 +3,6 @@ package org.cc.torganizer.persistence;
 import static javax.transaction.Transactional.TxType.NEVER;
 
 import java.util.List;
-import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
