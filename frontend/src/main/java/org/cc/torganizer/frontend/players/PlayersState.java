@@ -85,9 +85,13 @@ public class PlayersState implements Serializable, State {
     return players;
   }
 
+  /**
+   * Getting current chunk of players.
+   */
   public Collection<Player> getPlayersChunk() {
     Chunk<Player> chunk = new Chunk<>();
-    Collection<Player> playersChunk = chunk.get(this.players, ALL_PLAYERS_CHUNK_SIZE, allPlayersChunkIndex);
+    Collection<Player> playersChunk = chunk.get(this.players, ALL_PLAYERS_CHUNK_SIZE,
+        allPlayersChunkIndex);
 
     // up to ALL_PLAYERS_CHUNK_SIZE
     int startIndex = playersChunk.size();
@@ -122,6 +126,9 @@ public class PlayersState implements Serializable, State {
     return Arrays.asList(PlayerOrder.values());
   }
 
+  /**
+   * Setting the id of the current club.
+   */
   public void setCurrentClubId(Long clubId) {
     current.setClub(null);
     for (Club club : clubs) {

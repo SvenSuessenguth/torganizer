@@ -32,6 +32,9 @@ public class DisciplinesState implements Serializable, State {
   @Inject
   private ApplicationState applicationState;
 
+  /**
+   * Create new discipline and synchronizing with database.
+   */
   @PostConstruct
   public void postConstruct() {
     // round is added on saving the discipline
