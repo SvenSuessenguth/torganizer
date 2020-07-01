@@ -1,9 +1,12 @@
 package org.cc.torganizer.persistence;
 
+import static javax.transaction.Transactional.TxType.REQUIRES_NEW;
+
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import org.cc.torganizer.core.entities.Entity;
 
 public abstract class Repository<T extends Entity> {
@@ -20,6 +23,7 @@ public abstract class Repository<T extends Entity> {
   /**
    * persisting a new entity.
    */
+  @Transactional(REQUIRES_NEW)
   public T create(T t) {
     t.setId(null);
     t.setLastUpdate(new Date(System.currentTimeMillis()));
@@ -43,6 +47,7 @@ public abstract class Repository<T extends Entity> {
   /**
    * Deleting an entity with the given id.
    */
+  @Transactional(REQUIRES_NEW)
   public T delete(Long entityId) {
     return delete(read(entityId));
   }
@@ -50,6 +55,7 @@ public abstract class Repository<T extends Entity> {
   /**
    * Deleting the entity from the database.
    */
+  @Transactional(REQUIRES_NEW)
   public T delete(T t) {
     entityManager.remove(t);
     return t;
@@ -58,6 +64,7 @@ public abstract class Repository<T extends Entity> {
   /**
    * Updating the Database with the entities data.
    */
+  @Transactional(REQUIRES_NEW)
   public T update(T t) {
     t.setLastUpdate(new Date(System.currentTimeMillis()));
     return entityManager.merge(t);

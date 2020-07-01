@@ -5,6 +5,7 @@
 
   <constraint-mapping>META-INF/person.xml</constraint-mapping>
   <constraint-mapping>META-INF/player.xml</constraint-mapping>
+  <constraint-mapping>META-INF/squad.xml</constraint-mapping>
   <constraint-mapping>META-INF/club.xml</constraint-mapping>
   <constraint-mapping>META-INF/tournament.xml</constraint-mapping>
 

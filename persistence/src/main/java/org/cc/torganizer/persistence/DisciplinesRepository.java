@@ -3,7 +3,7 @@ package org.cc.torganizer.persistence;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -19,7 +19,7 @@ import org.cc.torganizer.core.entities.Round;
 /**
  * Accessing the Repository for Disciplines and related entities.
  */
-@Stateless
+@RequestScoped
 public class DisciplinesRepository extends Repository<Discipline> {
 
   private static final Logger LOGGER = Logger.getLogger(DisciplinesRepository.class.getName());

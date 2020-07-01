@@ -3,7 +3,7 @@ package org.cc.torganizer.persistence;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -14,7 +14,7 @@ import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.PositionalOpponent;
 import org.cc.torganizer.core.entities.Round;
 
-@Stateless
+@RequestScoped
 public class GroupsRepository extends Repository<Group> {
 
   @Inject

@@ -3,7 +3,7 @@ package org.cc.torganizer.persistence;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -11,7 +11,7 @@ import org.cc.torganizer.core.comparators.OpponentByNameComparator;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 
-@Stateless
+@RequestScoped
 public class SquadsRepository extends Repository<Squad> {
 
   public SquadsRepository() {

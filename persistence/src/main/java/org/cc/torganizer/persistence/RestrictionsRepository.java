@@ -1,12 +1,12 @@
 package org.cc.torganizer.persistence;
 
 import java.util.List;
-import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import org.cc.torganizer.core.entities.Restriction;
 
-@Stateless
+@RequestScoped
 public class RestrictionsRepository extends Repository<Restriction> {
 
   public RestrictionsRepository() {

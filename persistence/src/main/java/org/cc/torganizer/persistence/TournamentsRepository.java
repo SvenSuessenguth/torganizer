@@ -1,10 +1,14 @@
 package org.cc.torganizer.persistence;
 
+import static javax.transaction.Transactional.TxType.NEVER;
+import static javax.transaction.Transactional.TxType.REQUIRED;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -12,6 +16,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 import org.cc.torganizer.core.comparators.OpponentByNameComparator;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
@@ -19,7 +24,7 @@ import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 import org.cc.torganizer.core.entities.Tournament;
 
-@Stateless
+@RequestScoped
 public class TournamentsRepository extends Repository<Tournament> {
 
   public TournamentsRepository() {
@@ -45,6 +50,7 @@ public class TournamentsRepository extends Repository<Tournament> {
    * Reading the Tournament with the given id.
    */
   @Override
+  @Transactional(NEVER)
   public Tournament read(Long tournamentId) {
     return entityManager.find(Tournament.class, tournamentId);
   }
@@ -53,6 +59,7 @@ public class TournamentsRepository extends Repository<Tournament> {
    * Reading some tournaments from offset to maxResults.
    */
   @Override
+  @Transactional(NEVER)
   public List<Tournament> read(Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
@@ -73,6 +80,7 @@ public class TournamentsRepository extends Repository<Tournament> {
   /**
    * reading all players from the given tournament.
    */
+  @Transactional(NEVER)
   public List<Player> getPlayers(Long tournamentId, Integer offset,
                                  Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
@@ -90,6 +98,7 @@ public class TournamentsRepository extends Repository<Tournament> {
   /**
    * Getting the Players (offset to maxResults) of the given tournament ordered by last name.
    */
+  @Transactional(NEVER)
   public List<Player> getPlayersOrderedByLastName(Long tournamentId, Integer offset,
                                                   Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
@@ -126,6 +135,7 @@ public class TournamentsRepository extends Repository<Tournament> {
   /**
    * Add a player to a tournament.
    */
+  @Transactional(REQUIRED)
   public Opponent addOpponent(Long tournamentId, Long opponentId) {
     Opponent opponent = entityManager.find(Opponent.class, opponentId);
     Tournament tournament = entityManager.find(Tournament.class, tournamentId);
@@ -142,6 +152,7 @@ public class TournamentsRepository extends Repository<Tournament> {
   /**
    * Removing a player from a tournament.
    */
+  @Transactional(REQUIRED)
   public Opponent removeOpponent(Long tournamentId, Long opponentId) {
     Opponent opponent = entityManager.find(Opponent.class, opponentId);
     Tournament tournament = entityManager.find(Tournament.class, tournamentId);
@@ -158,6 +169,7 @@ public class TournamentsRepository extends Repository<Tournament> {
   /**
    * Counting the players of a tournament.
    */
+  @Transactional(NEVER)
   public long countPlayers(Long tournamentId) {
     Query query = entityManager.createNamedQuery("Tournament.countPlayers");
     query.setParameter("id", tournamentId);
@@ -174,6 +186,7 @@ public class TournamentsRepository extends Repository<Tournament> {
   /**
    * Getting the squads from offset o maxResults from a tournament.
    */
+  @Transactional(NEVER)
   public List<Squad> getSquads(Long tournamentId, Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
@@ -192,6 +205,7 @@ public class TournamentsRepository extends Repository<Tournament> {
   /**
    * Counting the squads of a tournament.
    */
+  @Transactional(NEVER)
   public long countSquads(Long tournamentId) {
     Query query = entityManager.createNamedQuery("Tournament.countSquads");
     query.setParameter("id", tournamentId);
@@ -208,6 +222,7 @@ public class TournamentsRepository extends Repository<Tournament> {
   /**
    * Gettng the disciplines from offset to maxResults from a tournament.
    */
+  @Transactional(NEVER)
   public List<Discipline> getDisciplines(Long tournamentId, Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
@@ -224,6 +239,7 @@ public class TournamentsRepository extends Repository<Tournament> {
   /**
    * Adding a discipline to a tournament.
    */
+  @Transactional(REQUIRED)
   public Discipline addDiscipline(Long tournamentId, Discipline discipline) {
     Tournament tournament = entityManager.find(Tournament.class, tournamentId);
 
@@ -237,6 +253,7 @@ public class TournamentsRepository extends Repository<Tournament> {
   /**
    * Getting the opponents, which can be assigned to a discipline.
    */
+  @Transactional(NEVER)
   public List<Opponent> getAssignableOpponentsForDiscipline(Long tournamentId,
                                                             Discipline discipline,
                                                             Integer offset,
