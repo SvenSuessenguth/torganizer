@@ -27,8 +27,7 @@ public class Entity implements Serializable {
    * Getting a copy of the current lastUpdate.
    */
   public Date getLastUpdate() {
-    // https://jqassistant.org/findbugs/
-    return lastUpdate == null ? null : new Date(lastUpdate.getTime());
+    return lastUpdate;
   }
 
   public void setLastUpdate(Date lastUpdate) {
