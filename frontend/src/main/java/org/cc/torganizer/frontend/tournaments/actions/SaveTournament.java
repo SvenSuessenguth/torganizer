@@ -13,6 +13,9 @@ import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.frontend.tournaments.TournamentsBacking;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 
+/**
+ * Saving the current Tournament.
+ */
 @RequestScoped
 @Named
 public class SaveTournament extends TournamentsAction {
@@ -32,15 +35,16 @@ public class SaveTournament extends TournamentsAction {
   /**
    * save changes on already persisted tournament.
    */
-  @Counted(name="tournaments.save.counter")
+  @Counted(name = "tournaments.save.counter")
   public void execute() {
     Tournament current = state.getCurrent();
 
     // can't save two tournaments with same name
     for (Tournament t : state.getTournaments()) {
-      if (Objects.equals(t.getName(), current.getName()) &&
-          !Objects.equals(t.getId(), current.getId())) {
-        FacesMessage facesMessage = new FacesMessage(SEVERITY_ERROR, "Zwei Turniere mit dem selben Namen", "Fehler");
+      if (Objects.equals(t.getName(), current.getName())
+          && !Objects.equals(t.getId(), current.getId())) {
+        FacesMessage facesMessage = new FacesMessage(SEVERITY_ERROR,
+            "Zwei Turniere mit dem selben Namen", "Fehler");
         facesContext.addMessage(tournamentsBacking.getNameClientId(), facesMessage);
         tournamentsBacking.getNameInputText().setValid(false);
 

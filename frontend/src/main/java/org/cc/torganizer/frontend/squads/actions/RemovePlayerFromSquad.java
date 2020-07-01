@@ -8,9 +8,16 @@ import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 
+/**
+ * Removing a player from the current squad.
+ */
 @RequestScoped
 @Named
 public class RemovePlayerFromSquad extends SquadsAction {
+
+  /**
+   * Functional Interface Methode.
+   */
   public void execute(Player player) {
 
     Squad current = state.getCurrent();

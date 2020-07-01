@@ -16,6 +16,9 @@ public class SquadsBacking {
   @Inject
   private SquadsState squadsState;
 
+  /**
+   * Getting the players ordered by the lastName.
+   */
   public Collection<Player> getCurrentSquadPlayersOrderedByLastName() {
 
     Collection<Player> players = squadsState.getCurrent().getPlayers();

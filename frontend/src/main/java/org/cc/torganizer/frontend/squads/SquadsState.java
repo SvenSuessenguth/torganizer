@@ -78,6 +78,9 @@ public class SquadsState implements Serializable, State {
     this.squads = squads;
   }
 
+  /**
+   * Getting the players.
+   */
   public List<Player> getPlayers() {
     // filter by gender
     List<Player> collect = players

@@ -5,10 +5,16 @@ import javax.inject.Named;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Round;
 
+/**
+ * Showing the next round.
+ */
 @RequestScoped
 @Named
 public class ShowNextRound extends RoundsAction {
 
+  /**
+   * Functional Interface method.
+   */
   public void execute() {
     Round round = roundsState.getRound();
     Discipline discipline = disciplinesState.getDiscipline();

@@ -27,7 +27,8 @@ public class DeleteTournament extends TournamentsAction {
     }
 
     Long currentTournamentId = current.getId();
-    logger.info("delete with name: '{}' currentTournamentId: '{}'", current.getName(), currentTournamentId);
+    logger.info("delete with name: '{}' currentTournamentId: '{}'", current.getName(),
+        currentTournamentId);
 
     current = tournamentsRepository.read(currentTournamentId);
     tournamentsRepository.delete(current);

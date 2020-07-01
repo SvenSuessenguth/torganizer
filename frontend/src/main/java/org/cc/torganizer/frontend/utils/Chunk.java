@@ -3,7 +3,14 @@ package org.cc.torganizer.frontend.utils;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * Functions for chunks.
+ */
 public class Chunk<T> {
+
+  /**
+   * Getting a chunk.
+   */
   public Collection<T> get(Collection<T> all, int chunkSize, int chunkIndex) {
 
     int allSize = all.size();

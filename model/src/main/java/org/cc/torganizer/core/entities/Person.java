@@ -77,12 +77,15 @@ public class Person extends Entity {
     this.gender = gender;
   }
 
+  /**
+   * Checking, if the person have the given gender.
+   */
   public boolean fitsGender(Gender gender) {
     // no statement can be made, so return true
     if (gender == null || this.gender == null) {
       return true;
     }
 
-    return gender.equals(this.gender) || UNKNOWN.equals(gender);
+    return gender.equals(this.gender) || UNKNOWN.equals(this.gender);
   }
 }

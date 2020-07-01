@@ -46,6 +46,9 @@ public class RoundsState implements Serializable, State {
     this.round = round;
   }
 
+  /**
+   * Checking, if the current round is the last round.
+   */
   public boolean isLastRound() {
     Discipline discipline = disciplinesState.getDiscipline();
     int highestPostion = 0;
