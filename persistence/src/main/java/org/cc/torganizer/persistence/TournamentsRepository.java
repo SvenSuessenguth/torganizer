@@ -167,6 +167,9 @@ public class TournamentsRepository extends Repository<Tournament> {
     return opponent;
   }
 
+  /**
+   * Removing a discipline from the given tournament.
+   */
   @Transactional(REQUIRED)
   public Discipline removeDiscipline(Long tournamentId, Long disciplineId) {
     Discipline discipline = entityManager.find(Discipline.class, disciplineId);
