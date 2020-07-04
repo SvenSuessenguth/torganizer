@@ -171,26 +171,4 @@ public class Discipline extends Entity {
   public OpponentTypeRestriction getOpponentTypeRestriction() {
     return (OpponentTypeRestriction) getRestriction(OPPONENT_TYPE_RESTRICTION);
   }
-
-  /**
-   * Checks, if the opponent is assignable and corrosponds to all restrictions.
-   */
-  public boolean isAssignable(Opponent opponent) {
-    boolean assignable = true;
-
-    // restricted by restrition
-    for (Restriction restriction : restrictions) {
-      if (restriction.isRestricted(opponent)) {
-        assignable = false;
-        break;
-      }
-    }
-
-    // already in discipline
-    if (opponents.contains(opponent)) {
-      assignable = false;
-    }
-
-    return assignable;
-  }
 }

@@ -3,10 +3,10 @@ package org.cc.torganizer.persistence;
 import static javax.transaction.Transactional.TxType.NEVER;
 import static javax.transaction.Transactional.TxType.REQUIRED;
 
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -20,8 +20,10 @@ import org.cc.torganizer.core.comparators.OpponentByNameComparator;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.core.entities.Restriction;
 import org.cc.torganizer.core.entities.Squad;
 import org.cc.torganizer.core.entities.Tournament;
+import org.cc.torganizer.core.filter.OpponentFilter;
 
 @RequestScoped
 public class TournamentsRepository extends Repository<Tournament> {
@@ -165,6 +167,20 @@ public class TournamentsRepository extends Repository<Tournament> {
     return opponent;
   }
 
+  @Transactional(REQUIRED)
+  public Discipline removeDiscipline(Long tournamentId, Long disciplineId) {
+    Discipline discipline = entityManager.find(Discipline.class, disciplineId);
+    Tournament tournament = entityManager.find(Tournament.class, tournamentId);
+
+    // persist tournament
+    tournament.getDisciplines().remove(discipline);
+    entityManager.persist(tournament);
+    // to get the id
+    entityManager.flush();
+
+    return discipline;
+  }
+
   /**
    * Counting the players of a tournament.
    */
@@ -196,7 +212,7 @@ public class TournamentsRepository extends Repository<Tournament> {
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
     List<Squad> squads = namedQuery.getResultList();
-    Collections.sort(squads, new OpponentByNameComparator());
+    squads.sort(new OpponentByNameComparator());
 
     return squads;
   }
@@ -265,13 +281,12 @@ public class TournamentsRepository extends Repository<Tournament> {
     Set<Opponent> opponents = tournament.getOpponents();
 
     // filter opponents
-    List<Opponent> assignableOpponents = opponents
-        .stream()
-        .filter(discipline::isAssignable)
-        .collect(Collectors.toList());
+    OpponentFilter opponentFilter = new OpponentFilter();
+    Collection<Restriction> restrictions = discipline.getRestrictions();
+    List<Opponent> assignableOpponents = new ArrayList<>(opponentFilter.pass(opponents, restrictions));
 
     // sort and use offset/length
-    Collections.sort(assignableOpponents, new OpponentByNameComparator());
+    assignableOpponents.sort(new OpponentByNameComparator());
 
     // check offset/maxResults
     int size = assignableOpponents.size();

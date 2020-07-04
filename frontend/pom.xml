@@ -20,7 +20,7 @@
     <!--
      | https://openliberty.io/guides/maven-intro.html
      +-->
-    <version.liberty-maven-plugin>3.2.2</version.liberty-maven-plugin>
+    <version.liberty-maven-plugin>3.3-M1</version.liberty-maven-plugin>
     <liberty.var.default.http.port>9080</liberty.var.default.http.port>
     <liberty.var.default.https.port>9443</liberty.var.default.https.port>
     <liberty.var.app.context.root>${project.artifactId}</liberty.var.app.context.root>	
@@ -78,7 +78,7 @@
 		  <serverStartTimeout>100</serverStartTimeout>
           <runtimeArtifact>
             <groupId>io.openliberty</groupId><artifactId>openliberty-javaee8</artifactId>
-            <version>20.0.0.3</version><type>zip</type>
+            <version>20.0.0.7</version><type>zip</type>
           </runtimeArtifact>
         </configuration>
       </plugin>

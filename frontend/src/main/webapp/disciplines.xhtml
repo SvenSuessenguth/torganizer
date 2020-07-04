@@ -92,6 +92,7 @@
       <!--
        | assignable opponents
        +-->
+      <h:outputText value="mögliche Kandiaten" />
       <h:dataTable value="#{disciplinesState.assignableOpponents}" var="opponent"
                    rendered="#{not empty disciplinesState.discipline.id}">
         <h:column>
@@ -118,6 +119,7 @@
       <!--
        | opponents
        +-->
+      <h:outputText value="Kandidaten" />
       <h:dataTable value="#{disciplinesState.discipline.opponents}" var="opponent"
                    rendered="#{not empty disciplinesState.discipline.id}">
         <h:column>

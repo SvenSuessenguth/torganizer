@@ -1,5 +1,7 @@
 package org.cc.torganizer.core.entities;
 
+import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
+
 /**
  * Restriktion bezueglich des Geschlechtes.
  */
@@ -7,7 +9,7 @@ public class GenderRestriction extends Restriction {
 
   private static final Discriminator DISCRIMINATOR = Discriminator.GENDER_RESTRICTION;
 
-  private Gender gender = Gender.UNKNOWN;
+  private Gender gender = UNKNOWN;
 
   /**
    * Default.
@@ -16,7 +18,7 @@ public class GenderRestriction extends Restriction {
     // gem. Bean-Spec.
   }
 
-  GenderRestriction(Gender gender) {
+  public GenderRestriction(Gender gender) {
     this.gender = gender;
   }
 
@@ -41,13 +43,19 @@ public class GenderRestriction extends Restriction {
    *
    * @param player Player
    * @return <code>true</code>, wenn das Gender des Players nicht mit der Vorgabe uebereinstimmt
-   *     und die Vorgabe nicht UNKNOWN ist, sonst
-   *     <code>false</code>
+   * und die Vorgabe nicht UNKNOWN ist, sonst
+   * <code>false</code>
    */
   private boolean isGenderRestricted(Player player) {
     Gender playersGender = player.getPerson().getGender();
 
-    return !Gender.UNKNOWN.equals(playersGender) && !this.gender.equals(playersGender);
+    // either the gender of the restriction or the gender of the player is unknown
+    if (UNKNOWN.equals(gender) || UNKNOWN.equals(playersGender)) {
+      return false;
+    }
+
+    // no gender is UNKNOWN, so the genders must be equal
+    return !this.gender.equals(playersGender);
   }
 
   public Gender getGender() {

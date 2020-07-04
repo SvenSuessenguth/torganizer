@@ -35,6 +35,11 @@ public class AgeRestriction extends Restriction {
     // gem. Bean-Spec.
   }
 
+  public AgeRestriction(int minAge, int maxAge) {
+    this.setMinDateOfBirth(LocalDate.now().minusYears(maxAge));
+    this.setMaxDateOfBirth(LocalDate.now().minusYears(minAge));
+  }
+
   /**
    * convinience-constructor.
    *
