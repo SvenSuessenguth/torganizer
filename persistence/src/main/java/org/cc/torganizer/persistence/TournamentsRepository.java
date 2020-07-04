@@ -283,7 +283,8 @@ public class TournamentsRepository extends Repository<Tournament> {
     // filter opponents
     OpponentFilter opponentFilter = new OpponentFilter();
     Collection<Restriction> restrictions = discipline.getRestrictions();
-    List<Opponent> assignableOpponents = new ArrayList<>(opponentFilter.pass(opponents, restrictions));
+    Collection<Opponent> pass = opponentFilter.pass(opponents, restrictions);
+    List<Opponent> assignableOpponents = new ArrayList<>(pass);
 
     // sort and use offset/length
     assignableOpponents.sort(new OpponentByNameComparator());
