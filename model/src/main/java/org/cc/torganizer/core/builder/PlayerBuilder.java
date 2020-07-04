@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Player;
 
+/**
+ * Building players.
+ */
 public class PlayerBuilder {
 
   private Player player;
@@ -19,6 +22,9 @@ public class PlayerBuilder {
     return this;
   }
 
+  /**
+   * Build with given age.
+   */
   public PlayerBuilder withAge(int age) {
     if (player == null) {
       standard();
@@ -29,6 +35,9 @@ public class PlayerBuilder {
     return this;
   }
 
+  /**
+   * Build with given gender.
+   */
   public PlayerBuilder withGender(Gender gender) {
     if (player == null) {
       standard();
@@ -39,6 +48,9 @@ public class PlayerBuilder {
     return this;
   }
 
+  /**
+   * Getting the build player.
+   */
   public Player get() {
     if (player == null) {
       standard();
