@@ -22,126 +22,134 @@
     <h:form id="disciplinesForm">
       <h:commandButton action="rounds" value="rounds" disabled="#{empty disciplinesState.discipline.id}"/>
 
-      <h:dataTable value="#{disciplinesState.disciplines}" var="discipline">
-        <h:column>
-          <f:facet name="header">Bezeichnung</f:facet>
-          <h:commandLink action="#{selectDiscipline.execute(discipline)}" value="#{discipline.name}">
-            <f:ajax render="disciplinesForm" immediate="true" execute="@this"/>
-          </h:commandLink>
-        </h:column>
-      </h:dataTable>
+      <h:panelGrid columns="2">
 
-      <!--
-       | name and restrictions
-       +-->
-      <h:panelGroup style="display: grid; grid-template-columns: auto auto auto auto; max-width: 28em; grid-gap: 0.25em">
-        <h:outputLabel for="disciplinesName" value="#{i18nText.name}"/>
-        <span />
-        <h:inputText id="disciplinesName" value="#{disciplinesState.discipline.name}"/>
-        <span />
+        <!--
+         | name and restrictions
+         +-->
+        <h:panelGroup>
+          <h:panelGroup
+            style="display: grid; grid-template-columns: auto auto auto auto; max-width: 28em; grid-gap: 0.25em;">
 
-        <h:outputText value="Altersbeschränkung"/>
-        <h:outputLabel value="von" for="minDateOfBirth" />
-        <h:inputText id="minDateOfBirth" a:type="date"
-                     value="#{disciplinesState.discipline.ageRestriction.minDateOfBirth}">
-          <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
-        </h:inputText>
-        <span />
+            <h:outputLabel for="disciplinesName" value="#{i18nText.name}"/>
+            <span/>
+            <h:inputText id="disciplinesName" value="#{disciplinesState.discipline.name}"/>
+            <span/>
 
-        <span />
-        <h:outputLabel value="bis" for="maxDateOfBirth" />
-        <h:inputText id="maxDateOfBirth" a:type="date"
-                     value="#{disciplinesState.discipline.ageRestriction.maxDateOfBirth}">
-          <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
-        </h:inputText>
-        <span />
+            <h:outputText value="Altersbeschränkung"/>
+            <h:outputLabel value="von" for="minDateOfBirth"/>
+            <h:inputText id="minDateOfBirth" a:type="date"
+                         value="#{disciplinesState.discipline.ageRestriction.minDateOfBirth}">
+              <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
+            </h:inputText>
+            <span/>
 
-        <h:outputLabel value="Geschlecht" for="disciplinesGender"/>
-        <span />
-        <h:selectOneMenu id="disciplinesGender" value="#{disciplinesState.discipline.genderRestriction.gender}"
-                         onchange="submit()">
-          <f:selectItems value="#{disciplinesState.genders}" var="gender"
-                         itemValue="#{gender}"
-                         itemLabel="#{i18nGender[gender]}"/>
-          <f:converter converterId="genderConverter"/>
-        </h:selectOneMenu>
-        <span />
+            <span/>
+            <h:outputLabel value="bis" for="maxDateOfBirth"/>
+            <h:inputText id="maxDateOfBirth" a:type="date"
+                         value="#{disciplinesState.discipline.ageRestriction.maxDateOfBirth}">
+              <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
+            </h:inputText>
+            <span/>
+
+            <h:outputLabel value="Geschlecht" for="disciplinesGender"/>
+            <span/>
+            <h:selectOneMenu id="disciplinesGender" value="#{disciplinesState.discipline.genderRestriction.gender}"
+                             onchange="submit()">
+              <f:selectItems value="#{disciplinesState.genders}" var="gender"
+                             itemValue="#{gender}"
+                             itemLabel="#{i18nGender[gender]}"/>
+              <f:converter converterId="genderConverter"/>
+            </h:selectOneMenu>
+            <span/>
+
+            <h:outputLabel value="Gegner" for="opponentType"/>
+            <span/>
+            <h:selectOneMenu id="opponentType"
+                             value="#{disciplinesState.discipline.opponentTypeRestriction.opponentType}">
+              <f:selectItems value="#{disciplinesState.opponentTypes}" var="opponentType"
+                             itemValue="#{opponentType}"
+                             itemLabel="#{i18nOpponentType[opponentType]}"/>
+              <f:converter converterId="opponentTypeConverter"/>
+            </h:selectOneMenu>
+            <span/>
+          </h:panelGroup>
+
+          <h:panelGroup id="disciplinesCommands" style="display: block; padding-top: 1em;">
+            <h:commandButton id="disciplinesSave" action="#{saveDiscipline.execute()}" value="#{i18nText.save}"/>
+            <h:commandButton id="disciplinesDelete" action="#{deleteDiscipline.execute()}" value="#{i18nText.delete}"
+                             disabled="#{disciplinesState.discipline.id == null}"/>
+            <h:commandButton id="disciplinesCancel" action="#{cancelDiscipline.execute}" value="#{i18nText.cancel}"
+                             disabled="#{disciplinesState.discipline.id == null}">
+              <f:ajax render="disciplinesForm" immediate="true" execute="@this"/>
+            </h:commandButton>
+          </h:panelGroup>
+        </h:panelGroup>
 
 
-        <h:outputLabel value="Gegner" for="opponentType"/>
-        <span />
-        <h:selectOneMenu id="opponentType" value="#{disciplinesState.discipline.opponentTypeRestriction.opponentType}">
-          <f:selectItems value="#{disciplinesState.opponentTypes}" var="opponentType"
-                         itemValue="#{opponentType}"
-                         itemLabel="#{i18nOpponentType[opponentType]}"/>
-          <f:converter converterId="opponentTypeConverter"/>
-        </h:selectOneMenu>
-        <span />
-      </h:panelGroup>
+        <h:dataTable value="#{disciplinesState.disciplines}" var="discipline">
+          <h:column>
+            <f:facet name="header">Bezeichnung</f:facet>
+            <h:commandLink action="#{selectDiscipline.execute(discipline)}" value="#{discipline.name}">
+              <f:ajax render="disciplinesForm" immediate="true" execute="@this"/>
+            </h:commandLink>
+          </h:column>
+        </h:dataTable>
 
-      <h:panelGroup id="disciplinesCommands" style="display: block">
-        <h:commandButton id="disciplinesSave" action="#{saveDiscipline.execute()}" value="#{i18nText.save}"/>
-        <h:commandButton id="disciplinesDelete" action="#{deleteDiscipline.execute()}" value="#{i18nText.delete}"
-                         disabled="#{disciplinesState.discipline.id == null}"/>
-        <h:commandButton id="disciplinesCancel" action="#{cancelDiscipline.execute}" value="#{i18nText.cancel}"
-                         disabled="#{disciplinesState.discipline.id == null}">
-          <f:ajax render="disciplinesForm" immediate="true" execute="@this"/>
-        </h:commandButton>
-      </h:panelGroup>
+        <!--
+         | assignable opponents
+         +-->
+        <h:outputText value="mögliche Kandiaten"/>
+        <h:dataTable value="#{disciplinesState.assignableOpponents}" var="opponent"
+                     rendered="#{not empty disciplinesState.discipline.id}">
+          <h:column>
+            <f:facet name="header">Vornamen</f:facet>
+            <tc:opponent id="firstName#{opponent.id}" opponent="#{opponent}" showFirstNames="true"
+                         selectOpponentAction="#{addOpponentToDiscipline}"/>
+          </h:column>
+          <h:column>
+            <f:facet name="header">Nachnamen</f:facet>
+            <tc:opponent id="lastName#{opponent.id}" opponent="#{opponent}" showLastNames="true"
+                         selectOpponentAction="#{addOpponentToDiscipline}"/>
+          </h:column>
+          <h:column>
+            <f:facet name="header">Vereine</f:facet>
+            <tc:opponent id="club#{opponent.id}" opponent="#{opponent}" showClubs="true"
+                         selectOpponentAction="#{addOpponentToDiscipline}"/>
+          </h:column>
+          <h:column rendered="#{facesContext.isProjectStage('Development')}">
+            <f:facet name="header">ID</f:facet>
+            <h:outputText value="#{opponent.id}"/>
+          </h:column>
+        </h:dataTable>
 
-      <!--
-       | assignable opponents
-       +-->
-      <h:outputText value="mögliche Kandiaten" />
-      <h:dataTable value="#{disciplinesState.assignableOpponents}" var="opponent"
-                   rendered="#{not empty disciplinesState.discipline.id}">
-        <h:column>
-          <f:facet name="header">Vornamen</f:facet>
-          <tc:opponent id="firstName#{opponent.id}" opponent="#{opponent}" showFirstNames="true"
-                       selectOpponentAction="#{addOpponentToDiscipline}"/>
-        </h:column>
-        <h:column>
-          <f:facet name="header">Nachnamen</f:facet>
-          <tc:opponent id="lastName#{opponent.id}" opponent="#{opponent}" showLastNames="true"
-                       selectOpponentAction="#{addOpponentToDiscipline}"/>
-        </h:column>
-        <h:column>
-          <f:facet name="header">Vereine</f:facet>
-          <tc:opponent id="club#{opponent.id}" opponent="#{opponent}" showClubs="true"
-                       selectOpponentAction="#{addOpponentToDiscipline}"/>
-        </h:column>
-        <h:column rendered="#{facesContext.isProjectStage('Development')}">
-          <f:facet name="header">ID</f:facet>
-          <h:outputText value="#{opponent.id}"/>
-        </h:column>
-      </h:dataTable>
-
-      <!--
-       | opponents
-       +-->
-      <h:outputText value="Kandidaten" />
-      <h:dataTable value="#{disciplinesState.discipline.opponents}" var="opponent"
-                   rendered="#{not empty disciplinesState.discipline.id}">
-        <h:column>
-          <f:facet name="header">Vornamen</f:facet>
-          <tc:opponent id="firstName#{opponent.id}" opponent="#{opponent}" showFirstNames="true"
-                       selectOpponentAction="#{removeOpponentFromDiscipline}"/>
-        </h:column>
-        <h:column>
-          <f:facet name="header">Nachnamen</f:facet>
-          <tc:opponent id="lastName#{opponent.id}" opponent="#{opponent}" showLastNames="true"
-                       selectOpponentAction="#{removeOpponentFromDiscipline}"/>
-        </h:column>
-        <h:column>
-          <f:facet name="header">Vereine</f:facet>
-          <tc:opponent id="club#{opponent.id}" opponent="#{opponent}" showClubs="true"
-                       selectOpponentAction="#{removeOpponentFromDiscipline}"/>
-        </h:column>
-        <h:column rendered="#{facesContext.isProjectStage('Development')}">
-          <f:facet name="header">ID</f:facet>
-          <h:outputText value="#{opponent.id}"/>
-        </h:column>
-      </h:dataTable>
+        <!--
+         | opponents
+         +-->
+        <h:outputText value="Kandidaten"/>
+        <h:dataTable value="#{disciplinesState.discipline.opponents}" var="opponent"
+                     rendered="#{not empty disciplinesState.discipline.id}">
+          <h:column>
+            <f:facet name="header">Vornamen</f:facet>
+            <tc:opponent id="firstName#{opponent.id}" opponent="#{opponent}" showFirstNames="true"
+                         selectOpponentAction="#{removeOpponentFromDiscipline}"/>
+          </h:column>
+          <h:column>
+            <f:facet name="header">Nachnamen</f:facet>
+            <tc:opponent id="lastName#{opponent.id}" opponent="#{opponent}" showLastNames="true"
+                         selectOpponentAction="#{removeOpponentFromDiscipline}"/>
+          </h:column>
+          <h:column>
+            <f:facet name="header">Vereine</f:facet>
+            <tc:opponent id="club#{opponent.id}" opponent="#{opponent}" showClubs="true"
+                         selectOpponentAction="#{removeOpponentFromDiscipline}"/>
+          </h:column>
+          <h:column rendered="#{facesContext.isProjectStage('Development')}">
+            <f:facet name="header">ID</f:facet>
+            <h:outputText value="#{opponent.id}"/>
+          </h:column>
+        </h:dataTable>
+      </h:panelGrid>
     </h:form>
   </ui:define>
 </ui:composition>
