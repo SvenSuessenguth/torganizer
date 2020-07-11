@@ -1,11 +1,9 @@
 :root {
-    --button_border-color: #999999;
-    --button_background-color: #D3C4BE;
-    --button_background-color_hover: #C4BDAC;
+    --input_text_border-color: #999999;
 }
 
 input {
-    border: 1px solid var(--button_border-color);
+    border: 1px solid var(--input_text_border-color);
 }
 
 input[type="text"] {

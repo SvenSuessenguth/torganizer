@@ -20,86 +20,86 @@
 
   <ui:define name="main">
     <h:form id="disciplinesForm">
+    <span id="disciplinesContainer">
       <h:commandButton action="rounds" value="rounds" disabled="#{empty disciplinesState.discipline.id}"/>
 
-      <h:panelGrid columns="2">
+      <!--
+       | all disciplines (selectable)
+       +-->
+      <h:dataTable id="disciplines" value="#{disciplinesState.disciplines}" var="discipline">
+        <h:column>
+          <f:facet name="header">Bezeichnung</f:facet>
+          <h:commandLink action="#{selectDiscipline.execute(discipline)}" value="#{discipline.name}">
+            <f:ajax render="disciplinesForm" immediate="true" execute="@this"/>
+          </h:commandLink>
+        </h:column>
+      </h:dataTable>
 
-        <!--
-         | name and restrictions
-         +-->
-        <h:panelGroup>
-          <h:panelGroup
-            style="display: grid; grid-template-columns: auto auto auto auto; max-width: 28em; grid-gap: 0.25em;">
+      <!--
+       | name and restrictions
+       +-->
+      <h:panelGroup id="discipline"
+                    style="display: grid; grid-template-columns: auto auto auto auto; max-width: 28em; grid-gap: 0.25em;">
 
-            <h:outputLabel for="disciplinesName" value="#{i18nText.name}"/>
-            <span/>
-            <h:inputText id="disciplinesName" value="#{disciplinesState.discipline.name}"/>
-            <span/>
+        <h:outputLabel for="disciplinesName" value="#{i18nText.name}"/>
+        <span/>
+        <h:inputText id="disciplinesName" value="#{disciplinesState.discipline.name}"/>
+        <span/>
 
-            <h:outputText value="Altersbeschränkung"/>
-            <h:outputLabel value="von" for="minDateOfBirth"/>
-            <h:inputText id="minDateOfBirth" a:type="date"
-                         value="#{disciplinesState.discipline.ageRestriction.minDateOfBirth}">
-              <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
-            </h:inputText>
-            <span/>
+        <h:outputText value="Altersbeschränkung"/>
+        <h:outputLabel value="von" for="minDateOfBirth"/>
+        <h:inputText id="minDateOfBirth" a:type="date"
+                     value="#{disciplinesState.discipline.ageRestriction.minDateOfBirth}">
+          <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
+        </h:inputText>
+        <span/>
 
-            <span/>
-            <h:outputLabel value="bis" for="maxDateOfBirth"/>
-            <h:inputText id="maxDateOfBirth" a:type="date"
-                         value="#{disciplinesState.discipline.ageRestriction.maxDateOfBirth}">
-              <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
-            </h:inputText>
-            <span/>
+        <span/>
+        <h:outputLabel value="bis" for="maxDateOfBirth"/>
+        <h:inputText id="maxDateOfBirth" a:type="date"
+                     value="#{disciplinesState.discipline.ageRestriction.maxDateOfBirth}">
+          <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
+        </h:inputText>
+        <span/>
 
-            <h:outputLabel value="Geschlecht" for="disciplinesGender"/>
-            <span/>
-            <h:selectOneMenu id="disciplinesGender" value="#{disciplinesState.discipline.genderRestriction.gender}"
-                             onchange="submit()">
-              <f:selectItems value="#{disciplinesState.genders}" var="gender"
-                             itemValue="#{gender}"
-                             itemLabel="#{i18nGender[gender]}"/>
-              <f:converter converterId="genderConverter"/>
-            </h:selectOneMenu>
-            <span/>
+        <h:outputLabel value="Geschlecht" for="disciplinesGender"/>
+        <span/>
+        <h:selectOneMenu id="disciplinesGender" value="#{disciplinesState.discipline.genderRestriction.gender}"
+                         onchange="submit()">
+          <f:selectItems value="#{disciplinesState.genders}" var="gender"
+                         itemValue="#{gender}"
+                         itemLabel="#{i18nGender[gender]}"/>
+          <f:converter converterId="genderConverter"/>
+        </h:selectOneMenu>
+        <span/>
 
-            <h:outputLabel value="Gegner" for="opponentType"/>
-            <span/>
-            <h:selectOneMenu id="opponentType"
-                             value="#{disciplinesState.discipline.opponentTypeRestriction.opponentType}">
-              <f:selectItems value="#{disciplinesState.opponentTypes}" var="opponentType"
-                             itemValue="#{opponentType}"
-                             itemLabel="#{i18nOpponentType[opponentType]}"/>
-              <f:converter converterId="opponentTypeConverter"/>
-            </h:selectOneMenu>
-            <span/>
-          </h:panelGroup>
+        <h:outputLabel value="Gegner" for="opponentType"/>
+        <span/>
+        <h:selectOneMenu id="opponentType"
+                         value="#{disciplinesState.discipline.opponentTypeRestriction.opponentType}">
+          <f:selectItems value="#{disciplinesState.opponentTypes}" var="opponentType"
+                         itemValue="#{opponentType}"
+                         itemLabel="#{i18nOpponentType[opponentType]}"/>
+          <f:converter converterId="opponentTypeConverter"/>
+        </h:selectOneMenu>
+        <span/>
+      </h:panelGroup>
 
-          <h:panelGroup id="disciplinesCommands" style="display: block; padding-top: 1em;">
-            <h:commandButton id="disciplinesSave" action="#{saveDiscipline.execute()}" value="#{i18nText.save}"/>
-            <h:commandButton id="disciplinesDelete" action="#{deleteDiscipline.execute()}" value="#{i18nText.delete}"
-                             disabled="#{disciplinesState.discipline.id == null}"/>
-            <h:commandButton id="disciplinesCancel" action="#{cancelDiscipline.execute}" value="#{i18nText.cancel}"
-                             disabled="#{disciplinesState.discipline.id == null}">
-              <f:ajax render="disciplinesForm" immediate="true" execute="@this"/>
-            </h:commandButton>
-          </h:panelGroup>
-        </h:panelGroup>
+      <h:panelGroup id="disciplinesCommands" style="display: block; padding-top: 1em;">
+        <h:commandButton id="disciplinesSave" action="#{saveDiscipline.execute()}" value="#{i18nText.save}"/>
+        <h:commandButton id="disciplinesDelete" action="#{deleteDiscipline.execute()}" value="#{i18nText.delete}"
+                         disabled="#{disciplinesState.discipline.id == null}"/>
+        <h:commandButton id="disciplinesCancel" action="#{cancelDiscipline.execute}" value="#{i18nText.cancel}"
+                         disabled="#{disciplinesState.discipline.id == null}">
+          <f:ajax render="disciplinesForm" immediate="true" execute="@this"/>
+        </h:commandButton>
+      </h:panelGroup>
 
-
-        <h:dataTable value="#{disciplinesState.disciplines}" var="discipline">
-          <h:column>
-            <f:facet name="header">Bezeichnung</f:facet>
-            <h:commandLink action="#{selectDiscipline.execute(discipline)}" value="#{discipline.name}">
-              <f:ajax render="disciplinesForm" immediate="true" execute="@this"/>
-            </h:commandLink>
-          </h:column>
-        </h:dataTable>
-
-        <!--
-         | assignable opponents
-         +-->
-        <h:outputText value="mögliche Kandiaten"/>
+      <!--
+       | assignable attendees
+       +-->
+      <h:panelGroup id="assignableOpponents">
+        <h:outputText value="mögliche Teilnehmer"/>
         <h:dataTable value="#{disciplinesState.assignableOpponents}" var="opponent"
                      rendered="#{not empty disciplinesState.discipline.id}">
           <h:column>
@@ -122,11 +122,13 @@
             <h:outputText value="#{opponent.id}"/>
           </h:column>
         </h:dataTable>
+      </h:panelGroup>
 
-        <!--
-         | opponents
-         +-->
-        <h:outputText value="Kandidaten"/>
+      <!--
+       | attendees
+       +-->
+      <h:panelGroup id="attendees">
+        <h:outputText value="Teilnehmer"/>
         <h:dataTable value="#{disciplinesState.discipline.opponents}" var="opponent"
                      rendered="#{not empty disciplinesState.discipline.id}">
           <h:column>
@@ -149,7 +151,8 @@
             <h:outputText value="#{opponent.id}"/>
           </h:column>
         </h:dataTable>
-      </h:panelGrid>
+      </h:panelGroup>
+    </span>
     </h:form>
   </ui:define>
 </ui:composition>
