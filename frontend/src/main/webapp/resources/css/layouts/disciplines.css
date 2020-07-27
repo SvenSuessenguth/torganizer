@@ -1,0 +1,12 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.core {
+  display: grid;
+}
+
+.tabs {
+  grid-column: 1 / span 2;
+}

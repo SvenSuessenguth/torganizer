@@ -23,25 +23,31 @@
     <version.liberty-maven-plugin>3.3-M1</version.liberty-maven-plugin>
     <liberty.var.default.http.port>9080</liberty.var.default.http.port>
     <liberty.var.default.https.port>9443</liberty.var.default.https.port>
-    <liberty.var.app.context.root>${project.artifactId}</liberty.var.app.context.root>	
+    <liberty.var.app.context.root>${project.artifactId}</liberty.var.app.context.root>
   </properties>
 
   <dependencies>
     <dependency>
-      <groupId>org.cc.torganizer</groupId><artifactId>persistence</artifactId>
-      <version>${project.version}</version><scope>compile</scope>
+      <groupId>org.cc.torganizer</groupId>
+      <artifactId>persistence</artifactId>
+      <version>${project.version}</version>
+      <scope>compile</scope>
     </dependency>
 
     <!--
      | https://intellij-support.jetbrains.com/hc/en-us/community/posts/360001080800-faces-config-xml-errors-with-JEE-8-and-JSF-2-3
      +-->
     <dependency>
-      <groupId>org.glassfish</groupId><artifactId>javax.faces</artifactId>
-      <version>2.4.0</version><scope>provided</scope>
+      <groupId>org.glassfish</groupId>
+      <artifactId>javax.faces</artifactId>
+      <version>2.4.0</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.postgresql</groupId><artifactId>postgresql</artifactId>
-      <version>42.2.14</version><scope>provided</scope>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>42.2.14</version>
+      <scope>provided</scope>
     </dependency>
 
   </dependencies>
@@ -54,7 +60,8 @@
        | https://github.com/OpenLiberty/sample-acmegifts/blob/master/microservice-occasion/pom.xml
        +-->
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
         <version>3.1.2</version>
         <executions>
           <execution>
@@ -72,13 +79,16 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>io.openliberty.tools</groupId><artifactId>liberty-maven-plugin</artifactId>
+        <groupId>io.openliberty.tools</groupId>
+        <artifactId>liberty-maven-plugin</artifactId>
         <version>${version.liberty-maven-plugin}</version>
         <configuration>
-		  <serverStartTimeout>100</serverStartTimeout>
+          <serverStartTimeout>100</serverStartTimeout>
           <runtimeArtifact>
-            <groupId>io.openliberty</groupId><artifactId>openliberty-javaee8</artifactId>
-            <version>20.0.0.7</version><type>zip</type>
+            <groupId>io.openliberty</groupId>
+            <artifactId>openliberty-javaee8</artifactId>
+            <version>20.0.0.7</version>
+            <type>zip</type>
           </runtimeArtifact>
         </configuration>
       </plugin>

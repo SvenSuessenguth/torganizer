@@ -1,4 +1,4 @@
-package org.cc.torganizer.frontend.disciplines.actions;
+package org.cc.torganizer.frontend.disciplines.core.actions;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -10,7 +10,7 @@ import javax.inject.Named;
 @Named
 public class SynchronizeDisciplinesState extends DisciplinesAction {
 
-  public void execute() {
-    state.synchronize();
-  }
+    public void execute() {
+        state.synchronize();
+    }
 }

@@ -10,7 +10,7 @@ import javax.inject.Named;
 @Named
 public class SynchronizeClubsState extends ClubsAction {
 
-  public void execute() {
-    state.synchronize();
-  }
+    public void execute() {
+        state.synchronize();
+    }
 }

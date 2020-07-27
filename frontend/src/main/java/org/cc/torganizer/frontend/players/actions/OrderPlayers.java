@@ -5,6 +5,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
+
 import org.cc.torganizer.core.comparators.player.PlayerComparator;
 import org.cc.torganizer.core.comparators.player.PlayerComparatorProvider;
 import org.cc.torganizer.core.comparators.player.PlayerOrder;
@@ -14,22 +15,22 @@ import org.cc.torganizer.core.entities.Player;
 @Named
 public class OrderPlayers extends PlayersAction {
 
-  @Inject
-  private PlayerComparatorProvider playerComparatorProvider;
+    @Inject
+    private PlayerComparatorProvider playerComparatorProvider;
 
-  @SuppressWarnings("unused")
-  public void execute(AjaxBehaviorEvent event) {
-    execute();
-  }
+    @SuppressWarnings("unused")
+    public void execute(AjaxBehaviorEvent event) {
+        execute();
+    }
 
-  /**
-   * ordering players with given order rule.
-   */
-  public void execute() {
-    PlayerOrder playerOrder = state.getPlayerOrder();
-    List<Player> players = state.getPlayers();
+    /**
+     * ordering players with given order rule.
+     */
+    public void execute() {
+        PlayerOrder playerOrder = state.getPlayerOrder();
+        List<Player> players = state.getPlayers();
 
-    PlayerComparator comparator = playerComparatorProvider.get(playerOrder);
-    players.sort(comparator);
-  }
+        PlayerComparator comparator = playerComparatorProvider.get(playerOrder);
+        players.sort(comparator);
+    }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html lang="en"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
@@ -8,7 +8,7 @@
       xmlns:cc="http://xmlns.jcp.org/jsf/composite">
 
 <head>
-  <title>opponent</title>
+    <title>opponent</title>
 </head>
 
 <cc:interface name="opponent"
@@ -17,43 +17,44 @@
               expert="false"
               shortDescription="Show information on player of opponent">
 
-  <cc:attribute name="opponent" required="true" type="org.cc.torganizer.core.entities.Opponent"/>
-  <cc:attribute name="showFirstNames" default="false" type="boolean"/>
-  <cc:attribute name="showLastNames" default="false" type="boolean"/>
-  <cc:attribute name="showClubs" default="false" type="boolean"/>
-  <cc:attribute name="selectPlayerAction"/>
-  <cc:attribute name="selectOpponentAction"/>
+    <cc:attribute name="opponent" required="true" type="org.cc.torganizer.core.entities.Opponent"/>
+    <cc:attribute name="showFirstNames" default="false" type="boolean"/>
+    <cc:attribute name="showLastNames" default="false" type="boolean"/>
+    <cc:attribute name="showClubs" default="false" type="boolean"/>
+    <cc:attribute name="selectPlayerAction"/>
+    <cc:attribute name="selectOpponentAction"/>
 </cc:interface>
 <cc:implementation>
 
-  <c:if test="#{cc.attrs.selectPlayerAction != null and cc.attrs.selectOpponentAction != null}">
-    <h:outputText value="Es kann nur eine Action registriert werden"/>
-  </c:if>
+    <c:if test="#{cc.attrs.selectPlayerAction != null and cc.attrs.selectOpponentAction != null}">
+        <h:outputText value="Es kann nur eine Action registriert werden"/>
+    </c:if>
 
-  <c:set var="gridTemplateColumns" value="#{cc.attrs.showFirstNames?'auto':''}
+    <c:set var="gridTemplateColumns" value="#{cc.attrs.showFirstNames?'auto':''}
                                           #{cc.attrs.showLastNames?'auto':''}
                                           #{cc.attrs.showClubs?'auto':''}"/>
 
-  <h:commandLink action="#{cc.attrs.selectOpponentAction.execute(cc.attrs.opponent)}"
-                 disabled="#{cc.attrs.selectOpponentAction == null}">
-    <div style="display: grid; grid-template-columns: #{gridTemplateColumns}; width: 1%; grid-column-gap: 5px;">
-      <ui:repeat value="#{cc.attrs.opponent.players}" var="player" varStatus="status">
-        <h:panelGroup rendered="#{cc.attrs.showFirstNames=='true'}">
-          <h:commandLink style="white-space: nowrap;" action="#{cc.attrs.selectPlayerAction.execute(player)}"
-                         value="#{player.person.firstName}" disabled="#{cc.attrs.selectPlayerAction == null}"/>
-        </h:panelGroup>
-        <h:panelGroup rendered="#{cc.attrs.showLastNames}">
-          <h:commandLink style="white-space: nowrap;" action="#{cc.attrs.selectPlayerAction.execute(player)}"
-                         value="#{player.person.lastName}" disabled="#{cc.attrs.selectPlayerAction == null}"/>
-        </h:panelGroup>
-        <h:panelGroup rendered="#{cc.attrs.showClubs}">
-          <h:commandLink style="white-space: nowrap;" action="#{cc.attrs.selectPlayerAction.execute(player)}"
-                         value="#{player.club==null?'-':player.club.name}"
-                         disabled="#{cc.attrs.selectPlayerAction == null}"/>
-        </h:panelGroup>
-      </ui:repeat>
-    </div>
-  </h:commandLink>
+    <h:commandLink action="#{cc.attrs.selectOpponentAction.execute(cc.attrs.opponent)}"
+                   disabled="#{cc.attrs.selectOpponentAction == null}">
+        <div style="display: grid; grid-template-columns: #{gridTemplateColumns}; width: 1%; grid-column-gap: 5px;">
+            <ui:repeat value="#{cc.attrs.opponent.players}" var="player" varStatus="status">
+                <h:panelGroup rendered="#{cc.attrs.showFirstNames=='true'}">
+                    <h:commandLink style="white-space: nowrap;" action="#{cc.attrs.selectPlayerAction.execute(player)}"
+                                   value="#{player.person.firstName}"
+                                   disabled="#{cc.attrs.selectPlayerAction == null}"/>
+                </h:panelGroup>
+                <h:panelGroup rendered="#{cc.attrs.showLastNames}">
+                    <h:commandLink style="white-space: nowrap;" action="#{cc.attrs.selectPlayerAction.execute(player)}"
+                                   value="#{player.person.lastName}" disabled="#{cc.attrs.selectPlayerAction == null}"/>
+                </h:panelGroup>
+                <h:panelGroup rendered="#{cc.attrs.showClubs}">
+                    <h:commandLink style="white-space: nowrap;" action="#{cc.attrs.selectPlayerAction.execute(player)}"
+                                   value="#{player.club==null?'-':player.club.name}"
+                                   disabled="#{cc.attrs.selectPlayerAction == null}"/>
+                </h:panelGroup>
+            </ui:repeat>
+        </div>
+    </h:commandLink>
 
 </cc:implementation>
 

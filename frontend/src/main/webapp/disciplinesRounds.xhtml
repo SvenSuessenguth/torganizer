@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+
+<html lang="en"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <title>.</title>
+</h:head>
+
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+    <f:metadata>
+        <f:viewParam name="disciplineId" value="#{disciplinesState.discipline.id}"/>
+    </f:metadata>
+
+    <ui:define name="title">${i18nText.rounds}</ui:define>
+
+    <ui:define name="css">
+        <h:outputStylesheet name="css/layouts/rounds.css"/>
+    </ui:define>
+
+    <ui:define name="main">
+        <h:form id="roundsForm">
+            <c:set var="round" value="#{roundsState.round}"/>
+
+            <h:outputText value="#{i18nText.rounds} (#{disciplinesState.discipline.name})"/>
+            <br/>
+
+            <h:outputText value="#{i18nText.round}"/>
+            <h:commandLink value="&#9665;" title="prev"
+                           style="#{round.position lt 1 ? 'color:lightgray;' : 'color:black;'}"
+                           disabled="#{round.position lt 1}"
+                           action="#{showPreviousRound.execute}">
+                <f:ajax render="@form" immediate="true" execute="@this"/>
+            </h:commandLink>
+            <h:outputText value="#{roundsState.round.position}"/>
+            <h:commandLink value="&#9655;" title="next"
+                           style="#{roundsState.lastRound ? 'color:lightgray;' : 'color:black;'}"
+                           disabled="#{roundsState.lastRound}"
+                           action="#{showNextRound.execute}"/>
+            <br/>
+            System
+            <h:selectOneMenu id="roundsSystem" value="#{roundsState.round.system}">
+                <f:selectItems value="#{roundsState.systems}" var="system"
+                               itemValue="#{system}"
+                               itemLabel="#{i18nSystem[system]}"/>
+                <f:converter converterId="systemConverter"/>
+            </h:selectOneMenu>
+            <br/>
+
+            Gruppen <h:inputText value="#{roundsState.newGroupsCount}"/>
+            <br/>
+            <h:commandButton value="#{i18nText.save}" action="#{saveRoundAction.execute()}"/>
+            <h:commandButton value="#{i18nText.delete}" action="#{deleteRoundAction.execute()}"/>
+            <h:commandButton value="#{i18nText.cancel}" action="#{cancelRoundAction.execute()}"/>
+
+
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

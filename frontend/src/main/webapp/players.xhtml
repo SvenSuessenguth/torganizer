@@ -7,120 +7,123 @@
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
-  <title>.</title>
+    <title>.</title>
 </h:head>
 
 <ui:composition template="/WEB-INF/templates/template.xhtml">
-  <ui:define name="title">${i18nText.players}</ui:define>
+    <ui:define name="title">${i18nText.players}</ui:define>
 
-  <ui:define name="css">
-    <h:outputStylesheet name="css/layouts/players.css"/>
-  </ui:define>
+    <ui:define name="css">
+        <h:outputStylesheet name="css/layouts/players.css"/>
+    </ui:define>
 
-  <ui:define name="main">
-    <h:form id="playersForm">
+    <ui:define name="main">
+        <h:form id="playersForm">
 
-      <h:panelGroup>
-        <h:outputLabel for="playerOrder">${i18nText.sort_by} </h:outputLabel>
-        <h:selectOneMenu id="playerOrder" value="#{playersState.playerOrder}">
-          <f:selectItems value="#{playersState.playerOrders}" var="playerOrder"
-                         itemValue="#{playerOrder}"
-                         itemLabel="#{i18nPlayerOrder[playerOrder]}"/>
-          <f:converter converterId="playerOrderConverter"/>
-          <f:ajax listener="#{orderPlayers.execute}" render="allPlayers"/>
-        </h:selectOneMenu>
+            <h:panelGroup>
+                <h:outputLabel for="playerOrder">${i18nText.sort_by} </h:outputLabel>
+                <h:selectOneMenu id="playerOrder" value="#{playersState.playerOrder}">
+                    <f:selectItems value="#{playersState.playerOrders}" var="playerOrder"
+                                   itemValue="#{playerOrder}"
+                                   itemLabel="#{i18nPlayerOrder[playerOrder]}"/>
+                    <f:converter converterId="playerOrderConverter"/>
+                    <f:ajax listener="#{orderPlayers.execute}" render="allPlayers"/>
+                </h:selectOneMenu>
 
-        <h:dataTable id="allPlayers" value="#{playersState.playersChunk}" var="player"
-                     style="margin-bottom: 10px; margin-top: 10px">
-          <h:column>
-            <f:facet name="header">Vorname</f:facet>
-            <h:commandLink action="#{selectPlayer.execute(player)}" value="#{player.person.firstName}" immediate="true">
-              <f:ajax render="@form" immediate="true" execute="@this"/>
-            </h:commandLink>
-          </h:column>
-          <h:column>
-            <f:facet name="header">Nachname</f:facet>
-            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.person.lastName}">
-              <f:ajax render="@form" immediate="true" execute="@this"/>
-            </h:commandLink>
-          </h:column>
-          <h:column>
-            <f:facet name="header">Verein</f:facet>
-            <h:commandLink actionListener="#{selectPlayer.execute(player)}"
-                           value="#{player.club!=null?player.club.name:''}">
-              <f:ajax render="@form" immediate="true" execute="@this"/>
-            </h:commandLink>&#160;
-          </h:column>
-          <h:column rendered="#{facesContext.isProjectStage('Development')}">
-            <f:facet name="header">ID</f:facet>
-            <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.id}"/>
-          </h:column>
-        </h:dataTable>
-        <!-- pagination -->
-        <h:panelGroup id="allPlayersTablePagination">
-          <h:commandLink value="&#8701;"
-                         style="#{playersState.prevAllPlayersChunkAvailable?'color:black;':'color:lightgray;'}"
-                         disabled="#{!playersState.prevAllPlayersChunkAvailable}"
-                         action="#{prevAllPlayersChunk.execute}">
-            <f:ajax render="@form" immediate="true" execute="@this"/>
-          </h:commandLink>
-          <h:commandLink value="&#8702;"
-                         style="#{playersState.nextAllPlayersChunkAvailable?'color:black;':'color:lightgray;'}"
-                         disabled="#{!playersState.nextAllPlayersChunkAvailable}"
-                         action="#{nextAllPlayersChunk.execute}">
-            <f:ajax render="@form" immediate="true" execute="@this"/>
-          </h:commandLink>
-        </h:panelGroup>
-      </h:panelGroup>
+                <h:dataTable id="allPlayers" value="#{playersState.playersChunk}" var="player"
+                             style="margin-bottom: 10px; margin-top: 10px">
+                    <h:column>
+                        <f:facet name="header">Vorname</f:facet>
+                        <h:commandLink action="#{selectPlayer.execute(player)}" value="#{player.person.firstName}"
+                                       immediate="true">
+                            <f:ajax render="@form" immediate="true" execute="@this"/>
+                        </h:commandLink>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Nachname</f:facet>
+                        <h:commandLink actionListener="#{selectPlayer.execute(player)}"
+                                       value="#{player.person.lastName}">
+                            <f:ajax render="@form" immediate="true" execute="@this"/>
+                        </h:commandLink>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Verein</f:facet>
+                        <h:commandLink actionListener="#{selectPlayer.execute(player)}"
+                                       value="#{player.club!=null?player.club.name:''}">
+                            <f:ajax render="@form" immediate="true" execute="@this"/>
+                        </h:commandLink>&#160;
+                    </h:column>
+                    <h:column rendered="#{facesContext.isProjectStage('Development')}">
+                        <f:facet name="header">ID</f:facet>
+                        <h:commandLink actionListener="#{selectPlayer.execute(player)}" value="#{player.id}"/>
+                    </h:column>
+                </h:dataTable>
+                <!-- pagination -->
+                <h:panelGroup id="allPlayersTablePagination">
+                    <h:commandLink value="&#8701;"
+                                   style="#{playersState.prevAllPlayersChunkAvailable?'color:black;':'color:lightgray;'}"
+                                   disabled="#{!playersState.prevAllPlayersChunkAvailable}"
+                                   action="#{prevAllPlayersChunk.execute}">
+                        <f:ajax render="@form" immediate="true" execute="@this"/>
+                    </h:commandLink>
+                    <h:commandLink value="&#8702;"
+                                   style="#{playersState.nextAllPlayersChunkAvailable?'color:black;':'color:lightgray;'}"
+                                   disabled="#{!playersState.nextAllPlayersChunkAvailable}"
+                                   action="#{nextAllPlayersChunk.execute}">
+                        <f:ajax render="@form" immediate="true" execute="@this"/>
+                    </h:commandLink>
+                </h:panelGroup>
+            </h:panelGroup>
 
-      <h:panelGroup id="currentPlayerData"
-                    style="display: grid; grid-template-columns: auto auto; width: 1%; grid-column-gap: 5px; grid-row-gap: 5px;">
+            <h:panelGroup id="currentPlayerData"
+                          style="display: grid; grid-template-columns: auto auto; width: 1%; grid-column-gap: 5px; grid-row-gap: 5px;">
 
-        <h:outputLabel for="playersFirstName" value="#{i18nText.first_name}"/>
-        <h:inputText id="playersFirstName" value="#{playersState.current.person.firstName}"
-                     a:placeholder="#{i18nText.first_name}" a:autofocus="true"
-                     label="#{i18nText.first_name}"
-                     style="#{component.valid?'validation-ok' : 'validation-fail'}"/>
+                <h:outputLabel for="playersFirstName" value="#{i18nText.first_name}"/>
+                <h:inputText id="playersFirstName" value="#{playersState.current.person.firstName}"
+                             a:placeholder="#{i18nText.first_name}" a:autofocus="true"
+                             label="#{i18nText.first_name}"
+                             style="#{component.valid?'validation-ok' : 'validation-fail'}"/>
 
-        <h:outputLabel for="playersLastName" value="#{i18nText.last_name}"/>
-        <h:inputText id="playersLastName" value="#{playersState.current.person.lastName}"
-                     a:placeholder="#{i18nText.last_name}"
-                     label="#{i18nText.last_name}" style="#{component.valid?'validation-ok' : 'validation-fail'}"/>
+                <h:outputLabel for="playersLastName" value="#{i18nText.last_name}"/>
+                <h:inputText id="playersLastName" value="#{playersState.current.person.lastName}"
+                             a:placeholder="#{i18nText.last_name}"
+                             label="#{i18nText.last_name}"
+                             style="#{component.valid?'validation-ok' : 'validation-fail'}"/>
 
-        <h:outputLabel for="playersDateOfBirth" value="#{i18nText.date_of_birth}"/>
-        <h:inputText id="playersDateOfBirth" a:type="date" value="#{playersState.current.person.dateOfBirth}">
-          <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
-        </h:inputText>
+                <h:outputLabel for="playersDateOfBirth" value="#{i18nText.date_of_birth}"/>
+                <h:inputText id="playersDateOfBirth" a:type="date" value="#{playersState.current.person.dateOfBirth}">
+                    <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
+                </h:inputText>
 
-        <h:outputLabel for="playersGender" value="#{i18nGender.GENDER}"/>
-        <h:selectOneMenu id="playersGender" value="#{playersState.current.person.gender}">
-          <f:selectItems value="#{playersState.genders}" var="gender"
-                         itemValue="#{gender}"
-                         itemLabel="#{i18nGender[gender]}"/>
-          <f:converter converterId="genderConverter"/>
-        </h:selectOneMenu>
+                <h:outputLabel for="playersGender" value="#{i18nGender.GENDER}"/>
+                <h:selectOneMenu id="playersGender" value="#{playersState.current.person.gender}">
+                    <f:selectItems value="#{playersState.genders}" var="gender"
+                                   itemValue="#{gender}"
+                                   itemLabel="#{i18nGender[gender]}"/>
+                    <f:converter converterId="genderConverter"/>
+                </h:selectOneMenu>
 
-        <h:outputLabel for="playersClub" value="#{i18nText.club}"/>
-        <h:selectOneMenu id="playersClub" value="#{playersState.currentClubId}">
-          <f:selectItem itemValue="#{null}" itemLabel="-"/>
-          <f:selectItems value="#{playersState.clubs}" var="club"
-                         itemValue="#{club.id}"
-                         itemLabel="#{club.name}"/>
-        </h:selectOneMenu>
-      </h:panelGroup>
-      <br/>
+                <h:outputLabel for="playersClub" value="#{i18nText.club}"/>
+                <h:selectOneMenu id="playersClub" value="#{playersState.currentClubId}">
+                    <f:selectItem itemValue="#{null}" itemLabel="-"/>
+                    <f:selectItems value="#{playersState.clubs}" var="club"
+                                   itemValue="#{club.id}"
+                                   itemLabel="#{club.name}"/>
+                </h:selectOneMenu>
+            </h:panelGroup>
+            <br/>
 
-      <h:panelGroup id="playersCommands" style="display: block">
-        <h:commandButton id="playersSave" action="#{savePlayer.execute()}" value="#{i18nText.save}"/>
-        <h:commandButton id="playersDelete" action="#{deletePlayer.execute()}" value="#{i18nText.delete}"
-                         disabled="#{playersState.current.id == null}"/>
-        <h:commandButton id="cancelPlayer" action="#{cancelPlayer.execute}" value="#{i18nText.cancel}"
-                         disabled="#{playersState.current.id == null}">
-          <f:ajax render="playersForm" immediate="true" execute="@this"/>
-        </h:commandButton>
-      </h:panelGroup>
-    </h:form>
-  </ui:define>
+            <h:panelGroup id="playersCommands" style="display: block">
+                <h:commandButton id="playersSave" action="#{savePlayer.execute()}" value="#{i18nText.save}"/>
+                <h:commandButton id="playersDelete" action="#{deletePlayer.execute()}" value="#{i18nText.delete}"
+                                 disabled="#{playersState.current.id == null}"/>
+                <h:commandButton id="cancelPlayer" action="#{cancelPlayer.execute}" value="#{i18nText.cancel}"
+                                 disabled="#{playersState.current.id == null}">
+                    <f:ajax render="playersForm" immediate="true" execute="@this"/>
+                </h:commandButton>
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
 
 </ui:composition>
 </html>

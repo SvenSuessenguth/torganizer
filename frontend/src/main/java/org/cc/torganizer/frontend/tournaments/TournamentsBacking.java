@@ -8,17 +8,17 @@ import javax.inject.Named;
 @Named
 public class TournamentsBacking {
 
-  private UIInput nameInputText;
+    private UIInput nameInputText;
 
-  public String getNameClientId() {
-    return nameInputText.getClientId();
-  }
+    public String getNameClientId() {
+        return nameInputText.getClientId();
+    }
 
-  public UIInput getNameInputText() {
-    return nameInputText;
-  }
+    public UIInput getNameInputText() {
+        return nameInputText;
+    }
 
-  public void setNameInputText(UIInput nameInputText) {
-    this.nameInputText = nameInputText;
-  }
+    public void setNameInputText(UIInput nameInputText) {
+        this.nameInputText = nameInputText;
+    }
 }
