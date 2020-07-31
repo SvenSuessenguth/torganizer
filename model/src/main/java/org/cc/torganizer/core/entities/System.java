@@ -5,12 +5,18 @@ package org.cc.torganizer.core.entities;
  */
 public enum System {
 
-  /** Doppel-KO. */
+  /**
+   * Doppel-KO.
+   */
   DOUBLE_ELIMINATION,
 
-  /** Einfaches KO. */
+  /**
+   * Einfaches KO.
+   */
   SINGLE_ELIMINATION,
 
-  /** Gruppenspiele. */
+  /**
+   * Gruppenspiele.
+   */
   ROUND_ROBIN;
 }

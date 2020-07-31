@@ -1,13 +1,14 @@
 package org.cc.torganizer.core.roundrobin;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 import org.cc.torganizer.core.OpponentToGroupsAssigner;
 import org.cc.torganizer.core.comparators.OpponentsByClubComparator;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.System;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class RoundRobinOpponentsToGroupsAssigner implements OpponentToGroupsAssigner {
 

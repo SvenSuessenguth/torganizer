@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:tc="http://xmlns.jcp.org/jsf/composite/components">
+>
 <h:head>
   <title>.</title>
 </h:head>
@@ -24,8 +24,18 @@
 
         <h:panelGroup class="tabs">
           <h:commandButton action="disciplinesCore" value="core" disabled="#{empty disciplinesState.discipline.id}"/>
-          <h:commandButton action="disciplinesRounds" value="rounds" disabled="#{empty disciplinesState.discipline.id}"/>
+          <h:commandButton action="disciplinesRounds" value="rounds"
+                           disabled="#{empty disciplinesState.discipline.id}"/>
         </h:panelGroup>
+
+        <h:dataTable id="disciplines" value="#{disciplinesState.disciplines}" var="discipline">
+          <h:column>
+            <f:facet name="header">Bezeichnung</f:facet>
+            <h:commandLink action="#{selectDiscipline.execute(discipline)}" value="#{discipline.name}">
+              <f:ajax render="disciplinesForm" immediate="true" execute="@this"/>
+            </h:commandLink>
+          </h:column>
+        </h:dataTable>
 
         <!--
          | name and restrictions
@@ -36,18 +46,19 @@
             <h:inputText id="disciplinesName" value="#{disciplinesState.discipline.name}"/>
 
             <h:outputText value="Altersbeschränkung"/>
-            <h:outputLabel value="von" for="minDateOfBirth"/>
-            <h:inputText id="minDateOfBirth" a:type="date"
-                         value="#{disciplinesState.discipline.ageRestriction.minDateOfBirth}">
-              <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
-            </h:inputText>
+            <h:panelGroup styleClass="ageRestrictionData">
+              <h:outputLabel value="von" for="minDateOfBirth"/>
+              <h:inputText id="minDateOfBirth" a:type="date"
+                           value="#{disciplinesState.discipline.ageRestriction.minDateOfBirth}">
+                <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
+              </h:inputText>
 
-            <h:outputLabel value="bis" for="maxDateOfBirth"/>
-            <h:inputText id="maxDateOfBirth" a:type="date"
-                         value="#{disciplinesState.discipline.ageRestriction.maxDateOfBirth}">
-              <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
-            </h:inputText>
-
+              <h:outputLabel value="bis" for="maxDateOfBirth"/>
+              <h:inputText id="maxDateOfBirth" a:type="date"
+                           value="#{disciplinesState.discipline.ageRestriction.maxDateOfBirth}">
+                <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
+              </h:inputText>
+            </h:panelGroup>
             <h:outputLabel value="Geschlecht" for="disciplinesGender"/>
             <h:selectOneMenu id="disciplinesGender" value="#{disciplinesState.discipline.genderRestriction.gender}"
                              onchange="submit()">
@@ -68,7 +79,7 @@
           </h:panelGroup>
         </h:panelGroup>
 
-        <h:panelGroup id="commands">
+        <h:panelGroup styleClass="commands">
           <h:commandButton id="disciplinesSave" action="#{saveDiscipline.execute()}" value="#{i18nText.save}"/>
           <h:commandButton id="disciplinesDelete" action="#{deleteDiscipline.execute()}"
                            value="#{i18nText.delete}"
@@ -77,73 +88,6 @@
                            disabled="#{disciplinesState.discipline.id == null}">
             <f:ajax render="disciplinesForm" immediate="true" execute="@this"/>
           </h:commandButton>
-        </h:panelGroup>
-
-        <h:dataTable id="disciplines" value="#{disciplinesState.disciplines}" var="discipline">
-          <h:column>
-            <f:facet name="header">Bezeichnung</f:facet>
-            <h:commandLink action="#{selectDiscipline.execute(discipline)}" value="#{discipline.name}">
-              <f:ajax render="disciplinesForm" immediate="true" execute="@this"/>
-            </h:commandLink>
-          </h:column>
-        </h:dataTable>
-
-        <!--
-         | assignable opponents
-         +-->
-        <h:panelGroup id="assignableOpponents">
-          <h:outputText value="mögliche Kandiaten"/>
-          <h:dataTable value="#{disciplinesState.assignableOpponents}" var="opponent"
-                       rendered="#{not empty disciplinesState.discipline.id}">
-            <h:column>
-              <f:facet name="header">Vornamen</f:facet>
-              <tc:opponent id="firstName#{opponent.id}" opponent="#{opponent}" showFirstNames="true"
-                           selectOpponentAction="#{addOpponentToDiscipline}"/>
-            </h:column>
-            <h:column>
-              <f:facet name="header">Nachnamen</f:facet>
-              <tc:opponent id="lastName#{opponent.id}" opponent="#{opponent}" showLastNames="true"
-                           selectOpponentAction="#{addOpponentToDiscipline}"/>
-            </h:column>
-            <h:column>
-              <f:facet name="header">Vereine</f:facet>
-              <tc:opponent id="club#{opponent.id}" opponent="#{opponent}" showClubs="true"
-                           selectOpponentAction="#{addOpponentToDiscipline}"/>
-            </h:column>
-            <h:column rendered="#{facesContext.isProjectStage('Development')}">
-              <f:facet name="header">ID</f:facet>
-              <h:outputText value="#{opponent.id}"/>
-            </h:column>
-          </h:dataTable>
-        </h:panelGroup>
-
-        <!--
-         | opponents
-         +-->
-        <h:panelGroup id="opponents">
-          <h:outputText value="Kandidaten"/>
-          <h:dataTable value="#{disciplinesState.discipline.opponents}" var="opponent"
-                       rendered="#{not empty disciplinesState.discipline.id}">
-            <h:column>
-              <f:facet name="header">Vornamen</f:facet>
-              <tc:opponent id="firstName#{opponent.id}" opponent="#{opponent}" showFirstNames="true"
-                           selectOpponentAction="#{removeOpponentFromDiscipline}"/>
-            </h:column>
-            <h:column>
-              <f:facet name="header">Nachnamen</f:facet>
-              <tc:opponent id="lastName#{opponent.id}" opponent="#{opponent}" showLastNames="true"
-                           selectOpponentAction="#{removeOpponentFromDiscipline}"/>
-            </h:column>
-            <h:column>
-              <f:facet name="header">Vereine</f:facet>
-              <tc:opponent id="club#{opponent.id}" opponent="#{opponent}" showClubs="true"
-                           selectOpponentAction="#{removeOpponentFromDiscipline}"/>
-            </h:column>
-            <h:column rendered="#{facesContext.isProjectStage('Development')}">
-              <f:facet name="header">ID</f:facet>
-              <h:outputText value="#{opponent.id}"/>
-            </h:column>
-          </h:dataTable>
         </h:panelGroup>
       </h:panelGroup>
     </h:form>

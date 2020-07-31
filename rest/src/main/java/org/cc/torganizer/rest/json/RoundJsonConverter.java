@@ -1,17 +1,12 @@
 package org.cc.torganizer.rest.json;
 
-import java.util.Collection;
-import java.util.HashMap;
-import javax.enterprise.context.RequestScoped;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonBuilderFactory;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonValue;
 import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.core.entities.System;
+
+import javax.enterprise.context.RequestScoped;
+import javax.json.*;
+import java.util.Collection;
+import java.util.HashMap;
 
 /**
  * A json-disciplines contains nothing but id, name and restrictions.

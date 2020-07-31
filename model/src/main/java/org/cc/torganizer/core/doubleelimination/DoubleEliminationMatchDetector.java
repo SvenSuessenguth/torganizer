@@ -1,7 +1,5 @@
 package org.cc.torganizer.core.doubleelimination;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.cc.torganizer.core.PendingMatchDetector;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Match;
@@ -9,6 +7,9 @@ import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.System;
 import org.cc.torganizer.core.singleelimination.SingleEliminationMatchDetector;
 import org.cc.torganizer.core.util.Checker;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Aufbau einer Turnierstruktur. In der ersten Spalte stehen die Opponents In
@@ -71,10 +72,10 @@ import org.cc.torganizer.core.util.Checker;
  * dem Upper-Bracket stammt und bisher noch nicht verloren hat.
  *
  * @see <a
- *     href="https://groups.google.com/forum/?fromgroups#!topic/rec.sport.table-soccer/CCUadSrQymk">rec.sport.table-soccer</a>
+ * href="https://groups.google.com/forum/?fromgroups#!topic/rec.sport.table-soccer/CCUadSrQymk">rec.sport.table-soccer</a>
  */
 public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetector
-    implements PendingMatchDetector {
+  implements PendingMatchDetector {
 
 
   @Override
@@ -239,7 +240,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    *
    * @param level Level
    * @return <code>true</code>, wenn der uebergebene Wert 0 ist, sonst
-   *     <code>false</code>
+   * <code>false</code>
    */
   boolean isFirstLevel(int level) {
     return level == 0;
@@ -251,7 +252,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    *
    * @param level Level
    * @return <code>true</code>, wenn Oppoenents des Upper und des Lower Brackets
-   *     gemischt werden.
+   * gemischt werden.
    */
   boolean hasToMixUpperLowerBracket(int level) {
     return level % 2 != 0;
@@ -360,8 +361,8 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    *
    * @param level Level
    * @return Liste der Oppoents, die die Matches auf diesem Level gewonnen
-   *     haben. Diese Liste enthaelt auch NULL-Values, wenn ein Match
-   *     unbekannt ist oder noch nicht abgeschlossen ist.
+   * haben. Diese Liste enthaelt auch NULL-Values, wenn ein Match
+   * unbekannt ist oder noch nicht abgeschlossen ist.
    */
   List<Opponent> getWinnersOnLevel(int level, Group group) {
 
@@ -408,8 +409,8 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
   int getStartMatchIndex(int level, int groupSize) {
     // Index beginnt bei '0', daher beim Ergebnis des zaehlens jeweils 1 abziehen
     return countMatchesUpperBracket(groupSize)
-        + countMatchesUpToLevel(level, groupSize)
-        - countMatchesOnLevel(level, groupSize);
+      + countMatchesUpToLevel(level, groupSize)
+      - countMatchesOnLevel(level, groupSize);
   }
 
   /**
@@ -436,7 +437,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    * @return umsortierte Liste der Verlierer
    */
   List<Opponent> orderUpperBracketLosers(List<Opponent> opponents, int splitFactor,
-                                                int reverseFactor) {
+                                         int reverseFactor) {
 
     if (splitFactor == 1) {
       return opponents;

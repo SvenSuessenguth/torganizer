@@ -1,11 +1,12 @@
 package org.cc.torganizer.core.comparators.player;
 
-import static org.cc.torganizer.core.comparators.player.PlayerOrder.BY_CLUB;
-
-import javax.enterprise.context.RequestScoped;
 import org.cc.torganizer.core.comparators.ClubComparator;
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Player;
+
+import javax.enterprise.context.RequestScoped;
+
+import static org.cc.torganizer.core.comparators.player.PlayerOrder.BY_CLUB;
 
 @RequestScoped
 public class PlayerByClubComparator implements PlayerComparator {

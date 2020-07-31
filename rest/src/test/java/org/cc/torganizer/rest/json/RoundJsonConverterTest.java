@@ -22,12 +22,12 @@ class RoundJsonConverterTest {
   private RoundJsonConverter converter;
 
   @BeforeEach
-  void before(){
+  void before() {
     converter = new RoundJsonConverter();
   }
 
   @Test
-  void testToJsonObject_empty(){
+  void testToJsonObject_empty() {
     String expected = "{\"id\":null,\"qualified\":0,\"position\":null,\"system\":\"DOUBLE_ELIMINATION\"}";
 
     Round round = new Round();
@@ -38,7 +38,7 @@ class RoundJsonConverterTest {
   }
 
   @Test
-  void testToJsonObject_full(){
+  void testToJsonObject_full() {
     String expected = "{\"id\":1,\"qualified\":4,\"position\":1,\"system\":\"DOUBLE_ELIMINATION\"}";
 
     Round round = new Round();
@@ -53,7 +53,7 @@ class RoundJsonConverterTest {
   }
 
   @Test
-  void testToJsonArray_empty(){
+  void testToJsonArray_empty() {
     String expected = "[]";
     List<Round> rounds = new ArrayList<>();
     String actual = converter.toJsonArray(rounds).toString();
@@ -62,8 +62,8 @@ class RoundJsonConverterTest {
   }
 
   @Test
-  void testToJsonArray_full(){
-    String expected = "["+
+  void testToJsonArray_full() {
+    String expected = "[" +
       "{\"id\":1,\"qualified\":4,\"position\":1,\"system\":\"ROUND_ROBIN\"}," +
       "{\"id\":2,\"qualified\":2,\"position\":2,\"system\":null}" +
       "]";
@@ -90,7 +90,7 @@ class RoundJsonConverterTest {
   }
 
   @Test
-  void testToModel_withValues(){
+  void testToModel_withValues() {
     String jsonString = "{\"id\":1,\"qualified\":4,\"position\":1,\"system\":\"SINGLE_ELIMINATION\"}";
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonObject jsonObject = jsonReader.readObject();
@@ -106,7 +106,7 @@ class RoundJsonConverterTest {
   }
 
   @Test
-  void testToModel_withNullValues(){
+  void testToModel_withNullValues() {
     String jsonString = "{\"id\":null,\"qualified\":null,\"position\":null,\"system\":null}";
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonObject jsonObject = jsonReader.readObject();

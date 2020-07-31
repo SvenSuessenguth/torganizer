@@ -3,6 +3,18 @@ package org.cc.torganizer.core.entities;
 public abstract class Restriction extends Entity {
 
   /**
+   * Gibt an, ob es f\u00fcr den \u00fcbergebenen Opponent eine Restriktion
+   * gibt, die eine Teilnahme verbietet.
+   *
+   * @param opponent Opponent, der gepr\u00fcft werden soll.
+   * @return <code>true</code>, wenn die Restriktionsregel erf\u00fcllt ist,
+   * sonst <code>false</code>
+   */
+  public abstract boolean isRestricted(Opponent opponent);
+
+  public abstract Discriminator getDiscriminator();
+
+  /**
    * Discriminator with factory-methods for restrictions. This discriminator is
    * not used for JPA.
    */
@@ -32,12 +44,6 @@ public abstract class Restriction extends Entity {
       this.id = discriminator;
     }
 
-    public abstract Restriction create();
-
-    public String getId() {
-      return id;
-    }
-
     /**
      * getting the discriminator with the given <code>id</code>.
      */
@@ -50,17 +56,11 @@ public abstract class Restriction extends Entity {
 
       throw new IllegalArgumentException("no Restriction.Discriminator found for id '" + id + "'");
     }
+
+    public abstract Restriction create();
+
+    public String getId() {
+      return id;
+    }
   }
-
-  /**
-   * Gibt an, ob es f\u00fcr den \u00fcbergebenen Opponent eine Restriktion
-   * gibt, die eine Teilnahme verbietet.
-   *
-   * @param opponent Opponent, der gepr\u00fcft werden soll.
-   * @return <code>true</code>, wenn die Restriktionsregel erf\u00fcllt ist,
-   *     sonst <code>false</code>
-   */
-  public abstract boolean isRestricted(Opponent opponent);
-
-  public abstract Discriminator getDiscriminator();
 }

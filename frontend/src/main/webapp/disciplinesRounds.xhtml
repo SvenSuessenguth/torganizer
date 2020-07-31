@@ -5,59 +5,116 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:tc="http://xmlns.jcp.org/jsf/composite/components">
 <h:head>
-    <title>.</title>
+  <title>.</title>
 </h:head>
 
 <ui:composition template="/WEB-INF/templates/template.xhtml">
-    <f:metadata>
-        <f:viewParam name="disciplineId" value="#{disciplinesState.discipline.id}"/>
-    </f:metadata>
+  <f:metadata>
+    <f:viewParam name="disciplineId" value="#{disciplinesState.discipline.id}"/>
+  </f:metadata>
 
-    <ui:define name="title">${i18nText.rounds}</ui:define>
+  <ui:define name="title">${i18nText.rounds}</ui:define>
 
-    <ui:define name="css">
-        <h:outputStylesheet name="css/layouts/rounds.css"/>
-    </ui:define>
+  <ui:define name="css">
+    <h:outputStylesheet name="css/layouts/rounds.css"/>
+  </ui:define>
 
-    <ui:define name="main">
-        <h:form id="roundsForm">
-            <c:set var="round" value="#{roundsState.round}"/>
+  <ui:define name="main">
+    <h:form id="roundsForm">
+      <c:set var="round" value="#{roundsState.round}"/>
 
-            <h:outputText value="#{i18nText.rounds} (#{disciplinesState.discipline.name})"/>
-            <br/>
+      <h:outputText value="#{i18nText.rounds} (#{disciplinesState.discipline.name})"/>
+      <br/>
 
-            <h:outputText value="#{i18nText.round}"/>
-            <h:commandLink value="&#9665;" title="prev"
-                           style="#{round.position lt 1 ? 'color:lightgray;' : 'color:black;'}"
-                           disabled="#{round.position lt 1}"
-                           action="#{showPreviousRound.execute}">
-                <f:ajax render="@form" immediate="true" execute="@this"/>
-            </h:commandLink>
-            <h:outputText value="#{roundsState.round.position}"/>
-            <h:commandLink value="&#9655;" title="next"
-                           style="#{roundsState.lastRound ? 'color:lightgray;' : 'color:black;'}"
-                           disabled="#{roundsState.lastRound}"
-                           action="#{showNextRound.execute}"/>
-            <br/>
-            System
-            <h:selectOneMenu id="roundsSystem" value="#{roundsState.round.system}">
-                <f:selectItems value="#{roundsState.systems}" var="system"
-                               itemValue="#{system}"
-                               itemLabel="#{i18nSystem[system]}"/>
-                <f:converter converterId="systemConverter"/>
-            </h:selectOneMenu>
-            <br/>
+      <h:outputText value="#{i18nText.round}"/>
+      <h:commandLink value="&#9665;" title="prev"
+                     style="#{round.position lt 1 ? 'color:lightgray;' : 'color:black;'}"
+                     disabled="#{round.position lt 1}"
+                     action="#{showPreviousRound.execute}">
+        <f:ajax render="@form" immediate="true" execute="@this"/>
+      </h:commandLink>
+      <h:outputText value="#{roundsState.round.position}"/>
+      <h:commandLink value="&#9655;" title="next"
+                     style="#{roundsState.lastRound ? 'color:lightgray;' : 'color:black;'}"
+                     disabled="#{roundsState.lastRound}"
+                     action="#{showNextRound.execute}"/>
+      <br/>
+      System
+      <h:selectOneMenu id="roundsSystem" value="#{roundsState.round.system}">
+        <f:selectItems value="#{roundsState.systems}" var="system"
+                       itemValue="#{system}"
+                       itemLabel="#{i18nSystem[system]}"/>
+        <f:converter converterId="systemConverter"/>
+      </h:selectOneMenu>
+      <br/>
 
-            Gruppen <h:inputText value="#{roundsState.newGroupsCount}"/>
-            <br/>
-            <h:commandButton value="#{i18nText.save}" action="#{saveRoundAction.execute()}"/>
-            <h:commandButton value="#{i18nText.delete}" action="#{deleteRoundAction.execute()}"/>
-            <h:commandButton value="#{i18nText.cancel}" action="#{cancelRoundAction.execute()}"/>
+      Gruppen <h:inputText value="#{roundsState.newGroupsCount}"/>
+      <br/>
+      <h:commandButton value="#{i18nText.save}" action="#{saveRoundAction.execute()}"/>
+      <h:commandButton value="#{i18nText.delete}" action="#{deleteRoundAction.execute()}"/>
+      <h:commandButton value="#{i18nText.cancel}" action="#{cancelRoundAction.execute()}"/>
 
+      <!--
+               | assignable opponents
+               +-->
+      <h:panelGroup id="assignableOpponents">
+        <h:outputText value="mögliche Kandiaten"/>
+        <h:dataTable value="#{disciplinesState.assignableOpponents}" var="opponent"
+                     rendered="#{not empty disciplinesState.discipline.id}">
+          <h:column>
+            <f:facet name="header">Vornamen</f:facet>
+            <tc:opponent id="firstName#{opponent.id}" opponent="#{opponent}" showFirstNames="true"
+                         selectOpponentAction="#{addOpponentToDiscipline}"/>
+          </h:column>
+          <h:column>
+            <f:facet name="header">Nachnamen</f:facet>
+            <tc:opponent id="lastName#{opponent.id}" opponent="#{opponent}" showLastNames="true"
+                         selectOpponentAction="#{addOpponentToDiscipline}"/>
+          </h:column>
+          <h:column>
+            <f:facet name="header">Vereine</f:facet>
+            <tc:opponent id="club#{opponent.id}" opponent="#{opponent}" showClubs="true"
+                         selectOpponentAction="#{addOpponentToDiscipline}"/>
+          </h:column>
+          <h:column rendered="#{facesContext.isProjectStage('Development')}">
+            <f:facet name="header">ID</f:facet>
+            <h:outputText value="#{opponent.id}"/>
+          </h:column>
+        </h:dataTable>
+      </h:panelGroup>
 
-        </h:form>
-    </ui:define>
+      <!--
+       | opponents
+       +-->
+      <h:panelGroup id="opponents">
+        <h:outputText value="Kandidaten"/>
+        <h:dataTable value="#{disciplinesState.discipline.opponents}" var="opponent"
+                     rendered="#{not empty disciplinesState.discipline.id}">
+          <h:column>
+            <f:facet name="header">Vornamen</f:facet>
+            <tc:opponent id="firstName#{opponent.id}" opponent="#{opponent}" showFirstNames="true"
+                         selectOpponentAction="#{removeOpponentFromDiscipline}"/>
+          </h:column>
+          <h:column>
+            <f:facet name="header">Nachnamen</f:facet>
+            <tc:opponent id="lastName#{opponent.id}" opponent="#{opponent}" showLastNames="true"
+                         selectOpponentAction="#{removeOpponentFromDiscipline}"/>
+          </h:column>
+          <h:column>
+            <f:facet name="header">Vereine</f:facet>
+            <tc:opponent id="club#{opponent.id}" opponent="#{opponent}" showClubs="true"
+                         selectOpponentAction="#{removeOpponentFromDiscipline}"/>
+          </h:column>
+          <h:column rendered="#{facesContext.isProjectStage('Development')}">
+            <f:facet name="header">ID</f:facet>
+            <h:outputText value="#{opponent.id}"/>
+          </h:column>
+        </h:dataTable>
+      </h:panelGroup>
+    </h:form>
+  </ui:define>
 </ui:composition>
 </html>

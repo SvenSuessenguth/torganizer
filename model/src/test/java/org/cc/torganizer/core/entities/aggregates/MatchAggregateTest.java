@@ -1,28 +1,24 @@
 package org.cc.torganizer.core.entities.aggregates;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.cc.torganizer.core.entities.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import org.cc.torganizer.core.entities.Match;
-import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.Person;
-import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.core.entities.Result;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class MatchAggregateTest {
 
   private MatchAggregate matchAggregate;
 
   @BeforeEach
-  void before(){
+  void before() {
     matchAggregate = new MatchAggregate();
   }
 
   @Test
-  void testDraw(){
+  void testDraw() {
     Opponent home = new Player(new Person("1", "1"));
     Opponent guest = new Player(new Person("2", "2"));
 
@@ -36,7 +32,7 @@ class MatchAggregateTest {
   }
 
   @Test
-  void testHomeWins(){
+  void testHomeWins() {
     Opponent home = new Player(new Person("1", "1"));
     Opponent guest = new Player(new Person("2", "2"));
 

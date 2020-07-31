@@ -1,8 +1,8 @@
 package org.cc.torganizer.core.util;
 
-import static java.lang.Boolean.TRUE;
-
 import java.util.List;
+
+import static java.lang.Boolean.TRUE;
 
 /**
  * Hilfsmethoden zu Listen und Arrays.
@@ -14,28 +14,6 @@ public class Checker {
    */
   public Checker() {
     // gem. Bean-Spec.
-  }
-
-  /**
-   * Pr\u00fcfen, ob die Inhalte der beiden Listen gleich sind. Dabei wird die
-   * Reihenfolge der Elemente nicht ber\u00fccksichtigt.
-   *
-   * @param list0 Liste eins
-   * @param list1 Liste zwei
-   * @return <code>true</code>, wenn die Inhalte gleich sind, sonst
-   *     <code>false</code>
-   */
-  public boolean equals(List<?> list0, List<?> list1) {
-    boolean equals = true;
-
-    if (!list0.containsAll(list1)) {
-      equals = false;
-    }
-    if (!list1.containsAll(list0)) {
-      equals = false;
-    }
-
-    return equals;
   }
 
   /**
@@ -79,7 +57,7 @@ public class Checker {
    * @return <code>true</code>, wenn kein Objekt null ist, sonst <code>false</code>
    */
   public static boolean isNoNullValue(Object... objects) {
-    // es muss mindestens ein Objekt uebergeben werden 
+    // es muss mindestens ein Objekt uebergeben werden
     if (objects == null || objects.length == 0) {
       return true;
     }
@@ -90,5 +68,27 @@ public class Checker {
       }
     }
     return true;
+  }
+
+  /**
+   * Pr\u00fcfen, ob die Inhalte der beiden Listen gleich sind. Dabei wird die
+   * Reihenfolge der Elemente nicht ber\u00fccksichtigt.
+   *
+   * @param list0 Liste eins
+   * @param list1 Liste zwei
+   * @return <code>true</code>, wenn die Inhalte gleich sind, sonst
+   * <code>false</code>
+   */
+  public boolean equals(List<?> list0, List<?> list1) {
+    boolean equals = true;
+
+    if (!list0.containsAll(list1)) {
+      equals = false;
+    }
+    if (!list1.containsAll(list0)) {
+      equals = false;
+    }
+
+    return equals;
   }
 }

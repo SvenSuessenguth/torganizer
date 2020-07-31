@@ -1,13 +1,11 @@
 package org.cc.torganizer.core.singleelimination;
 
+import org.cc.torganizer.core.PendingMatchDetector;
+import org.cc.torganizer.core.entities.System;
+import org.cc.torganizer.core.entities.*;
+
 import java.util.ArrayList;
 import java.util.List;
-import org.cc.torganizer.core.PendingMatchDetector;
-import org.cc.torganizer.core.entities.Group;
-import org.cc.torganizer.core.entities.Match;
-import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.System;
-import org.cc.torganizer.core.entities.Unknown;
 
 /**
  * In der ersten Spalte stehen die Indizes der Opponents, anschliessend die der
@@ -165,7 +163,7 @@ public class SingleEliminationMatchDetector implements PendingMatchDetector {
    * @param matchIndex Index des gesuchten Matches
    * @param matches    Liste der Matches, in der gesucht werden soll.
    * @return vorhandenes Match mit dem geforderten Index oder neues Match mit
-   *     unbekannten Opponents
+   * unbekannten Opponents
    */
   private Match getUpperBracketsMatch(int matchIndex, List<Match> matches, Group group) {
 
@@ -225,7 +223,7 @@ public class SingleEliminationMatchDetector implements PendingMatchDetector {
    *
    * @param level Level, zu dem die Loser gefunden werden sollen.
    * @return Liste der Loser. Diese Liste enthaelt auch NULL-Values, wenn ein
-   *     Match unbekannt ist oder noch nicht abgeschlossen ist.
+   * Match unbekannt ist oder noch nicht abgeschlossen ist.
    */
   protected final List<Opponent> getUpperBracketLosersOnLevel(int level, Group group) {
     List<Opponent> losersOnLevel = new ArrayList<>();

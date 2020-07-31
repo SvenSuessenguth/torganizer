@@ -1,10 +1,11 @@
 package org.cc.torganizer.core;
 
-import java.util.Objects;
+import org.cc.torganizer.core.entities.System;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
-import org.cc.torganizer.core.entities.System;
+import java.util.Objects;
 
 /**
  * Factory class to find the {@link PendingMatchDetector} to a given {@link System}.

@@ -1,11 +1,8 @@
 package org.cc.torganizer.core.entities;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 import org.cc.torganizer.core.comparators.PositionalComparator;
+
+import java.util.*;
 
 /**
  * Runde in einer Disziplin. Alle Runden m\u00fcssen in einer definierten
@@ -64,6 +61,10 @@ public class Round extends Entity implements IPositional {
     return Collections.unmodifiableList(groups);
   }
 
+  public void setGroups(List<Group> newGroups) {
+    this.groups = newGroups;
+  }
+
   /**
    * Lesen der Group an der Stelle mit der geforderten Position aus der List aller
    * Groups.
@@ -98,10 +99,6 @@ public class Round extends Entity implements IPositional {
 
   public Set<Opponent> getQualifiedOpponents() {
     return Collections.emptySet();
-  }
-
-  public void setGroups(List<Group> newGroups) {
-    this.groups = newGroups;
   }
 
   public System getSystem() {

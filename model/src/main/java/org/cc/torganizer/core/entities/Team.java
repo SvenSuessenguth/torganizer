@@ -11,7 +11,9 @@ import java.util.Set;
  */
 public class Team extends Opponent {
 
-  /** Ersatz f\u00fcr null-Values. */
+  /**
+   * Ersatz f\u00fcr null-Values.
+   */
   public static final Team NONE = new Team();
 
   /**

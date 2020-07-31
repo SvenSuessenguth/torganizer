@@ -14,7 +14,7 @@ public final class MathUtil {
 
   /**
    * Finden der n\u00e4chsten Zweier-Potenz, die ueber dem gegebenen Wert liegt.
-   * 
+   *
    * @param value Wert, zu dem die naechste Zweierpotenz gesucht wird.
    * @return N\u00e4chste Zweier-Potenz.
    */

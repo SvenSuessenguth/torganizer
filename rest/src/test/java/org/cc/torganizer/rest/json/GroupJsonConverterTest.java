@@ -131,16 +131,16 @@ class GroupJsonConverterTest {
   }
 
   @Test
-  void addOpponents(){
+  void addOpponents() {
     String jsonGroupString = "{\"id\":1,\"position\":1}";
     JsonReader jsonGroupReader = Json.createReader(new StringReader(jsonGroupString));
     JsonObject jsonGroup = jsonGroupReader.readObject();
 
     String jsonPlayerString = "[{\"id\":null,\"lastMatch\":null,\"status\":\"ACTIVE\","
-        + "\"person\":{"
-        + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
-        + "\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
-        + "\"club\":{\"id\":null,\"name\":null}}]";
+      + "\"person\":{"
+      + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
+      + "\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
+      + "\"club\":{\"id\":null,\"name\":null}}]";
     JsonReader jsonPlayerReader = Json.createReader(new StringReader(jsonPlayerString));
     JsonArray jsonPlayers = jsonPlayerReader.readArray();
 
@@ -157,7 +157,7 @@ class GroupJsonConverterTest {
   }
 
   @Test
-  void testAddOpponents_emptyCollection(){
+  void testAddOpponents_emptyCollection() {
     String jsonGroupString = "{\"id\":1,\"position\":1}";
     JsonReader jsonGroupReader = Json.createReader(new StringReader(jsonGroupString));
     JsonObject jsonGroup = jsonGroupReader.readObject();

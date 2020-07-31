@@ -1,12 +1,12 @@
 package org.cc.torganizer.core.entities;
 
-import static java.util.Collections.unmodifiableList;
-
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import static java.util.Collections.unmodifiableList;
 
 
 /**
@@ -71,6 +71,20 @@ public class Match extends Entity implements IPositional {
   }
 
   /**
+   * Null-Safe-Variante.
+   *
+   * @param match Match, dessen Winner gesucht wird.
+   * @return Winner oder NULL
+   */
+  public static Opponent getWinner(Match match) {
+    if (match != null) {
+      return match.getWinner();
+    }
+
+    return null;
+  }
+
+  /**
    * <p>
    * Getter for the field <code>results</code>.
    * </p>
@@ -95,25 +109,11 @@ public class Match extends Entity implements IPositional {
   }
 
   /**
-   * Null-Safe-Variante.
-   *
-   * @param match Match, dessen Winner gesucht wird.
-   * @return Winner oder NULL
-   */
-  public static Opponent getWinner(Match match) {
-    if (match != null) {
-      return match.getWinner();
-    }
-
-    return null;
-  }
-
-  /**
    * Der Opponent, der die meisten Results f\u00fcr sich entscheiden konnte, ist
    * Winner.
    *
    * @return Gweinner des Matches bzw. Unknown bei einem Unentschieden
-   *     oder wenn das Spiel noch nicht beendet wurde.
+   * oder wenn das Spiel noch nicht beendet wurde.
    */
   public Opponent getWinner() {
     if (!isFinished()) {
@@ -175,12 +175,12 @@ public class Match extends Entity implements IPositional {
     return finishedTime;
   }
 
-  public boolean isFinished() {
-    return getFinishedTime() != null;
-  }
-
   public void setFinishedTime(LocalDateTime finishedTime) {
     this.finishedTime = finishedTime;
+  }
+
+  public boolean isFinished() {
+    return getFinishedTime() != null;
   }
 
   /**
@@ -239,7 +239,7 @@ public class Match extends Entity implements IPositional {
    *
    * @param otherMatch Das Match, mit dem die Opponents/Players verglichen werden sollen.
    * @return <code>true</code>, wenn mindestens ein Player in beiden Matche
-   *     mitspielt, sonst <code>false</code>
+   * mitspielt, sonst <code>false</code>
    */
   public boolean isSharingPlayer(Match otherMatch) {
     for (Opponent opponent : this.getOpponents()) {
@@ -257,7 +257,7 @@ public class Match extends Entity implements IPositional {
    *
    * @param player Player, der geprueft werden soll.
    * @return <code>true</code>, wenn der Player an diesem Match teilnimmt, sonst
-   *     <code>false</code>
+   * <code>false</code>
    */
   protected boolean isParticipant(Player player) {
     for (Opponent o : this.getOpponents()) {
@@ -292,7 +292,7 @@ public class Match extends Entity implements IPositional {
    * teilnehmen.
    *
    * @return Durchschnittliche Wartezeit der Player, die an dem uebergebenen Match
-   *     teilnehmen
+   * teilnehmen
    */
   public Long getIdleTime() {
 

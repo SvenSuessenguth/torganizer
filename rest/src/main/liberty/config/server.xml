@@ -11,42 +11,42 @@
   <!--
    | CWWJP9991W    Thrown on startup, while dropping an non-existing table (@see persistence.xml)
    +-->
-  <logging hideMessage="CWWJP9991W" />
+  <logging hideMessage="CWWJP9991W"/>
 
   <!--
    | Ignore "IllegalStateException: The orb is not available"
    | https://www-01.ibm.com/support/docview.wss?uid=ibm10728669
    +-->
-  <httpEndpoint id="defaultHttpEndpoint" enabled="true" httpPort="9080" httpsPort="9443" host="*" />
+  <httpEndpoint id="defaultHttpEndpoint" enabled="true" httpPort="9080" httpsPort="9443" host="*"/>
 
   <!--
    | https://www.ibm.com/support/knowledgecenter/en/SSAW57_liberty/com.ibm.websphere.wlp.nd.multiplatform.doc/ae/rwlp_portnums.html 
    +-->
-  <wasJmsEndpoint wasJmsPort="7278" wasJmsSSLPort="7288" />
+  <wasJmsEndpoint wasJmsPort="7278" wasJmsSSLPort="7288"/>
 
   <!--
    | https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/twlp_mp_metrics_monitor.html
    +-->
-  <mpMetrics authentication="false" />
-  
+  <mpMetrics authentication="false"/>
+
   <!--
    | Automatically expand WAR files and EAR files
    +-->
-  <applicationManager autoExpand="true" />
+  <applicationManager autoExpand="true"/>
 
   <!--
    | https://stackoverflow.com/questions/15485239/websphere-liberty-profile-and-intellij-jmx-administration-should-be-enable
    +-->
-  <applicationMonitor updateTrigger="mbean" />
+  <applicationMonitor updateTrigger="mbean"/>
 
   <!--
    | CWWKS9660E: Das Element orb mit dem id-Attribut defaultOrb setzt eine Benutzerregistry voraus, aber auch nach 10 Sekunden war keine Benutzerregistry verfügbar.
    | https://www.ibm.com/support/knowledgecenter/SSD28V_9.0.0/com.ibm.websphere.wlp.core.doc/ae/twlp_sec_basic_registry.html
    +-->
   <basicRegistry id="basic" realm="customRealm">
-    <user name="admin" password="admin" />
+    <user name="admin" password="admin"/>
     <group name="admin">
-      <member name="admin" />
+      <member name="admin"/>
     </group>
   </basicRegistry>
 
@@ -55,17 +55,17 @@
    | https://stackoverflow.com/questions/56738237/how-to-enable-cors-set-up-for-liberty-server-which-is-installed-through-docker
    +-->
   <cors domain="/" allowedOrigins="*" allowedMethods="GET, DELETE, POST, PUT"
-    allowedHeaders="origin, content-type, accept, authorization, cache-control" maxAge="3600" />
+        allowedHeaders="origin, content-type, accept, authorization, cache-control" maxAge="3600"/>
 
   <!--
    | https://www.ibm.com/support/knowledgecenter/en/SS7K4U_liberty/com.ibm.websphere.wlp.zseries.doc/ae/twlp_dep_configuring_ds.html 
    | https://www.ibm.com/support/knowledgecenter/en/SSHS8R_7.1.0/com.ibm.worklight.deploy.doc/admin/t_configuring_liberty_profile_for_my_sql_manually.html
    +-->
   <library id="DataSourceLibrary">
-    <file name="${shared.resource.dir}/postgresql/postgresql-42.2.10.jar" />
+    <file name="${shared.resource.dir}/postgresql/postgresql-42.2.10.jar"/>
   </library>
   <dataSource jndiName="jdbc/torganizerDS" transactional="true">
-    <jdbcDriver libraryRef="DataSourceLibrary" />
+    <jdbcDriver libraryRef="DataSourceLibrary"/>
     <!--
      |                          | postgresql     | mysql
      | ___________________________________________________________
@@ -75,8 +75,8 @@
      | dataSource.password      | postgres       | root
      +-->
     <properties databaseName="torganizer"
-      serverName="${env.dataSource_serverName}" portNumber="${env.dataSource_portNumber}"
-      user="${env.dataSource_user}" password="${env.dataSource_password}" />
+                serverName="${env.dataSource_serverName}" portNumber="${env.dataSource_portNumber}"
+                user="${env.dataSource_user}" password="${env.dataSource_password}"/>
   </dataSource>
 </server>
 

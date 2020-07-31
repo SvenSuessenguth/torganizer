@@ -45,7 +45,7 @@ class ConstraintViolationExceptionMapperTest {
 
     violations.add(violation);
 
-    JsonObject jsonObject = mapper.toJsonObject(violations);    
+    JsonObject jsonObject = mapper.toJsonObject(violations);
 
     String actual = jsonObject.toString();
     String expected = "{\"violations-count\":1," +

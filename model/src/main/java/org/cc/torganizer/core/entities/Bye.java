@@ -17,11 +17,6 @@ public class Bye extends Opponent {
     // gem. Bean-Spec.
   }
 
-  @Override
-  public Set<Player> getPlayers() {
-    return Collections.emptySet();
-  }
-
   /**
    * Hilfsmethode zur Erzeugung einer Liste von Freilosen, die eine Assoziation
    * zum Turnier halten.
@@ -39,6 +34,11 @@ public class Bye extends Opponent {
     }
 
     return byes;
+  }
+
+  @Override
+  public Set<Player> getPlayers() {
+    return Collections.emptySet();
   }
 
   @Override

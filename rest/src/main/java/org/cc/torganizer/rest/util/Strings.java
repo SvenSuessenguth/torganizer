@@ -8,7 +8,7 @@ public class Strings {
   /**
    * Utility class constructor.
    */
-  private Strings(){
+  private Strings() {
     // do not instantiate...
   }
 

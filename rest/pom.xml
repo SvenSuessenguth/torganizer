@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <parent>
     <groupId>org.cc.torganizer</groupId>
@@ -22,12 +22,16 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.cc.torganizer</groupId><artifactId>model</artifactId>
-      <version>${project.version}</version><scope>compile</scope>
+      <groupId>org.cc.torganizer</groupId>
+      <artifactId>model</artifactId>
+      <version>${project.version}</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>org.cc.torganizer</groupId><artifactId>persistence</artifactId>
-      <version>${project.version}</version><scope>compile</scope>
+      <groupId>org.cc.torganizer</groupId>
+      <artifactId>persistence</artifactId>
+      <version>${project.version}</version>
+      <scope>compile</scope>
     </dependency>
 
     <!--
@@ -35,8 +39,10 @@
      | https://javaee.github.io/jsonp/getting-started.html 
      +-->
     <dependency>
-      <groupId>org.glassfish</groupId><artifactId>jakarta.json</artifactId>
-      <version>${jakarta.json.version}</version><scope>test</scope>
+      <groupId>org.glassfish</groupId>
+      <artifactId>jakarta.json</artifactId>
+      <version>${jakarta.json.version}</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 

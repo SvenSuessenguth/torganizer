@@ -1,22 +1,18 @@
 package org.cc.torganizer.rest;
 
-import java.util.HashMap;
-import java.util.Set;
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonBuilderFactory;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
+import javax.json.*;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
+import java.util.HashMap;
+import java.util.Set;
 
 @Provider
 public class ConstraintViolationExceptionMapper
-    implements ExceptionMapper<ConstraintViolationException> {
+  implements ExceptionMapper<ConstraintViolationException> {
 
   @Override
   public Response toResponse(ConstraintViolationException e) {
@@ -25,10 +21,10 @@ public class ConstraintViolationExceptionMapper
     JsonObject jsonObject = toJsonObject(violations);
 
     return Response
-        .status(Response.Status.BAD_REQUEST)
-        .entity(jsonObject)
-        .type(MediaType.APPLICATION_JSON)
-        .build();
+      .status(Response.Status.BAD_REQUEST)
+      .entity(jsonObject)
+      .type(MediaType.APPLICATION_JSON)
+      .build();
   }
 
   protected JsonObject toJsonObject(Set<ConstraintViolation<?>> constraintViolations) {
@@ -38,12 +34,12 @@ public class ConstraintViolationExceptionMapper
 
     JsonArrayBuilder arrayBuilder = factory.createArrayBuilder();
     constraintViolations
-        .stream()
-        .map(violation -> Json.createObjectBuilder()
-            .add("message", violation.getMessage())
-            .add("propertyPath", violation.getPropertyPath().toString())
-            .add("invalidValue", violation.getInvalidValue().toString()))
-        .forEach(arrayBuilder::add);
+      .stream()
+      .map(violation -> Json.createObjectBuilder()
+        .add("message", violation.getMessage())
+        .add("propertyPath", violation.getPropertyPath().toString())
+        .add("invalidValue", violation.getInvalidValue().toString()))
+      .forEach(arrayBuilder::add);
 
     objectBuilder.add("violations", arrayBuilder);
 

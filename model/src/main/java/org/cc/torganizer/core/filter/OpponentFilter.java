@@ -1,10 +1,11 @@
 package org.cc.torganizer.core.filter;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Restriction;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Filtering Opponents.

@@ -1,9 +1,10 @@
 package org.cc.torganizer.rest.json;
 
-import java.util.Collection;
+import org.cc.torganizer.core.entities.Entity;
+
 import javax.json.JsonArray;
 import javax.json.JsonObject;
-import org.cc.torganizer.core.entities.Entity;
+import java.util.Collection;
 
 public interface ModelJsonConverter<T extends Entity> {
   JsonObject toJsonObject(T t);

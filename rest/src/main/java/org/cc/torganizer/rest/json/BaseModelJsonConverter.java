@@ -1,5 +1,8 @@
 package org.cc.torganizer.rest.json;
 
+import org.cc.torganizer.core.entities.Entity;
+
+import javax.json.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -8,20 +11,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Objects;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonNumber;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonString;
-import javax.json.JsonValue;
-import org.cc.torganizer.core.entities.Entity;
 
 /**
  * Base-Class to convert model-entities from/to json.
  */
 public abstract class BaseModelJsonConverter<T extends Entity> implements ModelJsonConverter<T> {
+
+  public static final JsonArray emptyArray() {
+    JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+    return arrayBuilder.build();
+  }
 
   /**
    * This method use the attribute 'id' from the jsonObject to find the proper entity-object
@@ -46,7 +45,7 @@ public abstract class BaseModelJsonConverter<T extends Entity> implements ModelJ
 
       return (T) typeClass.getConstructor().newInstance();
     } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
-        | InvocationTargetException | IllegalAccessException exc) {
+      | InvocationTargetException | IllegalAccessException exc) {
       throw new ModelJsonConverterException(exc);
     }
   }
@@ -159,10 +158,5 @@ public abstract class BaseModelJsonConverter<T extends Entity> implements ModelJ
     }
 
     return null;
-  }
-
-  public static final JsonArray emptyArray() {
-    JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-    return arrayBuilder.build();
   }
 }

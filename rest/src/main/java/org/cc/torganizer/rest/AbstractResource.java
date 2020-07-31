@@ -10,7 +10,7 @@ public abstract class AbstractResource {
    * Startposition der Menge aller ausgegebenen Datensätze, wenn nichts anderes angegeben.
    */
   protected static final int DEFAULT_OFFSET = 0;
-  
+
   protected AbstractResource() {
     // Utility classes, which are collections of static members, are not meant to be instantiated. 
     // Even abstract utility classes, which can be extended, should not have public constructors.

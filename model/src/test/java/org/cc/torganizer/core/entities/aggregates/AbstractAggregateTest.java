@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class AbstractAggregateTest {
-  
+
   private AbstractAggregate aa;
 
   @BeforeEach
@@ -22,22 +22,22 @@ class AbstractAggregateTest {
     Match m = new Match();
     m.addResult(new Result(0, 1, 2));
     aa.aggregate(m, null);
-    
+
     double ratio = aa.getRatio();
-    
+
     assertThat(ratio).isEqualTo(0.0);
   }
-  
+
   @Test
   void testGetRatio_keinresult() {
     // kein Result
     Match m = new Match();
     aa.aggregate(m, null);
     double ratio = aa.getRatio();
-    
+
     assertThat(ratio).isEqualTo(0.0);
   }
-  
+
   @Test
   void testGetRatio_doppeltSoVieleVerlorenWieGewonnen() {
     // 1 von 3 gewonnen
@@ -47,7 +47,7 @@ class AbstractAggregateTest {
     m.addResult(new Result(2, 1, 0));
     aa.aggregate(m, null);
     double ratio = aa.getRatio();
-    
-    assertThat(ratio).isEqualTo(1/3.0);
+
+    assertThat(ratio).isEqualTo(1 / 3.0);
   }
 }

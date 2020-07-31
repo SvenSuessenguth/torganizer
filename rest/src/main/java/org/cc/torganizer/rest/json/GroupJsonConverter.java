@@ -1,25 +1,19 @@
 package org.cc.torganizer.rest.json;
 
-import java.util.Collection;
-import java.util.HashMap;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonBuilderFactory;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonPatch;
-import javax.json.JsonValue;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
+
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.json.*;
+import java.util.Collection;
+import java.util.HashMap;
 
 @RequestScoped
 public class GroupJsonConverter extends BaseModelJsonConverter<Group> {
 
   private static final JsonArray EMPTY_OPPONENT_ARRAY = Json.createBuilderFactory(new HashMap<>())
-      .createArrayBuilder().build();
+    .createArrayBuilder().build();
 
   @Inject
   private OpponentJsonConverterProvider opponentJsonConverterProvider;
@@ -73,14 +67,14 @@ public class GroupJsonConverter extends BaseModelJsonConverter<Group> {
    */
   public JsonObject addOpponents(JsonObject groupJson, Collection<Opponent> opponents) {
     BaseModelJsonConverter<Opponent> converter = opponentJsonConverterProvider
-        .getConverter(opponents);
+      .getConverter(opponents);
     JsonArray opponentsJsonArray = converter == null
-        ? EMPTY_OPPONENT_ARRAY
-        : converter.toJsonArray(opponents);
+      ? EMPTY_OPPONENT_ARRAY
+      : converter.toJsonArray(opponents);
 
     JsonPatch patch = Json.createPatchBuilder()
-        .add("/opponents", opponentsJsonArray)
-        .build();
+      .add("/opponents", opponentsJsonArray)
+      .build();
 
     return patch.apply(groupJson);
   }

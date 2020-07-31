@@ -1,8 +1,9 @@
 package org.cc.torganizer.core.entities;
 
+import org.cc.torganizer.core.comparators.PositionalComparator;
+
 import java.util.ArrayList;
 import java.util.List;
-import org.cc.torganizer.core.comparators.PositionalComparator;
 
 /**
  * Eine Group sammelt Opponents zusammen. Innerhalb einer Group werden die
@@ -52,20 +53,6 @@ public class Group extends Entity implements IPositional {
   }
 
   /**
-   * Liste der Opponents, die zu dieser Group geh\u00f6ren wird neu gesetzt.
-   * Alte Inhalte werden dabei gel\u00f6scht.
-   *
-   * @param newOpponents Opponents, die der Group zugewiesen werden sollen.
-   */
-  public void setOpponents(List<Opponent> newOpponents) {
-    getPositionalOpponents().clear();
-    for (Opponent o : newOpponents) {
-      PositionalOpponent io = new PositionalOpponent(o, newOpponents.indexOf(o) + 1);
-      getPositionalOpponents().add(io);
-    }
-  }
-
-  /**
    * Lesen der Opponents, die dieser Group zugewiesen sind. Die Liste
    * enth\u00e4lt die Opponents in der durch die Position  vorgegebenen Reihenfolge.
    *
@@ -80,6 +67,20 @@ public class Group extends Entity implements IPositional {
     }
 
     return result;
+  }
+
+  /**
+   * Liste der Opponents, die zu dieser Group geh\u00f6ren wird neu gesetzt.
+   * Alte Inhalte werden dabei gel\u00f6scht.
+   *
+   * @param newOpponents Opponents, die der Group zugewiesen werden sollen.
+   */
+  public void setOpponents(List<Opponent> newOpponents) {
+    getPositionalOpponents().clear();
+    for (Opponent o : newOpponents) {
+      PositionalOpponent io = new PositionalOpponent(o, newOpponents.indexOf(o) + 1);
+      getPositionalOpponents().add(io);
+    }
   }
 
   /**
@@ -218,6 +219,17 @@ public class Group extends Entity implements IPositional {
   }
 
   /**
+   * <p>
+   * Setter for the field <code>matches</code>.
+   * </p>
+   *
+   * @param newMatches a {@link java.util.List} object.
+   */
+  public void setMatches(List<Match> newMatches) {
+    this.matches = newMatches;
+  }
+
+  /**
    * Liste aller laufenden Matches.
    *
    * @return Liste aller laufenden Matches
@@ -249,17 +261,6 @@ public class Group extends Entity implements IPositional {
     }
 
     return finishedMatches;
-  }
-
-  /**
-   * <p>
-   * Setter for the field <code>matches</code>.
-   * </p>
-   *
-   * @param newMatches a {@link java.util.List} object.
-   */
-  public void setMatches(List<Match> newMatches) {
-    this.matches = newMatches;
   }
 
   @Override

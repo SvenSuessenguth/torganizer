@@ -36,19 +36,6 @@ public enum OpponentType {
   }
 
   /**
-   * Gibt die ID zurueck.
-   *
-   * @return ID
-   */
-  public int toInt() {
-    return value;
-  }
-
-  public int getValue() {
-    return value;
-  }
-
-  /**
    * Gibt den OpponentType mit der angegebenen ID zurueck.
    *
    * @param value ID
@@ -78,6 +65,19 @@ public enum OpponentType {
     }
 
     return null;
+  }
+
+  /**
+   * Gibt die ID zurueck.
+   *
+   * @return ID
+   */
+  public int toInt() {
+    return value;
+  }
+
+  public int getValue() {
+    return value;
   }
 
   @Override

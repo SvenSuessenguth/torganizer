@@ -1,8 +1,9 @@
 package org.cc.torganizer.core.comparators;
 
+import org.cc.torganizer.core.entities.Match;
+
 import java.io.Serializable;
 import java.util.Comparator;
-import org.cc.torganizer.core.entities.Match;
 
 /**
  * Erm\u00F6glichen einer Sortierung, die fuer eine gleichmaessige Wartezeit der

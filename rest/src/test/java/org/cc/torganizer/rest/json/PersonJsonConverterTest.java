@@ -24,91 +24,90 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
 
 /**
- *
  * @author svens
  */
 class PersonJsonConverterTest {
-  
+
   private PersonJsonConverter converter;
-  
+
   @BeforeEach
   void setUp() {
     converter = new PersonJsonConverter();
   }
-  
+
   @Test
   void testToJsonObject_withNullValues() {
     String expected = "{\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}";
-    
+
     // id und dateOfBirth sind null
     // gender kann nicht null sein
     Person person = new Person("vorname", "nachname");
-    
+
     JsonObject result = converter.toJsonObject(person);
-    
+
     assertThat(result).isNotNull();
     assertThat(result.toString()).isEqualTo(expected);
   }
-  
+
   @Test
   void testToModelObject_withNullValues() {
     String jsonString = "{\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
-            + "\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}";
+      + "\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}";
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
-    JsonObject jsonObject = jsonReader.readObject();     
-    
+    JsonObject jsonObject = jsonReader.readObject();
+
     Person person = converter.toModel(jsonObject, new Person());
-    
+
     assertThat(person.getDateOfBirth()).isNull();
     assertThat(person.getGender()).isEqualTo(UNKNOWN);
     assertThat(person.getFirstName()).isEqualTo("vorname");
   }
-  
+
   @Test
-  void testToModel_withId(){
+  void testToModel_withId() {
     String jsonString = "{\"id\":0,\"firstName\":\"A\",\"lastName\":\"A\",\"dateOfBirth\":\"2017-12-25\",\"gender\":\"MALE\"}";
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
-    JsonObject jsonObject = jsonReader.readObject();     
-    
+    JsonObject jsonObject = jsonReader.readObject();
+
     Person person = converter.toModel(jsonObject, new Person(0L));
-    
+
     assertThat(person.getId()).isEqualTo(0L);
     assertThat(person.getDateOfBirth()).isEqualTo(LocalDate.of(2017, DECEMBER, 25));
   }
-  
+
   @Test
   void testToModelObjects() {
     String jsonString = "["
-            + "{\"id\":1,\"firstName\":\"vornameA\",\"lastName\":\"nachnameA\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
-            + "{\"id\":2,\"firstName\":\"vornameB\",\"lastName\":\"nachnameB\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}"
-            + "]";
-    
+      + "{\"id\":1,\"firstName\":\"vornameA\",\"lastName\":\"nachnameA\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
+      + "{\"id\":2,\"firstName\":\"vornameB\",\"lastName\":\"nachnameB\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}"
+      + "]";
+
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonArray jsonArray = jsonReader.readArray();
     Collection<Person> persons = Arrays.asList(new Person(1L), new Person(2L));
-    
-    
+
+
     persons = converter.toModels(jsonArray, persons);
-    
+
     assertThat(persons).isNotNull();
     assertThat(persons).hasSize(2);
   }
-  
+
   @Test
   void testToJsonObject_multiplePersons() {
     String expected = "["
-            + "{\"id\":null,\"firstName\":\"vornameA\",\"lastName\":\"nachnameA\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
-            + "{\"id\":null,\"firstName\":\"vornameB\",\"lastName\":\"nachnameB\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}"
-            + "]";
-    
+      + "{\"id\":null,\"firstName\":\"vornameA\",\"lastName\":\"nachnameA\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
+      + "{\"id\":null,\"firstName\":\"vornameB\",\"lastName\":\"nachnameB\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"}"
+      + "]";
+
     // id und dateOfBirth sind null
     // gender kann nicht null sein
     Person personA = new Person("vornameA", "nachnameA");
     Person personB = new Person("vornameB", "nachnameB");
     List<Person> persons = Arrays.asList(personA, personB);
-    
+
     final JsonArray result = converter.toJsonArray(persons);
-    
+
     assertThat(result).isNotNull();
     assertThat(result.toString()).isEqualTo(expected);
   }

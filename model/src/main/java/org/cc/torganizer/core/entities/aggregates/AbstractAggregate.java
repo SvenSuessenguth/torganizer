@@ -13,7 +13,7 @@ public abstract class AbstractAggregate {
 
   /**
    * Ermittelt das Verhaeltnis zwischen gewonnen und verloren.
-   * 
+   *
    * @return Verhaeltniswert
    */
   public Double getRatio() {
@@ -30,7 +30,7 @@ public abstract class AbstractAggregate {
 
   /**
    * Erhoehen der gewonnenen.
-   * 
+   *
    * @param i Inkrement
    */
   void increaseWins(int i) {
@@ -43,7 +43,7 @@ public abstract class AbstractAggregate {
 
   /**
    * Erhoehen der verlorenen.
-   * 
+   *
    * @param i Inkrement
    */
   void increaseLose(int i) {
@@ -70,8 +70,8 @@ public abstract class AbstractAggregate {
 
   /**
    * Aggregieren der Daten zu einem Opponent und einem Match.
-   * 
-   * @param match Match, dessen Daten aggregiert werden sollen.
+   *
+   * @param match    Match, dessen Daten aggregiert werden sollen.
    * @param opponent Opponent, dessen Daten aggregiert werden sollen.
    */
   abstract void aggregate(Match match, Opponent opponent);

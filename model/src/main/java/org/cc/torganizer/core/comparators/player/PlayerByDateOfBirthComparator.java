@@ -1,11 +1,12 @@
 package org.cc.torganizer.core.comparators.player;
 
-import static org.cc.torganizer.core.comparators.player.PlayerOrder.BY_DATE_OF_BIRTH;
+import org.cc.torganizer.core.entities.Player;
 
+import javax.enterprise.context.RequestScoped;
 import java.time.LocalDate;
 import java.util.Objects;
-import javax.enterprise.context.RequestScoped;
-import org.cc.torganizer.core.entities.Player;
+
+import static org.cc.torganizer.core.comparators.player.PlayerOrder.BY_DATE_OF_BIRTH;
 
 @RequestScoped
 public class PlayerByDateOfBirthComparator implements PlayerComparator {

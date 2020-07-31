@@ -1,8 +1,9 @@
 package org.cc.torganizer.core.builder;
 
-import java.time.LocalDate;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Player;
+
+import java.time.LocalDate;
 
 /**
  * Building players.

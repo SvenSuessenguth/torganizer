@@ -30,15 +30,6 @@ public enum Status {
   }
 
   /**
-   * Gibt die ID zurueck.
-   *
-   * @return ID
-   */
-  public int toInt() {
-    return value;
-  }
-
-  /**
    * Gibt den Status zu einer ID zurueck.
    *
    * @param value ID
@@ -53,6 +44,15 @@ public enum Status {
       default:
         return INACTIVE;
     }
+  }
+
+  /**
+   * Gibt die ID zurueck.
+   *
+   * @return ID
+   */
+  public int toInt() {
+    return value;
   }
 
   @Override

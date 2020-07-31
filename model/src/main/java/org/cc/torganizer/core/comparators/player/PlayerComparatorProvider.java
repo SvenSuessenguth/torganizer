@@ -1,9 +1,9 @@
 package org.cc.torganizer.core.comparators.player;
 
-import java.util.Objects;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
+import java.util.Objects;
 
 @RequestScoped
 public class PlayerComparatorProvider {

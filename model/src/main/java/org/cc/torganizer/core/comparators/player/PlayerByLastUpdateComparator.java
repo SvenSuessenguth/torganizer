@@ -1,10 +1,11 @@
 package org.cc.torganizer.core.comparators.player;
 
-import static org.cc.torganizer.core.comparators.player.PlayerOrder.BY_LAST_UPDATE;
-
-import java.util.Date;
-import javax.enterprise.context.RequestScoped;
 import org.cc.torganizer.core.entities.Player;
+
+import javax.enterprise.context.RequestScoped;
+import java.util.Date;
+
+import static org.cc.torganizer.core.comparators.player.PlayerOrder.BY_LAST_UPDATE;
 
 @RequestScoped
 public class PlayerByLastUpdateComparator implements PlayerComparator {
