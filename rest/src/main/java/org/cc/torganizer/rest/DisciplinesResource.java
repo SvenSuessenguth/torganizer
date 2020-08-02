@@ -1,7 +1,5 @@
 package org.cc.torganizer.rest;
 
-import static org.cc.torganizer.rest.json.BaseModelJsonConverter.emptyArray;
-
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -21,6 +19,7 @@ import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Restriction;
 import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.persistence.DisciplinesRepository;
+import org.cc.torganizer.rest.json.BaseModelJsonConverter;
 import org.cc.torganizer.rest.json.DisciplineJsonConverter;
 import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
 import org.cc.torganizer.rest.json.RestrictionJsonConverter;
@@ -136,7 +135,7 @@ public class DisciplinesResource extends AbstractResource {
 
     // all opponents must have same type (see opponentTypeRestriction)
     if (opponents.isEmpty()) {
-      return emptyArray();
+      return BaseModelJsonConverter.emptyArray();
     } else {
       BaseModelJsonConverter<Opponent> opponentConverter =
           opponentJsonConverterProvider.getConverter(opponents);

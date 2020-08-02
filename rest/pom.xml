@@ -23,12 +23,6 @@
   <dependencies>
     <dependency>
       <groupId>org.cc.torganizer</groupId>
-      <artifactId>model</artifactId>
-      <version>${project.version}</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.cc.torganizer</groupId>
       <artifactId>persistence</artifactId>
       <version>${project.version}</version>
       <scope>compile</scope>
