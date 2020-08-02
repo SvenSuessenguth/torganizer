@@ -1,17 +1,16 @@
 package org.cc.torganizer.rest;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import javax.json.JsonObject;
-import javax.validation.ConstraintViolation;
-import javax.validation.Path;
-import java.util.HashSet;
-import java.util.Set;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import java.util.HashSet;
+import java.util.Set;
+import javax.json.JsonObject;
+import javax.validation.ConstraintViolation;
+import javax.validation.Path;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class ConstraintViolationExceptionMapperTest {
 
@@ -49,9 +48,9 @@ class ConstraintViolationExceptionMapperTest {
 
     String actual = jsonObject.toString();
     String expected = "{\"violations-count\":1," +
-      "\"violations\":[" +
-      "{\"message\":\"message\",\"propertyPath\":\"propertyPath\",\"invalidValue\":\"invalidValue\"}" +
-      "]}";
+        "\"violations\":[" +
+        "{\"message\":\"message\",\"propertyPath\":\"propertyPath\",\"invalidValue\":\"invalidValue\"}" +
+        "]}";
 
     assertThat(actual).isEqualTo(expected);
   }

@@ -1,17 +1,21 @@
 package org.cc.torganizer.rest.json;
 
+import java.util.Collection;
+import java.util.HashMap;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonBuilderFactory;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import org.cc.torganizer.core.entities.OpponentType;
 import org.cc.torganizer.core.entities.Squad;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.json.*;
-import java.util.Collection;
-import java.util.HashMap;
-
 @RequestScoped
 public class SquadJsonConverter extends BaseModelJsonConverter<Squad>
-  implements OpponentJsonConverter {
+    implements OpponentJsonConverter {
 
   @Inject
   private PlayerJsonConverter playerConverter;

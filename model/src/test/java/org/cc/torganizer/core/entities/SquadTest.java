@@ -5,24 +5,22 @@
  */
 package org.cc.torganizer.core.entities;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
 import java.util.Collection;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
- *
  * @author svens
  */
 class SquadTest {
-  
+
   private Squad squad;
-  
+
   @BeforeEach
-  void before(){
+  void before() {
     squad = new Squad();
   }
 
@@ -32,5 +30,5 @@ class SquadTest {
     squad.addPlayers(players);
 
     assertThat(squad.getPlayers()).hasSize(2);
-  }  
+  }
 }

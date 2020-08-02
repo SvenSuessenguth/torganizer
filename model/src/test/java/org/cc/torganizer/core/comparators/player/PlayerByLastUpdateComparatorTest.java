@@ -18,19 +18,6 @@ class PlayerByLastUpdateComparatorTest {
 
   PlayerByLastUpdateComparator comparator;
 
-  @BeforeEach
-  public void beforeEach() {
-    comparator = new PlayerByLastUpdateComparator();
-  }
-
-  @ParameterizedTest
-  @MethodSource("playerProvider")
-  public void test(Player player1, Player player2, int expectedCompare) {
-    int actualCompare = comparator.compare(player1, player2);
-
-    assertThat(actualCompare).isEqualTo(expectedCompare);
-  }
-
   static Stream<Arguments> playerProvider() throws ParseException {
     return Stream.of(
         arguments(newPlayerWithLastUpdate("01.01.2020"), newPlayerWithLastUpdate("01.01.2020"), 0),
@@ -53,5 +40,18 @@ class PlayerByLastUpdateComparatorTest {
     Player player = new Player("firstName", "lastName");
     player.setLastUpdate(lastUpdate);
     return player;
+  }
+
+  @BeforeEach
+  public void beforeEach() {
+    comparator = new PlayerByLastUpdateComparator();
+  }
+
+  @ParameterizedTest
+  @MethodSource("playerProvider")
+  public void test(Player player1, Player player2, int expectedCompare) {
+    int actualCompare = comparator.compare(player1, player2);
+
+    assertThat(actualCompare).isEqualTo(expectedCompare);
   }
 }

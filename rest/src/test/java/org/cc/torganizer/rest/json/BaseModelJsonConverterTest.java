@@ -5,21 +5,20 @@
  */
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.Entity;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static java.time.LocalDateTime.of;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Collection;
 import java.util.Collections;
-
-import static java.time.LocalDateTime.of;
-import static org.assertj.core.api.Assertions.assertThat;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import org.cc.torganizer.core.entities.Entity;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author svens
@@ -54,9 +53,9 @@ class BaseModelJsonConverterTest {
   @Test
   void testGetProper() {
     JsonObject jsonObject = Json
-      .createObjectBuilder()
-      .add("id", 1)
-      .build();
+        .createObjectBuilder()
+        .add("id", 1)
+        .build();
 
     Entity properModel = converter.getProperEntity(jsonObject, Collections.emptyList());
     assertThat(properModel).isNotNull();

@@ -16,19 +16,6 @@ class PlayerByClubComparatorTest {
 
   PlayerByClubComparator comparator;
 
-  @BeforeEach
-  public void beforeEach() {
-    comparator = new PlayerByClubComparator();
-  }
-
-  @ParameterizedTest
-  @MethodSource("playerProvider")
-  public void test(Player player1, Player player2, int expectedCompare) {
-    int actualCompare = comparator.compare(player1, player2);
-
-    assertThat(actualCompare).isEqualTo(expectedCompare);
-  }
-
   static Stream<Arguments> playerProvider() {
     return Stream.of(
         arguments(newPlayerWithClub("a"), newPlayerWithClub("b"), -1),
@@ -47,5 +34,18 @@ class PlayerByClubComparatorTest {
     player.setClub(club);
 
     return player;
+  }
+
+  @BeforeEach
+  public void beforeEach() {
+    comparator = new PlayerByClubComparator();
+  }
+
+  @ParameterizedTest
+  @MethodSource("playerProvider")
+  public void test(Player player1, Player player2, int expectedCompare) {
+    int actualCompare = comparator.compare(player1, player2);
+
+    assertThat(actualCompare).isEqualTo(expectedCompare);
   }
 }

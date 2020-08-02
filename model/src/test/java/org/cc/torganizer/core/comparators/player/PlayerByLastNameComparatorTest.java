@@ -14,6 +14,17 @@ import org.junit.jupiter.params.provider.MethodSource;
 class PlayerByLastNameComparatorTest {
   PlayerByLastNameComparator comparator;
 
+  static Stream<Arguments> playerProvider() throws ParseException {
+    return Stream.of(
+        arguments(new Player("", "ln"), new Player("", "ln"), 0),
+        arguments(new Player("", "ln1"), new Player("", "ln2"), -1),
+        arguments(new Player("", "ln2"), new Player("", "ln1"), 1),
+        arguments(new Player("", null), new Player("", null), 0),
+        arguments(new Player("", null), new Player("", "ln"), -1),
+        arguments(new Player("", "ln"), new Player("", null), 1)
+    );
+  }
+
   @BeforeEach
   public void beforeEach() {
     comparator = new PlayerByLastNameComparator();
@@ -25,16 +36,5 @@ class PlayerByLastNameComparatorTest {
     int actualCompare = comparator.compare(player1, player2);
 
     assertThat(actualCompare).isEqualTo(expectedCompare);
-  }
-
-  static Stream<Arguments> playerProvider() throws ParseException {
-    return Stream.of(
-        arguments(new Player("", "ln"), new Player("", "ln"), 0),
-        arguments(new Player("", "ln1"), new Player("", "ln2"), -1),
-        arguments(new Player("", "ln2"), new Player("", "ln1"), 1),
-        arguments(new Player("", null), new Player("", null), 0),
-        arguments(new Player("", null), new Player("", "ln"), -1),
-        arguments(new Player("", "ln"), new Player("", null), 1)
-    );
   }
 }

@@ -1,5 +1,30 @@
 package org.cc.torganizer.rest;
 
+import static java.lang.Integer.MAX_VALUE;
+import static org.cc.torganizer.rest.json.BaseModelJsonConverter.emptyArray;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonBuilderFactory;
+import javax.json.JsonNumber;
+import javax.json.JsonObject;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Response;
 import org.cc.torganizer.core.OpponentToGroupsAssigner;
 import org.cc.torganizer.core.OpponentToGroupsAssignerFactory;
 import org.cc.torganizer.core.entities.Group;
@@ -11,16 +36,6 @@ import org.cc.torganizer.rest.json.BaseModelJsonConverter;
 import org.cc.torganizer.rest.json.GroupJsonConverter;
 import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
 import org.cc.torganizer.rest.json.RoundJsonConverter;
-
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.json.*;
-import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
-import java.util.*;
-
-import static java.lang.Integer.MAX_VALUE;
-import static org.cc.torganizer.rest.json.BaseModelJsonConverter.emptyArray;
 
 @Stateless
 @Path("/rounds")
@@ -163,7 +178,7 @@ public class RoundsResource extends AbstractResource {
       result = emptyArray();
     } else {
       BaseModelJsonConverter<Opponent> opponentConverter =
-        opponentJsonConverterProvider.getConverter(opponents);
+          opponentJsonConverterProvider.getConverter(opponents);
       result = opponentConverter.toJsonArray(opponents);
     }
 

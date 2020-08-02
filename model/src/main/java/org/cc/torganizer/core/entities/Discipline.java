@@ -1,11 +1,18 @@
 package org.cc.torganizer.core.entities;
 
-import org.cc.torganizer.core.exceptions.RestrictionException;
-
-import java.util.*;
-
 import static java.util.Collections.unmodifiableList;
-import static org.cc.torganizer.core.entities.Restriction.Discriminator.*;
+import static org.cc.torganizer.core.entities.Restriction.Discriminator.AGE_RESTRICTION;
+import static org.cc.torganizer.core.entities.Restriction.Discriminator.GENDER_RESTRICTION;
+import static org.cc.torganizer.core.entities.Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import org.cc.torganizer.core.exceptions.RestrictionException;
 
 /**
  * Auszufuehrende Disziplin innerhalb eines Turnieres (z.B. HE-A)
@@ -59,7 +66,7 @@ public class Discipline extends Entity {
     for (Restriction restriction : restrictions) {
       if (restriction != null && restriction.isRestricted(opponent)) {
         throw new RestrictionException("violation with restriction "
-          + restriction.getClass().getName());
+            + restriction.getClass().getName());
       }
     }
 

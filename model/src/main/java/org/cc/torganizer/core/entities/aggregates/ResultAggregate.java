@@ -1,10 +1,9 @@
 package org.cc.torganizer.core.entities.aggregates;
 
+import java.util.Objects;
 import org.cc.torganizer.core.entities.Match;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Result;
-
-import java.util.Objects;
 
 /**
  * Aggregieren der gewonnenen und verlorenen Saetze (Results).

@@ -1,5 +1,10 @@
 package org.cc.torganizer.rest.json;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
+import static org.mockito.Mockito.when;
+
+import javax.json.JsonObject;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
@@ -10,12 +15,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import javax.json.JsonObject;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class PositionalOpponentJsonConverterTest {
@@ -45,16 +44,16 @@ class PositionalOpponentJsonConverterTest {
     PositionalOpponent po = new PositionalOpponent(player, position);
 
     String expected = "{\"id\":null," +
-      "\"lastMatch\":null," +
-      "\"status\":\"ACTIVE\"," +
-      "\"person\":{\"id\":null," +
-      "\"firstName\":\"vn\"," +
-      "\"lastName\":\"nn\"," +
-      "\"dateOfBirth\":null," +
-      "\"gender\":\"UNKNOWN\"}," +
-      "\"club\":{\"id\":null," +
-      "\"name\":null}," +
-      "\"position\":1}";
+        "\"lastMatch\":null," +
+        "\"status\":\"ACTIVE\"," +
+        "\"person\":{\"id\":null," +
+        "\"firstName\":\"vn\"," +
+        "\"lastName\":\"nn\"," +
+        "\"dateOfBirth\":null," +
+        "\"gender\":\"UNKNOWN\"}," +
+        "\"club\":{\"id\":null," +
+        "\"name\":null}," +
+        "\"position\":1}";
 
     JsonObject jsonObject = converter.toJsonObject(po);
 

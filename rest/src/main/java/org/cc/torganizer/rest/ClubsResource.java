@@ -1,15 +1,22 @@
 package org.cc.torganizer.rest;
 
-import org.cc.torganizer.core.entities.Club;
-import org.cc.torganizer.persistence.ClubsRepository;
-import org.cc.torganizer.rest.json.ClubJsonConverter;
-
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
-import javax.ws.rs.*;
-import java.util.List;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import org.cc.torganizer.core.entities.Club;
+import org.cc.torganizer.persistence.ClubsRepository;
+import org.cc.torganizer.rest.json.ClubJsonConverter;
 
 @Stateless
 @Path("/clubs")

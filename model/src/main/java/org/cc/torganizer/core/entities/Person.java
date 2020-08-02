@@ -1,8 +1,8 @@
 package org.cc.torganizer.core.entities;
 
-import java.time.LocalDate;
-
 import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
+
+import java.time.LocalDate;
 
 /**
  * A person represents an man or a woman with core data.

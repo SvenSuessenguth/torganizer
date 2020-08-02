@@ -1,14 +1,18 @@
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.PositionalOpponent;
-
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.json.*;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonBuilderFactory;
+import javax.json.JsonObject;
+import javax.json.JsonPatch;
+import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.PositionalOpponent;
 
 @RequestScoped
 public class PositionalOpponentJsonConverter extends BaseModelJsonConverter<PositionalOpponent> {
@@ -23,8 +27,8 @@ public class PositionalOpponentJsonConverter extends BaseModelJsonConverter<Posi
     JsonObject jsonObject = converter.toJsonObject(positionalOpponent.getOpponent());
 
     JsonPatch patch = Json.createPatchBuilder()
-      .add("/position", positionalOpponent.getPosition())
-      .build();
+        .add("/position", positionalOpponent.getPosition())
+        .build();
 
     return patch.apply(jsonObject);
   }

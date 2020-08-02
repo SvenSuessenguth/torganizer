@@ -1,13 +1,12 @@
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.OpponentType;
-
+import java.util.Collection;
+import java.util.Objects;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
-import java.util.Collection;
-import java.util.Objects;
+import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.OpponentType;
 
 @RequestScoped
 public class OpponentJsonConverterProvider {

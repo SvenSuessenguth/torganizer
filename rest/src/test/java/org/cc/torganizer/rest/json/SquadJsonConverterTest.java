@@ -1,20 +1,19 @@
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.core.entities.Squad;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
 import java.io.StringReader;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.core.entities.Squad;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author svens
@@ -34,11 +33,11 @@ class SquadJsonConverterTest {
   @Test
   void testToJsonObject() {
     String expected = "{\"id\":null,"
-      + "\"players\":["
-      + "{\"id\":null,\"lastMatch\":null,\"status\":\"ACTIVE\","
-      + "\"person\":{\"id\":null,\"firstName\":\"vorname_0\",\"lastName\":\"nachname_0\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
-      + "\"club\":{\"id\":null,\"name\":null}}"
-      + "]}";
+        + "\"players\":["
+        + "{\"id\":null,\"lastMatch\":null,\"status\":\"ACTIVE\","
+        + "\"person\":{\"id\":null,\"firstName\":\"vorname_0\",\"lastName\":\"nachname_0\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
+        + "\"club\":{\"id\":null,\"name\":null}}"
+        + "]}";
 
     Player player_0 = new Player("vorname_0", "nachname_0");
     Set<Player> players = Stream.of(player_0).collect(Collectors.toSet());
@@ -55,13 +54,13 @@ class SquadJsonConverterTest {
   void testToJsonArray() {
 
     String expected = "["
-      + "{\"id\":null,"
-      + "\"players\":["
-      + "{\"id\":null,\"lastMatch\":null,\"status\":\"ACTIVE\","
-      + "\"person\":{\"id\":null,\"firstName\":\"vorname_0\",\"lastName\":\"nachname_0\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
-      + "\"club\":{\"id\":null,\"name\":null}}"
-      + "]}"
-      + "]";
+        + "{\"id\":null,"
+        + "\"players\":["
+        + "{\"id\":null,\"lastMatch\":null,\"status\":\"ACTIVE\","
+        + "\"person\":{\"id\":null,\"firstName\":\"vorname_0\",\"lastName\":\"nachname_0\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
+        + "\"club\":{\"id\":null,\"name\":null}}"
+        + "]}"
+        + "]";
 
     Player player_0 = new Player("vorname_0", "nachname_0");
     Set<Player> players_0 = Stream.of(player_0).collect(Collectors.toSet());
@@ -78,11 +77,11 @@ class SquadJsonConverterTest {
   @Test
   void testToModel() {
     String jsonString = "{\"id\":1,"
-      + "\"players\":["
-      + "{\"id\":null,\"lastMatch\":null,\"status\":\"ACTIVE\","
-      + "\"person\":{\"id\":null,\"firstName\":\"vorname_0\",\"lastName\":\"nachname_0\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
-      + "\"club\":{\"id\":null,\"name\":null}}"
-      + "]}";
+        + "\"players\":["
+        + "{\"id\":null,\"lastMatch\":null,\"status\":\"ACTIVE\","
+        + "\"person\":{\"id\":null,\"firstName\":\"vorname_0\",\"lastName\":\"nachname_0\",\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
+        + "\"club\":{\"id\":null,\"name\":null}}"
+        + "]}";
 
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonObject jsonObject = jsonReader.readObject();

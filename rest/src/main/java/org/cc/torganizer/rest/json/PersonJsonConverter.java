@@ -1,14 +1,18 @@
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.Gender;
-import org.cc.torganizer.core.entities.Person;
-
-import javax.enterprise.context.RequestScoped;
-import javax.json.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashMap;
+import javax.enterprise.context.RequestScoped;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonBuilderFactory;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import org.cc.torganizer.core.entities.Gender;
+import org.cc.torganizer.core.entities.Person;
 
 @RequestScoped
 public class PersonJsonConverter extends BaseModelJsonConverter<Person> {
@@ -50,8 +54,8 @@ public class PersonJsonConverter extends BaseModelJsonConverter<Person> {
 
     String dateOfBirthString = get(jsonObject, "dateOfBirth");
     LocalDate dateOfBirth = dateOfBirthString == null || dateOfBirthString.trim().isEmpty()
-      ? null
-      : LocalDate.parse(dateOfBirthString, DateTimeFormatter.ISO_DATE);
+        ? null
+        : LocalDate.parse(dateOfBirthString, DateTimeFormatter.ISO_DATE);
     person.setDateOfBirth(dateOfBirth);
 
     return person;

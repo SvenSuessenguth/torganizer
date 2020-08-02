@@ -24,19 +24,19 @@ class PersonTest {
     );
   }
 
+  private static Person personFactory(Gender gender) {
+    Person person = new Person("firstName", "lastName");
+    person.setGender(gender);
+
+    return person;
+  }
+
   @ParameterizedTest
   @MethodSource("addMatch")
   void test(Person person, Gender gender, boolean expected) {
     boolean actual = person.fitsGender(gender);
 
     assertThat(actual).isEqualTo(expected);
-  }
-
-  private static Person personFactory(Gender gender) {
-    Person person = new Person("firstName", "lastName");
-    person.setGender(gender);
-
-    return person;
   }
 
 }

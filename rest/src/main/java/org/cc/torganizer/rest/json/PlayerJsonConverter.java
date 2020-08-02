@@ -1,22 +1,26 @@
 package org.cc.torganizer.rest.json;
 
+import static org.cc.torganizer.rest.util.Strings.isEmpty;
+
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.HashMap;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonBuilderFactory;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import org.cc.torganizer.core.entities.OpponentType;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Status;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.json.*;
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.HashMap;
-
-import static org.cc.torganizer.rest.util.Strings.isEmpty;
-
 @RequestScoped
 public class PlayerJsonConverter extends BaseModelJsonConverter<Player>
-  implements OpponentJsonConverter {
+    implements OpponentJsonConverter {
 
   @Inject
   private PersonJsonConverter personConverter;
@@ -65,8 +69,8 @@ public class PlayerJsonConverter extends BaseModelJsonConverter<Player>
 
     String statusString = get(jsonObject, "status");
     Status status = isEmpty(statusString)
-      ? Status.ACTIVE
-      : Status.valueOf(statusString);
+        ? Status.ACTIVE
+        : Status.valueOf(statusString);
     player.setStatus(status);
 
     JsonObject personJsonObject = jsonObject.getJsonObject("person");

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <parent>
     <groupId>org.cc.torganizer</groupId>
@@ -22,16 +22,22 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.hibernate.validator</groupId><artifactId>hibernate-validator</artifactId>
-      <version>${hibernate-validator.version}</version><scope>test</scope>
+      <groupId>org.hibernate.validator</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>${hibernate-validator.version}</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.hibernate.validator</groupId><artifactId>hibernate-validator-cdi</artifactId>
-      <version>${hibernate-validator.version}</version><scope>test</scope>
+      <groupId>org.hibernate.validator</groupId>
+      <artifactId>hibernate-validator-cdi</artifactId>
+      <version>${hibernate-validator.version}</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.glassfish</groupId><artifactId>jakarta.el</artifactId>
-      <version>${javax.el.version}</version><scope>test</scope>
+      <groupId>org.glassfish</groupId>
+      <artifactId>jakarta.el</artifactId>
+      <version>${javax.el.version}</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>

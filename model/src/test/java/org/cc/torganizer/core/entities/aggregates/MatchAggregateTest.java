@@ -1,12 +1,15 @@
 package org.cc.torganizer.core.entities.aggregates;
 
-import org.cc.torganizer.core.entities.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDateTime;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.cc.torganizer.core.entities.Match;
+import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.Person;
+import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.core.entities.Result;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class MatchAggregateTest {
 

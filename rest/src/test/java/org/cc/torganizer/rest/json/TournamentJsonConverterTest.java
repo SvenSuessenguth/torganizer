@@ -1,19 +1,18 @@
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.Tournament;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
 import java.io.StringReader;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import org.cc.torganizer.core.entities.Tournament;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -42,9 +41,9 @@ class TournamentJsonConverterTest {
   @Test
   void testToJsonArray() {
     String expected = "["
-      + "{\"id\":1,\"name\":\"Turniername1\"},"
-      + "{\"id\":2,\"name\":\"Turniername2\"}"
-      + "]";
+        + "{\"id\":1,\"name\":\"Turniername1\"},"
+        + "{\"id\":2,\"name\":\"Turniername2\"}"
+        + "]";
     Tournament tournament1 = new Tournament();
     tournament1.setName("Turniername1");
     tournament1.setId(1L);
@@ -62,9 +61,9 @@ class TournamentJsonConverterTest {
   @Test
   void testToList() {
     String jsonString = "["
-      + "{\"id\":1,\"name\":\"Turniername1\"},"
-      + "{\"id\":2,\"name\":\"Turniername2\"}"
-      + "]";
+        + "{\"id\":1,\"name\":\"Turniername1\"},"
+        + "{\"id\":2,\"name\":\"Turniername2\"}"
+        + "]";
 
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonArray jsonArray = jsonReader.readArray();

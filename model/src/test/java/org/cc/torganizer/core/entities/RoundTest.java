@@ -1,10 +1,9 @@
 package org.cc.torganizer.core.entities;
 
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
 
 class RoundTest {
 
@@ -16,14 +15,14 @@ class RoundTest {
     round.appendGroup(new Group(0));
     round.appendGroup(new Group(2));
 
-    for(int position = 0 ; position<=3 ; position+=1){
+    for (int position = 0; position <= 3; position += 1) {
       Group group = round.getGroup(position);
       assertThat(group.getPosition()).isEqualTo(position);
     }
   }
 
   @Test
-  void appendGroup_everyGroupHasPosition(){
+  void appendGroup_everyGroupHasPosition() {
     Round round = new Round();
     Group group = new Group();
 
@@ -33,7 +32,7 @@ class RoundTest {
   }
 
   @Test
-  void appendGroup_appendAtEnd(){
+  void appendGroup_appendAtEnd() {
     Round round = new Round();
     round.appendGroup(new Group());
     round.appendGroup(new Group());
@@ -48,7 +47,7 @@ class RoundTest {
   }
 
   @Test
-  void appendGroup_groupHasPosition(){
+  void appendGroup_groupHasPosition() {
     Round round = new Round();
     round.appendGroup(new Group(1));
 
@@ -56,7 +55,7 @@ class RoundTest {
   }
 
   @Test
-  void appendGroup_groupHasNoPosition(){
+  void appendGroup_groupHasNoPosition() {
     Round round = new Round();
     Group group = new Group();
     round.appendGroup(group);
@@ -65,7 +64,7 @@ class RoundTest {
   }
 
   @Test
-  void getDeletabelGroups_allGroupsHaveOpponents(){
+  void getDeletabelGroups_allGroupsHaveOpponents() {
     Round round = new Round();
     Group group1 = new Group();
     group1.addOpponent(new Player());
@@ -80,7 +79,7 @@ class RoundTest {
   }
 
   @Test
-  void getDeletabelGroups_atLeastOneGroupsHasNoOpponents(){
+  void getDeletabelGroups_atLeastOneGroupsHasNoOpponents() {
     Round round = new Round();
     Group group1 = new Group();
     group1.addOpponent(new Player());
@@ -94,7 +93,7 @@ class RoundTest {
   }
 
   @Test
-  void getDeletabelGroups_noGroupAssigned(){
+  void getDeletabelGroups_noGroupAssigned() {
     Round round = new Round();
 
     List<Group> deletableGroups = round.getDeletableGroups();

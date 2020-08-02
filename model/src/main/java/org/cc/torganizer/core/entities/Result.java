@@ -49,7 +49,7 @@ public class Result extends Entity implements IPositional {
    * Prueft, ob beide Scores gesetzt sind.
    *
    * @return <code>true</code>, wenn beide Scores gesetzt sind, sonst
-   * <code>false</code>
+   *     <code>false</code>
    */
   public boolean areScoresSet() {
     return homeScore != null && guestScore != null;
@@ -60,7 +60,7 @@ public class Result extends Entity implements IPositional {
    * erreicht haben.
    *
    * @return <code>true</code>, wenn das Match unentschieden ist, sonst
-   * <code>false</code>
+   *     <code>false</code>
    */
   public boolean isDraw() {
     return homeScore.equals(guestScore);

@@ -1,10 +1,9 @@
 package org.cc.torganizer.core.comparators;
 
-import org.cc.torganizer.core.entities.aggregates.Aggregation;
-import org.cc.torganizer.core.util.Checker;
-
 import java.io.Serializable;
 import java.util.Comparator;
+import org.cc.torganizer.core.entities.aggregates.Aggregation;
+import org.cc.torganizer.core.util.Checker;
 
 /**
  * Vergleich von aggregierten Daten (gewonnene/verlorene Matches, Saetze,

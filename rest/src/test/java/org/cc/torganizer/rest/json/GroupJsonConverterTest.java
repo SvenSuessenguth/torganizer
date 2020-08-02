@@ -1,5 +1,17 @@
 package org.cc.torganizer.rest.json;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
 import org.junit.jupiter.api.Test;
@@ -7,19 +19,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class GroupJsonConverterTest {
@@ -59,9 +58,9 @@ class GroupJsonConverterTest {
   @Test
   void toJsonArray() {
     String expected = "[" +
-      "{\"id\":null,\"position\":1}," +
-      "{\"id\":2,\"position\":3}" +
-      "]";
+        "{\"id\":null,\"position\":1}," +
+        "{\"id\":2,\"position\":3}" +
+        "]";
 
     Group group1 = new Group();
     group1.setPosition(1);
@@ -110,9 +109,9 @@ class GroupJsonConverterTest {
   @Test
   void toModels() {
     String jsonString = "[" +
-      "{\"id\":1,\"position\":1}," +
-      "{\"id\":2,\"position\":3}" +
-      "]";
+        "{\"id\":1,\"position\":1}," +
+        "{\"id\":2,\"position\":3}" +
+        "]";
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonArray jsonArray = jsonReader.readArray();
 
@@ -137,10 +136,10 @@ class GroupJsonConverterTest {
     JsonObject jsonGroup = jsonGroupReader.readObject();
 
     String jsonPlayerString = "[{\"id\":null,\"lastMatch\":null,\"status\":\"ACTIVE\","
-      + "\"person\":{"
-      + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
-      + "\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
-      + "\"club\":{\"id\":null,\"name\":null}}]";
+        + "\"person\":{"
+        + "\"id\":null,\"firstName\":\"vorname\",\"lastName\":\"nachname\","
+        + "\"dateOfBirth\":null,\"gender\":\"UNKNOWN\"},"
+        + "\"club\":{\"id\":null,\"name\":null}}]";
     JsonReader jsonPlayerReader = Json.createReader(new StringReader(jsonPlayerString));
     JsonArray jsonPlayers = jsonPlayerReader.readArray();
 

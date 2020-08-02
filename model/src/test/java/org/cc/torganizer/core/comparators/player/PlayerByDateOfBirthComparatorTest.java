@@ -17,19 +17,6 @@ class PlayerByDateOfBirthComparatorTest {
 
   PlayerByDateOfBirthComparator comparator;
 
-  @BeforeEach
-  public void beforeEach() {
-    comparator = new PlayerByDateOfBirthComparator();
-  }
-
-  @ParameterizedTest
-  @MethodSource("playerProvider")
-  public void test(Player player1, Player player2, int expectedCompare) {
-    int actualCompare = comparator.compare(player1, player2);
-
-    assertThat(actualCompare).isEqualTo(expectedCompare);
-  }
-
   static Stream<Arguments> playerProvider() throws ParseException {
     return Stream.of(
         arguments(newPlayerWithDateOfBirth(null), newPlayerWithDateOfBirth(null), 0),
@@ -54,5 +41,18 @@ class PlayerByDateOfBirthComparatorTest {
     player.getPerson().setDateOfBirth(dateOfBirth);
 
     return player;
+  }
+
+  @BeforeEach
+  public void beforeEach() {
+    comparator = new PlayerByDateOfBirthComparator();
+  }
+
+  @ParameterizedTest
+  @MethodSource("playerProvider")
+  public void test(Player player1, Player player2, int expectedCompare) {
+    int actualCompare = comparator.compare(player1, player2);
+
+    assertThat(actualCompare).isEqualTo(expectedCompare);
   }
 }

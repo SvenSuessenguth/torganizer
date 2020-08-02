@@ -1,10 +1,9 @@
 package org.cc.torganizer.core.entities;
 
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
 
 class ByeTest {
 
@@ -14,7 +13,7 @@ class ByeTest {
 
     assertThat(byes).isNotNull();
   }
-  
+
   @Test
   void testCreateByes_negativerWertLiefertLeereListe() {
     List<Opponent> byes = Bye.createByes(-1);

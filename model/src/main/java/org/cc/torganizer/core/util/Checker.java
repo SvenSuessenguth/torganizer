@@ -1,8 +1,8 @@
 package org.cc.torganizer.core.util;
 
-import java.util.List;
-
 import static java.lang.Boolean.TRUE;
+
+import java.util.List;
 
 /**
  * Hilfsmethoden zu Listen und Arrays.
@@ -77,7 +77,7 @@ public class Checker {
    * @param list0 Liste eins
    * @param list1 Liste zwei
    * @return <code>true</code>, wenn die Inhalte gleich sind, sonst
-   * <code>false</code>
+   *     <code>false</code>
    */
   public boolean equals(List<?> list0, List<?> list1) {
     boolean equals = true;

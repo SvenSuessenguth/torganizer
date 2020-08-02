@@ -1,14 +1,13 @@
 package org.cc.torganizer.core.comparators;
 
-import org.cc.torganizer.core.comparators.player.PlayerByLastNameComparator;
-import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.Player;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import org.cc.torganizer.core.comparators.player.PlayerByLastNameComparator;
+import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.Player;
 
 /**
  * Comparing Opponents by Name.

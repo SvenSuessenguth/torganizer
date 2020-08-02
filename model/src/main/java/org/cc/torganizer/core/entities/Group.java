@@ -1,9 +1,8 @@
 package org.cc.torganizer.core.entities;
 
-import org.cc.torganizer.core.comparators.PositionalComparator;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.cc.torganizer.core.comparators.PositionalComparator;
 
 /**
  * Eine Group sammelt Opponents zusammen. Innerhalb einer Group werden die
@@ -266,8 +265,8 @@ public class Group extends Entity implements IPositional {
   @Override
   public String toString() {
     return "[position:" + position + "]"
-      + "[matches:" + getMatches().size() + "]"
-      + "[positionalOpponents:" + positionalOpponents.size() + "]";
+        + "[matches:" + getMatches().size() + "]"
+        + "[positionalOpponents:" + positionalOpponents.size() + "]";
   }
 
   /**

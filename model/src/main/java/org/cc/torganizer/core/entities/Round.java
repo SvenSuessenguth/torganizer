@@ -1,8 +1,11 @@
 package org.cc.torganizer.core.entities;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import org.cc.torganizer.core.comparators.PositionalComparator;
-
-import java.util.*;
 
 /**
  * Runde in einer Disziplin. Alle Runden m\u00fcssen in einer definierten

@@ -87,7 +87,7 @@ public class Player extends Opponent {
    * Prueft, ob das Gender des Players bekannt ist (also nicht UNKNOWN).
    *
    * @return <code>true</code>, wenn das Gender der Person nicht
-   * <code>null</code> und nicht unbekannt ist, sonst <code>false</code>
+   *     <code>null</code> und nicht unbekannt ist, sonst <code>false</code>
    */
   public boolean hasGender() {
 

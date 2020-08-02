@@ -1,16 +1,19 @@
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.*;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.time.LocalDate;
+import java.time.Month;
+import org.cc.torganizer.core.entities.AgeRestriction;
+import org.cc.torganizer.core.entities.Gender;
+import org.cc.torganizer.core.entities.GenderRestriction;
+import org.cc.torganizer.core.entities.OpponentType;
+import org.cc.torganizer.core.entities.OpponentTypeRestriction;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.time.LocalDate;
-import java.time.Month;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 class DisciplineJsonConverterTest {
@@ -24,10 +27,10 @@ class DisciplineJsonConverterTest {
   @Test
   void testToJsonObject() {
     String expected = "{\"id\":null,\"name\":\"Damen-Einzel U50\","
-      + "\"restrictions\":"
-      + "[{\"id\":null,\"discriminator\":\"A\",\"minDateOfBirth\":\"1968-01-12\",\"maxDateOfBirth\":\"1970-01-12\"},"
-      + "{\"id\":null,\"discriminator\":\"G\",\"gender\":\"FEMALE\"},"
-      + "{\"id\":null,\"discriminator\":\"O\",\"opponentType\":\"PLAYER\"}]}";
+        + "\"restrictions\":"
+        + "[{\"id\":null,\"discriminator\":\"A\",\"minDateOfBirth\":\"1968-01-12\",\"maxDateOfBirth\":\"1970-01-12\"},"
+        + "{\"id\":null,\"discriminator\":\"G\",\"gender\":\"FEMALE\"},"
+        + "{\"id\":null,\"discriminator\":\"O\",\"opponentType\":\"PLAYER\"}]}";
 
     Discipline discipline = new Discipline();
     discipline.setName("Damen-Einzel U50");

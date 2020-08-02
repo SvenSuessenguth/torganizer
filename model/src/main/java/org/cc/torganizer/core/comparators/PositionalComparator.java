@@ -1,12 +1,11 @@
 package org.cc.torganizer.core.comparators;
 
-import org.cc.torganizer.core.entities.IPositional;
+import static org.cc.torganizer.core.util.Checker.countNullValues;
+import static org.cc.torganizer.core.util.Checker.onlyNullValues;
 
 import java.io.Serializable;
 import java.util.Comparator;
-
-import static org.cc.torganizer.core.util.Checker.countNullValues;
-import static org.cc.torganizer.core.util.Checker.onlyNullValues;
+import org.cc.torganizer.core.entities.IPositional;
 
 /**
  * Sortieren nach der Position.

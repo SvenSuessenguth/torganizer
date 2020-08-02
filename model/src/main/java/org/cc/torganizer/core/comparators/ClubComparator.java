@@ -1,10 +1,9 @@
 package org.cc.torganizer.core.comparators;
 
-import org.cc.torganizer.core.entities.Club;
-
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Objects;
+import org.cc.torganizer.core.entities.Club;
 
 public class ClubComparator implements Comparator<Club>, Serializable {
 

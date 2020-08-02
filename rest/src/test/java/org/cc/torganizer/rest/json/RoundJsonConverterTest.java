@@ -1,21 +1,22 @@
 package org.cc.torganizer.rest.json;
 
-import org.cc.torganizer.core.entities.Round;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.cc.torganizer.core.entities.System.DOUBLE_ELIMINATION;
+import static org.cc.torganizer.core.entities.System.ROUND_ROBIN;
+import static org.cc.torganizer.core.entities.System.SINGLE_ELIMINATION;
 
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.cc.torganizer.core.entities.System.*;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import org.cc.torganizer.core.entities.Round;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class RoundJsonConverterTest {
 
@@ -64,9 +65,9 @@ class RoundJsonConverterTest {
   @Test
   void testToJsonArray_full() {
     String expected = "[" +
-      "{\"id\":1,\"qualified\":4,\"position\":1,\"system\":\"ROUND_ROBIN\"}," +
-      "{\"id\":2,\"qualified\":2,\"position\":2,\"system\":null}" +
-      "]";
+        "{\"id\":1,\"qualified\":4,\"position\":1,\"system\":\"ROUND_ROBIN\"}," +
+        "{\"id\":2,\"qualified\":2,\"position\":2,\"system\":null}" +
+        "]";
 
     Collection<Round> rounds = new ArrayList<>(2);
 
@@ -124,9 +125,9 @@ class RoundJsonConverterTest {
   @Test
   void testToModels() {
     String jsonString = "["
-      + "{\"id\":1,\"qualified\":4,\"position\":1},"
-      + "{\"id\":2,\"qualified\":2,\"position\":2}"
-      + "]";
+        + "{\"id\":1,\"qualified\":4,\"position\":1},"
+        + "{\"id\":2,\"qualified\":2,\"position\":2}"
+        + "]";
 
     JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
     JsonArray jsonArray = jsonReader.readArray();

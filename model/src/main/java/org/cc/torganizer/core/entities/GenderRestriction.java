@@ -43,7 +43,7 @@ public class GenderRestriction extends Restriction {
    *
    * @param player Player
    * @return <code>true</code>, wenn das Gender des Players nicht mit der Vorgabe uebereinstimmt
-   * und die Vorgabe nicht UNKNOWN ist, sonst <code>false</code>
+   *     und die Vorgabe nicht UNKNOWN ist, sonst <code>false</code>
    */
   private boolean isGenderRestricted(Player player) {
     Gender playersGender = player.getPerson().getGender();

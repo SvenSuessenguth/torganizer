@@ -1,13 +1,12 @@
 package org.cc.torganizer.core.roundrobin;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.cc.torganizer.core.PendingMatchDetector;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Match;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.System;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * RoundRobin bedeutet jeder spielt gegen jeden.

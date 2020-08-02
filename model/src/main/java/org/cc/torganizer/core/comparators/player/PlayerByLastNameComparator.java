@@ -1,11 +1,10 @@
 package org.cc.torganizer.core.comparators.player;
 
-import org.cc.torganizer.core.entities.Player;
-
-import javax.enterprise.context.RequestScoped;
-import java.util.Objects;
-
 import static org.cc.torganizer.core.comparators.player.PlayerOrder.BY_LAST_NAME;
+
+import java.util.Objects;
+import javax.enterprise.context.RequestScoped;
+import org.cc.torganizer.core.entities.Player;
 
 /**
  * Comparing players by last name.

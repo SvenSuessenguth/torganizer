@@ -1,21 +1,29 @@
 package org.cc.torganizer.rest;
 
+import static org.cc.torganizer.rest.json.BaseModelJsonConverter.emptyArray;
+
+import java.util.List;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Response;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Restriction;
 import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.persistence.DisciplinesRepository;
-import org.cc.torganizer.rest.json.*;
-
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
-import java.util.List;
-
-import static org.cc.torganizer.rest.json.BaseModelJsonConverter.emptyArray;
+import org.cc.torganizer.rest.json.DisciplineJsonConverter;
+import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
+import org.cc.torganizer.rest.json.RoundJsonConverter;
 
 @Stateless
 @Path("/disciplines")
@@ -54,7 +62,7 @@ public class DisciplinesResource extends AbstractResource {
     for (int i = 0; i < jsonArray.size(); i++) {
       JsonObject r = jsonArray.getJsonObject(i);
       Restriction restriction = Restriction.Discriminator.byId(r.getString("discriminator"))
-        .create();
+          .create();
 
       restriction = restrictionConverter.toModel(r, restriction);
       discipline.addRestriction(restriction);
@@ -98,7 +106,7 @@ public class DisciplinesResource extends AbstractResource {
 
     discipline = disciplineConverter.toModel(jsonObject, discipline);
     restrictionConverter.toModels(jsonObject.getJsonArray("restrictions"),
-      discipline.getRestrictions());
+        discipline.getRestrictions());
 
     discipline = disciplineRepo.update(discipline);
 
@@ -130,7 +138,7 @@ public class DisciplinesResource extends AbstractResource {
       return emptyArray();
     } else {
       BaseModelJsonConverter<Opponent> opponentConverter =
-        opponentJsonConverterProvider.getConverter(opponents);
+          opponentJsonConverterProvider.getConverter(opponents);
       result = opponentConverter.toJsonArray(opponents);
     }
 
