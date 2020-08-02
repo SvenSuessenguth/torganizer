@@ -303,8 +303,8 @@ public class Match extends Entity implements IPositional {
 
     LocalDateTime nullDate = LocalDateTime.MIN;
     LocalDateTime now = LocalDateTime.now();
-    Long overallTimeSinceLastMatch = 0L;
-    Integer playerCount = 0;
+    long overallTimeSinceLastMatch = 0L;
+    int playerCount = 0;
 
     List<Opponent> opponents = getOpponents();
     for (Opponent o : opponents) {
