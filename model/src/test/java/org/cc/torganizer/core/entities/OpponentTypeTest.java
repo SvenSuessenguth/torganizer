@@ -18,9 +18,7 @@ class OpponentTypeTest {
   @Test
   void testValueOf_NULL() {
     assertThrows(NullPointerException.class, () -> {
-      OpponentType result = OpponentType.valueOf(null);
-
-      assertThat(result).isNull();
+      OpponentType.valueOf(null);
     });
   }
 
