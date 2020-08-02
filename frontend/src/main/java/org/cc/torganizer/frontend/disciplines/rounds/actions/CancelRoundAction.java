@@ -2,7 +2,6 @@ package org.cc.torganizer.frontend.disciplines.rounds.actions;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-
 import org.cc.torganizer.core.entities.Round;
 
 /**
@@ -12,12 +11,12 @@ import org.cc.torganizer.core.entities.Round;
 @Named
 public class CancelRoundAction extends RoundsAction {
 
-    /**
-     * Execute.
-     */
-    public void execute() {
-        Round round = new Round();
+  /**
+   * Execute.
+   */
+  public void execute() {
+    Round round = new Round();
 
-        roundsState.setRound(round);
-    }
+    roundsState.setRound(round);
+  }
 }

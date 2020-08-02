@@ -10,7 +10,7 @@ import javax.inject.Named;
 @Named
 public class SynchronizeDisciplinesState extends DisciplinesAction {
 
-    public void execute() {
-        state.synchronize();
-    }
+  public void execute() {
+    state.synchronize();
+  }
 }
