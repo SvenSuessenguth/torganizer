@@ -1,17 +1,20 @@
 package org.cc.torganizer.frontend.disciplines.core;
 
-import org.cc.torganizer.core.entities.*;
-import org.cc.torganizer.frontend.ApplicationState;
-import org.cc.torganizer.frontend.State;
-import org.cc.torganizer.persistence.TournamentsRepository;
-
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import org.cc.torganizer.core.entities.AgeRestriction;
+import org.cc.torganizer.core.entities.Discipline;
+import org.cc.torganizer.core.entities.GenderRestriction;
+import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.OpponentTypeRestriction;
+import org.cc.torganizer.frontend.ApplicationState;
+import org.cc.torganizer.frontend.State;
+import org.cc.torganizer.persistence.TournamentsRepository;
 
 @ConversationScoped
 @Named
@@ -55,7 +58,7 @@ public class DisciplinesState implements Serializable, State {
   public void synchronizeOpponents() {
     Long tournamentId = applicationState.getTournamentId();
     assignableOpponents = tournamentsRepository.getAssignableOpponentsForDiscipline(tournamentId,
-      discipline, 0, 1000);
+        discipline, 0, 1000);
   }
 
   public Gender[] getGenders() {

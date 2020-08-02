@@ -16,7 +16,7 @@
     <table name="_GROUPS" />
     <attributes>
        <basic name="position"><column name="_POSITION" /></basic>
-       <one-to-many name="positionalOpponents" fetch="EAGERGroupJsonConverterTest">
+       <one-to-many name="positionalOpponents" fetch="EAGER">
          <join-table name="_GROUPS_POSITIONAL_OPPONENTS">
            <join-column name="_GROUP_ID" referenced-column-name="_ID"/>
            <inverse-join-column name="_POSITIONAL_OPPONENT_ID" referenced-column-name="_ID" unique="true" />
