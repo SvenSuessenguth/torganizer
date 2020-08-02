@@ -85,30 +85,6 @@ public class Match extends Entity implements IPositional {
   }
 
   /**
-   * <p>
-   * Getter for the field <code>results</code>.
-   * </p>
-   *
-   * @return a {@link java.util.List} object.
-   */
-  public List<Result> getResults() {
-    return results;
-  }
-
-  /**
-   * Hinzufuegen eines Results.
-   *
-   * @param result Result
-   */
-  public void addResult(Result result) {
-    if (result == null) {
-      throw new IllegalArgumentException("can add only non null results");
-    }
-
-    results.add(result);
-  }
-
-  /**
    * Der Opponent, der die meisten Results f\u00fcr sich entscheiden konnte, ist
    * Winner.
    *
@@ -138,6 +114,32 @@ public class Match extends Entity implements IPositional {
         guestResults += 1;
       }
     }
+
+  /**
+   * <p>
+   * Getter for the field <code>results</code>.
+   * </p>
+   *
+   * @return a {@link java.util.List} object.
+   */
+  public List<Result> getResults() {
+    return results;
+  }
+
+  /**
+   * Hinzufuegen eines Results.
+   *
+   * @param result Result
+   */
+  public void addResult(Result result) {
+    if (result == null) {
+      throw new IllegalArgumentException("can add only non null results");
+    }
+
+    results.add(result);
+  }
+
+
 
     // 1. Results sind bereits eindeutig
     // oder
