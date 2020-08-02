@@ -10,6 +10,5 @@ public class SelectDiscipline extends DisciplinesAction {
 
   public void execute(Discipline discipline) {
     state.setDiscipline(discipline);
-    state.synchronizeOpponents();
   }
 }

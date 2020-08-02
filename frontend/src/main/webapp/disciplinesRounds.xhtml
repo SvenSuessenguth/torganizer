@@ -58,11 +58,11 @@
       <h:commandButton value="#{i18nText.cancel}" action="#{cancelRoundAction.execute()}"/>
 
       <!--
-               | assignable opponents
-               +-->
+       | assignable opponents
+       +-->
       <h:panelGroup id="assignableOpponents">
         <h:outputText value="mögliche Kandiaten"/>
-        <h:dataTable value="#{disciplinesState.assignableOpponents}" var="opponent"
+        <h:dataTable value="#{roundsState.assignableOpponents}" var="opponent"
                      rendered="#{not empty disciplinesState.discipline.id}">
           <h:column>
             <f:facet name="header">Vornamen</f:facet>
