@@ -45,7 +45,7 @@ class PersonJsonConverterTest {
     JsonObject result = converter.toJsonObject(person);
 
     assertThat(result).isNotNull();
-    assertThat(result.toString()).isEqualTo(expected);
+    assertThat(result.toString()).hasToString(expected);
   }
 
   @Test
@@ -88,7 +88,6 @@ class PersonJsonConverterTest {
 
     persons = converter.toModels(jsonArray, persons);
 
-    assertThat(persons).isNotNull();
     assertThat(persons).hasSize(2);
   }
 
@@ -108,6 +107,6 @@ class PersonJsonConverterTest {
     final JsonArray result = converter.toJsonArray(persons);
 
     assertThat(result).isNotNull();
-    assertThat(result.toString()).isEqualTo(expected);
+    assertThat(result.toString()).hasToString(expected);
   }
 }

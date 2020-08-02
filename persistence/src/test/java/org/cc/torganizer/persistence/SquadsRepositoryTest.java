@@ -24,7 +24,7 @@ class SquadsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  public void testCreate() {
+  void testCreate() {
     long countBefore = repository.count();
 
     Squad squad = new Squad();
@@ -41,7 +41,7 @@ class SquadsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  public void testAddPlayer(){
+  void testAddPlayer(){
     // Folgender Eintrag fehlt bei den Testdaten
     // Mit diesem Test soll der bestehende Player 2
     // dem bestehenden Squad 5 hinzugefügt werdem
@@ -56,7 +56,6 @@ class SquadsRepositoryTest extends AbstractDbUnitJpaTest {
   void testReadOrderdByLastName_0() {
     List<Squad> squads = repository.readOrderByLastName(0, 1);
 
-    assertThat(squads).isNotNull();
     assertThat(squads).hasSize(1);
     Squad s = squads.get(0);
     List<Player> players = new ArrayList<>(s.getPlayers());
@@ -69,7 +68,6 @@ class SquadsRepositoryTest extends AbstractDbUnitJpaTest {
   void testReadOrderdByLastName_1() {
     List<Squad> squads = repository.readOrderByLastName(1, 1);
 
-    assertThat(squads).isNotNull();
     assertThat(squads).hasSize(1);
     Squad s = squads.get(0);
     List<Player> players = new ArrayList<>(s.getPlayers());
