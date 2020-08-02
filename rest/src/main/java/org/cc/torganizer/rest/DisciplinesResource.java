@@ -23,6 +23,7 @@ import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.persistence.DisciplinesRepository;
 import org.cc.torganizer.rest.json.DisciplineJsonConverter;
 import org.cc.torganizer.rest.json.OpponentJsonConverterProvider;
+import org.cc.torganizer.rest.json.RestrictionJsonConverter;
 import org.cc.torganizer.rest.json.RoundJsonConverter;
 
 @Stateless
