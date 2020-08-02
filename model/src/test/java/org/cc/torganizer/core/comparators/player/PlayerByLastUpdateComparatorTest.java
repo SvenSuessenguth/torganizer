@@ -43,7 +43,7 @@ class PlayerByLastUpdateComparatorTest {
   }
 
   @BeforeEach
-  public void beforeEach() {
+  void beforeEach() {
     comparator = new PlayerByLastUpdateComparator();
   }
 

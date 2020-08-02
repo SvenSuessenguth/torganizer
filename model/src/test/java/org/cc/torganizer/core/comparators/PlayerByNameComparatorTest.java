@@ -21,7 +21,7 @@ class PlayerByNameComparatorTest {
   void compare_bothNull() {
     int c = comparator.compare(null, null);
 
-    assertThat(c).isEqualTo(0);
+    assertThat(c).isZero();
   }
 
   @Test
@@ -29,7 +29,7 @@ class PlayerByNameComparatorTest {
     Player p = new Player(new Person("A", "B"));
     int c = comparator.compare(p, p);
 
-    assertThat(c).isEqualTo(0);
+    assertThat(c).isZero();
   }
 
   @Test
@@ -38,7 +38,7 @@ class PlayerByNameComparatorTest {
     Player p2 = new Player(new Person("B", "B"));
     int c = comparator.compare(p1, p2);
 
-    assertThat(c).isEqualTo(0);
+    assertThat(c).isZero();
   }
 
   @Test
@@ -63,6 +63,6 @@ class PlayerByNameComparatorTest {
     Player p2 = new Player(new Person("a", "b"));
     int c = comparator.compare(p1, p2);
 
-    assertThat(c).isEqualTo(0);
+    assertThat(c).isZero();
   }
 }

@@ -21,7 +21,7 @@ class OpponentByNameComparatorTest {
   void compare_bothNull() {
     int c = comparator.compare(null, null);
 
-    assertThat(c).isEqualTo(0);
+    assertThat(c).isZero();
   }
 
   @Test
@@ -31,7 +31,7 @@ class OpponentByNameComparatorTest {
 
     int c = comparator.compare(s1, s2);
 
-    assertThat(c).isEqualTo(0);
+    assertThat(c).isZero();
   }
 
   @Test
@@ -42,7 +42,7 @@ class OpponentByNameComparatorTest {
 
     int c = comparator.compare(s1, s2);
 
-    assertThat(c).isGreaterThan(0);
+    assertThat(c).isPositive();
   }
 
   @Test
@@ -53,7 +53,7 @@ class OpponentByNameComparatorTest {
 
     int c = comparator.compare(s1, s2);
 
-    assertThat(c).isLessThan(0);
+    assertThat(c).isNegative();
   }
 
   @Test
@@ -84,13 +84,13 @@ class OpponentByNameComparatorTest {
   void compare_firstIsNull() {
     int actual = comparator.compare(null, new Squad());
 
-    assertThat(actual).isGreaterThan(0);
+    assertThat(actual).isPositive();
   }
 
   @Test
   void compare_secondIsNull() {
     int actual = comparator.compare(new Squad(), null);
 
-    assertThat(actual).isLessThan(0);
+    assertThat(actual).isNegative();
   }
 }

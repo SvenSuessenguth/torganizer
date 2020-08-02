@@ -25,7 +25,7 @@ class ClubComparatorTest {
   void testCompare_Null_Null() {
     int result = comparator.compare(null, null);
 
-    assertThat(result).isEqualTo(0);
+    assertThat(result).isZero();
   }
 
   @Test
@@ -53,7 +53,7 @@ class ClubComparatorTest {
 
     int result = comparator.compare(c1, c2);
 
-    assertThat(result).isEqualTo(0);
+    assertThat(result).isZero();
   }
 
   @Test

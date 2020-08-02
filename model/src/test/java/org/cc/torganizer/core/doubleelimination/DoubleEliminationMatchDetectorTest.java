@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 /**
  * @author svens
  */
-class DoubleEliminationMatchDetectorTest {
+class DoubleEliminationMatchDetectorTestDoubleEliminationMatchDetectorTest {
 
   private DoubleEliminationMatchDetector demd;
 
@@ -98,7 +98,7 @@ class DoubleEliminationMatchDetectorTest {
 
   @Test
   void testCountMatchesOnLevelNull() {
-    assertThat(demd.countMatchesOnLevel(-1, 16)).isEqualTo(0);
+    assertThat(demd.countMatchesOnLevel(-1, 16)).isZero();
   }
 
   @Test
