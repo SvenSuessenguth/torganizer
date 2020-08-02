@@ -115,6 +115,20 @@ public class Match extends Entity implements IPositional {
       }
     }
 
+    // 1. Results sind bereits eindeutig
+    // oder
+    // 2. Bei gleichen Results sind die Scores eindeutig
+    // sonst
+    // null (Unentschieden)
+    if (homeResults != guestResults) {
+      winner = homeResults > guestResults ? home : guest;
+    } else if (homeScores != guestScores) {
+      winner = homeScores > guestScores ? home : guest;
+    }
+
+    return winner;
+  }
+
   /**
    * <p>
    * Getter for the field <code>results</code>.
@@ -137,22 +151,6 @@ public class Match extends Entity implements IPositional {
     }
 
     results.add(result);
-  }
-
-
-
-    // 1. Results sind bereits eindeutig
-    // oder
-    // 2. Bei gleichen Results sind die Scores eindeutig
-    // sonst
-    // null (Unentschieden)
-    if (homeResults != guestResults) {
-      winner = homeResults > guestResults ? home : guest;
-    } else if (homeScores != guestScores) {
-      winner = homeScores > guestScores ? home : guest;
-    }
-
-    return winner;
   }
 
   /**
