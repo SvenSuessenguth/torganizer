@@ -26,7 +26,7 @@ class ClubsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  public void testFindPlayers() {
+  void testFindPlayers() {
     Club club = new Club();
     club.setId(1L);
     List<Player> players = repository.getPlayers(club);
@@ -35,7 +35,7 @@ class ClubsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  public void testFindPlayersNone() {
+  void testFindPlayersNone() {
     Club club = new Club();
     club.setId(2L);
     List<Player> players = repository.getPlayers(club);
@@ -44,7 +44,7 @@ class ClubsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  public void testCountPlayers() {
+  void testCountPlayers() {
     Club club = new Club();
     club.setId(1L);
     Long count = repository.countPlayers(club);
@@ -53,11 +53,11 @@ class ClubsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  public void testCountPlayersNone() {
+  void testCountPlayersNone() {
     Club club = new Club();
     club.setId(2L);
     Long count = repository.countPlayers(club);
 
-    assertThat(count).isEqualTo(0);
+    assertThat(count).isZero();
   }
 }

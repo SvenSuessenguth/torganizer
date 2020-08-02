@@ -23,7 +23,7 @@ public class ValidatePersonTest {
   }
 
   @Test
-  public void testValidatePerson_firstNameTooShort() {
+  void testValidatePerson_firstNameTooShort() {
     String tooShortFirstName = "";
     Person p = new Person(tooShortFirstName, "ok");
 
@@ -34,7 +34,7 @@ public class ValidatePersonTest {
   }
 
   @Test
-  public void testValidatePerson_firstNameBlank() {
+  void testValidatePerson_firstNameBlank() {
     String tooShortFirstName = "   ";
     Person p = new Person(tooShortFirstName, "ok");
 
@@ -45,7 +45,7 @@ public class ValidatePersonTest {
   }
 
   @Test
-  public void testValidatePerson_firstNameNull() {
+  void testValidatePerson_firstNameNull() {
     String tooShortFirstName = null;
     Person p = new Person(tooShortFirstName, "ok");
 
@@ -56,7 +56,7 @@ public class ValidatePersonTest {
   }
 
   @Test
-  public void testValidatePerson_firstNameTooLong() {
+  void testValidatePerson_firstNameTooLong() {
     // 21 Zeichen
     String tooShortFirstName = "012345678901234567890";
     Person p = new Person(tooShortFirstName, "ok");

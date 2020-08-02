@@ -91,6 +91,6 @@ class GroupsRepositoryTest extends AbstractDbUnitJpaTest {
   @Test
   void testGetPositionalOpponentsFromNonExistingGroup(){
     List<PositionalOpponent> pOpponents = repository.getPositionalOpponents(-1L, 0, 10);
-    assertThat(pOpponents).hasSize(0);
+    assertThat(pOpponents).isEmpty();
   }
 }

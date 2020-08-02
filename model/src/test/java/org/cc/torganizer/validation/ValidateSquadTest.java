@@ -24,7 +24,7 @@ public class ValidateSquadTest {
   }
 
   @Test
-  public void testValidateSquad_ok() {
+  void testValidateSquad_ok() {
     Player p1 = new Player("p1", "p1");
     Player p2 = new Player("p2", "p2");
     Squad squad = new Squad();
@@ -38,7 +38,7 @@ public class ValidateSquadTest {
   }
 
   @Test
-  public void testValidateSquad_notEnoughPlayers() {
+  void testValidateSquad_notEnoughPlayers() {
     Player p1 = new Player("p1", "p1");
     Squad squad = new Squad();
     squad.addPlayer(p1);
@@ -50,7 +50,7 @@ public class ValidateSquadTest {
   }
 
   @Test
-  public void testValidateSquad_playerNotOk() {
+  void testValidateSquad_playerNotOk() {
     Player p1 = new Player("p1", "p1");
     Player p2 = new Player("p2", null);
     Squad squad = new Squad();

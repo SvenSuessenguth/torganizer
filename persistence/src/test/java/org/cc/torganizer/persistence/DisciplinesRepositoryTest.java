@@ -85,7 +85,7 @@ class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  public void testCreate() {
+  void testCreate() {
     Discipline discipline = new Discipline();
     discipline.setName("test");
 
@@ -120,7 +120,7 @@ class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  public void testPersistNewRound() {
+  void testPersistNewRound() {
     Discipline discipline = repository.read(1L);
     int roundsCount = discipline.getRounds().size();
 

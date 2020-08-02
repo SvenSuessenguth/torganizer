@@ -60,7 +60,7 @@ class RoundTest {
     Group group = new Group();
     round.appendGroup(group);
 
-    assertThat(group.getPosition()).isEqualTo(0);
+    assertThat(group.getPosition()).isZero();
   }
 
   @Test
