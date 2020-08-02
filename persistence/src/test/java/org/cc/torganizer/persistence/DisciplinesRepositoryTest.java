@@ -35,7 +35,6 @@ class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
   void testGetOpponents() {
     List<Opponent> opponents = repository.getOpponents(1L, null, null);
 
-    assertThat(opponents).isNotNull();
     assertThat(opponents).hasSize(2);
   }
 
