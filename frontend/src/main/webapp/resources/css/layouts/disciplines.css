@@ -18,6 +18,7 @@
 
 .commands {
     grid-column: 1 / span 2;
+    justify-self: right;
 }
 
 .tabs {
