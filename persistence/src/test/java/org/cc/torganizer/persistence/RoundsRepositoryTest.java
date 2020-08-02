@@ -50,14 +50,12 @@ class RoundsRepositoryTest extends AbstractDbUnitJpaTest {
   @Test
   void testReadMultiple_lessThanAvailable(){
     List<Round> rounds = repository.read(0, 1);
-    assertThat(rounds).isNotNull();
     assertThat(rounds).hasSize(1);
   }
 
   @Test
   void testReadMultiple_moreThanAvailable(){
     List<Round> rounds = repository.read(0, 3);
-    assertThat(rounds).isNotNull();
     assertThat(rounds).hasSize(2);
   }
 

@@ -72,7 +72,6 @@ class TournamentJsonConverterTest {
 
     tournaments = converter.toModels(jsonArray, tournaments);
 
-    assertThat(tournaments).isNotNull();
     assertThat(tournaments).hasSize(2);
 
     Tournament t1 = ((List<Tournament>) tournaments).get(0);

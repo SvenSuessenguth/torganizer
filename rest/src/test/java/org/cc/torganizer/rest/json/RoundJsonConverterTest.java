@@ -117,7 +117,7 @@ class RoundJsonConverterTest {
     converter.toModel(jsonObject, round);
 
     assertThat(round.getId()).isNull();
-    assertThat(round.getQualified()).isEqualTo(0);
+    assertThat(round.getQualified()).isZero();
     assertThat(round.getPosition()).isNull();
     assertThat(round.getSystem()).isEqualTo(ROUND_ROBIN);
   }
@@ -135,7 +135,6 @@ class RoundJsonConverterTest {
 
     rounds = converter.toModels(jsonArray, rounds);
 
-    assertThat(rounds).isNotNull();
     assertThat(rounds).hasSize(2);
   }
 }

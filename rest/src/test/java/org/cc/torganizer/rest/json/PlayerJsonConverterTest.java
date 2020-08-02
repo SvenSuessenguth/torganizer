@@ -110,7 +110,6 @@ class PlayerJsonConverterTest {
 
     players = converter.toModels(jsonArray, players);
 
-    assertThat(players).isNotNull();
     assertThat(players).hasSize(2);
 
 
@@ -138,7 +137,6 @@ class PlayerJsonConverterTest {
     Collection<Player> players = Collections.emptyList();
     JsonArray jsonArray = converter.toJsonArray(players);
 
-    assertThat(jsonArray).isNotNull();
     assertThat(jsonArray).toString().equalsIgnoreCase("[]");
   }
 }
