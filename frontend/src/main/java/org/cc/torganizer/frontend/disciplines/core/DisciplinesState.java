@@ -1,7 +1,6 @@
 package org.cc.torganizer.frontend.disciplines.core;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ConversationScoped;
@@ -11,7 +10,6 @@ import org.cc.torganizer.core.entities.AgeRestriction;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.GenderRestriction;
-import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.OpponentType;
 import org.cc.torganizer.core.entities.OpponentTypeRestriction;
 import org.cc.torganizer.frontend.ApplicationState;
