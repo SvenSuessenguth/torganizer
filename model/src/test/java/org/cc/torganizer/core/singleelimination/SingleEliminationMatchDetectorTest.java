@@ -90,7 +90,7 @@ class SingleEliminationMatchDetectorTest {
 
   @Test
   void testCountLevels0() {
-    assertThat(semd.getUpperBracketsNumberOfLevels(0)).isEqualTo(0);
+    assertThat(semd.getUpperBracketsNumberOfLevels(0)).isZero();
   }
 
   @Test
@@ -264,7 +264,7 @@ class SingleEliminationMatchDetectorTest {
     assertThat(semd.getUpperBracketStartIndex(0, 16)).isEqualTo(7);
     assertThat(semd.getUpperBracketStartIndex(1, 16)).isEqualTo(3);
     assertThat(semd.getUpperBracketStartIndex(2, 16)).isEqualTo(1);
-    assertThat(semd.getUpperBracketStartIndex(3, 16)).isEqualTo(0);
+    assertThat(semd.getUpperBracketStartIndex(3, 16)).isZero();
   }
 
   @Test
@@ -273,6 +273,6 @@ class SingleEliminationMatchDetectorTest {
     assertThat(semd.getUpperBracketEndIndex(0, 16)).isEqualTo(14);
     assertThat(semd.getUpperBracketEndIndex(1, 16)).isEqualTo(6);
     assertThat(semd.getUpperBracketEndIndex(2, 16)).isEqualTo(2);
-    assertThat(semd.getUpperBracketEndIndex(3, 16)).isEqualTo(0);
+    assertThat(semd.getUpperBracketEndIndex(3, 16)).isZero();
   }
 }

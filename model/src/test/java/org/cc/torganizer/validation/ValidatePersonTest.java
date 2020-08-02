@@ -12,7 +12,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 
-public class ValidatePersonTest {
+class ValidatePersonTest {
 
   private static Validator validator;
 
@@ -46,8 +46,7 @@ public class ValidatePersonTest {
 
   @Test
   void testValidatePerson_firstNameNull() {
-    String tooShortFirstName = null;
-    Person p = new Person(tooShortFirstName, "ok");
+    Person p = new Person(null, "ok");
 
     Set<ConstraintViolation<Person>> violations = validator.validate(p);
 

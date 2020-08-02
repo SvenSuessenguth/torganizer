@@ -13,7 +13,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 
-public class ValidateSquadTest {
+class ValidateSquadTest {
 
   private static Validator validator;
 
@@ -34,7 +34,7 @@ public class ValidateSquadTest {
     Set<ConstraintViolation<Squad>> violations = validator.validate(squad);
 
     // notBlank, min-size=1
-    assertThat(violations).hasSize(0);
+    assertThat(violations).isEmpty();
   }
 
   @Test

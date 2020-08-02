@@ -22,7 +22,6 @@ class RoundsRepositoryOpponentsAssignableToGroup_FirstRound_Test extends Abstrac
   void testGetOpponentsAssignableToRound(){
     Set<Opponent> opponentsAssignableToRound = repository.getNotAssignedOpponents(1L, 0, 10);
 
-    assertThat(opponentsAssignableToRound).isNotEmpty();
     assertThat(opponentsAssignableToRound).hasSize(1);
   }
 

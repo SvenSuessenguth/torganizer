@@ -40,7 +40,7 @@ class ClubsRepositoryTest extends AbstractDbUnitJpaTest {
     club.setId(2L);
     List<Player> players = repository.getPlayers(club);
 
-    assertThat(players).hasSize(0);
+    assertThat(players).isEmpty();
   }
 
   @Test

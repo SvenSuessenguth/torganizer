@@ -10,7 +10,7 @@ class CheckerTest {
 
   @Test
   void countNullValues_empty() {
-    assertThat(countNullValues()).isEqualTo(0);
+    assertThat(countNullValues()).isZero();
   }
 
   @Test
@@ -25,7 +25,7 @@ class CheckerTest {
 
   @Test
   void countNullValues_onlyNonNullValues() {
-    assertThat(countNullValues(new Object(), new Object())).isEqualTo(0);
+    assertThat(countNullValues(new Object(), new Object())).isZero();
   }
 
   @Test

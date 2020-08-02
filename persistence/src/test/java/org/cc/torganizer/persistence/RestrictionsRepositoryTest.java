@@ -63,7 +63,7 @@ class RestrictionsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  public void testCreateAgeRestrictionWithNull() {
+  void testCreateAgeRestrictionWithNull() {
     AgeRestriction ageRestriction = new AgeRestriction();
     repository.create(ageRestriction);
 

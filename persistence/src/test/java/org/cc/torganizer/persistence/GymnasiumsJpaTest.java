@@ -28,6 +28,6 @@ class GymnasiumsJpaTest extends AbstractDbUnitJpaTest {
     List<Gymnasium> allGymnasiums = entityManager.createNamedQuery("Gymnasium.findByTournament", Gymnasium.class)
         .setParameter("tournamentId", 2L)
         .getResultList();
-    assertThat(allGymnasiums).hasSize(0);
+    assertThat(allGymnasiums).isEmpty();
   }
 }

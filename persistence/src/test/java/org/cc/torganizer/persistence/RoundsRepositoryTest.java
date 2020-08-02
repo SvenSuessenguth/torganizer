@@ -114,7 +114,7 @@ class RoundsRepositoryTest extends AbstractDbUnitJpaTest {
   @Test
   void testGetPreviousRound(){
     Long prevRoundId = repository.getPrevRoundId(2L);
-    assertThat(1L).isEqualTo(prevRoundId);
+    assertThat(prevRoundId).isEqualTo(1L);
   }
 
   @Test

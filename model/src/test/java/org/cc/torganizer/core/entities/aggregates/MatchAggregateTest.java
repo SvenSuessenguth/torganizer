@@ -30,8 +30,8 @@ class MatchAggregateTest {
 
     matchAggregate.aggregate(m, home);
     assertThat(matchAggregate.getRatio()).isEqualTo(0D);
-    assertThat(matchAggregate.getWins()).isEqualTo(0);
-    assertThat(matchAggregate.getLose()).isEqualTo(0);
+    assertThat(matchAggregate.getWins()).isZero();
+    assertThat(matchAggregate.getLose()).isZero();
   }
 
   @Test
@@ -46,7 +46,7 @@ class MatchAggregateTest {
     matchAggregate.aggregate(m, home);
 
     assertThat(matchAggregate.getWins()).isEqualTo(1);
-    assertThat(matchAggregate.getLose()).isEqualTo(0);
+    assertThat(matchAggregate.getLose()).isZero();
     assertThat(matchAggregate.getRatio()).isEqualTo(1D);
   }
 }
