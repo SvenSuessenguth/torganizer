@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.time.LocalDate;
 import java.time.Month;
 import org.cc.torganizer.core.entities.AgeRestriction;
+import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.GenderRestriction;
 import org.cc.torganizer.core.entities.OpponentType;
