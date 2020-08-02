@@ -10,7 +10,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-
 import org.cc.torganizer.core.comparators.player.PlayerComparator;
 import org.cc.torganizer.core.comparators.player.PlayerComparatorProvider;
 import org.cc.torganizer.core.comparators.player.PlayerOrder;
@@ -29,133 +28,133 @@ import org.cc.torganizer.persistence.TournamentsRepository;
 @Named
 public class PlayersState implements Serializable, State {
 
-    public static final int ALL_PLAYERS_CHUNK_SIZE = 10;
+  public static final int ALL_PLAYERS_CHUNK_SIZE = 10;
 
-    @Inject
-    private ApplicationState applicationState;
+  @Inject
+  private ApplicationState applicationState;
 
-    @Inject
-    private TournamentsRepository tournamentsRepository;
+  @Inject
+  private TournamentsRepository tournamentsRepository;
 
-    @Inject
-    private PlayerComparatorProvider playerComparatorProvider;
+  @Inject
+  private PlayerComparatorProvider playerComparatorProvider;
 
-    @Inject
-    private ClubsRepository clubsRepository;
+  @Inject
+  private ClubsRepository clubsRepository;
 
-    private int allPlayersChunkIndex = 0;
+  private int allPlayersChunkIndex = 0;
 
-    private List<Player> players;
+  private List<Player> players;
 
-    private List<Club> clubs;
+  private List<Club> clubs;
 
-    private Player current;
+  private Player current;
 
-    private PlayerOrder playerOrder = BY_LAST_UPDATE;
+  private PlayerOrder playerOrder = BY_LAST_UPDATE;
 
-    @PostConstruct
-    public void postConstruct() {
-        synchronize();
+  @PostConstruct
+  public void postConstruct() {
+    synchronize();
+  }
+
+  @Override
+  public void synchronize() {
+
+    Tournament currentTournament = applicationState.getTournament();
+    Long tournamentId = currentTournament.getId();
+
+    players = tournamentsRepository.getPlayers(tournamentId,
+        0, 1000);
+
+    PlayerComparator pc = playerComparatorProvider.get(playerOrder);
+    players.sort(pc);
+
+    clubs = clubsRepository.read(0, 1000);
+    current = new Player(new Person());
+  }
+
+  public Player getCurrent() {
+    return current;
+  }
+
+  public void setCurrent(Player current) {
+    this.current = current;
+  }
+
+  public List<Player> getPlayers() {
+    return players;
+  }
+
+  /**
+   * Getting current chunk of players.
+   */
+  public Collection<Player> getPlayersChunk() {
+    Chunk<Player> chunk = new Chunk<>();
+    Collection<Player> playersChunk = chunk.get(this.players, ALL_PLAYERS_CHUNK_SIZE,
+        allPlayersChunkIndex);
+
+    // up to ALL_PLAYERS_CHUNK_SIZE
+    int startIndex = playersChunk.size();
+    for (int i = startIndex; i < ALL_PLAYERS_CHUNK_SIZE; i++) {
+      playersChunk.add(new Player(new Person()));
     }
 
-    @Override
-    public void synchronize() {
+    return playersChunk;
+  }
 
-        Tournament currentTournament = applicationState.getTournament();
-        Long tournamentId = currentTournament.getId();
+  public List<Club> getClubs() {
+    return clubs;
+  }
 
-        players = tournamentsRepository.getPlayers(tournamentId,
-                0, 1000);
+  public void setClubs(List<Club> clubs) {
+    this.clubs = clubs;
+  }
 
-        PlayerComparator pc = playerComparatorProvider.get(playerOrder);
-        players.sort(pc);
+  public List<Gender> getGenders() {
+    return Arrays.asList(Gender.values());
+  }
 
-        clubs = clubsRepository.read(0, 1000);
-        current = new Player(new Person());
+  public PlayerOrder getPlayerOrder() {
+    return playerOrder;
+  }
+
+  public void setPlayerOrder(PlayerOrder playerOrder) {
+    this.playerOrder = playerOrder;
+  }
+
+  public List<PlayerOrder> getPlayerOrders() {
+    return Arrays.asList(PlayerOrder.values());
+  }
+
+  public Long getCurrentClubId() {
+    return current.getClub() == null ? null : current.getClub().getId();
+  }
+
+  /**
+   * Setting the id of the current club.
+   */
+  public void setCurrentClubId(Long clubId) {
+    current.setClub(null);
+    for (Club club : clubs) {
+      if (club.getId().equals(clubId)) {
+        current.setClub(club);
+      }
     }
+  }
 
-    public Player getCurrent() {
-        return current;
-    }
+  public int getAllPlayersChunkIndex() {
+    return allPlayersChunkIndex;
+  }
 
-    public void setCurrent(Player current) {
-        this.current = current;
-    }
+  public void setAllPlayersChunkIndex(int allPlayersChunkIndex) {
+    this.allPlayersChunkIndex = allPlayersChunkIndex;
+  }
 
-    public List<Player> getPlayers() {
-        return players;
-    }
+  public boolean isNextAllPlayersChunkAvailable() {
+    return (this.allPlayersChunkIndex + 1) * ALL_PLAYERS_CHUNK_SIZE < players.size();
+  }
 
-    /**
-     * Getting current chunk of players.
-     */
-    public Collection<Player> getPlayersChunk() {
-        Chunk<Player> chunk = new Chunk<>();
-        Collection<Player> playersChunk = chunk.get(this.players, ALL_PLAYERS_CHUNK_SIZE,
-                allPlayersChunkIndex);
-
-        // up to ALL_PLAYERS_CHUNK_SIZE
-        int startIndex = playersChunk.size();
-        for (int i = startIndex; i < ALL_PLAYERS_CHUNK_SIZE; i++) {
-            playersChunk.add(new Player(new Person()));
-        }
-
-        return playersChunk;
-    }
-
-    public List<Club> getClubs() {
-        return clubs;
-    }
-
-    public void setClubs(List<Club> clubs) {
-        this.clubs = clubs;
-    }
-
-    public List<Gender> getGenders() {
-        return Arrays.asList(Gender.values());
-    }
-
-    public PlayerOrder getPlayerOrder() {
-        return playerOrder;
-    }
-
-    public void setPlayerOrder(PlayerOrder playerOrder) {
-        this.playerOrder = playerOrder;
-    }
-
-    public List<PlayerOrder> getPlayerOrders() {
-        return Arrays.asList(PlayerOrder.values());
-    }
-
-    /**
-     * Setting the id of the current club.
-     */
-    public void setCurrentClubId(Long clubId) {
-        current.setClub(null);
-        for (Club club : clubs) {
-            if (club.getId().equals(clubId)) {
-                current.setClub(club);
-            }
-        }
-    }
-
-    public Long getCurrentClubId() {
-        return current.getClub() == null ? null : current.getClub().getId();
-    }
-
-    public int getAllPlayersChunkIndex() {
-        return allPlayersChunkIndex;
-    }
-
-    public void setAllPlayersChunkIndex(int allPlayersChunkIndex) {
-        this.allPlayersChunkIndex = allPlayersChunkIndex;
-    }
-
-    public boolean isNextAllPlayersChunkAvailable() {
-        return (this.allPlayersChunkIndex + 1) * ALL_PLAYERS_CHUNK_SIZE < players.size();
-    }
-
-    public boolean isPrevAllPlayersChunkAvailable() {
-        return allPlayersChunkIndex > 0;
-    }
+  public boolean isPrevAllPlayersChunkAvailable() {
+    return allPlayersChunkIndex > 0;
+  }
 }

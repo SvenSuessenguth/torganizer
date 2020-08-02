@@ -8,137 +8,137 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:tc="http://xmlns.jcp.org/jsf/composite/components">
 <h:head>
-    <title>.</title>
+  <title>.</title>
 </h:head>
 
 <ui:composition template="/WEB-INF/templates/template.xhtml">
-    <ui:define name="title">${i18nText.squads}</ui:define>
+  <ui:define name="title">${i18nText.squads}</ui:define>
 
-    <ui:define name="css">
-        <h:outputStylesheet name="css/layouts/squads.css"/>
-    </ui:define>
+  <ui:define name="css">
+    <h:outputStylesheet name="css/layouts/squads.css"/>
+  </ui:define>
 
-    <ui:define name="main">
-        <h:form id="squadsForm">
+  <ui:define name="main">
+    <h:form id="squadsForm">
 
-            <!--
-             | Filter für players
-             +-->
-            <h:panelGroup id="squadsFilter">
-                <h:outputLabel for="filterGender" value="#{i18nGender.GENDER}"/>
-                <h:selectOneMenu id="filterGender" value="#{squadsState.gender}" onchange="submit()">
-                    <f:selectItems value="#{squadsState.genders}" var="gender"
-                                   itemValue="#{gender}"
-                                   itemLabel="#{i18nGender[gender]}"/>
-                    <f:converter converterId="genderConverter"/>
-                </h:selectOneMenu>
+      <!--
+       | Filter für players
+       +-->
+      <h:panelGroup id="squadsFilter">
+        <h:outputLabel for="filterGender" value="#{i18nGender.GENDER}"/>
+        <h:selectOneMenu id="filterGender" value="#{squadsState.gender}" onchange="submit()">
+          <f:selectItems value="#{squadsState.genders}" var="gender"
+                         itemValue="#{gender}"
+                         itemLabel="#{i18nGender[gender]}"/>
+          <f:converter converterId="genderConverter"/>
+        </h:selectOneMenu>
 
-            </h:panelGroup>
+      </h:panelGroup>
 
-            <!--
-             | all players
-             +-->
-            <h:dataTable id="allPlayers" value="#{squadsState.players}" var="player"
-                         style="margin-bottom: 10px; margin-top: 10px">
-                <h:column>
-                    <f:facet name="header">Vorname</f:facet>
-                    <h:commandLink actionListener="#{addPlayerToSquad.execute(player)}"
-                                   value="#{player.person.firstName}">
-                        <f:ajax execute="@this" render="squadsForm"/>
-                    </h:commandLink>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Nachname</f:facet>
-                    <h:commandLink actionListener="#{addPlayerToSquad.execute(player)}"
-                                   value="#{player.person.lastName}">
-                        <f:ajax execute="@this" render="squadsForm"/>
-                    </h:commandLink>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Verein</f:facet>
-                    <h:commandLink actionListener="#{addPlayerToSquad.execute(player)}"
-                                   value="#{player.club!=null?player.club.name:''}">
-                        <f:ajax execute="@this" render="squadsForm"/>
-                    </h:commandLink>
-                    <!-- to have the correct height -->
-                    &#160;
-                </h:column>
-                <h:column rendered="#{facesContext.isProjectStage('Development')}">
-                    <f:facet name="header">ID</f:facet>
-                    <h:commandLink actionListener="#{addPlayerToSquad.execute(player)}" value="#{player.id}"/>
-                </h:column>
-            </h:dataTable>
-            <!-- pagination -->
-            <h:commandLink value="&#8701;"
-                           style="#{squadsState.hasPrevAllPlayersTableChunk()?'color:black;':'color:lightgray;'}"
-                           disabled="#{!squadsState.hasPrevAllPlayersTableChunk()}"
-                           action="#{squadsState.prevAllPlayersTableChunk}"/>
-            <h:commandLink value="&#8702;"
-                           style="#{squadsState.hasNextAllPlayersTableChunk()?'color:black;':'color:lightgray;'}"
-                           disabled="#{!squadsState.hasNextAllPlayersTableChunk()}"
-                           action="#{squadsState.nextAllPlayersTableChunk}"/>
+      <!--
+       | all players
+       +-->
+      <h:dataTable id="allPlayers" value="#{squadsState.players}" var="player"
+                   style="margin-bottom: 10px; margin-top: 10px">
+        <h:column>
+          <f:facet name="header">Vorname</f:facet>
+          <h:commandLink actionListener="#{addPlayerToSquad.execute(player)}"
+                         value="#{player.person.firstName}">
+            <f:ajax execute="@this" render="squadsForm"/>
+          </h:commandLink>
+        </h:column>
+        <h:column>
+          <f:facet name="header">Nachname</f:facet>
+          <h:commandLink actionListener="#{addPlayerToSquad.execute(player)}"
+                         value="#{player.person.lastName}">
+            <f:ajax execute="@this" render="squadsForm"/>
+          </h:commandLink>
+        </h:column>
+        <h:column>
+          <f:facet name="header">Verein</f:facet>
+          <h:commandLink actionListener="#{addPlayerToSquad.execute(player)}"
+                         value="#{player.club!=null?player.club.name:''}">
+            <f:ajax execute="@this" render="squadsForm"/>
+          </h:commandLink>
+          <!-- to have the correct height -->
+          &#160;
+        </h:column>
+        <h:column rendered="#{facesContext.isProjectStage('Development')}">
+          <f:facet name="header">ID</f:facet>
+          <h:commandLink actionListener="#{addPlayerToSquad.execute(player)}" value="#{player.id}"/>
+        </h:column>
+      </h:dataTable>
+      <!-- pagination -->
+      <h:commandLink value="&#8701;"
+                     style="#{squadsState.hasPrevAllPlayersTableChunk()?'color:black;':'color:lightgray;'}"
+                     disabled="#{!squadsState.hasPrevAllPlayersTableChunk()}"
+                     action="#{squadsState.prevAllPlayersTableChunk}"/>
+      <h:commandLink value="&#8702;"
+                     style="#{squadsState.hasNextAllPlayersTableChunk()?'color:black;':'color:lightgray;'}"
+                     disabled="#{!squadsState.hasNextAllPlayersTableChunk()}"
+                     action="#{squadsState.nextAllPlayersTableChunk}"/>
 
-            <!--
-             | current squad
-             +-->
-            <h:dataTable value="#{squadsBacking.currentSquadPlayersOrderedByLastName}" var="player">
-                <h:column>
-                    <f:facet name="header"><h:outputText value="#{i18nText.first_name}"/></f:facet>
-                    <h:commandLink value="#{player.person.firstName}" style="white-space: nowrap;"
-                                   action="#{removePlayerFromSquad.execute(player)}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header"><h:outputText value="#{i18nText.last_name}"/></f:facet>
-                    <h:commandLink value="#{player.person.lastName}" style="white-space: nowrap;"
-                                   action="#{removePlayerFromSquad.execute(player)}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header"><h:outputText value="#{i18nText.club}"/></f:facet>
-                    <h:commandLink value="#{player.club!=null?player.club.name:''}" style="white-space: nowrap;"
-                                   action="#{removePlayerFromSquad.execute(player)}"/>&#160;
-                </h:column>
-                <h:column rendered="#{facesContext.isProjectStage('Development')}">
-                    <f:facet name="header">ID</f:facet>
-                    <h:outputText value="#{player.id}"/>
-                </h:column>
-            </h:dataTable>
+      <!--
+       | current squad
+       +-->
+      <h:dataTable value="#{squadsBacking.currentSquadPlayersOrderedByLastName}" var="player">
+        <h:column>
+          <f:facet name="header"><h:outputText value="#{i18nText.first_name}"/></f:facet>
+          <h:commandLink value="#{player.person.firstName}" style="white-space: nowrap;"
+                         action="#{removePlayerFromSquad.execute(player)}"/>
+        </h:column>
+        <h:column>
+          <f:facet name="header"><h:outputText value="#{i18nText.last_name}"/></f:facet>
+          <h:commandLink value="#{player.person.lastName}" style="white-space: nowrap;"
+                         action="#{removePlayerFromSquad.execute(player)}"/>
+        </h:column>
+        <h:column>
+          <f:facet name="header"><h:outputText value="#{i18nText.club}"/></f:facet>
+          <h:commandLink value="#{player.club!=null?player.club.name:''}" style="white-space: nowrap;"
+                         action="#{removePlayerFromSquad.execute(player)}"/>&#160;
+        </h:column>
+        <h:column rendered="#{facesContext.isProjectStage('Development')}">
+          <f:facet name="header">ID</f:facet>
+          <h:outputText value="#{player.id}"/>
+        </h:column>
+      </h:dataTable>
 
-            <!--
-             | all squads
-             +-->
-            <h:outputLabel for="squadsCount" value="Anzahl"/><h:outputText id="squadsCount"
-                                                                           value="#{fn:length(squadsState.squads)}"/>
-            <h:dataTable id="allSquads" value="#{squadsState.squads}" var="squad"
-                         style="margin-bottom: 10px; margin-top: 10px">
-                <h:column>
-                    <f:facet name="header">Vornamen</f:facet>
-                    <tc:opponent id="firstName#{squad.id}" opponent="#{squad}" showFirstNames="true"
-                                 selectOpponentAction="#{selectSquad}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Nachnamen</f:facet>
-                    <tc:opponent id="lastName#{squad.id}" opponent="#{squad}" showLastNames="true"
-                                 selectOpponentAction="#{selectSquad}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Vereine</f:facet>
-                    <tc:opponent id="club#{squad.id}" opponent="#{squad}" showClubs="true"
-                                 selectOpponentAction="#{selectSquad}"/>
-                </h:column>
-                <h:column rendered="#{facesContext.isProjectStage('Development')}">
-                    <f:facet name="header">ID</f:facet>
-                    <h:outputText value="#{squad.id}"/>
-                </h:column>
-            </h:dataTable>
+      <!--
+       | all squads
+       +-->
+      <h:outputLabel for="squadsCount" value="Anzahl"/><h:outputText id="squadsCount"
+                                                                     value="#{fn:length(squadsState.squads)}"/>
+      <h:dataTable id="allSquads" value="#{squadsState.squads}" var="squad"
+                   style="margin-bottom: 10px; margin-top: 10px">
+        <h:column>
+          <f:facet name="header">Vornamen</f:facet>
+          <tc:opponent id="firstName#{squad.id}" opponent="#{squad}" showFirstNames="true"
+                       selectOpponentAction="#{selectSquad}"/>
+        </h:column>
+        <h:column>
+          <f:facet name="header">Nachnamen</f:facet>
+          <tc:opponent id="lastName#{squad.id}" opponent="#{squad}" showLastNames="true"
+                       selectOpponentAction="#{selectSquad}"/>
+        </h:column>
+        <h:column>
+          <f:facet name="header">Vereine</f:facet>
+          <tc:opponent id="club#{squad.id}" opponent="#{squad}" showClubs="true"
+                       selectOpponentAction="#{selectSquad}"/>
+        </h:column>
+        <h:column rendered="#{facesContext.isProjectStage('Development')}">
+          <f:facet name="header">ID</f:facet>
+          <h:outputText value="#{squad.id}"/>
+        </h:column>
+      </h:dataTable>
 
-            <h:panelGroup style="display: block">
-                <h:commandButton id="squadsSave" action="#{saveSquad.execute()}" value="#{i18nText.save}"/>
-                <h:commandButton id="squadsDelete" action="#{deleteSquad.execute()}" value="#{i18nText.delete}"/>
-                <h:commandButton id="cancelSquad" action="squads?faces-redirect=true" value="#{i18nText.cancel}"
-                                 type="submit" immediate="true" disabled="#{squadsState.current.id == null}"/>
-            </h:panelGroup>
-        </h:form>
-    </ui:define>
+      <h:panelGroup style="display: block">
+        <h:commandButton id="squadsSave" action="#{saveSquad.execute()}" value="#{i18nText.save}"/>
+        <h:commandButton id="squadsDelete" action="#{deleteSquad.execute()}" value="#{i18nText.delete}"/>
+        <h:commandButton id="cancelSquad" action="squads?faces-redirect=true" value="#{i18nText.cancel}"
+                         type="submit" immediate="true" disabled="#{squadsState.current.id == null}"/>
+      </h:panelGroup>
+    </h:form>
+  </ui:define>
 
 </ui:composition>
 </html>

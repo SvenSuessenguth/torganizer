@@ -8,63 +8,63 @@
       xmlns:fn="http://java.sun.com/jsp/jstl/functions"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
-    <title>.</title>
+  <title>.</title>
 </h:head>
 
 <ui:composition template="/WEB-INF/templates/template.xhtml">
-    <ui:define name="title">${i18nText.tournaments}</ui:define>
+  <ui:define name="title">${i18nText.tournaments}</ui:define>
 
-    <ui:define name="css">
-        <h:outputStylesheet name="css/layouts/tournaments.css"/>
-    </ui:define>
+  <ui:define name="css">
+    <h:outputStylesheet name="css/layouts/tournaments.css"/>
+  </ui:define>
 
-    <ui:define name="main">
-        <h:form id="tournamentsForm">
-            <div>
-                #{i18nText.count}: #{fn:length(tournamentsState.tournaments)}
-            </div>
-            <br/>
+  <ui:define name="main">
+    <h:form id="tournamentsForm">
+      <div>
+        #{i18nText.count}: #{fn:length(tournamentsState.tournaments)}
+      </div>
+      <br/>
 
-            <section id="table">
-                <h:dataTable value="#{tournamentsState.tournaments}" var="tournament"
-                             rendered="#{not empty tournamentsState.tournaments}">
-                    <h:column>
-                        <f:facet name="header">Name</f:facet>
-                        <h:commandLink actionListener="#{selectTournament.execute(tournament)}"
-                                       value="#{tournament.name}">
-                            <f:ajax execute="@this" immediate="true"
-                                    render="tournamentsForm currentTournament navForm"/>
-                        </h:commandLink>
-                    </h:column>
-                    <h:column rendered="#{facesContext.isProjectStage('Development')}">
-                        <f:facet name="header">ID</f:facet>
-                        <h:commandLink actionListener="#{selectTournament.execute(tournament)}"
-                                       value="#{tournament.id}">
-                            <f:ajax render="tournamentsForm" immediate="true"/>
-                        </h:commandLink>
-                    </h:column>
-                </h:dataTable>
-            </section>
+      <section id="table">
+        <h:dataTable value="#{tournamentsState.tournaments}" var="tournament"
+                     rendered="#{not empty tournamentsState.tournaments}">
+          <h:column>
+            <f:facet name="header">Name</f:facet>
+            <h:commandLink actionListener="#{selectTournament.execute(tournament)}"
+                           value="#{tournament.name}">
+              <f:ajax execute="@this" immediate="true"
+                      render="tournamentsForm currentTournament navForm"/>
+            </h:commandLink>
+          </h:column>
+          <h:column rendered="#{facesContext.isProjectStage('Development')}">
+            <f:facet name="header">ID</f:facet>
+            <h:commandLink actionListener="#{selectTournament.execute(tournament)}"
+                           value="#{tournament.id}">
+              <f:ajax render="tournamentsForm" immediate="true"/>
+            </h:commandLink>
+          </h:column>
+        </h:dataTable>
+      </section>
 
-            <section id="edit">
-                <h:outputLabel for="currentName" value="#{i18nText.tournament}"/>
-                &#160;
-                <h:inputText id="currentName" value="#{tournamentsState.current.name}"
-                             validator="tournamentsNameValidator"
-                             label="#{i18nText.tournament}" a:autofocus="true"
-                             binding="#{tournamentsBacking.nameInputText}"
-                             styleClass="#{component.valid ? 'validation-ok' : 'validation-fail'}"/>
-                <br/>
+      <section id="edit">
+        <h:outputLabel for="currentName" value="#{i18nText.tournament}"/>
+        &#160;
+        <h:inputText id="currentName" value="#{tournamentsState.current.name}"
+                     validator="tournamentsNameValidator"
+                     label="#{i18nText.tournament}" a:autofocus="true"
+                     binding="#{tournamentsBacking.nameInputText}"
+                     styleClass="#{component.valid ? 'validation-ok' : 'validation-fail'}"/>
+        <br/>
 
-                <h:commandButton id="saveTournament" value="#{i18nText.save}" action="#{saveTournament.execute()}"/>
-                <h:commandButton id="deleteTournament" value="#{i18nText.delete}" action="#{deleteTournament.execute()}"
-                                 disabled="#{tournamentsState.current.id==null}"/>
-                <h:commandButton id="cancelTournament" action="tournaments?faces-redirect=true"
-                                 value="#{i18nText.cancel}"
-                                 type="submit" immediate="true" disabled="#{tournamentsState.current.id == null}"/>
-            </section>
-        </h:form>
-    </ui:define>
+        <h:commandButton id="saveTournament" value="#{i18nText.save}" action="#{saveTournament.execute()}"/>
+        <h:commandButton id="deleteTournament" value="#{i18nText.delete}" action="#{deleteTournament.execute()}"
+                         disabled="#{tournamentsState.current.id==null}"/>
+        <h:commandButton id="cancelTournament" action="tournaments?faces-redirect=true"
+                         value="#{i18nText.cancel}"
+                         type="submit" immediate="true" disabled="#{tournamentsState.current.id == null}"/>
+      </section>
+    </h:form>
+  </ui:define>
 </ui:composition>
 </html>
   

@@ -7,7 +7,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-
 import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.frontend.ConversationController;
 import org.cc.torganizer.frontend.State;
@@ -20,37 +19,37 @@ import org.cc.torganizer.persistence.TournamentsRepository;
 @ViewScoped
 public class TournamentsState implements Serializable, State {
 
-    @Inject
-    private transient TournamentsRepository tournamentsRepository;
+  @Inject
+  private transient TournamentsRepository tournamentsRepository;
 
-    @Inject
-    private ConversationController conversationController;
+  @Inject
+  private ConversationController conversationController;
 
-    private List<Tournament> tournaments = new ArrayList<>();
-    private Tournament current;
+  private List<Tournament> tournaments = new ArrayList<>();
+  private Tournament current;
 
-    @PostConstruct
-    public void postConstruct() {
-        synchronize();
-    }
+  @PostConstruct
+  public void postConstruct() {
+    synchronize();
+  }
 
-    @Override
-    public void synchronize() {
-        tournaments = tournamentsRepository.read(0, 100);
-        current = new Tournament();
+  @Override
+  public void synchronize() {
+    tournaments = tournamentsRepository.read(0, 100);
+    current = new Tournament();
 
-        conversationController.beginConversation();
-    }
+    conversationController.beginConversation();
+  }
 
-    public List<Tournament> getTournaments() {
-        return tournaments;
-    }
+  public List<Tournament> getTournaments() {
+    return tournaments;
+  }
 
-    public Tournament getCurrent() {
-        return current;
-    }
+  public Tournament getCurrent() {
+    return current;
+  }
 
-    public void setCurrent(Tournament current) {
-        this.current = current;
-    }
+  public void setCurrent(Tournament current) {
+    this.current = current;
+  }
 }

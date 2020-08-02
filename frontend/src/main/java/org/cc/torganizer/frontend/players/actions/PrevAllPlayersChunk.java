@@ -10,13 +10,13 @@ import javax.inject.Named;
 @Named
 public class PrevAllPlayersChunk extends PlayersAction {
 
-    /**
-     * Execute.
-     */
-    public void execute() {
-        int chunkIndex = state.getAllPlayersChunkIndex();
-        if (chunkIndex > 0) {
-            state.setAllPlayersChunkIndex(chunkIndex - 1);
-        }
+  /**
+   * Execute.
+   */
+  public void execute() {
+    int chunkIndex = state.getAllPlayersChunkIndex();
+    if (chunkIndex > 0) {
+      state.setAllPlayersChunkIndex(chunkIndex - 1);
     }
+  }
 }

@@ -7,48 +7,48 @@
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
-    <title>.</title>
+  <title>.</title>
 </h:head>
 
 <ui:composition template="/WEB-INF/templates/template.xhtml">
-    <ui:define name="title">${i18nText.clubs}</ui:define>
+  <ui:define name="title">${i18nText.clubs}</ui:define>
 
-    <ui:define name="css">
-        <h:outputStylesheet name="css/layouts/clubs.css"/>
-    </ui:define>
+  <ui:define name="css">
+    <h:outputStylesheet name="css/layouts/clubs.css"/>
+  </ui:define>
 
-    <ui:define name="main">
-        <h:form id="clubsForm">
+  <ui:define name="main">
+    <h:form id="clubsForm">
 
-            <h:panelGroup rendered="#{not empty clubsState.clubs}">
-                <h:dataTable id="allClubs" value="#{clubsState.clubs}" var="club"
-                             style="margin-bottom: 10px; margin-top: 10px">
-                    <h:column>
-                        <f:facet name="header">Name</f:facet>
-                        <h:commandLink action="#{selectClub.execute(club)}" value="#{club.name}">
-                            <f:ajax execute="@this" render="clubsForm"/>
-                        </h:commandLink>
-                    </h:column>
-                    <h:column rendered="#{facesContext.isProjectStage('Development')}">
-                        <f:facet name="header">ID</f:facet>
-                        <h:outputText value="#{club.id}"/>
-                    </h:column>
-                </h:dataTable>
-            </h:panelGroup>
+      <h:panelGroup rendered="#{not empty clubsState.clubs}">
+        <h:dataTable id="allClubs" value="#{clubsState.clubs}" var="club"
+                     style="margin-bottom: 10px; margin-top: 10px">
+          <h:column>
+            <f:facet name="header">Name</f:facet>
+            <h:commandLink action="#{selectClub.execute(club)}" value="#{club.name}">
+              <f:ajax execute="@this" render="clubsForm"/>
+            </h:commandLink>
+          </h:column>
+          <h:column rendered="#{facesContext.isProjectStage('Development')}">
+            <f:facet name="header">ID</f:facet>
+            <h:outputText value="#{club.id}"/>
+          </h:column>
+        </h:dataTable>
+      </h:panelGroup>
 
-            <h:outputLabel for="clubName" value="#{i18nText.club}"/>&#160;
-            <h:inputText id="clubName" label="#{i18nText.club}" value="#{clubsState.current.name}" a:autofocus="true"
-                         styleClass="#{component.valid ? 'validation-ok' : 'validation-fail'}"/>
+      <h:outputLabel for="clubName" value="#{i18nText.club}"/>&#160;
+      <h:inputText id="clubName" label="#{i18nText.club}" value="#{clubsState.current.name}" a:autofocus="true"
+                   styleClass="#{component.valid ? 'validation-ok' : 'validation-fail'}"/>
 
-            <h:panelGroup style="display: block">
-                <h:commandButton id="saveClue" action="#{saveClub.execute()}" value="#{i18nText.save}"/>
-                <h:commandButton id="deleteClub" action="#{deleteClub.execute()}" value="#{i18nText.delete}"
-                                 disabled="#{clubsState.current.id == null}"/>
-                <h:commandButton id="cancelClub" action="clubs?faces-redirect=true" value="#{i18nText.cancel}"
-                                 type="submit" immediate="true" disabled="#{clubsState.current.id == null}"/>
-            </h:panelGroup>
-        </h:form>
-    </ui:define>
+      <h:panelGroup style="display: block">
+        <h:commandButton id="saveClue" action="#{saveClub.execute()}" value="#{i18nText.save}"/>
+        <h:commandButton id="deleteClub" action="#{deleteClub.execute()}" value="#{i18nText.delete}"
+                         disabled="#{clubsState.current.id == null}"/>
+        <h:commandButton id="cancelClub" action="clubs?faces-redirect=true" value="#{i18nText.cancel}"
+                         type="submit" immediate="true" disabled="#{clubsState.current.id == null}"/>
+      </h:panelGroup>
+    </h:form>
+  </ui:define>
 
 </ui:composition>
 </html>

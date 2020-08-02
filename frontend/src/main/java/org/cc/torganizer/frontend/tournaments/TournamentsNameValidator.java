@@ -13,40 +13,39 @@ import javax.faces.validator.ValidatorException;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.ValidatorFactory;
-
 import org.cc.torganizer.core.entities.Tournament;
 
 @FacesValidator("tournamentsNameValidator")
 public class TournamentsNameValidator implements Validator<String> {
 
 
-    @Override
-    public void validate(FacesContext facesContext, UIComponent uiComponent, String tournamentsName) {
+  @Override
+  public void validate(FacesContext facesContext, UIComponent uiComponent, String tournamentsName) {
 
-        // to keep it simple a new tournament with the given name/id is created and then validated
-        Tournament tournament = new Tournament();
-        tournament.setName(tournamentsName);
-        Set<ConstraintViolation<Tournament>> constraintViolations = validate(tournament);
+    // to keep it simple a new tournament with the given name/id is created and then validated
+    Tournament tournament = new Tournament();
+    tournament.setName(tournamentsName);
+    Set<ConstraintViolation<Tournament>> constraintViolations = validate(tournament);
 
-        if (!constraintViolations.isEmpty()) {
-            Collection<FacesMessage> facesMessages = createFacesMessages(constraintViolations);
-            throw new ValidatorException(facesMessages);
-        }
+    if (!constraintViolations.isEmpty()) {
+      Collection<FacesMessage> facesMessages = createFacesMessages(constraintViolations);
+      throw new ValidatorException(facesMessages);
     }
+  }
 
-    private Set<ConstraintViolation<Tournament>> validate(Tournament newTournament) {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        javax.validation.Validator validator = factory.getValidator();
-        return validator.validate(newTournament);
-    }
+  private Set<ConstraintViolation<Tournament>> validate(Tournament newTournament) {
+    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+    javax.validation.Validator validator = factory.getValidator();
+    return validator.validate(newTournament);
+  }
 
-    private Collection<FacesMessage> createFacesMessages(
-            Set<ConstraintViolation<Tournament>> constraintViolations) {
+  private Collection<FacesMessage> createFacesMessages(
+      Set<ConstraintViolation<Tournament>> constraintViolations) {
 
-        return constraintViolations
-                .stream()
-                .map(ConstraintViolation::getMessage)
-                .map(messageText -> new FacesMessage(FacesMessage.SEVERITY_ERROR, messageText, messageText))
-                .collect(Collectors.toCollection(() -> new ArrayList<>(constraintViolations.size())));
-    }
+    return constraintViolations
+        .stream()
+        .map(ConstraintViolation::getMessage)
+        .map(messageText -> new FacesMessage(FacesMessage.SEVERITY_ERROR, messageText, messageText))
+        .collect(Collectors.toCollection(() -> new ArrayList<>(constraintViolations.size())));
+  }
 }

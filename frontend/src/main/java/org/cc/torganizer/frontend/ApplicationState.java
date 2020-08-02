@@ -1,10 +1,9 @@
 package org.cc.torganizer.frontend;
 
-import org.cc.torganizer.core.entities.Tournament;
-
+import java.io.Serializable;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Named;
-import java.io.Serializable;
+import org.cc.torganizer.core.entities.Tournament;
 
 @ConversationScoped
 @Named
