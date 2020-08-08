@@ -20,13 +20,14 @@
 
     <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon.ico']}"/>
     <h:outputStylesheet name="css/_styles.css"/>
+    <h:outputStylesheet name="css/_layout.css"/>
     <!-- page specific css e.g. for layouting -->
     <ui:insert name="css"/>
   </h:head>
 
   <h:body>
-    <ui:debug/>
     <header>
+      <ui:debug/>
       <h:messages/>
     </header>
     <nav id="nav">
@@ -48,7 +49,6 @@
       <hr/>
       <ui:insert name="main">page content</ui:insert>
     </main>
-
   </h:body>
 </f:view>
 </html>
