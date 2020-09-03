@@ -9,7 +9,7 @@ import org.cc.torganizer.core.comparators.PositionalComparator;
  * Matches ausgef\u00fchrt, die den Sieger oder die Opponents, die in die
  * n\u00e4chste Round kommen, bestimmen
  */
-public class Group extends Entity implements IPositional {
+public class Group extends Entity implements Positional {
 
   private Integer position;
 

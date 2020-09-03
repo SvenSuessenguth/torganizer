@@ -13,7 +13,7 @@ import java.util.List;
  * Ein <i>match</i> stellt eine Spiel zwischen zwei oder mehr <i>opponents</i>
  * dar.
  */
-public class Match extends Entity implements IPositional {
+public class Match extends Entity implements Positional {
 
   /**
    * Match, bei dem keiner der Opponents bekannt ist.

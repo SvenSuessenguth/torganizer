@@ -14,7 +14,7 @@ import org.cc.torganizer.core.comparators.PositionalComparator;
  * der ersten Runde Gruppenspiele gefolgt von Einfachem KO gespielt.
  */
 
-public class Round extends Entity implements IPositional {
+public class Round extends Entity implements Positional {
 
   private Integer position;
 

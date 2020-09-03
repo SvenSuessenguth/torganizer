@@ -5,15 +5,15 @@ import static org.cc.torganizer.core.util.Checker.onlyNullValues;
 
 import java.io.Serializable;
 import java.util.Comparator;
-import org.cc.torganizer.core.entities.IPositional;
+import org.cc.torganizer.core.entities.Positional;
 
 /**
  * Sortieren nach der Position.
  */
-public class PositionalComparator implements Comparator<IPositional>, Serializable {
+public class PositionalComparator implements Comparator<Positional>, Serializable {
 
   @Override
-  public final int compare(final IPositional p0, final IPositional p1) {
+  public final int compare(final Positional p0, final Positional p1) {
 
     // both are NULL
     if (onlyNullValues(p0, p1)) {

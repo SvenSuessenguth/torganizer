@@ -4,7 +4,7 @@ package org.cc.torganizer.core.entities;
  * Ein <i>result</i> kann das endgueltige Endergebnis eines <i>matches</i> sein,
  * oder ein Zwischenergebnis (z.B. Satzergebnis) repraesentieren.
  */
-public class Result extends Entity implements IPositional {
+public class Result extends Entity implements Positional {
 
   private Integer homeScore;
 

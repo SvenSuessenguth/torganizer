@@ -6,7 +6,7 @@ package org.cc.torganizer.core.entities;
  * Da ein Opponents an mehreren Stellen (Runden/Gruppen...) einsortiert sein kann, kann der
  * Sortierindex position keine Eigenschaft von Opponent sein.
  */
-public class PositionalOpponent extends Entity implements IPositional {
+public class PositionalOpponent extends Entity implements Positional {
 
   private Opponent opponent;
 
