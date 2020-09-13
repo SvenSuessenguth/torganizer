@@ -1,0 +1,10 @@
+[
+  {
+    "labels": {
+      "job": "prometheus"
+    },
+    "targets": [
+      "frontend:8080"
+   ]
+  }
+]
