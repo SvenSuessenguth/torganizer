@@ -4,5 +4,3 @@
 include::installation.adoc[]
 
 include::docker.adoc[]
-
-include::javascript.adoc[]

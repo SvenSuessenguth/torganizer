@@ -7,94 +7,18 @@
 https://www.ibm.com/support/knowledgecenter/en/SS7K4U_liberty/com.ibm.websphere.wlp.zseries.doc/ae/twlp_setup_new_server.html
 [source,dos,options="nowrap"]
 ----
-/wlp/bin/server create rest
-/wlp/bin/server create webclient
+/wlp/bin/server create frontent
 ----
 
 Copy files from <project>/src/main/config/wlp to <wlp>/usr/servers/<servername>
 
 
-==== Glassfish 5 / Payara
-
-https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-usagenotes-glassfish-config.html
-
-https://github.com/payara/docker-payaraserver-full/issues/13
-
-Creating a MySQL-5.7-datasource via commandline/asadmin for Glassfish/Payara
-[source,dos,options="nowrap"]
-----
- add-library /path/to/mysql-connector-java-bin.jar
-
- create-jdbc-connection-pool --datasourceclassname com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource --restype javax.sql.DataSource --property user=newuser:password=newuser:DatabaseName=torganizer:ServerName=localhost:PortNumber=3306:useSSL=false MySQLConnPool
- create-jdbc-resource --connectionpoolid MySQLConnPool jdbc/torganizerDS
- 
- create-custom-resource --restype=java.lang.String --factoryclass=org.glassfish.resources.custom.factory.PrimitivesAndStringFactory --property value=Development jsf/ProjectStage
- create-custom-resource --restype=java.lang.String --factoryclass=org.glassfish.resources.custom.factory.PrimitivesAndStringFactory --property value="http\://localhost\:8080/rest/resources/" torganizer/resourcesUrl
-----
-
-==== Wildfly 14
-* Anlegen von "${WILDFLY_HOME}/modules/system/layers/base/com/mysql/main"
-* Kopieren des jdbc-Treibers in diesen Ordner
-* Anlegen einer Datei "module.xml" in diesem Ordner und dem Inhalt
-====
-[source,xml]
-----
-<module xmlns="urn:jboss:module:1.3" name="com.mysql">
-  <resources>
-    <resource-root path="mysql-connector-java-8.0.17-bin.jar"/>
-  </resources>
-  <dependencies>
-    <module name="javax.api"/>
-  </dependencies>
-</module>
-----
-====
-* datasources subsystem anpassen
-====
-[source,xml]
-----
-<subsystem xmlns="urn:jboss:domain:datasources:2.0">
-  <datasources>
-    ...
-    <datasource jndi-name="java:/jdbc/torganizerDS" pool-name="torganizerDS" enabled="true" use-java-context="true">
-      <connection-url>jdbc:mysql://localhost:3306/torganizer</connection-url>
-      <driver>mysql</driver>
-      <security>
-        <user-name>root</user-name>
-        <password>root</password>
-      </security>
-    </datasource>
-			
-    <drivers>
-      ...
-      <driver name="mysql" module="com.mysql">
-        <xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</xa-datasource-class>
-      </driver>
-    </drivers>
-  </datasources>
-</subsystem>
-----
-====
-* ausführen von ${WILDFLY_HOME}\bin\add-user mit user 'admin'
-
 === DataBase
 
-==== Mysql
-* my.ini nach c:\Windows kopieren
-====
-[source]
-----
-[mysqld]
-# set basedir to your installation path
-basedir=c:\\dev\\server\\mysql-8.0.17-winx64
-# set datadir to the location of your data directory
-datadir=c:\\dev\\server\\mysql-8.0.17-winx64\\data
-# https://stackoverflow.com/questions/5359495/how-to-change-a-mysql-database-to-utc
-default-time-zone = '+00:00'
-----
-====
-* mysql-8.0.17-winx64 nach c:\dev\server kopieren
-* c:\dev\server\mysql-8.0.17-winx64\data anlegen
-* mysqld --initialize-insecure
-* mysqld --console
-* Datenbank 'test' und 'torganizer' anlegen
+docker network create -d bridge carboncopy
+
+docker pull postgres
+
+docker build -t "carboncopy/postgresql" .
+
+docker run -d -e POSTGRES_PASSWORD=postgres -p 5432:5432 --name cc-postgresql --network=carboncopy "carboncopy/postgresql":latest
