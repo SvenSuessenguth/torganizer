@@ -214,8 +214,6 @@
     <module>frontend</module>
     <module>model</module>
     <module>persistence</module>
-    <module>rest</module>
-    <module>webclient</module>
   </modules>
 
   <build>
