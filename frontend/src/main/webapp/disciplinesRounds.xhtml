@@ -24,6 +24,13 @@
 
   <ui:define name="main">
     <h:form id="roundsForm">
+      <h:panelGroup styleClass="tabs">
+        <h:commandButton action="disciplinesCore" value="core" disabled="#{empty disciplinesState.discipline.id}"/>
+        <h:commandButton action="disciplinesRounds" value="rounds"
+                         disabled="#{empty disciplinesState.discipline.id}"/>
+      </h:panelGroup>
+      <br/><br/>
+
       <c:set var="round" value="#{roundsState.round}"/>
 
       <h:outputText value="#{i18nText.rounds} (#{disciplinesState.discipline.name})"/>
@@ -51,11 +58,10 @@
       </h:selectOneMenu>
       <br/>
 
-      Gruppen <h:inputText value="#{roundsState.newGroupsCount}"/>
+      Gruppen <h:inputText id="groupsCount" value="#{roundsState.newGroupsCount}"/>
       <br/>
       <h:commandButton value="#{i18nText.save}" action="#{saveRoundAction.execute()}"/>
       <h:commandButton value="#{i18nText.delete}" action="#{deleteRoundAction.execute()}"/>
-      <h:commandButton value="#{i18nText.cancel}" action="#{cancelRoundAction.execute()}"/>
 
       <!--
        | assignable opponents

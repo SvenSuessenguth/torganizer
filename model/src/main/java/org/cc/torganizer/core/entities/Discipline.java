@@ -171,4 +171,16 @@ public class Discipline extends Entity {
   public OpponentTypeRestriction getOpponentTypeRestriction() {
     return (OpponentTypeRestriction) getRestriction(OPPONENT_TYPE_RESTRICTION);
   }
+
+  public Round getLastRound() {
+    Round lastRound = null;
+
+    for (Round round : getRounds()) {
+      if (lastRound == null || lastRound.getPosition() < round.getPosition()) {
+        lastRound = round;
+      }
+    }
+
+    return lastRound;
+  }
 }

@@ -98,4 +98,20 @@ class DisciplineTest {
 
     assertThat(discipline.getRounds()).hasSize(1);
   }
+  
+  @Test
+  public void testGetLastRound_noRoundAvailable() {
+    Round actual = discipline.getLastRound();
+    assertThat(actual).isNull();
+  }
+
+  @Test
+  public void testGetLastRound_roundsAvailable() {
+    discipline.addRound(new Round());
+    discipline.addRound(new Round());
+    discipline.addRound(new Round());
+    Round actual = discipline.getLastRound();
+    assertThat(actual).isNotNull();
+    assertThat(actual.getPosition()).isEqualTo(2);
+  }
 }

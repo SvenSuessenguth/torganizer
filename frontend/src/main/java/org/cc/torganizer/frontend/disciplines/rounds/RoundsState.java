@@ -3,6 +3,7 @@ package org.cc.torganizer.frontend.disciplines.rounds;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
@@ -41,7 +42,7 @@ public class RoundsState implements Serializable, State {
   @Override
   public void synchronize() {
     Discipline discipline = disciplinesState.getDiscipline();
-    round = discipline.getRound(0);
+    round = discipline.getLastRound();
     synchronizeOpponents();
   }
 
@@ -75,13 +76,15 @@ public class RoundsState implements Serializable, State {
   public boolean isLastRound() {
     Discipline discipline = disciplinesState.getDiscipline();
     int highestPostion = 0;
+
+    // getting highest round
     for (Round r : discipline.getRounds()) {
       if (r.getPosition() > highestPostion) {
         highestPostion = r.getPosition();
       }
     }
 
-    return round.getPosition() == highestPostion;
+    return Objects.equals(round.getPosition(), highestPostion);
   }
 
   /**
