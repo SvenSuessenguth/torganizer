@@ -172,6 +172,9 @@ public class Discipline extends Entity {
     return (OpponentTypeRestriction) getRestriction(OPPONENT_TYPE_RESTRICTION);
   }
 
+  /**
+   * Returning the last round of this discipline.
+   */
   public Round getLastRound() {
     Round lastRound = null;
 
