@@ -84,7 +84,8 @@ public class RoundsRepository extends Repository<Round> {
   /**
    * Find all opponents, which are not already assigned to a group of the round.
    */
-  public Collection<Opponent> getNotAssignedOpponents(Long roundId, Integer offset, Integer maxResults) {
+  public Collection<Opponent> getNotAssignedOpponents(Long roundId, Integer offset,
+                                                      Integer maxResults) {
 
     Collection<Opponent> opponents = getOpponents(roundId);
     Set<Opponent> assignedOpponents = getAssignedOpponents(roundId);
