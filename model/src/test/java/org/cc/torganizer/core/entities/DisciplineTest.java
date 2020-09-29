@@ -100,13 +100,13 @@ class DisciplineTest {
   }
   
   @Test
-  public void testGetLastRound_noRoundAvailable() {
+  void testGetLastRound_noRoundAvailable() {
     Round actual = discipline.getLastRound();
     assertThat(actual).isNull();
   }
 
   @Test
-  public void testGetLastRound_roundsAvailable() {
+  void testGetLastRound_roundsAvailable() {
     discipline.addRound(new Round());
     discipline.addRound(new Round());
     discipline.addRound(new Round());
