@@ -44,19 +44,6 @@ public abstract class Restriction extends Entity {
       this.id = discriminator;
     }
 
-//    /**
-//     * getting the discriminator with the given <code>id</code>.
-//     */
-//    public static Discriminator byId(String id) {
-//      for (Discriminator discriminator : values()) {
-//        if (discriminator.id.equals(id)) {
-//          return discriminator;
-//        }
-//      }
-//
-//      throw new IllegalArgumentException("no Restriction.Discriminator found for id '" + id + "'");
-//    }
-
     public abstract Restriction create();
 
     public String getId() {

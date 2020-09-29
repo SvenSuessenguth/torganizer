@@ -1,10 +1,10 @@
 package org.cc.torganizer.core.entities;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import org.cc.torganizer.core.comparators.PositionalComparator;
 
 /**
@@ -100,8 +100,8 @@ public class Round extends Entity implements Positional {
     return deletableGroups;
   }
 
-  public Set<Opponent> getQualifiedOpponents() {
-    return Collections.emptySet();
+  public Collection<Opponent> getQualifiedOpponents() {
+    return Collections.emptyList();
   }
 
   public System getSystem() {

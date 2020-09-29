@@ -3,6 +3,7 @@ package org.cc.torganizer.persistence;
 import static java.util.Collections.sort;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -65,9 +66,9 @@ public class RoundsRepository extends Repository<Round> {
   /**
    * Reading the opponents which are related to the round with the given id.
    */
-  public Set<Opponent> getOpponents(Long roundId) {
+  public Collection<Opponent> getOpponents(Long roundId) {
     Long prevRoundId = getPrevRoundId(roundId);
-    Set<Opponent> opponents;
+    Collection<Opponent> opponents;
 
     if (prevRoundId != null) {
       Round prevRound = read(prevRoundId);
@@ -83,9 +84,9 @@ public class RoundsRepository extends Repository<Round> {
   /**
    * Find all opponents, which are not already assigned to a group of the round.
    */
-  public Set<Opponent> getNotAssignedOpponents(Long roundId, Integer offset, Integer maxResults) {
+  public Collection<Opponent> getNotAssignedOpponents(Long roundId, Integer offset, Integer maxResults) {
 
-    Set<Opponent> opponents = getOpponents(roundId);
+    Collection<Opponent> opponents = getOpponents(roundId);
     Set<Opponent> assignedOpponents = getAssignedOpponents(roundId);
 
     // sets can't work with positions

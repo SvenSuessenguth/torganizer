@@ -1,7 +1,8 @@
 package org.cc.torganizer.frontend.disciplines.rounds;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import javax.annotation.PostConstruct;
@@ -30,7 +31,6 @@ public class RoundsState implements Serializable, State {
   @Inject
   private TournamentsRepository tournamentsRepository;
 
-  private List<Opponent> assignableOpponents;
   private Round round;
   private int newGroupsCount;
 
@@ -43,19 +43,7 @@ public class RoundsState implements Serializable, State {
   public void synchronize() {
     Discipline discipline = disciplinesState.getDiscipline();
     round = discipline.getLastRound();
-    synchronizeOpponents();
   }
-
-  /**
-   * Synchronizing current discipline with database.
-   */
-  public void synchronizeOpponents() {
-    Discipline discipline = disciplinesState.getDiscipline();
-    Long tournamentId = applicationState.getTournamentId();
-    assignableOpponents = tournamentsRepository.getAssignableOpponentsForDiscipline(tournamentId,
-        discipline, 0, 1000);
-  }
-
 
   public List<Round> getRounds() {
     Discipline discipline = disciplinesState.getDiscipline();
@@ -88,18 +76,24 @@ public class RoundsState implements Serializable, State {
   }
 
   /**
-   * Getting opponents that can be assigned to the current discipline.
+   * Getting opponents that can be assigned to the current round.
+   * In the first rouond all Opponents are assignable.
+   * In the following rounds only the qualified of the previous round.
    */
-  public List<Opponent> getAssignableOpponents() {
-    Discipline discipline = disciplinesState.getDiscipline();
-    List<Opponent> result = new ArrayList<>(assignableOpponents);
+  public Collection<Opponent> getAssignableOpponents() {
+    Collection<Opponent> assignableOpponents = null;
 
-    // remove opponents already added to discipline
-    for (Opponent opponent : discipline.getOpponents()) {
-      result.remove(opponent);
+    boolean isFirstRound = round.getPosition() == 0;
+    if (isFirstRound) {
+      Discipline discipline = disciplinesState.getDiscipline();
+      Long tournamentId = applicationState.getTournamentId();
+      assignableOpponents = tournamentsRepository
+          .getAssignableOpponentsForDiscipline(tournamentId, discipline, 0, 1000);
+    } else {
+      assignableOpponents = round.getQualifiedOpponents();
     }
 
-    return result;
+    return new HashSet<>(assignableOpponents);
   }
 
   public int getNewGroupsCount() {

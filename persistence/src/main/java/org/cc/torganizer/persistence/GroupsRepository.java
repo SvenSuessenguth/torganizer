@@ -1,5 +1,6 @@
 package org.cc.torganizer.persistence;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -77,7 +78,7 @@ public class GroupsRepository extends Repository<Group> {
     Discipline discipline = disciplineRepo.read(disciplineId);
 
     // opponents in round of group (passed the previous round)
-    Set<Opponent> opponentsInRound = null;
+    Collection<Opponent> opponentsInRound = null;
     if (round.getPosition() == 0) {
       opponentsInRound = discipline.getOpponents();
     } else {
@@ -90,7 +91,7 @@ public class GroupsRepository extends Repository<Group> {
   }
 
   protected Set<Opponent> filterAlreadyAssignedOpponents(Round round,
-                                                         Set<Opponent> opponentsInRound) {
+                                                         Collection<Opponent> opponentsInRound) {
     Set<Opponent> assignableOpponents = new HashSet<>();
     List<Group> groups = round.getGroups();
     for (Opponent candidate : opponentsInRound) {
