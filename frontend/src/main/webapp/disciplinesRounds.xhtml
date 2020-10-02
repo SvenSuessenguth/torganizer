@@ -67,7 +67,7 @@
        | assignable opponents
        +-->
       <h:panelGroup id="assignableOpponents">
-        <h:outputText value="mögliche Kandiaten"/>
+        <h:outputText value="mögliche Teilnehmer"/>
         <h:dataTable value="#{roundsState.assignableOpponents}" var="opponent"
                      rendered="#{not empty disciplinesState.discipline.id}">
           <h:column>
@@ -96,7 +96,7 @@
        | opponents
        +-->
       <h:panelGroup id="opponents">
-        <h:outputText value="Kandidaten"/>
+        <h:outputText value="Teilnehmer"/>
         <h:dataTable value="#{disciplinesState.discipline.opponents}" var="opponent"
                      rendered="#{not empty disciplinesState.discipline.id}">
           <h:column>
