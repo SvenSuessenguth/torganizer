@@ -14,13 +14,11 @@ import org.junit.jupiter.api.Test;
 class SquadsRepositoryTest extends AbstractDbUnitJpaTest {
 
   private SquadsRepository repository;
-  private PlayersRepository playersRepository;
 
   @BeforeEach
   void before() throws Exception {
     super.initDatabase("test-data-squads.xml");
     repository = new SquadsRepository(entityManager);
-    playersRepository = new PlayersRepository(entityManager);
   }
 
   @Test
