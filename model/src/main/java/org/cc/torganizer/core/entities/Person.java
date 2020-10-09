@@ -77,6 +77,14 @@ public class Person extends Entity {
     this.gender = gender;
   }
 
+  public Integer getAge() {
+    if (dateOfBirth == null) {
+      return null;
+    }
+
+    return LocalDate.now().compareTo(dateOfBirth);
+  }
+
   /**
    * Checking, if the person have the given gender.
    */
