@@ -27,4 +27,14 @@ class ChunkTest {
 
     assertThat(actual).hasSameSizeAs(expected).containsAll(expected);
   }
+
+  @Test
+  void testStartIndexToLarge() {
+    Collection<String> all = Arrays.asList("1", "2", "3", "4", "5", "6");
+    int chunkSize = 2;
+
+    Collection<String> actual = chunk.get(all, chunkSize, 20);
+
+    assertThat(actual).isEmpty();
+  }
 }
