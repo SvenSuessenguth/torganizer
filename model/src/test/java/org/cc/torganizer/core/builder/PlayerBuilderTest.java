@@ -30,7 +30,7 @@ class PlayerBuilderTest {
   @Test
   void testWithAge_0() {
     Player p = builder.withAge(0).get();
-    assertThat(p.getPerson().getAge()).isEqualTo(0);
+    assertThat(p.getPerson().getAge()).isZero();
   }
 
   @Test
@@ -48,7 +48,7 @@ class PlayerBuilderTest {
   @Test
   void testWithgender_null() {
     Player p = builder.withGender(null).get();
-    assertThat(p.getPerson().getGender()).isEqualTo(null);
+    assertThat(p.getPerson().getGender()).isNull();
   }
 
   @Test

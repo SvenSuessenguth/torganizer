@@ -1,20 +1,34 @@
 package org.cc.torganizer.validation;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import java.util.Set;
+import java.util.stream.Stream;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import org.cc.torganizer.core.entities.Person;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 
 class ValidatePersonTest {
 
   private static Validator validator;
+
+  static Stream<Arguments> personProvider() {
+    return Stream.of(
+        arguments(new Person("Firstname", "Lastname"), 0),
+        arguments(new Person("", "ok"), 2),
+        arguments(new Person("    ", "ok"), 1),
+        arguments(new Person(null, "ok"), 2),
+        arguments(new Person("012345678901234567890", "ok"), 1)
+    );
+  }
 
   @BeforeAll
   public static void beforeClass() {
@@ -22,47 +36,10 @@ class ValidatePersonTest {
     validator = factory.getValidator();
   }
 
-  @Test
-  void testValidatePerson_firstNameTooShort() {
-    String tooShortFirstName = "";
-    Person p = new Person(tooShortFirstName, "ok");
-
-    Set<ConstraintViolation<Person>> violations = validator.validate(p);
-
-    // notBlank, min-size=1
-    assertThat(violations).hasSize(2);
-  }
-
-  @Test
-  void testValidatePerson_firstNameBlank() {
-    String tooShortFirstName = "   ";
-    Person p = new Person(tooShortFirstName, "ok");
-
-    Set<ConstraintViolation<Person>> violations = validator.validate(p);
-
-    // notBlank
-    assertThat(violations).hasSize(1);
-  }
-
-  @Test
-  void testValidatePerson_firstNameNull() {
-    Person p = new Person(null, "ok");
-
-    Set<ConstraintViolation<Person>> violations = validator.validate(p);
-
-    // notNull, notBlank
-    assertThat(violations).hasSize(2);
-  }
-
-  @Test
-  void testValidatePerson_firstNameTooLong() {
-    // 21 Zeichen
-    String tooShortFirstName = "012345678901234567890";
-    Person p = new Person(tooShortFirstName, "ok");
-
-    Set<ConstraintViolation<Person>> violations = validator.validate(p);
-
-    // max-size=20
-    assertThat(violations).hasSize(1);
+  @ParameterizedTest
+  @MethodSource("personProvider")
+  void test(Person person, int expectedMessageCount) {
+    Set<ConstraintViolation<Person>> violations = validator.validate(person);
+    assertThat(violations).hasSize(expectedMessageCount);
   }
 }
