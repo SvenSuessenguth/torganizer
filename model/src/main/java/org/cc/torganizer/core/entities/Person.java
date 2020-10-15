@@ -81,7 +81,7 @@ public class Person extends Entity {
   /**
    * Calculating the age of the person in years. If no dato of birth is given, the age is NULL.
    */
-  public Integer getAge() throws IllegalDateOfBirthException {
+  public Integer getAge() {
     if (dateOfBirth == null) {
       return null;
     }
