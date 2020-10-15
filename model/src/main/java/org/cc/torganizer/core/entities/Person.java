@@ -77,12 +77,21 @@ public class Person extends Entity {
     this.gender = gender;
   }
 
+  /**
+   * Calculating the age of the person in years. If no dato of birth is given, the age is NULL.
+   */
   public Integer getAge() {
     if (dateOfBirth == null) {
       return null;
     }
 
-    return LocalDate.now().compareTo(dateOfBirth);
+    int ageInYears = LocalDate.now().getYear() - dateOfBirth.getYear();
+
+    if (ageInYears < 1) {
+      throw new RuntimeException("Age of " + this + " must be greate than 0");
+    }
+
+    return ageInYears;
   }
 
   /**
