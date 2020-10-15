@@ -6,6 +6,7 @@ import static org.cc.torganizer.core.entities.Gender.MALE;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.core.exceptions.IllegalDateOfBirthException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,13 +32,13 @@ class PlayerBuilderTest {
   @Test
   void testWithAge_0() {
     Player p = builder.withAge(0).get();
-    assertThrows(RuntimeException.class, () -> p.getPerson().getAge());
+    assertThrows(IllegalDateOfBirthException.class, () -> p.getPerson().getAge());
   }
 
   @Test
   void testWithAge_minus1() {
     Player p = builder.withAge(-1).get();
-    assertThrows(RuntimeException.class, () -> p.getPerson().getAge());
+    assertThrows(IllegalDateOfBirthException.class, () -> p.getPerson().getAge());
   }
 
   @Test

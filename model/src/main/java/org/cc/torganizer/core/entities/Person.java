@@ -3,6 +3,7 @@ package org.cc.torganizer.core.entities;
 import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
 
 import java.time.LocalDate;
+import org.cc.torganizer.core.exceptions.IllegalDateOfBirthException;
 
 /**
  * A person represents an man or a woman with core data.
@@ -88,7 +89,7 @@ public class Person extends Entity {
     int ageInYears = LocalDate.now().getYear() - dateOfBirth.getYear();
 
     if (ageInYears < 1) {
-      throw new RuntimeException("Age of " + this + " must be greate than 0");
+      throw new IllegalDateOfBirthException("Age of " + this + " must be greate than 0");
     }
 
     return ageInYears;

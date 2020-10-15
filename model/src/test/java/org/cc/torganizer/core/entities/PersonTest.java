@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.stream.Stream;
+import org.cc.torganizer.core.exceptions.IllegalDateOfBirthException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -76,6 +77,6 @@ class PersonTest {
   void testGetAge_0() {
     Person person = newPersonWitDateOfBirth(now());
 
-    assertThrows(RuntimeException.class, () -> person.getAge());
+    assertThrows(IllegalDateOfBirthException.class, () -> person.getAge());
   }
 }
