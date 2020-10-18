@@ -33,13 +33,18 @@
 
       <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
       <property name="hibernate.hbm2ddl.auto" value="update"/>
-      <property name="hibernate.connection.isolation" value="TRANSACTION_SERIALIZABLE"/>
+      <!--
+       | https://docs.jboss.org/hibernate/orm/3.5/reference/en/html/session-configuration.html
+       | java.sql.Connection defines the values
+       | TRANSACTION_SERIALIZABLE = 8
+       +-->
+      <property name="hibernate.connection.isolation" value="8"/>
       <property name="hibernate.connection.autocommit" value="true"/>
       <!--
        | to remove the warning:
        | WARN: HHH10001002: Using Hibernate built-in connection pool (not for production use!)
        +-->
-      <property name="hibernate.connection.provider_class" value="org.hibernate.connection.C3P0ConnectionProvider"/>
+      <property name="hibernate.connection.provider_class" value="org.hibernate.c3p0.internal.C3P0ConnectionProvider"/>
       <property name="hibernate.c3p0.min_size" value="10"/>
     </properties>
   </persistence-unit>
