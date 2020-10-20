@@ -11,15 +11,11 @@ public class GenderConverter implements Converter<Gender> {
 
   @Override
   public Gender getAsObject(FacesContext facesContext, UIComponent uiComponent, String value) {
-    if (value.isEmpty()) {
-      return null;
-    }
-
-    return Gender.valueOf(value);
+    return Gender.byName(value);
   }
 
   @Override
   public String getAsString(FacesContext facesContext, UIComponent uiComponent, Gender gender) {
-    return gender == null ? "" : "" + gender.name();
+    return gender == null ? "" : gender.name();
   }
 }

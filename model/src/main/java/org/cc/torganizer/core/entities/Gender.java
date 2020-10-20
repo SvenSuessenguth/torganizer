@@ -5,18 +5,18 @@ package org.cc.torganizer.core.entities;
  */
 public enum Gender {
 
-  /**
-   * Maennlich.
-   */
   MALE,
-
-  /**
-   * Weiblich.
-   */
   FEMALE,
+  UNKNOWN;
 
-  /**
-   * Unbekannt.
-   */
-  UNKNOWN
+
+  public static Gender byName(String name) {
+    for (Gender gender : values()) {
+      if (gender.name().equals(name)) {
+        return gender;
+      }
+    }
+
+    return null;
+  }
 }
