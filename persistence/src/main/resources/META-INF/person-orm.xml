@@ -19,7 +19,7 @@
       <basic name="dateOfBirth"><column name="_DATE_OF_BIRTH"/></basic>
       <basic name="gender">
         <column name="_GENDER" nullable="false" />
-        <enumerated>STRING</enumerated>
+        <convert converter="org.cc.torganizer.persistence.converter.GenderJpaConverter" />
       </basic>
     </attributes>
   </entity>

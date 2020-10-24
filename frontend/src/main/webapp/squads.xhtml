@@ -30,7 +30,7 @@
           <f:selectItems value="#{squadsState.genders}" var="gender"
                          itemValue="#{gender}"
                          itemLabel="#{i18nGender[gender]}"/>
-          <f:converter converterId="genderConverter"/>
+          <f:converter converterId="genderJsfConverter"/>
         </h:selectOneMenu>
 
       </h:panelGroup>

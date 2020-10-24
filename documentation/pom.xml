@@ -28,14 +28,14 @@
         <groupId>org.asciidoctor</groupId>
         <artifactId>asciidoctor-maven-plugin</artifactId>
         <version>${asciidoctor-maven-plugin.version}</version>
-        <configuration>
+         <configuration>
           <backend>html5</backend>
-          <sourceHighlighter>coderay</sourceHighlighter>
-          <attributes>
-            <toc>left</toc>
+           <attributes>
+             <sourceHighlighter>coderay</sourceHighlighter>
+             <toc>left</toc>
           </attributes>
         </configuration>
-      </plugin>
+       </plugin>
     </plugins>
   </build>
 </project>

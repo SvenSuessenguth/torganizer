@@ -5,21 +5,30 @@ package org.cc.torganizer.core.entities;
  */
 public enum Gender {
 
-  MALE,
-  FEMALE,
-  UNKNOWN;
+  MALE("M"),
+  FEMALE("F"),
+  UNKNOWN("U");
 
+  private String id;
+
+  Gender(String id) {
+    this.id = id;
+  }
 
   /**
-   * Nullsafe converting a given name to a Gender-Object.
+   * Nullsafe converting a given id to a Gender-Object.
    */
-  public static Gender byName(String name) {
+  public static Gender byId(String id) {
     for (Gender gender : values()) {
-      if (gender.name().equals(name)) {
+      if (gender.id.equals(id)) {
         return gender;
       }
     }
 
     return null;
+  }
+
+  public String getId() {
+    return id;
   }
 }

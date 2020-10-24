@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-  <_PERSONS _ID="1" _FIRST_NAME="Sven" _LAST_NAME="Süssenguth" _GENDER="MALE" 
+  <_PERSONS _ID="1" _FIRST_NAME="Sven" _LAST_NAME="Süssenguth" _GENDER="M"
     _DATE_OF_BIRTH="1968-01-12" />
-  <_PERSONS _ID="2" _FIRST_NAME="Marvin" _LAST_NAME="Süssenguth" _GENDER="MALE" 
+  <_PERSONS _ID="2" _FIRST_NAME="Marvin" _LAST_NAME="Süssenguth" _GENDER="M"
     _DATE_OF_BIRTH="2004-10-28" />
-  <_PERSONS _ID="3" _FIRST_NAME="Maya" _LAST_NAME="Süssenguth" _GENDER="FEMALE" 
+  <_PERSONS _ID="3" _FIRST_NAME="Maya" _LAST_NAME="Süssenguth" _GENDER="F"
     _DATE_OF_BIRTH="2009-06-09" />
-  <_PERSONS _ID="4" _FIRST_NAME="Derya" _LAST_NAME="Süssenguth" _GENDER="FEMALE" 
+  <_PERSONS _ID="4" _FIRST_NAME="Derya" _LAST_NAME="Süssenguth" _GENDER="F"
     _DATE_OF_BIRTH="2010-06-16" />
-  <_PERSONS _ID="5" _FIRST_NAME="Sabine" _LAST_NAME="Süssenguth" _GENDER="FEMALE" 
+  <_PERSONS _ID="5" _FIRST_NAME="Sabine" _LAST_NAME="Süssenguth" _GENDER="F"
     _DATE_OF_BIRTH="1963-06-13" />
 </dataset>
