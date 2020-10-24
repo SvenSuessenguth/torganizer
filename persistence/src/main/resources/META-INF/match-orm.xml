@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity-mappings version="2.1" 
-  xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
+                 version="2.2">
 
   <named-query name="Match.findAll">
     <query>SELECT m FROM Match m</query>
   </named-query>
 
   <entity class="org.cc.torganizer.core.entities.Match" access="FIELD">
-    <table name="_MATCHES" />
+    <table name="_MATCHES"/>
     <attributes>
-       <basic name="position">
-         <column name="_POSITION" nullable="false"/>
-       </basic>
-       <basic name="running">
-         <column name="_RUNNING" nullable="false"/>
-       </basic>
-       <basic name="finishedTime">
-         <column name="_FINISHED_TIME" nullable="true"/>
-       </basic>
-       <one-to-many name="results">
-         <join-table name="_MATCH_RESULTS">
-           <join-column name="_MATCH_ID" referenced-column-name="_ID"/>
-           <inverse-join-column name="_RESULT_ID" referenced-column-name="_ID" unique="true" />
-         </join-table>
-       </one-to-many>
-       <one-to-one name="home">
-         <join-column name="_HOME_ID"/>
-       </one-to-one>
-       <one-to-one name="guest">
-         <join-column name="_GUEST_ID"/>
-       </one-to-one>
-     </attributes>
+      <basic name="position">
+        <column name="_POSITION" nullable="false"/>
+      </basic>
+      <basic name="running">
+        <column name="_RUNNING" nullable="false"/>
+      </basic>
+      <basic name="finishedTime">
+        <column name="_FINISHED_TIME" nullable="true"/>
+      </basic>
+      <one-to-many name="results">
+        <join-table name="_MATCH_RESULTS">
+          <join-column name="_MATCH_ID" referenced-column-name="_ID"/>
+          <inverse-join-column name="_RESULT_ID" referenced-column-name="_ID" unique="true"/>
+        </join-table>
+      </one-to-many>
+      <one-to-one name="home">
+        <join-column name="_HOME_ID"/>
+      </one-to-one>
+      <one-to-one name="guest">
+        <join-column name="_GUEST_ID"/>
+      </one-to-one>
+    </attributes>
   </entity>
 
 </entity-mappings>  

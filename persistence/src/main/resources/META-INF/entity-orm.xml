@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity-mappings version="2.1" 
-  xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
+                 version="2.2">
 
   <mapped-superclass class="org.cc.torganizer.core.entities.Entity">
     <attributes>
       <id name="id" access="PROPERTY">
         <column name="_ID" updatable="false" nullable="false"/>
         <generated-value strategy="SEQUENCE" generator="entity_generator"/>
-        <sequence-generator name="entity_generator" sequence-name="entity_seq" allocation-size="50" initial-value="100" />
+        <sequence-generator name="entity_generator" sequence-name="entity_seq" allocation-size="50"
+                            initial-value="100"/>
       </id>
       <basic name="lastUpdate">
-        <column name="_LAST_UPDATE" nullable="true" />
+        <column name="_LAST_UPDATE" nullable="true"/>
         <temporal>TIMESTAMP</temporal>
       </basic>
     </attributes>

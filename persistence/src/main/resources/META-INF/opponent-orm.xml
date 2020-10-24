@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity-mappings version="2.1" 
-  xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">  
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
+                 version="2.2">
 
   <named-query name="Opponent.findAll">
     <query>SELECT o FROM Opponent o</query>
@@ -18,48 +18,52 @@
   </named-query>
 
   <entity class="org.cc.torganizer.core.entities.Opponent" access="FIELD">
-    <table name="_OPPONENTS" />
+    <table name="_OPPONENTS"/>
     <inheritance strategy="JOINED"/>
     <attributes>
       <basic name="status">
-         <column name="_STATUS" nullable="false" />
-         <enumerated>STRING</enumerated>
-       </basic>
-     </attributes>
+        <column name="_STATUS" nullable="false"/>
+        <enumerated>STRING</enumerated>
+      </basic>
+    </attributes>
   </entity>
 
   <entity class="org.cc.torganizer.core.entities.Player" access="FIELD">
-    <table name="_PLAYERS" />
+    <table name="_PLAYERS"/>
     <attributes>
-      <basic name="lastMatch"><column name="_LAST_MATCH"/></basic>
+      <basic name="lastMatch">
+        <column name="_LAST_MATCH"/>
+      </basic>
       <one-to-one name="club" fetch="EAGER">
         <join-column name="_CLUB_ID" nullable="true"/>
       </one-to-one>
       <one-to-one name="person" orphan-removal="true">
-        <join-column name="_PERSON_ID" nullable="false" />
-        <cascade><cascade-all/></cascade>
+        <join-column name="_PERSON_ID" nullable="false"/>
+        <cascade>
+          <cascade-all/>
+        </cascade>
       </one-to-one>
     </attributes>
   </entity>
 
   <entity class="org.cc.torganizer.core.entities.Squad" access="FIELD">
-    <table name="_SQUADS" />
+    <table name="_SQUADS"/>
     <attributes>
       <many-to-many name="players">
-         <join-table name="_SQUAD_PLAYERS">
-           <join-column name="_SQUAD_ID" referenced-column-name="_ID"/>
-           <inverse-join-column name="_PLAYER_ID" referenced-column-name="_ID" />
-         </join-table>
-       </many-to-many>
+        <join-table name="_SQUAD_PLAYERS">
+          <join-column name="_SQUAD_ID" referenced-column-name="_ID"/>
+          <inverse-join-column name="_PLAYER_ID" referenced-column-name="_ID"/>
+        </join-table>
+      </many-to-many>
     </attributes>
   </entity>
-  
+
   <entity class="org.cc.torganizer.core.entities.Bye" access="FIELD">
-    <table name="_BYES" />
+    <table name="_BYES"/>
   </entity>
 
   <entity class="org.cc.torganizer.core.entities.Unknown" access="FIELD">
-    <table name="_UNKNOWNS" />
+    <table name="_UNKNOWNS"/>
   </entity>
 
 </entity-mappings>

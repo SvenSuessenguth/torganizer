@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity-mappings version="2.1" 
-  xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">  
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
+                 version="2.2">
 
   <named-query name="Person.findAll">
     <query>SELECT p FROM Person p</query>
@@ -11,15 +11,21 @@
     <query>SELECT p FROM Person p WHERE p.gender = :gender</query>
   </named-query>
 
-  <entity class="org.cc.torganizer.core.entities.Person" access="FIELD" >
-    <table name="_PERSONS" />
+  <entity class="org.cc.torganizer.core.entities.Person" access="FIELD">
+    <table name="_PERSONS"/>
     <attributes>
-      <basic name="firstName"><column name="_FIRST_NAME"/></basic>
-      <basic name="lastName"><column name="_LAST_NAME"/></basic>
-      <basic name="dateOfBirth"><column name="_DATE_OF_BIRTH"/></basic>
+      <basic name="firstName">
+        <column name="_FIRST_NAME"/>
+      </basic>
+      <basic name="lastName">
+        <column name="_LAST_NAME"/>
+      </basic>
+      <basic name="dateOfBirth">
+        <column name="_DATE_OF_BIRTH"/>
+      </basic>
       <basic name="gender">
-        <column name="_GENDER" nullable="false" />
-        <convert converter="org.cc.torganizer.persistence.converter.GenderJpaConverter" />
+        <column name="_GENDER" nullable="false"/>
+        <convert converter="org.cc.torganizer.persistence.converter.GenderJpaConverter"/>
       </basic>
     </attributes>
   </entity>

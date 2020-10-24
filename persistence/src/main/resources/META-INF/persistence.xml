@@ -28,7 +28,7 @@
     <mapping-file>META-INF/tournament-orm.xml</mapping-file>
 
     <properties>
-<!--      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />-->
+      <!--      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />-->
       <!--
        |
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity-mappings version="2.1" 
-  xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">  
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
+                 version="2.2">
 
   <named-query name="Tournament.findAll">
     <query>SELECT t FROM Tournament t</query>
@@ -27,30 +27,36 @@
   </named-query>
 
   <entity class="org.cc.torganizer.core.entities.Tournament" access="FIELD">
-    <table name="_TOURNAMENTS" />
+    <table name="_TOURNAMENTS"/>
     <attributes>
-       <basic name="name"><column name="_NAME"/></basic>
+      <basic name="name">
+        <column name="_NAME"/>
+      </basic>
       <one-to-many name="opponents">
-         <join-table name="_TOURNAMENT_OPPONENTS">
-           <join-column name="_TOURNAMENT_ID" referenced-column-name="_ID"/>
-           <inverse-join-column name="_OPPONENT_ID" referenced-column-name="_ID" unique="true" />
-         </join-table>
-         <cascade><cascade-all/></cascade>
-       </one-to-many>
+        <join-table name="_TOURNAMENT_OPPONENTS">
+          <join-column name="_TOURNAMENT_ID" referenced-column-name="_ID"/>
+          <inverse-join-column name="_OPPONENT_ID" referenced-column-name="_ID" unique="true"/>
+        </join-table>
+        <cascade>
+          <cascade-all/>
+        </cascade>
+      </one-to-many>
       <one-to-many name="gymnasiums">
         <join-table name="_TOURNAMENT_GYMNASIUMS">
           <join-column name="_TOURNAMENT_ID" referenced-column-name="_ID"/>
-          <inverse-join-column name="_GYMNASIUM_ID" referenced-column-name="_ID" unique="true" />
+          <inverse-join-column name="_GYMNASIUM_ID" referenced-column-name="_ID" unique="true"/>
         </join-table>
-        <cascade><cascade-all/></cascade>
+        <cascade>
+          <cascade-all/>
+        </cascade>
       </one-to-many>
       <many-to-many name="disciplines">
-         <join-table name="_TOURNAMENT_DISCIPLINES">
-           <join-column name="_TOURNAMENT_ID" referenced-column-name="_ID"/>
-           <inverse-join-column name="_DISCIPLINE_ID" referenced-column-name="_ID" />
-         </join-table>
-       </many-to-many>
-     </attributes>
+        <join-table name="_TOURNAMENT_DISCIPLINES">
+          <join-column name="_TOURNAMENT_ID" referenced-column-name="_ID"/>
+          <inverse-join-column name="_DISCIPLINE_ID" referenced-column-name="_ID"/>
+        </join-table>
+      </many-to-many>
+    </attributes>
   </entity>
 
 </entity-mappings>

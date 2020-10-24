@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity-mappings version="2.1" 
-  xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">  
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
+                 version="2.2">
 
   <named-query name="Result.findAll">
     <query>SELECT r FROM Result r</query>
   </named-query>
 
   <entity class="org.cc.torganizer.core.entities.Result" access="FIELD">
-    <table name="_RESULTS" />
+    <table name="_RESULTS"/>
     <attributes>
-      <basic name="homeScore"><column name="_HOME_SCORE" nullable="false"/></basic>
-      <basic name="guestScore"><column name="_GUEST_SCORE" nullable="false"/></basic>
-      <basic name="position"><column name="_POSITION" nullable="false"/></basic>
+      <basic name="homeScore">
+        <column name="_HOME_SCORE" nullable="false"/>
+      </basic>
+      <basic name="guestScore">
+        <column name="_GUEST_SCORE" nullable="false"/>
+      </basic>
+      <basic name="position">
+        <column name="_POSITION" nullable="false"/>
+      </basic>
     </attributes>
   </entity>
 

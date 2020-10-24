@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity-mappings version="2.1" 
-  xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">  
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
+                 version="2.2">
 
   <named-query name="PositionalOpponent.findAll">
     <query>SELECT o FROM Opponent o</query>
   </named-query>
 
   <entity class="org.cc.torganizer.core.entities.PositionalOpponent" access="FIELD">
-    <table name="_POSITIONAL_OPPONENTS" />
+    <table name="_POSITIONAL_OPPONENTS"/>
     <attributes>
-      <basic name="position"><column name="_POSITION" nullable="false"/></basic>
+      <basic name="position">
+        <column name="_POSITION" nullable="false"/>
+      </basic>
       <one-to-one name="opponent" orphan-removal="true">
-        <join-column name="_OPPONENT_ID" nullable="false" />
-        <cascade><cascade-all/></cascade>
+        <join-column name="_OPPONENT_ID" nullable="false"/>
+        <cascade>
+          <cascade-all/>
+        </cascade>
       </one-to-one>
     </attributes>
   </entity>

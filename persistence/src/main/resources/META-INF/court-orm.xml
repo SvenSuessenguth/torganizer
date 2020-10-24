@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity-mappings version="2.1" 
-  xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">  
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
+                 version="2.2">
 
   <named-query name="Court.findAll">
     <query>SELECT c FROM Court c</query>
   </named-query>
 
   <entity class="org.cc.torganizer.core.entities.Court" access="FIELD">
-    <table name="_COURTS" />
+    <table name="_COURTS"/>
     <attributes>
       <basic name="nr">
-        <column name="_NR" nullable="false" />
+        <column name="_NR" nullable="false"/>
       </basic>
       <one-to-one name="match">
-         <join-column name="_MATCH_ID" />
-       </one-to-one>
+        <join-column name="_MATCH_ID"/>
+      </one-to-one>
     </attributes>
   </entity>
 

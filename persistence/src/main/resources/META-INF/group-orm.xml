@@ -1,36 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity-mappings version="2.1" 
-  xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">  
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
+                 version="2.2">
 
   <named-query name="Group.findAll">
     <query>SELECT g FROM Group g</query>
   </named-query>
   <named-query name="Group.findPositionalOpponents">
-    <query>SELECT p FROM PositionalOpponent p, Group g WHERE p MEMBER OF g.positionalOpponents AND g.id = :groupId</query>
+    <query>SELECT p FROM PositionalOpponent p, Group g WHERE p MEMBER OF g.positionalOpponents AND g.id = :groupId
+    </query>
   </named-query>
 
   <entity class="org.cc.torganizer.core.entities.Group" access="FIELD">
     <!-- GROUPS is a mysql keyword -->
-    <table name="_GROUPS" />
+    <table name="_GROUPS"/>
     <attributes>
-       <basic name="position"><column name="_POSITION" /></basic>
-       <one-to-many name="positionalOpponents" fetch="EAGER">
-         <join-table name="_GROUPS_POSITIONAL_OPPONENTS">
-           <join-column name="_GROUP_ID" referenced-column-name="_ID"/>
-           <inverse-join-column name="_POSITIONAL_OPPONENT_ID" referenced-column-name="_ID" unique="true" />
-         </join-table>
-         <cascade><cascade-all/></cascade>
-       </one-to-many>
-       <one-to-many name="matches">
-         <join-table name="_GROUPS_MATCHES">
-           <join-column name="_GROUP_ID" referenced-column-name="_ID"/>
-           <inverse-join-column name="_MATCH_ID" referenced-column-name="_ID" unique="true" />
-         </join-table>
-         <cascade><cascade-all/></cascade>
-       </one-to-many>
-     </attributes>
+      <basic name="position">
+        <column name="_POSITION"/>
+      </basic>
+      <one-to-many name="positionalOpponents" fetch="EAGER">
+        <join-table name="_GROUPS_POSITIONAL_OPPONENTS">
+          <join-column name="_GROUP_ID" referenced-column-name="_ID"/>
+          <inverse-join-column name="_POSITIONAL_OPPONENT_ID" referenced-column-name="_ID" unique="true"/>
+        </join-table>
+        <cascade>
+          <cascade-all/>
+        </cascade>
+      </one-to-many>
+      <one-to-many name="matches">
+        <join-table name="_GROUPS_MATCHES">
+          <join-column name="_GROUP_ID" referenced-column-name="_ID"/>
+          <inverse-join-column name="_MATCH_ID" referenced-column-name="_ID" unique="true"/>
+        </join-table>
+        <cascade>
+          <cascade-all/>
+        </cascade>
+      </one-to-many>
+    </attributes>
   </entity>
 
 </entity-mappings>  

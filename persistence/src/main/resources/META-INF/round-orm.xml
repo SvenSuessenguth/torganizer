@@ -1,28 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity-mappings version="2.1" 
-  xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
+                 version="2.2">
 
   <named-query name="Round.findAll">
     <query>SELECT r FROM Round r</query>
   </named-query>
 
   <entity class="org.cc.torganizer.core.entities.Round" access="FIELD">
-    <table name="_ROUNDS" />
+    <table name="_ROUNDS"/>
     <attributes>
-      <basic name="position"><column name="_POSITION" /></basic>
-      <basic name="qualified"><column name="_QUALIFIED" /></basic>
+      <basic name="position">
+        <column name="_POSITION"/>
+      </basic>
+      <basic name="qualified">
+        <column name="_QUALIFIED"/>
+      </basic>
       <basic name="system">
-        <column name="_SYSTEM" nullable="false" />
+        <column name="_SYSTEM" nullable="false"/>
         <enumerated>STRING</enumerated>
       </basic>
       <one-to-many name="groups">
         <join-table name="_ROUNDS_GROUPS">
           <join-column name="_ROUND_ID" referenced-column-name="_ID"/>
-          <inverse-join-column name="_GROUP_ID" referenced-column-name="_ID" unique="true" />
+          <inverse-join-column name="_GROUP_ID" referenced-column-name="_ID" unique="true"/>
         </join-table>
-        <cascade><cascade-all/></cascade>
+        <cascade>
+          <cascade-all/>
+        </cascade>
       </one-to-many>
     </attributes>
   </entity>
