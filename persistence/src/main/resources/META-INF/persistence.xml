@@ -11,21 +11,21 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbc/torganizerDS</jta-data-source>
 
-    <mapping-file>META-INF/entity-orm.xml</mapping-file>
+    <mapping-file>jpa/Entity-orm.xml</mapping-file>
 
-    <mapping-file>META-INF/club-orm.xml</mapping-file>
-    <mapping-file>META-INF/court-orm.xml</mapping-file>
-    <mapping-file>META-INF/discipline-orm.xml</mapping-file>
-    <mapping-file>META-INF/group-orm.xml</mapping-file>
-    <mapping-file>META-INF/gymnasium-orm.xml</mapping-file>
-    <mapping-file>META-INF/match-orm.xml</mapping-file>
-    <mapping-file>META-INF/opponent-orm.xml</mapping-file>
-    <mapping-file>META-INF/person-orm.xml</mapping-file>
-    <mapping-file>META-INF/positional-opponent-orm.xml</mapping-file>
-    <mapping-file>META-INF/restriction-orm.xml</mapping-file>
-    <mapping-file>META-INF/result-orm.xml</mapping-file>
-    <mapping-file>META-INF/round-orm.xml</mapping-file>
-    <mapping-file>META-INF/tournament-orm.xml</mapping-file>
+    <mapping-file>jpa/Club-orm.xml</mapping-file>
+    <mapping-file>jpa/Court-orm.xml</mapping-file>
+    <mapping-file>jpa/Discipline-orm.xml</mapping-file>
+    <mapping-file>jpa/Group-orm.xml</mapping-file>
+    <mapping-file>jpa/Gymnasium-orm.xml</mapping-file>
+    <mapping-file>jpa/Match-orm.xml</mapping-file>
+    <mapping-file>jpa/Opponent-orm.xml</mapping-file>
+    <mapping-file>jpa/Person-orm.xml</mapping-file>
+    <mapping-file>jpa/PositionalOpponent-orm.xml</mapping-file>
+    <mapping-file>jpa/Restriction-orm.xml</mapping-file>
+    <mapping-file>jpa/Result-orm.xml</mapping-file>
+    <mapping-file>jpa/Round-orm.xml</mapping-file>
+    <mapping-file>jpa/Tournament-orm.xml</mapping-file>
 
     <properties>
       <!--      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />-->

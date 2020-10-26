@@ -4,6 +4,10 @@
                  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
                  version="2.2">
 
+  <persistence-unit-metadata>
+    <xml-mapping-metadata-complete/>
+  </persistence-unit-metadata>
+
   <named-query name="Opponent.findAll">
     <query>SELECT o FROM Opponent o</query>
   </named-query>
