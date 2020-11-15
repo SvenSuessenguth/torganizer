@@ -1,9 +1,9 @@
 package org.cc.torganizer.core.entities;
 
+import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -189,12 +189,7 @@ public class Match extends Entity implements Positional {
    * @return Liste der Opponents. Zuerst home, dann guest.
    */
   public List<Opponent> getOpponents() {
-    List<Opponent> opponents = new ArrayList<>();
-
-    opponents.add(home);
-    opponents.add(guest);
-
-    return unmodifiableList(opponents);
+    return unmodifiableList(asList(home, guest));
   }
 
   @Override
@@ -301,21 +296,12 @@ public class Match extends Entity implements Positional {
       return 0L;
     }
 
-    LocalDateTime nullDate = LocalDateTime.MIN;
-    LocalDateTime now = LocalDateTime.now();
-    long overallTimeSinceLastMatch = 0L;
-    int playerCount = 0;
+    long aggregatedIdleTime = 0L;
 
-    List<Opponent> opponents = getOpponents();
-    for (Opponent o : opponents) {
-      for (Player p : o.getPlayers()) {
-        playerCount += 1;
-        LocalDateTime lastMatch = p.getLastMatch();
-        lastMatch = lastMatch == null ? nullDate : lastMatch;
-        overallTimeSinceLastMatch += ChronoUnit.MINUTES.between(now, lastMatch);
-      }
+    for (Opponent o : getOpponents()) {
+      aggregatedIdleTime += o.getIdleTime();
     }
 
-    return playerCount != 0 ? overallTimeSinceLastMatch / playerCount : Long.MAX_VALUE;
+    return aggregatedIdleTime / getOpponents().size();
   }
 }

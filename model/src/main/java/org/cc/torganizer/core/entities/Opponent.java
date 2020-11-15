@@ -1,5 +1,10 @@
 package org.cc.torganizer.core.entities;
 
+import static java.time.LocalDateTime.MIN;
+import static java.time.LocalDateTime.now;
+import static java.time.temporal.ChronoUnit.MINUTES;
+
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 /**
@@ -19,5 +24,23 @@ public abstract class Opponent extends Entity {
 
   public void setStatus(Status inStatus) {
     this.status = inStatus;
+  }
+
+  /**
+   * Calculating the average idle-time of all players in minutes. This is used to minimize the waiting time between matches.
+   */
+  public Long getIdleTime() {
+    Long overallMinutesSinceLastMatch = 0L;
+
+    for (Player p : getPlayers()) {
+      LocalDateTime lastMatchTime = p.getLastMatchTime();
+
+      lastMatchTime = lastMatchTime == null ? MIN : lastMatchTime;
+
+      overallMinutesSinceLastMatch += MINUTES.between(lastMatchTime, now());
+    }
+
+    Long playerCount = Long.valueOf(getPlayers().size());
+    return playerCount != 0 ? overallMinutesSinceLastMatch / playerCount : Long.MAX_VALUE;
   }
 }

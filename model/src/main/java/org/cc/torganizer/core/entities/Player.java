@@ -15,7 +15,7 @@ public class Player extends Opponent {
 
   private Club club;
 
-  private LocalDateTime lastMatch;
+  private LocalDateTime lastMatchTime;
 
   /**
    * default.
@@ -75,12 +75,12 @@ public class Player extends Opponent {
     return players;
   }
 
-  public LocalDateTime getLastMatch() {
-    return lastMatch;
+  public LocalDateTime getLastMatchTime() {
+    return lastMatchTime;
   }
 
-  public void setLastMatch(LocalDateTime lastMatch) {
-    this.lastMatch = lastMatch;
+  public void setLastMatchTime(LocalDateTime localDateTime) {
+    this.lastMatchTime = localDateTime;
   }
 
   /**

@@ -3,12 +3,13 @@ package org.cc.torganizer.core.comparators;
 import java.io.Serializable;
 import java.util.Comparator;
 import org.cc.torganizer.core.entities.Match;
+import org.cc.torganizer.core.entities.Opponent;
 
 /**
  * Erm\u00F6glichen einer Sortierung, die fuer eine gleichmaessige Wartezeit der
  * Spieler sorgt.
  */
-public class MatchHistoryComparator implements Comparator<Match>, Serializable {
+public class MatchIdleTimeComparator implements Comparator<Match>, Serializable {
 
   /**
    * serialVersionUID .
@@ -19,9 +20,9 @@ public class MatchHistoryComparator implements Comparator<Match>, Serializable {
   public final int compare(final Match m1, final Match m2) {
 
     // durchschnittliche Wartezeit der Player ermitteln
-    Long idleTimeMatch1 = m1.getIdleTime();
-    Long idleTimeMatch2 = m2.getIdleTime();
+    Long idleTime1 = m1.getIdleTime();
+    Long idleTime2 = m2.getIdleTime();
 
-    return idleTimeMatch2.compareTo(idleTimeMatch1);
+    return idleTime2.compareTo(idleTime1);
   }
 }

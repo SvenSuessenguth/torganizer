@@ -35,8 +35,8 @@
   <entity class="org.cc.torganizer.core.entities.Player" access="FIELD">
     <table name="_PLAYERS"/>
     <attributes>
-      <basic name="lastMatch">
-        <column name="_LAST_MATCH"/>
+      <basic name="lastMatchTime">
+        <column name="_LAST_MATCH_TIME"/>
       </basic>
       <one-to-one name="club" fetch="EAGER">
         <join-column name="_CLUB_ID" nullable="true"/>
