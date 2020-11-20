@@ -46,50 +46,14 @@
     <finalName>frontend</finalName>
     <plugins>
       <plugin>
-        <groupId>io.openliberty.tools</groupId>
-        <artifactId>liberty-maven-plugin</artifactId>
-        <version>${version.liberty-maven-plugin}</version>
+        <groupId>com.google.cloud.tools</groupId>
+        <artifactId>jib-maven-plugin</artifactId>
+        <version>2.6.0</version>
         <configuration>
-          <serverStartTimeout>100</serverStartTimeout>
-          <runtimeArtifact>
-            <groupId>io.openliberty</groupId>
-            <artifactId>openliberty-javaee8</artifactId>
-            <version>20.0.0.9</version>
-            <type>zip</type>
-          </runtimeArtifact>
+          <to>
+            <image>carboncopy/frontend</image>
+          </to>
         </configuration>
-      </plugin>
-
-      <!--
-       | configured to used postgresql as datasource.
-       | https://github.com/OpenLiberty/sample-acmegifts/blob/master/microservice-occasion/pom.xml
-       | https://github.com/aguibert/openliberty-cheat-sheet/issues/4
-       +-->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.1.2</version>
-        <executions>
-          <execution>
-            <id>copy</id>
-            <goals>
-              <goal>copy</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>org.postgresql</groupId>
-                  <artifactId>postgresql</artifactId>
-                  <version>42.2.16</version>
-                  <type>jar</type>
-                  <overWrite>false</overWrite>
-                  <outputDirectory>${project.build.directory}/liberty/wlp/usr/shared/resources/postgresql/</outputDirectory>
-                  <destFileName>postgresql.jar</destFileName>
-                </artifactItem>
-              </artifactItems>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>
