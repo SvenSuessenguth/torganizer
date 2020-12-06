@@ -5,7 +5,7 @@ import org.cc.torganizer.core.entities.Court;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.TypedQuery;
+import jakarta.persistence.TypedQuery;
 import java.util.List;
 
 class CourtsJpaTest extends AbstractDbUnitJpaTest {

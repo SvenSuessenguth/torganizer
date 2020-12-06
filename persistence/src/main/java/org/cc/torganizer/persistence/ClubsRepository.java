@@ -1,13 +1,13 @@
 package org.cc.torganizer.persistence;
 
-import static javax.transaction.Transactional.TxType.NEVER;
+import static jakarta.transaction.Transactional.TxType.NEVER;
 
 import java.util.List;
-import javax.enterprise.context.RequestScoped;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Player;
 

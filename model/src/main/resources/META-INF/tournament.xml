@@ -1,28 +1,22 @@
 <constraint-mappings
+  xmlns="https://jakarta.ee/xml/ns/validation/mapping"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://jboss.org/xml/ns/javax/validation/mapping validation-mapping-1.1.xsd"
-  xmlns="http://jboss.org/xml/ns/javax/validation/mapping" version="1.1">
-  <!-- <constraint-mappings
-    xmlns="http://xmlns.jcp.org/xml/ns/validation/mapping"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/validation/mapping
-      http://xmlns.jcp.org/xml/ns/validation/mapping/validation-mapping-2.0.xsd"
-    version="2.0">
-  -->
+  xsi:schemaLocation=" https://jakarta.ee/xml/ns/validation/mapping https://jakarta.ee/xml/ns/validation/validation-mapping-3.0.xsd"
+  version="3.0">
 
   <default-package>org.cc.torganizer.core.entities</default-package>
 
   <bean class="Tournament" ignore-annotations="true">
     <field name="name">
-      <constraint annotation="javax.validation.constraints.Pattern">
+      <constraint annotation="jakarta.validation.constraints.Pattern">
         <message>{tournament.name.pattern}</message>
         <element name="regexp">^[A-Z].*</element>
       </constraint>
-      <constraint annotation="javax.validation.constraints.NotBlank">
+      <constraint annotation="jakarta.validation.constraints.NotBlank">
         <message>{tournament.name.blank}</message>
       </constraint>
-      <constraint annotation="javax.validation.constraints.NotNull"/>
-      <constraint annotation="javax.validation.constraints.Size">
+      <constraint annotation="jakarta.validation.constraints.NotNull"/>
+      <constraint annotation="jakarta.validation.constraints.Size">
         <message>{tournament.name.size}</message>
         <element name="min">2</element>
         <element name="max">20</element>

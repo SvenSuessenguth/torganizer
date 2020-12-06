@@ -1,6 +1,6 @@
 package org.cc.torganizer.frontend.tournaments.actions;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.tournaments.TournamentsState;
 import org.cc.torganizer.persistence.TournamentsRepository;

@@ -4,7 +4,7 @@ import static java.util.Collections.emptyIterator;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
-import javax.enterprise.inject.Instance;
+import jakarta.enterprise.inject.Instance;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

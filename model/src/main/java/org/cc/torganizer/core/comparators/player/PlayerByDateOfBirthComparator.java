@@ -4,7 +4,7 @@ import static org.cc.torganizer.core.comparators.player.PlayerOrder.BY_DATE_OF_B
 
 import java.time.LocalDate;
 import java.util.Objects;
-import javax.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.RequestScoped;
 import org.cc.torganizer.core.entities.Player;
 
 @RequestScoped

@@ -36,26 +36,14 @@
      +-->
     <dependency>
       <groupId>org.glassfish</groupId>
-      <artifactId>javax.faces</artifactId>
-      <version>2.4.0</version>
+      <artifactId>jakarta.faces</artifactId>
+      <version>3.0.0</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
 
   <build>
     <finalName>frontend</finalName>
-    <plugins>
-      <plugin>
-        <groupId>com.google.cloud.tools</groupId>
-        <artifactId>jib-maven-plugin</artifactId>
-        <version>2.6.0</version>
-        <configuration>
-          <to>
-            <image>carboncopy/frontend</image>
-          </to>
-        </configuration>
-      </plugin>
-    </plugins>
   </build>
 
 </project>

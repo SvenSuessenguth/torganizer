@@ -1,9 +1,9 @@
 package org.cc.torganizer.persistence;
 
 import java.util.List;
-import javax.enterprise.context.RequestScoped;
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import org.cc.torganizer.core.entities.Restriction;
 
 @RequestScoped

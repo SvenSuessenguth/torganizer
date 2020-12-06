@@ -1,9 +1,9 @@
 package org.cc.torganizer.core;
 
 import java.util.Objects;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Instance;
+import jakarta.inject.Inject;
 import org.cc.torganizer.core.entities.System;
 
 /**
