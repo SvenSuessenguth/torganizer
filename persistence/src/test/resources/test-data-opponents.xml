@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-  <_PERSONS _ID="1" _FIRST_NAME="Sven" _LAST_NAME="Suessenguth" _GENDER="M" />
+  <_PERSONS _ID="1" _FIRST_NAME="Sven" _LAST_NAME="Suessenguth" _GENDER="MALE" />
 
   <_OPPONENTS _ID="1" _status="ACTIVE" />
   <_OPPONENTS _ID="2" _status="ACTIVE" />

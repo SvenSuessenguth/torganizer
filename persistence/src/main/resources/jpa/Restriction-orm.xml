@@ -34,7 +34,8 @@
     <table name="_GENDER_RESTRICTIONS"/>
     <attributes>
       <basic name="gender">
-        <column name="_GENDER" nullable="false" />
+        <column name="_GENDER" nullable="false"/>
+        <enumerated>STRING</enumerated>
       </basic>
     </attributes>
   </entity>

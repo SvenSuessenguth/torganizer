@@ -2,8 +2,8 @@
 <dataset>
   <_CLUBS _ID="1" _NAME="Clubname" />
 
-  <_PERSONS _ID="1" _FIRST_NAME="Max" _LAST_NAME="Meier" _GENDER="M" _DATE_OF_BIRTH="1968-01-12" />
-  <_PERSONS _ID="2" _FIRST_NAME="Üöä" _LAST_NAME="Äöüß" _GENDER="U" _DATE_OF_BIRTH="1970-01-01" />
+  <_PERSONS _ID="1" _FIRST_NAME="Max" _LAST_NAME="Meier" _GENDER="MALE" _DATE_OF_BIRTH="1968-01-12" />
+  <_PERSONS _ID="2" _FIRST_NAME="Üöä" _LAST_NAME="Äöüß" _GENDER="UNKNOWN" _DATE_OF_BIRTH="1970-01-01" />
     
   <_OPPONENTS _ID="1" _status="ACTIVE" />
   <_OPPONENTS _ID="2" _status="INACTIVE" />
