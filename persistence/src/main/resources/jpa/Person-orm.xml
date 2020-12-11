@@ -29,7 +29,7 @@
       </basic>
       <basic name="gender">
         <column name="_GENDER" nullable="false"/>
-        <convert converter="org.cc.torganizer.persistence.converter.GenderJpaConverter"/>
+        <enumerated>STRING</enumerated>
       </basic>
     </attributes>
   </entity>
