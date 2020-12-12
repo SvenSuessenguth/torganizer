@@ -16,10 +16,12 @@
   <entity class="org.cc.torganizer.core.entities.Restriction" access="FIELD">
     <table name="_RESTRICTIONS"/>
     <inheritance strategy="JOINED"/>
+    <discriminator-column name="TYPE" />
   </entity>
 
   <entity class="org.cc.torganizer.core.entities.AgeRestriction" access="FIELD">
     <table name="_AGE_RESTRICTIONS"/>
+    <discriminator-value>AGE</discriminator-value>
     <attributes>
       <basic name="maxDateOfBirth">
         <column name="_MAX_DATE_OF_BIRTH" nullable="true"/>
@@ -32,6 +34,7 @@
 
   <entity class="org.cc.torganizer.core.entities.GenderRestriction" access="FIELD">
     <table name="_GENDER_RESTRICTIONS"/>
+    <discriminator-value>GENDER</discriminator-value>
     <attributes>
       <basic name="gender">
         <column name="_GENDER" nullable="false"/>
@@ -42,6 +45,7 @@
 
   <entity class="org.cc.torganizer.core.entities.OpponentTypeRestriction" access="FIELD">
     <table name="_OPPONENT_TYPE_RESTRICTIONS"/>
+    <discriminator-value>OPPONENT_TYPE</discriminator-value>
     <attributes>
       <basic name="opponentType">
         <column name="_OPPONENT_TYPE" nullable="true"/>

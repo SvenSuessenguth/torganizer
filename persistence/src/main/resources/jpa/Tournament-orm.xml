@@ -12,6 +12,9 @@
   <named-query name="Tournament.findAll">
     <query>SELECT t FROM Tournament t</query>
   </named-query>
+  <named-query name="Tournament.countOpponents">
+    <query>SELECT count(o) FROM Opponent o, Tournament t WHERE t.id = :id AND o MEMBER OF t.opponents</query>
+  </named-query>
   <named-query name="Tournament.findPlayers">
     <query>SELECT p FROM Player p, Tournament t WHERE t.id = :id AND p MEMBER OF t.opponents</query>
   </named-query>

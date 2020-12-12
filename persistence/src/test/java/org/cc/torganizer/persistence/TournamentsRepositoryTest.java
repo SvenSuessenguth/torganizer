@@ -131,6 +131,15 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
+  void testCountOpponents() {
+    Query query = entityManager.createNamedQuery("Tournament.countOpponents");
+    query.setParameter("id", 1L);
+    Long count = (Long) query.getSingleResult();
+
+    assertThat(count).isEqualTo(3L);
+  }
+
+  @Test
   void testAddPlayer() {
     long countBefore = repository.countPlayers(1L);
     repository.addOpponent(1L, 6L);
@@ -209,14 +218,5 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
     List<Discipline> disciplines = query.getResultList();
 
     assertThat(disciplines).hasSize(1);
-  }
-
-  @Test
-  void testFindByOpponentType_Player() {
-    TypedQuery<Opponent> query = entityManager.createNamedQuery("Tournament.findOpponents", Opponent.class);
-    query.setParameter("id", 1L);
-    List<Opponent> opponents = query.getResultList();
-
-    assertThat(opponents).hasSize(3);
   }
 }

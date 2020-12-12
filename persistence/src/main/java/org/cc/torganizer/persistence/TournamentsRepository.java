@@ -10,10 +10,12 @@ import java.util.Set;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import jakarta.persistence.Tuple;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
 import org.cc.torganizer.core.comparators.OpponentByNameComparator;
@@ -302,5 +304,17 @@ public class TournamentsRepository extends Repository<Tournament> {
     }
 
     return assignableOpponents.subList(offset, offset + maxResults);
+  }
+
+  public Long countOpponents() {
+    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    CriteriaQuery<Tuple> cq = cb.createTupleQuery();
+    Root<Tournament> tournament = cq.from(Tournament.class);
+    Join<Tournament, Opponent> tournamentOpponentJoin = tournament.join("opponents", JoinType.LEFT);
+    cq.select(cb.tuple(tournament, cb.count(tournamentOpponentJoin)));
+    cq.where(cb.equal(tournament.get("id"), 1L));
+
+    List<Tuple> result = entityManager.createQuery(cq).getResultList();
+    return (Long) result.get(0).get(1);
   }
 }

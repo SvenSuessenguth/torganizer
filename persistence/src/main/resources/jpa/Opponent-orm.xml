@@ -25,6 +25,7 @@
   <entity class="org.cc.torganizer.core.entities.Opponent" access="FIELD">
     <table name="_OPPONENTS"/>
     <inheritance strategy="JOINED"/>
+    <discriminator-column name="TYPE" />
     <attributes>
       <basic name="status">
         <column name="_STATUS" nullable="false"/>
@@ -35,6 +36,7 @@
 
   <entity class="org.cc.torganizer.core.entities.Player" access="FIELD">
     <table name="_PLAYERS"/>
+    <discriminator-value>PLAYER</discriminator-value>
     <attributes>
       <basic name="lastMatchTime">
         <column name="_LAST_MATCH_TIME"/>
@@ -53,6 +55,7 @@
 
   <entity class="org.cc.torganizer.core.entities.Squad" access="FIELD">
     <table name="_SQUADS"/>
+    <discriminator-value>SQUAD</discriminator-value>
     <attributes>
       <many-to-many name="players">
         <join-table name="_SQUAD_PLAYERS">
@@ -65,10 +68,12 @@
 
   <entity class="org.cc.torganizer.core.entities.Bye" access="FIELD">
     <table name="_BYES"/>
+    <discriminator-value>BYE</discriminator-value>
   </entity>
 
   <entity class="org.cc.torganizer.core.entities.Unknown" access="FIELD">
     <table name="_UNKNOWNS"/>
+    <discriminator-value>UNKNOWN</discriminator-value>
   </entity>
 
 </entity-mappings>
