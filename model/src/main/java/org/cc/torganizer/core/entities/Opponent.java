@@ -31,7 +31,7 @@ public abstract class Opponent extends Entity {
    * matches.
    */
   public Long getIdleTime() {
-    Long overallMinutesSinceLastMatch = 0L;
+    long overallMinutesSinceLastMatch = 0L;
 
     for (Player p : getPlayers()) {
       LocalDateTime lastMatchTime = p.getLastMatchTime();
@@ -41,7 +41,7 @@ public abstract class Opponent extends Entity {
       overallMinutesSinceLastMatch += MINUTES.between(lastMatchTime, now());
     }
 
-    Long playerCount = Long.valueOf(getPlayers().size());
+    int playerCount = getPlayers().size();
     return playerCount != 0 ? overallMinutesSinceLastMatch / playerCount : Long.MAX_VALUE;
   }
 }

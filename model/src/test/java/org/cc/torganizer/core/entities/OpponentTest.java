@@ -18,14 +18,14 @@ class OpponentTest {
 
   @Test
   void testIdleTimeSquad() {
-    Player player1 = createPlayerWithMinutesSinceLastMatch(30);
-    Player player2 = createPlayerWithMinutesSinceLastMatch(60);
+    Player player1 = createPlayerWithMinutesSinceLastMatch(31);
+    Player player2 = createPlayerWithMinutesSinceLastMatch(62);
     Squad squad = new Squad();
     squad.addPlayer(player1);
     squad.addPlayer(player2);
     Long idleTime = squad.getIdleTime();
 
-    assertThat(idleTime).isEqualTo(45);
+    assertThat(idleTime).isEqualTo(46);
   }
 
   private Player createPlayerWithMinutesSinceLastMatch(Integer minutesSinceLastMatch) {
