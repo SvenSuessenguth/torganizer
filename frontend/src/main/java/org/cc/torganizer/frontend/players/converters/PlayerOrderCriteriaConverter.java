@@ -10,7 +10,9 @@ import org.cc.torganizer.core.comparators.player.PlayerOrderCriteria;
 public class PlayerOrderCriteriaConverter implements Converter<PlayerOrderCriteria> {
 
   @Override
-  public PlayerOrderCriteria getAsObject(FacesContext facesContext, UIComponent uiComponent, String value) {
+  public PlayerOrderCriteria getAsObject(FacesContext facesContext,
+                                         UIComponent uiComponent,
+                                         String value) {
     if (value.isEmpty()) {
       return null;
     }
