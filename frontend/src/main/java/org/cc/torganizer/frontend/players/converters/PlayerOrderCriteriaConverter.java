@@ -6,6 +6,9 @@ import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.FacesConverter;
 import org.cc.torganizer.core.comparators.player.PlayerOrderCriteria;
 
+/**
+ * Converting a PlayerOrderCriteria from/to String.
+ */
 @FacesConverter(value = "playerOrderCriteriaConverter")
 public class PlayerOrderCriteriaConverter implements Converter<PlayerOrderCriteria> {
 

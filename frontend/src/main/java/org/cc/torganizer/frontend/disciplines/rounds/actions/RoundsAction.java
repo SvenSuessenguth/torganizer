@@ -7,6 +7,9 @@ import org.cc.torganizer.frontend.disciplines.rounds.RoundsState;
 import org.cc.torganizer.persistence.DisciplinesRepository;
 import org.cc.torganizer.persistence.RoundsRepository;
 
+/**
+ * Providing States and Repositories for editing Rounds.
+ */
 public abstract class RoundsAction {
 
   @Inject

@@ -10,6 +10,9 @@ import java.util.List;
 import org.cc.torganizer.core.comparators.player.PlayerByLastNameComparator;
 import org.cc.torganizer.core.entities.Player;
 
+/**
+ * Backing for editing Squads.
+ */
 @RequestScoped
 @Named
 public class SquadsBacking {

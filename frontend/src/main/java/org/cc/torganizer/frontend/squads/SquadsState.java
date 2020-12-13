@@ -19,6 +19,9 @@ import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.State;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
+/**
+ * State of the Squads-UI.
+ */
 @ViewScoped
 @Named
 public class SquadsState implements Serializable, State {

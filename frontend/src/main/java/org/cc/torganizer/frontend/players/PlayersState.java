@@ -24,6 +24,9 @@ import org.cc.torganizer.frontend.utils.Chunk;
 import org.cc.torganizer.persistence.ClubsRepository;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
+/**
+ * State of the Players-UI.
+ */
 @ViewScoped
 @Named
 public class PlayersState implements Serializable, State {
