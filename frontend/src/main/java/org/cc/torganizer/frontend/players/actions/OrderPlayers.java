@@ -10,6 +10,9 @@ import org.cc.torganizer.core.comparators.player.PlayerComparatorProvider;
 import org.cc.torganizer.core.comparators.player.PlayerOrderCriteria;
 import org.cc.torganizer.core.entities.Player;
 
+/**
+ * Ordering Players by selected Criteria.
+ */
 @RequestScoped
 @Named
 public class OrderPlayers extends PlayersAction {

@@ -7,6 +7,9 @@ import org.apache.logging.log4j.Logger;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.frontend.ApplicationMessages;
 
+/**
+ * Deleting selected Player.
+ */
 @RequestScoped
 @Named
 public class DeletePlayer extends PlayersAction {

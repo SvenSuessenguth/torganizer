@@ -6,6 +6,9 @@ import org.cc.torganizer.frontend.players.PlayersState;
 import org.cc.torganizer.persistence.PlayersRepository;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
+/**
+ * Actions for Players.
+ */
 public abstract class PlayersAction {
 
   @Inject

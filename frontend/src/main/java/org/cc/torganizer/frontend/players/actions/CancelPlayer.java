@@ -5,6 +5,9 @@ import jakarta.inject.Named;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 
+/**
+ * Cancel editing a Player.
+ */
 @RequestScoped
 @Named
 public class CancelPlayer extends PlayersAction {
