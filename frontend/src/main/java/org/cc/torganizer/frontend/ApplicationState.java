@@ -5,6 +5,9 @@ import jakarta.inject.Named;
 import java.io.Serializable;
 import org.cc.torganizer.core.entities.Tournament;
 
+/**
+ * State of the Tournament-Application.
+ */
 @ConversationScoped
 @Named
 public class ApplicationState implements Serializable {

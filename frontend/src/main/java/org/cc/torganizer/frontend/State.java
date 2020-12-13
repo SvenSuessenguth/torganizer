@@ -1,5 +1,8 @@
 package org.cc.torganizer.frontend;
 
+/**
+ * State.
+ */
 public interface State {
 
   /**

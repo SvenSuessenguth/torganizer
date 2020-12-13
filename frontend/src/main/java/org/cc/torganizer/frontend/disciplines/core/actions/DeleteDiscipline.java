@@ -7,6 +7,9 @@ import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.frontend.ApplicationMessages;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
+/**
+ * Deleting a Discipline from the Tournament.
+ */
 @RequestScoped
 @Named
 public class DeleteDiscipline extends DisciplinesAction {

@@ -5,6 +5,9 @@ import jakarta.inject.Named;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
 
+/**
+ * Adding an opponent to a Discipline.
+ */
 @RequestScoped
 @Named
 public class AddOpponentToDiscipline extends DisciplinesAction {

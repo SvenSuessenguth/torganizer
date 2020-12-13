@@ -5,6 +5,9 @@ import jakarta.inject.Named;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
 
+/**
+ * Removing Opponent from Discipline.
+ */
 @RequestScoped
 @Named
 public class RemoveOpponentFromDiscipline extends DisciplinesAction {
