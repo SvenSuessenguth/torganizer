@@ -309,13 +309,16 @@ public class TournamentsRepository extends Repository<Tournament> {
     return assignableOpponents.subList(offset, offset + maxResults);
   }
 
-  public Long countOpponents() {
+  /**
+   * counting the opponents for the given tournament.
+   */
+  public Long countOpponents(Long id) {
     CriteriaBuilder cb = entityManager.getCriteriaBuilder();
     CriteriaQuery<Tuple> cq = cb.createTupleQuery();
     Root<Tournament> tournament = cq.from(Tournament.class);
     Join<Tournament, Opponent> tournamentOpponentJoin = tournament.join("opponents", JoinType.LEFT);
     cq.select(cb.tuple(tournament, cb.count(tournamentOpponentJoin)));
-    cq.where(cb.equal(tournament.get("id"), 1L));
+    cq.where(cb.equal(tournament.get("id"), id));
 
     List<Tuple> result = entityManager.createQuery(cq).getResultList();
     return (Long) result.get(0).get(1);
