@@ -27,8 +27,8 @@ public abstract class Opponent extends Entity {
   }
 
   /**
-   * Calculating the average idle-time of all players in minutes. This is used to minimize the waiting time between
-   * matches.
+   * Calculating the average idle-time of all players in minutes. This is used to minimize the
+   * waiting time between matches.
    */
   public Long getIdleTime() {
     long overallMinutesSinceLastMatch = 0L;
