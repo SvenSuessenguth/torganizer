@@ -26,9 +26,6 @@
     <mapping-file>jpa/Round-orm.xml</mapping-file>
     <mapping-file>jpa/Tournament-orm.xml</mapping-file>
 
-    <!-- Converters -->
-    <class>org.cc.torganizer.persistence.converter.GenderJpaConverter</class>
-
     <properties>
       <!--      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />-->
       <!--
