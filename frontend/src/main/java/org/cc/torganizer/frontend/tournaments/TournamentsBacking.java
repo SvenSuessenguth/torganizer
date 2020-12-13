@@ -1,8 +1,8 @@
 package org.cc.torganizer.frontend.tournaments;
 
-import javax.enterprise.context.RequestScoped;
-import javax.faces.component.UIInput;
-import javax.inject.Named;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.component.UIInput;
+import jakarta.inject.Named;
 
 @RequestScoped
 @Named

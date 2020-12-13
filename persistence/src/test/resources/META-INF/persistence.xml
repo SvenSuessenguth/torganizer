@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <persistence
-  xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+  version="3.0"
+  xmlns="https://jakarta.ee/xml/ns/persistence"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
-                      http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
-  version="2.2">
+  xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+    https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
 
-  <persistence-unit name="torganizer.test" transaction-type="RESOURCE_LOCAL">
-    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-
+  <persistence-unit name="testPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <mapping-file>jpa/Entity-orm.xml</mapping-file>
 
     <mapping-file>jpa/Club-orm.xml</mapping-file>
@@ -27,26 +26,11 @@
     <mapping-file>jpa/Tournament-orm.xml</mapping-file>
 
     <properties>
-      <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test;INIT=CREATE SCHEMA IF NOT EXISTS torganizer"/>
-      <property name="javax.persistence.jdbc.user" value=""/>
-      <property name="javax.persistence.jdbc.password" value=""/>
-
-      <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
-      <property name="hibernate.hbm2ddl.auto" value="update"/>
-      <!--
-       | https://docs.jboss.org/hibernate/orm/3.5/reference/en/html/session-configuration.html
-       | java.sql.Connection defines the values
-       | TRANSACTION_SERIALIZABLE = 8
-       +-->
-      <property name="hibernate.connection.isolation" value="8"/>
-      <property name="hibernate.connection.autocommit" value="true"/>
-      <!--
-       | to remove the warning:
-       | WARN: HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-       +-->
-      <property name="hibernate.connection.provider_class" value="org.hibernate.c3p0.internal.C3P0ConnectionProvider"/>
-      <property name="hibernate.c3p0.min_size" value="10"/>
+      <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
+      <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:test;INIT=CREATE SCHEMA IF NOT EXISTS torganizer"/>
+      <property name="jakarta.persistence.jdbc.user" value=""/>
+      <property name="jakarta.persistence.jdbc.password" value=""/>
     </properties>
   </persistence-unit>
 

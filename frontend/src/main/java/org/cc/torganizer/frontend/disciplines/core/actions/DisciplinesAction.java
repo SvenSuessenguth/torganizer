@@ -1,6 +1,6 @@
 package org.cc.torganizer.frontend.disciplines.core.actions;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.disciplines.core.DisciplinesState;
 import org.cc.torganizer.persistence.DisciplinesRepository;

@@ -1,9 +1,9 @@
 package org.cc.torganizer.frontend.players.converters;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.FacesConverter;
 import org.cc.torganizer.core.comparators.player.PlayerOrder;
 
 @FacesConverter(value = "playerOrderConverter")

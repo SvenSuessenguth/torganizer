@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.FacesValidator;
-import javax.faces.validator.Validator;
-import javax.faces.validator.ValidatorException;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.ValidatorFactory;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.validator.FacesValidator;
+import jakarta.faces.validator.Validator;
+import jakarta.faces.validator.ValidatorException;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.ValidatorFactory;
 import org.cc.torganizer.core.entities.Tournament;
 
 @FacesValidator("tournamentsNameValidator")
@@ -35,7 +35,7 @@ public class TournamentsNameValidator implements Validator<String> {
 
   private Set<ConstraintViolation<Tournament>> validate(Tournament newTournament) {
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-    javax.validation.Validator validator = factory.getValidator();
+    jakarta.validation.Validator validator = factory.getValidator();
     return validator.validate(newTournament);
   }
 

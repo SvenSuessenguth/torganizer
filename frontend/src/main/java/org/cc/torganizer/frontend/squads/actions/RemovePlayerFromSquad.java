@@ -2,8 +2,8 @@ package org.cc.torganizer.frontend.squads.actions;
 
 import static org.cc.torganizer.frontend.squads.SquadsState.CURRENT_SQUAD_PLAYERS_TABLE_SIZE;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Named;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;

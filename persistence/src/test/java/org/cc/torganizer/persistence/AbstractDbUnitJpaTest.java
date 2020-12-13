@@ -1,5 +1,14 @@
 package org.cc.torganizer.persistence;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Objects;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
@@ -9,19 +18,8 @@ import org.dbunit.dataset.ReplacementDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.h2.H2DataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
-import org.hibernate.internal.SessionImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.Objects;
 
 public abstract class AbstractDbUnitJpaTest {
 
@@ -32,9 +30,8 @@ public abstract class AbstractDbUnitJpaTest {
   @BeforeEach
   public void initTestFixture() {
     // Get the entity manager for the tests.
-    entityManagerFactory = Persistence.createEntityManagerFactory("torganizer.test");
+    entityManagerFactory = Persistence.createEntityManagerFactory("testPU");
     entityManager = entityManagerFactory.createEntityManager();
-    connection = ((SessionImpl) (entityManager.getDelegate())).connection();
     entityManager.getTransaction().begin();
   }
 
@@ -47,6 +44,7 @@ public abstract class AbstractDbUnitJpaTest {
 
   public void initDatabase(String testData) throws IOException, DatabaseUnitException, SQLException {
     // Connection aufbauen
+    Connection connection = entityManager.unwrap(Connection.class);
     IDatabaseConnection dbunitConn = new DatabaseConnection(connection);
     DatabaseConfig dbConfig = dbunitConn.getConfig();
     dbConfig.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new H2DataTypeFactory());

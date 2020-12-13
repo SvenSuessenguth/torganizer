@@ -1,17 +1,16 @@
 package org.cc.torganizer.frontend.tournaments.actions;
 
-import static javax.faces.application.FacesMessage.SEVERITY_ERROR;
+import static jakarta.faces.application.FacesMessage.SEVERITY_ERROR;
 
 import java.util.Objects;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.apache.logging.log4j.Logger;
 import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.frontend.tournaments.TournamentsBacking;
-import org.eclipse.microprofile.metrics.annotation.Counted;
 
 /**
  * Saving the current Tournament.
@@ -35,7 +34,6 @@ public class SaveTournament extends TournamentsAction {
   /**
    * save changes on already persisted tournament.
    */
-  @Counted(name = "tournaments.save.counter")
   public void execute() {
     Tournament current = state.getCurrent();
 

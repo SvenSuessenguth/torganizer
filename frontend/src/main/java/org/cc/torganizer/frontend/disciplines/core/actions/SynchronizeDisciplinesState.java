@@ -1,7 +1,7 @@
 package org.cc.torganizer.frontend.disciplines.core.actions;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Named;
 
 /**
  * Initializing the clubs staten.

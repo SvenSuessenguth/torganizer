@@ -5,22 +5,11 @@ package org.cc.torganizer.core.entities;
  * Restriktionen bei Disciplines verwendet.
  */
 public enum OpponentType {
-  /**
-   * Ein Player.
-   */
-  PLAYER(0, Player.class),
-
-  /**
-   * Mehrere Player.
-   */
-  SQUAD(1, Squad.class),
-
-  /**
-   * Players und/oder Squads.
-   */
-  TEAM(2, Team.class);
-
-  private final int value;
+  PLAYER(Player.class),
+  SQUAD(Squad.class),
+  TEAM(Team.class),
+  Bye(Bye.class),
+  UNKNOWN(Unknown.class);
 
   private final Class<? extends Opponent> opponentClass;
 
@@ -30,25 +19,8 @@ public enum OpponentType {
    * @param newValue         ID
    * @param newOpponentClass Class des Oppoenents
    */
-  OpponentType(int newValue, Class<? extends Opponent> newOpponentClass) {
-    this.value = newValue;
+  OpponentType(Class<? extends Opponent> newOpponentClass) {
     this.opponentClass = newOpponentClass;
-  }
-
-  /**
-   * Gibt den OpponentType mit der angegebenen ID zurueck.
-   *
-   * @param value ID
-   * @return OpponentType mit der ID oder <code>null</code>
-   */
-  public static OpponentType fromInt(int value) {
-    for (OpponentType opponentType : OpponentType.values()) {
-      if (opponentType.value == value) {
-        return opponentType;
-      }
-    }
-
-    return null;
   }
 
   /**
@@ -65,19 +37,6 @@ public enum OpponentType {
     }
 
     return null;
-  }
-
-  /**
-   * Gibt die ID zurueck.
-   *
-   * @return ID
-   */
-  public int toInt() {
-    return value;
-  }
-
-  public int getValue() {
-    return value;
   }
 
   @Override

@@ -3,14 +3,14 @@ package org.cc.torganizer.persistence;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
-import javax.persistence.Query;
-import javax.persistence.Tuple;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.Root;
+import jakarta.persistence.Query;
+import jakarta.persistence.Tuple;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.Root;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Player;
@@ -131,6 +131,15 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
+  void testCountOpponents() {
+    Query query = entityManager.createNamedQuery("Tournament.countOpponents");
+    query.setParameter("id", 1L);
+    Long count = (Long) query.getSingleResult();
+
+    assertThat(count).isEqualTo(3L);
+  }
+
+  @Test
   void testAddPlayer() {
     long countBefore = repository.countPlayers(1L);
     repository.addOpponent(1L, 6L);
@@ -209,14 +218,5 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
     List<Discipline> disciplines = query.getResultList();
 
     assertThat(disciplines).hasSize(1);
-  }
-
-  @Test
-  void testFindByOpponentType_Player() {
-    TypedQuery<Opponent> query = entityManager.createNamedQuery("Tournament.findOpponents", Opponent.class);
-    query.setParameter("id", 1L);
-    List<Opponent> opponents = query.getResultList();
-
-    assertThat(opponents).hasSize(3);
   }
 }

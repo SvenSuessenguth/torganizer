@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
-                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
-                 version="2.2">
+<entity-mappings
+  xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence/orm https://jakarta.ee/xml/ns/persistence/orm/orm_3_0.xsd"
+  version="3.0">
 
   <persistence-unit-metadata>
     <xml-mapping-metadata-complete/>
@@ -24,6 +25,7 @@
   <entity class="org.cc.torganizer.core.entities.Opponent" access="FIELD">
     <table name="_OPPONENTS"/>
     <inheritance strategy="JOINED"/>
+    <discriminator-column name="TYPE" />
     <attributes>
       <basic name="status">
         <column name="_STATUS" nullable="false"/>
@@ -34,6 +36,7 @@
 
   <entity class="org.cc.torganizer.core.entities.Player" access="FIELD">
     <table name="_PLAYERS"/>
+    <discriminator-value>PLAYER</discriminator-value>
     <attributes>
       <basic name="lastMatchTime">
         <column name="_LAST_MATCH_TIME"/>
@@ -52,6 +55,7 @@
 
   <entity class="org.cc.torganizer.core.entities.Squad" access="FIELD">
     <table name="_SQUADS"/>
+    <discriminator-value>SQUAD</discriminator-value>
     <attributes>
       <many-to-many name="players">
         <join-table name="_SQUAD_PLAYERS">
@@ -64,10 +68,12 @@
 
   <entity class="org.cc.torganizer.core.entities.Bye" access="FIELD">
     <table name="_BYES"/>
+    <discriminator-value>BYE</discriminator-value>
   </entity>
 
   <entity class="org.cc.torganizer.core.entities.Unknown" access="FIELD">
     <table name="_UNKNOWNS"/>
+    <discriminator-value>UNKNOWN</discriminator-value>
   </entity>
 
 </entity-mappings>
