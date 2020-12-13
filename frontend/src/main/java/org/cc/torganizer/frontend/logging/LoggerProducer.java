@@ -7,6 +7,9 @@ import jakarta.enterprise.inject.spi.InjectionPoint;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Producing a Logger.
+ */
 @RequestScoped
 public class LoggerProducer {
 

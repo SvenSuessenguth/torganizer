@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.util.UUID;
 import org.apache.logging.log4j.ThreadContext;
 
+/**
+ * Filter for setting ThreadContext-Parameter to the Logging framework.
+ */
 @WebFilter(urlPatterns = "/*")
 public class OnlineExtendLoggingFilter implements Filter {
 
