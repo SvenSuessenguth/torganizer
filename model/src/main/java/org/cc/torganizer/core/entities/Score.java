@@ -1,23 +1,17 @@
 package org.cc.torganizer.core.entities;
 
+/**
+ * Wrapper for points.
+ */
 public class Score extends Entity {
 
   private Integer points;
 
-  /**
-   * Bequemlichkeitskonstruktor.
-   *
-   * @param newScore Score
-   */
-  public Score(Integer newScore) {
-    this.points = newScore;
+  public Score(Integer points) {
+    this.points = points;
   }
 
-  /**
-   * default bean constructor.
-   */
   public Score() {
-    // gem. Bean-Spec.
   }
 
   public Integer getPoints() {

@@ -1,5 +1,8 @@
 package org.cc.torganizer.core.entities;
 
+/**
+ * Type for all restrictions.
+ */
 public abstract class Restriction extends Entity {
 
   /**
