@@ -6,6 +6,9 @@ import jakarta.inject.Named;
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.frontend.ApplicationMessages;
 
+/**
+ * Deleting selected Club.
+ */
 @RequestScoped
 @Named
 public class DeleteClub extends ClubsAction {

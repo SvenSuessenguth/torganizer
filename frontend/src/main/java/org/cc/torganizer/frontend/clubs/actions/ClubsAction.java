@@ -5,6 +5,9 @@ import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.clubs.ClubsState;
 import org.cc.torganizer.persistence.ClubsRepository;
 
+/**
+ * Actions for Clubs.
+ */
 public abstract class ClubsAction {
 
   @Inject

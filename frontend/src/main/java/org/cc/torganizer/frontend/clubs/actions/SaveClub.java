@@ -4,6 +4,9 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 import org.cc.torganizer.core.entities.Club;
 
+/**
+ * Persisting the selected Club.
+ */
 @RequestScoped
 @Named
 public class SaveClub extends ClubsAction {
