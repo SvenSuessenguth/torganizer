@@ -16,7 +16,6 @@ public enum OpponentType {
   /**
    * Konstruktor.
    *
-   * @param newValue         ID
    * @param newOpponentClass Class des Oppoenents
    */
   OpponentType(Class<? extends Opponent> newOpponentClass) {
