@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <parent>
@@ -18,7 +18,8 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
         <version>${maven-dependency-plugin.version}</version>
         <executions>
           <execution>
@@ -30,7 +31,8 @@
             <configuration>
               <artifactItems>
                 <artifactItem>
-                  <groupId>org.postgresql</groupId><artifactId>postgresql</artifactId>
+                  <groupId>org.postgresql</groupId>
+                  <artifactId>postgresql</artifactId>
                   <version>42.2.18</version>
                 </artifactItem>
               </artifactItems>

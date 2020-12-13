@@ -1,10 +1,10 @@
 package org.cc.torganizer.frontend.tournaments.actions;
 
-import java.util.Objects;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.transaction.Transactional;
+import java.util.Objects;
 import org.apache.logging.log4j.Logger;
 import org.cc.torganizer.core.entities.Tournament;
 

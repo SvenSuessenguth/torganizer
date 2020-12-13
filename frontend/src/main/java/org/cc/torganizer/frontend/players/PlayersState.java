@@ -2,14 +2,14 @@ package org.cc.torganizer.frontend.players;
 
 import static org.cc.torganizer.core.comparators.player.PlayerOrder.BY_LAST_UPDATE;
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 import org.cc.torganizer.core.comparators.player.PlayerComparator;
 import org.cc.torganizer.core.comparators.player.PlayerComparatorProvider;
 import org.cc.torganizer.core.comparators.player.PlayerOrder;

@@ -1,13 +1,13 @@
 package org.cc.torganizer.frontend.logging;
 
-import java.io.IOException;
-import java.util.UUID;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
+import java.io.IOException;
+import java.util.UUID;
 import org.apache.logging.log4j.ThreadContext;
 
 @WebFilter(urlPatterns = "/*")

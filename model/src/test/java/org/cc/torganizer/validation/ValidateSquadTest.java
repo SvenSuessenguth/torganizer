@@ -2,11 +2,11 @@ package org.cc.torganizer.validation;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Set;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
+import java.util.Set;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 import org.junit.jupiter.api.BeforeAll;

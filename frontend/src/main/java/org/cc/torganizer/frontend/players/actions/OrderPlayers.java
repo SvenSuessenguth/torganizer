@@ -1,10 +1,10 @@
 package org.cc.torganizer.frontend.players.actions;
 
-import java.util.List;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import java.util.List;
 import org.cc.torganizer.core.comparators.player.PlayerComparator;
 import org.cc.torganizer.core.comparators.player.PlayerComparatorProvider;
 import org.cc.torganizer.core.comparators.player.PlayerOrder;

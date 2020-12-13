@@ -1,8 +1,8 @@
 package org.cc.torganizer.frontend;
 
-import java.io.Serializable;
 import jakarta.enterprise.context.ConversationScoped;
 import jakarta.inject.Named;
+import java.io.Serializable;
 import org.cc.torganizer.core.entities.Tournament;
 
 @ConversationScoped

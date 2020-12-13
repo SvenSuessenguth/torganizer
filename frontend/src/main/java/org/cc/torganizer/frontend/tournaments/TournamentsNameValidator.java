@@ -1,9 +1,5 @@
 package org.cc.torganizer.frontend.tournaments;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Set;
-import java.util.stream.Collectors;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
@@ -13,6 +9,10 @@ import jakarta.faces.validator.ValidatorException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.ValidatorFactory;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
 import org.cc.torganizer.core.entities.Tournament;
 
 @FacesValidator("tournamentsNameValidator")

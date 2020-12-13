@@ -5,6 +5,6 @@
     },
     "targets": [
       "frontend:8080"
-   ]
+    ]
   }
 ]

@@ -1,14 +1,14 @@
 package org.cc.torganizer.frontend.disciplines.rounds;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.ConversationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.ConversationScoped;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Round;

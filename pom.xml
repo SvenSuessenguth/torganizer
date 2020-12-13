@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.cc.torganizer</groupId>
@@ -42,7 +42,7 @@
     <jakarta.jakartaee-api.version>9.0.0</jakarta.jakartaee-api.version>
     <jakarta.xml.bind-api.version>3.0.0</jakarta.xml.bind-api.version>
     <jaxb-core.version>3.0.0</jaxb-core.version>
-    <jaxb-impl.version> 3.0.0</jaxb-impl.version>
+    <jaxb-impl.version>3.0.0</jaxb-impl.version>
     <junit-jupiter.version>5.7.0</junit-jupiter.version>
     <junit-platform.version>1.3.0-RC1</junit-platform.version>
     <log4j-api.version>2.14.0</log4j-api.version>
@@ -83,79 +83,109 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>jakarta.platform</groupId><artifactId>jakarta.jakartaee-api</artifactId>
-        <version>${jakarta.jakartaee-api.version}</version><scope>provided</scope>
+        <groupId>jakarta.platform</groupId>
+        <artifactId>jakarta.jakartaee-api</artifactId>
+        <version>${jakarta.jakartaee-api.version}</version>
+        <scope>provided</scope>
       </dependency>
       <dependency>
-        <groupId>org.eclipse.microprofile</groupId><artifactId>microprofile</artifactId>
-        <version>${microprofile.version}</version><type>pom</type><scope>provided</scope>
+        <groupId>org.eclipse.microprofile</groupId>
+        <artifactId>microprofile</artifactId>
+        <version>${microprofile.version}</version>
+        <type>pom</type>
+        <scope>provided</scope>
       </dependency>
 
       <!--
        | https://logging.apache.org/log4j/2.x/maven-artifacts.html
        +-->
       <dependency>
-        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-api</artifactId>
         <version>${log4j-api.version}</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core</artifactId>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
         <version>${log4j-core.version}</version>
       </dependency>
 
       <dependency>
-        <groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter-api</artifactId>
-        <version>${junit-jupiter.version}</version><scope>test</scope>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>${junit-jupiter.version}</version>
+        <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter-engine</artifactId>
-        <version>${junit-jupiter.version}</version><scope>test</scope>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>${junit-jupiter.version}</version>
+        <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter-params</artifactId>
-        <version>${junit-jupiter.version}</version><scope>test</scope>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-params</artifactId>
+        <version>${junit-jupiter.version}</version>
+        <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>org.assertj</groupId><artifactId>assertj-core</artifactId>
-        <version>${assertj-core.version}</version><scope>test</scope>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>${assertj-core.version}</version>
+        <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>org.mockito</groupId><artifactId>mockito-core</artifactId>
-        <version>${mockito.version}</version><scope>test</scope>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>${mockito.version}</version>
+        <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>org.mockito</groupId><artifactId>mockito-junit-jupiter</artifactId>
-        <version>${mockito.version}</version><scope>test</scope>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-junit-jupiter</artifactId>
+        <version>${mockito.version}</version>
+        <scope>test</scope>
       </dependency>
 
       <!--
        | https://stackoverflow.com/questions/43574426/how-to-resolve-java-lang-noclassdeffounderror-javax-xml-bind-jaxbexception-in-j
        +-->
       <dependency>
-        <groupId>jakarta.xml.bind</groupId><artifactId>jakarta.xml.bind-api</artifactId>
-        <version>${jakarta.xml.bind-api.version}</version><scope>test</scope>
+        <groupId>jakarta.xml.bind</groupId>
+        <artifactId>jakarta.xml.bind-api</artifactId>
+        <version>${jakarta.xml.bind-api.version}</version>
+        <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>com.sun.xml.bind</groupId><artifactId>jaxb-core</artifactId>
-        <version>${jaxb-core.version}</version><scope>test</scope>
+        <groupId>com.sun.xml.bind</groupId>
+        <artifactId>jaxb-core</artifactId>
+        <version>${jaxb-core.version}</version>
+        <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>com.sun.xml.bind</groupId><artifactId>jaxb-impl</artifactId>
-        <version>${jaxb-impl.version}</version><scope>test</scope>
+        <groupId>com.sun.xml.bind</groupId>
+        <artifactId>jaxb-impl</artifactId>
+        <version>${jaxb-impl.version}</version>
+        <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>jakarta.activation</groupId><artifactId>jakarta.activation-api</artifactId>
-        <version>${jakarta.activation-api.version}</version><scope>test</scope>
+        <groupId>jakarta.activation</groupId>
+        <artifactId>jakarta.activation-api</artifactId>
+        <version>${jakarta.activation-api.version}</version>
+        <scope>test</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
 
   <dependencies>
     <dependency>
-      <groupId>jakarta.platform</groupId><artifactId>jakarta.jakartaee-api</artifactId>
+      <groupId>jakarta.platform</groupId>
+      <artifactId>jakarta.jakartaee-api</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.eclipse.microprofile</groupId><artifactId>microprofile</artifactId><type>pom</type>
+      <groupId>org.eclipse.microprofile</groupId>
+      <artifactId>microprofile</artifactId>
+      <type>pom</type>
     </dependency>
 
     <!--
@@ -163,48 +193,60 @@
      +-->
     <!-- logging -->
     <dependency>
-      <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api</artifactId>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core</artifactId>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
     </dependency>
 
     <!--
      | test dependencies
      +-->
     <dependency>
-      <groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter-api</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter-params</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter-engine</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.assertj</groupId><artifactId>assertj-core</artifactId>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.mockito</groupId><artifactId>mockito-core</artifactId>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.mockito</groupId><artifactId>mockito-junit-jupiter</artifactId>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
     </dependency>
 
     <!--
      | dependencies for the new module-system
      +-->
     <dependency>
-      <groupId>jakarta.xml.bind</groupId><artifactId>jakarta.xml.bind-api</artifactId>
-    </dependency>
-      <dependency>
-      <groupId>com.sun.xml.bind</groupId><artifactId>jaxb-core</artifactId>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.sun.xml.bind</groupId><artifactId>jaxb-impl</artifactId>
+      <groupId>com.sun.xml.bind</groupId>
+      <artifactId>jaxb-core</artifactId>
     </dependency>
     <dependency>
-      <groupId>jakarta.activation</groupId><artifactId>jakarta.activation-api</artifactId>
+      <groupId>com.sun.xml.bind</groupId>
+      <artifactId>jaxb-impl</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.activation</groupId>
+      <artifactId>jakarta.activation-api</artifactId>
     </dependency>
   </dependencies>
 
@@ -225,29 +267,35 @@
          | https://docs.sonarqube.org/display/PLUG/Code+Coverage+by+Integration+Tests+for+Java+Project
          +-->
         <plugin>
-          <groupId>org.jacoco</groupId><artifactId>jacoco-maven-plugin</artifactId>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
           <version>${jacoco-maven-plugin.version}</version>
         </plugin>
 
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId><artifactId>maven-enforcer-plugin</artifactId>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
           <version>${maven-enforcer-plugin.version}</version>
-       </plugin>
+        </plugin>
 
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId><artifactId>maven-checkstyle-plugin</artifactId>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
           <version>${maven-checkstyle-plugin}</version>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId><artifactId>maven-pmd-plugin</artifactId>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-pmd-plugin</artifactId>
           <version>${maven-pmd-plugin}</version>
         </plugin>
         <plugin>
-          <groupId>com.github.spotbugs</groupId><artifactId>spotbugs-maven-plugin</artifactId>
+          <groupId>com.github.spotbugs</groupId>
+          <artifactId>spotbugs-maven-plugin</artifactId>
           <version>${spotbugs-maven-plugin}</version>
           <dependencies>
             <dependency>
-              <groupId>com.github.spotbugs</groupId><artifactId>spotbugs</artifactId>
+              <groupId>com.github.spotbugs</groupId>
+              <artifactId>spotbugs</artifactId>
               <version>${spotbugs.version}</version>
             </dependency>
           </dependencies>
@@ -256,7 +304,8 @@
           </configuration>
         </plugin>
         <plugin>
-          <groupId>org.owasp</groupId><artifactId>dependency-check-maven</artifactId>
+          <groupId>org.owasp</groupId>
+          <artifactId>dependency-check-maven</artifactId>
           <version>${dependency-check-maven.version}</version>
           <configuration>
             <skipProvidedScope>true</skipProvidedScope>
@@ -266,17 +315,20 @@
         </plugin>
 
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId><artifactId>maven-surefire-plugin</artifactId>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
           <version>${maven-surefire-plugin.version}</version>
         </plugin>
 
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId><artifactId>maven-jxr-plugin</artifactId>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jxr-plugin</artifactId>
           <version>${maven-jxr-plugin.version}</version>
         </plugin>
 
         <plugin>
-          <groupId>org.sonarsource.scanner.maven</groupId><artifactId>sonar-maven-plugin</artifactId>
+          <groupId>org.sonarsource.scanner.maven</groupId>
+          <artifactId>sonar-maven-plugin</artifactId>
           <version>${sonar-maven-plugin.version}</version>
         </plugin>
 
@@ -285,11 +337,13 @@
          | [WARNING] The following plugins do not have their version specified:
          +-->
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId><artifactId>maven-clean-plugin</artifactId>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-clean-plugin</artifactId>
           <version>${maven-clean-plugin.version}</version>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
           <version>${maven-compiler-plugin.version}</version>
           <configuration>
             <source>1.8</source>
@@ -298,31 +352,38 @@
           </configuration>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId><artifactId>maven-deploy-plugin</artifactId>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
           <version>${maven-deploy-plugin.version}</version>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId><artifactId>maven-install-plugin</artifactId>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-install-plugin</artifactId>
           <version>${maven-install-plugin.version}</version>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId><artifactId>maven-jar-plugin</artifactId>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
           <version>${maven-jar-plugin.version}</version>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId><artifactId>maven-project-info-reports-plugin</artifactId>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>${maven-project-info-reports-plugin.version}</version>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId><artifactId>maven-resources-plugin</artifactId>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
           <version>${maven-resources-plugin.version}</version>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId><artifactId>maven-site-plugin</artifactId>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
           <version>${maven-site-plugin.version}</version>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId><artifactId>maven-war-plugin</artifactId>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
           <version>${maven-war-plugin.version}</version>
         </plugin>
       </plugins>
@@ -333,7 +394,8 @@
        | https://stackoverflow.com/questions/55676341/java-11-12-javadoc-with-maven-results-in-not-generating-javadocs-for-tests
        +-->
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId><artifactId>maven-javadoc-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
         <version>3.2.0</version>
         <configuration>
           <show>private</show>
@@ -348,21 +410,28 @@
        | https://www.mkyong.com/maven/jacoco-java-code-coverage-maven-example/
        +-->
       <plugin>
-        <groupId>org.jacoco</groupId><artifactId>jacoco-maven-plugin</artifactId>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
         <executions>
           <execution>
             <id>prepare-agent</id>
-            <goals><goal>prepare-agent</goal></goals>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
           </execution>
           <execution>
             <id>report</id>
             <phase>prepare-package</phase>
-            <goals><goal>report</goal></goals>
+            <goals>
+              <goal>report</goal>
+            </goals>
           </execution>
           <execution>
             <id>post-unit-test</id>
             <phase>test</phase>
-            <goals><goal>report</goal></goals>
+            <goals>
+              <goal>report</goal>
+            </goals>
             <configuration>
               <dataFile>target/jacoco.exec</dataFile>
               <outputDirectory>target/jacoco-ut</outputDirectory>
@@ -380,10 +449,14 @@
         <executions>
           <execution>
             <id>enforce-maven</id>
-            <goals><goal>enforce</goal></goals>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
             <configuration>
               <rules>
-                <requireMavenVersion><version>3.6.0</version></requireMavenVersion>
+                <requireMavenVersion>
+                  <version>3.6.0</version>
+                </requireMavenVersion>
               </rules>
             </configuration>
           </execution>
@@ -397,7 +470,7 @@
             <groupId>com.puppycrawl.tools</groupId>
             <artifactId>checkstyle</artifactId>
             <version>${checkstyle.version}</version>
-           </dependency>
+          </dependency>
         </dependencies>
         <configuration>
           <configLocation>google_checks.xml</configLocation>
@@ -408,10 +481,12 @@
         <artifactId>maven-pmd-plugin</artifactId>
       </plugin>
       <plugin>
-        <groupId>com.github.spotbugs</groupId><artifactId>spotbugs-maven-plugin</artifactId>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
       </plugin>
       <plugin>
-        <groupId>org.owasp</groupId><artifactId>dependency-check-maven</artifactId>
+        <groupId>org.owasp</groupId>
+        <artifactId>dependency-check-maven</artifactId>
         <configuration>
           <skipProvidedScope>true</skipProvidedScope>
         </configuration>
@@ -422,7 +497,8 @@
   <reporting>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId><artifactId>maven-jxr-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
       </plugin>
     </plugins>
   </reporting>

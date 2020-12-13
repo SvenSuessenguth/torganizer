@@ -2,9 +2,9 @@ package org.cc.torganizer.core.comparators.player;
 
 import static org.cc.torganizer.core.comparators.player.PlayerOrder.BY_DATE_OF_BIRTH;
 
+import jakarta.enterprise.context.RequestScoped;
 import java.time.LocalDate;
 import java.util.Objects;
-import jakarta.enterprise.context.RequestScoped;
 import org.cc.torganizer.core.entities.Player;
 
 @RequestScoped

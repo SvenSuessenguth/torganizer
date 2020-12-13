@@ -98,7 +98,7 @@ class DisciplineTest {
 
     assertThat(discipline.getRounds()).hasSize(1);
   }
-  
+
   @Test
   void testGetLastRound_noRoundAvailable() {
     Round actual = discipline.getLastRound();

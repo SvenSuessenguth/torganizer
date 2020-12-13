@@ -2,12 +2,12 @@ package org.cc.torganizer.frontend.tournaments.actions;
 
 import static jakarta.faces.application.FacesMessage.SEVERITY_ERROR;
 
-import java.util.Objects;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import java.util.Objects;
 import org.apache.logging.log4j.Logger;
 import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.frontend.tournaments.TournamentsBacking;
