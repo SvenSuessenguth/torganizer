@@ -9,6 +9,9 @@ import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Player;
 
+/**
+ * Comparing Opponents by Clubs.
+ */
 public class OpponentsByClubComparator implements Comparator<Opponent>, Serializable {
 
   @Override

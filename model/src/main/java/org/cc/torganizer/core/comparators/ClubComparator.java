@@ -5,6 +5,9 @@ import java.util.Comparator;
 import java.util.Objects;
 import org.cc.torganizer.core.entities.Club;
 
+/**
+ * Comparing Clubs.
+ */
 public class ClubComparator implements Comparator<Club>, Serializable {
 
   @Override
