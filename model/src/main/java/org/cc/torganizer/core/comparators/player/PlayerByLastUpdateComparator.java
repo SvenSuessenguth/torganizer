@@ -1,11 +1,14 @@
 package org.cc.torganizer.core.comparators.player;
 
-import static org.cc.torganizer.core.comparators.player.PlayerOrder.BY_LAST_UPDATE;
+import static org.cc.torganizer.core.comparators.player.PlayerOrderCriteria.BY_LAST_UPDATE;
 
 import jakarta.enterprise.context.RequestScoped;
 import java.util.Date;
 import org.cc.torganizer.core.entities.Player;
 
+/**
+ * Comparing Players by LastUpdate.
+ */
 @RequestScoped
 public class PlayerByLastUpdateComparator implements PlayerComparator {
   @Override
@@ -27,7 +30,7 @@ public class PlayerByLastUpdateComparator implements PlayerComparator {
   }
 
   @Override
-  public PlayerOrder getPlayerOrder() {
+  public PlayerOrderCriteria getPlayerOrderCriteria() {
     return BY_LAST_UPDATE;
   }
 }

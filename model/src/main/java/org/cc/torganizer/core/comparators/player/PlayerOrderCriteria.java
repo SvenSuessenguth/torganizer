@@ -1,6 +1,9 @@
 package org.cc.torganizer.core.comparators.player;
 
-public enum PlayerOrder {
+/**
+ * Ordering Players by the given Criteria.
+ */
+public enum PlayerOrderCriteria {
   BY_LAST_NAME,
   BY_CLUB,
   BY_DATE_OF_BIRTH,

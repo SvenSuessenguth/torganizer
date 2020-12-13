@@ -1,12 +1,15 @@
 package org.cc.torganizer.core.comparators.player;
 
-import static org.cc.torganizer.core.comparators.player.PlayerOrder.BY_DATE_OF_BIRTH;
+import static org.cc.torganizer.core.comparators.player.PlayerOrderCriteria.BY_DATE_OF_BIRTH;
 
 import jakarta.enterprise.context.RequestScoped;
 import java.time.LocalDate;
 import java.util.Objects;
 import org.cc.torganizer.core.entities.Player;
 
+/**
+ * Comparing Players by DateOfBirth.
+ */
 @RequestScoped
 public class PlayerByDateOfBirthComparator implements PlayerComparator {
   @Override
@@ -36,7 +39,7 @@ public class PlayerByDateOfBirthComparator implements PlayerComparator {
   }
 
   @Override
-  public PlayerOrder getPlayerOrder() {
+  public PlayerOrderCriteria getPlayerOrderCriteria() {
     return BY_DATE_OF_BIRTH;
   }
 }

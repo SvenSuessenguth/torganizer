@@ -21,12 +21,12 @@
     <h:form id="playersForm">
 
       <h:panelGroup>
-        <h:outputLabel for="playerOrder">${i18nText.sort_by} </h:outputLabel>
-        <h:selectOneMenu id="playerOrder" value="#{playersState.playerOrder}">
-          <f:selectItems value="#{playersState.playerOrders}" var="playerOrder"
-                         itemValue="#{playerOrder}"
-                         itemLabel="#{i18nPlayerOrder[playerOrder]}"/>
-          <f:converter converterId="playerOrderConverter"/>
+        <h:outputLabel for="playerOrderCriterias">${i18nText.sort_by} </h:outputLabel>
+        <h:selectOneMenu id="playerOrderCriterias" value="#{playersState.playerOrderCriteria}">
+          <f:selectItems value="#{playersState.playerOrderCriterias}" var="playerOrderCriteria"
+                         itemValue="#{playerOrderCriteria}"
+                         itemLabel="#{i18nPlayerOrderCriteria[playerOrderCriteria]}"/>
+          <f:converter converterId="playerOrderCriteriaConverter"/>
           <f:ajax listener="#{orderPlayers.execute}" render="allPlayers"/>
         </h:selectOneMenu>
 

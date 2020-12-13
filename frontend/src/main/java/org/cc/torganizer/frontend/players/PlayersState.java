@@ -1,6 +1,6 @@
 package org.cc.torganizer.frontend.players;
 
-import static org.cc.torganizer.core.comparators.player.PlayerOrder.BY_LAST_UPDATE;
+import static org.cc.torganizer.core.comparators.player.PlayerOrderCriteria.BY_LAST_UPDATE;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.List;
 import org.cc.torganizer.core.comparators.player.PlayerComparator;
 import org.cc.torganizer.core.comparators.player.PlayerComparatorProvider;
-import org.cc.torganizer.core.comparators.player.PlayerOrder;
+import org.cc.torganizer.core.comparators.player.PlayerOrderCriteria;
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Person;
@@ -50,7 +50,7 @@ public class PlayersState implements Serializable, State {
 
   private Player current;
 
-  private PlayerOrder playerOrder = BY_LAST_UPDATE;
+  private PlayerOrderCriteria playerOrderCriteria = BY_LAST_UPDATE;
 
   @PostConstruct
   public void postConstruct() {
@@ -66,7 +66,7 @@ public class PlayersState implements Serializable, State {
     players = tournamentsRepository.getPlayers(tournamentId,
         0, 1000);
 
-    PlayerComparator pc = playerComparatorProvider.get(playerOrder);
+    PlayerComparator pc = playerComparatorProvider.get(playerOrderCriteria);
     players.sort(pc);
 
     clubs = clubsRepository.read(0, 1000);
@@ -114,16 +114,16 @@ public class PlayersState implements Serializable, State {
     return Arrays.asList(Gender.values());
   }
 
-  public PlayerOrder getPlayerOrder() {
-    return playerOrder;
+  public PlayerOrderCriteria getPlayerOrderCriteria() {
+    return playerOrderCriteria;
   }
 
-  public void setPlayerOrder(PlayerOrder playerOrder) {
-    this.playerOrder = playerOrder;
+  public void setPlayerOrderCriteria(PlayerOrderCriteria playerOrderCriteria) {
+    this.playerOrderCriteria = playerOrderCriteria;
   }
 
-  public List<PlayerOrder> getPlayerOrders() {
-    return Arrays.asList(PlayerOrder.values());
+  public List<PlayerOrderCriteria> getPlayerOrderCriterias() {
+    return Arrays.asList(PlayerOrderCriteria.values());
   }
 
   public Long getCurrentClubId() {

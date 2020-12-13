@@ -1,12 +1,15 @@
 package org.cc.torganizer.core.comparators.player;
 
-import static org.cc.torganizer.core.comparators.player.PlayerOrder.BY_CLUB;
+import static org.cc.torganizer.core.comparators.player.PlayerOrderCriteria.BY_CLUB;
 
 import jakarta.enterprise.context.RequestScoped;
 import org.cc.torganizer.core.comparators.ClubComparator;
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Player;
 
+/**
+ * Comparing Players by Club.
+ */
 @RequestScoped
 public class PlayerByClubComparator implements PlayerComparator {
   @Override
@@ -29,7 +32,7 @@ public class PlayerByClubComparator implements PlayerComparator {
   }
 
   @Override
-  public PlayerOrder getPlayerOrder() {
+  public PlayerOrderCriteria getPlayerOrderCriteria() {
     return BY_CLUB;
   }
 }

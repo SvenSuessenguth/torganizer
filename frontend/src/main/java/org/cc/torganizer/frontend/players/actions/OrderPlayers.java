@@ -7,7 +7,7 @@ import jakarta.inject.Named;
 import java.util.List;
 import org.cc.torganizer.core.comparators.player.PlayerComparator;
 import org.cc.torganizer.core.comparators.player.PlayerComparatorProvider;
-import org.cc.torganizer.core.comparators.player.PlayerOrder;
+import org.cc.torganizer.core.comparators.player.PlayerOrderCriteria;
 import org.cc.torganizer.core.entities.Player;
 
 @RequestScoped
@@ -26,10 +26,10 @@ public class OrderPlayers extends PlayersAction {
    * ordering players with given order rule.
    */
   public void execute() {
-    PlayerOrder playerOrder = state.getPlayerOrder();
+    PlayerOrderCriteria playerOrderCriteria = state.getPlayerOrderCriteria();
     List<Player> players = state.getPlayers();
 
-    PlayerComparator comparator = playerComparatorProvider.get(playerOrder);
+    PlayerComparator comparator = playerComparatorProvider.get(playerOrderCriteria);
     players.sort(comparator);
   }
 }

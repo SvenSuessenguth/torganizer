@@ -6,5 +6,5 @@ import org.cc.torganizer.core.entities.Player;
 
 public interface PlayerComparator extends Comparator<Player>, Serializable {
 
-  PlayerOrder getPlayerOrder();
+  PlayerOrderCriteria getPlayerOrderCriteria();
 }

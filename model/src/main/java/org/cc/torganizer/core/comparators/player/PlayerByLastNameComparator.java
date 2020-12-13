@@ -1,6 +1,6 @@
 package org.cc.torganizer.core.comparators.player;
 
-import static org.cc.torganizer.core.comparators.player.PlayerOrder.BY_LAST_NAME;
+import static org.cc.torganizer.core.comparators.player.PlayerOrderCriteria.BY_LAST_NAME;
 
 import jakarta.enterprise.context.RequestScoped;
 import java.util.Objects;
@@ -41,7 +41,7 @@ public class PlayerByLastNameComparator implements PlayerComparator {
   }
 
   @Override
-  public PlayerOrder getPlayerOrder() {
+  public PlayerOrderCriteria getPlayerOrderCriteria() {
     return BY_LAST_NAME;
   }
 }

@@ -5,6 +5,9 @@ import jakarta.enterprise.inject.Instance;
 import jakarta.inject.Inject;
 import java.util.Objects;
 
+/**
+ * Providing comkparators for Players.
+ */
 @RequestScoped
 public class PlayerComparatorProvider {
 
@@ -12,12 +15,12 @@ public class PlayerComparatorProvider {
   private Instance<PlayerComparator> playerComparators;
 
   /**
-   * providing the comparartor by the given playerOrder.
+   * providing the comparartor by the given playerOrderCriteria.
    */
-  public PlayerComparator get(PlayerOrder playerOrder) {
+  public PlayerComparator get(PlayerOrderCriteria playerOrderCriteria) {
 
     for (PlayerComparator pc : playerComparators) {
-      if (Objects.equals(playerOrder, pc.getPlayerOrder())) {
+      if (Objects.equals(playerOrderCriteria, pc.getPlayerOrderCriteria())) {
         return pc;
       }
     }

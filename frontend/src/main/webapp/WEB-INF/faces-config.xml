@@ -27,8 +27,8 @@
       <var>i18nOpponentType</var>
     </resource-bundle>
     <resource-bundle>
-      <base-name>playerOrder</base-name>
-      <var>i18nPlayerOrder</var>
+      <base-name>playerOrderCriteria</base-name>
+      <var>i18nPlayerOrderCriteria</var>
     </resource-bundle>
   </application>
 
