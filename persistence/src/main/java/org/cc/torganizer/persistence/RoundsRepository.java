@@ -2,11 +2,6 @@ package org.cc.torganizer.persistence;
 
 import static java.util.Collections.sort;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -16,6 +11,11 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import org.cc.torganizer.core.comparators.OpponentByNameComparator;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;

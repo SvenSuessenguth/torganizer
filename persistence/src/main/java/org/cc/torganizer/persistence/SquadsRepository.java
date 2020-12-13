@@ -1,12 +1,12 @@
 package org.cc.torganizer.persistence;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import org.cc.torganizer.core.comparators.OpponentByNameComparator;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;

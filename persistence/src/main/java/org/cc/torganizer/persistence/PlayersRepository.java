@@ -1,10 +1,10 @@
 package org.cc.torganizer.persistence;
 
-import java.util.List;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
+import java.util.List;
 import org.cc.torganizer.core.entities.Player;
 
 @RequestScoped

@@ -1,8 +1,5 @@
 package org.cc.torganizer.persistence;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -12,6 +9,9 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Round;
