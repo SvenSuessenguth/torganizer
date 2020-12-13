@@ -5,6 +5,9 @@ import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.tournaments.TournamentsState;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
+/**
+ * Providing states and repositories for editing a Tournament.
+ */
 public abstract class TournamentsAction {
 
   @Inject

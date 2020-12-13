@@ -4,6 +4,9 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 import org.cc.torganizer.core.entities.Tournament;
 
+/**
+ * Cancelling Tournamens editing.
+ */
 @RequestScoped
 @Named
 public class CancelTournament extends TournamentsAction {

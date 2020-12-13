@@ -8,6 +8,9 @@ import java.util.Objects;
 import org.apache.logging.log4j.Logger;
 import org.cc.torganizer.core.entities.Tournament;
 
+/**
+ * Deleting the selected Tournament.
+ */
 @RequestScoped
 @Named
 public class DeleteTournament extends TournamentsAction {

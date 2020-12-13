@@ -4,6 +4,9 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 import org.cc.torganizer.core.entities.Tournament;
 
+/**
+ * Selecting a Tournament from UI.
+ */
 @RequestScoped
 @Named
 public class SelectTournament extends TournamentsAction {
