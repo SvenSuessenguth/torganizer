@@ -9,6 +9,9 @@ import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.System;
 
+/**
+ * Assign Opponents evenly distibuted by Clubs to Groups by the RoundRobin-System.
+ */
 public class RoundRobinOpponentsToGroupsAssigner implements OpponentToGroupsAssigner {
 
   @Override
