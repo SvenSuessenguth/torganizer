@@ -5,6 +5,9 @@ import jakarta.inject.Named;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 
+/**
+ * Creating a not persisted new Squad.
+ */
 @RequestScoped
 @Named
 public class CreateSquad extends SquadsAction {

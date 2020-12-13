@@ -4,6 +4,9 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 import org.cc.torganizer.core.entities.Squad;
 
+/**
+ * Selecting a Squad in the UI.
+ */
 @RequestScoped
 @Named
 public class SelectSquad extends SquadsAction {

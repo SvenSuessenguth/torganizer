@@ -7,6 +7,9 @@ import org.cc.torganizer.persistence.PlayersRepository;
 import org.cc.torganizer.persistence.SquadsRepository;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
+/**
+ * Providing support for SquadsActions.
+ */
 public abstract class SquadsAction {
 
   @Inject
