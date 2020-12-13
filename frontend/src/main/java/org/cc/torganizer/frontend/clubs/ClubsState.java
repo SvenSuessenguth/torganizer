@@ -10,6 +10,9 @@ import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.frontend.State;
 import org.cc.torganizer.persistence.ClubsRepository;
 
+/**
+ * State for editing Clubs.
+ */
 @ViewScoped
 @Named
 public class ClubsState implements State, Serializable {

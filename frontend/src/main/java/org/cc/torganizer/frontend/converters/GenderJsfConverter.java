@@ -6,6 +6,9 @@ import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.FacesConverter;
 import org.cc.torganizer.core.entities.Gender;
 
+/**
+ * Converting Gender to/from String.
+ */
 @FacesConverter(value = "genderJsfConverter")
 public class GenderJsfConverter implements Converter<Gender> {
 
