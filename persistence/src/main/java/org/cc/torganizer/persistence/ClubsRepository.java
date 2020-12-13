@@ -11,6 +11,9 @@ import java.util.List;
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Player;
 
+/**
+ * Accessing the Repository for Clubs and related entities.
+ */
 @RequestScoped
 public class ClubsRepository extends Repository<Club> {
 

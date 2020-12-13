@@ -27,6 +27,9 @@ import org.cc.torganizer.core.entities.Squad;
 import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.core.filter.OpponentFilter;
 
+/**
+ * Accessing the Repository for Tournaments and related entities.
+ */
 @RequestScoped
 public class TournamentsRepository extends Repository<Tournament> {
 

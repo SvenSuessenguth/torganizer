@@ -11,6 +11,9 @@ import org.cc.torganizer.core.comparators.OpponentByNameComparator;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 
+/**
+ * Accessing the Repository for Squads and related entities.
+ */
 @RequestScoped
 public class SquadsRepository extends Repository<Squad> {
 

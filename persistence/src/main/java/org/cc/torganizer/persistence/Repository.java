@@ -9,6 +9,9 @@ import java.util.Date;
 import java.util.List;
 import org.cc.torganizer.core.entities.Entity;
 
+/**
+ * Abstract class for accessing the Repository for entities.
+ */
 public abstract class Repository<T extends Entity> {
 
   protected static final Integer DEFAULT_MAX_RESULTS = Integer.valueOf(10);

@@ -6,6 +6,9 @@ import jakarta.persistence.TypedQuery;
 import java.util.List;
 import org.cc.torganizer.core.entities.Restriction;
 
+/**
+ * Accessing the Repository for Restrictions and related entities.
+ */
 @RequestScoped
 public class RestrictionsRepository extends Repository<Restriction> {
 

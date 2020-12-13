@@ -7,6 +7,9 @@ import jakarta.persistence.TypedQuery;
 import java.util.List;
 import org.cc.torganizer.core.entities.Match;
 
+/**
+ * Accessing the Repository for Matches and related entities.
+ */
 @RequestScoped
 public class MatchesRepository extends Repository<Match> {
 

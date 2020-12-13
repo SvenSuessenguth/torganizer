@@ -7,6 +7,9 @@ import jakarta.persistence.TypedQuery;
 import java.util.List;
 import org.cc.torganizer.core.entities.Player;
 
+/**
+ * Accessing the Repository for Players and related entities.
+ */
 @RequestScoped
 public class PlayersRepository extends Repository<Player> {
 

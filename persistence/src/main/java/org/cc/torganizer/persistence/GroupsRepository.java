@@ -15,6 +15,9 @@ import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.PositionalOpponent;
 import org.cc.torganizer.core.entities.Round;
 
+/**
+ * Accessing the Repository for Groups and related entities.
+ */
 @RequestScoped
 public class GroupsRepository extends Repository<Group> {
 

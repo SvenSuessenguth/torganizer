@@ -8,6 +8,9 @@ import java.util.List;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Person;
 
+/**
+ * Accessing the Repository for Persons and related entities.
+ */
 @RequestScoped
 public class PersonsRepository extends Repository<Person> {
 
