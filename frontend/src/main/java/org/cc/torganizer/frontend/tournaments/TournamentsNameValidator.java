@@ -15,6 +15,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import org.cc.torganizer.core.entities.Tournament;
 
+/**
+ * Validating the name of a Tournament.
+ */
 @FacesValidator("tournamentsNameValidator")
 public class TournamentsNameValidator implements Validator<String> {
 

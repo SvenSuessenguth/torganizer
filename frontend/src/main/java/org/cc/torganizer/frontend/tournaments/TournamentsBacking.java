@@ -4,6 +4,9 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.component.UIInput;
 import jakarta.inject.Named;
 
+/**
+ * Backing for Tournaments.
+ */
 @RequestScoped
 @Named
 public class TournamentsBacking {
