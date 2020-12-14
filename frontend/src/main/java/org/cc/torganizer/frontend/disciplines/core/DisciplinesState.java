@@ -16,6 +16,9 @@ import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.State;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
+/**
+ * State of the UI for editing Disciplines.
+ */
 @ConversationScoped
 @Named
 public class DisciplinesState implements Serializable, State {

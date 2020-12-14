@@ -18,6 +18,9 @@ import org.cc.torganizer.frontend.State;
 import org.cc.torganizer.frontend.disciplines.core.DisciplinesState;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
+/**
+ * State of the UI for editing Rounds.
+ */
 @ConversationScoped
 @Named
 public class RoundsState implements Serializable, State {

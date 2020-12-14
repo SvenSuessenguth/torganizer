@@ -10,6 +10,9 @@ import org.cc.torganizer.persistence.RestrictionsRepository;
 import org.cc.torganizer.persistence.RoundsRepository;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
+/**
+ * Persisting the selected Discipline.
+ */
 @RequestScoped
 @Named
 public class SaveDiscipline extends DisciplinesAction {
