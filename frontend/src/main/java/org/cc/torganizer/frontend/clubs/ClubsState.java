@@ -21,7 +21,7 @@ public class ClubsState implements State, Serializable {
   private Club current;
 
   @Inject
-  private ClubsRepository clubsRepository;
+  private transient ClubsRepository clubsRepository;
 
   @PostConstruct
   public void postConstruct() {

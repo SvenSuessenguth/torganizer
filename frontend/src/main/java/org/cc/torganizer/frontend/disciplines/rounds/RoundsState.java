@@ -32,7 +32,7 @@ public class RoundsState implements Serializable, State {
   private DisciplinesState disciplinesState;
 
   @Inject
-  private TournamentsRepository tournamentsRepository;
+  private transient TournamentsRepository tournamentsRepository;
 
   private Round round;
   private int newGroupsCount;

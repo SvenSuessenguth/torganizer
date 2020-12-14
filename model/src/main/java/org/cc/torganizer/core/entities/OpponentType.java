@@ -8,7 +8,7 @@ public enum OpponentType {
   PLAYER(Player.class),
   SQUAD(Squad.class),
   TEAM(Team.class),
-  Bye(Bye.class),
+  BYE(Bye.class),
   UNKNOWN(Unknown.class);
 
   private final Class<? extends Opponent> opponentClass;

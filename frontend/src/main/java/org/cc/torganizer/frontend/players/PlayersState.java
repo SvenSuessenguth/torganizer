@@ -37,13 +37,13 @@ public class PlayersState implements Serializable, State {
   private ApplicationState applicationState;
 
   @Inject
-  private TournamentsRepository tournamentsRepository;
+  private transient TournamentsRepository tournamentsRepository;
 
   @Inject
-  private PlayerComparatorProvider playerComparatorProvider;
+  private transient PlayerComparatorProvider playerComparatorProvider;
 
   @Inject
-  private ClubsRepository clubsRepository;
+  private transient ClubsRepository clubsRepository;
 
   private int allPlayersChunkIndex = 0;
 

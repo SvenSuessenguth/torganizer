@@ -42,7 +42,7 @@ public class SquadsState implements Serializable, State {
   @Inject
   private ApplicationState applicationState;
   @Inject
-  private TournamentsRepository tournamentsRepository;
+  private transient TournamentsRepository tournamentsRepository;
 
   @PostConstruct
   public void postConstruct() {

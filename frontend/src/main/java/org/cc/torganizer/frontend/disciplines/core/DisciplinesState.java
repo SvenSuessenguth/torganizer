@@ -27,7 +27,7 @@ public class DisciplinesState implements Serializable, State {
   private List<Discipline> disciplines;
 
   @Inject
-  private TournamentsRepository tournamentsRepository;
+  private transient TournamentsRepository tournamentsRepository;
 
   @Inject
   private ApplicationState applicationState;

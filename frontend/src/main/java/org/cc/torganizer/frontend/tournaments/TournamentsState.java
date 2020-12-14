@@ -23,7 +23,7 @@ public class TournamentsState implements Serializable, State {
   private transient TournamentsRepository tournamentsRepository;
 
   @Inject
-  private ConversationController conversationController;
+  private transient ConversationController conversationController;
 
   private List<Tournament> tournaments = new ArrayList<>();
   private Tournament current;
