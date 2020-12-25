@@ -24,7 +24,6 @@ import org.junit.jupiter.api.BeforeEach;
 public abstract class AbstractDbUnitJpaTest {
 
   private EntityManagerFactory entityManagerFactory;
-  private Connection connection;
   protected EntityManager entityManager;
 
   @BeforeEach
