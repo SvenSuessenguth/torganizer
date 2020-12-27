@@ -10,6 +10,11 @@
    | https://www-01.ibm.com/support/docview.wss?uid=ibm10728669
    +-->
   <httpEndpoint id="defaultHttpEndpoint" enabled="true" httpPort="8080" httpsPort="8443" host="*"/>
+  
+  <!--
+   | https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/twlp_sec_create_certificate.html
+   +-->
+  <keyStore id="defaultKeyStore" password="{xor}KzAtOD4xNiU6LQ==" />
 
   <!--
    | https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/twlp_dep_jndi.html 

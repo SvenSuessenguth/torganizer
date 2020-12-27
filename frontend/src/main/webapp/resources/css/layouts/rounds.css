@@ -1,0 +1,5 @@
+.disciplineRoundsLayout {
+    display: grid;
+    grid-template-columns:  repeat(6, min-content);;
+    grid-gap: 0.5em;
+}

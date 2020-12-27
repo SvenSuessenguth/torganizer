@@ -4,4 +4,4 @@ docker network create -d bridge carboncopy
 docker build -t "carboncopy/frontend" .  
 docker run -d -p 8080:8080 --name frontend --network=carboncopy "carboncopy/frontend":latest
 
-After starting postgreql via docker, you can start the app using the maven-liberty-pluing by typing 'mvn liberty:create dependency:copy@copy liberty:dev'
+After starting postgresql via docker, you can start the app using the maven-liberty-pluing by typing 'mvn liberty:create dependency:copy@copy liberty:dev'
