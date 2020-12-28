@@ -16,13 +16,14 @@ public class SaveRoundAction extends RoundsAction {
    * Functional Interface method.
    */
   public void execute() {
-    Discipline discipline = disciplinesState.getDiscipline();
-    Round round = new Round();
-    roundsRepository.create(round);
+    Round round = roundsState.getRound();
 
-    discipline.addRound(round);
-    disciplinesRepository.update(discipline);
-
-    roundsState.setRound(round);
+    if (round.getId() == null) {
+      Discipline discipline = disciplinesState.getDiscipline();
+      discipline.addRound(round);
+      disciplinesRepository.update(discipline);
+    } else {
+      roundsRepository.update(round);
+    }
   }
 }

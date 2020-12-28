@@ -50,6 +50,7 @@
                          style="#{roundsState.lastRound ? 'color:lightgray;' : 'color:black;'}"
                          disabled="#{roundsState.lastRound}"
                          action="#{showNextRound.execute}"/>
+          <h:outputText value=" id:[#{round.id}]" />
         </h:panelGroup>
         <span/>
         <span/>
@@ -67,13 +68,15 @@
         <span><h:outputText value="4"/></span>
 
         <!-- dritte Zeile -->
-        <h:commandButton value="new"/>
         <h:commandButton value="#{i18nText.save}" action="#{saveRoundAction.execute()}"/>
         <h:commandButton value="#{i18nText.delete}" action="#{deleteRoundAction.execute()}"/>
+        <h:commandButton value="#{i18nText.cancel}" />
         <span/>
         <span/>
         <span/>
       </span>
+
+      <hr/>
 
       <!--
        | assignable opponents
@@ -108,6 +111,14 @@
           <h:commandLink value="&#8702;" style="color:lightgray;"/>
         </h:panelGroup>
       </h:panelGroup>
+
+      <hr/>
+
+      Gruppen
+      <c:forEach items="#{round.groups}" var="group">
+        <h:outputText value="#{group.position} #{fn:length(group.opponents)}"/>
+      </c:forEach>
+
     </h:form>
   </ui:define>
 </ui:composition>
