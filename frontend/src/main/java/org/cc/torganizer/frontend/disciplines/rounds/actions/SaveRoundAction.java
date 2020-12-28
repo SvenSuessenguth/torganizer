@@ -34,8 +34,9 @@ public class SaveRoundAction extends RoundsAction {
     if (groupsSize > newGroupsCount) {
       int groupsToDelete = groupsSize - newGroupsCount;
       for (int i = 0; i < groupsToDelete; i++) {
+        // find deletable round and delete it
         List<Group> deletableGroups = round.getDeletableGroups();
-        if (deletableGroups.size() > 0) {
+        if (!deletableGroups.isEmpty()) {
           round.removeGroup(deletableGroups.get(0));
         }
       }
