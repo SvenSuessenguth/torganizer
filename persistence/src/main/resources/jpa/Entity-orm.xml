@@ -14,7 +14,7 @@
       <id name="id" access="PROPERTY">
         <column name="_ID" updatable="false" nullable="false"/>
         <generated-value strategy="SEQUENCE" generator="entity_generator"/>
-        <sequence-generator name="entity_generator" sequence-name="entity_seq" allocation-size="50"
+        <sequence-generator name="entity_generator" sequence-name="ENTITY_SEQUENCE" allocation-size="50"
                             initial-value="100"/>
       </id>
       <basic name="lastUpdate">
