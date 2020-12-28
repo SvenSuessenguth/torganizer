@@ -46,6 +46,7 @@ public class RoundsState implements Serializable, State {
   public void synchronize() {
     Discipline discipline = disciplinesState.getDiscipline();
     round = discipline.getLastRound();
+    newGroupsCount = round.getGroups().size();
   }
 
   public List<Round> getRounds() {

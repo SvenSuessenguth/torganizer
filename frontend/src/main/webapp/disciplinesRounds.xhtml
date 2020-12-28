@@ -4,6 +4,7 @@
 <html lang="en"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:tc="http://xmlns.jcp.org/jsf/composite/components">
@@ -114,9 +115,9 @@
 
       <hr/>
 
-      Gruppen
+      #{fn:length(round.groups)} Gruppen
       <c:forEach items="#{round.groups}" var="group">
-        <h:outputText value="#{group.position} #{fn:length(group.opponents)}"/>
+        <h:outputText value="#{group.position}"/>
       </c:forEach>
 
     </h:form>

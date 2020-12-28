@@ -86,7 +86,7 @@ public class Round extends Entity implements Positional {
   }
 
   /**
-   * Get rounds, which can be deleted. A round can be deleted, if it contains no opponent.
+   * Get groups, which can be deleted. A group can be deleted, if it contains no opponent.
    */
   public List<Group> getDeletableGroups() {
     List<Group> deletableGroups = new ArrayList<>();
