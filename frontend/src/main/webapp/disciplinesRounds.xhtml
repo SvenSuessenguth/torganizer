@@ -60,13 +60,13 @@
         <span><h:outputText value="Gruppen"/></span>
         <h:inputText value="#{roundsState.newGroupsCount}" style="width: 2em;"/>
         <span><h:outputText value="System"/></span>
-        <h:selectOneMenu id="roundsSystem" value="#{roundsState.round.system}">
+        <h:selectOneMenu id="roundsSystem" value="#{round.system}">
           <f:selectItems value="#{roundsState.systems}" var="system"
                          itemValue="#{system}" itemLabel="#{i18nSystem[system]}"/>
           <f:converter converterId="systemConverter"/>
         </h:selectOneMenu>
         <span><h:outputText value="weiter"/></span>
-        <span><h:outputText value="4"/></span>
+        <span><h:inputText value="#{round.qualified}" style="width: 2em;"/></span>
 
         <!-- dritte Zeile -->
         <h:commandButton value="#{i18nText.save}" action="#{saveRoundAction.execute()}"/>
