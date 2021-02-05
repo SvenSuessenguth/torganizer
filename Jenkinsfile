@@ -72,7 +72,8 @@ pipeline {
             spotBugs(),
             cpd(pattern: '**/target/cpd.xml'),
             pmdParser(pattern: '**/target/pmd.xml')
-          ]
+          ],
+          sourceCodeEncoding: 'UTF-8'
         }
       }
     }
