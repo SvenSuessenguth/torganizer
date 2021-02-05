@@ -10,3 +10,5 @@ COPY --chown=1001:0 /src/main/liberty/config/resources/security/ltpa.keys /confi
 
 ENV LICENSE accept
 
+RUN configure.sh
+
