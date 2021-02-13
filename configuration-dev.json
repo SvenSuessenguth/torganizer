@@ -1,8 +1,14 @@
 {
-  "deployment": {
-    "servers": [
-      "app208001",
-      "app208002"
+  "webapp": {
+    "nodes": [
+      {
+        "name": "app208001.system-a.local",
+        "port": 9080
+      },
+      {
+        "name": "app208002.system-a.local",
+        "port": 9080
+      }
     ]
   }
 }

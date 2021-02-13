@@ -1,7 +1,6 @@
 // Jenkins need to install the following additional plugins:
 // https://updates.jenkins.io/download/plugins/
-// SonarQube Scanner
-// Warnings Next Generation
+// Pipeline Utility Steps
 
 pipeline {
 
@@ -16,10 +15,10 @@ pipeline {
           def CONFIGURATION = readJSON file: 'configuration-dev.json'
           echo "${CONFIGURATION}"
           echo "SUCCESS ----------------"
-          echo "Number of Servers: ${CONFIGURATION.'deployment'.'servers'.size()}"
+          echo "Number of Servers: ${CONFIGURATION.'webapp'.'nodes'.size()}"
 
-          for(int i=0 ; i<CONFIGURATION.'deployment'.'servers'.size(); i++){
-            echo "Server ${i}: " + CONFIGURATION.'deployment'.'servers'[i]
+          for(int i=0 ; i<CONFIGURATION.'webapp'.'nodes'.size(); i++){
+            echo "Server ${i}: " + CONFIGURATION.'webapp'.'nodes'[i].'name'
           }
         }
       }
