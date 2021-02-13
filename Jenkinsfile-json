@@ -1,0 +1,31 @@
+// Jenkins need to install the following additional plugins:
+// https://updates.jenkins.io/download/plugins/
+// SonarQube Scanner
+// Warnings Next Generation
+
+pipeline {
+
+  agent any
+
+  options {
+    buildDiscarder(logRotator(daysToKeepStr: '3', numToKeepStr: '3', artifactNumToKeepStr: '3'))
+    durabilityHint('PERFORMANCE_OPTIMIZED')
+  }
+
+  triggers {
+    pollSCM('* * * * *')
+  }
+
+  stages {
+    stage('prepare') {
+      steps {
+        script {
+          def configuration = readJSON file: 'configuration-dev.json'
+          for (int i = 0; i < props.size(); ++i) {
+            echo "Server ${configuriation.servers.server[i]}"
+          }
+        }
+      }
+    }
+  }
+}
