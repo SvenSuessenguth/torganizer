@@ -12,7 +12,8 @@ pipeline {
       steps {
         script {
 
-          def CONFIGURATION = readJSON file: 'configuration-dev.json'
+          def jsonText = readJSON file: 'configuration-dev.json'
+          def CONFIGURATION = readJSON text: jsonText
 
           echo "1 ----------------------"
           echo CONFIGURATION
@@ -20,9 +21,6 @@ pipeline {
           echo CONFIGURATION['deployment']
           echo "------------------------"
 
-          for (int i = 0; i < CONFIGURATION.servers.size(); ++i) {
-            echo "Server ${CONFIGURATION.servers[i]}"
-          }
         }
       }
     }
