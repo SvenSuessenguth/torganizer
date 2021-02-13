@@ -24,6 +24,10 @@ pipeline {
     stage('prepare') {
       steps {
         script {
+          echo CONFIGURATION
+          echo CONFIGURATION.servers
+          echo CONFIGURATION.servers.size()
+
           for (int i = 0; i < CONFIGURATION.servers.size(); ++i) {
             echo "Server ${CONFIGURATION.servers[i]}"
           }
