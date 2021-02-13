@@ -12,13 +12,14 @@ pipeline {
       steps {
         script {
 
-          def jsonText = readJSON file: 'configuration-dev.json'
-          def CONFIGURATION = readJSON text: jsonText
+          echo "read -------------------"
+          def CONFIGURATION = readJSON file: 'configuration-dev.json'
+          echo "success ----------------"
 
           echo "1 ----------------------"
           echo CONFIGURATION
           echo "2 ----------------------"
-          echo CONFIGURATION['deployment']
+          echo CONFIGURATION.'deployment'
           echo "------------------------"
 
         }
