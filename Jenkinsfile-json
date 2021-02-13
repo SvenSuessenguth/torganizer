@@ -19,9 +19,12 @@ pipeline {
           echo "1 ----------------------"
           echo CONFIGURATION
           echo "2 ----------------------"
-          echo CONFIGURATION.'deployment'
+          echo "Number of Servers: ${CONFIGURATION.'deployment'.size()}"
           echo "------------------------"
 
+          for(int i=0 ; i<CONFIGURATION.'deployment'.size(); i++){
+            echo "Server ${i}: " + CONFIGURATION.'deployment'.'servers'[i]
+          }
         }
       }
     }
