@@ -1,6 +1,8 @@
 {
-  "servers": [
-    "app208001",
-    "app208002"
-  ]
+  "deployment": {
+    "servers": [
+      "app208001",
+      "app208002"
+    ]
+  }
 }
