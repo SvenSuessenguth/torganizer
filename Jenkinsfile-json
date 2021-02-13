@@ -7,6 +7,10 @@ pipeline {
 
   agent any
 
+  environment {
+    CONFIGURATION = readJSON file: 'configuration-dev.json'
+  }
+
   options {
     buildDiscarder(logRotator(daysToKeepStr: '3', numToKeepStr: '3', artifactNumToKeepStr: '3'))
     durabilityHint('PERFORMANCE_OPTIMIZED')
@@ -20,9 +24,8 @@ pipeline {
     stage('prepare') {
       steps {
         script {
-          def configuration = readJSON file: 'configuration-dev.json'
           for (int i = 0; i < props.size(); ++i) {
-            echo "Server ${configuriation.servers.server[i]}"
+            echo "Server ${CONFIGURATION.servers.server[i]}"
           }
         }
       }
