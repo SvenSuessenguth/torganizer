@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import java.util.Objects;
 import org.apache.logging.log4j.Logger;
 import org.cc.torganizer.core.entities.Tournament;
+import org.cc.torganizer.frontend.tournaments.TournamentsStateSynchronizer;
 
 /**
  * Deleting the selected Tournament.
@@ -17,6 +18,9 @@ public class DeleteTournament extends TournamentsAction {
 
   @Inject
   private Logger logger;
+
+  @Inject
+  private TournamentsStateSynchronizer synchronizer;
 
   /**
    * deleting a tournament.
@@ -36,7 +40,7 @@ public class DeleteTournament extends TournamentsAction {
     current = tournamentsRepository.read(currentTournamentId);
     tournamentsRepository.delete(current);
 
-    state.synchronize();
+    synchronizer.synchronize(state);
 
     if (Objects.equals(appState.getTournamentId(), currentTournamentId)) {
       appState.setTournament(null);

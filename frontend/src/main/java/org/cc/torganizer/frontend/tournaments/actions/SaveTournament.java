@@ -11,6 +11,7 @@ import java.util.Objects;
 import org.apache.logging.log4j.Logger;
 import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.frontend.tournaments.TournamentsBacking;
+import org.cc.torganizer.frontend.tournaments.TournamentsStateSynchronizer;
 
 /**
  * Saving the current Tournament.
@@ -27,6 +28,9 @@ public class SaveTournament extends TournamentsAction {
 
   @Inject
   private TournamentsBacking tournamentsBacking;
+
+  @Inject
+  private TournamentsStateSynchronizer synchronizer;
 
   @Inject
   private FacesContext facesContext;
@@ -54,7 +58,7 @@ public class SaveTournament extends TournamentsAction {
       tournamentsRepository.update(current);
     } else {
       tournamentsRepository.create(current);
-      state.synchronize();
+      synchronizer.synchronize(state);
       appState.setTournament(current);
     }
 

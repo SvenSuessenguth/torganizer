@@ -8,37 +8,27 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import org.cc.torganizer.core.entities.Tournament;
-import org.cc.torganizer.frontend.ConversationController;
-import org.cc.torganizer.frontend.State;
-import org.cc.torganizer.persistence.TournamentsRepository;
 
 /**
  * The current tournament is used for every following action. So this bean is in session-scope.
  */
 @Named
 @ViewScoped
-public class TournamentsState implements Serializable, State {
+public class TournamentsState implements Serializable {
 
   @Inject
-  private transient TournamentsRepository tournamentsRepository;
-
-  @Inject
-  private transient ConversationController conversationController;
+  private TournamentsStateSynchronizer synchronizer;
 
   private List<Tournament> tournaments = new ArrayList<>();
   private Tournament current;
 
   @PostConstruct
   public void postConstruct() {
-    synchronize();
+    synchronizer.synchronize(this);
   }
 
-  @Override
-  public void synchronize() {
-    tournaments = tournamentsRepository.read(0, 100);
-    current = new Tournament();
-
-    conversationController.beginConversation();
+  public void setTournaments(List<Tournament> tournaments) {
+    this.tournaments = tournaments;
   }
 
   public List<Tournament> getTournaments() {
