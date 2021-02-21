@@ -1,5 +1,6 @@
 package org.cc.torganizer.persistence;
 
+import static jakarta.transaction.Transactional.TxType.REQUIRED;
 import static jakarta.transaction.Transactional.TxType.REQUIRES_NEW;
 
 import jakarta.persistence.EntityManager;
@@ -50,7 +51,7 @@ public abstract class Repository<T extends Entity> {
   /**
    * Deleting an entity with the given id.
    */
-  @Transactional(REQUIRES_NEW)
+  @Transactional(REQUIRED)
   public T delete(Long entityId) {
     return delete(read(entityId));
   }
@@ -58,7 +59,7 @@ public abstract class Repository<T extends Entity> {
   /**
    * Deleting the entity from the database.
    */
-  @Transactional(REQUIRES_NEW)
+  @Transactional(REQUIRED)
   public T delete(T t) {
     entityManager.remove(t);
     return t;

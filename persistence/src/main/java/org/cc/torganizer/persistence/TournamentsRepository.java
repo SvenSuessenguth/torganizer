@@ -2,6 +2,7 @@ package org.cc.torganizer.persistence;
 
 import static jakarta.transaction.Transactional.TxType.NEVER;
 import static jakarta.transaction.Transactional.TxType.REQUIRED;
+import static jakarta.transaction.Transactional.TxType.SUPPORTS;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
@@ -56,7 +57,7 @@ public class TournamentsRepository extends Repository<Tournament> {
    * Reading the Tournament with the given id.
    */
   @Override
-  @Transactional(NEVER)
+  @Transactional(SUPPORTS)
   public Tournament read(Long tournamentId) {
     return entityManager.find(Tournament.class, tournamentId);
   }
@@ -65,7 +66,7 @@ public class TournamentsRepository extends Repository<Tournament> {
    * Reading some tournaments from offset to maxResults.
    */
   @Override
-  @Transactional(NEVER)
+  @Transactional(SUPPORTS)
   public List<Tournament> read(Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;

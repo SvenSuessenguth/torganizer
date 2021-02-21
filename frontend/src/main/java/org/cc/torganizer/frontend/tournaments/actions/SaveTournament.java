@@ -10,18 +10,30 @@ import jakarta.inject.Named;
 import java.util.Objects;
 import org.apache.logging.log4j.Logger;
 import org.cc.torganizer.core.entities.Tournament;
+import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.tournaments.TournamentsBacking;
+import org.cc.torganizer.frontend.tournaments.TournamentsState;
 import org.cc.torganizer.frontend.tournaments.TournamentsStateSynchronizer;
+import org.cc.torganizer.persistence.TournamentsRepository;
 
 /**
  * Saving the current Tournament.
  */
 @RequestScoped
 @Named
-public class SaveTournament extends TournamentsAction {
+public class SaveTournament {
 
   @Inject
   private Logger logger;
+
+  @Inject
+  protected TournamentsRepository tournamentsRepository;
+
+  @Inject
+  protected TournamentsState state;
+
+  @Inject
+  protected ApplicationState appState;
 
   @Inject
   private CancelTournament cancelTournament;
