@@ -1,16 +1,42 @@
 package org.cc.torganizer.frontend.squads.actions;
 
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
+import org.cc.torganizer.frontend.ApplicationState;
+import org.cc.torganizer.frontend.squads.SquadsState;
+import org.cc.torganizer.frontend.squads.SquadsStateSynchronizer;
+import org.cc.torganizer.persistence.PlayersRepository;
+import org.cc.torganizer.persistence.SquadsRepository;
+import org.cc.torganizer.persistence.TournamentsRepository;
 
 /**
  * Creating a not persisted new Squad.
  */
 @RequestScoped
 @Named
-public class CreateSquad extends SquadsAction {
+@SuppressWarnings("unused")
+public class CreateSquad {
+
+  @Inject
+  protected SquadsState state;
+
+  @Inject
+  protected ApplicationState applicationState;
+
+  @Inject
+  protected SquadsRepository squadsRepository;
+
+  @Inject
+  protected PlayersRepository playersRepository;
+
+  @Inject
+  protected TournamentsRepository tournamentsRepository;
+
+  @Inject
+  private SquadsStateSynchronizer synchronizer;
 
   /**
    * creating a squad an link with current tournament.
@@ -29,7 +55,7 @@ public class CreateSquad extends SquadsAction {
     }
     squadsRepository.update(newSquad);
 
-    state.synchronize();
+    synchronizer.synchronize(state);
     state.setCurrent(new Squad());
   }
 }

@@ -2,7 +2,6 @@ package org.cc.torganizer.frontend.squads;
 
 import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
 
-import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -14,9 +13,7 @@ import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
-import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.frontend.ApplicationState;
-import org.cc.torganizer.frontend.State;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
 /**
@@ -24,12 +21,10 @@ import org.cc.torganizer.persistence.TournamentsRepository;
  */
 @ViewScoped
 @Named
-public class SquadsState implements Serializable, State {
+@SuppressWarnings("unused")
+public class SquadsState implements Serializable {
 
-  public static final int MAX_SQUADS_RESULTS = 1000;
-  public static final int MAX_PLAYERS_RESULTS = 1000;
   public static final int ALL_PLAYERS_TABLE_SIZE = 10;
-  public static final int CURRENT_SQUAD_PLAYERS_TABLE_SIZE = 2;
 
   private Squad current;
   private List<Squad> squads;
@@ -44,26 +39,8 @@ public class SquadsState implements Serializable, State {
   @Inject
   private transient TournamentsRepository tournamentsRepository;
 
-  @PostConstruct
-  public void postConstruct() {
-    synchronize();
-  }
-
-  @Override
-  public void synchronize() {
-    Tournament currentTournament = applicationState.getTournament();
-    Long tournamentId = currentTournament.getId();
-
-    squads = tournamentsRepository.getSquads(tournamentId, 0, MAX_SQUADS_RESULTS);
-    players = tournamentsRepository.getPlayers(tournamentId, 0, MAX_PLAYERS_RESULTS);
-
-    // to show table, add empty players with no id, which are replaced
-    // when actual players are added
-    current = new Squad();
-    for (int i = 0; i < CURRENT_SQUAD_PLAYERS_TABLE_SIZE; i++) {
-      current.addPlayer(new Player(new Person()));
-    }
-  }
+  @Inject
+  private SquadsStateSynchronizer synchronizer;
 
   public Squad getCurrent() {
     return current;
@@ -92,10 +69,9 @@ public class SquadsState implements Serializable, State {
         .collect(Collectors.toList());
 
     // fill chunk of players
-    List<Player> chunk = new ArrayList<>();
     int fromIndex = allPlayersTableIndex * ALL_PLAYERS_TABLE_SIZE;
     int toIndex = Math.min(fromIndex + ALL_PLAYERS_TABLE_SIZE, collect.size());
-    chunk.addAll(collect.subList(fromIndex, toIndex));
+    List<Player> chunk = new ArrayList<>(collect.subList(fromIndex, toIndex));
 
     // fill up to 10 to show not only table headers
     int playersCount = chunk.size();
