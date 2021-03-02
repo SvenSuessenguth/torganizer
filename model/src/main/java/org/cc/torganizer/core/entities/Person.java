@@ -100,7 +100,7 @@ public class Person extends Entity {
    */
   public boolean fitsGender(Gender gender) {
     // no statement can be made, so return true
-    if (gender == null || this.gender == null || UNKNOWN == gender) {
+    if (gender == null || this.gender == null || UNKNOWN == gender || this.gender == UNKNOWN) {
       return true;
     }
 

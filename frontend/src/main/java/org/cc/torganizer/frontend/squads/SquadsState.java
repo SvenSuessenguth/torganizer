@@ -2,6 +2,7 @@ package org.cc.torganizer.frontend.squads;
 
 import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
 
+import jakarta.enterprise.inject.Vetoed;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -19,8 +20,7 @@ import org.cc.torganizer.persistence.TournamentsRepository;
 /**
  * State of the Squads-UI.
  */
-@ViewScoped
-@Named
+@Vetoed
 @SuppressWarnings("unused")
 public class SquadsState implements Serializable {
 

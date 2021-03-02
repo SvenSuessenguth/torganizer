@@ -1,4 +1,4 @@
-package org.cc.torganizer.frontend.tournaments;
+package org.cc.torganizer.frontend.players;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.inject.Default;
@@ -8,16 +8,16 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 @RequestScoped
-public class TournamentsStateProducer {
+public class PlayersStateProducer {
 
   @Inject
-  private TournamentsStateSynchronizer synchronizer;
+  private PlayersStateSynchronizer synchronizer;
 
+  @Produces
   @ViewScoped
   @Default
-  @Produces
-  public TournamentsState produce() {
-    TournamentsState state = new TournamentsState();
+  public PlayersState produces() {
+    PlayersState state = new PlayersState();
     synchronizer.synchronize(state);
 
     return state;

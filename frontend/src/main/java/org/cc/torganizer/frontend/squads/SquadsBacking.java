@@ -16,6 +16,7 @@ import org.cc.torganizer.core.entities.Player;
 @RequestScoped
 @Named
 public class SquadsBacking {
+
   @Inject
   private SquadsState squadsState;
 
@@ -32,5 +33,9 @@ public class SquadsBacking {
     Collections.reverse(orderedPlayers);
 
     return orderedPlayers;
+  }
+
+  public SquadsState getSquadsState() {
+    return squadsState;
   }
 }

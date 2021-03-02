@@ -5,22 +5,42 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.apache.logging.log4j.Logger;
 import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.frontend.ApplicationState;
+import org.cc.torganizer.frontend.players.PlayersState;
+import org.cc.torganizer.frontend.players.PlayersStateSynchronizer;
+import org.cc.torganizer.persistence.PlayersRepository;
+import org.cc.torganizer.persistence.TournamentsRepository;
 
 /**
  * Persisting selected Player.
  */
 @RequestScoped
 @Named
-public class SavePlayer extends PlayersAction {
+public class SavePlayer {
 
   @Inject
   private Logger logger;
+
+  @Inject
+  protected PlayersState state;
+
+  @Inject
+  protected PlayersRepository playersRepository;
+
+  @Inject
+  protected ApplicationState applicationState;
+
+  @Inject
+  protected TournamentsRepository tournamentsRepository;
 
   @Inject
   private OrderPlayers orderPlayers;
 
   @Inject
   private CancelPlayer createPlayer;
+
+  @Inject
+  private PlayersStateSynchronizer synchronizer;
 
   /**
    * persisting changes to a already persisted player.
@@ -34,7 +54,7 @@ public class SavePlayer extends PlayersAction {
     if (player.getId() == null) {
       playersRepository.create(player);
       tournamentsRepository.addOpponent(tournamentId, player.getId());
-      state.synchronize();
+      synchronizer.synchronize(state);
     } else {
       playersRepository.update(player);
     }

@@ -15,7 +15,6 @@ public class SquadsStateProducer {
 
   @Produces
   @ViewScoped
-  @Named
   @Default
   public SquadsState produce() {
     SquadsState state = new SquadsState();

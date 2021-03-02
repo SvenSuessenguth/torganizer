@@ -2,48 +2,27 @@ package org.cc.torganizer.frontend.players;
 
 import static org.cc.torganizer.core.comparators.player.PlayerOrderCriteria.BY_LAST_UPDATE;
 
-import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.inject.Vetoed;
 import jakarta.faces.view.ViewScoped;
-import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import org.cc.torganizer.core.comparators.player.PlayerComparator;
-import org.cc.torganizer.core.comparators.player.PlayerComparatorProvider;
 import org.cc.torganizer.core.comparators.player.PlayerOrderCriteria;
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.core.entities.Tournament;
-import org.cc.torganizer.frontend.ApplicationState;
-import org.cc.torganizer.frontend.State;
 import org.cc.torganizer.frontend.utils.Chunk;
-import org.cc.torganizer.persistence.ClubsRepository;
-import org.cc.torganizer.persistence.TournamentsRepository;
 
 /**
  * State of the Players-UI.
  */
-@ViewScoped
-@Named
-public class PlayersState implements Serializable, State {
+@Vetoed
+public class PlayersState implements Serializable {
 
   public static final int ALL_PLAYERS_CHUNK_SIZE = 10;
-
-  @Inject
-  private ApplicationState applicationState;
-
-  @Inject
-  private transient TournamentsRepository tournamentsRepository;
-
-  @Inject
-  private transient PlayerComparatorProvider playerComparatorProvider;
-
-  @Inject
-  private transient ClubsRepository clubsRepository;
 
   private int allPlayersChunkIndex = 0;
 
@@ -54,27 +33,6 @@ public class PlayersState implements Serializable, State {
   private Player current;
 
   private PlayerOrderCriteria playerOrderCriteria = BY_LAST_UPDATE;
-
-  @PostConstruct
-  public void postConstruct() {
-    synchronize();
-  }
-
-  @Override
-  public void synchronize() {
-
-    Tournament currentTournament = applicationState.getTournament();
-    Long tournamentId = currentTournament.getId();
-
-    players = tournamentsRepository.getPlayers(tournamentId,
-        0, 1000);
-
-    PlayerComparator pc = playerComparatorProvider.get(playerOrderCriteria);
-    players.sort(pc);
-
-    clubs = clubsRepository.read(0, 1000);
-    current = new Player(new Person());
-  }
 
   public Player getCurrent() {
     return current;
@@ -159,5 +117,9 @@ public class PlayersState implements Serializable, State {
 
   public boolean isPrevAllPlayersChunkAvailable() {
     return allPlayersChunkIndex > 0;
+  }
+
+  public void setPlayers(List<Player> players) {
+    this.players = players;
   }
 }
