@@ -11,10 +11,10 @@ import org.cc.torganizer.persistence.TournamentsRepository;
 public class TournamentsStateSynchronizer {
 
   @Inject
-  private transient TournamentsRepository tournamentsRepository;
+  private TournamentsRepository tournamentsRepository;
 
   @Inject
-  private transient ConversationController conversationController;
+  private ConversationController conversationController;
 
   public void synchronize(TournamentsState state) {
     List<Tournament> tournaments = tournamentsRepository.read(0, 100);

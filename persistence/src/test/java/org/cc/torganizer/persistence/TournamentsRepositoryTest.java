@@ -2,7 +2,6 @@ package org.cc.torganizer.persistence;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.List;
 import jakarta.persistence.Query;
 import jakarta.persistence.Tuple;
 import jakarta.persistence.TypedQuery;
@@ -11,6 +10,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Root;
+import java.util.List;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Player;
@@ -163,7 +163,7 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
     query.setParameter("id", 3L);
     long countSubscribers = (long) query.getSingleResult();
 
-    assertThat(countSubscribers).isEqualTo(0L);
+    assertThat(countSubscribers).isZero();
   }
 
   @Test
@@ -172,7 +172,7 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
     query.setParameter("id", null);
     long countSubscribers = (long) query.getSingleResult();
 
-    assertThat(countSubscribers).isEqualTo(0L);
+    assertThat(countSubscribers).isZero();
   }
 
   @Test

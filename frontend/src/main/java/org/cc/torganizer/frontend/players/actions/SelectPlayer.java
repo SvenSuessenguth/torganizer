@@ -4,10 +4,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.players.PlayersState;
-import org.cc.torganizer.persistence.PlayersRepository;
-import org.cc.torganizer.persistence.TournamentsRepository;
 
 /**
  * Selecting Player.
