@@ -3,8 +3,6 @@ package org.cc.torganizer.frontend.players;
 import static org.cc.torganizer.core.comparators.player.PlayerOrderCriteria.BY_LAST_UPDATE;
 
 import jakarta.enterprise.inject.Vetoed;
-import jakarta.faces.view.ViewScoped;
-import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;

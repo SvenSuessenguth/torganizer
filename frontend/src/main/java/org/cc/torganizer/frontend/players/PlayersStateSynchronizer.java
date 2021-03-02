@@ -19,13 +19,13 @@ public class PlayersStateSynchronizer {
   private ApplicationState applicationState;
 
   @Inject
-  private transient TournamentsRepository tournamentsRepository;
+  private TournamentsRepository tournamentsRepository;
 
   @Inject
-  private transient PlayerComparatorProvider playerComparatorProvider;
+  private PlayerComparatorProvider playerComparatorProvider;
 
   @Inject
-  private transient ClubsRepository clubsRepository;
+  private ClubsRepository clubsRepository;
 
   public void synchronize(PlayersState state) {
     Tournament currentTournament = applicationState.getTournament();

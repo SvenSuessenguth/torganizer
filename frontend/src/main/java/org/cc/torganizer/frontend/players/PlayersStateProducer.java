@@ -5,7 +5,6 @@ import jakarta.enterprise.inject.Default;
 import jakarta.enterprise.inject.Produces;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
-import jakarta.inject.Named;
 
 @RequestScoped
 public class PlayersStateProducer {

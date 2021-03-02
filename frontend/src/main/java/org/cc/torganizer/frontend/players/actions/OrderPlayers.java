@@ -9,10 +9,7 @@ import org.cc.torganizer.core.comparators.player.PlayerComparator;
 import org.cc.torganizer.core.comparators.player.PlayerComparatorProvider;
 import org.cc.torganizer.core.comparators.player.PlayerOrderCriteria;
 import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.players.PlayersState;
-import org.cc.torganizer.persistence.PlayersRepository;
-import org.cc.torganizer.persistence.TournamentsRepository;
 
 /**
  * Ordering Players by selected Criteria.

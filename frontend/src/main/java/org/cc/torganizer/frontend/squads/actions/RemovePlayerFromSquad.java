@@ -1,5 +1,7 @@
 package org.cc.torganizer.frontend.squads.actions;
 
+import static org.cc.torganizer.frontend.squads.SquadsStateSynchronizer.CURRENT_SQUAD_PLAYERS_TABLE_SIZE;
+
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -30,7 +32,7 @@ public class RemovePlayerFromSquad {
 
     // to show table, add empty players with no id, which are replaced
     // when actual players are added
-    for (int i = 0; i < SquadsStateSynchronizer.CURRENT_SQUAD_PLAYERS_TABLE_SIZE - current.getPlayers().size(); i++) {
+    for (int i = 0; i < CURRENT_SQUAD_PLAYERS_TABLE_SIZE - current.getPlayers().size(); i++) {
       current.addPlayer(new Player(new Person()));
     }
   }
