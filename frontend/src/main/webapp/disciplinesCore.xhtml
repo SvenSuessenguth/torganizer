@@ -23,12 +23,12 @@
       <h:panelGroup styleClass="container">
 
         <h:panelGroup styleClass="tabs">
-          <h:commandButton action="disciplinesCore" value="core" disabled="#{empty disciplinesState.discipline.id}"/>
+          <h:commandButton action="disciplinesCore" value="core" disabled="#{empty disciplinesCoreBacking.state.discipline.id}"/>
           <h:commandButton action="disciplinesRounds" value="rounds"
-                           disabled="#{empty disciplinesState.discipline.id}"/>
+                           disabled="#{empty disciplinesCoreBacking.state.discipline.id}"/>
         </h:panelGroup>
 
-        <h:dataTable id="disciplines" value="#{disciplinesState.disciplines}" var="discipline">
+        <h:dataTable id="disciplines" value="#{disciplinesCoreBacking.state.disciplines}" var="discipline">
           <h:column>
             <f:facet name="header">Bezeichnung</f:facet>
             <h:commandLink action="#{selectDiscipline.execute(discipline)}" value="#{discipline.name}">
@@ -43,26 +43,26 @@
         <h:panelGroup styleClass="core">
           <h:panelGroup>
             <h:outputLabel for="disciplinesName" value="#{i18nText.name}"/>
-            <h:inputText id="disciplinesName" value="#{disciplinesState.discipline.name}"/>
+            <h:inputText id="disciplinesName" value="#{disciplinesCoreBacking.state.discipline.name}"/>
 
             <h:outputText value="Altersbeschränkung"/>
             <h:panelGroup styleClass="ageRestrictionData">
               <h:outputLabel value="von" for="minDateOfBirth"/>
               <h:inputText id="minDateOfBirth" a:type="date"
-                           value="#{disciplinesState.discipline.ageRestriction.minDateOfBirth}">
+                           value="#{disciplinesCoreBacking.state.discipline.ageRestriction.minDateOfBirth}">
                 <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
               </h:inputText>
 
               <h:outputLabel value="bis" for="maxDateOfBirth"/>
               <h:inputText id="maxDateOfBirth" a:type="date"
-                           value="#{disciplinesState.discipline.ageRestriction.maxDateOfBirth}">
+                           value="#{disciplinesCoreBacking.state.discipline.ageRestriction.maxDateOfBirth}">
                 <f:convertDateTime pattern="yyyy-MM-dd" type="localDate"/>
               </h:inputText>
             </h:panelGroup>
             <h:outputLabel value="Geschlecht" for="disciplinesGender"/>
-            <h:selectOneMenu id="disciplinesGender" value="#{disciplinesState.discipline.genderRestriction.gender}"
+            <h:selectOneMenu id="disciplinesGender" value="#{disciplinesCoreBacking.state.discipline.genderRestriction.gender}"
                              onchange="submit()">
-              <f:selectItems value="#{disciplinesState.genders}" var="gender"
+              <f:selectItems value="#{disciplinesCoreBacking.genders}" var="gender"
                              itemValue="#{gender}"
                              itemLabel="#{i18nGender[gender]}"/>
               <f:converter converterId="genderJsfConverter"/>
@@ -70,8 +70,8 @@
 
             <h:outputLabel value="Gegner" for="opponentType"/>
             <h:selectOneMenu id="opponentType"
-                             value="#{disciplinesState.discipline.opponentTypeRestriction.opponentType}">
-              <f:selectItems value="#{disciplinesState.opponentTypes}" var="opponentType"
+                             value="#{disciplinesCoreBacking.state.discipline.opponentTypeRestriction.opponentType}">
+              <f:selectItems value="#{disciplinesCoreBacking.opponentTypes}" var="opponentType"
                              itemValue="#{opponentType}"
                              itemLabel="#{i18nOpponentType[opponentType]}"/>
               <f:converter converterId="opponentTypeConverter"/>
@@ -83,9 +83,9 @@
           <h:commandButton id="disciplinesSave" action="#{saveDiscipline.execute()}" value="#{i18nText.save}"/>
           <h:commandButton id="disciplinesDelete" action="#{deleteDiscipline.execute()}"
                            value="#{i18nText.delete}"
-                           disabled="#{disciplinesState.discipline.id == null}"/>
+                           disabled="#{disciplinesCoreBacking.state.discipline.id == null}"/>
           <h:commandButton id="disciplinesCancel" action="#{cancelDiscipline.execute}" value="#{i18nText.cancel}"
-                           disabled="#{disciplinesState.discipline.id == null}">
+                           disabled="#{disciplinesCoreBacking.state.discipline.id == null}">
             <f:ajax render="disciplinesForm" immediate="true" execute="@this"/>
           </h:commandButton>
         </h:panelGroup>

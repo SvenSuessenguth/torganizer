@@ -5,6 +5,10 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.frontend.ApplicationMessages;
+import org.cc.torganizer.frontend.ApplicationState;
+import org.cc.torganizer.frontend.disciplines.core.DisciplinesCoreState;
+import org.cc.torganizer.frontend.disciplines.core.DisciplinesCoreStateSynchronizer;
+import org.cc.torganizer.persistence.DisciplinesRepository;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
 /**
@@ -12,7 +16,7 @@ import org.cc.torganizer.persistence.TournamentsRepository;
  */
 @RequestScoped
 @Named
-public class DeleteDiscipline extends DisciplinesAction {
+public class DeleteDiscipline {
 
   public static final String DISCIPLINES_I18N_BASE_NAME = "org.cc.torganizer.frontend.disciplines";
 
@@ -20,8 +24,19 @@ public class DeleteDiscipline extends DisciplinesAction {
   private ApplicationMessages appMessages;
 
   @Inject
+  private ApplicationState applicationState;
+
+  @Inject
   private TournamentsRepository tournamentsRepository;
 
+  @Inject
+  private DisciplinesRepository disciplinesRepository;
+
+  @Inject
+  private DisciplinesCoreState state;
+
+  @Inject
+  private DisciplinesCoreStateSynchronizer synchronizer;
 
   /**
    * A club can only be deleted if it has no linked players.
@@ -39,7 +54,7 @@ public class DeleteDiscipline extends DisciplinesAction {
     } else {
       tournamentsRepository.removeDiscipline(tournamentId, disciplineId);
       disciplinesRepository.delete(disciplineId);
-      state.synchronize();
+      synchronizer.synchronize(state);
     }
   }
 }

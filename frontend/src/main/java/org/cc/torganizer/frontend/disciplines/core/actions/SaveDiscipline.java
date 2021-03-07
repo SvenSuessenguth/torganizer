@@ -6,6 +6,10 @@ import jakarta.inject.Named;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Restriction;
 import org.cc.torganizer.core.entities.Round;
+import org.cc.torganizer.frontend.ApplicationState;
+import org.cc.torganizer.frontend.disciplines.core.DisciplinesCoreState;
+import org.cc.torganizer.frontend.disciplines.core.DisciplinesCoreStateSynchronizer;
+import org.cc.torganizer.persistence.DisciplinesRepository;
 import org.cc.torganizer.persistence.RestrictionsRepository;
 import org.cc.torganizer.persistence.RoundsRepository;
 import org.cc.torganizer.persistence.TournamentsRepository;
@@ -15,7 +19,7 @@ import org.cc.torganizer.persistence.TournamentsRepository;
  */
 @RequestScoped
 @Named
-public class SaveDiscipline extends DisciplinesAction {
+public class SaveDiscipline {
 
   @Inject
   private TournamentsRepository tournamentsRepository;
@@ -25,6 +29,18 @@ public class SaveDiscipline extends DisciplinesAction {
 
   @Inject
   private RoundsRepository roundsRepository;
+
+  @Inject
+  private DisciplinesRepository disciplinesRepository;
+
+  @Inject
+  private ApplicationState applicationState;
+
+  @Inject
+  private DisciplinesCoreState state;
+
+  @Inject
+  private DisciplinesCoreStateSynchronizer synchronizer;
 
   /**
    * Persisting a discipline.
@@ -54,7 +70,7 @@ public class SaveDiscipline extends DisciplinesAction {
 
     disciplinesRepository.update(discipline);
 
-    state.synchronize();
+    synchronizer.synchronize(state);
     state.setDiscipline(discipline);
   }
 }

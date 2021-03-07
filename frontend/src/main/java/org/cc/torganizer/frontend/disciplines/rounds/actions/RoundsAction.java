@@ -2,7 +2,7 @@ package org.cc.torganizer.frontend.disciplines.rounds.actions;
 
 import jakarta.inject.Inject;
 import org.cc.torganizer.frontend.ApplicationState;
-import org.cc.torganizer.frontend.disciplines.core.DisciplinesState;
+import org.cc.torganizer.frontend.disciplines.core.DisciplinesCoreState;
 import org.cc.torganizer.frontend.disciplines.rounds.RoundsState;
 import org.cc.torganizer.persistence.DisciplinesRepository;
 import org.cc.torganizer.persistence.RoundsRepository;
@@ -16,7 +16,7 @@ public abstract class RoundsAction {
   protected RoundsState roundsState;
 
   @Inject
-  protected DisciplinesState disciplinesState;
+  protected DisciplinesCoreState disciplinesCoreState;
 
   @Inject
   protected RoundsRepository roundsRepository;

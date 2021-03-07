@@ -1,0 +1,27 @@
+package org.cc.torganizer.frontend.disciplines.core;
+
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import org.cc.torganizer.frontend.ApplicationState;
+import org.cc.torganizer.persistence.TournamentsRepository;
+
+/**
+ * State of the UI for editing Disciplines.
+ */
+@RequestScoped
+public class DisciplinesCoreStateSynchronizer {
+
+  @Inject
+  private transient TournamentsRepository tournamentsRepository;
+
+  @Inject
+  private ApplicationState appState;
+
+  @Inject
+  private DisciplinesCoreState state;
+
+  public void synchronize(DisciplinesCoreState state) {
+    Long tournamentId = appState.getTournamentId();
+    state.setDisciplines(tournamentsRepository.getDisciplines(tournamentId, 0, 1000));
+  }
+}

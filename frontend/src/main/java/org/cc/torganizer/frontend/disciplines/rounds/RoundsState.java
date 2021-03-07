@@ -15,7 +15,7 @@ import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.core.entities.System;
 import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.State;
-import org.cc.torganizer.frontend.disciplines.core.DisciplinesState;
+import org.cc.torganizer.frontend.disciplines.core.DisciplinesCoreState;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
 /**
@@ -29,7 +29,7 @@ public class RoundsState implements Serializable, State {
   private ApplicationState applicationState;
 
   @Inject
-  private DisciplinesState disciplinesState;
+  private DisciplinesCoreState disciplinesCoreState;
 
   @Inject
   private transient TournamentsRepository tournamentsRepository;
@@ -44,13 +44,13 @@ public class RoundsState implements Serializable, State {
 
   @Override
   public void synchronize() {
-    Discipline discipline = disciplinesState.getDiscipline();
+    Discipline discipline = disciplinesCoreState.getDiscipline();
     round = discipline.getLastRound();
     newGroupsCount = round.getGroups().size();
   }
 
   public List<Round> getRounds() {
-    Discipline discipline = disciplinesState.getDiscipline();
+    Discipline discipline = disciplinesCoreState.getDiscipline();
     return discipline.getRounds();
   }
 
@@ -66,7 +66,7 @@ public class RoundsState implements Serializable, State {
    * Checking, if the current round is the last round.
    */
   public boolean isLastRound() {
-    Discipline discipline = disciplinesState.getDiscipline();
+    Discipline discipline = disciplinesCoreState.getDiscipline();
     int highestPostion = 0;
 
     // getting highest round
@@ -89,7 +89,7 @@ public class RoundsState implements Serializable, State {
 
     boolean isFirstRound = round.getPosition() == 0;
     if (isFirstRound) {
-      Discipline discipline = disciplinesState.getDiscipline();
+      Discipline discipline = disciplinesCoreState.getDiscipline();
       Long tournamentId = applicationState.getTournamentId();
       assignableOpponents = tournamentsRepository
           .getAssignableOpponentsForDiscipline(tournamentId, discipline, 0, 1000);

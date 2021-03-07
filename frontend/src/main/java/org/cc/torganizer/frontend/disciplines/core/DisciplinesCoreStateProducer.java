@@ -1,35 +1,34 @@
-package org.cc.torganizer.frontend.disciplines.core.actions;
+package org.cc.torganizer.frontend.disciplines.core;
 
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.inject.Default;
+import jakarta.enterprise.inject.Produces;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
-import jakarta.inject.Named;
 import org.cc.torganizer.core.entities.AgeRestriction;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.GenderRestriction;
 import org.cc.torganizer.core.entities.OpponentTypeRestriction;
-import org.cc.torganizer.frontend.disciplines.core.DisciplinesCoreState;
 
-/**
- * Cancel editing the current discipline.
- */
 @RequestScoped
-@Named
-public class CancelDiscipline {
+public class DisciplinesCoreStateProducer {
 
   @Inject
-  private DisciplinesCoreState state;
+  private DisciplinesCoreStateSynchronizer synchronizer;
 
-  /**
-   * cancel.
-   */
-  public String execute() {
+  @Produces
+  @ViewScoped
+  @Default
+  public DisciplinesCoreState produce() {
     Discipline discipline = new Discipline();
     discipline.addRestriction(new GenderRestriction());
     discipline.addRestriction(new OpponentTypeRestriction());
     discipline.addRestriction(new AgeRestriction());
 
+    DisciplinesCoreState state = new DisciplinesCoreState();
     state.setDiscipline(discipline);
+    synchronizer.synchronize(state);
 
-    return null;
+    return state;
   }
 }

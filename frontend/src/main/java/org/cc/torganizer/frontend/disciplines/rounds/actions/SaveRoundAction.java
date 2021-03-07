@@ -44,7 +44,7 @@ public class SaveRoundAction extends RoundsAction {
 
     // persisting round (with optional new/deleted groups)
     if (round.getId() == null) {
-      Discipline discipline = disciplinesState.getDiscipline();
+      Discipline discipline = disciplinesCoreState.getDiscipline();
       discipline.addRound(round);
       disciplinesRepository.update(discipline);
     } else {

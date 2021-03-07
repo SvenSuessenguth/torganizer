@@ -38,8 +38,8 @@
      +-->
     <jakarta.activation-api.version>2.0.0</jakarta.activation-api.version>
     <assertj-core.version>3.19.0</assertj-core.version>
-    <checkstyle.version>8.40</checkstyle.version>
-    <jakarta.jakartaee-api.version>9.0.0</jakarta.jakartaee-api.version>
+    <checkstyle.version>8.41</checkstyle.version>
+    <jakarta.jakartaee-api.version>9.1.0-RC1</jakarta.jakartaee-api.version>
     <jakarta.xml.bind-api.version>3.0.0</jakarta.xml.bind-api.version>
     <jaxb-core.version>3.0.0</jaxb-core.version>
     <jaxb-impl.version>3.0.0</jaxb-impl.version>
@@ -48,8 +48,8 @@
     <log4j-api.version>2.14.0</log4j-api.version>
     <log4j-core.version>${log4j-api.version}</log4j-core.version>
     <microprofile.version>4.0.1</microprofile.version>
-    <mockito.version>3.7.7</mockito.version>
-    <spotbugs.version>4.2.1</spotbugs.version>
+    <mockito.version>3.8.0</mockito.version>
+    <spotbugs.version>4.2.2</spotbugs.version>
 
     <!--
      | plugin versions

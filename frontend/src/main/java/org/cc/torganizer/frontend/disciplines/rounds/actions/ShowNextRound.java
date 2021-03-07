@@ -17,7 +17,7 @@ public class ShowNextRound extends RoundsAction {
    */
   public void execute() {
     Round round = roundsState.getRound();
-    Discipline discipline = disciplinesState.getDiscipline();
+    Discipline discipline = disciplinesCoreState.getDiscipline();
 
     int position = round.getPosition();
 

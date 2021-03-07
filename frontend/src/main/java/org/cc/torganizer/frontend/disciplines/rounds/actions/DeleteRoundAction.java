@@ -20,7 +20,7 @@ public class DeleteRoundAction extends RoundsAction {
     // ... checks are coming
     Round round = roundsState.getRound();
 
-    Discipline discipline = disciplinesState.getDiscipline();
+    Discipline discipline = disciplinesCoreState.getDiscipline();
     discipline.removeRound(round);
     disciplinesRepository.update(discipline);
 
