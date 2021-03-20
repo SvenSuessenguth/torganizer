@@ -14,7 +14,7 @@
 
 <ui:composition template="/WEB-INF/templates/template.xhtml">
   <f:metadata>
-    <f:viewParam name="disciplineId" value="#{disciplinesState.discipline.id}"/>
+    <f:viewParam name="disciplineId" value="#{disciplinesCoreBacking.state.discipline.id}"/>
   </f:metadata>
 
   <ui:define name="title">${i18nText.rounds}</ui:define>
@@ -26,18 +26,19 @@
   <ui:define name="main">
     <h:form id="roundsForm">
       <h:panelGroup styleClass="tabs">
-        <h:commandButton action="disciplinesCore" value="core" disabled="#{empty disciplinesState.discipline.id}"/>
+        <h:commandButton action="disciplinesCore" value="core"
+                         disabled="#{empty disciplinesCoreBacking.state.discipline.id}"/>
         <h:commandButton action="disciplinesRounds" value="rounds"
-                         disabled="#{empty disciplinesState.discipline.id}"/>
+                         disabled="#{empty disciplinesCoreBacking.state.discipline.id}"/>
       </h:panelGroup>
       <br/><br/>
 
-      <c:set var="round" value="#{roundsState.round}"/>
+      <c:set var="round" value="#{disciplinesRoundBacking.state.round}"/>
 
       <span class="disciplineRoundsLayout">
         <!-- erste Zeile -->
         <span><h:outputText value="#{i18nText.discipline}"/></span>
-        <h:outputText value="#{disciplinesState.discipline.name}" style="white-space: nowrap;"/>
+        <h:outputText value="#{disciplinesCoreBacking.state.discipline.name}" style="white-space: nowrap;"/>
         <span><h:outputText value="#{i18nText.round}"/></span>
         <h:panelGroup id="rounds">
           <h:commandLink value="&#9665;" title="prev"
@@ -46,22 +47,22 @@
                          action="#{showPreviousRound.execute}">
             <f:ajax render="@form" immediate="true" execute="@this"/>
           </h:commandLink>
-          <h:outputText value="#{roundsState.round.position}"/>
+          <h:outputText value="#{round.position}"/>
           <h:commandLink value="&#9655;" title="next"
-                         style="#{roundsState.lastRound ? 'color:lightgray;' : 'color:black;'}"
-                         disabled="#{roundsState.lastRound}"
+                         style="#{disciplinesRoundBacking.state.lastRound ? 'color:lightgray;' : 'color:black;'}"
+                         disabled="#{disciplinesRoundBacking.state.lastRound}"
                          action="#{showNextRound.execute}"/>
-          <h:outputText value=" id:[#{round.id}]" />
+          <h:outputText value=" id:[#{round.id}]"/>
         </h:panelGroup>
         <span/>
         <span/>
 
         <!-- zweite Zeile -->
         <span><h:outputText value="Gruppen"/></span>
-        <h:inputText value="#{roundsState.newGroupsCount}" style="width: 2em;"/>
+        <h:inputText value="#{disciplinesRoundBacking.state.newGroupsCount}" style="width: 2em;"/>
         <span><h:outputText value="System"/></span>
         <h:selectOneMenu id="roundsSystem" value="#{round.system}">
-          <f:selectItems value="#{roundsState.systems}" var="system"
+          <f:selectItems value="#{disciplinesRoundBacking.systems}" var="system"
                          itemValue="#{system}" itemLabel="#{i18nSystem[system]}"/>
           <f:converter converterId="systemConverter"/>
         </h:selectOneMenu>
@@ -71,7 +72,7 @@
         <!-- dritte Zeile -->
         <h:commandButton value="#{i18nText.save}" action="#{saveRoundAction.execute()}"/>
         <h:commandButton value="#{i18nText.delete}" action="#{deleteRoundAction.execute()}"/>
-        <h:commandButton value="#{i18nText.cancel}" />
+        <h:commandButton value="#{i18nText.cancel}"/>
         <span/>
         <span/>
         <span/>
@@ -84,8 +85,8 @@
        +-->
       <h:panelGroup id="assignableOpponents">
         <h:outputText value="mögliche Teilnehmer"/>
-        <h:dataTable value="#{roundsState.assignableOpponents}" var="opponent"
-                     rendered="#{not empty disciplinesState.discipline.id}">
+        <h:dataTable value="#{disciplinesRoundBacking.assignableOpponents}" var="opponent"
+                     rendered="#{not empty disciplinesCoreBacking.state.discipline.id}">
           <h:column>
             <f:facet name="header">Vornamen</f:facet>
             <tc:opponent id="firstName#{opponent.id}" opponent="#{opponent}" showFirstNames="true"

@@ -4,8 +4,6 @@ import jakarta.enterprise.inject.Vetoed;
 import java.io.Serializable;
 import java.util.List;
 import org.cc.torganizer.core.entities.Discipline;
-import org.cc.torganizer.core.entities.Gender;
-import org.cc.torganizer.core.entities.OpponentType;
 
 /**
  * State of the UI for editing Disciplines.

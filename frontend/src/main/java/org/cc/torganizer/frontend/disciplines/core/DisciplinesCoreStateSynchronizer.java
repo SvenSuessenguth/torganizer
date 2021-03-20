@@ -17,9 +17,6 @@ public class DisciplinesCoreStateSynchronizer {
   @Inject
   private ApplicationState appState;
 
-  @Inject
-  private DisciplinesCoreState state;
-
   public void synchronize(DisciplinesCoreState state) {
     Long tournamentId = appState.getTournamentId();
     state.setDisciplines(tournamentsRepository.getDisciplines(tournamentId, 0, 1000));

@@ -1,9 +1,9 @@
 package org.cc.torganizer.frontend.disciplines.core;
 
+import jakarta.enterprise.context.ConversationScoped;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.inject.Default;
 import jakarta.enterprise.inject.Produces;
-import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import org.cc.torganizer.core.entities.AgeRestriction;
 import org.cc.torganizer.core.entities.Discipline;
@@ -17,7 +17,7 @@ public class DisciplinesCoreStateProducer {
   private DisciplinesCoreStateSynchronizer synchronizer;
 
   @Produces
-  @ViewScoped
+  @ConversationScoped
   @Default
   public DisciplinesCoreState produce() {
     Discipline discipline = new Discipline();
