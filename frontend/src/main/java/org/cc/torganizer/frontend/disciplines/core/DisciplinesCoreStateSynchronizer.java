@@ -12,7 +12,7 @@ import org.cc.torganizer.persistence.TournamentsRepository;
 public class DisciplinesCoreStateSynchronizer {
 
   @Inject
-  private transient TournamentsRepository tournamentsRepository;
+  private TournamentsRepository tournamentsRepository;
 
   @Inject
   private ApplicationState appState;

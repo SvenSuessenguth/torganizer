@@ -9,7 +9,6 @@ import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 import org.cc.torganizer.frontend.squads.SquadsState;
-import org.cc.torganizer.frontend.squads.SquadsStateSynchronizer;
 
 /**
  * Removing a player from the current squad.

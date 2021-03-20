@@ -21,7 +21,7 @@ public class SquadsStateSynchronizer {
   private ApplicationState applicationState;
 
   @Inject
-  private transient TournamentsRepository tournamentsRepository;
+  private TournamentsRepository tournamentsRepository;
 
   public void synchronize(SquadsState state) {
     Tournament currentTournament = applicationState.getTournament();
