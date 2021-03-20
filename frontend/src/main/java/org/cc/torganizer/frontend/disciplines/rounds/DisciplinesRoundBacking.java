@@ -24,7 +24,7 @@ public class DisciplinesRoundBacking {
   private DisciplinesCoreState disciplinesCoreState;
 
   @Inject
-  private transient TournamentsRepository tournamentsRepository;
+  private TournamentsRepository tournamentsRepository;
 
   @Inject
   private DisciplineRoundState state;
