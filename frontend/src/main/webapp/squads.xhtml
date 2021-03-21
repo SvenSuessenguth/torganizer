@@ -21,15 +21,15 @@
 
   <ui:define name="main">
     <h:form id="squadsForm">
-      <c:set var="state" value="#{squadsBacking.state}" />
+      <c:set var="state" value="#{squadsBacking.squadsState}" />
 
       <!--
        | Filter für players
        +-->
       <h:panelGroup id="squadsFilter">
         <h:outputLabel for="filterGender" value="#{i18nGender.GENDER}"/>
-        <h:selectOneMenu id="filterGender" value="#{squadsState.gender}" onchange="submit()">
-          <f:selectItems value="#{squadsState.genders}" var="gender"
+        <h:selectOneMenu id="filterGender" value="#{state.gender}" onchange="submit()">
+          <f:selectItems value="#{squadsBacking.genders}" var="gender"
                          itemValue="#{gender}"
                          itemLabel="#{i18nGender[gender]}"/>
           <f:converter converterId="genderJsfConverter"/>
@@ -40,7 +40,7 @@
       <!--
        | all players
        +-->
-      <h:dataTable id="allPlayers" value="#{squadsState.players}" var="player"
+      <h:dataTable id="allPlayers" value="#{state.players}" var="player"
                    style="margin-bottom: 10px; margin-top: 10px">
         <h:column>
           <f:facet name="header">Vorname</f:facet>
@@ -73,12 +73,12 @@
       <!-- pagination -->
       <h:commandLink value="&#8701;"
                      style="#{squadsState.hasPrevAllPlayersTableChunk()?'color:black;':'color:lightgray;'}"
-                     disabled="#{!squadsState.hasPrevAllPlayersTableChunk()}"
-                     action="#{squadsState.prevAllPlayersTableChunk}"/>
+                     disabled="#{!state.hasPrevAllPlayersTableChunk()}"
+                     action="#{state.prevAllPlayersTableChunk}"/>
       <h:commandLink value="&#8702;"
                      style="#{squadsState.hasNextAllPlayersTableChunk()?'color:black;':'color:lightgray;'}"
-                     disabled="#{!squadsState.hasNextAllPlayersTableChunk()}"
-                     action="#{squadsState.nextAllPlayersTableChunk}"/>
+                     disabled="#{!state.hasNextAllPlayersTableChunk()}"
+                     action="#{state.nextAllPlayersTableChunk}"/>
 
       <!--
        | current squad
@@ -109,8 +109,8 @@
        | all squads
        +-->
       <h:outputLabel for="squadsCount" value="Anzahl"/><h:outputText id="squadsCount"
-                                                                     value="#{fn:length(squadsState.squads)}"/>
-      <h:dataTable id="allSquads" value="#{squadsState.squads}" var="squad"
+                                                                     value="#{fn:length(state.squads)}"/>
+      <h:dataTable id="allSquads" value="#{state.squads}" var="squad"
                    style="margin-bottom: 10px; margin-top: 10px">
         <h:column>
           <f:facet name="header">Vornamen</f:facet>
@@ -137,7 +137,7 @@
         <h:commandButton id="squadsSave" action="#{saveSquad.execute()}" value="#{i18nText.save}"/>
         <h:commandButton id="squadsDelete" action="#{deleteSquad.execute()}" value="#{i18nText.delete}"/>
         <h:commandButton id="cancelSquad" action="squads?faces-redirect=true" value="#{i18nText.cancel}"
-                         type="submit" immediate="true" disabled="#{squadsState.current.id == null}"/>
+                         type="submit" immediate="true" disabled="#{state.current.id == null}"/>
       </h:panelGroup>
     </h:form>
   </ui:define>

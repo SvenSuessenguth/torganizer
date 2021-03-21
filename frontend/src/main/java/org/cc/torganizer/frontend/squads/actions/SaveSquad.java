@@ -4,8 +4,6 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.cc.torganizer.core.entities.Squad;
-import org.cc.torganizer.frontend.ApplicationState;
-import org.cc.torganizer.frontend.squads.SquadsState;
 import org.cc.torganizer.frontend.squads.SquadsStateSynchronizer;
 import org.cc.torganizer.persistence.PlayersRepository;
 import org.cc.torganizer.persistence.SquadsRepository;
@@ -17,13 +15,7 @@ import org.cc.torganizer.persistence.TournamentsRepository;
 @RequestScoped
 @Named
 @SuppressWarnings("unused")
-public class SaveSquad {
-
-  @Inject
-  protected SquadsState state;
-
-  @Inject
-  protected ApplicationState applicationState;
+public class SaveSquad extends SquadAction {
 
   @Inject
   protected SquadsRepository squadsRepository;

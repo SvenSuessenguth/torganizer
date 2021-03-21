@@ -18,13 +18,7 @@ import org.cc.torganizer.persistence.TournamentsRepository;
 @RequestScoped
 @Named
 @SuppressWarnings("unused")
-public class CreateSquad {
-
-  @Inject
-  protected SquadsState state;
-
-  @Inject
-  protected ApplicationState applicationState;
+public class CreateSquad extends SquadAction {
 
   @Inject
   protected SquadsRepository squadsRepository;

@@ -81,10 +81,6 @@ public class SquadsState implements Serializable {
     this.players = players;
   }
 
-  public Gender[] getGenders() {
-    return Gender.values();
-  }
-
   public Gender getGender() {
     return gender;
   }

@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import org.cc.torganizer.core.comparators.player.PlayerByLastNameComparator;
+import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Player;
 
 /**
@@ -29,10 +30,14 @@ public class SquadsBacking {
 
     // order players by lastname
     List<Player> orderedPlayers = new ArrayList<>(players);
-    Collections.sort(orderedPlayers, new PlayerByLastNameComparator());
+    orderedPlayers.sort(new PlayerByLastNameComparator());
     Collections.reverse(orderedPlayers);
 
     return orderedPlayers;
+  }
+
+  public Gender[] getGenders() {
+    return Gender.values();
   }
 
   public SquadsState getSquadsState() {
