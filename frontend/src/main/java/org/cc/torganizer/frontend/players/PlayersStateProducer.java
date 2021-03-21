@@ -6,6 +6,9 @@ import jakarta.enterprise.inject.Produces;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 
+/**
+ * Producing a serializable and initialized state.
+ */
 @RequestScoped
 public class PlayersStateProducer {
 

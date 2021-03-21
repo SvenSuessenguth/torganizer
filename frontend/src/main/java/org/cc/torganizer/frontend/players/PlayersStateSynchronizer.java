@@ -12,6 +12,9 @@ import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.persistence.ClubsRepository;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
+/**
+ * Synchronizing the tournaments state with db-data.
+ */
 @RequestScoped
 public class PlayersStateSynchronizer {
 
@@ -27,6 +30,9 @@ public class PlayersStateSynchronizer {
   @Inject
   private ClubsRepository clubsRepository;
 
+  /**
+   * Synchronizing the tournaments state with db-data.
+   */
   public void synchronize(PlayersState state) {
     Tournament currentTournament = applicationState.getTournament();
     Long tournamentId = currentTournament.getId();
