@@ -7,6 +7,9 @@ import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 import org.cc.torganizer.frontend.disciplines.core.DisciplinesCoreState;
 
+/**
+ * Producing a serializable and initialized state.
+ */
 @RequestScoped
 public class DisciplineRoundStateProducer {
 
@@ -16,6 +19,9 @@ public class DisciplineRoundStateProducer {
   @Inject
   private DisciplinesCoreState disciplinesCoreState;
 
+  /**
+   * Producing a serializable and initialized state.
+   */
   @Produces
   @ConversationScoped
   @Default

@@ -24,6 +24,9 @@ public class SelectDiscipline {
   @Inject
   private DisciplineRoundStateSynchronizer roundStateSynchronizer;
 
+  /**
+   * Set the selected discipline to the disciplines core state and synchronize other states.
+   */
   public void execute(Discipline discipline) {
     state.setDiscipline(discipline);
 

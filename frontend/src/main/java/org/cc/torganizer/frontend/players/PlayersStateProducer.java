@@ -12,6 +12,9 @@ public class PlayersStateProducer {
   @Inject
   private PlayersStateSynchronizer synchronizer;
 
+  /**
+   * Producing a serializable and initialized state.
+   */
   @Produces
   @ViewScoped
   @Default

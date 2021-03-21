@@ -13,6 +13,9 @@ import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.disciplines.core.DisciplinesCoreState;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
+/**
+ * Accessing data from outside the state or the state itself.
+ */
 @RequestScoped
 @Named
 public class DisciplinesRoundBacking {

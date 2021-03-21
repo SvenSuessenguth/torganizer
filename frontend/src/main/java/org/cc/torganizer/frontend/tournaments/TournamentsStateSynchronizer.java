@@ -7,6 +7,9 @@ import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.frontend.ConversationController;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
+/**
+ * Synchronizing the tournaments state with db-data.
+ */
 @RequestScoped
 public class TournamentsStateSynchronizer {
 
@@ -16,6 +19,9 @@ public class TournamentsStateSynchronizer {
   @Inject
   private ConversationController conversationController;
 
+  /**
+   * Synchronizing the tournaments state with db-data.
+   */
   public void synchronize(TournamentsState state) {
     List<Tournament> tournaments = tournamentsRepository.read(0, 100);
     Tournament current = new Tournament();

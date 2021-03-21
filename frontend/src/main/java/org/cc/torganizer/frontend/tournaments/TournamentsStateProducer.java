@@ -12,6 +12,9 @@ public class TournamentsStateProducer {
   @Inject
   private TournamentsStateSynchronizer synchronizer;
 
+  /**
+   * Producing a serializable and initialized state.
+   */
   @ViewScoped
   @Default
   @Produces

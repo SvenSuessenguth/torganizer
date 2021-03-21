@@ -12,6 +12,9 @@ public class SquadsStateProducer {
   @Inject
   private SquadsStateSynchronizer synchronizer;
 
+  /**
+   * Producing a serializable and initialized state.
+   */
   @Produces
   @ViewScoped
   @Default

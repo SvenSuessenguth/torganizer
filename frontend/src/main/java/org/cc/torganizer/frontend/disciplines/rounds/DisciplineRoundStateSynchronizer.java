@@ -6,12 +6,18 @@ import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.frontend.disciplines.core.DisciplinesCoreState;
 
+/**
+ * Synchronizing the disciplines round  state with db-data.
+ */
 @RequestScoped
 public class DisciplineRoundStateSynchronizer {
 
   @Inject
   private DisciplinesCoreState coreState;
 
+  /**
+   * Synchronizing the disciplines round  state with db-data.
+   */
   public void synchronize(DisciplineRoundState state) {
     Discipline discipline = coreState.getDiscipline();
 
