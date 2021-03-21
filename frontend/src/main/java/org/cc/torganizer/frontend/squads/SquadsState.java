@@ -13,7 +13,6 @@ import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 import org.cc.torganizer.frontend.ApplicationState;
-import org.cc.torganizer.persistence.TournamentsRepository;
 
 /**
  * State of the Squads-UI.
@@ -34,8 +33,6 @@ public class SquadsState implements Serializable {
 
   @Inject
   private ApplicationState applicationState;
-  @Inject
-  private transient TournamentsRepository tournamentsRepository;
 
   @Inject
   private SquadsStateSynchronizer synchronizer;
