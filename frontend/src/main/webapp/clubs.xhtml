@@ -4,6 +4,7 @@
 <html lang="en"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
@@ -20,8 +21,11 @@
   <ui:define name="main">
     <h:form id="clubsForm">
 
-      <h:panelGroup rendered="#{not empty clubsState.clubs}">
-        <h:dataTable id="allClubs" value="#{clubsState.clubs}" var="club"
+      <c:set var="currentClub" value="#{clubsBacking.state.current}"/>
+      <c:set var="clubs" value="#{clubsBacking.state.clubs}"/>
+
+      <h:panelGroup rendered="#{not empty clubs}">
+        <h:dataTable id="allClubs" value="#{clubs}" var="club"
                      style="margin-bottom: 10px; margin-top: 10px">
           <h:column>
             <f:facet name="header">Name</f:facet>
@@ -37,15 +41,15 @@
       </h:panelGroup>
 
       <h:outputLabel for="clubName" value="#{i18nText.club}"/>&#160;
-      <h:inputText id="clubName" label="#{i18nText.club}" value="#{clubsState.current.name}" a:autofocus="true"
+      <h:inputText id="clubName" label="#{i18nText.club}" value="#{currentClub.name}" a:autofocus="true"
                    styleClass="#{component.valid ? 'validation-ok' : 'validation-fail'}"/>
 
       <h:panelGroup style="display: block">
         <h:commandButton id="saveClue" action="#{saveClub.execute()}" value="#{i18nText.save}"/>
         <h:commandButton id="deleteClub" action="#{deleteClub.execute()}" value="#{i18nText.delete}"
-                         disabled="#{clubsState.current.id == null}"/>
+                         disabled="#{currentClub.id == null}"/>
         <h:commandButton id="cancelClub" action="clubs?faces-redirect=true" value="#{i18nText.cancel}"
-                         type="submit" immediate="true" disabled="#{clubsState.current.id == null}"/>
+                         type="submit" immediate="true" disabled="#{currentClub.id == null}"/>
       </h:panelGroup>
     </h:form>
   </ui:define>

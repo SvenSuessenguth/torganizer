@@ -5,6 +5,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.frontend.ApplicationMessages;
+import org.cc.torganizer.frontend.clubs.ClubsStateSynchronizer;
 
 /**
  * Deleting selected Club.
@@ -14,6 +15,9 @@ import org.cc.torganizer.frontend.ApplicationMessages;
 public class DeleteClub extends ClubsAction {
 
   public static final String CLUBS_I18N_BASE_NAME = "org.cc.torganizer.frontend.clubs";
+
+  @Inject
+  private ClubsStateSynchronizer synchronizer;
 
   @Inject
   private ApplicationMessages appMessages;
@@ -32,7 +36,7 @@ public class DeleteClub extends ClubsAction {
           new Object[]{current.getName()});
     } else {
       clubsRepository.delete(id);
-      state.synchronize();
+      synchronizer.synchronize(state);
     }
   }
 }

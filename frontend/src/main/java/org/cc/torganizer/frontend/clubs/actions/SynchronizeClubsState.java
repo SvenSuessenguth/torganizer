@@ -1,7 +1,9 @@
 package org.cc.torganizer.frontend.clubs.actions;
 
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import org.cc.torganizer.frontend.clubs.ClubsStateSynchronizer;
 
 /**
  * Initializing the clubs staten.
@@ -10,7 +12,10 @@ import jakarta.inject.Named;
 @Named
 public class SynchronizeClubsState extends ClubsAction {
 
+  @Inject
+  private ClubsStateSynchronizer synchronizer;
+
   public void execute() {
-    state.synchronize();
+    synchronizer.synchronize(state);
   }
 }
