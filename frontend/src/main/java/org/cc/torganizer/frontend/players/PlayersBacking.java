@@ -11,10 +11,4 @@ import jakarta.inject.Named;
 @Named
 public class PlayersBacking {
 
-  @Inject
-  private PlayersState state;
-
-  public PlayersState getState() {
-    return state;
-  }
 }

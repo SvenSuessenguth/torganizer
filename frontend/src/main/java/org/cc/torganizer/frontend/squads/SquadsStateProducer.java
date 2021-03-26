@@ -5,6 +5,7 @@ import jakarta.enterprise.inject.Default;
 import jakarta.enterprise.inject.Produces;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 /**
  * Producing a serializable and initialized state.
@@ -21,7 +22,8 @@ public class SquadsStateProducer {
   @Produces
   @ViewScoped
   @Default
-  public SquadsState produce() {
+  @Named
+  public SquadsState squadsState() {
     SquadsState state = new SquadsState();
     synchronizer.synchronize(state);
 

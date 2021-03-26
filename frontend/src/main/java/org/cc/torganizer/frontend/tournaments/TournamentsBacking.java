@@ -14,13 +14,6 @@ public class TournamentsBacking {
 
   private UIInput nameInputText;
 
-  @Inject
-  private TournamentsState state;
-
-  public TournamentsState getState() {
-    return state;
-  }
-
   public String getNameClientId() {
     return nameInputText.getClientId();
   }

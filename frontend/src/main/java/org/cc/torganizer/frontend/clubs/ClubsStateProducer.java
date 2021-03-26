@@ -5,6 +5,7 @@ import jakarta.enterprise.inject.Default;
 import jakarta.enterprise.inject.Produces;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 @RequestScoped
 public class ClubsStateProducer {
@@ -15,7 +16,8 @@ public class ClubsStateProducer {
   @Produces
   @ViewScoped
   @Default
-  public ClubsState produce() {
+  @Named
+  public ClubsState clubsState() {
     ClubsState state = new ClubsState();
     synchronizer.synchronize(state);
 

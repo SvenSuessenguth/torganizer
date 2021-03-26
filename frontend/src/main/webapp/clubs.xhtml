@@ -21,8 +21,8 @@
   <ui:define name="main">
     <h:form id="clubsForm">
 
-      <c:set var="currentClub" value="#{clubsBacking.state.current}"/>
-      <c:set var="clubs" value="#{clubsBacking.state.clubs}"/>
+      <c:set var="currentClub" value="#{clubsState.current}"/>
+      <c:set var="clubs" value="#{clubsState.clubs}"/>
 
       <h:panelGroup rendered="#{not empty clubs}">
         <h:dataTable id="allClubs" value="#{clubs}" var="club"

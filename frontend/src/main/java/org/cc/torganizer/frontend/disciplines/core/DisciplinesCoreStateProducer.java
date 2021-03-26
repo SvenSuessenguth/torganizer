@@ -5,6 +5,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.inject.Default;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.cc.torganizer.core.entities.AgeRestriction;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.GenderRestriction;
@@ -25,7 +26,8 @@ public class DisciplinesCoreStateProducer {
   @Produces
   @ConversationScoped
   @Default
-  public DisciplinesCoreState produce() {
+  @Named
+  public DisciplinesCoreState disciplinesCoreState() {
     Discipline discipline = new Discipline();
     discipline.addRestriction(new GenderRestriction());
     discipline.addRestriction(new OpponentTypeRestriction());

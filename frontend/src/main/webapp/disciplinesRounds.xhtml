@@ -14,7 +14,7 @@
 
 <ui:composition template="/WEB-INF/templates/template.xhtml">
   <f:metadata>
-    <f:viewParam name="disciplineId" value="#{disciplinesCoreBacking.state.discipline.id}"/>
+    <f:viewParam name="disciplineId" value="#{disciplinesCoreState.discipline.id}"/>
   </f:metadata>
 
   <ui:define name="title">${i18nText.rounds}</ui:define>
@@ -27,18 +27,18 @@
     <h:form id="roundsForm">
       <h:panelGroup styleClass="tabs">
         <h:commandButton action="disciplinesCore" value="core"
-                         disabled="#{empty disciplinesCoreBacking.state.discipline.id}"/>
+                         disabled="#{empty disciplinesCoreState.discipline.id}"/>
         <h:commandButton action="disciplinesRounds" value="rounds"
-                         disabled="#{empty disciplinesCoreBacking.state.discipline.id}"/>
+                         disabled="#{empty disciplinesCoreState.discipline.id}"/>
       </h:panelGroup>
       <br/><br/>
 
-      <c:set var="round" value="#{disciplinesRoundBacking.state.round}"/>
+      <c:set var="round" value="#{disciplinesRoundState.round}"/>
 
       <span class="disciplineRoundsLayout">
         <!-- erste Zeile -->
         <span><h:outputText value="#{i18nText.discipline}"/></span>
-        <h:outputText value="#{disciplinesCoreBacking.state.discipline.name}" style="white-space: nowrap;"/>
+        <h:outputText value="#{disciplinesCoreState.discipline.name}" style="white-space: nowrap;"/>
         <span><h:outputText value="#{i18nText.round}"/></span>
         <h:panelGroup id="rounds">
           <h:commandLink value="&#9665;" title="prev"
@@ -49,8 +49,8 @@
           </h:commandLink>
           <h:outputText value="#{round.position}"/>
           <h:commandLink value="&#9655;" title="next"
-                         style="#{disciplinesRoundBacking.state.lastRound ? 'color:lightgray;' : 'color:black;'}"
-                         disabled="#{disciplinesRoundBacking.state.lastRound}"
+                         style="#{disciplinesRoundState.lastRound ? 'color:lightgray;' : 'color:black;'}"
+                         disabled="#{disciplinesRoundState.lastRound}"
                          action="#{showNextRound.execute}"/>
           <h:outputText value=" id:[#{round.id}]"/>
         </h:panelGroup>
@@ -59,7 +59,7 @@
 
         <!-- zweite Zeile -->
         <span><h:outputText value="Gruppen"/></span>
-        <h:inputText value="#{disciplinesRoundBacking.state.newGroupsCount}" style="width: 2em;"/>
+        <h:inputText value="#{disciplinesRoundState.newGroupsCount}" style="width: 2em;"/>
         <span><h:outputText value="System"/></span>
         <h:selectOneMenu id="roundsSystem" value="#{round.system}">
           <f:selectItems value="#{disciplinesRoundBacking.systems}" var="system"
@@ -86,7 +86,7 @@
       <h:panelGroup id="assignableOpponents">
         <h:outputText value="mögliche Teilnehmer"/>
         <h:dataTable value="#{disciplinesRoundBacking.assignableOpponents}" var="opponent"
-                     rendered="#{not empty disciplinesCoreBacking.state.discipline.id}">
+                     rendered="#{not empty disciplinesCoreState.discipline.id}">
           <h:column>
             <f:facet name="header">Vornamen</f:facet>
             <tc:opponent id="firstName#{opponent.id}" opponent="#{opponent}" showFirstNames="true"

@@ -39,8 +39,4 @@ public class SquadsBacking {
   public Gender[] getGenders() {
     return Gender.values();
   }
-
-  public SquadsState getSquadsState() {
-    return squadsState;
-  }
 }

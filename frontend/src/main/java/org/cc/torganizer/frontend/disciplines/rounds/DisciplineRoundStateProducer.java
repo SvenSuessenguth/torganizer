@@ -5,6 +5,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.inject.Default;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.cc.torganizer.frontend.disciplines.core.DisciplinesCoreState;
 
 /**
@@ -25,7 +26,8 @@ public class DisciplineRoundStateProducer {
   @Produces
   @ConversationScoped
   @Default
-  public DisciplineRoundState produces() {
+  @Named
+  public DisciplineRoundState disciplineRound() {
     DisciplineRoundState state = new DisciplineRoundState();
     state.setDisciplinesCoreState(disciplinesCoreState);
     synchronizer.synchronize(state);

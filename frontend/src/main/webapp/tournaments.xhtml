@@ -21,13 +21,13 @@
   <ui:define name="main">
     <h:form id="tournamentsForm">
       <div>
-        #{i18nText.count}: #{fn:length(tournamentsBacking.state.tournaments)}
+        #{i18nText.count}: #{fn:length(tournamentsState.tournaments)}
       </div>
       <br/>
 
       <section id="table">
-        <h:dataTable value="#{tournamentsBacking.state.tournaments}" var="tournament"
-                     rendered="#{not empty tournamentsBacking.state.tournaments}">
+        <h:dataTable value="#{tournamentsState.tournaments}" var="tournament"
+                     rendered="#{not empty tournamentsState.tournaments}">
           <h:column>
             <f:facet name="header">Name</f:facet>
             <h:commandLink actionListener="#{selectTournament.execute(tournament)}"
@@ -49,7 +49,7 @@
       <section id="edit">
         <h:outputLabel for="currentName" value="#{i18nText.tournament}"/>
         &#160;
-        <h:inputText id="currentName" value="#{tournamentsBacking.state.current.name}"
+        <h:inputText id="currentName" value="#{tournamentsState.current.name}"
                      validator="tournamentsNameValidator"
                      label="#{i18nText.tournament}" a:autofocus="true"
                      binding="#{tournamentsBacking.nameInputText}"
@@ -58,10 +58,10 @@
 
         <h:commandButton id="saveTournament" value="#{i18nText.save}" action="#{saveTournament.execute()}"/>
         <h:commandButton id="deleteTournament" value="#{i18nText.delete}" action="#{deleteTournament.execute()}"
-                         disabled="#{tournamentsBacking.state.current.id==null}"/>
+                         disabled="#{tournamentsState.current.id==null}"/>
         <h:commandButton id="cancelTournament" action="tournaments?faces-redirect=true"
                          value="#{i18nText.cancel}"
-                         type="submit" immediate="true" disabled="#{tournamentsBacking.state.current.id == null}"/>
+                         type="submit" immediate="true" disabled="#{tournamentsState.current.id == null}"/>
       </section>
     </h:form>
   </ui:define>

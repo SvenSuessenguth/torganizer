@@ -36,11 +36,6 @@ public class DisciplinesRoundBacking {
     return System.values();
   }
 
-  public DisciplineRoundState getState() {
-    return state;
-  }
-
-
   /**
    * Getting opponents that can be assigned to the current round.
    * In the first rouond all Opponents are assignable.
