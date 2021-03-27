@@ -2,7 +2,6 @@ package org.cc.torganizer.frontend.tournaments;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.component.UIInput;
-import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 /**

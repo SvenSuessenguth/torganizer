@@ -1,7 +1,6 @@
 package org.cc.torganizer.frontend.players;
 
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 /**
