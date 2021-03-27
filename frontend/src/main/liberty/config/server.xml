@@ -5,6 +5,12 @@
   </featureManager>
 
   <!--
+   | https://www.ibm.com/support/knowledgecenter/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/twlp_admin_session_persistence.html
+   +-->
+  <httpSessionDatabase id="SessionDB" dataSourceRef="torganizerDS" />
+  <httpSession storageRef="SessionDB" cloneId="${cloneId}" />
+
+  <!--
    | To access this server from a remote client add a host attribute to the following element, e.g. host="*"
    | Ignore "IllegalStateException: The orb is not available"
    | https://www-01.ibm.com/support/docview.wss?uid=ibm10728669
@@ -59,7 +65,7 @@
   <library id="dataSourceLibrary">
     <file name="${shared.resource.dir}/postgresql/postgresql.jar"/>
   </library>
-  <dataSource jndiName="jdbc/torganizerDS" transactional="true">
+  <dataSource id="torganizerDS" jndiName="jdbc/torganizerDS" transactional="true">
     <jdbcDriver libraryRef="dataSourceLibrary"/>
     <!--
      |                          | postgresql     | mysql
