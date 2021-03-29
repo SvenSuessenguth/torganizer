@@ -10,10 +10,7 @@ import org.cc.torganizer.frontend.players.PlayersState;
  */
 @RequestScoped
 @Named
-public class PrevAllPlayersChunk {
-
-  @Inject
-  protected PlayersState state;
+public class PrevAllPlayersChunk extends PlayersAction {
 
   /**
    * Execute.

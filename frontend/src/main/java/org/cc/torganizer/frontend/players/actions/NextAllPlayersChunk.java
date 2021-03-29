@@ -1,7 +1,6 @@
 package org.cc.torganizer.frontend.players.actions;
 
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.cc.torganizer.frontend.players.PlayersState;
 
@@ -10,10 +9,7 @@ import org.cc.torganizer.frontend.players.PlayersState;
  */
 @RequestScoped
 @Named
-public class NextAllPlayersChunk {
-
-  @Inject
-  protected PlayersState state;
+public class NextAllPlayersChunk extends PlayersAction {
 
   /**
    * Executing.

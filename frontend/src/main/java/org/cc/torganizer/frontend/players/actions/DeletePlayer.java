@@ -6,10 +6,6 @@ import jakarta.inject.Named;
 import org.apache.logging.log4j.Logger;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.frontend.ApplicationMessages;
-import org.cc.torganizer.frontend.ApplicationState;
-import org.cc.torganizer.frontend.players.PlayersState;
-import org.cc.torganizer.frontend.players.PlayersStateSynchronizer;
-import org.cc.torganizer.persistence.PlayersRepository;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
 /**
@@ -17,7 +13,7 @@ import org.cc.torganizer.persistence.TournamentsRepository;
  */
 @RequestScoped
 @Named
-public class DeletePlayer {
+public class DeletePlayer extends PlayersAction {
 
   public static final String CLUBS_I18N_BASE_NAME = "org.cc.torganizer.frontend.players";
 
@@ -25,22 +21,10 @@ public class DeletePlayer {
   private Logger logger;
 
   @Inject
-  protected PlayersState state;
-
-  @Inject
-  protected PlayersRepository playersRepository;
-
-  @Inject
-  protected ApplicationState applicationState;
-
-  @Inject
   protected TournamentsRepository tournamentsRepository;
 
   @Inject
   private ApplicationMessages applicationMessages;
-
-  @Inject
-  private PlayersStateSynchronizer synchronizer;
 
   /**
    * Deleting a player is not possible, if the player has already completed any match.
@@ -60,7 +44,7 @@ public class DeletePlayer {
     }
 
     tournamentsRepository.removeOpponent(tournamentId, playerId);
-    playersRepository.delete(playerId);
+    repository.delete(playerId);
     synchronizer.synchronize(state);
   }
 }

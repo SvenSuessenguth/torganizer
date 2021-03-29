@@ -9,20 +9,16 @@ import org.cc.torganizer.core.comparators.player.PlayerComparator;
 import org.cc.torganizer.core.comparators.player.PlayerComparatorProvider;
 import org.cc.torganizer.core.comparators.player.PlayerOrderCriteria;
 import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.frontend.players.PlayersState;
 
 /**
  * Ordering Players by selected Criteria.
  */
 @RequestScoped
 @Named
-public class OrderPlayers {
+public class OrderPlayers extends PlayersAction {
 
   @Inject
   private PlayerComparatorProvider playerComparatorProvider;
-
-  @Inject
-  protected PlayersState state;
 
   @SuppressWarnings("unused")
   public void execute(AjaxBehaviorEvent event) {
