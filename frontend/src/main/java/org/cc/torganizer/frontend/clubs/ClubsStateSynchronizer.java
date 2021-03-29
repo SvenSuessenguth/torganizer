@@ -13,7 +13,7 @@ import org.cc.torganizer.persistence.ClubsRepository;
 public class ClubsStateSynchronizer {
 
   @Inject
-  private transient ClubsRepository clubsRepository;
+  private ClubsRepository clubsRepository;
 
   /**
    * Synchronizing the state for clubs with database.
