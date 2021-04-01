@@ -3,7 +3,6 @@ package org.cc.torganizer.frontend.squads;
 import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
 
 import jakarta.enterprise.inject.Vetoed;
-import jakarta.inject.Inject;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,6 @@ import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
-import org.cc.torganizer.frontend.ApplicationState;
 
 /**
  * State of the Squads-UI.
@@ -30,12 +28,6 @@ public class SquadsState implements Serializable {
 
   // Filter
   private Gender gender = UNKNOWN;
-
-  @Inject
-  private ApplicationState applicationState;
-
-  @Inject
-  private SquadsStateSynchronizer synchronizer;
 
   public Squad getCurrent() {
     return current;
