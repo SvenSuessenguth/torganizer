@@ -27,7 +27,7 @@ public class DisciplineRoundStateProducer {
   @ConversationScoped
   @Default
   @Named
-  public DisciplineRoundState disciplineRound() {
+  public DisciplineRoundState disciplineRoundState() {
     DisciplineRoundState state = new DisciplineRoundState();
     state.setDisciplinesCoreState(disciplinesCoreState);
     synchronizer.synchronize(state);

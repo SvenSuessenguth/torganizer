@@ -33,7 +33,7 @@
       </h:panelGroup>
       <br/><br/>
 
-      <c:set var="round" value="#{disciplinesRoundState.round}"/>
+      <c:set var="round" value="#{disciplineRoundState.round}"/>
 
       <span class="disciplineRoundsLayout">
         <!-- erste Zeile -->
@@ -49,8 +49,8 @@
           </h:commandLink>
           <h:outputText value="#{round.position}"/>
           <h:commandLink value="&#9655;" title="next"
-                         style="#{disciplinesRoundState.lastRound ? 'color:lightgray;' : 'color:black;'}"
-                         disabled="#{disciplinesRoundState.lastRound}"
+                         style="#{disciplineRoundState.lastRound ? 'color:lightgray;' : 'color:black;'}"
+                         disabled="#{disciplineRoundState.lastRound}"
                          action="#{showNextRound.execute}"/>
           <h:outputText value=" id:[#{round.id}]"/>
         </h:panelGroup>
@@ -59,7 +59,7 @@
 
         <!-- zweite Zeile -->
         <span><h:outputText value="Gruppen"/></span>
-        <h:inputText value="#{disciplinesRoundState.newGroupsCount}" style="width: 2em;"/>
+        <h:inputText value="#{disciplineRoundState.newGroupsCount}" style="width: 2em;"/>
         <span><h:outputText value="System"/></span>
         <h:selectOneMenu id="roundsSystem" value="#{round.system}">
           <f:selectItems value="#{disciplinesRoundBacking.systems}" var="system"
