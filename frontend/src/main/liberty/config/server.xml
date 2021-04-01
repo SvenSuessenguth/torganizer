@@ -8,7 +8,7 @@
    | https://www.ibm.com/support/knowledgecenter/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/twlp_admin_session_persistence.html
    +-->
   <httpSessionDatabase id="SessionDB" dataSourceRef="torganizerDS" />
-  <httpSession storageRef="SessionDB" cloneId="${cloneId}" />
+  <httpSession storageRef="SessionDB" cloneId="${torganizerCloneId}" />
 
   <!--
    | To access this server from a remote client add a host attribute to the following element, e.g. host="*"
@@ -80,6 +80,6 @@
                 user="${env.dataSource_user}" password="${env.dataSource_password}"/>
   </dataSource>
 
-  <webApplication location="frontend.war" context-root="/"/>
+  <application type="war" id="frontend_war_exploded" name="frontend_war_exploded" location="${server.config.dir}/apps/frontend.war" context-root="/"/>
 </server>
 
