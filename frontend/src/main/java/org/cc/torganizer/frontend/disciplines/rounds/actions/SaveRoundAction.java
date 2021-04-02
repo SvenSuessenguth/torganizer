@@ -17,20 +17,14 @@ import org.cc.torganizer.persistence.RoundsRepository;
  */
 @RequestScoped
 @Named
-public class SaveRoundAction {
-
-  @Inject
-  private DisciplineRoundState roundState;
-
-  @Inject
-  private DisciplinesCoreState coreState;
+public class SaveRoundAction extends RoundAction {
 
   @Inject
   private DisciplinesRepository disciplinesRepository;
 
   @Inject
   private RoundsRepository roundsRepository;
-  
+
   /**
    * Functional Interface method.
    */

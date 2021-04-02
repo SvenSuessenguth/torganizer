@@ -44,7 +44,6 @@ public class DisciplinesRoundBacking {
   public Collection<Opponent> getAssignableOpponents() {
     Collection<Opponent> assignableOpponents;
 
-
     Round currentRound = state.getRound();
     boolean isFirstRound = currentRound.getPosition() == 0;
     if (isFirstRound) {

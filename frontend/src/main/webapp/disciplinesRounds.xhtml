@@ -90,19 +90,19 @@
           <h:column>
             <f:facet name="header">Vornamen</f:facet>
             <tc:opponent id="firstName#{opponent.id}" opponent="#{opponent}" showFirstNames="true"
-                         selectOpponentAction="#{addOpponentToDiscipline}"/>
+                         selectOpponentAction="#{addOpponentToRoundAction}"/>
           </h:column>
           <h:column>
             <f:facet name="header">Nachnamen</f:facet>
             <tc:opponent id="lastName#{opponent.id}" opponent="#{opponent}" showLastNames="true"
-                         selectOpponentAction="#{addOpponentToDiscipline}"/>
+                         selectOpponentAction="#{addOpponentToRoundAction}"/>
           </h:column>
           <h:column>
             <f:facet name="header">Vereine</f:facet>
             <tc:opponent id="club#{opponent.id}" opponent="#{opponent}" showClubs="true"
-                         selectOpponentAction="#{addOpponentToDiscipline}"/>
+                         selectOpponentAction="#{addOpponentToRoundAction}"/>
           </h:column>
-          <h:column rendered="#{facesContext.isProjectStage('Development')}">
+          <h:column>
             <f:facet name="header">ID</f:facet>
             <h:outputText value="#{opponent.id}"/>
           </h:column>
@@ -118,9 +118,21 @@
 
       #{fn:length(round.groups)} Gruppen
       <c:forEach items="#{round.groups}" var="group">
-        <h:outputText value="#{group.position}"/>
+        <h:dataTable value="#{group.opponents}" var="opponent">
+          <h:column>
+            <f:facet name="header">Vornamen</f:facet>
+            <tc:opponent id="firstName#{opponent.id}" opponent="#{opponent}" showFirstNames="true"/>
+          </h:column>
+          <h:column>
+            <f:facet name="header">Nachnamen</f:facet>
+            <tc:opponent id="lastName#{opponent.id}" opponent="#{opponent}" showLastNames="true"/>
+          </h:column>
+          <h:column>
+            <f:facet name="header">Vereine</f:facet>
+            <tc:opponent id="club#{opponent.id}" opponent="#{opponent}" showClubs="true"/>
+          </h:column>
+        </h:dataTable>
       </c:forEach>
-
     </h:form>
   </ui:define>
 </ui:composition>

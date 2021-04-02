@@ -1,25 +1,16 @@
 package org.cc.torganizer.frontend.disciplines.rounds.actions;
 
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Round;
-import org.cc.torganizer.frontend.disciplines.core.DisciplinesCoreState;
-import org.cc.torganizer.frontend.disciplines.rounds.DisciplineRoundState;
 
 /**
  * Showing the next round.
  */
 @RequestScoped
 @Named
-public class ShowNextRound {
-
-  @Inject
-  private DisciplineRoundState roundState;
-
-  @Inject
-  private DisciplinesCoreState coreState;
+public class ShowNextRound extends RoundAction {
 
   /**
    * Functional Interface method.

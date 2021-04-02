@@ -30,6 +30,7 @@ public class DisciplineRoundStateProducer {
   public DisciplineRoundState disciplineRoundState() {
     DisciplineRoundState state = new DisciplineRoundState();
     state.setDisciplinesCoreState(disciplinesCoreState);
+
     synchronizer.synchronize(state);
 
     return state;

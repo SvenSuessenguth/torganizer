@@ -5,8 +5,6 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Round;
-import org.cc.torganizer.frontend.disciplines.core.DisciplinesCoreState;
-import org.cc.torganizer.frontend.disciplines.rounds.DisciplineRoundState;
 import org.cc.torganizer.frontend.disciplines.rounds.DisciplineRoundStateSynchronizer;
 import org.cc.torganizer.persistence.DisciplinesRepository;
 import org.cc.torganizer.persistence.RoundsRepository;
@@ -16,13 +14,7 @@ import org.cc.torganizer.persistence.RoundsRepository;
  */
 @RequestScoped
 @Named
-public class DeleteRoundAction {
-
-  @Inject
-  private DisciplineRoundState roundState;
-
-  @Inject
-  private DisciplinesCoreState coreState;
+public class DeleteRoundAction extends RoundAction {
 
   @Inject
   private DisciplinesRepository disciplinesRepository;
