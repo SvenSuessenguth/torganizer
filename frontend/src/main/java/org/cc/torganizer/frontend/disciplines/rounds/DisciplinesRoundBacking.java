@@ -3,8 +3,11 @@ package org.cc.torganizer.frontend.disciplines.rounds;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
+import org.cc.torganizer.core.comparators.OpponentByNameComparator;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Round;
@@ -55,6 +58,10 @@ public class DisciplinesRoundBacking {
       assignableOpponents = currentRound.getQualifiedOpponents();
     }
 
-    return new HashSet<>(assignableOpponents);
+    // opponents must be sorted to be selectable on datatable
+    List<Opponent> opponents = new ArrayList<>(assignableOpponents);
+    opponents.sort(new OpponentByNameComparator());
+
+    return opponents;
   }
 }

@@ -4,9 +4,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.cc.torganizer.core.entities.System.ROUND_ROBIN;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
@@ -14,6 +16,9 @@ import org.cc.torganizer.core.entities.Player;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class RoundRobinOpponentsToGroupsAssignerTest {
 
@@ -75,5 +80,54 @@ class RoundRobinOpponentsToGroupsAssignerTest {
   @Test
   void getSystem() {
     assertThat(assigner.getSystem()).isEqualTo(ROUND_ROBIN);
+  }
+
+
+  static Stream<Arguments> testGetGroupsWithMinOpponentsArguments() {
+    return Stream.of(
+        Arguments.of(Arrays.asList(2, 2, 3, 2, 3), Arrays.asList(0, 1, 3)),
+        Arguments.of(Arrays.asList(1, 2, 3), Arrays.asList(0)),
+        Arguments.of(Arrays.asList(2, 1, 3), Arrays.asList(1))
+    );
+  }
+
+  @ParameterizedTest
+  @MethodSource(value = "testGetGroupsWithMinOpponentsArguments")
+  void testGetGroupsWithMinOpponents(List<Integer> opponentsPerGroup, List<Integer> expectedGroupsIndexes) {
+    // creating groups
+    List<Group> groups = new ArrayList<>();
+    for (Integer i : opponentsPerGroup) {
+      Group g = new Group();
+      groups.add(g);
+      for (int counter = 0; counter < i; counter++) {
+        g.addOpponent(new Player("", ""));
+      }
+    }
+
+    List<Group> groupsWithMinOpponents = assigner.getGroupsWithMinOpponents(groups);
+
+    assertThat(groupsWithMinOpponents).hasSize(expectedGroupsIndexes.size());
+
+
+    for (int i = 0; i < groupsWithMinOpponents.size(); i++) {
+      Group g = groupsWithMinOpponents.get(i);
+      int index = expectedGroupsIndexes.get(i);
+
+      assertThat(groups.indexOf(g)).isEqualTo(index);
+    }
+  }
+
+  static Stream<Arguments> testGetGroupsWithMinClubMembersArguments() {
+    return Stream.of(
+        Arguments.of(Arrays.asList(2, 2, 3, 2, 3), Arrays.asList(0, 1, 3)),
+        Arguments.of(Arrays.asList(1, 2, 3), Arrays.asList(0)),
+        Arguments.of(Arrays.asList(2, 1, 3), Arrays.asList(1))
+    );
+  }
+
+  @ParameterizedTest
+  @MethodSource(value = "testGetGroupsWithMinClubMembersArguments")
+  void testGetGroupsWithMinClubMembers(List<Integer> opponentsPerGroup, List<Integer> expectedGroupsIndexes) {
+
   }
 }
