@@ -7,8 +7,6 @@ import java.util.List;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Round;
-import org.cc.torganizer.frontend.disciplines.core.DisciplinesCoreState;
-import org.cc.torganizer.frontend.disciplines.rounds.DisciplineRoundState;
 import org.cc.torganizer.persistence.DisciplinesRepository;
 import org.cc.torganizer.persistence.RoundsRepository;
 

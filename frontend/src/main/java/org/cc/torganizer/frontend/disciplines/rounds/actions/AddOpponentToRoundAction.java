@@ -9,7 +9,6 @@ import org.cc.torganizer.core.OpponentsToGroupsAssigner;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Round;
-import org.cc.torganizer.core.entities.System;
 
 @RequestScoped
 @Named
@@ -21,7 +20,6 @@ public class AddOpponentToRoundAction extends RoundAction {
   public void execute(Opponent opponent) {
     Round round = roundState.getRound();
     List<Group> groups = round.getGroups();
-    System system = round.getSystem();
 
     assigner.assign(Collections.singleton(opponent), groups);
   }

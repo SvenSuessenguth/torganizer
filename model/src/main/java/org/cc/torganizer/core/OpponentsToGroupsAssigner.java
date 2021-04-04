@@ -37,7 +37,7 @@ public class OpponentsToGroupsAssigner {
             .map(Player::getClub)
             .collect(Collectors.toList());
         List<Group> minClubGroups = getGroupsWithMinClubMembers(minOpponentGroups, clubs);
-        minOpponentGroups.get(0).addOpponent(opponent);
+        minClubGroups.get(0).addOpponent(opponent);
       }
     }
   }
