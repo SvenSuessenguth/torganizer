@@ -1,26 +1,23 @@
-package org.cc.torganizer.core.roundrobin;
+package org.cc.torganizer.core;
 
-import static org.cc.torganizer.core.entities.System.ROUND_ROBIN;
-
+import jakarta.enterprise.context.RequestScoped;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.cc.torganizer.core.OpponentToGroupsAssigner;
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.core.entities.System;
 
 /**
  * Assign Opponents evenly distibuted by Clubs to Groups by the RoundRobin-System.
  */
-public class RoundRobinOpponentsToGroupsAssigner implements OpponentToGroupsAssigner {
+@RequestScoped
+public class OpponentsToGroupsAssigner {
 
-  @Override
   public void assign(Set<Opponent> opponents, List<Group> groups) {
     // early exit
     if (opponents == null || opponents.isEmpty() || groups == null || groups.isEmpty()) {
@@ -95,10 +92,5 @@ public class RoundRobinOpponentsToGroupsAssigner implements OpponentToGroupsAssi
     }
 
     return minClubMembers;
-  }
-
-  @Override
-  public System getSystem() {
-    return ROUND_ROBIN;
   }
 }

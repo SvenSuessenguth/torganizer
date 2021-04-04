@@ -1,10 +1,9 @@
-package org.cc.torganizer.core.roundrobin;
+package org.cc.torganizer.core;
 
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.cc.torganizer.core.entities.System.ROUND_ROBIN;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,13 +19,13 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class RoundRobinOpponentsToGroupsAssignerTest {
+class OpponentsToGroupsAssignerTest {
 
-  private RoundRobinOpponentsToGroupsAssigner assigner;
+  private OpponentsToGroupsAssigner assigner;
 
   @BeforeEach
   void beforeEach() {
-    assigner = new RoundRobinOpponentsToGroupsAssigner();
+    assigner = new OpponentsToGroupsAssigner();
   }
 
   @AfterEach
@@ -77,17 +76,12 @@ class RoundRobinOpponentsToGroupsAssignerTest {
     assertThat(groups).isEmpty();
   }
 
-  @Test
-  void getSystem() {
-    assertThat(assigner.getSystem()).isEqualTo(ROUND_ROBIN);
-  }
-
 
   static Stream<Arguments> testGetGroupsWithMinOpponentsArguments() {
     return Stream.of(
-        Arguments.of(Arrays.asList(2, 2, 3, 2, 3), Arrays.asList(0, 1, 3)),
-        Arguments.of(Arrays.asList(1, 2, 3), Arrays.asList(0)),
-        Arguments.of(Arrays.asList(2, 1, 3), Arrays.asList(1))
+        Arguments.of(asList(2, 2, 3, 2, 3), asList(0, 1, 3)),
+        Arguments.of(asList(1, 2, 3), asList(0)),
+        Arguments.of(asList(2, 1, 3), asList(1))
     );
   }
 
@@ -118,16 +112,64 @@ class RoundRobinOpponentsToGroupsAssignerTest {
   }
 
   static Stream<Arguments> testGetGroupsWithMinClubMembersArguments() {
+    Club c1 = new Club("c1");
+    Club c2 = new Club("c2");
+    Club c3 = new Club("c3");
+    Club c4 = null;
+
     return Stream.of(
-        Arguments.of(Arrays.asList(2, 2, 3, 2, 3), Arrays.asList(0, 1, 3)),
-        Arguments.of(Arrays.asList(1, 2, 3), Arrays.asList(0)),
-        Arguments.of(Arrays.asList(2, 1, 3), Arrays.asList(1))
+        Arguments.of(
+            asList(group(1L, opponent(c1), opponent(c1)),
+                group(2L, opponent(c4), opponent(c1))),
+            asList(c1, c2),
+            asList(2L)),
+        Arguments.of(
+            asList(group(1L, opponent(c4), opponent(c1)),
+                group(2L, opponent(c4), opponent(c1))),
+            asList(c1, c2),
+            asList(1L, 2L)),
+        Arguments.of(
+            asList(group(1L, opponent(c1), opponent(c1)),
+                group(2L, opponent(c4), opponent(c1))),
+            asList(c1, c4),
+            asList(1L, 2L)),
+        Arguments.of(
+            asList(group(1L, opponent(c1), opponent(c1), opponent(c1)),
+                group(2L, opponent(c4), opponent(c1))),
+            asList(c1, c4),
+            asList(2L))
+
     );
   }
 
   @ParameterizedTest
   @MethodSource(value = "testGetGroupsWithMinClubMembersArguments")
-  void testGetGroupsWithMinClubMembers(List<Integer> opponentsPerGroup, List<Integer> expectedGroupsIndexes) {
+  void testGetGroupsWithMinClubMembers(List<Group> groups, List<Club> clubs, List<Long> expectedIds) {
+    List<Group> groupsWithMinClubMembers = assigner.getGroupsWithMinClubMembers(groups, clubs);
 
+    assertThat(groupsWithMinClubMembers).hasSize(expectedIds.size());
+
+    List<Long> actualIds = new ArrayList<>();
+    for (Group g : groupsWithMinClubMembers) {
+      actualIds.add(g.getId());
+    }
+    // https://stackoverflow.com/questions/43056202/how-to-assert-that-two-listsstring-are-equal-ignoring-order
+    assertThat(actualIds).containsExactlyInAnyOrder(expectedIds.toArray(new Long[expectedIds.size()]));
+  }
+
+  static Group group(Long id, Opponent... opponents) {
+    Group g = new Group();
+    g.setId(id);
+    for (Opponent o : opponents) {
+      g.addOpponent(o);
+    }
+
+    return g;
+  }
+
+  static Opponent opponent(Club c) {
+    Player player = new Player("", "");
+    player.setClub(c);
+    return player;
   }
 }
