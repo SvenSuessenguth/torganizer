@@ -6,7 +6,6 @@ import static java.time.temporal.ChronoUnit.MINUTES;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Objects;
 
 /**
  * Abstract Opponent class.
