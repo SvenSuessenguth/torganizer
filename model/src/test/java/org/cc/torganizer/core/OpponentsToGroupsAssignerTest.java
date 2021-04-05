@@ -1,6 +1,7 @@
 package org.cc.torganizer.core;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.singleton;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
@@ -83,8 +84,8 @@ class OpponentsToGroupsAssignerTest {
   static Stream<Arguments> testGetGroupsWithMinOpponentsArguments() {
     return Stream.of(
         Arguments.of(asList(2, 2, 3, 2, 3), asList(0, 1, 3)),
-        Arguments.of(asList(1, 2, 3), asList(0)),
-        Arguments.of(asList(2, 1, 3), asList(1))
+        Arguments.of(asList(1, 2, 3), singleton(0)),
+        Arguments.of(asList(2, 1, 3), singleton(1))
     );
   }
 
@@ -125,7 +126,7 @@ class OpponentsToGroupsAssignerTest {
             asList(group(1L, opponent(c1), opponent(c1)),
                 group(2L, opponent(c4), opponent(c1))),
             asList(c1, c2),
-            asList(2L)),
+            singleton(2L)),
         Arguments.of(
             asList(group(1L, opponent(c4), opponent(c1)),
                 group(2L, opponent(c4), opponent(c1))),
@@ -140,7 +141,12 @@ class OpponentsToGroupsAssignerTest {
             asList(group(1L, opponent(c1), opponent(c1), opponent(c1)),
                 group(2L, opponent(c4), opponent(c1))),
             asList(c1, c4),
-            asList(2L))
+            singleton(2L)),
+        Arguments.of(
+            asList(group(1L, opponent(c1), opponent(c2)),
+                group(2L, opponent(c3), opponent(c3))),
+            singleton(c1),
+            singleton(2L))
 
     );
   }
@@ -157,7 +163,7 @@ class OpponentsToGroupsAssignerTest {
       actualIds.add(g.getId());
     }
     // https://stackoverflow.com/questions/43056202/how-to-assert-that-two-listsstring-are-equal-ignoring-order
-    assertThat(actualIds).containsExactlyInAnyOrder(expectedIds.toArray(new Long[expectedIds.size()]));
+    assertThat(actualIds).containsExactlyInAnyOrder(expectedIds.toArray(new Long[]{}));
   }
 
   static Group group(Long id, Opponent... opponents) {

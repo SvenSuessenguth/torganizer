@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.List;
 import org.cc.torganizer.core.comparators.OpponentByNameComparator;
 import org.cc.torganizer.core.entities.Discipline;
+import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.core.entities.System;
@@ -57,7 +58,18 @@ public class DisciplinesRoundBacking {
       assignableOpponents = currentRound.getQualifiedOpponents();
     }
 
-    // opponents must be sorted to be selectable on datatable
+    removeAlreadyAssignedOpponents(assignableOpponents, currentRound);
+    return sortByName(assignableOpponents);
+  }
+
+  protected void removeAlreadyAssignedOpponents(Collection<Opponent> assignableOpponents, Round currentRound) {
+    List<Opponent> alreadyAssignedOpponents = currentRound.getGroups().stream()
+        .map(Group::getOpponents)
+        .collect(ArrayList::new, List::addAll, List::addAll);
+    assignableOpponents.removeAll(alreadyAssignedOpponents);
+  }
+
+  protected List<Opponent> sortByName(Collection<Opponent> assignableOpponents) {
     List<Opponent> opponents = new ArrayList<>(assignableOpponents);
     opponents.sort(new OpponentByNameComparator());
 

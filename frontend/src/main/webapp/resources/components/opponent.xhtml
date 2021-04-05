@@ -39,7 +39,6 @@
     <div style="display: grid; grid-template-columns: #{gridTemplateColumns}; width: 1%; grid-column-gap: 5px;">
       <ui:repeat value="#{cc.attrs.opponent.players}" var="player" varStatus="status">
         <h:panelGroup rendered="#{cc.attrs.showFirstNames=='true'}">
-          <h:outputText value="#{cc.attrs.opponent.id}" />
           <h:commandLink style="white-space: nowrap;" action="#{cc.attrs.selectPlayerAction.execute(player)}"
                          value="#{player.person.firstName}"
                          disabled="#{cc.attrs.selectPlayerAction == null}"/>
