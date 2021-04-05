@@ -10,6 +10,9 @@ import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Round;
 
+/**
+ * Adding an opponent to the groups of the round.
+ */
 @RequestScoped
 @Named
 public class AddOpponentToRoundAction extends RoundAction {
@@ -17,6 +20,9 @@ public class AddOpponentToRoundAction extends RoundAction {
   @Inject
   private OpponentsToGroupsAssigner assigner;
 
+  /**
+   * Adding an opponent to the groups of the round.
+   */
   public void execute(Opponent opponent) {
     Round round = roundState.getRound();
     List<Group> groups = round.getGroups();

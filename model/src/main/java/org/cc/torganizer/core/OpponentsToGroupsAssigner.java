@@ -19,6 +19,10 @@ import org.cc.torganizer.core.entities.Player;
 @RequestScoped
 public class OpponentsToGroupsAssigner {
 
+  /**
+   * Assigning an set of opponents to some groups.
+   * Assigning is optimized to reduce matches between opponents of the same club.
+   */
   public void assign(Set<Opponent> opponents, List<Group> groups) {
     // early exit
     if (opponents == null || opponents.isEmpty() || groups == null || groups.isEmpty()) {
