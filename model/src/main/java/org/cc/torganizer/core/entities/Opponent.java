@@ -45,19 +45,4 @@ public abstract class Opponent extends Entity {
     int playerCount = getPlayers().size();
     return playerCount != 0 ? overallMinutesSinceLastMatch / playerCount : Long.MAX_VALUE;
   }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof Opponent)) return false;
-
-    Opponent opponent = (Opponent) o;
-
-    return Objects.equals(getId(), opponent.getId());
-  }
-
-  @Override
-  public int hashCode() {
-    return getId() != null ? getId().hashCode() : 0;
-  }
 }

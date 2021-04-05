@@ -2,6 +2,7 @@ package org.cc.torganizer.core;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.singleton;
+import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
@@ -84,8 +85,8 @@ class OpponentsToGroupsAssignerTest {
   static Stream<Arguments> testGetGroupsWithMinOpponentsArguments() {
     return Stream.of(
         Arguments.of(asList(2, 2, 3, 2, 3), asList(0, 1, 3)),
-        Arguments.of(asList(1, 2, 3), singleton(0)),
-        Arguments.of(asList(2, 1, 3), singleton(1))
+        Arguments.of(asList(1, 2, 3), singletonList(0)),
+        Arguments.of(asList(2, 1, 3), singletonList(1))
     );
   }
 
@@ -126,7 +127,7 @@ class OpponentsToGroupsAssignerTest {
             asList(group(1L, opponent(c1), opponent(c1)),
                 group(2L, opponent(c4), opponent(c1))),
             asList(c1, c2),
-            singleton(2L)),
+            singletonList(2L)),
         Arguments.of(
             asList(group(1L, opponent(c4), opponent(c1)),
                 group(2L, opponent(c4), opponent(c1))),
@@ -141,12 +142,12 @@ class OpponentsToGroupsAssignerTest {
             asList(group(1L, opponent(c1), opponent(c1), opponent(c1)),
                 group(2L, opponent(c4), opponent(c1))),
             asList(c1, c4),
-            singleton(2L)),
+            singletonList(2L)),
         Arguments.of(
             asList(group(1L, opponent(c1), opponent(c2)),
                 group(2L, opponent(c3), opponent(c3))),
-            singleton(c1),
-            singleton(2L))
+            singletonList(c1),
+            singletonList(2L))
 
     );
   }

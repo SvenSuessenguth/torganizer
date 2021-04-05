@@ -23,12 +23,16 @@ class DisciplinesRoundBackingTest {
 
   @Test
   void removeAlreadyAssignedOpponents() {
-    Group g1 = group(opponent(1L), opponent(2L));
-    Group g2 = group(opponent(3L), opponent(4L));
+    Opponent o1 = opponent(1L);
+    Opponent o2 = opponent(2L);
+    Group g1 = group(o1, o2);
+    Opponent o3 = opponent(3L);
+    Opponent o4 = opponent(4L);
+    Group g2 = group(o3, o4);
     Round r = round(g1, g2);
 
-    List<Opponent> opponents = new ArrayList<>(Arrays.asList(opponent(1L),
-        opponent(2L), opponent(3L), opponent(4L), opponent(5L)));
+    List<Opponent> opponents = new ArrayList(Arrays.asList(o1,
+        o2, o3, o4, opponent(5L)));
 
     backing.removeAlreadyAssignedOpponents(opponents, r);
 
