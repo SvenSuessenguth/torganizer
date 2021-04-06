@@ -45,13 +45,15 @@
                          style="#{round.position lt 1 ? 'color:lightgray;' : 'color:black;'}"
                          disabled="#{round.position lt 1}"
                          action="#{showPreviousRound.execute}">
-            <f:ajax render="@form" immediate="true" execute="@this"/>
+            <f:ajax render="roundsForm" immediate="true" execute="@this"/>
           </h:commandLink>
           <h:outputText value="#{round.position}"/>
           <h:commandLink value="&#9655;" title="next"
                          style="#{disciplineRoundState.lastRound ? 'color:lightgray;' : 'color:black;'}"
                          disabled="#{disciplineRoundState.lastRound}"
-                         action="#{showNextRound.execute}"/>
+                         action="#{showNextRound.execute}">
+            <f:ajax render="roundsForm" immediate="true" execute="@this"/>
+          </h:commandLink>
           <h:outputText value=" id:[#{round.id}]"/>
         </h:panelGroup>
         <span/>
