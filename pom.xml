@@ -36,7 +36,7 @@
     <!--
      | dependency versions
      +-->
-    <jakarta.activation-api.version>2.0.0</jakarta.activation-api.version>
+    <jakarta.activation-api.version>2.0.1</jakarta.activation-api.version>
     <assertj-core.version>3.19.0</assertj-core.version>
     <checkstyle.version>8.41.1</checkstyle.version>
     <jakarta.jakartaee-api.version>9.1.0-RC1</jakarta.jakartaee-api.version>

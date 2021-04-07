@@ -21,6 +21,9 @@ public class Discipline extends Entity {
 
   private String name;
 
+  /**
+   * Opponents that are member of the first round.
+   */
   private Set<Opponent> opponents = new HashSet<>();
 
   private List<Round> rounds = new ArrayList<>();
