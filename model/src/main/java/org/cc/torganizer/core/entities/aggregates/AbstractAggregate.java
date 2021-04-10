@@ -24,7 +24,7 @@ public abstract class AbstractAggregate {
     return (double) wins / (double) (wins + lose);
   }
 
-  int getWins() {
+  public int getWins() {
     return wins;
   }
 
@@ -37,7 +37,7 @@ public abstract class AbstractAggregate {
     this.wins += i;
   }
 
-  int getLose() {
+  public int getLose() {
     return lose;
   }
 

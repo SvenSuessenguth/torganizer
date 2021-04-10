@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="en"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite">
+
+<head>
+  <title>round robin chart</title>
+</head>
+
+<cc:interface name="rr-chart"
+              displayName="rr-chart"
+              preferred="true"
+              expert="false"
+              shortDescription="chart for a group playing round robin">
+
+  <cc:attribute name="rendered" required="false" type="java.lang.Boolean" default="true"/>
+  <cc:attribute name="results" required="true" type="java.util.List"/>
+  <cc:attribute name="alignment" required="false" type="java.lang.String" default="vertical"/>
+</cc:interface>
+
+<cc:implementation>
+
+  <c:if test="#{cc.attrs.rendered}">
+    <ui:repeat var="result" value="#{cc.attrs.results}" varStatus="status">
+      <h:outputText value="#{result.homeScore}:#{result.guestScore}"/>
+      <h:panelGroup rendered="#{cc.attrs.alignment eq 'vertical'}">
+        <br/>
+      </h:panelGroup>
+      <h:outputText value=" " rendered="#{cc.attrs.alignment ne 'vertical'}"/>
+    </ui:repeat>
+  </c:if>
+
+</cc:implementation>
+</html>

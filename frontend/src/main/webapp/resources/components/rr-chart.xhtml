@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="en"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:tc="http://xmlns.jcp.org/jsf/composite/components">
+
+<head>
+  <title>round robin chart</title>
+</head>
+
+<cc:interface name="rr-chart"
+              displayName="rr-chart"
+              preferred="true"
+              expert="false"
+              shortDescription="chart for a group playing round robin">
+
+  <cc:attribute name="group" required="true" type="org.cc.torganizer.core.entities.Group"/>
+</cc:interface>
+
+<cc:implementation>
+  <table style="border: none;">
+    <tbody style="border: none" >
+    <tr valign="top">
+      <td style="border: none">
+        <table style="border-collapse: collapse; border-spacing: 0px;">
+          <tbody style="border: none;">
+          <tr>
+            <td>&nbsp;</td>
+            <c:forEach var="opponent" items="#{cc.attrs.group.opponents}">
+              <td style="font-weight:bold; border: 1px solid gray; padding: 3px 5px;">
+                <tc:opponent opponent="#{opponent}" showLastNames="true" showFirstNames="true"/>
+              </td>
+            </c:forEach>
+          </tr>
+
+          <c:forEach var="rowOpponent" items="#{cc.attrs.group.opponents}" varStatus="row">
+            <tr>
+              <td style="font-weight:bold; border: 1px solid gray; padding: 3px 5px;">
+                <tc:opponent opponent="#{rowOpponent}" showLastNames="true"/>
+              </td>
+              <!-- Opponents -->
+              <c:forEach var="colOpponent" items="#{cc.attrs.group.opponents}" varStatus="col">
+                <td style="#{(col.index le row.index) ? 'background-color:lightgray; border: 1px solid gray;' : 'background-color:white; border: 1px solid gray; text-align: center;'}">
+                  <tc:results
+                    rendered="#{group.match(row.index*fn:length(group.opponents)+col.index)!=null}"
+                    results="#{group.match(row.index*fn:length(group.opponents)+col.index).results}"
+                    alignment="vertical"/>
+                </td>
+              </c:forEach>
+            </tr>
+          </c:forEach>
+          </tbody>
+        </table>
+      </td>
+      <td style="padding-left:20px; border: none">
+        <table>
+          <tr>
+            <th>&nbsp;</th>
+            <th>gespielt</th>
+            <th>Spiele</th>
+            <th>Saetze</th>
+            <th>Punkte</th>
+          </tr>
+          <c:forEach var="aggregate" items="#{roundRobinFunctions.getAggregates(cc.attrs.group)}">
+            <tr>
+              <td>
+                <tc:opponent opponent="#{aggregate.opponent}" showLastNames="true"/>
+              </td>
+              <td>#{aggregate.ma.wins+aggregate.ma.lose}</td>
+              <td>#{aggregate.ma.wins}:#{aggregate.ma.lose}</td>
+              <td>#{aggregate.ra.wins}:#{aggregate.ra.lose}</td>
+              <td>#{aggregate.sa.wins}:#{aggregate.sa.lose}</td>
+            </tr>
+          </c:forEach>
+        </table>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</cc:implementation>
+</html>

@@ -64,9 +64,11 @@ public class DisciplinesRoundBacking {
 
   protected void removeAlreadyAssignedOpponents(Collection<Opponent> assignableOpponents,
                                                 Round currentRound) {
-    List<Opponent> alreadyAssignedOpponents = currentRound.getGroups().stream()
-        .map(Group::getOpponents)
-        .collect(ArrayList::new, List::addAll, List::addAll);
+    List<Opponent> alreadyAssignedOpponents = new ArrayList<>();
+    for(Group group:currentRound.getGroups()){
+      alreadyAssignedOpponents.addAll(group.getOpponents());
+    }
+
     assignableOpponents.removeAll(alreadyAssignedOpponents);
   }
 

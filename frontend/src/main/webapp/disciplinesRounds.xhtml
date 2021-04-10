@@ -120,6 +120,8 @@
 
       #{fn:length(round.groups)} Gruppen
       <c:forEach items="#{round.groups}" var="group">
+        <tc:rr-chart group="#{group}" />
+
         <h:dataTable value="#{group.opponents}" var="opponent">
           <h:column>
             <f:facet name="header">Vornamen</f:facet>
