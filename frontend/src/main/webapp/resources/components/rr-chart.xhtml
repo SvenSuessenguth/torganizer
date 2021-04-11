@@ -24,70 +24,57 @@
   <!--
    | Matches
    +-->
-  <table>
-    <tbody>
-    <tr valign="top">
-
-      <!--
-       | Matches
-       +-->
-      <td>
-        <table class="rr-matches-table">
-          <tr>
-            <th class="rr-chart-header">&nbsp;</th>
-            <c:forEach var="opponent" items="#{cc.attrs.group.opponents}">
-              <th class="rr-chart-header">
-                <tc:opponent opponent="#{opponent}" showLastNames="true"/>
-              </th>
-            </c:forEach>
-          </tr>
-
-          <c:forEach var="rowOpponent" items="#{cc.attrs.group.opponents}" varStatus="row">
-            <tr>
-              <th class="rr-chart-header">
-                <tc:opponent opponent="#{rowOpponent}" showLastNames="true"/>
-              </th>
-              <!-- Opponents -->
-              <c:forEach var="colOpponent" items="#{cc.attrs.group.opponents}" varStatus="col">
-                <td class="#{(col.index le row.index) ? 'rr-matches-lower-bracket' : 'rr-matches-upper-bracket'}">
-                  <tc:results
-                    rendered="#{group.match(row.index*fn:length(group.opponents)+col.index)!=null}"
-                    results="#{group.match(row.index*fn:length(group.opponents)+col.index).results}"
-                    alignment="vertical"/>
-                </td>
-              </c:forEach>
-            </tr>
-          </c:forEach>
-        </table>
-      </td>
-
-      <!--
-       | Chart
-       +-->
-      <td>
-        <table class="rr-chart-table">
-          <tr>
-            <th class="rr-chart-header">&nbsp;</th>
-            <th class="rr-chart-header">gespielt</th>
-            <th class="rr-chart-header">Spiele</th>
-            <th class="rr-chart-header">Saetze</th>
-            <th class="rr-chart-header">Punkte</th>
-          </tr>
-          <c:forEach var="aggregate" items="#{cc.attrs.group.aggregates}">
-            <tr>
-              <th class="rr-chart-header">
-                <tc:opponent opponent="#{aggregate.opponent}" showLastNames="true" showFirstNames="true"/>
-              </th>
-              <td class="rr-chart-aggregate">#{aggregate.ma.wins+aggregate.ma.lose}</td>
-              <td class="rr-chart-aggregate">#{aggregate.ma.wins}:#{aggregate.ma.lose}</td>
-              <td class="rr-chart-aggregate">#{aggregate.ra.wins}:#{aggregate.ra.lose}</td>
-              <td class="rr-chart-aggregate">#{aggregate.sa.wins}:#{aggregate.sa.lose}</td>
-            </tr>
-          </c:forEach>
-        </table>
-      </td>
+  <table class="rr-matches-table">
+    <tr>
+      <th class="rr-chart-header">&nbsp;</th>
+      <c:forEach var="opponent" items="#{cc.attrs.group.opponents}">
+        <th class="rr-chart-header">
+          <tc:opponent opponent="#{opponent}" showLastNames="true"/>
+        </th>
+      </c:forEach>
     </tr>
-    </tbody>
+
+    <c:forEach var="rowOpponent" items="#{cc.attrs.group.opponents}" varStatus="row">
+      <tr>
+        <th class="rr-chart-header">
+          <tc:opponent opponent="#{rowOpponent}" showLastNames="true"/>
+        </th>
+        <!-- Opponents -->
+        <c:forEach var="colOpponent" items="#{cc.attrs.group.opponents}" varStatus="col">
+          <td class="#{(col.index le row.index) ? 'rr-matches-lower-bracket' : 'rr-matches-upper-bracket'}">
+            <tc:results
+              rendered="#{group.match(row.index*fn:length(group.opponents)+col.index)!=null}"
+              results="#{group.match(row.index*fn:length(group.opponents)+col.index).results}"
+              alignment="vertical"/>
+          </td>
+        </c:forEach>
+      </tr>
+    </c:forEach>
   </table>
+
+  <!--
+   | Chart
+   +-->
+  <table class="rr-chart-table">
+    <tr>
+      <th class="rr-chart-header">&nbsp;</th>
+      <th class="rr-chart-header">gespielt</th>
+      <th class="rr-chart-header">Spiele</th>
+      <th class="rr-chart-header">Saetze</th>
+      <th class="rr-chart-header">Punkte</th>
+    </tr>
+    <c:forEach var="aggregate" items="#{cc.attrs.group.aggregates}">
+      <tr>
+        <th class="rr-chart-header">
+          <tc:opponent opponent="#{aggregate.opponent}" showLastNames="true" showFirstNames="true"/>
+        </th>
+        <td class="rr-chart-aggregate">#{aggregate.ma.wins+aggregate.ma.lose}</td>
+        <td class="rr-chart-aggregate">#{aggregate.ma.wins}:#{aggregate.ma.lose}</td>
+        <td class="rr-chart-aggregate">#{aggregate.ra.wins}:#{aggregate.ra.lose}</td>
+        <td class="rr-chart-aggregate">#{aggregate.sa.wins}:#{aggregate.sa.lose}</td>
+      </tr>
+    </c:forEach>
+  </table>
+
 </cc:implementation>
 </html>
