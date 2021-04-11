@@ -72,7 +72,7 @@
             <th class="rr-chart-header">Saetze</th>
             <th class="rr-chart-header">Punkte</th>
           </tr>
-          <c:forEach var="aggregate" items="#{roundRobinFunctions.getAggregates(cc.attrs.group)}">
+          <c:forEach var="aggregate" items="#{cc.attrs.group.aggregates}">
             <tr>
               <th class="rr-chart-header">
                 <tc:opponent opponent="#{aggregate.opponent}" showLastNames="true" showFirstNames="true"/>

@@ -2,7 +2,12 @@ package org.cc.torganizer.core.entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.cc.torganizer.core.comparators.AggregationComparator;
 import org.cc.torganizer.core.comparators.PositionalComparator;
+import org.cc.torganizer.core.entities.aggregates.Aggregation;
+import org.cc.torganizer.core.entities.aggregates.MatchAggregate;
+import org.cc.torganizer.core.entities.aggregates.ResultAggregate;
+import org.cc.torganizer.core.entities.aggregates.ScoreAggregate;
 
 /**
  * Eine Group sammelt Opponents zusammen. Innerhalb einer Group werden die
@@ -283,5 +288,38 @@ public class Group extends Entity implements Positional {
       }
     }
     return null;
+  }
+
+  /**
+   * Aggregating all matches of all opponents of this group to get a ranking.
+   */
+  public List<Aggregation> getAggregates() {
+    List<Aggregation> aggregates = new ArrayList<>();
+
+    // zusammenstellen der Aggregates
+    for (Opponent opponent : getOpponents()) {
+      MatchAggregate ma = new MatchAggregate();
+      ResultAggregate ra = new ResultAggregate();
+      ScoreAggregate sa = new ScoreAggregate();
+
+      for (Match match : getMatches()) {
+        ma.aggregate(match, opponent);
+        ra.aggregate(match, opponent);
+        sa.aggregate(match, opponent);
+      }
+
+      Aggregation ca = new Aggregation();
+      ca.setOpponent(opponent);
+      ca.setMa(ma);
+      ca.setRa(ra);
+      ca.setSa(sa);
+
+      aggregates.add(ca);
+    }
+
+    // sortieren
+    aggregates.sort(new AggregationComparator().reversed());
+
+    return aggregates;
   }
 }
