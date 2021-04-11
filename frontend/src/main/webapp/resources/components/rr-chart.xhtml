@@ -20,29 +20,35 @@
 </cc:interface>
 
 <cc:implementation>
-  <table style="border: none;">
-    <tbody style="border: none" >
+  <!--
+   | Matches
+   +-->
+  <table>
+    <tbody>
     <tr valign="top">
-      <td style="border: none">
-        <table style="border-collapse: collapse; border-spacing: 0px;">
-          <tbody style="border: none;">
+
+      <!--
+       | Matches
+       +-->
+      <td>
+        <table class="rr-matches-table">
           <tr>
-            <td>&nbsp;</td>
+            <th class="rr-chart-header">&nbsp;</th>
             <c:forEach var="opponent" items="#{cc.attrs.group.opponents}">
-              <td style="font-weight:bold; border: 1px solid gray; padding: 3px 5px;">
-                <tc:opponent opponent="#{opponent}" showLastNames="true" showFirstNames="true"/>
-              </td>
+              <th class="rr-chart-header">
+                <tc:opponent opponent="#{opponent}" showLastNames="true"/>
+              </th>
             </c:forEach>
           </tr>
 
           <c:forEach var="rowOpponent" items="#{cc.attrs.group.opponents}" varStatus="row">
             <tr>
-              <td style="font-weight:bold; border: 1px solid gray; padding: 3px 5px;">
+              <th class="rr-chart-header">
                 <tc:opponent opponent="#{rowOpponent}" showLastNames="true"/>
-              </td>
+              </th>
               <!-- Opponents -->
               <c:forEach var="colOpponent" items="#{cc.attrs.group.opponents}" varStatus="col">
-                <td style="#{(col.index le row.index) ? 'background-color:lightgray; border: 1px solid gray;' : 'background-color:white; border: 1px solid gray; text-align: center;'}">
+                <td class="#{(col.index le row.index) ? 'rr-matches-lower-bracket' : 'rr-matches-upper-bracket'}">
                   <tc:results
                     rendered="#{group.match(row.index*fn:length(group.opponents)+col.index)!=null}"
                     results="#{group.match(row.index*fn:length(group.opponents)+col.index).results}"
@@ -51,27 +57,30 @@
               </c:forEach>
             </tr>
           </c:forEach>
-          </tbody>
         </table>
       </td>
-      <td style="padding-left:20px; border: none">
-        <table>
+
+      <!--
+       | Chart
+       +-->
+      <td>
+        <table class="rr-chart-table">
           <tr>
-            <th>&nbsp;</th>
-            <th>gespielt</th>
-            <th>Spiele</th>
-            <th>Saetze</th>
-            <th>Punkte</th>
+            <th class="rr-chart-header">&nbsp;</th>
+            <th class="rr-chart-header">gespielt</th>
+            <th class="rr-chart-header">Spiele</th>
+            <th class="rr-chart-header">Saetze</th>
+            <th class="rr-chart-header">Punkte</th>
           </tr>
           <c:forEach var="aggregate" items="#{roundRobinFunctions.getAggregates(cc.attrs.group)}">
             <tr>
-              <td>
-                <tc:opponent opponent="#{aggregate.opponent}" showLastNames="true"/>
-              </td>
-              <td>#{aggregate.ma.wins+aggregate.ma.lose}</td>
-              <td>#{aggregate.ma.wins}:#{aggregate.ma.lose}</td>
-              <td>#{aggregate.ra.wins}:#{aggregate.ra.lose}</td>
-              <td>#{aggregate.sa.wins}:#{aggregate.sa.lose}</td>
+              <th class="rr-chart-header">
+                <tc:opponent opponent="#{aggregate.opponent}" showLastNames="true" showFirstNames="true"/>
+              </th>
+              <td class="rr-chart-aggregate">#{aggregate.ma.wins+aggregate.ma.lose}</td>
+              <td class="rr-chart-aggregate">#{aggregate.ma.wins}:#{aggregate.ma.lose}</td>
+              <td class="rr-chart-aggregate">#{aggregate.ra.wins}:#{aggregate.ra.lose}</td>
+              <td class="rr-chart-aggregate">#{aggregate.sa.wins}:#{aggregate.sa.lose}</td>
             </tr>
           </c:forEach>
         </table>

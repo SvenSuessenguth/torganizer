@@ -1,0 +1,35 @@
+table.rr-matches-table {
+  border-collapse: var(--table_border-collapse);
+}
+
+th.rr-matches-header {
+  background-color: var(--th_background-color);
+  border: var(--th_border);
+  padding: var(--th_padding);
+}
+
+td.rr-matches-lower-bracket {
+  background-color: var(--tr_nth-child_even_background-color);
+  border: 1px solid gray;
+}
+
+td.rr-matches-upper-bracket {
+  background-color: white;
+  border: 1px solid gray;
+  text-align: center;
+}
+
+table.rr-chart-table {
+  border-collapse: var(--table_border-collapse);
+}
+
+th.rr-chart-header {
+  background-color: var(--th_background-color);
+  border: var(--th_border);
+  padding: var(--th_padding);
+}
+td.rr-chart-aggregate {
+  background-color: var(--tr_nth-child_odd_background-color);
+  text-align: center;
+  border: var(--th_border);
+}

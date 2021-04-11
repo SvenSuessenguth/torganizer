@@ -1,20 +1,20 @@
 :root {
-    --input_text_border-color: #999999;
+  --input_text_border-color: #999999;
 }
 
 input {
-    border: 1px solid var(--input_text_border-color);
+  border: 1px solid var(--input_text_border-color);
 }
 
 input[type="text"] {
-    padding: 2px 2px;
+  padding: 2px 2px;
 }
 
 input[type="text"].validation-fail {
-    border-color: red;
-    color: red;
+  border-color: red;
+  color: red;
 }
 
 input[type="text"].validation-ok {
-    color: black;
+  color: black;
 }

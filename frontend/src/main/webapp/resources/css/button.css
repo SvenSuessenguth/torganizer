@@ -1,19 +1,19 @@
 :root {
-    --input_submit_border-color: #999999;
-    --input_submit_background-color: #D3C4BE;
-    --input_submit_background-color_hover: #C4BDAC;
+  --input_submit_border-color: #999999;
+  --input_submit_background-color: #D3C4BE;
+  --input_submit_background-color_hover: #C4BDAC;
 }
 
 input[type=submit] {
-    background-color: var(--input_submit_background-color);
-    padding: 0.1em 1em 0.1em 1em;
+  background-color: var(--input_submit_background-color);
+  padding: 0.1em 1em 0.1em 1em;
 }
 
 input[type=submit]:hover {
-    background-color: var(--input_submit_background-color_hover);
+  background-color: var(--input_submit_background-color_hover);
 }
 
 input[type=submit][disabled=disabled]:hover {
-    background-color: var(--input_submit_background-color);
+  background-color: var(--input_submit_background-color);
 }
 

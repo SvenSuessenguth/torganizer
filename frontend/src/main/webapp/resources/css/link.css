@@ -1,15 +1,15 @@
 a[disabled="disabled"] {
-    color: lightgray;
+  color: lightgray;
 }
 
 a[disabled="enabled"] {
-    color: black;
+  color: black;
 }
 
 /** disabled links in jsf are rendered as spans */
 span.disabledLink {
-    pointer-events: none;
-    cursor: default;
-    text-decoration: none;
-    color: var(--disabled-color)
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+  color: var(--disabled-color)
 }

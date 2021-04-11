@@ -1,14 +1,15 @@
 /** https://stackoverflow.com/questions/16590739/empty-css-while-using-import-in-a-css-link */
+@import url("#{resource['css:button.css']}");
+@import url("#{resource['css:chart.css']}");
+@import url("#{resource['css:input.css']}");
 @import url("#{resource['css:label.css']}");
 @import url("#{resource['css:link.css']}");
-@import url("#{resource['css:button.css']}");
-@import url("#{resource['css:table.css']}");
-@import url("#{resource['css:input.css']}");
 @import url("#{resource['css:select.css']}");
+@import url("#{resource['css:table.css']}");
 
 :root {
-    --body_background-color: #F4EEE1;
-    --header_background-color: #E4DAC2;
+  --body_background-color: #F4EEE1;
+  --header_background-color: #E4DAC2;
 
-    --disabled-color: lightgray;
+  --disabled-color: lightgray;
 }

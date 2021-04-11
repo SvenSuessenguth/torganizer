@@ -27,7 +27,9 @@
 
       <section id="table">
         <h:dataTable value="#{tournamentsState.tournaments}" var="tournament"
-                     rendered="#{not empty tournamentsState.tournaments}">
+                     rendered="#{not empty tournamentsState.tournaments}"
+                     rowClasses="default-odd-row default-even-row" headerClass="default-header"
+                     styleClass="default-table">
           <h:column>
             <f:facet name="header">Name</f:facet>
             <h:commandLink actionListener="#{selectTournament.execute(tournament)}"

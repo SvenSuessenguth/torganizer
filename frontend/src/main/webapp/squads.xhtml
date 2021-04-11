@@ -41,7 +41,8 @@
        | all players
        +-->
       <h:dataTable id="allPlayers" value="#{state.players}" var="player"
-                   style="margin-bottom: 10px; margin-top: 10px">
+                   rowClasses="default-odd-row default-even-row" headerClass="default-header"
+                   styleClass="default-table">
         <h:column>
           <f:facet name="header">Vorname</f:facet>
           <h:commandLink actionListener="#{addPlayerToSquad.execute(player)}"
@@ -83,7 +84,9 @@
       <!--
        | current squad
        +-->
-      <h:dataTable value="#{squadsBacking.currentSquadPlayersOrderedByLastName}" var="player">
+      <h:dataTable value="#{squadsBacking.currentSquadPlayersOrderedByLastName}" var="player"
+                   rowClasses="default-odd-row default-even-row" headerClass="default-header"
+                   styleClass="default-table">
         <h:column>
           <f:facet name="header"><h:outputText value="#{i18nText.first_name}"/></f:facet>
           <h:commandLink value="#{player.person.firstName}" style="white-space: nowrap;"
@@ -111,7 +114,8 @@
       <h:outputLabel for="squadsCount" value="Anzahl"/><h:outputText id="squadsCount"
                                                                      value="#{fn:length(state.squads)}"/>
       <h:dataTable id="allSquads" value="#{state.squads}" var="squad"
-                   style="margin-bottom: 10px; margin-top: 10px">
+                   rowClasses="default-odd-row default-even-row" headerClass="default-header"
+                   styleClass="default-table">
         <h:column>
           <f:facet name="header">Vornamen</f:facet>
           <tc:opponent id="firstName#{squad.id}" opponent="#{squad}" showFirstNames="true"

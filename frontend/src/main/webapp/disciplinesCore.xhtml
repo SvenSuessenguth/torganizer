@@ -28,7 +28,9 @@
                            disabled="#{empty disciplinesCoreState.discipline.id}"/>
         </h:panelGroup>
 
-        <h:dataTable id="disciplines" value="#{disciplinesCoreState.disciplines}" var="discipline">
+        <h:dataTable id="disciplines" value="#{disciplinesCoreState.disciplines}" var="discipline"
+                     rowClasses="default-odd-row default-even-row" headerClass="default-header"
+                     styleClass="default-table">
           <h:column>
             <f:facet name="header">Bezeichnung</f:facet>
             <h:commandLink action="#{selectDiscipline.execute(discipline)}" value="#{discipline.name}">

@@ -1,7 +1,7 @@
 label[disabled="disabled"] {
-    color: lightgray;
+  color: lightgray;
 }
 
 label[disabled="enabled"] {
-    color: black;
+  color: black;
 }

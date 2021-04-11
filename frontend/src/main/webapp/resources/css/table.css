@@ -1,48 +1,48 @@
 /* https://www.smashingmagazine.com/2016/12/styling-web-components-using-a-shared-style-sheet/ */
 /* Declare the custom property API */
 * {
-    --table_border: 1px solid var(--input_submit_border-color);
-    --table_border-collapse: collapse;
+  --table_border: 1px solid var(--input_submit_border-color);
+  --table_border-collapse: collapse;
 
-    --th_background-color: #EBCFC4;
-    --th_border: 1px solid var(--input_submit_border-color);
-    --th_padding: 2px 20px;
+  --th_background-color: #EBCFC4;
+  --th_border: 1px solid var(--input_submit_border-color);
+  --th_padding: 2px 20px;
 
-    --tr_nth-child_odd_background-color: white;
-    --tr_nth-child_even_background-color: #EFEEEE;
+  --tr_nth-child_odd_background-color: white;
+  --tr_nth-child_even_background-color: #EFEEEE;
 
-    --td_border: 1px solid var(--input_submit_border-color);
-    --td_padding: 2px 20px;
-    --td_color: black;
+  --td_border: 1px solid var(--input_submit_border-color);
+  --td_padding: 2px 20px;
+  --td_color: black;
 }
 
-table {
-    border: var(--table_border);
-    border-collapse: var(--table_border-collapse);
+table.default-table {
+  border: var(--table_border);
+  border-collapse: var(--table_border-collapse);
 }
 
-tr:nth-child(odd) {
-    background-color: var(--tr_nth-child_odd_background-color);
+tr:nth-child(odd).default-odd-row {
+  background-color: var(--tr_nth-child_odd_background-color);
 }
 
-tr:nth-child(even) {
-    background-color: var(--tr_nth-child_even_background-color);
+tr:nth-child(even).default-even-row {
+  background-color: var(--tr_nth-child_even_background-color);
 }
 
-th {
-    background-color: var(--th_background-color);
-    border: var(--th_border);
-    padding: var(--th_padding);
+th.default-header {
+  background-color: var(--th_background-color);
+  border: var(--th_border);
+  padding: var(--th_padding);
 }
 
-td {
-    border: var(--td_border);
-    padding: var(--td_padding);
-    color: var(--td_color);
+table.default-table td {
+  border: var(--td_border);
+  padding: var(--td_padding);
+  color: var(--td_color);
 }
 
 /* Button in a table should look like normal text */
 a {
-    color: var(--td_color);
-    text-decoration: none;
+  color: var(--td_color);
+  text-decoration: none;
 }

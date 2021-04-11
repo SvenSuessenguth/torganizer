@@ -60,7 +60,11 @@ public class Round extends Entity implements Positional {
     groups.remove(group);
   }
 
+  /**
+   * Returns the groups of this round ordered bei their position.
+   */
   public List<Group> getGroups() {
+    groups.sort(new PositionalComparator());
     return Collections.unmodifiableList(groups);
   }
 

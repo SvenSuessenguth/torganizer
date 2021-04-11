@@ -26,7 +26,8 @@
 
       <h:panelGroup rendered="#{not empty clubs}">
         <h:dataTable id="allClubs" value="#{clubs}" var="club"
-                     style="margin-bottom: 10px; margin-top: 10px">
+                     rowClasses="default-odd-row default-even-row" headerClass="default-header"
+                     styleClass="default-table">
           <h:column>
             <f:facet name="header">Name</f:facet>
             <h:commandLink action="#{selectClub.execute(club)}" value="#{club.name}">
