@@ -36,9 +36,9 @@
     <!--
      | dependency versions
      +-->
-    <jakarta.activation-api.version>2.0.1</jakarta.activation-api.version>
     <assertj-core.version>3.19.0</assertj-core.version>
     <checkstyle.version>8.41.1</checkstyle.version>
+    <jakarta.activation-api.version>2.0.1</jakarta.activation-api.version>
     <jakarta.jakartaee-api.version>9.1.0-RC1</jakarta.jakartaee-api.version>
     <jakarta.xml.bind-api.version>3.0.0</jakarta.xml.bind-api.version>
     <jaxb-core.version>3.0.0</jaxb-core.version>
@@ -49,24 +49,18 @@
     <log4j-core.version>${log4j-api.version}</log4j-core.version>
     <microprofile.version>4.0.1</microprofile.version>
     <mockito.version>3.9.0</mockito.version>
-    <spotbugs.version>4.2.2</spotbugs.version>
-
-    <!--
-     | plugin versions
-     +-->
-    <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
-    <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
-    <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
-    <sonar-maven-plugin.version>3.8.0.2131</sonar-maven-plugin.version>
+    <spotbugs.version>4.2.3</spotbugs.version>
 
     <!--
      | mvn site and mvn versions:display-plugin-updates shows a warning
      | [WARNING] The following plugins do not have their version specified:
      +-->
+    <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
     <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
     <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
     <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
+    <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
     <maven-install-plugin.version>3.0.0-M1</maven-install-plugin.version>
     <maven-checkstyle-plugin>3.1.2</maven-checkstyle-plugin>
     <dependency-check-maven.version>6.1.5</dependency-check-maven.version>
@@ -76,8 +70,10 @@
     <maven-project-info-reports-plugin.version>3.1.1</maven-project-info-reports-plugin.version>
     <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
     <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
-    <spotbugs-maven-plugin>4.2.2</spotbugs-maven-plugin>
+    <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
     <maven-war-plugin.version>3.3.1</maven-war-plugin.version>
+    <sonar-maven-plugin.version>3.8.0.2131</sonar-maven-plugin.version>
+    <spotbugs-maven-plugin>4.2.3</spotbugs-maven-plugin>
   </properties>
 
   <dependencyManagement>
