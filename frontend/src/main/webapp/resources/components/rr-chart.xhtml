@@ -47,10 +47,11 @@
    | Matches
    +-->
   <table class="rr-matches-table">
+    <caption>matches of group #{cc.attrs.group.position}</caption>
     <tr>
-      <th class="rr-chart-header">&nbsp;</th>
-      <c:forEach var="opponent" items="#{cc.attrs.group.opponents}">
-        <th class="rr-chart-header">
+      <th id="matchesHeader" class="rr-chart-header">&nbsp;</th>
+      <c:forEach var="opponent" items="#{cc.attrs.group.opponents}" varStatus="varStatus">
+        <th id="#{opponent.id}#{varStatus.index}" class="rr-chart-header">
           <div draggable="true"
                ondragstart="#{cc.attrs.onDragStartAction}({gId: #{cc.attrs.group.id}, oId: #{opponent.id}})"
                ondrop="#{cc.attrs.onDropAction}({gId: #{cc.attrs.group.id}, oId: #{opponent.id}})"
@@ -63,7 +64,7 @@
 
     <c:forEach var="rowOpponent" items="#{cc.attrs.group.opponents}" varStatus="row">
       <tr>
-        <th class="rr-chart-header">
+        <th id="rowOpponentHeader" class="rr-chart-header">
           <div draggable="true"
                ondragstart="#{cc.attrs.onDragStartAction}({gId: #{cc.attrs.group.id}, oId: #{rowOpponent.id}})"
                ondrop="#{cc.attrs.onDropAction}({gId: #{cc.attrs.group.id}, oId: #{rowOpponent.id}})"
