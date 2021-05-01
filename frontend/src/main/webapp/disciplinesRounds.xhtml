@@ -119,8 +119,8 @@
 
       <hr/>
 
-      <h:commandScript name="rrChartOnDragStartAction" action="#{switchOpponent.setSwitchSource()}"/>
-      <h:commandScript name="rrChartOnDropAction" action="#{switchOpponent.switchWith()}"/>
+      <h:commandScript name="rrChartOnDragStartAction" action="#{switchOpponents.setSwitchSource()}"/>
+      <h:commandScript name="rrChartOnDropAction" action="#{switchOpponents.switchWith()}"/>
       <c:forEach items="#{round.groups}" var="group" varStatus="status">
         <h:outputText value="Gruppe #{group.position}"/>
         <tc:rr-chart group="#{group}" onDragStartAction="rrChartOnDragStartAction" onDropAction="rrChartOnDropAction"/>

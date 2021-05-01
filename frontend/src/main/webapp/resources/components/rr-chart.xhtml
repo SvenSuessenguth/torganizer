@@ -50,30 +50,30 @@
     <caption>matches of group #{cc.attrs.group.position}</caption>
     <tr>
       <th id="matchesHeader" class="rr-chart-header">&nbsp;</th>
-      <c:forEach var="opponent" items="#{cc.attrs.group.opponents}" varStatus="varStatus">
-        <th id="#{opponent.id}#{varStatus.index}" class="rr-chart-header">
+      <c:forEach var="pOpponent" items="#{cc.attrs.group.positionalOpponents}" varStatus="varStatus">
+        <th id="#{pOpponent.id}#{varStatus.index}" class="rr-chart-header">
           <div draggable="true"
-               ondragstart="#{cc.attrs.onDragStartAction}({gId: #{cc.attrs.group.id}, oId: #{opponent.id}})"
-               ondrop="#{cc.attrs.onDropAction}({gId: #{cc.attrs.group.id}, oId: #{opponent.id}})"
+               ondragstart="#{cc.attrs.onDragStartAction}({gId: #{cc.attrs.group.id}, oId: #{pOpponent.id}})"
+               ondrop="#{cc.attrs.onDropAction}({gId: #{cc.attrs.group.id}, oId: #{pOpponent.position}})"
                ondragover="onDragOver(event)">
-            <tc:opponent opponent="#{opponent}" showLastNames="true"/>
+            <tc:opponent opponent="#{pOpponent.opponent}" showLastNames="true"/>
           </div>
         </th>
       </c:forEach>
     </tr>
 
-    <c:forEach var="rowOpponent" items="#{cc.attrs.group.opponents}" varStatus="row">
+    <c:forEach var="pOpponent" items="#{cc.attrs.group.positionalOpponents}" varStatus="row">
       <tr>
         <th id="rowOpponentHeader" class="rr-chart-header">
           <div draggable="true"
-               ondragstart="#{cc.attrs.onDragStartAction}({gId: #{cc.attrs.group.id}, oId: #{rowOpponent.id}})"
-               ondrop="#{cc.attrs.onDropAction}({gId: #{cc.attrs.group.id}, oId: #{rowOpponent.id}})"
+               ondragstart="#{cc.attrs.onDragStartAction}({gId: #{cc.attrs.group.id}, oId: #{pOpponent.id}})"
+               ondrop="#{cc.attrs.onDropAction}({gId: #{cc.attrs.group.id}, oId: #{pOpponent.id}})"
                ondragover="onDragOver(event)">
-            <tc:opponent opponent="#{rowOpponent}" showLastNames="true"/>
+            <tc:opponent opponent="#{pOpponent.opponent}" showLastNames="true"/>
           </div>
         </th>
         <!-- Opponents -->
-        <c:forEach var="colOpponent" items="#{cc.attrs.group.opponents}" varStatus="col">
+        <c:forEach var="pOpponent" items="#{cc.attrs.group.opponents}" varStatus="col">
           <td class="#{(col.index le row.index) ? 'rr-matches-lower-bracket' : 'rr-matches-upper-bracket'}">
             <tc:results
               rendered="#{group.match(row.index*fn:length(group.opponents)+col.index)!=null}"

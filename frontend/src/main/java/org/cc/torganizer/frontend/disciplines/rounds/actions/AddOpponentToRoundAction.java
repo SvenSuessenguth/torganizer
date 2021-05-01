@@ -8,6 +8,7 @@ import java.util.List;
 import org.cc.torganizer.core.OpponentsToGroupsAssigner;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.PositionalOpponent;
 import org.cc.torganizer.core.entities.Round;
 
 /**

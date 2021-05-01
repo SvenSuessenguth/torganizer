@@ -20,6 +20,8 @@ public class DisciplineRoundState implements Serializable {
 
   private Round round;
   private int newGroupsCount;
+  private Long sourceGroupId;
+  private Long sourceOpponentId;
 
   public List<Round> getRounds() {
     Discipline discipline = disciplinesCoreState.getDiscipline();
@@ -57,6 +59,22 @@ public class DisciplineRoundState implements Serializable {
 
   public void setNewGroupsCount(int newGroupsCount) {
     this.newGroupsCount = newGroupsCount;
+  }
+
+  public Long getSourceGroupId() {
+    return sourceGroupId;
+  }
+
+  public void setSourceGroupId(Long sourceGroupId) {
+    this.sourceGroupId = sourceGroupId;
+  }
+
+  public Long getSourceOpponentId() {
+    return sourceOpponentId;
+  }
+
+  public void setSourceOpponentId(Long sourceOpponentId) {
+    this.sourceOpponentId = sourceOpponentId;
   }
 
   public void setDisciplinesCoreState(DisciplinesCoreState disciplinesCoreState) {
