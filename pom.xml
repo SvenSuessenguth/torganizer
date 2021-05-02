@@ -40,7 +40,7 @@
     <checkstyle.version>8.42</checkstyle.version>
     <jakarta.activation-api.version>2.0.1</jakarta.activation-api.version>
     <jakarta.jakartaee-api.version>9.1.0-RC1</jakarta.jakartaee-api.version>
-    <jakarta.xml.bind-api.version>3.0.0</jakarta.xml.bind-api.version>
+    <jakarta.xml.bind-api.version>3.0.1</jakarta.xml.bind-api.version>
     <jaxb-core.version>3.0.1</jaxb-core.version>
     <jaxb-impl.version>3.0.1</jaxb-impl.version>
     <junit-jupiter.version>5.8.0-M1</junit-jupiter.version>
@@ -49,6 +49,8 @@
     <log4j-core.version>${log4j-api.version}</log4j-core.version>
     <microprofile.version>4.0.1</microprofile.version>
     <mockito.version>3.9.0</mockito.version>
+    <openliberty-jakartaee9.version>21.0.0.5-beta</openliberty-jakartaee9.version>
+    <postgresql.version>42.2.19</postgresql.version>
     <spotbugs.version>4.2.3</spotbugs.version>
 
     <!--
@@ -56,6 +58,7 @@
      | [WARNING] The following plugins do not have their version specified:
      +-->
     <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
+    <liberty-maven-plugin.version>3.3.5-M1</liberty-maven-plugin.version>
     <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
     <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
