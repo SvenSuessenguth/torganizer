@@ -1,5 +1,11 @@
 # frontend
 
+Prepare for Coding  
+mvn clean dependency:copy liberty:create
+
+Running 
+mvn clean package dependency:copy liberty:run
+
 docker network create -d bridge carboncopy  
 docker build -t "carboncopy/frontend" .  
 docker run -d -p 8080:8080 --name frontend --network=carboncopy "carboncopy/frontend":latest

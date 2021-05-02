@@ -44,6 +44,39 @@
 
   <build>
     <finalName>frontend</finalName>
+    <plugins>
+      <plugin>
+        <groupId>io.openliberty.tools</groupId>
+        <artifactId>liberty-maven-plugin</artifactId>
+        <version>3.3.5-M1</version>
+        <configuration>
+          <serverName>frontend</serverName>
+          <runtimeArtifact>
+            <groupId>io.openliberty.beta</groupId>
+            <artifactId>openliberty-jakartaee9</artifactId>
+            <version>21.0.0.5-beta</version>
+            <type>zip</type>
+          </runtimeArtifact>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.1.1</version>
+        <configuration>
+          <artifactItems>
+            <artifactItem>
+              <groupId>org.postgresql</groupId>
+              <artifactId>postgresql</artifactId>
+              <version>42.2.19</version>
+              <type>jar</type>
+              <outputDirectory>${project.build.directory}/liberty/wlp/usr/shared/resources/postgresql</outputDirectory>
+              <destFileName>postgresql.jar</destFileName>
+            </artifactItem>
+          </artifactItems>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 
 </project>
