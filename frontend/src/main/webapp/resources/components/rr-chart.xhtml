@@ -73,7 +73,7 @@
           </div>
         </th>
         <!-- Opponents -->
-        <c:forEach var="pOpponent" items="#{cc.attrs.group.opponents}" varStatus="col">
+        <c:forEach var="pOpponent" items="#{cc.attrs.group.positionalOpponents}" varStatus="col">
           <td class="#{(col.index le row.index) ? 'rr-matches-lower-bracket' : 'rr-matches-upper-bracket'}">
             <tc:results
               rendered="#{group.match(row.index*fn:length(group.opponents)+col.index)!=null}"

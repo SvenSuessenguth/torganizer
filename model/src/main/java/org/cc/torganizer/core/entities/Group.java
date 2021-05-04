@@ -39,9 +39,6 @@ public class Group extends Entity implements Positional {
    * @return nach Position sortierte Liste von PositionalOpponents
    */
   public List<PositionalOpponent> getPositionalOpponents() {
-    // sortieren nach Position
-    positionalOpponents.sort(new PositionalComparator());
-
     return positionalOpponents;
   }
 
@@ -54,6 +51,7 @@ public class Group extends Entity implements Positional {
    */
   public void setPositionalOpponents(List<PositionalOpponent> newPositionalOpponents) {
     this.positionalOpponents = newPositionalOpponents;
+    positionalOpponents.sort(new PositionalComparator());
   }
 
   /**
@@ -100,6 +98,7 @@ public class Group extends Entity implements Positional {
     positionalOpponent.setOpponent(opponent);
 
     getPositionalOpponents().add(positionalOpponent);
+    positionalOpponents.sort(new PositionalComparator());
   }
 
   /**

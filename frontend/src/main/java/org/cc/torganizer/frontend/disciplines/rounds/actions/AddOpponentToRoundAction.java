@@ -42,5 +42,8 @@ public class AddOpponentToRoundAction extends RoundAction {
 
     roundsRepository.update(round);
     synchronizer.synchronize(roundState);
+
+    // reset to previous selected round
+    roundState.setRound(round);
   }
 }
