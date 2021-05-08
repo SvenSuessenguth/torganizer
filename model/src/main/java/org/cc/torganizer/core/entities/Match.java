@@ -97,10 +97,10 @@ public class Match extends Entity implements Positional {
     }
 
     Opponent winner = new Unknown();
-    int homeResults = 0;
-    int homeScores = 0;
-    int guestResults = 0;
-    int guestScores = 0;
+    var homeResults = 0;
+    var homeScores = 0;
+    var guestResults = 0;
+    var guestScores = 0;
 
     // Aufsummieren der Results
     for (Result result : results) {
@@ -203,12 +203,12 @@ public class Match extends Entity implements Positional {
 
   @Override
   public String toString() {
-    StringBuilder result = new StringBuilder();
+    var result = new StringBuilder();
 
     Iterator<Opponent> iter = getOpponents().iterator();
 
     while (iter.hasNext()) {
-      Opponent opponent = iter.next();
+      var opponent = iter.next();
       result.append(opponent.toString());
       if (iter.hasNext()) {
         result.append(" : ");
@@ -296,7 +296,7 @@ public class Match extends Entity implements Positional {
       return 0L;
     }
 
-    long aggregatedIdleTime = 0L;
+    var aggregatedIdleTime = 0L;
 
     for (Opponent o : getOpponents()) {
       aggregatedIdleTime += o.getIdleTime();

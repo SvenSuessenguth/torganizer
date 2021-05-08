@@ -29,8 +29,8 @@ public class Gymnasium extends Entity {
   public void createCourts(int number) {
     if (number != courts.size()) {
       courts.clear();
-      for (int i = 0; i < number; i += 1) {
-        Court court = new Court();
+      for (var i = 0; i < number; i += 1) {
+        var court = new Court();
         court.setNr(i + 1);
         courts.add(court);
       }

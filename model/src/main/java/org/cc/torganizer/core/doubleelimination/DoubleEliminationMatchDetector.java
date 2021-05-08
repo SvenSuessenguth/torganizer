@@ -389,7 +389,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
     int endMatchIndex = getEndMatchIndex(level, groupSize);
 
     for (var matchIndex = startMatchIndex; matchIndex <= endMatchIndex; matchIndex += 1) {
-      Match match = group.getMatch(matchIndex);
+      var match = group.getMatch(matchIndex);
       if (match != null) {
         matches.add(match);
       }

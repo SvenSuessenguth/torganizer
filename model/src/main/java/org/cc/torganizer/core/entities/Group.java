@@ -297,9 +297,9 @@ public class Group extends Entity implements Positional {
 
     // zusammenstellen der Aggregates
     for (Opponent opponent : getOpponents()) {
-      MatchAggregate ma = new MatchAggregate();
-      ResultAggregate ra = new ResultAggregate();
-      ScoreAggregate sa = new ScoreAggregate();
+      var ma = new MatchAggregate();
+      var ra = new ResultAggregate();
+      var sa = new ScoreAggregate();
 
       for (Match match : getMatches()) {
         ma.aggregate(match, opponent);
@@ -307,7 +307,7 @@ public class Group extends Entity implements Positional {
         sa.aggregate(match, opponent);
       }
 
-      Aggregation ca = new Aggregation();
+      var ca = new Aggregation();
       ca.setOpponent(opponent);
       ca.setMa(ma);
       ca.setRa(ra);
