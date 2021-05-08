@@ -7,7 +7,6 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Root;
@@ -74,7 +73,7 @@ public class RoundsRepository extends Repository<Round> {
     Collection<Opponent> opponents;
 
     if (prevRoundId != null) {
-      Round prevRound = read(prevRoundId);
+      var prevRound = read(prevRoundId);
       opponents = prevRound.getQualifiedOpponents();
     } else {
       Long disciplineId = disciplineRepo.getDisciplineId(roundId);
@@ -140,7 +139,7 @@ public class RoundsRepository extends Repository<Round> {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    var cb = entityManager.getCriteriaBuilder();
     CriteriaQuery<Group> cq = cb.createQuery(Group.class);
     Root<Round> round = cq.from(Round.class);
     Root<Group> group = cq.from(Group.class);
@@ -166,8 +165,8 @@ public class RoundsRepository extends Repository<Round> {
    * Adding the group with the given id to the round with the given id.
    */
   public Round newGroup(Long roundId, Long groupId) {
-    Group group = entityManager.find(Group.class, groupId);
-    Round round = read(roundId);
+    var group = entityManager.find(Group.class, groupId);
+    var round = read(roundId);
 
     round.getGroups().add(group);
     entityManager.persist(round);
@@ -181,9 +180,9 @@ public class RoundsRepository extends Repository<Round> {
    * @return List of all groups assigned to the round with the given id
    */
   public List<Group> newGroup(Long id) {
-    Round round = this.read(id);
+    var round = this.read(id);
 
-    Group group = new Group();
+    var group = new Group();
     round.appendGroup(group);
     entityManager.persist(group);
 
@@ -197,8 +196,8 @@ public class RoundsRepository extends Repository<Round> {
    * Remove the group with the given id from the round with the given id.
    */
   public Round removeGroup(Long roundId, Long groupId) {
-    Group group = entityManager.find(Group.class, groupId);
-    Round round = read(roundId);
+    var group = entityManager.find(Group.class, groupId);
+    var round = read(roundId);
 
     round.getGroups().remove(group);
     entityManager.persist(round);
@@ -277,7 +276,7 @@ public class RoundsRepository extends Repository<Round> {
    * @return List of all groups assigned to the round with the given id
    */
   public List<Group> deleteGroup(Long roundId) {
-    Round round = this.read(roundId);
+    var round = this.read(roundId);
     List<Group> groups = round.getDeletableGroups();
 
     if (!groups.isEmpty()) {

@@ -103,7 +103,7 @@ public class DisciplinesRepository extends Repository<Discipline> {
   public Discipline removeOpponent(Long disciplineId, Long opponentId) {
     var opponent = entityManager.find(Opponent.class, opponentId);
 
-    Discipline discipline = read(disciplineId);
+    var discipline = read(disciplineId);
     discipline.getOpponents().remove(opponent);
     entityManager.persist(discipline);
 

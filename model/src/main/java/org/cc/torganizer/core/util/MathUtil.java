@@ -5,6 +5,10 @@ package org.cc.torganizer.core.util;
  */
 public final class MathUtil {
 
+  private MathUtil() {
+    // Add a private constructor to hide the implicit public one
+  }
+
   /**
    * Finden der n\u00e4chsten Zweier-Potenz, die ueber dem gegebenen Wert liegt.
    *

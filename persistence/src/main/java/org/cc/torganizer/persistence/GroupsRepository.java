@@ -3,13 +3,11 @@ package org.cc.torganizer.persistence;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.PositionalOpponent;
@@ -62,7 +60,7 @@ public class GroupsRepository extends Repository<Group> {
   }
 
   public long count() {
-    Query query = entityManager.createQuery("SELECT count(g) FROM Group g");
+    var query = entityManager.createQuery("SELECT count(g) FROM Group g");
     return (long) query.getSingleResult();
   }
 
@@ -76,16 +74,16 @@ public class GroupsRepository extends Repository<Group> {
    */
   public Set<Opponent> getAssignableOpponents(Long groupId) {
     Long roundId = roundsRep.getRoundId(groupId);
-    Round round = roundsRep.read(roundId);
+    var round = roundsRep.read(roundId);
     Long disciplineId = disciplineRepo.getDisciplineId(roundId);
-    Discipline discipline = disciplineRepo.read(disciplineId);
+    var discipline = disciplineRepo.read(disciplineId);
 
     // opponents in round of group (passed the previous round)
     Collection<Opponent> opponentsInRound = null;
     if (round.getPosition() == 0) {
       opponentsInRound = discipline.getOpponents();
     } else {
-      Round previousRound = discipline.getRound(round.getPosition() - 1);
+      var previousRound = discipline.getRound(round.getPosition() - 1);
       opponentsInRound = previousRound.getQualifiedOpponents();
     }
 
@@ -98,7 +96,7 @@ public class GroupsRepository extends Repository<Group> {
     Set<Opponent> assignableOpponents = new HashSet<>();
     List<Group> groups = round.getGroups();
     for (Opponent candidate : opponentsInRound) {
-      boolean isAssignable = true;
+      var isAssignable = true;
       for (Group group : groups) {
         if (group.getOpponents().contains(candidate)) {
           isAssignable = false;
@@ -117,9 +115,9 @@ public class GroupsRepository extends Repository<Group> {
    * Adding an opponent with the given id to the group with the given id.
    */
   public Group addOpponent(Long groupId, Long opponentId) {
-    Opponent opponent = entityManager.find(Opponent.class, opponentId);
+    var opponent = entityManager.find(Opponent.class, opponentId);
 
-    Group group = read(groupId);
+    var group = read(groupId);
     group.addOpponent(opponent);
     entityManager.persist(group);
 

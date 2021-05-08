@@ -48,7 +48,7 @@ public class PlayersRepository extends Repository<Player> {
   }
 
   public long count() {
-    Query query = entityManager.createQuery("SELECT count(p) FROM Player p");
+    var query = entityManager.createQuery("SELECT count(p) FROM Player p");
     return (long) query.getSingleResult();
   }
 }

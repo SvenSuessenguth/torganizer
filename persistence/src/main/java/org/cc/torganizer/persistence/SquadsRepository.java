@@ -67,7 +67,7 @@ public class SquadsRepository extends Repository<Squad> {
   }
 
   public long count() {
-    Query query = entityManager.createQuery("SELECT count(s) FROM Squad s");
+    var query = entityManager.createQuery("SELECT count(s) FROM Squad s");
     return (long) query.getSingleResult();
   }
 
@@ -81,8 +81,8 @@ public class SquadsRepository extends Repository<Squad> {
    * adding a player to an already persisted squad.
    */
   public Player addPlayer(Long squadId, Long playerId) {
-    Player player = entityManager.find(Player.class, playerId);
-    Squad squad = entityManager.find(Squad.class, squadId);
+    var player = entityManager.find(Player.class, playerId);
+    var squad = entityManager.find(Squad.class, squadId);
 
     Collection<Player> players = squad.getPlayers();
     players.add(player);

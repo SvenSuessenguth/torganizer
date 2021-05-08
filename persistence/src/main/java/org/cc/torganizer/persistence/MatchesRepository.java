@@ -47,7 +47,7 @@ public class MatchesRepository extends Repository<Match> {
   }
 
   public long count() {
-    Query query = entityManager.createQuery("SELECT count(m) FROM Match m");
+    var query = entityManager.createQuery("SELECT count(m) FROM Match m");
     return (long) query.getSingleResult();
   }
 }

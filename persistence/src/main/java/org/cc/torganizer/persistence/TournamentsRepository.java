@@ -6,10 +6,8 @@ import static jakarta.transaction.Transactional.TxType.SUPPORTS;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
 import jakarta.persistence.Tuple;
 import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
@@ -111,7 +109,7 @@ public class TournamentsRepository extends Repository<Tournament> {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    var cb = entityManager.getCriteriaBuilder();
     CriteriaQuery<Player> cq = cb.createQuery(Player.class);
     Root<Tournament> tournament = cq.from(Tournament.class);
     Root<Player> player = cq.from(Player.class);
@@ -144,8 +142,8 @@ public class TournamentsRepository extends Repository<Tournament> {
    */
   @Transactional(REQUIRED)
   public Opponent addOpponent(Long tournamentId, Long opponentId) {
-    Opponent opponent = entityManager.find(Opponent.class, opponentId);
-    Tournament tournament = entityManager.find(Tournament.class, tournamentId);
+    var opponent = entityManager.find(Opponent.class, opponentId);
+    var tournament = entityManager.find(Tournament.class, tournamentId);
 
     Set<Opponent> opponents = tournament.getOpponents();
     opponents.add(opponent);
@@ -161,8 +159,8 @@ public class TournamentsRepository extends Repository<Tournament> {
    */
   @Transactional(REQUIRED)
   public Opponent removeOpponent(Long tournamentId, Long opponentId) {
-    Opponent opponent = entityManager.find(Opponent.class, opponentId);
-    Tournament tournament = entityManager.find(Tournament.class, tournamentId);
+    var opponent = entityManager.find(Opponent.class, opponentId);
+    var tournament = entityManager.find(Tournament.class, tournamentId);
 
     // persist tournament
     tournament.getOpponents().remove(opponent);
@@ -178,8 +176,8 @@ public class TournamentsRepository extends Repository<Tournament> {
    */
   @Transactional(REQUIRED)
   public Discipline removeDiscipline(Long tournamentId, Long disciplineId) {
-    Discipline discipline = entityManager.find(Discipline.class, disciplineId);
-    Tournament tournament = entityManager.find(Tournament.class, tournamentId);
+    var discipline = entityManager.find(Discipline.class, disciplineId);
+    var tournament = entityManager.find(Tournament.class, tournamentId);
 
     // persist tournament
     tournament.getDisciplines().remove(discipline);
@@ -195,7 +193,7 @@ public class TournamentsRepository extends Repository<Tournament> {
    */
   @Transactional(NEVER)
   public long countPlayers(Long tournamentId) {
-    Query query = entityManager.createNamedQuery("Tournament.countPlayers");
+    var query = entityManager.createNamedQuery("Tournament.countPlayers");
     query.setParameter("id", tournamentId);
 
     return (long) query.getSingleResult();
@@ -231,7 +229,7 @@ public class TournamentsRepository extends Repository<Tournament> {
    */
   @Transactional(NEVER)
   public long countSquads(Long tournamentId) {
-    Query query = entityManager.createNamedQuery("Tournament.countSquads");
+    var query = entityManager.createNamedQuery("Tournament.countSquads");
     query.setParameter("id", tournamentId);
 
     return (long) query.getSingleResult();
@@ -265,7 +263,7 @@ public class TournamentsRepository extends Repository<Tournament> {
    */
   @Transactional(REQUIRED)
   public Discipline addDiscipline(Long tournamentId, Discipline discipline) {
-    Tournament tournament = entityManager.find(Tournament.class, tournamentId);
+    var tournament = entityManager.find(Tournament.class, tournamentId);
 
     // persist tournament
     tournament.getDisciplines().add(discipline);
@@ -286,11 +284,11 @@ public class TournamentsRepository extends Repository<Tournament> {
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
     // load tournaments opponents
-    Tournament tournament = entityManager.find(Tournament.class, tournamentId);
+    var tournament = entityManager.find(Tournament.class, tournamentId);
     Set<Opponent> opponents = tournament.getOpponents();
 
     // filter opponents
-    OpponentFilter opponentFilter = new OpponentFilter();
+    var opponentFilter = new OpponentFilter();
     Collection<Restriction> restrictions = discipline.getRestrictions();
     Collection<Opponent> pass = opponentFilter.pass(opponents, restrictions);
     List<Opponent> assignableOpponents = new ArrayList<>(pass);
@@ -314,7 +312,7 @@ public class TournamentsRepository extends Repository<Tournament> {
    * counting the opponents for the given tournament.
    */
   public Long countOpponents(Long id) {
-    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    var cb = entityManager.getCriteriaBuilder();
     CriteriaQuery<Tuple> cq = cb.createTupleQuery();
     Root<Tournament> tournament = cq.from(Tournament.class);
     Join<Tournament, Opponent> tournamentOpponentJoin = tournament.join("opponents", JoinType.LEFT);
