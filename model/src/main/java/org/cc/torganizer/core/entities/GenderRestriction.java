@@ -25,7 +25,7 @@ public class GenderRestriction extends Restriction {
   @Override
   public boolean isRestricted(Opponent opponent) {
 
-    boolean isRestricted = false;
+    var isRestricted = false;
 
     for (Player player : opponent.getPlayers()) {
       // gender does not fit
@@ -46,7 +46,7 @@ public class GenderRestriction extends Restriction {
    *     und die Vorgabe nicht UNKNOWN ist, sonst <code>false</code>
    */
   protected boolean isGenderRestricted(Player player) {
-    Gender playersGender = player.getPerson().getGender();
+    var playersGender = player.getPerson().getGender();
 
     // either the gender of the restriction or the gender of the player is unknown
     if (UNKNOWN.equals(gender) || UNKNOWN.equals(playersGender) || playersGender == null) {

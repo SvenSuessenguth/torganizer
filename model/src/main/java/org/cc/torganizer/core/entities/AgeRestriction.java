@@ -74,7 +74,7 @@ public class AgeRestriction extends Restriction {
     // dann muss diese auch eingehalten werden
 
     // restricted is true, if one of the opponents players is restricted
-    boolean restricted = false;
+    var restricted = false;
 
     for (Player player : opponent.getPlayers()) {
       LocalDate dateOfBirth = player.getPerson().getDateOfBirth();

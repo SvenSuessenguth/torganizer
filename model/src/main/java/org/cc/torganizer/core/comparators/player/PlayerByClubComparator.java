@@ -4,7 +4,6 @@ import static org.cc.torganizer.core.comparators.player.PlayerOrderCriteria.BY_C
 
 import jakarta.enterprise.context.RequestScoped;
 import org.cc.torganizer.core.comparators.ClubComparator;
-import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Player;
 
 /**
@@ -14,8 +13,8 @@ import org.cc.torganizer.core.entities.Player;
 public class PlayerByClubComparator implements PlayerComparator {
   @Override
   public int compare(Player player1, Player player2) {
-    Club clubPlayer1 = player1.getClub();
-    Club clubPlayer2 = player2.getClub();
+    var clubPlayer1 = player1.getClub();
+    var clubPlayer2 = player2.getClub();
 
     // NULL-Handling
     if (clubPlayer1 == null && clubPlayer2 == null) {

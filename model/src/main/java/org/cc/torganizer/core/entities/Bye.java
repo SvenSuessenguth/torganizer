@@ -28,8 +28,8 @@ public class Bye extends Opponent {
 
     // fehlenden Byes generieren
     List<Opponent> byes = new ArrayList<>();
-    for (int i = 0; i < size; i += 1) {
-      Bye bye = new Bye();
+    for (var i = 0; i < size; i += 1) {
+      var bye = new Bye();
       byes.add(bye);
     }
 

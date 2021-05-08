@@ -80,7 +80,7 @@ public class Group extends Entity implements Positional {
   public void setOpponents(List<Opponent> newOpponents) {
     getPositionalOpponents().clear();
     for (Opponent o : newOpponents) {
-      PositionalOpponent io = new PositionalOpponent(o, newOpponents.indexOf(o) + 1);
+      var io = new PositionalOpponent(o, newOpponents.indexOf(o) + 1);
       getPositionalOpponents().add(io);
     }
   }
@@ -93,7 +93,7 @@ public class Group extends Entity implements Positional {
    */
   public void addOpponent(Opponent opponent) {
     Integer lastPosition = positionalOpponents.size();
-    PositionalOpponent positionalOpponent = new PositionalOpponent();
+    var positionalOpponent = new PositionalOpponent();
     positionalOpponent.setPosition(lastPosition);
     positionalOpponent.setOpponent(opponent);
 
@@ -109,11 +109,11 @@ public class Group extends Entity implements Positional {
   public void removeOpponent(Opponent opponent) {
 
     // passenden IndexedOpponent finden und entfernen
-    PositionalOpponent poToRemove = getPositionalOpponent(opponent);
+    var poToRemove = getPositionalOpponent(opponent);
     getPositionalOpponents().remove(poToRemove);
 
     // Neuindizierung
-    int newPosition = 0;
+    var newPosition = 0;
     for (PositionalOpponent o : getPositionalOpponents()) {
       o.setPosition(newPosition);
       newPosition += 1;
@@ -162,7 +162,7 @@ public class Group extends Entity implements Positional {
    * @return a {@link org.cc.torganizer.core.entities.Opponent} object.
    */
   public Opponent getOpponent(Integer opponentsPosition) {
-    PositionalOpponent po = getPositionalOpponent(opponentsPosition);
+    var po = getPositionalOpponent(opponentsPosition);
     return po == null ? null : po.getOpponent();
   }
 
@@ -175,11 +175,11 @@ public class Group extends Entity implements Positional {
    *                 soll (kleinerer Position)
    */
   public void moveUp(Opponent opponent) {
-    PositionalOpponent positionalOpponent = getPositionalOpponent(opponent);
+    var positionalOpponent = getPositionalOpponent(opponent);
     int positionOld = positionalOpponent.getPosition();
 
     if (positionOld > 0) {
-      PositionalOpponent swap = getPositionalOpponent(positionOld - 1);
+      var swap = getPositionalOpponent(positionOld - 1);
       positionalOpponent.swapPosition(swap);
     }
   }
@@ -192,11 +192,11 @@ public class Group extends Entity implements Positional {
    *                 wandern soll
    */
   public void moveDown(Opponent opponent) {
-    PositionalOpponent positionalOpponent = getPositionalOpponent(opponent);
+    var positionalOpponent = getPositionalOpponent(opponent);
     int positionOld = positionalOpponent.getPosition();
 
     if (positionOld <= getPositionalOpponents().size() - 2) {
-      PositionalOpponent swap = getPositionalOpponent(positionOld + 1);
+      var swap = getPositionalOpponent(positionOld + 1);
       positionalOpponent.swapPosition(swap);
     }
   }

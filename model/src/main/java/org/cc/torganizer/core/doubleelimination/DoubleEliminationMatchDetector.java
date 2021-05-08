@@ -89,7 +89,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
     pendingMatches.addAll(pendingMatchesLowerBracket);
 
     // Finale
-    Match finalMatch = getPendingFinalMatch(group);
+    var finalMatch = getPendingFinalMatch(group);
     if (finalMatch != null) {
       pendingMatches.add(getPendingFinalMatch(group));
     }
@@ -137,7 +137,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
     // Anzahl der Level
     long maxLevel = super.getUpperBracketsNumberOfLevels(groupSize) * 2L;
     // Matches der jeweiligen Level ermitteln
-    for (int level = 0; level <= maxLevel; level += 1) {
+    for (var level = 0; level <= maxLevel; level += 1) {
       List<Match> matchesOnLevel = getMatchesOnLevel(level, group);
       for (Match match : matchesOnLevel) {
         if (!match.isFinished()) {
@@ -172,7 +172,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
 
       // Das Upper und das Lower Bracket koennen unterschiedlich weit fortgeschritten sein
       // Daher die minimale Groesse der Listen verwenden
-      for (int i = 0; i < Math.min(ubl.size(), lbw.size()); i += 1) {
+      for (var i = 0; i < Math.min(ubl.size(), lbw.size()); i += 1) {
         Opponent home = ubl.get(i);
         Opponent guest = lbw.get(i);
         addMatchToList(matches, createPendingMatch(level, i, home, guest, group));
@@ -181,9 +181,9 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
     } else {
       // Gewinner des Levels 'l-1' aus dem Lower Bracket
       List<Opponent> opponents = getWinnersOnLevel(level - 1, group);
-      for (int i = 0; i < opponents.size() / 2; i += 2) {
-        Opponent home = opponents.get(i);
-        Opponent guest = opponents.get(i + 1);
+      for (var i = 0; i < opponents.size() / 2; i += 2) {
+        var home = opponents.get(i);
+        var guest = opponents.get(i + 1);
         addMatchToList(matches, createPendingMatch(level, i, home, guest, group));
       }
     }
@@ -198,13 +198,12 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    * @return Liste der Matches auf Level-0
    */
   List<Match> getFirstLevelMatches(Group group) {
-
-    int level = 0;
+    var level = 0;
     List<Match> matches = new ArrayList<>();
     List<Opponent> losers = super.getUpperBracketLosersOnLevel(level, group);
-    for (int i = 0; i < losers.size() - 1; i += 2) {
-      Opponent home = losers.get(i);
-      Opponent guest = losers.get(i + 1);
+    for (var i = 0; i < losers.size() - 1; i += 2) {
+      var home = losers.get(i);
+      var guest = losers.get(i + 1);
       addMatchToList(matches, createPendingMatch(level, i / 2, home, guest, group));
     }
 
@@ -310,9 +309,9 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    */
   int countMatchesUpToLevel(int level, int groupSize) {
 
-    int number = 0;
+    var number = 0;
 
-    for (int i = 0; i <= level; i += 1) {
+    for (var i = 0; i <= level; i += 1) {
       number += countMatchesOnLevel(i, groupSize);
     }
 
@@ -389,7 +388,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
     int startMatchIndex = getStartMatchIndex(level, groupSize);
     int endMatchIndex = getEndMatchIndex(level, groupSize);
 
-    for (int matchIndex = startMatchIndex; matchIndex <= endMatchIndex; matchIndex += 1) {
+    for (var matchIndex = startMatchIndex; matchIndex <= endMatchIndex; matchIndex += 1) {
       Match match = group.getMatch(matchIndex);
       if (match != null) {
         matches.add(match);
