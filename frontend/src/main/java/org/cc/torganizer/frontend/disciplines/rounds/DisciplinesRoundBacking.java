@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.cc.torganizer.core.comparators.OpponentByNameComparator;
-import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Round;
@@ -47,10 +46,10 @@ public class DisciplinesRoundBacking {
   public Collection<Opponent> getAssignableOpponents() {
     Collection<Opponent> assignableOpponents;
 
-    Round currentRound = state.getRound();
+    var currentRound = state.getRound();
     boolean isFirstRound = currentRound.getPosition() == 0;
     if (isFirstRound) {
-      Discipline discipline = disciplinesCoreState.getDiscipline();
+      var discipline = disciplinesCoreState.getDiscipline();
       Long tournamentId = appState.getTournamentId();
       assignableOpponents = tournamentsRepository
           .getAssignableOpponentsForDiscipline(tournamentId, discipline, 0, 1000);

@@ -3,8 +3,6 @@ package org.cc.torganizer.frontend.disciplines.rounds.actions;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import org.cc.torganizer.core.entities.Discipline;
-import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.frontend.disciplines.rounds.DisciplineRoundStateSynchronizer;
 import org.cc.torganizer.persistence.DisciplinesRepository;
 import org.cc.torganizer.persistence.RoundsRepository;
@@ -31,9 +29,9 @@ public class DeleteRoundAction extends RoundAction {
   public void execute() {
     // only last round in discipline with no opponents can be deleted
     // ... checks are coming
-    Round round = roundState.getRound();
+    var round = roundState.getRound();
 
-    Discipline discipline = coreState.getDiscipline();
+    var discipline = coreState.getDiscipline();
     discipline.removeRound(round);
     disciplinesRepository.update(discipline);
 

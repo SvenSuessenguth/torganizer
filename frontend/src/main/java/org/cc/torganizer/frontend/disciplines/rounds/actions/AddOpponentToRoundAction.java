@@ -9,7 +9,6 @@ import java.util.Set;
 import org.cc.torganizer.core.OpponentsToGroupsAssigner;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.frontend.disciplines.rounds.DisciplineRoundStateSynchronizer;
 import org.cc.torganizer.persistence.RoundsRepository;
 
@@ -33,7 +32,7 @@ public class AddOpponentToRoundAction extends RoundAction {
    * Adding an opponent to the groups of the round.
    */
   public void execute(Opponent opponent) {
-    Round round = roundState.getRound();
+    var round = roundState.getRound();
     List<Group> groups = round.getGroups();
 
     Set<Opponent> opponents = new HashSet<>();

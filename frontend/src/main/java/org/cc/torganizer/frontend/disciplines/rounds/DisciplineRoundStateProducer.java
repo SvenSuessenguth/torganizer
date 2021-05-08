@@ -28,7 +28,7 @@ public class DisciplineRoundStateProducer {
   @Default
   @Named
   public DisciplineRoundState disciplineRoundState() {
-    DisciplineRoundState state = new DisciplineRoundState();
+    var state = new DisciplineRoundState();
     state.setDisciplinesCoreState(disciplinesCoreState);
 
     synchronizer.synchronize(state);
