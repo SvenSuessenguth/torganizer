@@ -35,14 +35,14 @@ public class CreateSquad extends SquadAction {
    */
   public void execute() {
     Squad current = state.getCurrent();
-    Squad newSquad = new Squad();
+    var newSquad = new Squad();
     squadsRepository.create(newSquad);
 
     Long tournamentId = applicationState.getTournamentId();
     tournamentsRepository.addOpponent(tournamentId, newSquad.getId());
 
     for (Player p : current.getPlayers()) {
-      Player p2 = playersRepository.read(p.getId());
+      var p2 = playersRepository.read(p.getId());
       newSquad.addPlayer(p2);
     }
     squadsRepository.update(newSquad);

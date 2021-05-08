@@ -24,7 +24,7 @@ public class SquadsStateProducer {
   @Default
   @Named
   public SquadsState squadsState() {
-    SquadsState state = new SquadsState();
+    var state = new SquadsState();
     synchronizer.synchronize(state);
 
     return state;

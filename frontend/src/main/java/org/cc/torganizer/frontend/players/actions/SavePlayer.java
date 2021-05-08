@@ -32,7 +32,7 @@ public class SavePlayer extends PlayersAction {
   public void execute() {
     logger.info("save player");
 
-    Player player = state.getCurrent();
+    var player = state.getCurrent();
     Long tournamentId = applicationState.getTournamentId();
 
     if (player.getId() == null) {

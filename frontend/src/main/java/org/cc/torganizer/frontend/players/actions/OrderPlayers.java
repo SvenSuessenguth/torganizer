@@ -5,9 +5,7 @@ import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.util.List;
-import org.cc.torganizer.core.comparators.player.PlayerComparator;
 import org.cc.torganizer.core.comparators.player.PlayerComparatorProvider;
-import org.cc.torganizer.core.comparators.player.PlayerOrderCriteria;
 import org.cc.torganizer.core.entities.Player;
 
 /**
@@ -29,10 +27,10 @@ public class OrderPlayers extends PlayersAction {
    * ordering players with given order rule.
    */
   public void execute() {
-    PlayerOrderCriteria playerOrderCriteria = state.getPlayerOrderCriteria();
+    var playerOrderCriteria = state.getPlayerOrderCriteria();
     List<Player> players = state.getPlayers();
 
-    PlayerComparator comparator = playerComparatorProvider.get(playerOrderCriteria);
+    var comparator = playerComparatorProvider.get(playerOrderCriteria);
     players.sort(comparator);
   }
 }

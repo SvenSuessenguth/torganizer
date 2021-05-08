@@ -24,7 +24,7 @@ public class PlayersStateProducer {
   @Default
   @Named
   public PlayersState playersState() {
-    PlayersState state = new PlayersState();
+    var state = new PlayersState();
     synchronizer.synchronize(state);
 
     return state;

@@ -5,7 +5,6 @@ import jakarta.inject.Inject;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
-import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
@@ -30,7 +29,7 @@ public class SquadsStateSynchronizer {
    * Synchronizing the tournaments state with db-data.
    */
   public void synchronize(SquadsState state) {
-    Tournament currentTournament = applicationState.getTournament();
+    var currentTournament = applicationState.getTournament();
     Long tournamentId = currentTournament.getId();
 
     state.setSquads(tournamentsRepository.getSquads(tournamentId, 0, MAX_SQUADS_RESULTS));
@@ -39,7 +38,7 @@ public class SquadsStateSynchronizer {
     // to show table, add empty players with no id, which are replaced
     // when actual players are added
     state.setCurrent(new Squad());
-    for (int i = 0; i < CURRENT_SQUAD_PLAYERS_TABLE_SIZE; i++) {
+    for (var i = 0; i < CURRENT_SQUAD_PLAYERS_TABLE_SIZE; i++) {
       state.getCurrent().addPlayer(new Player(new Person()));
     }
   }

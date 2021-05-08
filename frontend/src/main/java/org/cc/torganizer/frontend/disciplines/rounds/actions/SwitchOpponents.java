@@ -21,8 +21,8 @@ public class SwitchOpponents {
   public void setSwitchSource() {
     Map<String, String> params = FacesContext.getCurrentInstance().
         getExternalContext().getRequestParameterMap();
-    Long sourceGroupId = Long.valueOf(params.get("gId"));
-    Long sourceOpponentId = Long.valueOf(params.get("oId"));
+    var sourceGroupId = Long.valueOf(params.get("gId"));
+    var sourceOpponentId = Long.valueOf(params.get("oId"));
 
     roundState.setSourceGroupId(sourceGroupId);
     roundState.setSourceOpponentId(sourceOpponentId);
@@ -31,8 +31,8 @@ public class SwitchOpponents {
   public void switchWith() {
     Map<String, String> params = FacesContext.getCurrentInstance().
         getExternalContext().getRequestParameterMap();
-    Long targetGroupId = Long.valueOf(params.get("gId"));
-    Long targetOpponentId = Long.valueOf(params.get("oId"));
+    var targetGroupId = Long.valueOf(params.get("gId"));
+    var targetOpponentId = Long.valueOf(params.get("oId"));
 
     System.out.println("switch " + roundState.getSourceGroupId() + "/" + roundState.getSourceOpponentId() + " with " + targetGroupId + "/" + targetOpponentId);
   }
