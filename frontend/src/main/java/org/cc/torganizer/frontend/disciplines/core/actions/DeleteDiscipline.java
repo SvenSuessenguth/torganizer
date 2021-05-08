@@ -3,7 +3,6 @@ package org.cc.torganizer.frontend.disciplines.core.actions;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.frontend.ApplicationMessages;
 import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.disciplines.core.DisciplinesCoreState;
@@ -42,7 +41,7 @@ public class DeleteDiscipline {
    * A club can only be deleted if it has no linked players.
    */
   public void execute() {
-    Discipline discipline = state.getDiscipline();
+    var discipline = state.getDiscipline();
     Long disciplineId = discipline.getId();
     Long tournamentId = applicationState.getTournamentId();
 

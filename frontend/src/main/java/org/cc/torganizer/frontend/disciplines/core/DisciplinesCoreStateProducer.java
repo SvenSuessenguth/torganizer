@@ -28,12 +28,12 @@ public class DisciplinesCoreStateProducer {
   @Default
   @Named
   public DisciplinesCoreState disciplinesCoreState() {
-    Discipline discipline = new Discipline();
+    var discipline = new Discipline();
     discipline.addRestriction(new GenderRestriction());
     discipline.addRestriction(new OpponentTypeRestriction());
     discipline.addRestriction(new AgeRestriction());
 
-    DisciplinesCoreState state = new DisciplinesCoreState();
+    var state = new DisciplinesCoreState();
     state.setDiscipline(discipline);
     synchronizer.synchronize(state);
 

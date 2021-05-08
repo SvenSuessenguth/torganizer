@@ -5,7 +5,6 @@ import jakarta.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
-import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.frontend.disciplines.core.DisciplinesCoreState;
 
@@ -24,7 +23,7 @@ public class DisciplineRoundState implements Serializable {
   private Long sourceOpponentId;
 
   public List<Round> getRounds() {
-    Discipline discipline = disciplinesCoreState.getDiscipline();
+    var discipline = disciplinesCoreState.getDiscipline();
     return discipline.getRounds();
   }
 
@@ -40,8 +39,8 @@ public class DisciplineRoundState implements Serializable {
    * Checking, if the current round is the last round.
    */
   public boolean isLastRound() {
-    Discipline discipline = disciplinesCoreState.getDiscipline();
-    int highestPostion = 0;
+    var discipline = disciplinesCoreState.getDiscipline();
+    var highestPostion = 0;
 
     // getting highest round
     for (Round r : discipline.getRounds()) {

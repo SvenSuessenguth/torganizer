@@ -23,7 +23,7 @@ public class CancelDiscipline {
    * cancel.
    */
   public String execute() {
-    Discipline discipline = new Discipline();
+    var discipline = new Discipline();
     discipline.addRestriction(new GenderRestriction());
     discipline.addRestriction(new OpponentTypeRestriction());
     discipline.addRestriction(new AgeRestriction());
