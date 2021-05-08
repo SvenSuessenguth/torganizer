@@ -24,7 +24,7 @@ public class ClubsStateProducer {
   @Default
   @Named
   public ClubsState clubsState() {
-    ClubsState state = new ClubsState();
+    var state = new ClubsState();
     synchronizer.synchronize(state);
 
     return state;

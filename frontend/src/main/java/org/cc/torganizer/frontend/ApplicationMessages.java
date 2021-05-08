@@ -5,7 +5,6 @@ import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import java.text.MessageFormat;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
@@ -25,13 +24,13 @@ public class ApplicationMessages {
    * Add FacesMessage to context.
    */
   public void addMessage(String clientId, String baseName, String key, Object[] arguments) {
-    Locale locale = facesContext.getViewRoot().getLocale();
-    ResourceBundle bundle = ResourceBundle.getBundle(baseName, locale);
-    String messageTemplate = bundle.getString(key);
-    MessageFormat formatter = new MessageFormat(messageTemplate, locale);
-    String messageText = formatter.format(arguments);
+    var locale = facesContext.getViewRoot().getLocale();
+    var bundle = ResourceBundle.getBundle(baseName, locale);
+    var messageTemplate = bundle.getString(key);
+    var formatter = new MessageFormat(messageTemplate, locale);
+    var messageText = formatter.format(arguments);
 
-    FacesMessage message = new FacesMessage(messageText);
+    var message = new FacesMessage(messageText);
     facesContext.addMessage(clientId, message);
   }
 }

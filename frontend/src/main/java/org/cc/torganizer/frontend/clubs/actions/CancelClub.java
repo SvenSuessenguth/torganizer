@@ -15,7 +15,7 @@ public class CancelClub extends ClubsAction {
    * creating a new club and replace the club currently under work.
    */
   public String execute() {
-    Club club = new Club();
+    var club = new Club();
     state.setCurrent(club);
 
     return null;
