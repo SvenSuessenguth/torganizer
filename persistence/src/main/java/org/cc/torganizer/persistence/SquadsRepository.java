@@ -2,7 +2,6 @@ package org.cc.torganizer.persistence;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import java.util.Collection;
 import java.util.Collections;
