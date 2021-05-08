@@ -19,7 +19,7 @@ public class OpponentFilter {
     Collection<Opponent> result = new ArrayList<>();
 
     for (Opponent opponent : opponents) {
-      boolean isRestricted = false;
+      var isRestricted = false;
 
       // all opponents players must pass
       for (Player player : opponent.getPlayers()) {

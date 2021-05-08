@@ -3,9 +3,7 @@ package org.cc.torganizer.persistence;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
-import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Root;
@@ -65,7 +63,7 @@ public class DisciplinesRepository extends Repository<Discipline> {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    var cb = entityManager.getCriteriaBuilder();
     CriteriaQuery<Opponent> cq = cb.createQuery(Opponent.class);
     Root<Discipline> discipline = cq.from(Discipline.class);
     Root<Opponent> opponent = cq.from(Opponent.class);
@@ -90,9 +88,9 @@ public class DisciplinesRepository extends Repository<Discipline> {
    * Adding the opponent with the give id to the discipline with the given id.
    */
   public Discipline addOpponent(Long disciplineId, Long opponentId) {
-    Opponent opponent = entityManager.find(Opponent.class, opponentId);
+    var opponent = entityManager.find(Opponent.class, opponentId);
 
-    Discipline discipline = read(disciplineId);
+    var discipline = read(disciplineId);
     discipline.getOpponents().add(opponent);
     entityManager.persist(discipline);
 
@@ -103,7 +101,7 @@ public class DisciplinesRepository extends Repository<Discipline> {
    * Removing the opponent with the give id from the discipline with the given id.
    */
   public Discipline removeOpponent(Long disciplineId, Long opponentId) {
-    Opponent opponent = entityManager.find(Opponent.class, opponentId);
+    var opponent = entityManager.find(Opponent.class, opponentId);
 
     Discipline discipline = read(disciplineId);
     discipline.getOpponents().remove(opponent);
@@ -125,7 +123,7 @@ public class DisciplinesRepository extends Repository<Discipline> {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    var cb = entityManager.getCriteriaBuilder();
     CriteriaQuery<Round> cq = cb.createQuery(Round.class);
     Root<Discipline> discipline = cq.from(Discipline.class);
     Root<Round> round = cq.from(Round.class);
@@ -150,9 +148,9 @@ public class DisciplinesRepository extends Repository<Discipline> {
    * Adding the round with the give id to the discipline with the given id.
    */
   public Discipline addRound(Long disciplineId, Long roundId) {
-    Round round = entityManager.find(Round.class, roundId);
+    var round = entityManager.find(Round.class, roundId);
 
-    Discipline discipline = read(disciplineId);
+    var discipline = read(disciplineId);
     discipline.addRound(round);
     entityManager.persist(discipline);
 
@@ -165,9 +163,9 @@ public class DisciplinesRepository extends Repository<Discipline> {
    * Rmoving the round with the give id to the discipline with the given id.
    */
   public Discipline removeRound(Long disciplineId, Long roundId) {
-    Round round = entityManager.find(Round.class, roundId);
+    var round = entityManager.find(Round.class, roundId);
 
-    Discipline discipline = read(disciplineId);
+    var discipline = read(disciplineId);
     discipline.getRounds().remove(round);
     entityManager.persist(discipline);
 
@@ -216,7 +214,7 @@ public class DisciplinesRepository extends Repository<Discipline> {
   }
 
   public long count() {
-    Query query = entityManager.createQuery("SELECT count(d) FROM Discipline d");
+    var query = entityManager.createQuery("SELECT count(d) FROM Discipline d");
     return (long) query.getSingleResult();
   }
 }

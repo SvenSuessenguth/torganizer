@@ -31,7 +31,7 @@ public abstract class Opponent extends Entity {
    * waiting time between matches.
    */
   public Long getIdleTime() {
-    long overallMinutesSinceLastMatch = 0L;
+    var overallMinutesSinceLastMatch = 0L;
 
     for (Player p : getPlayers()) {
       LocalDateTime lastMatchTime = p.getLastMatchTime();

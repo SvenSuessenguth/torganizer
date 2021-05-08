@@ -21,13 +21,13 @@ public class RoundRobinMatchDetector implements PendingMatchDetector {
     // ohne Hin- und Rueckspiel 
     List<Opponent> opponents = group.getOpponents();
     int n = opponents.size();
-    int row = 0;
+    var row = 0;
     for (Opponent home : opponents) {
-      int col = 0;
+      var col = 0;
       for (Opponent guest : opponents) {
         int matchIndex = row * n + col;
         if (row < col && group.getMatch(matchIndex) == null) {
-          Match match = new Match(home, guest);
+          var match = new Match(home, guest);
           match.setPosition(matchIndex);
           pendingMatches.add(match);
         }

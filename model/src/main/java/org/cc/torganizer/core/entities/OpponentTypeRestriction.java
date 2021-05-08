@@ -27,7 +27,7 @@ public class OpponentTypeRestriction extends Restriction {
       return false;
     }
 
-    OpponentType ot = OpponentType.fromClass(opponent.getClass());
+    var ot = OpponentType.fromClass(opponent.getClass());
     return !opponentType.equals(ot);
   }
 

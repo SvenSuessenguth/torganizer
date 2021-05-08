@@ -61,7 +61,7 @@ public class Tournament extends Entity {
     List<Match> runningMatches = new ArrayList<>();
 
     for (Discipline discipline : getDisciplines()) {
-      Round round = discipline.getCurrentRound();
+      var round = discipline.getCurrentRound();
       for (Group group : round.getGroups()) {
         runningMatches.addAll(group.getRunningMatches());
       }

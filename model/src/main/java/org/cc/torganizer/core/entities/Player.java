@@ -1,5 +1,7 @@
 package org.cc.torganizer.core.entities;
 
+import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
+
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -91,10 +93,10 @@ public class Player extends Opponent {
    */
   public boolean hasGender() {
 
-    boolean isGenderSet = true;
+    var isGenderSet = true;
 
-    Gender gender = getPerson().getGender();
-    if (gender == null || Gender.UNKNOWN.equals(gender)) {
+    var gender = getPerson().getGender();
+    if (gender == null || UNKNOWN == gender) {
       isGenderSet = false;
     }
 

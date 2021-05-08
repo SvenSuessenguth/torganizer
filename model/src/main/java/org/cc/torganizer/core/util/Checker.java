@@ -28,7 +28,7 @@ public class Checker {
       return 0;
     }
 
-    int nullCounter = 0;
+    var nullCounter = 0;
 
     // count null values
     for (Object object : objects) {
@@ -80,7 +80,7 @@ public class Checker {
    *     <code>false</code>
    */
   public boolean equals(List<?> list0, List<?> list1) {
-    boolean equals = true;
+    var equals = true;
 
     if (!list0.containsAll(list1)) {
       equals = false;

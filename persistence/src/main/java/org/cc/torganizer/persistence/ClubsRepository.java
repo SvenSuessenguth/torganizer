@@ -4,7 +4,6 @@ import static jakarta.transaction.Transactional.TxType.NEVER;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import java.util.List;
@@ -55,7 +54,7 @@ public class ClubsRepository extends Repository<Club> {
 
   @Transactional(NEVER)
   public long count() {
-    Query query = entityManager.createQuery("SELECT count(c) FROM Club c");
+    var query = entityManager.createQuery("SELECT count(c) FROM Club c");
     return (long) query.getSingleResult();
   }
 

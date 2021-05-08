@@ -130,23 +130,23 @@ public class SingleEliminationMatchDetector implements PendingMatchDetector {
     int m = group.getOpponents().size() - 1;
     int startIndexOnLevel0 = group.getOpponents().size() / 2 - 1;
 
-    for (int index = 0; index < m; index += 1) {
-      Match m0 = getUpperBracketsMatch(2 * index + 1, pendingMatches, group);
-      Match m1 = getUpperBracketsMatch(2 * index + 2, pendingMatches, group);
+    for (var index = 0; index < m; index += 1) {
+      var m0 = getUpperBracketsMatch(2 * index + 1, pendingMatches, group);
+      var m1 = getUpperBracketsMatch(2 * index + 2, pendingMatches, group);
 
       // Ein Match mit diesem Index existiert noch nicht
       if (group.getMatch(index) == null) {
 
         // Match findet nicht auf level-0 statt
         if (index < startIndexOnLevel0) {
-          Match match = new Match(m0.getWinner(), m1.getWinner());
+          var match = new Match(m0.getWinner(), m1.getWinner());
           match.setPosition(index);
           pendingMatches.add(match);
         }
 
         // Match hat keine Vorgaenger-Matches
         if (index >= startIndexOnLevel0) {
-          Match match = new Match();
+          var match = new Match();
           match.setPosition(index);
 
           assignUpperBracketOpponentsToMatch(match, group);
@@ -195,8 +195,8 @@ public class SingleEliminationMatchDetector implements PendingMatchDetector {
 
     int index = 2 * (match.getPosition() + 1) - group.getOpponents().size();
 
-    Opponent home = group.getPositionalOpponent(index).getOpponent();
-    Opponent guest = group.getPositionalOpponent(index + 1).getOpponent();
+    var home = group.getPositionalOpponent(index).getOpponent();
+    var guest = group.getPositionalOpponent(index + 1).getOpponent();
 
     match.setHome(home);
     match.setGuest(guest);
