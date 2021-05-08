@@ -40,14 +40,14 @@ public class OpponentByNameComparator implements Comparator<Opponent>, Serializa
       return -1;
     }
 
-    PlayerByLastNameComparator pbnComparator = new PlayerByLastNameComparator();
+    var pbnComparator = new PlayerByLastNameComparator();
 
 
     o1Players.sort(pbnComparator);
     o2Players.sort(pbnComparator);
 
-    Player po1 = o1Players.get(0);
-    Player p02 = o2Players.get(0);
+    var po1 = o1Players.get(0);
+    var p02 = o2Players.get(0);
 
     return pbnComparator.compare(po1, p02);
   }

@@ -24,7 +24,7 @@ public class TournamentsStateProducer {
   @Produces
   @Named
   public TournamentsState tournamentsState() {
-    TournamentsState state = new TournamentsState();
+    var state = new TournamentsState();
     synchronizer.synchronize(state);
 
     return state;

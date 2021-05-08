@@ -24,7 +24,7 @@ public class TournamentsStateSynchronizer {
    */
   public void synchronize(TournamentsState state) {
     List<Tournament> tournaments = tournamentsRepository.read(0, 100);
-    Tournament current = new Tournament();
+    var current = new Tournament();
 
     state.setTournaments(tournaments);
     state.setCurrent(current);

@@ -27,8 +27,8 @@ public class OpponentsByClubComparator implements Comparator<Opponent>, Serializ
     }
 
 
-    Club club1 = getOpponentsClub(o1);
-    Club club2 = getOpponentsClub(o2);
+    var club1 = getOpponentsClub(o1);
+    var club2 = getOpponentsClub(o2);
 
     return new ClubComparator().compare(club1, club2);
   }
@@ -43,7 +43,7 @@ public class OpponentsByClubComparator implements Comparator<Opponent>, Serializ
     // Players can play together as in squads, whether they are in different clubs
     List<Club> clubs = new ArrayList<>();
     for (Player player : opponent.getPlayers()) {
-      Club club = player.getClub();
+      var club = player.getClub();
       if (club != null) {
         clubs.add(club);
       }

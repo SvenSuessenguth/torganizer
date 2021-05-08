@@ -8,7 +8,6 @@ import jakarta.faces.validator.Validator;
 import jakarta.faces.validator.ValidatorException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
-import jakarta.validation.ValidatorFactory;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
@@ -26,7 +25,7 @@ public class TournamentsNameValidator implements Validator<String> {
   public void validate(FacesContext facesContext, UIComponent uiComponent, String tournamentsName) {
 
     // to keep it simple a new tournament with the given name/id is created and then validated
-    Tournament tournament = new Tournament();
+    var tournament = new Tournament();
     tournament.setName(tournamentsName);
     Set<ConstraintViolation<Tournament>> constraintViolations = validate(tournament);
 
@@ -37,8 +36,8 @@ public class TournamentsNameValidator implements Validator<String> {
   }
 
   private Set<ConstraintViolation<Tournament>> validate(Tournament newTournament) {
-    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-    jakarta.validation.Validator validator = factory.getValidator();
+    var factory = Validation.buildDefaultValidatorFactory();
+    var validator = factory.getValidator();
     return validator.validate(newTournament);
   }
 

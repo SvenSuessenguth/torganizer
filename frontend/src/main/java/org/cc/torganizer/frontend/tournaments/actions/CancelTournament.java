@@ -24,7 +24,7 @@ public class CancelTournament {
    * creating a new tournament.
    */
   public String execute() {
-    Tournament newTournament = new Tournament();
+    var newTournament = new Tournament();
     state.setCurrent(newTournament);
 
     return null;

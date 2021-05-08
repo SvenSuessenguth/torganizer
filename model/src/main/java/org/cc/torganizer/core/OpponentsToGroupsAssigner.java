@@ -84,7 +84,7 @@ public class OpponentsToGroupsAssigner {
 
     Integer minAccordance = Integer.MAX_VALUE;
     for (Map.Entry<Group, Integer> entry : groupClubCount.entrySet()) {
-      Group group = entry.getKey();
+      var group = entry.getKey();
       Integer count = entry.getValue();
 
       if (count < minAccordance) {

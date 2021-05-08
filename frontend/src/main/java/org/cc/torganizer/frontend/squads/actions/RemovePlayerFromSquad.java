@@ -31,7 +31,7 @@ public class RemovePlayerFromSquad {
 
     // to show table, add empty players with no id, which are replaced
     // when actual players are added
-    for (int i = 0; i < CURRENT_SQUAD_PLAYERS_TABLE_SIZE - current.getPlayers().size(); i++) {
+    for (var i = 0; i < CURRENT_SQUAD_PLAYERS_TABLE_SIZE - current.getPlayers().size(); i++) {
       current.addPlayer(new Player(new Person()));
     }
   }

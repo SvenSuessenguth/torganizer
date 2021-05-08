@@ -22,7 +22,7 @@ public class AggregationComparator implements Comparator<Aggregation>, Serializa
       throw new IllegalArgumentException("compare only non null values");
     }
 
-    int result = 0;
+    var result = 0;
 
     // matches > results > scores
     if (Checker.isNoNullValue(o1.getMa(), o2.getMa()) && !o1.getMa().equals(o2.getMa())) {

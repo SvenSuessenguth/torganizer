@@ -3,7 +3,6 @@ package org.cc.torganizer.frontend.squads.actions;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import org.cc.torganizer.core.entities.Squad;
 import org.cc.torganizer.frontend.squads.SquadsStateSynchronizer;
 import org.cc.torganizer.persistence.PlayersRepository;
 import org.cc.torganizer.persistence.SquadsRepository;
@@ -33,8 +32,7 @@ public class SaveSquad extends SquadAction {
    * Functional Interface Methode.
    */
   public void execute() {
-
-    Squad squad = state.getCurrent();
+    var squad = state.getCurrent();
     Long tournamentId = applicationState.getTournamentId();
 
     if (squad.getId() == null) {

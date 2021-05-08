@@ -57,7 +57,7 @@ public class SaveTournament {
     for (Tournament t : state.getTournaments()) {
       if (Objects.equals(t.getName(), current.getName())
           && !Objects.equals(t.getId(), current.getId())) {
-        FacesMessage facesMessage = new FacesMessage(SEVERITY_ERROR,
+        var facesMessage = new FacesMessage(SEVERITY_ERROR,
             "Zwei Turniere mit dem selben Namen", "Fehler");
         facesContext.addMessage(tournamentsBacking.getNameClientId(), facesMessage);
         tournamentsBacking.getNameInputText().setValid(false);
