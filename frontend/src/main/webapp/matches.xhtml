@@ -19,6 +19,15 @@
   <ui:define name="main">
     <h:form id="matchesForm">
       ${i18nText.matches}
+
+      <h4>Mögliche Spiele</h4>
+      #{matchesState.possibleMatches}
+
+      <h4>Laufende Spiele</h4>
+      #{matchesState.runningMatches}
+
+      <h4>Beendeted Spiele</h4>
+      #{matchesState.finishedMatches}
     </h:form>
   </ui:define>
 </ui:composition>
