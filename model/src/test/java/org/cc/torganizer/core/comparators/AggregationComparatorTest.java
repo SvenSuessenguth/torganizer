@@ -79,16 +79,20 @@ class AggregationComparatorTest {
 
   @Test
   void testO1IsNull() {
+    Aggregation aggregation = new Aggregation();
+
     assertThatExceptionOfType(IllegalArgumentException.class)
         .isThrownBy(() ->
-            comparator.compare(null, new Aggregation()));
+            comparator.compare(null, aggregation));
   }
 
   @Test
   void testO2IsNull() {
+    Aggregation aggregation = new Aggregation();
+
     assertThatExceptionOfType(IllegalArgumentException.class)
         .isThrownBy(() ->
-            comparator.compare(new Aggregation(), null));
+            comparator.compare(aggregation, null));
   }
 
   @Test
