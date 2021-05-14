@@ -13,7 +13,7 @@ import org.cc.torganizer.core.entities.aggregates.ScoreAggregate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class AggregationComparatorTest {
+class AggregationComparatorTest {
 
   private AggregationComparator comparator;
 
@@ -24,13 +24,13 @@ public class AggregationComparatorTest {
 
 
   @Test
-  public void testIdenticalSame() {
+  void testIdenticalSame() {
     Aggregation a1 = new Aggregation();
     assertThat(a1).usingComparator(comparator).isEqualTo(a1);
   }
 
   @Test
-  public void testEqualsMatchesOnly() {
+  void testEqualsMatchesOnly() {
     MatchAggregate ma1 = mock(MatchAggregate.class);
     when(ma1.getWins()).thenReturn(1);
     MatchAggregate ma2 = mock(MatchAggregate.class);
@@ -46,7 +46,7 @@ public class AggregationComparatorTest {
   }
 
   @Test
-  public void testEqualsResultsOnly() {
+  void testEqualsResultsOnly() {
     ResultAggregate ra1 = mock(ResultAggregate.class);
     when(ra1.getWins()).thenReturn(1);
     ResultAggregate ra2 = mock(ResultAggregate.class);
@@ -62,7 +62,7 @@ public class AggregationComparatorTest {
   }
 
   @Test
-  public void testEqualsScoresOnly() {
+  void testEqualsScoresOnly() {
     ScoreAggregate sa1 = mock(ScoreAggregate.class, RETURNS_DEEP_STUBS);
     when(sa1.getWins()).thenReturn(1);
     ScoreAggregate sa2 = mock(ScoreAggregate.class);
@@ -78,21 +78,21 @@ public class AggregationComparatorTest {
   }
 
   @Test
-  public void testO1IsNull() {
+  void testO1IsNull() {
     assertThatExceptionOfType(IllegalArgumentException.class)
         .isThrownBy(() ->
             comparator.compare(null, new Aggregation()));
   }
 
   @Test
-  public void testO2IsNull() {
+  void testO2IsNull() {
     assertThatExceptionOfType(IllegalArgumentException.class)
         .isThrownBy(() ->
             comparator.compare(new Aggregation(), null));
   }
 
   @Test
-  public void testBothAreNull() {
+  void testBothAreNull() {
     assertThatExceptionOfType(IllegalArgumentException.class)
         .isThrownBy(() ->
             comparator.compare(null, null));
