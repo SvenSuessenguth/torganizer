@@ -1,17 +1,14 @@
 package org.cc.torganizer.core.comparators;
 
-import org.cc.torganizer.core.entities.Bye;
-import org.cc.torganizer.core.entities.Club;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/**
- * @author svens
- */
-public class OpponentByClubComparatorTest {
+class OpponentByClubComparatorTest {
 
   private OpponentsByClubComparator comparator;
 
@@ -20,14 +17,14 @@ public class OpponentByClubComparatorTest {
     comparator = new OpponentsByClubComparator();
   }
 
-//  @Test
-//  public void testComparePlayersNoClubs() {
-//    Opponent player0 = new Player(new Person());
-//    Opponent player1 = new Player(new Person());
-//
-//    assertEquals(0, comparator.compare(player0, player1));
-//  }
-//
+  @Test
+  void testComparePlayersNoClubs() {
+    Opponent player0 = new Player(new Person());
+    Opponent player1 = new Player(new Person());
+
+    assertThat(player0).usingComparator(comparator).isEqualTo(player1);
+  }
+
 //  @Test
 //  public void testComparePlayersNoClub() {
 //    Player player0 = new Player(new Person());

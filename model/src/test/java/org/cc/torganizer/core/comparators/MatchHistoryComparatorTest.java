@@ -8,10 +8,7 @@ import org.cc.torganizer.core.entities.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/**
- * @author svens
- */
-public class MatchHistoryComparatorTest {
+class MatchHistoryComparatorTest {
 
   private MatchHistoryComparator matchHistoryComparator;
 
