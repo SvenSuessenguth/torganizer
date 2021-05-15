@@ -16,7 +16,7 @@ import org.cc.torganizer.frontend.disciplines.rounds.DisciplineRoundState;
 public class SwitchOpponents {
 
   @Inject
-  private DisciplineRoundState disciplineRoundState;
+  private DisciplineRoundState drState;
 
   @Inject
   private Logger logger;
@@ -30,8 +30,8 @@ public class SwitchOpponents {
     var sourceGroupId = Long.valueOf(params.get("gId"));
     var sourceOpponentId = Long.valueOf(params.get("oId"));
 
-    disciplineRoundState.setSourceGroupId(sourceGroupId);
-    disciplineRoundState.setSourceOpponentId(sourceOpponentId);
+    drState.setSourceGroupId(sourceGroupId);
+    drState.setSourceOpponentId(sourceOpponentId);
   }
 
   /**
@@ -47,7 +47,7 @@ public class SwitchOpponents {
         switch %s / %s
         with %s / %s
         """
-        .formatted(disciplineRoundState.getSourceGroupId(), disciplineRoundState.getSourceOpponentId(),
+        .formatted(drState.getSourceGroupId(), drState.getSourceOpponentId(),
             targetGroupId, targetOpponentId);
     logger.debug(message);
   }
