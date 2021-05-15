@@ -7,34 +7,36 @@ import jakarta.inject.Named;
 import java.util.Map;
 import org.apache.logging.log4j.Logger;
 import org.cc.torganizer.frontend.disciplines.rounds.DisciplineRoundState;
-import org.cc.torganizer.persistence.GroupsRepository;
 
 @Named
 @RequestScoped
 public class SwitchOpponents {
 
   @Inject
-  private DisciplineRoundState roundState;
+  private DisciplineRoundState disciplineRoundState;
 
   @Inject
   private Logger logger;
 
-  @Inject
-  private GroupsRepository groupsRepository;
-
+  /**
+   * Saveing the Opponent to switch given in the request.
+   */
   public void setSwitchSource() {
     Map<String, String> params = FacesContext.getCurrentInstance()
         .getExternalContext().getRequestParameterMap();
     var sourceGroupId = Long.valueOf(params.get("gId"));
     var sourceOpponentId = Long.valueOf(params.get("oId"));
 
-    roundState.setSourceGroupId(sourceGroupId);
-    roundState.setSourceOpponentId(sourceOpponentId);
+    disciplineRoundState.setSourceGroupId(sourceGroupId);
+    disciplineRoundState.setSourceOpponentId(sourceOpponentId);
   }
 
+  /**
+   * Switch the source-opponent with the opponent given in the request.
+   */
   public void switchWith() {
-    Map<String, String> params = FacesContext.getCurrentInstance().
-        getExternalContext().getRequestParameterMap();
+    Map<String, String> params = FacesContext.getCurrentInstance()
+        .getExternalContext().getRequestParameterMap();
     var targetGroupId = Long.valueOf(params.get("gId"));
     var targetOpponentId = Long.valueOf(params.get("oId"));
 
@@ -42,7 +44,7 @@ public class SwitchOpponents {
         switch %s / %s
         with %s / %s
         """
-        .formatted(roundState.getSourceGroupId(), roundState.getSourceOpponentId(), targetGroupId, targetOpponentId);
+        .formatted(disciplineRoundState.getSourceGroupId(), disciplineRoundState.getSourceOpponentId(), targetGroupId, targetOpponentId);
     logger.debug(message);
   }
 }
