@@ -8,6 +8,9 @@ import java.util.Map;
 import org.apache.logging.log4j.Logger;
 import org.cc.torganizer.frontend.disciplines.rounds.DisciplineRoundState;
 
+/**
+ * Switch two opponents between groups and position.
+ */
 @Named
 @RequestScoped
 public class SwitchOpponents {
@@ -44,7 +47,8 @@ public class SwitchOpponents {
         switch %s / %s
         with %s / %s
         """
-        .formatted(disciplineRoundState.getSourceGroupId(), disciplineRoundState.getSourceOpponentId(), targetGroupId, targetOpponentId);
+        .formatted(disciplineRoundState.getSourceGroupId(), disciplineRoundState.getSourceOpponentId(),
+            targetGroupId, targetOpponentId);
     logger.debug(message);
   }
 }
