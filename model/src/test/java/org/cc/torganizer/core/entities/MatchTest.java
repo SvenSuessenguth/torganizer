@@ -1,7 +1,9 @@
 package org.cc.torganizer.core.entities;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class MatchTest {
@@ -28,5 +30,13 @@ class MatchTest {
     boolean isParticipant = match.isParticipant(home);
 
     assertThat(isParticipant).isTrue();
+  }
+
+  @Test
+  void testAddResult_exception() {
+    Match match = new Match();
+    Throwable throwable = catchThrowable(() -> match.addResult(null));
+
+    assertThat(throwable).isNotNull().isInstanceOf(IllegalArgumentException.class);
   }
 }
