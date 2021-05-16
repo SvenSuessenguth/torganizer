@@ -27,6 +27,6 @@ class GroupTest {
     group.setPositionalOpponents(pos);
 
     assertThat(group.getPositionalOpponents()).hasSize(2);
-    assertThat(group.getPositionalOpponents().get(0).getPosition()).isEqualTo(0);
+    assertThat(group.getPositionalOpponents().get(0).getPosition()).isZero();
   }
 }
