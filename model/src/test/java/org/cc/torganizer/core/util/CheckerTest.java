@@ -78,4 +78,20 @@ class CheckerTest {
 
     assertThat(equals).isEqualTo(expected);
   }
+
+  private static Stream<Arguments> isNoNullValue() {
+    return Stream.of(
+        Arguments.of(true, new Object[]{}),
+        Arguments.of(true, new Object[]{new Object()}),
+        Arguments.of(true, null),
+        Arguments.of(false, new Object[]{new Object(), null})
+    );
+  }
+
+  @ParameterizedTest
+  @MethodSource(value = "isNoNullValue")
+  void testIsNoNullValue(boolean expected, Object... objects) {
+    boolean noNullValue = Checker.isNoNullValue(objects);
+    assertThat(noNullValue).isEqualTo(expected);
+  }
 }
