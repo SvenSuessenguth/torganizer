@@ -9,6 +9,10 @@ import java.util.List;
  */
 public class Checker {
 
+  private Checker() {
+    // Utility classes should not have public constructors
+  }
+
   /**
    * Pr\u00fcft, ob eins und genau ein \u00fcbergebenes Object null ist.
    *
