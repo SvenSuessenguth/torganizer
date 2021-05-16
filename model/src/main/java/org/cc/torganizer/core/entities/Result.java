@@ -21,7 +21,7 @@ public class Result extends Entity implements Positional {
    * Standardkonstruktor.
    */
   public Result() {
-    position = DEFAULT_POSITION;
+    this(DEFAULT_POSITION);
   }
 
   /**
