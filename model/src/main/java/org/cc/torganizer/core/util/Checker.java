@@ -10,13 +10,6 @@ import java.util.List;
 public class Checker {
 
   /**
-   * Default.
-   */
-  public Checker() {
-    // gem. Bean-Spec.
-  }
-
-  /**
    * Pr\u00fcft, ob eins und genau ein \u00fcbergebenes Object null ist.
    *
    * @param objects Array von Objekten, die gepr\u00fcft werden sollen.
@@ -79,16 +72,13 @@ public class Checker {
    * @return <code>true</code>, wenn die Inhalte gleich sind, sonst
    *     <code>false</code>
    */
-  public boolean equals(List<?> list0, List<?> list1) {
-    var equals = true;
-
-    if (!list0.containsAll(list1)) {
-      equals = false;
-    }
-    if (!list1.containsAll(list0)) {
-      equals = false;
+  public static boolean equals(List<?> list0, List<?> list1) {
+    if (list0 == null && list1 == null) {
+      return true;
+    } else if (list0 == null || list1 == null) {
+      return false;
     }
 
-    return equals;
+    return list0.containsAll(list1) && list1.containsAll(list0);
   }
 }
