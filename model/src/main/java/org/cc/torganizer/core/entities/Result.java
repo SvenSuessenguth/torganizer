@@ -41,7 +41,7 @@ public class Result extends Entity implements Positional {
    * @param newGuestScore Score des Guests
    */
   public Result(Integer newPosition, Integer newHomeScore, Integer newGuestScore) {
-    this.position = newPosition == null ? Integer.valueOf(-1) : newPosition;
+    this.position = newPosition == null ? DEFAULT_POSITION : newPosition;
     this.homeScore = newHomeScore;
     this.guestScore = newGuestScore;
   }

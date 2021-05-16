@@ -28,6 +28,9 @@ public class ResultTest {
   void testParameterizedConstructorInitializes() {
     assertThat(new Result(1).getGuestScore()).isZero();
     assertThat(new Result(1).getHomeScore()).isZero();
+
+    assertThat(new Result(null, 1, 1).getPosition()).isEqualTo(DEFAULT_POSITION);
+    assertThat(new Result(1, 1, 1).getPosition()).isEqualTo(1);
   }
 
   private static Stream<Arguments> areScoresSet() {
