@@ -6,6 +6,7 @@ package org.cc.torganizer.core.entities;
  */
 public class Result extends Entity implements Positional {
 
+  public static final Integer DEFAULT_POSITION = -1;
   private Integer homeScore;
 
   private Integer guestScore;
@@ -14,13 +15,13 @@ public class Result extends Entity implements Positional {
    * Reihenfolge der Results. -1 als Standardwert, wenn die Reihenfolge ohne
    * Bedeutung ist.
    */
-  private Integer position = Integer.valueOf(-1);
+  private Integer position;
 
   /**
    * Standardkonstruktor.
    */
   public Result() {
-    position = Integer.valueOf(-1);
+    position = DEFAULT_POSITION;
   }
 
   /**
@@ -29,7 +30,7 @@ public class Result extends Entity implements Positional {
    * @param newPosition Index
    */
   public Result(Integer newPosition) {
-    this(newPosition, Integer.valueOf(0), Integer.valueOf(0));
+    this(newPosition, 0, 0);
   }
 
   /**
@@ -63,7 +64,7 @@ public class Result extends Entity implements Positional {
    *     <code>false</code>
    */
   public boolean isDraw() {
-    return homeScore.equals(guestScore);
+    return areScoresSet() && homeScore.equals(guestScore);
   }
 
   @Override
