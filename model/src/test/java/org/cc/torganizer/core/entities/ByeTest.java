@@ -19,4 +19,10 @@ class ByeTest {
     List<Opponent> byes = Bye.createByes(-1);
     assertThat(byes).isNotNull();
   }
+
+  @Test
+  void testCreateByes() {
+    List<Opponent> byes = Bye.createByes(5);
+    assertThat(byes).hasSize(5);
+  }
 }
