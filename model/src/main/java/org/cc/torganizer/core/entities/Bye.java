@@ -11,13 +11,6 @@ import java.util.Set;
 public class Bye extends Opponent {
 
   /**
-   * Default.
-   */
-  public Bye() {
-    // gem. Bean-Spec.
-  }
-
-  /**
    * Hilfsmethode zur Erzeugung einer Liste von Freilosen, die eine Assoziation
    * zum Turnier halten.
    *
