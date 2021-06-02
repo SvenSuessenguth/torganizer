@@ -22,7 +22,7 @@ public class Gymnasium extends Entity {
 
   /**
    * Erzeugen einer vorgegebenen Anzahl von Courts. Die bereits bestehenden
-   * Courts werden verworfen.
+   * Courts werden verworfen. Eine negative Anzahl wird ignoriert und alle Courts werden verworfen.
    *
    * @param number Anzahl der Courts, die erzeugt werden sollen.
    */
@@ -35,10 +35,6 @@ public class Gymnasium extends Entity {
         courts.add(court);
       }
     }
-  }
-
-  public int getCourtsCount() {
-    return courts.size();
   }
 
   public List<Court> getCourts() {
