@@ -24,11 +24,11 @@ public class OpponentTypeRestriction extends Restriction {
   @Override
   public boolean isRestricted(Opponent opponent) {
     if (opponent == null) {
-      return false;
+      return true;
     }
 
-    var ot = OpponentType.fromClass(opponent.getClass());
-    return !opponentType.equals(ot);
+    var ot = opponent.getOpponentType();
+    return opponentType != ot;
   }
 
   public OpponentType getOpponentType() {
