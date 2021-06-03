@@ -11,6 +11,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import org.cc.torganizer.core.exceptions.RestrictionException;
 
@@ -36,7 +37,7 @@ public class Discipline extends Entity {
    *
    * @return a {@link org.cc.torganizer.core.entities.Round} object.
    */
-  Round getCurrentRound() {
+  Optional<Round> getCurrentRound() {
     Round currentRound = null;
     for (Round r : getRounds()) {
       for (Group g : r.getGroups()) {
@@ -46,7 +47,7 @@ public class Discipline extends Entity {
       }
     }
 
-    return currentRound;
+    return Optional.ofNullable(currentRound);
   }
 
   public String getName() {
