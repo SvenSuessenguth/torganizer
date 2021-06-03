@@ -40,6 +40,4 @@ class OpponentTypeRestrictionTest {
 
     assertThat(actual).isFalse();
   }
-
-
 }

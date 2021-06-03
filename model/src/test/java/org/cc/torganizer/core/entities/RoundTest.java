@@ -8,6 +8,14 @@ import org.junit.jupiter.api.Test;
 class RoundTest {
 
   @Test
+  void getGroup_noGroupPresent() {
+    Round round = new Round();
+
+    Group group = round.getGroup(1);
+    assertThat(group).isNull();
+  }
+
+  @Test
   void getGroup_positionIsNotEqualToIndex() {
     Round round = new Round();
     round.appendGroup(new Group(1));
