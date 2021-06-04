@@ -73,9 +73,7 @@ public class Person extends Entity {
    * Setting the gender and asserting, that the gender is not <code>null</code>.
    */
   public void setGender(Gender gender) {
-    assert this.gender != null;
-
-    this.gender = gender;
+    this.gender = gender == null ? UNKNOWN : gender;
   }
 
   /**

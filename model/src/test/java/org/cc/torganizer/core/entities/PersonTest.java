@@ -79,4 +79,13 @@ class PersonTest {
 
     assertThrows(IllegalDateOfBirthException.class, () -> person.getAge());
   }
+
+  @Test
+  void testSetGender_null() {
+    Person p = new Person();
+    p.setGender(null);
+
+    assertThat(p.getGender()).isEqualTo(UNKNOWN);
+  }
+
 }
