@@ -36,14 +36,13 @@ public enum Status {
    * @return Status
    */
   public static Status fromInt(int value) {
-    switch (value) {
-      case 1:
-        return ACTIVE;
-      case 0:
-        return INACTIVE;
-      default:
-        return INACTIVE;
+    for (Status status : values()) {
+      if (status.value == value) {
+        return status;
+      }
     }
+
+    return null;
   }
 
   /**
@@ -53,17 +52,5 @@ public enum Status {
    */
   public int toInt() {
     return value;
-  }
-
-  @Override
-  public String toString() {
-    switch (value) {
-      case 1:
-        return "ACTIVE";
-      case 0:
-        return "INACTIVE";
-      default:
-        return "INACTIVE";
-    }
   }
 }
