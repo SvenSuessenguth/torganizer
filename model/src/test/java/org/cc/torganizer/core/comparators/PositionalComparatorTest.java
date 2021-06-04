@@ -1,12 +1,22 @@
 package org.cc.torganizer.core.comparators;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.stream.Stream;
 import org.cc.torganizer.core.entities.Positional;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 class PositionalComparatorTest {
+
+  private PositionalComparator comparator;
+
+  @BeforeEach
+  public void beforeEach() {
+    comparator = new PositionalComparator();
+  }
 
   public static Stream<Arguments> testCompareArguments() {
     return Stream.of(
@@ -22,7 +32,9 @@ class PositionalComparatorTest {
   @ParameterizedTest
   @MethodSource("testCompareArguments")
   void testCompare(Positional p0, Positional p1, int expected) {
+    int actual = comparator.compare(p0, p1);
 
+    assertThat(actual).isEqualTo(expected);
   }
 }
 
