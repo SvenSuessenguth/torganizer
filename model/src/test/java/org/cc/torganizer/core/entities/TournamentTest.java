@@ -30,7 +30,7 @@ class TournamentTest {
   }
 
   @Test
-  void testGetRunningMatches_oneDisciplineWithRounds_noRunningMatches() {
+  void testGetRunningMatches_oneDisciplineWithRounds_noGroups() {
     Discipline discipline = new Discipline();
     discipline.addRound(new Round());
 
@@ -38,5 +38,36 @@ class TournamentTest {
     List<Match> runningMatches = tournament.getRunningMatches();
 
     assertThat(runningMatches).isEmpty();
+  }
+
+  @Test
+  void testGetRunningMatches_oneDisciplineWithRoundsAndGroups_noRunningMatches() {
+    Discipline discipline = new Discipline();
+    Round round = new Round();
+    round.appendGroup(new Group());
+    discipline.addRound(round);
+
+    tournament.addDiscipline(discipline);
+    List<Match> runningMatches = tournament.getRunningMatches();
+
+    assertThat(runningMatches).isEmpty();
+  }
+
+  @Test
+  void testGetRunningMatches_oneDisciplineWithRoundsAndGroups_withRunningMatches() {
+    Discipline discipline = new Discipline();
+    Round round = new Round();
+    Group group = new Group();
+    group.addOpponent(new Player());
+    Match match = new Match(new Player(), new Player());
+    match.setRunning(true);
+    group.getMatches().add(match);
+    round.appendGroup(group);
+    discipline.addRound(round);
+
+    tournament.addDiscipline(discipline);
+    List<Match> runningMatches = tournament.getRunningMatches();
+
+    assertThat(runningMatches).isNotEmpty();
   }
 }
