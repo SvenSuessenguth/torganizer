@@ -17,8 +17,13 @@ import org.junit.jupiter.params.provider.MethodSource;
 class CheckerTest {
 
   @Test
-  void countNullValues_null() {
+  void countNullValues_nothing() {
     assertThat(countNullValues()).isZero();
+  }
+
+  @Test
+  void countNullValues_null() {
+    assertThat(countNullValues(null)).isZero();
   }
 
   @Test
