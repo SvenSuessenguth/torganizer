@@ -32,7 +32,7 @@ class GymnasiumTest {
   void createCourts_negative() {
     gymnasium.createCourts(-1);
     List<Court> courts = gymnasium.getCourts();
-    Assertions.assertThat(courts).hasSize(0);
+    Assertions.assertThat(courts).isEmpty();
   }
 
   @Test
