@@ -44,13 +44,4 @@ public enum Status {
 
     return null;
   }
-
-  /**
-   * Gibt die ID zurueck.
-   *
-   * @return ID
-   */
-  public int toInt() {
-    return value;
-  }
 }
