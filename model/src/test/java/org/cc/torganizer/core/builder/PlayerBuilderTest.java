@@ -3,6 +3,7 @@ package org.cc.torganizer.core.builder;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.cc.torganizer.core.entities.Gender.FEMALE;
 import static org.cc.torganizer.core.entities.Gender.MALE;
+import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.cc.torganizer.core.entities.Person;
@@ -55,7 +56,7 @@ class PlayerBuilderTest {
   @Test
   void testWithgender_null() {
     Player p = builder.withGender(null).get();
-    assertThat(p.getPerson().getGender()).isNull();
+    assertThat(p.getPerson().getGender()).isEqualTo(UNKNOWN);
   }
 
   @Test
