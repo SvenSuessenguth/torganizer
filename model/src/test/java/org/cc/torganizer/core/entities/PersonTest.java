@@ -31,7 +31,8 @@ class PersonTest {
         Arguments.of(newPersonWithGender(MALE), MALE, true),
         Arguments.of(newPersonWithGender(MALE), FEMALE, false),
         Arguments.of(newPersonWithGender(null), MALE, true),
-        Arguments.of(newPersonWithGender(MALE), null, true)
+        Arguments.of(newPersonWithGender(MALE), null, true),
+        Arguments.of(newPersonWithGender(null), null, true)
     );
   }
 
