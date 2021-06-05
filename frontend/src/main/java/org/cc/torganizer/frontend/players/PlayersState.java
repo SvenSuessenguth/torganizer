@@ -91,9 +91,9 @@ public class PlayersState implements Serializable {
   }
 
   /**
-   * Setting the id of the current club.
+   * Setting the the current club.
    */
-  public void setCurrentClubId(Long clubId) {
+  public void setCurrentPlayersClubById(Long clubId) {
     current.setClub(null);
     for (Club club : clubs) {
       if (club.getId().equals(clubId)) {

@@ -107,7 +107,7 @@
         </h:selectOneMenu>
 
         <h:outputLabel for="playersClub" value="#{i18nText.club}"/>
-        <h:selectOneMenu id="playersClub" value="#{state.currentClubId}">
+        <h:selectOneMenu id="playersClub" value="#{state.currentPlayersClubById}">
           <f:selectItem itemValue="#{null}" itemLabel="-"/>
           <f:selectItems value="#{state.clubs}" var="club"
                          itemValue="#{club.id}"
