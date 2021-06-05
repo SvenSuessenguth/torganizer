@@ -52,7 +52,8 @@ public class PlayersState implements Serializable {
     Collection<Player> playersChunk = chunk.get(this.players, ALL_PLAYERS_CHUNK_SIZE,
         allPlayersChunkIndex);
 
-    // up to ALL_PLAYERS_CHUNK_SIZE
+    // up to ALL_PLAYERS_CHUNK_SIZE with empty players
+    // to have an even view
     int startIndex = playersChunk.size();
     for (int i = startIndex; i < ALL_PLAYERS_CHUNK_SIZE; i++) {
       playersChunk.add(new Player(new Person()));
