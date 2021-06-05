@@ -42,14 +42,25 @@ class GroupTest {
   @Test
   void testRemoveOpponent_reindex() {
     Player playerToRemove = new Player();
+    Player testPlayer = new Player();
 
     group.addOpponent(new Player());
     group.addOpponent(playerToRemove);
-    group.addOpponent(new Player());
+    group.addOpponent(testPlayer);
 
+    int indexBefore = group.getPositionalOpponent(testPlayer).getPosition();
     group.removeOpponent(playerToRemove);
+    int indexAfter = group.getPositionalOpponent(testPlayer).getPosition();
     List<Opponent> opponentsAfter = group.getOpponents();
 
     assertThat(opponentsAfter).hasSize(2);
+    assertThat(indexBefore).isNotEqualTo(indexAfter);
+  }
+
+  @Test
+  void testGetPositionalOpponent_null() {
+    PositionalOpponent positionalOpponent = group.getPositionalOpponent((Opponent) null);
+
+    assertThat(positionalOpponent).isNull();
   }
 }

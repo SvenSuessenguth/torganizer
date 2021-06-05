@@ -117,6 +117,13 @@ public class Player extends Opponent {
 
   @Override
   public String toString() {
-    return "[" + getId() + "] " + person.getLastName() + ", " + person.getFirstName();
+    StringBuilder builder = new StringBuilder("[" + getId() + "] ");
+    if (this.person != null) {
+      builder.append(person.getLastName());
+      builder.append(", ");
+      builder.append(person.getFirstName());
+    }
+
+    return builder.toString();
   }
 }
