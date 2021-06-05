@@ -47,8 +47,13 @@ class CheckerTest {
   }
 
   @Test
-  void onlyNullValues_null() {
+  void onlyNullValues_empty() {
     assertThat(onlyNullValues()).isTrue();
+  }
+
+  @Test
+  void onlyNullValues_null() {
+    assertThat(onlyNullValues(null)).isTrue();
   }
 
   @Test
