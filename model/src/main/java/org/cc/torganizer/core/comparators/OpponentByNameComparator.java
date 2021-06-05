@@ -12,9 +12,7 @@ import org.cc.torganizer.core.entities.Player;
 /**
  * Comparing Opponents by Name.
  */
-public class OpponentByNameComparator implements Comparator<Opponent>, Serializable {
-
-  private static final long serialVersionUID = -4391196518411031417L;
+public class OpponentByNameComparator implements Comparator<Opponent>{
 
   @Override
   public final int compare(final Opponent o1, final Opponent o2) {

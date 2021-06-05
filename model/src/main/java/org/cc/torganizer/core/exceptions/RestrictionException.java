@@ -5,8 +5,6 @@ package org.cc.torganizer.core.exceptions;
  */
 public class RestrictionException extends RuntimeException {
 
-  private static final long serialVersionUID = -8976725761960127526L;
-
   /**
    * Bequemlichkeitskonstruktor.
    *
