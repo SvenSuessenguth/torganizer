@@ -1,10 +1,10 @@
 package org.cc.torganizer.core.util;
 
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.cc.torganizer.core.util.Checker.countNullValues;
 import static org.cc.torganizer.core.util.Checker.onlyNullValues;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
@@ -71,12 +71,13 @@ class CheckerTest {
 
   private static Stream<Arguments> equals() {
     return Stream.of(
-        Arguments.of(Arrays.asList(new Player(), new Player()), Arrays.asList(new Player(), new Player()), false),
-        Arguments.of(Arrays.asList(PLAYER_TWO, PLAYER_ONE), Arrays.asList(PLAYER_ONE, PLAYER_TWO), true),
-        Arguments.of(Collections.emptyList(), Arrays.asList(PLAYER_ONE, PLAYER_TWO), false),
+        Arguments.of(asList(new Player()), asList(new Player()), false),
+        Arguments.of(asList(PLAYER_TWO, PLAYER_ONE), asList(PLAYER_ONE, PLAYER_TWO), true),
+        Arguments.of(asList(PLAYER_TWO, PLAYER_ONE), asList(PLAYER_ONE), false),
+        Arguments.of(Collections.emptyList(), asList(PLAYER_ONE, PLAYER_TWO), false),
         Arguments.of(Collections.emptyList(), Collections.emptyList(), true),
-        Arguments.of(null, Arrays.asList(PLAYER_ONE, PLAYER_TWO), false),
-        Arguments.of(Arrays.asList(PLAYER_ONE, PLAYER_TWO), null, false),
+        Arguments.of(null, asList(PLAYER_ONE, PLAYER_TWO), false),
+        Arguments.of(asList(PLAYER_ONE, PLAYER_TWO), null, false),
         Arguments.of(null, null, true)
     );
   }
