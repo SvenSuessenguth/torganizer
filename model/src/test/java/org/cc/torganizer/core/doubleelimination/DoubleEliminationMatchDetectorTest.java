@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 /**
  * @author svens
  */
-class DoubleEliminationMatchDetectorTestDoubleEliminationMatchDetectorTest {
+class DoubleEliminationMatchDetectorTest {
 
   private DoubleEliminationMatchDetector demd;
 
@@ -141,7 +141,9 @@ class DoubleEliminationMatchDetectorTestDoubleEliminationMatchDetectorTest {
     int level = 3;
     int playersInRound = Double.valueOf(players / Math.pow(2, level - 1)).intValue();
     int splitFactor = Double.valueOf(Math.pow(2.0, level - 1.0)).intValue();
-    int reverseFactor = (level + 1) % 2;
+    // calculate reverseFactor = (level + 1) % 2;
+    // in this test always 0
+    int reverseFactor = 0;
 
     List<Opponent> losersOnLevel = new ArrayList<>();
     for (int i = 0; i < playersInRound; i++) {
