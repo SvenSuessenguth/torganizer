@@ -29,4 +29,27 @@ class GroupTest {
     assertThat(group.getPositionalOpponents()).hasSize(2);
     assertThat(group.getPositionalOpponents().get(0).getPosition()).isZero();
   }
+
+  @Test
+  void testRemoveOpponent_null() {
+    List<Opponent> opponentsBefore = group.getOpponents();
+    group.removeOpponent(null);
+    List<Opponent> opponentsAfter = group.getOpponents();
+
+    assertThat(opponentsAfter).containsOnlyOnceElementsOf(opponentsBefore);
+  }
+
+  @Test
+  void testRemoveOpponent_reindex() {
+    Player playerToRemove = new Player();
+
+    group.addOpponent(new Player());
+    group.addOpponent(playerToRemove);
+    group.addOpponent(new Player());
+
+    group.removeOpponent(playerToRemove);
+    List<Opponent> opponentsAfter = group.getOpponents();
+
+    assertThat(opponentsAfter).hasSize(2);
+  }
 }
