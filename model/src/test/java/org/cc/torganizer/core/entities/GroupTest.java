@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.cc.torganizer.core.entities.aggregates.Aggregation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -104,5 +105,28 @@ class GroupTest {
     group.addOpponent(expected);
     Opponent opponent = group.getOpponent(0);
     assertThat(opponent).isNotNull().isEqualTo(expected);
+  }
+
+  @Test
+  void testGetAggregates_empty() {
+    List<Aggregation> aggregates = group.getAggregates();
+    assertThat(aggregates).isEmpty();
+  }
+
+  @Test
+  void testGetAggregates_minimal() {
+    // two players with one match
+    Player p1 = new Player();
+    Player p2 = new Player();
+    group.addOpponent(p1);
+    group.addOpponent(p2);
+
+    Match m = new Match(p1, p2);
+    m.addResult(new Result(0, 0, 1));
+    group.getMatches().add(m);
+
+    List<Aggregation> aggregates = group.getAggregates();
+    assertThat(aggregates).isNotEmpty().hasSize(2);
+    assertThat(aggregates.get(0).getOpponent()).isEqualTo(p2);
   }
 }
