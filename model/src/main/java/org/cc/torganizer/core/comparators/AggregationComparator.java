@@ -1,6 +1,5 @@
 package org.cc.torganizer.core.comparators;
 
-import java.io.Serializable;
 import java.util.Comparator;
 import org.cc.torganizer.core.entities.aggregates.Aggregation;
 import org.cc.torganizer.core.util.Checker;

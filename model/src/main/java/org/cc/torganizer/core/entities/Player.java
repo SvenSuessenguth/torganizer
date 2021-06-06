@@ -117,7 +117,7 @@ public class Player extends Opponent {
 
   @Override
   public String toString() {
-    StringBuilder builder = new StringBuilder("[" + getId() + "] ");
+    var builder = new StringBuilder("[" + getId() + "] ");
     if (this.person != null) {
       builder.append(person.getLastName());
       builder.append(", ");
