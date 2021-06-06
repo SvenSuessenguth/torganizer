@@ -86,4 +86,23 @@ class GroupTest {
     assertThat(positionalOpponents).hasSize(2);
   }
 
+  @Test
+  void testGetOpponent_null() {
+    Opponent opponent = group.getOpponent(null);
+    assertThat(opponent).isNull();
+  }
+
+  @Test
+  void testGetOpponent_invalid() {
+    Opponent opponent = group.getOpponent(Integer.MIN_VALUE);
+    assertThat(opponent).isNull();
+  }
+
+  @Test
+  void testGetOpponent_valid() {
+    Player expected = new Player();
+    group.addOpponent(expected);
+    Opponent opponent = group.getOpponent(0);
+    assertThat(opponent).isNotNull().isEqualTo(expected);
+  }
 }
