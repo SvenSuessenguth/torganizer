@@ -79,6 +79,10 @@ public class Group extends Entity implements Positional {
    */
   public void setOpponents(List<Opponent> newOpponents) {
     getPositionalOpponents().clear();
+    if (newOpponents == null || newOpponents.isEmpty()) {
+      return;
+    }
+
     for (Opponent o : newOpponents) {
       var io = new PositionalOpponent(o, newOpponents.indexOf(o) + 1);
       getPositionalOpponents().add(io);

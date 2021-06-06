@@ -3,6 +3,7 @@ package org.cc.torganizer.core.entities;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -63,4 +64,26 @@ class GroupTest {
 
     assertThat(positionalOpponent).isNull();
   }
+
+  @Test
+  void testSetOpponents_null() {
+    group.setOpponents(null);
+    List<PositionalOpponent> positionalOpponents = group.getPositionalOpponents();
+    assertThat(positionalOpponents).isEmpty();
+  }
+
+  @Test
+  void testSetOpponents_empty() {
+    group.setOpponents(new ArrayList<>());
+    List<PositionalOpponent> positionalOpponents = group.getPositionalOpponents();
+    assertThat(positionalOpponents).isEmpty();
+  }
+
+  @Test
+  void testSetOpponents() {
+    group.setOpponents(Arrays.asList(new Player(), new Player()));
+    List<PositionalOpponent> positionalOpponents = group.getPositionalOpponents();
+    assertThat(positionalOpponents).hasSize(2);
+  }
+
 }
