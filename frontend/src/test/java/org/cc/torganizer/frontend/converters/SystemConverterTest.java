@@ -24,7 +24,8 @@ class SystemConverterTest {
   public static Stream<Arguments> getAsObject() {
     return Stream.of(
         Arguments.of("DOUBLE_ELIMINATION", System.DOUBLE_ELIMINATION),
-        Arguments.of(null, null)
+        Arguments.of(null, null),
+        Arguments.of("", null)
     );
   }
 
