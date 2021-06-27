@@ -1,16 +1,17 @@
 package org.cc.torganizer.core.comparators.player;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.cc.torganizer.core.comparators.player.PlayerOrderCriteria.BY_CLUB;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import java.util.stream.Stream;
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Player;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
 
 class PlayerByClubComparatorTest {
 
@@ -24,7 +25,15 @@ class PlayerByClubComparatorTest {
         arguments(newPlayerWithClub(""), newPlayerWithClub(""), 0),
         arguments(newPlayerWithClub(null), newPlayerWithClub(null), 0),
         arguments(newPlayerWithClub("a"), newPlayerWithClub(null), -1),
-        arguments(newPlayerWithClub(null), newPlayerWithClub("a"), 1)
+        arguments(newPlayerWithClub(null), newPlayerWithClub("a"), 1),
+
+        arguments(new Player("a", "a"), new Player("a", "a"), 0),
+        arguments(new Player("a", "a"), newPlayerWithClub("a"), -1),
+        arguments(newPlayerWithClub("a"), new Player("a", "a"), 1),
+
+        arguments(null, null, 0),
+        arguments(newPlayerWithClub(null), null, 1),
+        arguments(null, newPlayerWithClub(null), -1)
     );
   }
 
@@ -47,5 +56,10 @@ class PlayerByClubComparatorTest {
     int actualCompare = comparator.compare(player1, player2);
 
     assertThat(actualCompare).isEqualTo(expectedCompare);
+  }
+
+  @Test
+  void testCriteria() {
+    assertThat(comparator.getPlayerOrderCriteria()).isEqualTo(BY_CLUB);
   }
 }
