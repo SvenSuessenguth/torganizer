@@ -22,28 +22,8 @@ public enum OpponentType {
     this.opponentClass = newOpponentClass;
   }
 
-  /**
-   * Gibt den OpponentType zu einer uebergebenen Class zurueck.
-   *
-   * @param opponentClass Class eines Opponents
-   * @return OpponentType
-   */
-  public static OpponentType fromClass(Class<? extends Opponent> opponentClass) {
-    for (OpponentType opponentType : OpponentType.values()) {
-      if (opponentType.getOpponentClass().equals(opponentClass)) {
-        return opponentType;
-      }
-    }
-
-    return null;
-  }
-
   @Override
   public String toString() {
     return name();
-  }
-
-  public Class<? extends Opponent> getOpponentClass() {
-    return opponentClass;
   }
 }
