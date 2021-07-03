@@ -37,7 +37,7 @@
      | dependency versions
      +-->
     <assertj-core.version>3.20.2</assertj-core.version>
-    <checkstyle.version>8.43</checkstyle.version>
+    <checkstyle.version>8.44</checkstyle.version>
     <jakarta.activation-api.version>2.0.1</jakarta.activation-api.version>
     <jakarta.jakartaee-api.version>9.1.0</jakarta.jakartaee-api.version>
     <jakarta.xml.bind-api.version>3.0.1</jakarta.xml.bind-api.version>
@@ -51,7 +51,7 @@
     <mockito.version>3.11.2</mockito.version>
     <openliberty-jakartaee9.version>21.0.0.7-beta</openliberty-jakartaee9.version>
     <postgresql.version>42.2.20</postgresql.version>
-    <spotbugs.version>4.2.3</spotbugs.version>
+    <spotbugs.version>4.3.0</spotbugs.version>
 
     <!--
      | mvn site and mvn versions:display-plugin-updates shows a warning
