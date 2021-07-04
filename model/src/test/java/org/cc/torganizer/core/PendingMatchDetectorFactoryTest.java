@@ -40,7 +40,6 @@ class PendingMatchDetectorFactoryTest {
     Mockito.when(detectors.iterator()).thenReturn(iterator);
   }
 
-
   @Test
   void testGetMatchMakerNull() {
     assertThrows(MissingPendingMatchDetectorException.class, () -> factory.getPendingMatchDetector(null));
@@ -51,6 +50,4 @@ class PendingMatchDetectorFactoryTest {
     PendingMatchDetector pmd = factory.getPendingMatchDetector(System.ROUND_ROBIN);
     assertThat(pmd).isNotNull();
   }
-
-
 }
