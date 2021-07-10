@@ -2,6 +2,7 @@ package org.cc.torganizer.core;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 
 import jakarta.enterprise.inject.Instance;
 import java.util.Arrays;
@@ -37,7 +38,7 @@ class PendingMatchDetectorFactoryTest {
     );
 
     Iterator<PendingMatchDetector> iterator = list.iterator();
-    Mockito.when(detectors.iterator()).thenReturn(iterator);
+    when(detectors.iterator()).thenReturn(iterator);
   }
 
   @Test
