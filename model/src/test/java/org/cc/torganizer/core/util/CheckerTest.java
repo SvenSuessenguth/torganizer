@@ -2,7 +2,7 @@ package org.cc.torganizer.core.util;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
-import static java.util.Collections.singleton;
+import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.cc.torganizer.core.util.Checker.countNullValues;
 import static org.cc.torganizer.core.util.Checker.onlyNullValues;
@@ -72,9 +72,9 @@ class CheckerTest {
 
   private static Stream<Arguments> equals() {
     return Stream.of(
-        Arguments.of(singleton(new Player()), singleton(new Player()), false),
+        Arguments.of(singletonList(new Player()), singletonList(new Player()), false),
         Arguments.of(asList(PLAYER_TWO, PLAYER_ONE), asList(PLAYER_ONE, PLAYER_TWO), true),
-        Arguments.of(asList(PLAYER_TWO, PLAYER_ONE), singleton(PLAYER_ONE), false),
+        Arguments.of(asList(PLAYER_TWO, PLAYER_ONE), singletonList(PLAYER_ONE), false),
         Arguments.of(emptyList(), asList(PLAYER_ONE, PLAYER_TWO), false),
         Arguments.of(emptyList(), emptyList(), true),
         Arguments.of(null, asList(PLAYER_ONE, PLAYER_TWO), false),
