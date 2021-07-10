@@ -1,7 +1,6 @@
 package org.cc.torganizer.core;
 
 import static java.util.Arrays.asList;
-import static java.util.Collections.singleton;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -82,7 +81,7 @@ class OpponentsToGroupsAssignerTest {
   }
 
 
-  static Stream<Arguments> testGetGroupsWithMinOpponentsArguments() {
+  static Stream<Arguments> testGetGroupsWithMinOpponents() {
     return Stream.of(
         Arguments.of(asList(2, 2, 3, 2, 3), asList(0, 1, 3)),
         Arguments.of(asList(1, 2, 3), singletonList(0)),
@@ -91,7 +90,7 @@ class OpponentsToGroupsAssignerTest {
   }
 
   @ParameterizedTest
-  @MethodSource(value = "testGetGroupsWithMinOpponentsArguments")
+  @MethodSource
   void testGetGroupsWithMinOpponents(List<Integer> opponentsPerGroup, List<Integer> expectedGroupsIndexes) {
     // creating groups
     List<Group> groups = new ArrayList<>();
@@ -116,7 +115,7 @@ class OpponentsToGroupsAssignerTest {
     }
   }
 
-  static Stream<Arguments> testGetGroupsWithMinClubMembersArguments() {
+  static Stream<Arguments> testGetGroupsWithMinClubMembers() {
     Club c1 = new Club("c1");
     Club c2 = new Club("c2");
     Club c3 = new Club("c3");
@@ -153,7 +152,7 @@ class OpponentsToGroupsAssignerTest {
   }
 
   @ParameterizedTest
-  @MethodSource(value = "testGetGroupsWithMinClubMembersArguments")
+  @MethodSource
   void testGetGroupsWithMinClubMembers(List<Group> groups, List<Club> clubs, List<Long> expectedIds) {
     List<Group> groupsWithMinClubMembers = assigner.getGroupsWithMinClubMembers(groups, clubs);
 
