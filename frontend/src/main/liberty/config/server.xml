@@ -2,6 +2,7 @@
 <server description="torganizer">
   <featureManager>
     <feature>jakartaee-9.0</feature>
+    <feature>microProfile-4.1</feature>
   </featureManager>
 
   <!--
