@@ -13,6 +13,16 @@ import org.cc.torganizer.core.entities.Player;
 public class PlayerByClubComparator implements PlayerComparator {
   @Override
   public int compare(Player player1, Player player2) {
+    // null-handling for players
+    if (player1 == null && player2 == null) {
+      return 0;
+    } else if (player1 == null) {
+      return -1;
+    } else if (player2 == null) {
+      return 1;
+    }
+
+
     var clubPlayer1 = player1.getClub();
     var clubPlayer2 = player2.getClub();
 
@@ -20,13 +30,12 @@ public class PlayerByClubComparator implements PlayerComparator {
     if (clubPlayer1 == null && clubPlayer2 == null) {
       return 0;
     } else if (clubPlayer1 == null) {
-      return 1;
-    } else if (clubPlayer2 == null) {
       return -1;
+    } else if (clubPlayer2 == null) {
+      return 1;
     }
 
     // both players having clubs
-
     return new ClubComparator().compare(clubPlayer1, clubPlayer2);
   }
 

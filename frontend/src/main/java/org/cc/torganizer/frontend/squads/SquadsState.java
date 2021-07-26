@@ -5,6 +5,7 @@ import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
 import jakarta.enterprise.inject.Vetoed;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.cc.torganizer.core.entities.Gender;
@@ -49,6 +50,10 @@ public class SquadsState implements Serializable {
    * Getting the players.
    */
   public List<Player> getPlayers() {
+    if (players == null || players.isEmpty()) {
+      return Collections.emptyList();
+    }
+
     // filter by gender
     List<Player> collect = players
         .stream()
@@ -58,6 +63,10 @@ public class SquadsState implements Serializable {
     // fill chunk of players
     int fromIndex = allPlayersTableIndex * ALL_PLAYERS_TABLE_SIZE;
     int toIndex = Math.min(fromIndex + ALL_PLAYERS_TABLE_SIZE, collect.size());
+    if (toIndex < fromIndex) {
+      return Collections.emptyList();
+    }
+
     List<Player> chunk = new ArrayList<>(collect.subList(fromIndex, toIndex));
 
     // fill up to 10 to show not only table headers
@@ -94,6 +103,14 @@ public class SquadsState implements Serializable {
   }
 
   public boolean hasNextAllPlayersTableChunk() {
+    if (players == null) {
+      return false;
+    }
+
     return players.size() > (allPlayersTableIndex + 1) * ALL_PLAYERS_TABLE_SIZE;
+  }
+
+  protected void setAllPlayersTableIndex(int allPlayersTableIndex) {
+    this.allPlayersTableIndex = allPlayersTableIndex;
   }
 }

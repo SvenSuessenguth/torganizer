@@ -20,7 +20,7 @@
     <!--
      | https://openliberty.io/guides/maven-intro.html
      +-->
-    <version.liberty-maven-plugin>3.3-M4</version.liberty-maven-plugin>
+    <version.liberty-maven-plugin>3.3.3</version.liberty-maven-plugin>
   </properties>
 
   <dependencies>

@@ -1,11 +1,12 @@
 package org.cc.torganizer.core.util;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
+import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.cc.torganizer.core.util.Checker.countNullValues;
 import static org.cc.torganizer.core.util.Checker.onlyNullValues;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 import org.cc.torganizer.core.entities.Player;
@@ -23,12 +24,12 @@ class CheckerTest {
 
   @Test
   void countNullValues_null() {
-    assertThat(countNullValues(null)).isZero();
+    assertThat(countNullValues((Object[]) null)).isZero();
   }
 
   @Test
   void countNullValues_empty() {
-    assertThat(countNullValues(new Object[]{})).isZero();
+    assertThat(countNullValues()).isZero();
   }
 
   @Test
@@ -53,7 +54,7 @@ class CheckerTest {
 
   @Test
   void onlyNullValues_null() {
-    assertThat(onlyNullValues(null)).isTrue();
+    assertThat(onlyNullValues((Object[]) null)).isTrue();
   }
 
   @Test
@@ -71,11 +72,11 @@ class CheckerTest {
 
   private static Stream<Arguments> equals() {
     return Stream.of(
-        Arguments.of(asList(new Player()), asList(new Player()), false),
+        Arguments.of(singletonList(new Player()), singletonList(new Player()), false),
         Arguments.of(asList(PLAYER_TWO, PLAYER_ONE), asList(PLAYER_ONE, PLAYER_TWO), true),
-        Arguments.of(asList(PLAYER_TWO, PLAYER_ONE), asList(PLAYER_ONE), false),
-        Arguments.of(Collections.emptyList(), asList(PLAYER_ONE, PLAYER_TWO), false),
-        Arguments.of(Collections.emptyList(), Collections.emptyList(), true),
+        Arguments.of(asList(PLAYER_TWO, PLAYER_ONE), singletonList(PLAYER_ONE), false),
+        Arguments.of(emptyList(), asList(PLAYER_ONE, PLAYER_TWO), false),
+        Arguments.of(emptyList(), emptyList(), true),
         Arguments.of(null, asList(PLAYER_ONE, PLAYER_TWO), false),
         Arguments.of(asList(PLAYER_ONE, PLAYER_TWO), null, false),
         Arguments.of(null, null, true)
@@ -83,8 +84,8 @@ class CheckerTest {
   }
 
   @ParameterizedTest
-  @MethodSource(value = "equals")
-  void testEquals(List<?> l1, List<?> l2, boolean expected) {
+  @MethodSource
+  void equals(List<?> l1, List<?> l2, boolean expected) {
     boolean equals = Checker.equals(l1, l2);
 
     assertThat(equals).isEqualTo(expected);
@@ -100,8 +101,8 @@ class CheckerTest {
   }
 
   @ParameterizedTest
-  @MethodSource(value = "isNoNullValue")
-  void testIsNoNullValue(boolean expected, Object... objects) {
+  @MethodSource
+  void isNoNullValue(boolean expected, Object... objects) {
     boolean noNullValue = Checker.isNoNullValue(objects);
     assertThat(noNullValue).isEqualTo(expected);
   }

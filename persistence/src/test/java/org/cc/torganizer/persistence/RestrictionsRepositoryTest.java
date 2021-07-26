@@ -6,7 +6,6 @@ import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
 
 import java.time.LocalDate;
 import java.util.List;
-import org.assertj.core.api.Assertions;
 import org.cc.torganizer.core.entities.AgeRestriction;
 import org.cc.torganizer.core.entities.GenderRestriction;
 import org.cc.torganizer.core.entities.OpponentTypeRestriction;

@@ -3,7 +3,6 @@ package org.cc.torganizer.frontend.disciplines.rounds;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
@@ -31,8 +30,12 @@ class DisciplinesRoundBackingTest {
     Group g2 = group(o3, o4);
     Round r = round(g1, g2);
 
-    List<Opponent> opponents = new ArrayList(Arrays.asList(o1,
-        o2, o3, o4, opponent(5L)));
+    List<Opponent> opponents = new ArrayList<>();
+    opponents.add(o1);
+    opponents.add(o2);
+    opponents.add(o3);
+    opponents.add(o4);
+    opponents.add(opponent(5L));
 
     backing.removeAlreadyAssignedOpponents(opponents, r);
 
