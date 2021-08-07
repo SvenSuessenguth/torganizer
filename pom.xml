@@ -49,8 +49,8 @@
     <log4j-core.version>${log4j-api.version}</log4j-core.version>
     <microprofile.version>4.1</microprofile.version>
     <mockito.version>3.11.2</mockito.version>
-    <openliberty-jakartaee9.version>21.0.0.8-beta</openliberty-jakartaee9.version>
-    <postgresql.version>42.2.20</postgresql.version>
+    <openliberty-jakartaee9.version>21.0.0.9-beta</openliberty-jakartaee9.version>
+    <postgresql.version>42.2.23</postgresql.version>
     <spotbugs.version>4.3.0</spotbugs.version>
 
     <!--
