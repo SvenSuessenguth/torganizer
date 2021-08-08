@@ -53,7 +53,7 @@
           <serverName>frontend</serverName>
           <runtimeArtifact>
             <groupId>io.openliberty.beta</groupId>
-            <artifactId>openliberty-jakartaee9</artifactId>
+            <artifactId>openliberty-runtime</artifactId>
             <version>${openliberty-jakartaee9.version}</version>
             <type>zip</type>
           </runtimeArtifact>
