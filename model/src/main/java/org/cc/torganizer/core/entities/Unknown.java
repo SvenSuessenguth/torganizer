@@ -15,6 +15,6 @@ public class Unknown extends Opponent {
 
   @Override
   public OpponentType getOpponentType() {
-    return null;
+    return OpponentType.UNKNOWN;
   }
 }
