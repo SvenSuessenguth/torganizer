@@ -29,5 +29,4 @@ class UnknownTest {
 
     assertThat(players).isEmpty();
   }
-
 }
