@@ -19,7 +19,7 @@
     <dbunit.version>2.7.2</dbunit.version>
     <org.eclipse.persistence.jpa.version>3.0.2</org.eclipse.persistence.jpa.version>
     <h2.version>1.4.200</h2.version>
-    <slf4j.version>2.0.0-alpha2</slf4j.version>
+    <slf4j.version>2.0.0-alpha3</slf4j.version>
   </properties>
 
   <dependencies>
