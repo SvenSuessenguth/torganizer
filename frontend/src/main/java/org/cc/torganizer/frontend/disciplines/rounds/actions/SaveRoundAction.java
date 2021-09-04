@@ -40,16 +40,17 @@ public class SaveRoundAction extends RoundAction {
   }
 
   private void updateNumberOfGroups(Round round) {
-    int groupsSize = round.getGroups().size();
     int newGroupsCount = roundState.getNewGroupsCount();
 
-    createNecessaryGroups(round, groupsSize, newGroupsCount);
-    deleteSuperfluousGroups(round, groupsSize, newGroupsCount);
+    createNecessaryGroups(round, newGroupsCount);
+    deleteSuperfluousGroups(round, newGroupsCount);
   }
 
-  protected void deleteSuperfluousGroups(Round round, int groupsSize, int newGroupsCount) {
-    if (groupsSize > newGroupsCount) {
-      int groupsToDelete = groupsSize - newGroupsCount;
+  protected void deleteSuperfluousGroups(Round round, int newGroupsCount) {
+    int currentGroupsCount = round.getGroups().size();
+
+    if (currentGroupsCount > newGroupsCount) {
+      int groupsToDelete = currentGroupsCount - newGroupsCount;
       for (var i = 0; i < groupsToDelete; i++) {
         // find deletable round and delete it
         List<Group> deletableGroups = round.getDeletableGroups();
@@ -60,9 +61,10 @@ public class SaveRoundAction extends RoundAction {
     }
   }
 
-  protected void createNecessaryGroups(Round round, int groupsSize, int newGroupsCount) {
-    if (groupsSize < newGroupsCount) {
-      int newGroups = newGroupsCount - groupsSize;
+  protected void createNecessaryGroups(Round round, int newGroupsCount) {
+    int currentGroupsCount = round.getGroups().size();
+    if (currentGroupsCount < newGroupsCount) {
+      int newGroups = newGroupsCount - currentGroupsCount;
       for (var i = 0; i < newGroups; i++) {
         var group = new Group();
         round.appendGroup(group);
