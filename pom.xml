@@ -60,7 +60,7 @@
     <dependency-check-maven.version>6.3.1</dependency-check-maven.version>
     <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
     <liberty-maven-plugin.version>3.4</liberty-maven-plugin.version>
-	<maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
+    <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
     <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
     <maven-dependency-plugin.version>3.2.0</maven-dependency-plugin.version>
@@ -68,7 +68,7 @@
     <maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version>
     <maven-install-plugin.version>3.0.0-M1</maven-install-plugin.version>    
     <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
-	<maven-javadoc-plugin.version>3.3.1</maven-javadoc-plugin.version>
+    <maven-javadoc-plugin.version>3.3.1</maven-javadoc-plugin.version>
     <maven-jxr-plugin.version>3.1.1</maven-jxr-plugin.version>
     <maven-pmd-plugin.version>3.14.0</maven-pmd-plugin.version>
     <maven-project-info-reports-plugin.version>3.1.2</maven-project-info-reports-plugin.version>
@@ -346,8 +346,8 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>${maven-compiler-plugin.version}</version>
           <configuration>
-            <source>15</source>
-            <target>15</target>
+            <source>17</source>
+            <target>17</target>
             <verbose>true</verbose>
             <encoding>UTF-8</encoding>
           </configuration>
