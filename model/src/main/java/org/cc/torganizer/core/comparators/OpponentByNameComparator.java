@@ -11,7 +11,7 @@ import org.cc.torganizer.core.entities.Player;
 /**
  * Comparing Opponents by Name.
  */
-public class OpponentByNameComparator implements Comparator<Opponent>{
+public class OpponentByNameComparator implements Comparator<Opponent> {
 
   @Override
   public final int compare(final Opponent o1, final Opponent o2) {
