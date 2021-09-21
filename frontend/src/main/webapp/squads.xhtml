@@ -75,11 +75,11 @@
       <h:commandLink value="&#8701;"
                      style="#{squadsState.hasPrevAllPlayersTableChunk()?'color:black;':'color:lightgray;'}"
                      disabled="#{!state.hasPrevAllPlayersTableChunk()}"
-                     action="#{state.prevAllPlayersTableChunk}"/>
+                     action="#{state.decAllPlayersTableChunk}"/>
       <h:commandLink value="&#8702;"
                      style="#{squadsState.hasNextAllPlayersTableChunk()?'color:black;':'color:lightgray;'}"
                      disabled="#{!state.hasNextAllPlayersTableChunk()}"
-                     action="#{state.nextAllPlayersTableChunk}"/>
+                     action="#{state.incAllPlayersTableChunk}"/>
 
       <!--
        | current squad

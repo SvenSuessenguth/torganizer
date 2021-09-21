@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Player;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -91,5 +92,50 @@ class SquadsStateTest {
     }
 
     return players;
+  }
+
+  public static Stream<Arguments> hasPrevAllPlayersTableChunk() {
+    return Stream.of(
+        Arguments.of(0, false),
+        Arguments.of(1, true)
+    );
+  }
+
+  @ParameterizedTest
+  @MethodSource
+  void hasPrevAllPlayersTableChunk(int index, boolean expected) {
+    squadsState.setAllPlayersTableIndex(index);
+    boolean actual = squadsState.hasPrevAllPlayersTableChunk();
+
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  void incAllPlayersTableChunk() {
+    int index = 1;
+    squadsState.setAllPlayersTableIndex(index);
+    squadsState.incAllPlayersTableChunk();
+    int actual = squadsState.getAllPlayersTableIndex();
+
+    assertThat(actual).isEqualTo(index + 1);
+  }
+
+  public static Stream<Arguments> decAllPlayersTableChunk() {
+    return Stream.of(
+        Arguments.of(0, 0),
+        Arguments.of(1, 0),
+        Arguments.of(-1, 0),
+        Arguments.of(2, 1)
+    );
+  }
+
+  @ParameterizedTest
+  @MethodSource
+  void decAllPlayersTableChunk(int index, int expected) {
+    squadsState.setAllPlayersTableIndex(index);
+    squadsState.decAllPlayersTableChunk();
+    int actual = squadsState.getAllPlayersTableIndex();
+
+    assertThat(actual).isEqualTo(expected);
   }
 }

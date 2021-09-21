@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
@@ -90,12 +89,16 @@ public class SquadsState implements Serializable {
     this.gender = gender;
   }
 
-  public void nextAllPlayersTableChunk() {
+  public void incAllPlayersTableChunk() {
     allPlayersTableIndex += 1;
   }
 
-  public void prevAllPlayersTableChunk() {
-    allPlayersTableIndex -= 1;
+  public void decAllPlayersTableChunk() {
+    if (hasPrevAllPlayersTableChunk()) {
+      allPlayersTableIndex -= 1;
+    } else {
+      allPlayersTableIndex = 0;
+    }
   }
 
   public boolean hasPrevAllPlayersTableChunk() {
@@ -112,5 +115,9 @@ public class SquadsState implements Serializable {
 
   protected void setAllPlayersTableIndex(int allPlayersTableIndex) {
     this.allPlayersTableIndex = allPlayersTableIndex;
+  }
+
+  protected int getAllPlayersTableIndex() {
+    return this.allPlayersTableIndex;
   }
 }
