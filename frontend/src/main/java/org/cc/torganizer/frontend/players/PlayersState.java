@@ -86,7 +86,7 @@ public class PlayersState implements Serializable {
     return Arrays.asList(PlayerOrderCriteria.values());
   }
 
-  public Long getCurrentClubId() {
+  public Long getCurrentPlayersClubById() {
     return current.getClub() == null ? null : current.getClub().getId();
   }
 

@@ -58,7 +58,7 @@ public class SquadsState implements Serializable {
     List<Player> collect = players
         .stream()
         .filter(p -> p.getPerson().fitsGender(gender))
-        .collect(Collectors.toList());
+        .toList();
 
     // fill chunk of players
     int fromIndex = allPlayersTableIndex * ALL_PLAYERS_TABLE_SIZE;

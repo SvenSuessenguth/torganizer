@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
@@ -40,7 +39,7 @@ public class OpponentsToGroupsAssigner {
             .getPlayers()
             .stream()
             .map(Player::getClub)
-            .collect(Collectors.toList());
+            .toList();
         List<Group> minClubGroups = getGroupsWithMinClubMembers(minOpponentGroups, clubs);
         minClubGroups.get(0).addOpponent(opponent);
       }
