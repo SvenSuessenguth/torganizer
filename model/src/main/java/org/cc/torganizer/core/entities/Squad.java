@@ -29,6 +29,10 @@ public class Squad extends Opponent {
   }
 
   public void addPlayer(Player player) {
+    if (player == null || player.getPerson() == null) {
+      throw new IllegalArgumentException("player oder person of player must not be null");
+    }
+
     players.add(player);
   }
 
@@ -37,7 +41,7 @@ public class Squad extends Opponent {
   }
 
   public void addPlayers(Collection<Player> players) {
-    this.players.addAll(players);
+    players.stream().forEach(this::addPlayer);
   }
 
   @Override

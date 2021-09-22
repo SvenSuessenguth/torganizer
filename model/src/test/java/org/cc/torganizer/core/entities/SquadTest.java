@@ -6,9 +6,11 @@
 package org.cc.torganizer.core.entities;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.Arrays;
 import java.util.Collection;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,9 +28,19 @@ class SquadTest {
 
   @Test
   void testAddPlayers() {
-    Collection<Player> players = Arrays.asList(new Player(), new Player());
+    Collection<Player> players = Arrays.asList(new Player(new Person()), new Player(new Person()));
     squad.addPlayers(players);
 
     assertThat(squad.getPlayers()).hasSize(2);
+  }
+
+  @Test
+  void testAddPlayer_playerNull() {
+    assertThatThrownBy(() -> squad.addPlayer(null)).isInstanceOf(IllegalArgumentException.class);
+  }
+
+  @Test
+  void testAddPlayer_playersPersonNull() {
+    assertThatThrownBy(() -> squad.addPlayer(new Player())).isInstanceOf(IllegalArgumentException.class);
   }
 }
