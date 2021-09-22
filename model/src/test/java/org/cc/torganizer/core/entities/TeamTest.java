@@ -18,8 +18,8 @@ class TeamTest {
   @Test
   void getPlayers() {
     Squad squad = new Squad();
-    squad.addPlayer(new Player());
-    squad.addPlayer(new Player());
+    squad.addPlayer(new Player(new Person()));
+    squad.addPlayer(new Player(new Person()));
     team.addOpponent(squad);
 
     Set<Player> players = team.getPlayers();

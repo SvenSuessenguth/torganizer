@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.stream.Stream;
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,13 +35,13 @@ class OpponentByClubComparatorTest {
         Arguments.of(pwc(club2), pwc(club1), 1),
         Arguments.of(pwc(club1), pwc(club2), -1),
         Arguments.of(swp(pwc(club1), pwc(club2)), swp(pwc(club2), pwc(club1)), 0),
-        Arguments.of(swp(pwc(club1), pwc(club2)), swp(pwc(club2), new Player()), -1)
+        Arguments.of(swp(pwc(club1), pwc(club2)), swp(pwc(club2), new Player(new Person())), -1)
     );
   }
 
   // pwc = player with club
   private static Player pwc(Club club) {
-    Player player = new Player();
+    Player player = new Player(new Person());
     player.setClub(club);
     return player;
   }

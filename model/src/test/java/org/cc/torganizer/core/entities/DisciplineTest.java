@@ -144,8 +144,8 @@ class DisciplineTest {
     Discipline discipline = new Discipline();
 
     Squad squad = new Squad();
-    squad.addPlayer(new Player());
-    squad.addPlayer(new Player());
+    squad.addPlayer(new Player(new Person()));
+    squad.addPlayer(new Player(new Person()));
     discipline.addOpponent(squad);
     discipline.addOpponent(new Player());
 
