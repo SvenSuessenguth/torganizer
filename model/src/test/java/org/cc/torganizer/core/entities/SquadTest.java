@@ -10,7 +10,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.Arrays;
 import java.util.Collection;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -41,6 +40,7 @@ class SquadTest {
 
   @Test
   void testAddPlayer_playersPersonNull() {
-    assertThatThrownBy(() -> squad.addPlayer(new Player())).isInstanceOf(IllegalArgumentException.class);
+    Player player = new Player();
+    assertThatThrownBy(() -> squad.addPlayer(player)).isInstanceOf(IllegalArgumentException.class);
   }
 }
