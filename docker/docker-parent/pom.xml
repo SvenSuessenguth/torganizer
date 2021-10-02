@@ -33,7 +33,7 @@
                 <artifactItem>
                   <groupId>org.postgresql</groupId>
                   <artifactId>postgresql</artifactId>
-                  <version>42.2.19</version>
+                  <version>${postgresql.version}</version>
                 </artifactItem>
               </artifactItems>
             </configuration>
