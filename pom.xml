@@ -37,7 +37,7 @@
      | dependency versions
      +-->
     <assertj-core.version>3.21.0</assertj-core.version>
-    <checkstyle.version>9.0</checkstyle.version>
+    <checkstyle.version>9.0.1</checkstyle.version>
     <jakarta.activation-api.version>2.1.0-RC1</jakarta.activation-api.version>
     <jakarta.jakartaee-api.version>9.1.0</jakarta.jakartaee-api.version>
     <jakarta.xml.bind-api.version>4.0.0-RC1</jakarta.xml.bind-api.version>
@@ -47,7 +47,7 @@
     <junit-platform.version>1.3.0-RC1</junit-platform.version>
     <log4j-api.version>2.14.1</log4j-api.version>
     <log4j-core.version>${log4j-api.version}</log4j-core.version>
-    <microprofile.version>4.1</microprofile.version>
+    <microprofile.version>5.0-RC1</microprofile.version>
     <mockito.version>3.12.4</mockito.version>
     <openliberty-jakartaee9.version>21.0.0.11-beta</openliberty-jakartaee9.version>
     <postgresql.version>42.2.24</postgresql.version>
@@ -57,7 +57,7 @@
      | mvn site and mvn versions:display-plugin-updates shows a warning
      | [WARNING] The following plugins do not have their version specified:
      +-->
-    <dependency-check-maven.version>6.3.1</dependency-check-maven.version>
+    <dependency-check-maven.version>6.3.2</dependency-check-maven.version>
     <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
     <liberty-maven-plugin.version>3.4</liberty-maven-plugin.version>
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
