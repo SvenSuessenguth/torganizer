@@ -1,6 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -51,50 +50,22 @@ public class Tournament extends Entity {
     this.disciplines = disciplines;
   }
 
-  /**
-   * Gibt die Liste der running Matches zur\u00fcck.
-   *
-   * @return Liste der running Matches
-   */
   public List<Match> getRunningMatches() {
-
-    List<Match> runningMatches = new ArrayList<>();
-
-    for (Discipline discipline : getDisciplines()) {
-      var round = discipline.getCurrentRound();
-      round.ifPresent(r -> {
-        List<Group> groups = round.get().getGroups();
-        for (Group group : groups) {
-          runningMatches.addAll(group.getRunningMatches());
-        }
-      });
-    }
-
-    return runningMatches;
+    return getDisciplines().stream()
+        .flatMap(d -> d.getRounds().stream())
+        .flatMap(r -> r.getGroups().stream())
+        .flatMap(g -> g.getMatches().stream())
+        .filter(Match::isRunning)
+        .toList();
   }
 
-  /**
-   * Gibt eine Liste der finishedMatches zur\u00fcck. Dies umfasst nicht nur die
-   * aktuellen Rounds, sondern alle Rounds.
-   *
-   * @return Liste der finished Matches
-   */
   public List<Match> getFinishedMatches() {
-    List<Match> finishedMatches = new ArrayList<>();
-
-    for (Discipline discipline : getDisciplines()) {
-      for (Round round : discipline.getRounds()) {
-        for (Group group : round.getGroups()) {
-          for (Match match : group.getMatches()) {
-            if (match.isFinished()) {
-              finishedMatches.add(match);
-            }
-          }
-        }
-      }
-    }
-
-    return finishedMatches;
+    return getDisciplines().stream()
+        .flatMap(d -> d.getRounds().stream())
+        .flatMap(r -> r.getGroups().stream())
+        .flatMap(g -> g.getMatches().stream())
+        .filter(Match::isFinished)
+        .toList();
   }
 
   public Set<Opponent> getOpponents() {

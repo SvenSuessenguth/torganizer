@@ -2,6 +2,7 @@ package org.cc.torganizer.core.entities;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -69,5 +70,24 @@ class TournamentTest {
     List<Match> runningMatches = tournament.getRunningMatches();
 
     assertThat(runningMatches).isNotEmpty();
+  }
+
+  @Test
+  void testGetFinishedMatches() {
+    Discipline discipline = new Discipline();
+    Round round = new Round();
+    Group group = new Group();
+    group.addOpponent(new Player());
+    Match match = new Match(new Player(), new Player());
+    match.setRunning(false);
+    match.setFinishedTime(LocalDateTime.now());
+    group.getMatches().add(match);
+    round.appendGroup(group);
+    discipline.addRound(round);
+
+    tournament.addDiscipline(discipline);
+    List<Match> finishedMatches = tournament.getFinishedMatches();
+
+    assertThat(finishedMatches).isNotEmpty().hasSize(1);
   }
 }
