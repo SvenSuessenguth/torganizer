@@ -39,7 +39,7 @@
      | dependency versions
      +-->
     <assertj-core.version>3.21.0</assertj-core.version>
-    <checkstyle.version>9.0.1</checkstyle.version>
+    <checkstyle.version>9.1</checkstyle.version>
     <jakarta.activation-api.version>2.1.0-RC1</jakarta.activation-api.version>
     <jakarta.jakartaee-api.version>9.1.0</jakarta.jakartaee-api.version>
     <jakarta.xml.bind-api.version>4.0.0-RC2</jakarta.xml.bind-api.version>
