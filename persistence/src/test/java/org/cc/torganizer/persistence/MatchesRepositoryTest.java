@@ -38,6 +38,18 @@ class MatchesRepositoryTest extends AbstractDbUnitJpaTest {
   @Test
   void read_outRange() {
     List<Match> matches = repository.read(10, 10);
-    assertThat(matches).hasSize(0);
+    assertThat(matches).isEmpty();
+  }
+
+  @Test
+  void read_defaultRange() {
+    List<Match> matches = repository.read(null, null);
+    assertThat(matches).hasSize(1);
+  }
+
+  @Test
+  void count() {
+    long count = repository.count();
+    assertThat(count).isEqualTo(1);
   }
 }
