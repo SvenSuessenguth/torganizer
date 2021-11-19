@@ -1,14 +1,15 @@
 package org.cc.torganizer.core.comparators.player;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.cc.torganizer.core.comparators.player.PlayerOrderCriteria.BY_DATE_OF_BIRTH;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Stream;
 import org.cc.torganizer.core.entities.Player;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -17,8 +18,21 @@ class PlayerByDateOfBirthComparatorTest {
 
   PlayerByDateOfBirthComparator comparator;
 
-  static Stream<Arguments> playerProvider() throws ParseException {
+  @BeforeEach
+  public void beforeEach() {
+    comparator = new PlayerByDateOfBirthComparator();
+  }
+
+  @Test
+  void getPlayerOrderCriteria() {
+    assertThat(comparator.getPlayerOrderCriteria()).isEqualTo(BY_DATE_OF_BIRTH);
+  }
+
+  public static Stream<Arguments> compare() {
     return Stream.of(
+        arguments(null, null, 0),
+        arguments(null, newPlayerWithDateOfBirth(null), -1),
+        arguments(newPlayerWithDateOfBirth(null), null, 1),
         arguments(newPlayerWithDateOfBirth(null), newPlayerWithDateOfBirth(null), 0),
         arguments(newPlayerWithDateOfBirth("01.01.2020"), newPlayerWithDateOfBirth("01.01.2020"), 0),
 
@@ -30,7 +44,15 @@ class PlayerByDateOfBirthComparatorTest {
     );
   }
 
-  static Player newPlayerWithDateOfBirth(String s) throws ParseException {
+  @ParameterizedTest
+  @MethodSource("compare")
+  void compare(Player player1, Player player2, int expectedCompare) {
+    int actualCompare = comparator.compare(player1, player2);
+
+    assertThat(actualCompare).isEqualTo(expectedCompare);
+  }
+
+  static Player newPlayerWithDateOfBirth(String s) {
     LocalDate dateOfBirth = null;
     if (s != null) {
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -41,18 +63,5 @@ class PlayerByDateOfBirthComparatorTest {
     player.getPerson().setDateOfBirth(dateOfBirth);
 
     return player;
-  }
-
-  @BeforeEach
-  public void beforeEach() {
-    comparator = new PlayerByDateOfBirthComparator();
-  }
-
-  @ParameterizedTest
-  @MethodSource("playerProvider")
-  void test(Player player1, Player player2, int expectedCompare) {
-    int actualCompare = comparator.compare(player1, player2);
-
-    assertThat(actualCompare).isEqualTo(expectedCompare);
   }
 }
