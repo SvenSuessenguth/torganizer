@@ -50,7 +50,7 @@
     <log4j-api.version>2.14.1</log4j-api.version>
     <log4j-core.version>${log4j-api.version}</log4j-core.version>
     <microprofile.version>5.0-RC2</microprofile.version>
-    <mockito.version>4.0.0</mockito.version>
+    <mockito.version>4.1.0</mockito.version>
     <openliberty-jakartaee9.version>21.0.0.12-beta</openliberty-jakartaee9.version>
     <postgresql.version>42.3.1</postgresql.version>
     <spotbugs.version>4.5.0</spotbugs.version>
