@@ -20,7 +20,7 @@
     <!--
      | https://openliberty.io/guides/maven-intro.html
      +-->
-    <version.liberty-maven-plugin>3.4</version.liberty-maven-plugin>
+    <version.liberty-maven-plugin>3.5</version.liberty-maven-plugin>
   </properties>
 
   <dependencies>
@@ -52,8 +52,8 @@
         <configuration>
           <serverName>frontend</serverName>
           <runtimeArtifact>
-            <groupId>io.openliberty.beta</groupId>
-            <artifactId>openliberty-runtime</artifactId>
+            <groupId>io.openliberty</groupId>
+            <artifactId>openliberty-jakartaee9</artifactId>
             <version>${openliberty-jakartaee9.version}</version>
             <type>zip</type>
           </runtimeArtifact>
