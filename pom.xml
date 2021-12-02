@@ -39,13 +39,13 @@
      | dependency versions
      +-->
     <assertj-core.version>3.21.0</assertj-core.version>
-    <checkstyle.version>9.1</checkstyle.version>
+    <checkstyle.version>9.2</checkstyle.version>
     <jakarta.activation-api.version>2.1.0-RC1</jakarta.activation-api.version>
     <jakarta.jakartaee-api.version>9.1.0</jakarta.jakartaee-api.version>
     <jakarta.xml.bind-api.version>4.0.0-RC2</jakarta.xml.bind-api.version>
     <jaxb-core.version>3.0.2</jaxb-core.version>
     <jaxb-impl.version>3.0.2</jaxb-impl.version>
-    <junit-jupiter.version>5.8.1</junit-jupiter.version>
+    <junit-jupiter.version>5.8.2</junit-jupiter.version>
     <junit-platform.version>1.3.0-RC1</junit-platform.version>
     <log4j-api.version>2.14.1</log4j-api.version>
     <log4j-core.version>${log4j-api.version}</log4j-core.version>
