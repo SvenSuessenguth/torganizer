@@ -52,8 +52,8 @@
         <configuration>
           <serverName>frontend</serverName>
           <runtimeArtifact>
-            <groupId>io.openliberty</groupId>
-            <artifactId>openliberty-jakartaee9</artifactId>
+            <groupId>io.openliberty.beta</groupId>
+            <artifactId>openliberty-runtime</artifactId>
             <version>${openliberty-jakartaee9.version}</version>
             <type>zip</type>
           </runtimeArtifact>

@@ -51,7 +51,7 @@
     <log4j-core.version>${log4j-api.version}</log4j-core.version>
     <microprofile.version>5.0-RC2</microprofile.version>
     <mockito.version>4.1.0</mockito.version>
-    <openliberty-jakartaee9.version>21.0.0.12</openliberty-jakartaee9.version>
+    <openliberty-jakartaee9.version>22.0.0.1-beta</openliberty-jakartaee9.version>
     <postgresql.version>42.3.1</postgresql.version>
     <spotbugs.version>4.5.0</spotbugs.version>
 
@@ -61,7 +61,7 @@
      +-->
     <dependency-check-maven.version>6.5.0</dependency-check-maven.version>
     <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
-    <liberty-maven-plugin.version>3.5</liberty-maven-plugin.version>
+    <liberty-maven-plugin.version>3.5.1</liberty-maven-plugin.version>
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
     <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
