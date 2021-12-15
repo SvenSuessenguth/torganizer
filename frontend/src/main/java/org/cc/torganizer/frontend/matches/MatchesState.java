@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.cc.torganizer.core.entities.Match;
 
+/**
+ * State for the match-view.
+ */
 @Vetoed
 public class MatchesState implements Serializable {
 

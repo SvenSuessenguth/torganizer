@@ -6,6 +6,9 @@ import jakarta.enterprise.inject.Default;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Named;
 
+/**
+ * Producer for the MatchState.
+ */
 @RequestScoped
 public class MatchesStateProducer {
 
