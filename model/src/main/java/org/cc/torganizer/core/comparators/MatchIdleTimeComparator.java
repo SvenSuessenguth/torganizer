@@ -13,7 +13,7 @@ public class MatchIdleTimeComparator implements Comparator<Match>, Serializable 
   @Override
   public final int compare(final Match m1, final Match m2) {
 
-    // durchschnittliche Wartezeit der Player ermitteln
+    // calculate average idle time
     Long idleTime1 = m1 == null ? Long.valueOf(0L) : m1.getIdleTime();
     Long idleTime2 = m2 == null ? Long.valueOf(0L) : m2.getIdleTime();
 
