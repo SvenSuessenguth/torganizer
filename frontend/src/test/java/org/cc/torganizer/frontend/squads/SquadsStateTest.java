@@ -26,6 +26,7 @@ class SquadsStateTest {
     squadsState = new SquadsState();
   }
 
+  @SuppressWarnings("unused")
   public static Stream<Arguments> hasNextAllPlayersTableChunk() {
     return Stream.of(
         Arguments.of(getPlayers(0), 0, false),
@@ -54,6 +55,7 @@ class SquadsStateTest {
     assertThat(actual).isEqualTo(expected);
   }
 
+  @SuppressWarnings("unused")
   public static Stream<Arguments> getPlayers() {
     return Stream.of(
         Arguments.of(null, MALE, 0, 0),
@@ -94,22 +96,6 @@ class SquadsStateTest {
     return players;
   }
 
-  public static Stream<Arguments> hasPrevAllPlayersTableChunk() {
-    return Stream.of(
-        Arguments.of(0, false),
-        Arguments.of(1, true)
-    );
-  }
-
-  @ParameterizedTest
-  @MethodSource
-  void hasPrevAllPlayersTableChunk(int index, boolean expected) {
-    squadsState.setAllPlayersTableIndex(index);
-    boolean actual = squadsState.hasPrevAllPlayersTableChunk();
-
-    assertThat(actual).isEqualTo(expected);
-  }
-
   @Test
   void incAllPlayersTableChunk() {
     int index = 1;
@@ -120,6 +106,7 @@ class SquadsStateTest {
     assertThat(actual).isEqualTo(index + 1);
   }
 
+  @SuppressWarnings("unused")
   public static Stream<Arguments> decAllPlayersTableChunk() {
     return Stream.of(
         Arguments.of(0, 0),

@@ -93,18 +93,20 @@ public class SquadsState implements Serializable {
     allPlayersTableIndex += 1;
   }
 
+  /**
+   * Decreasing the index of the chunk of currently displayed players.
+   */
   public void decAllPlayersTableChunk() {
-    if (hasPrevAllPlayersTableChunk()) {
+    if (allPlayersTableIndex > 0) {
       allPlayersTableIndex -= 1;
     } else {
       allPlayersTableIndex = 0;
     }
   }
 
-  public boolean hasPrevAllPlayersTableChunk() {
-    return allPlayersTableIndex > 0;
-  }
-
+  /**
+   * check if there is a next chunk of players to display.
+   */
   public boolean hasNextAllPlayersTableChunk() {
     if (players == null) {
       return false;
