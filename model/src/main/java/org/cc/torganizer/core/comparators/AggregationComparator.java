@@ -1,5 +1,6 @@
 package org.cc.torganizer.core.comparators;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import org.cc.torganizer.core.entities.aggregates.Aggregation;
 import org.cc.torganizer.core.util.Checker;
@@ -8,7 +9,7 @@ import org.cc.torganizer.core.util.Checker;
  * Vergleich von aggregierten Daten (gewonnene/verlorene Matches, Saetze,
  * Punkte) um eine Tabelle aufbauen zu koennen.
  */
-public class AggregationComparator implements Comparator<Aggregation> {
+public class AggregationComparator implements Comparator<Aggregation>, Serializable {
 
   @Override
   public final int compare(final Aggregation o1, final Aggregation o2) {

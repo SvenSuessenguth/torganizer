@@ -1,5 +1,6 @@
 package org.cc.torganizer.core.comparators;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -11,7 +12,7 @@ import org.cc.torganizer.core.entities.Player;
 /**
  * Comparing Opponents by Name.
  */
-public class OpponentByNameComparator implements Comparator<Opponent> {
+public class OpponentByNameComparator implements Comparator<Opponent>, Serializable {
 
   @Override
   public final int compare(final Opponent o1, final Opponent o2) {
@@ -24,7 +25,6 @@ public class OpponentByNameComparator implements Comparator<Opponent> {
     } else if (o2 == null) {
       return -1;
     }
-
 
     List<Player> o1Players = new ArrayList<>(o1.getPlayers());
     List<Player> o2Players = new ArrayList<>(o2.getPlayers());
