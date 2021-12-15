@@ -50,6 +50,9 @@ public class Tournament extends Entity {
     this.disciplines = disciplines;
   }
 
+  /**
+   * Returning all running matches for this tournament.
+   */
   public List<Match> getRunningMatches() {
     return getDisciplines().stream()
         .flatMap(d -> d.getRounds().stream())
@@ -59,6 +62,9 @@ public class Tournament extends Entity {
         .toList();
   }
 
+  /**
+   * Returning all finished matches for this tournament.
+   */
   public List<Match> getFinishedMatches() {
     return getDisciplines().stream()
         .flatMap(d -> d.getRounds().stream())
