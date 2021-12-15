@@ -60,4 +60,19 @@ class OpponentByClubComparatorTest {
   void compare(Opponent o1, Opponent o2, int expected) {
     assertThat(comparator.compare(o1, o2)).isEqualTo(expected);
   }
+
+  @SuppressWarnings("unused")
+  public static Stream<Arguments> getOpponentsClub_null() {
+    return Stream.of(
+        Arguments.of((Opponent) null),
+        Arguments.of(new Squad())
+    );
+  }
+
+  @ParameterizedTest
+  @MethodSource
+  void getOpponentsClub_null(Opponent opponent) {
+    var club = comparator.getOpponentsClub(opponent);
+    assertThat(club).isNull();
+  }
 }

@@ -33,7 +33,7 @@ public class OpponentsByClubComparator implements Comparator<Opponent>, Serializ
     return new ClubComparator().compare(club1, club2);
   }
 
-  private Club getOpponentsClub(Opponent opponent) {
+  protected Club getOpponentsClub(Opponent opponent) {
 
     if (opponent == null || opponent.getPlayers().isEmpty()) {
       return null;
