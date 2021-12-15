@@ -10,11 +10,6 @@ import java.util.Set;
  */
 public class Squad extends Opponent {
 
-  /**
-   * Ersatz f\u00fcr null-Values.
-   */
-  public static final Squad NONE = new Squad();
-
   private Set<Player> players = new HashSet<>();
 
   /**
@@ -28,7 +23,10 @@ public class Squad extends Opponent {
     setId(id);
   }
 
-  public void addPlayer(Player player) {
+  /**
+   * Adding a non-null-player with existiting person.
+   */
+  public void addPlayer(Player player) throws IllegalArgumentException {
     if (player == null || player.getPerson() == null) {
       throw new IllegalArgumentException("player oder person of player must not be null");
     }
@@ -41,7 +39,7 @@ public class Squad extends Opponent {
   }
 
   public void addPlayers(Collection<Player> players) {
-    players.stream().forEach(this::addPlayer);
+    players.forEach(this::addPlayer);
   }
 
   @Override
@@ -59,11 +57,11 @@ public class Squad extends Opponent {
 
   @Override
   public String toString() {
-    var personsString = new StringBuilder("");
+    var personsString = new StringBuilder();
     for (Player p : getPlayers()) {
       personsString.append(p.toString());
     }
 
-    return "Squad [" + getId() + "] players:{" + personsString.toString() + "}";
+    return "Squad [" + getId() + "] players:{" + personsString + "}";
   }
 }
