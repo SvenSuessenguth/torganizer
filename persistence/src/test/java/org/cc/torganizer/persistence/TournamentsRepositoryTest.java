@@ -219,4 +219,22 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
 
     assertThat(disciplines).hasSize(1);
   }
+
+  @Test
+  void read_defaults() {
+    List<Tournament> read = repository.read(null, null);
+    assertThat(read).isNotEmpty();
+  }
+
+  @Test
+  void removeOpponent() {
+    Opponent opponent = repository.removeOpponent(1L, 1L);
+    assertThat(opponent).isNotNull();
+  }
+
+  @Test
+  void removeDiscipline() {
+    Discipline discipline = repository.removeDiscipline(1L, 1L);
+    assertThat(discipline).isNotNull();
+  }
 }
