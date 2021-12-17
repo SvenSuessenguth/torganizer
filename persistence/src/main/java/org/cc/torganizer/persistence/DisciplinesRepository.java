@@ -7,7 +7,6 @@ import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Root;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import org.cc.torganizer.core.entities.Discipline;
@@ -47,7 +46,7 @@ public class DisciplinesRepository extends Repository<Discipline> {
 
   @Override
   public List<Discipline> read(Integer offset, Integer maxResults) {
-    return new ArrayList<>();
+    throw new UnsupportedOperationException();
   }
 
   //-----------------------------------------------------------------------------------------------

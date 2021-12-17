@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Stream;
 import org.cc.torganizer.core.entities.AgeRestriction;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Gender;
@@ -14,6 +15,9 @@ import org.cc.torganizer.core.entities.OpponentTypeRestriction;
 import org.cc.torganizer.core.entities.Round;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
 
@@ -135,5 +139,25 @@ class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
     int roundsCount2 = discipline2.getRounds().size();
 
     assertThat(roundsCount).isLessThan(roundsCount2);
+  }
+
+  public static Stream<Arguments> getRounds() {
+    return Stream.of(
+        Arguments.of(null, null, 3),
+        Arguments.of(null, 10, 3),
+        Arguments.of(0, null, 3),
+        Arguments.of(0, 3, 3),
+        Arguments.of(0, 1, 1),
+        Arguments.of(1, 2, 2),
+        Arguments.of(5, 1, 0)
+    );
+  }
+
+  @ParameterizedTest
+  @MethodSource
+  void getRounds(Integer offset, Integer maxResults, Integer count) {
+    List<Round> rounds = repository.getRounds(1L, offset, maxResults);
+
+    assertThat(rounds).hasSize(count);
   }
 }
