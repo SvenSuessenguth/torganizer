@@ -2,12 +2,17 @@ package org.cc.torganizer.core.entities;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 import org.cc.torganizer.core.entities.aggregates.Aggregation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class GroupTest {
 
@@ -128,5 +133,67 @@ class GroupTest {
     List<Aggregation> aggregates = group.getAggregates();
     assertThat(aggregates).isNotEmpty().hasSize(2);
     assertThat(aggregates.get(0).getOpponent()).isEqualTo(p2);
+  }
+
+  @SuppressWarnings("unused")
+  public static Stream<Arguments> getFinishedMatches() {
+    return Stream.of(
+        Arguments.of(null, 0),
+        Arguments.of(List.of(), 0),
+        Arguments.of(List.of(runningMatch(), idleMatch()), 0),
+        Arguments.of(List.of(finishedMatch(), finishedMatch(), runningMatch(), idleMatch(), finishedMatch()), 3)
+    );
+  }
+
+  @ParameterizedTest
+  @MethodSource
+  void getFinishedMatches(List<Match> matches, int expected) {
+    Group g = new Group();
+    g.setMatches(matches);
+
+    List<Match> finishedMatches = g.getFinishedMatches();
+
+    assertThat(finishedMatches).hasSize(expected);
+  }
+
+  @SuppressWarnings("unused")
+  public static Stream<Arguments> getRunningMatches() {
+    return Stream.of(
+        Arguments.of(null, 0),
+        Arguments.of(List.of(), 0),
+        Arguments.of(List.of(runningMatch(), idleMatch()), 1),
+        Arguments.of(List.of(finishedMatch(), finishedMatch(), runningMatch(), idleMatch(), finishedMatch()), 1)
+    );
+  }
+
+  @ParameterizedTest
+  @MethodSource
+  void getRunningMatches(List<Match> matches, int expected) {
+    Group g = new Group();
+    g.setMatches(matches);
+
+    List<Match> runningMatches = g.getRunningMatches();
+
+    assertThat(runningMatches).hasSize(expected);
+  }
+
+
+  private static Match finishedMatch() {
+    Match m = new Match();
+    m.setRunning(false);
+    m.setFinishedTime(LocalDateTime.now());
+    return m;
+  }
+
+  private static Match runningMatch() {
+    Match m = new Match();
+    m.setRunning(true);
+    return m;
+  }
+
+  private static Match idleMatch() {
+    Match m = new Match();
+    m.setRunning(false);
+    return m;
   }
 }

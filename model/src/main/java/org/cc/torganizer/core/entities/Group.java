@@ -2,6 +2,7 @@ package org.cc.torganizer.core.entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.cc.torganizer.core.comparators.AggregationComparator;
 import org.cc.torganizer.core.comparators.PositionalComparator;
 import org.cc.torganizer.core.entities.aggregates.Aggregation;
@@ -233,7 +234,7 @@ public class Group extends Entity implements Positional {
    * @param newMatches a {@link java.util.List} object.
    */
   public void setMatches(List<Match> newMatches) {
-    this.matches = newMatches;
+    this.matches = newMatches == null ? List.of() : newMatches;
   }
 
   /**
@@ -242,15 +243,10 @@ public class Group extends Entity implements Positional {
    * @return Liste aller laufenden Matches
    */
   public List<Match> getRunningMatches() {
-    List<Match> runningMatches = new ArrayList<>();
-
-    for (Match match : getMatches()) {
-      if (!match.isFinished()) {
-        runningMatches.add(match);
-      }
-    }
-
-    return runningMatches;
+    return getMatches()
+        .stream()
+        .filter(m -> m.isRunning() && !m.isFinished())
+        .collect(Collectors.toList());
   }
 
   /**
@@ -259,15 +255,10 @@ public class Group extends Entity implements Positional {
    * @return Liste aller abgeschlossenen Matches
    */
   public List<Match> getFinishedMatches() {
-    List<Match> finishedMatches = new ArrayList<>();
-
-    for (Match match : getMatches()) {
-      if (match.isFinished()) {
-        finishedMatches.add(match);
-      }
-    }
-
-    return finishedMatches;
+    return getMatches()
+        .stream()
+        .filter(Match::isFinished)
+        .collect(Collectors.toList());
   }
 
   @Override
