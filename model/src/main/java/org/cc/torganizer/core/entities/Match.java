@@ -1,5 +1,8 @@
 package org.cc.torganizer.core.entities;
 
+import static java.util.Arrays.asList;
+import static java.util.Collections.unmodifiableList;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -186,7 +189,7 @@ public class Match extends Entity implements Positional {
    * @return Liste der Opponents. Zuerst home, dann guest.
    */
   public List<Opponent> getOpponents() {
-    return List.of(home, guest);
+    return unmodifiableList(asList(home, guest));
   }
 
   @Override
