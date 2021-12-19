@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.cc.torganizer.core.entities.aggregates.Aggregation;
 import org.junit.jupiter.api.BeforeEach;
@@ -175,6 +176,30 @@ class GroupTest {
     List<Match> runningMatches = g.getRunningMatches();
 
     assertThat(runningMatches).hasSize(expected);
+  }
+
+  public static Stream<Arguments> getMatch() {
+    return Stream.of(
+        Arguments.of(List.of(finishedMatch(), finishedMatch(), runningMatch(), idleMatch(), finishedMatch()), 0, true),
+        Arguments.of(List.of(finishedMatch(), finishedMatch(), runningMatch(), idleMatch(), finishedMatch()), 4, true),
+        Arguments.of(List.of(finishedMatch(), finishedMatch(), runningMatch(), idleMatch(), finishedMatch()), 6, false),
+        Arguments.of(List.of(finishedMatch(), finishedMatch(), runningMatch(), idleMatch(), finishedMatch()), -1, false),
+        Arguments.of(List.of(), 0, false),
+        Arguments.of(null, 0, false)
+
+    );
+  }
+
+  @ParameterizedTest
+  @MethodSource
+  void getMatch(List<Match> matches, int position, boolean matchFound) {
+    IntStream.range(0, matches == null ? 0 : matches.size())
+        .forEach(idx -> matches.get(idx).setPosition(idx));
+    Group g = new Group();
+    g.setMatches(matches);
+
+    Match match = g.getMatch(position);
+    assertThat(match != null).isEqualTo(matchFound);
   }
 
 
