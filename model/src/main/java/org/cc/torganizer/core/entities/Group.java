@@ -2,7 +2,6 @@ package org.cc.torganizer.core.entities;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.cc.torganizer.core.comparators.AggregationComparator;
 import org.cc.torganizer.core.comparators.PositionalComparator;
 import org.cc.torganizer.core.entities.aggregates.Aggregation;
@@ -246,7 +245,7 @@ public class Group extends Entity implements Positional {
     return getMatches()
         .stream()
         .filter(m -> m.isRunning() && !m.isFinished())
-        .collect(Collectors.toList());
+        .toList();
   }
 
   /**
@@ -257,8 +256,7 @@ public class Group extends Entity implements Positional {
   public List<Match> getFinishedMatches() {
     return getMatches()
         .stream()
-        .filter(Match::isFinished)
-        .collect(Collectors.toList());
+        .filter(Match::isFinished).toList();
   }
 
   @Override
