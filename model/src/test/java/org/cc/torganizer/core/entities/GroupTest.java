@@ -193,8 +193,10 @@ class GroupTest {
   @ParameterizedTest
   @MethodSource
   void getMatch(List<Match> matches, int position, boolean matchFound) {
-    IntStream.range(0, matches == null ? 0 : matches.size())
-        .forEach(idx -> matches.get(idx).setPosition(idx));
+    if (matches != null) {
+      IntStream.range(0, matches.size())
+          .forEach(idx -> matches.get(idx).setPosition(idx));
+    }
     Group g = new Group();
     g.setMatches(matches);
 

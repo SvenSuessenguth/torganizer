@@ -64,6 +64,7 @@ nb-configuration.xml
 .DS_Store
 
 # Misc
+*.bak
 *.swp
 pom.xml.releaseBackup
 pom.xml.tag
