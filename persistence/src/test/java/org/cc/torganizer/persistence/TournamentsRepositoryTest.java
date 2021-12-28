@@ -263,6 +263,6 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
     Tournament tournament = new Tournament();
     tournament.setName(existingName);
 
-    assertThatThrownBy(() -> repository.create(tournament));
+    assertThatThrownBy(() -> repository.create(tournament)).isInstanceOf(CreateEntityException.class);
   }
 }

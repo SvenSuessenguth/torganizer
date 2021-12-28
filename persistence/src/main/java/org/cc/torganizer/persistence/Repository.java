@@ -15,8 +15,8 @@ import org.cc.torganizer.core.entities.Entity;
  */
 public abstract class Repository<T extends Entity> {
 
-  protected static final Integer DEFAULT_MAX_RESULTS = Integer.valueOf(10);
-  protected static final Integer DEFAULT_OFFSET = Integer.valueOf(0);
+  protected static final Integer DEFAULT_MAX_RESULTS = 10;
+  protected static final Integer DEFAULT_OFFSET = 0;
 
   @PersistenceContext(name = "torganizer")
   protected EntityManager entityManager;
@@ -28,14 +28,18 @@ public abstract class Repository<T extends Entity> {
    * persisting a new entity.
    */
   @Transactional(REQUIRES_NEW)
-  public T create(T t) {
-    t.setId(null);
-    t.setLastUpdate(new Date(System.currentTimeMillis()));
+  public T create(T t) throws CreateEntityException {
+    try {
+      t.setId(null);
+      t.setLastUpdate(new Date(System.currentTimeMillis()));
 
-    entityManager.persist(t);
-    entityManager.flush();
+      entityManager.persist(t);
+      entityManager.flush();
 
-    return t;
+      return t;
+    } catch (Exception exc) {
+      throw new CreateEntityException(t, exc);
+    }
   }
 
   /**
