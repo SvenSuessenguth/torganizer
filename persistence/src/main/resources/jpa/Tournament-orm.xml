@@ -38,7 +38,7 @@
     <table name="_TOURNAMENTS"/>
     <attributes>
       <basic name="name">
-        <column name="_NAME"/>
+        <column name="_NAME" unique="true"/>
       </basic>
       <one-to-many name="opponents">
         <join-table name="_TOURNAMENT_OPPONENTS">

@@ -7,7 +7,6 @@ import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import java.util.Objects;
 import org.apache.logging.log4j.Logger;
 import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.frontend.ApplicationState;
@@ -17,7 +16,7 @@ import org.cc.torganizer.frontend.tournaments.TournamentsStateSynchronizer;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
 /**
- * Saving the current Tournament.
+ * Saving the current tournament.
  */
 @RequestScoped
 @Named
@@ -53,29 +52,24 @@ public class SaveTournament {
   public void execute() {
     Tournament current = state.getCurrent();
 
-    // can't save two tournaments with same name
-    for (Tournament t : state.getTournaments()) {
-      if (Objects.equals(t.getName(), current.getName())
-          && !Objects.equals(t.getId(), current.getId())) {
-        var facesMessage = new FacesMessage(SEVERITY_ERROR,
-            "Zwei Turniere mit dem selben Namen", "Fehler");
-        facesContext.addMessage(tournamentsBacking.getNameClientId(), facesMessage);
-        tournamentsBacking.getNameInputText().setValid(false);
-
-        return;
+    try {
+      if (current.getId() != null) {
+        tournamentsRepository.update(current);
+      } else {
+        tournamentsRepository.create(current);
+        synchronizer.synchronize(state);
+        appState.setTournament(current);
       }
-    }
+    } catch (Exception e) {
+      var facesMessage = new FacesMessage(SEVERITY_ERROR,
+          "Error saving tournament '%s'".formatted(current.getName()), e.getMessage());
+      facesContext.addMessage(tournamentsBacking.getNameClientId(), facesMessage);
+      tournamentsBacking.getNameInputText().setValid(false);
 
-    if (current.getId() != null) {
-      tournamentsRepository.update(current);
-    } else {
-      tournamentsRepository.create(current);
-      synchronizer.synchronize(state);
-      appState.setTournament(current);
+      return;
     }
 
     cancelTournament.execute();
-
     logger.info("save with name: '{}'", current.getName());
   }
 }

@@ -1,6 +1,7 @@
 package org.cc.torganizer.persistence;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import jakarta.persistence.Query;
 import jakarta.persistence.Tuple;
@@ -254,5 +255,14 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
   void getSquads_defaults() {
     List<Squad> squads = repository.getSquads(1L, null, null);
     assertThat(squads).hasSize(1);
+  }
+
+  @Test
+  void saveTournament_nameAlreadyExisting() {
+    var existingName = "Testturnier-1";
+    Tournament tournament = new Tournament();
+    tournament.setName(existingName);
+
+    assertThatThrownBy(() -> repository.create(tournament));
   }
 }
