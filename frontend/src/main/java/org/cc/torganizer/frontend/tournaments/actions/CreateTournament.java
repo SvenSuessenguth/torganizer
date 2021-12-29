@@ -53,6 +53,8 @@ public class CreateTournament {
       tournamentsRepository.create(current);
       synchronizer.synchronize(state);
       appState.setTournament(current);
+
+      logger.info("save with name: '{}'", current.getName());
     } catch (Exception e) {
       var facesMessage = new FacesMessage(SEVERITY_ERROR,
           "Error saving tournament '%s'".formatted(current.getName()), e.getMessage());
@@ -60,7 +62,5 @@ public class CreateTournament {
       tournamentsBacking.getNameInputText().setValid(false);
       current.setId(null);
     }
-
-    logger.info("save with name: '{}'", current.getName());
   }
 }
