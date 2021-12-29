@@ -58,7 +58,10 @@
                      styleClass="#{component.valid ? 'validation-ok' : 'validation-fail'}"/>
         <br/>
 
-        <h:commandButton id="saveTournament" value="#{i18nText.save}" action="#{saveTournament.execute()}"/>
+        <h:commandButton id="saveTournament" value="#{i18nText.save}" action="#{createTournament.execute()}"
+                         rendered="#{empty tournamentsState.current.id}"/>
+        <h:commandButton id="updateTournament" value="#{i18nText.update}" action="#{updateTournament.execute()}"
+                         rendered="#{not empty tournamentsState.current.id}"/>
         <h:commandButton id="deleteTournament" value="#{i18nText.delete}" action="#{deleteTournament.execute()}"
                          disabled="#{tournamentsState.current.id==null}"/>
         <h:commandButton id="cancelTournament" action="tournaments?faces-redirect=true"

@@ -12,7 +12,6 @@ import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.tournaments.TournamentsBacking;
 import org.cc.torganizer.frontend.tournaments.TournamentsState;
-import org.cc.torganizer.frontend.tournaments.TournamentsStateSynchronizer;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
 /**
@@ -20,7 +19,7 @@ import org.cc.torganizer.persistence.TournamentsRepository;
  */
 @RequestScoped
 @Named
-public class SaveTournament {
+public class UpdateTournament {
 
   @Inject
   private Logger logger;
@@ -41,9 +40,6 @@ public class SaveTournament {
   private TournamentsBacking tournamentsBacking;
 
   @Inject
-  private TournamentsStateSynchronizer synchronizer;
-
-  @Inject
   private FacesContext facesContext;
 
   /**
@@ -53,13 +49,7 @@ public class SaveTournament {
     Tournament current = state.getCurrent();
 
     try {
-      if (current.getId() != null) {
-        tournamentsRepository.update(current);
-      } else {
-        tournamentsRepository.create(current);
-        synchronizer.synchronize(state);
-        appState.setTournament(current);
-      }
+      tournamentsRepository.update(current);
     } catch (Exception e) {
       var facesMessage = new FacesMessage(SEVERITY_ERROR,
           "Error saving tournament '%s'".formatted(current.getName()), e.getMessage());
@@ -70,6 +60,6 @@ public class SaveTournament {
     }
 
     cancelTournament.execute();
-    logger.info("save with name: '{}'", current.getName());
+    logger.info("update tournament '{}'", current.getName());
   }
 }
