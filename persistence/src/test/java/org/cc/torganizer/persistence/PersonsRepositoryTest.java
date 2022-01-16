@@ -14,7 +14,7 @@ class PersonsRepositoryTest extends AbstractDbUnitJpaTest {
   private PersonsRepository repository;
 
   @BeforeEach
-  void before() throws Exception {
+  public void beforeAll() throws Exception {
     super.initDatabase("test-data-persons.xml");
     repository = new PersonsRepository(entityManager);
   }

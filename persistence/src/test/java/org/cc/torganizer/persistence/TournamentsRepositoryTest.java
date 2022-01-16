@@ -4,13 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import jakarta.persistence.Query;
-import jakarta.persistence.Tuple;
 import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Join;
-import jakarta.persistence.criteria.JoinType;
-import jakarta.persistence.criteria.Root;
 import java.util.List;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
@@ -25,68 +19,10 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
   private TournamentsRepository repository;
 
   @BeforeEach
-  void before() throws Exception {
+  public void beforeAll() throws Exception {
     super.initDatabase("test-data-tournament.xml");
 
     repository = new TournamentsRepository(entityManager);
-  }
-
-  @Test
-  void testCriteriaCountOpponents() {
-
-    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-    CriteriaQuery<Tuple> cq = cb.createTupleQuery();
-    Root<Tournament> tournament = cq.from(Tournament.class);
-    Join<Tournament, Opponent> tournamentOpponentJoin = tournament.join("opponents", JoinType.LEFT);
-    cq.select(cb.tuple(tournament, cb.count(tournamentOpponentJoin)));
-    cq.where(cb.equal(tournament.get("id"), 1L));
-
-    List<Tuple> result = entityManager.createQuery(cq).getResultList();
-    Long count = (Long) result.get(0).get(1);
-
-    // 2 Player + 1 Squad
-    assertThat(count).isEqualTo(3L);
-  }
-
-  @Test
-  void testCriteriaCountPlayers() {
-
-    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-    CriteriaQuery<Tuple> cq = cb.createTupleQuery();
-    Root<Tournament> tournament = cq.from(Tournament.class);
-    Join<Tournament, Opponent> tournamentOpponentJoin = tournament.join("opponents", JoinType.LEFT);
-    cq.select(cb.tuple(tournament, cb.count(tournamentOpponentJoin)));
-    cq.where(
-        cb.and(
-            cb.equal(tournament.get("id"), 1L),
-            cb.equal(tournamentOpponentJoin.type(), Player.class)
-        )
-    );
-
-    List<Tuple> result = entityManager.createQuery(cq).getResultList();
-    Long count = (Long) result.get(0).get(1);
-
-    assertThat(count).isEqualTo(2L);
-  }
-
-  @Test
-  void testCriteriaCountSquads() {
-    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-    CriteriaQuery<Tuple> cq = cb.createTupleQuery();
-    Root<Tournament> tournament = cq.from(Tournament.class);
-    Join<Tournament, Opponent> tournamentOpponentJoin = tournament.join("opponents", JoinType.LEFT);
-    cq.select(cb.tuple(tournament, cb.count(tournamentOpponentJoin)));
-    cq.where(
-        cb.and(
-            cb.equal(tournament.get("id"), 1L),
-            cb.equal(tournamentOpponentJoin.type(), Squad.class)
-        )
-    );
-
-    List<Tuple> result = entityManager.createQuery(cq).getResultList();
-    Long count = (Long) result.get(0).get(1);
-
-    assertThat(count).isEqualTo(1L);
   }
 
   @Test

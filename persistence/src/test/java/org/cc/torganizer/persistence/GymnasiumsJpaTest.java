@@ -1,17 +1,16 @@
 package org.cc.torganizer.persistence;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.List;
 import org.cc.torganizer.core.entities.Gymnasium;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
 class GymnasiumsJpaTest extends AbstractDbUnitJpaTest {
 
   @BeforeEach
-  void before() throws Exception {
+  public void beforeAll() throws Exception {
     super.initDatabase("test-data-gymnasiums.xml");
   }
 
@@ -22,7 +21,7 @@ class GymnasiumsJpaTest extends AbstractDbUnitJpaTest {
         .getResultList();
     assertThat(allGymnasiums).hasSize(2);
   }
-  
+
   @Test
   void testFindByTournament_withoutGymnasiums() {
     List<Gymnasium> allGymnasiums = entityManager.createNamedQuery("Gymnasium.findByTournament", Gymnasium.class)

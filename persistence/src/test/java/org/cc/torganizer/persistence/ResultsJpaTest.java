@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 class ResultsJpaTest extends AbstractDbUnitJpaTest {
 
   @BeforeEach
-  void before() throws Exception {
+  public void beforeAll() throws Exception {
     super.initDatabase("test-data-results.xml");
   }
 

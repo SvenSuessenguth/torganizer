@@ -12,7 +12,7 @@ class MatchesRepositoryTest extends AbstractDbUnitJpaTest {
   private MatchesRepository repository;
 
   @BeforeEach
-  void before() throws Exception {
+  public void beforeAll() throws Exception {
     super.initDatabase("test-data-matches.xml");
     repository = new MatchesRepository(entityManager);
   }

@@ -2,9 +2,9 @@ package org.cc.torganizer.persistence;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import jakarta.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
-import jakarta.persistence.TypedQuery;
 import org.cc.torganizer.core.comparators.OpponentByNameComparator;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
@@ -16,8 +16,9 @@ class SquadsRepositoryTest extends AbstractDbUnitJpaTest {
   private SquadsRepository repository;
 
   @BeforeEach
-  void before() throws Exception {
+  public void beforeAll() throws Exception {
     super.initDatabase("test-data-squads.xml");
+
     repository = new SquadsRepository(entityManager);
   }
 
@@ -39,7 +40,7 @@ class SquadsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  void testAddPlayer(){
+  void testAddPlayer() {
     // Folgender Eintrag fehlt bei den Testdaten
     // Mit diesem Test soll der bestehende Player 2
     // dem bestehenden Squad 5 hinzugefügt werdem

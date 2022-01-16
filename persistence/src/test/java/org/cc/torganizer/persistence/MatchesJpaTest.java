@@ -9,14 +9,14 @@ class MatchesJpaTest extends AbstractDbUnitJpaTest {
   private MatchesRepository repository;
 
   @BeforeEach
-  void before() throws Exception {
+  public void beforeAll() throws Exception {
     super.initDatabase("test-data-matches.xml");
 
     repository = new MatchesRepository(entityManager);
   }
 
   @Test
-  void testCount(){
+  void testCount() {
     Long countExpected = 1L;
     Long countActual = repository.count();
 

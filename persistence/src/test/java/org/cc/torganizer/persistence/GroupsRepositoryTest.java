@@ -1,48 +1,51 @@
 package org.cc.torganizer.persistence;
 
-import org.cc.torganizer.core.entities.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.cc.torganizer.core.entities.Group;
+import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.Player;
+import org.cc.torganizer.core.entities.PositionalOpponent;
+import org.cc.torganizer.core.entities.Round;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class GroupsRepositoryTest extends AbstractDbUnitJpaTest {
 
   private GroupsRepository repository;
 
   @BeforeEach
-  void before() throws Exception {
+  public void beforeAll() throws Exception {
     super.initDatabase("test-data-groups.xml");
     repository = new GroupsRepository(entityManager);
   }
 
   @Test
-  void testRead_null(){
+  void testRead_null() {
     Group g = repository.read(2L);
 
     assertThat(g).isNull();
   }
 
   @Test
-  void testRead_notNull(){
+  void testRead_notNull() {
     Group g = repository.read(1L);
 
     assertThat(g).isNotNull();
   }
 
   @Test
-  void testCount(){
+  void testCount() {
     long count = repository.count();
 
     assertThat(count).isEqualTo(1L);
   }
 
   @Test
-  void testFilterAlreadyAssignedOpponents_Empty(){
+  void testFilterAlreadyAssignedOpponents_Empty() {
     Round round = new Round();
     Set<Opponent> opponentsInRound = new HashSet<>();
 
@@ -52,7 +55,7 @@ class GroupsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  void testFilterAlreadyAssignedOpponents(){
+  void testFilterAlreadyAssignedOpponents() {
     // round with one group and two Players
     // player one is already assigned
     Player p1 = new Player("a", "b");
@@ -76,20 +79,20 @@ class GroupsRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  void testAddOpponent(){
+  void testAddOpponent() {
     Group group = repository.addOpponent(1L, 3L);
 
     assertThat(group.getOpponents()).hasSize(3);
   }
 
   @Test
-  void testGetPositionalOpponents(){
+  void testGetPositionalOpponents() {
     List<PositionalOpponent> pOpponents = repository.getPositionalOpponents(1L, 0, 10);
     assertThat(pOpponents).hasSize(2);
   }
 
   @Test
-  void testGetPositionalOpponentsFromNonExistingGroup(){
+  void testGetPositionalOpponentsFromNonExistingGroup() {
     List<PositionalOpponent> pOpponents = repository.getPositionalOpponents(-1L, 0, 10);
     assertThat(pOpponents).isEmpty();
   }

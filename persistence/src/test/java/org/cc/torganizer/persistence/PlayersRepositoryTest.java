@@ -1,21 +1,20 @@
 package org.cc.torganizer.persistence;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.cc.torganizer.core.entities.Status.INACTIVE;
+
+import java.util.List;
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.cc.torganizer.core.entities.Status.INACTIVE;
 
 class PlayersRepositoryTest extends AbstractDbUnitJpaTest {
 
   private PlayersRepository repository;
 
   @BeforeEach
-  void before() throws Exception {
+  public void beforeAll() throws Exception {
     super.initDatabase("test-data-players.xml");
 
     repository = new PlayersRepository(entityManager);
@@ -42,7 +41,7 @@ class PlayersRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  void testPlayersClubIsNotNull(){
+  void testPlayersClubIsNotNull() {
     Player player = repository.read(1L);
     Club club = player.getClub();
 
@@ -50,7 +49,7 @@ class PlayersRepositoryTest extends AbstractDbUnitJpaTest {
   }
 
   @Test
-  void testPlayersClubIsNull(){
+  void testPlayersClubIsNull() {
     Player player = repository.read(2L);
     Club club = player.getClub();
 

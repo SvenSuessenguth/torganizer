@@ -18,7 +18,7 @@ class RestrictionsRepositoryTest extends AbstractDbUnitJpaTest {
   private RestrictionsRepository repository;
 
   @BeforeEach
-  void before() throws Exception {
+  public void beforeAll() throws Exception {
     super.initDatabase("test-data-restrictions.xml");
     repository = new RestrictionsRepository(entityManager);
   }
