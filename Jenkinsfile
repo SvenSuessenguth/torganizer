@@ -45,7 +45,7 @@ pipeline {
     stage('deploy') {
       when { branch 'master' }
       steps {
-        // deploy already build artifact
+        // deploy already build and tested artifacts
         execute('mvn deploy -T 4C -DskipTests')
       }
     }

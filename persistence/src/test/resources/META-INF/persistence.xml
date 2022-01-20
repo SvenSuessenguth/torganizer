@@ -27,10 +27,13 @@
 
     <properties>
       <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-      <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/torganizer"/>
+      <!--
+       | URL (esp. the port) is set dynamically during test execution to support multi-branch-builds on Jenkins
+       | <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/torganizer"/>
+       +-->
       <property name="jakarta.persistence.jdbc.user" value="postgres"/>
       <property name="jakarta.persistence.jdbc.password" value="postgres"/>
-      <property name="jakarta.persistence.schema-generation.database.action" value="create" />
+      <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
     </properties>
   </persistence-unit>
 

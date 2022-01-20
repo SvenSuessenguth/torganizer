@@ -12,6 +12,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConfig;
@@ -31,6 +33,17 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Testcontainers
 public abstract class AbstractDbUnitJpaTest {
 
+  // dynamic port for Postgresql-Testcontainer to run tests in parallel on Jenkins
+  private static final Integer postgresqlPort;
+
+  static {
+    String portProp = System.getProperty("postgresql.port");
+    System.out.println("----------------------------------------------");
+    System.out.println("portProp " + portProp);
+    System.out.println("----------------------------------------------");
+    postgresqlPort = portProp.isEmpty() ? 5432 : Integer.parseInt(portProp);
+  }
+
   private EntityManagerFactory entityManagerFactory;
   protected EntityManager entityManager;
 
@@ -41,15 +54,20 @@ public abstract class AbstractDbUnitJpaTest {
       .withDatabaseName("torganizer")
       .withUsername("postgres")
       .withPassword("postgres")
-      .withExposedPorts(5432)
+      .withExposedPorts(Integer.valueOf(postgresqlPort))
       .withCreateContainerCmdModifier(cmd -> cmd.withHostConfig(
-          new HostConfig().withPortBindings(new PortBinding(Ports.Binding.bindPort(5432), new ExposedPort(5432)))
+          new HostConfig().withPortBindings(new PortBinding(Ports.Binding.bindPort(postgresqlPort), new ExposedPort(5432)))
       ));
 
   @BeforeEach
   public void initTestFixture() {
+    // overriding defaults from persistence.xml
+    // see https://www.generacodice.com/en/articolo/1290009/Read-Environment-Variables-in-persistence.xml-file
+    Map<String, Object> configOverrides = new HashMap<>();
+    configOverrides.put("jakarta.persistence.jdbc.url", "jdbc:postgresql://localhost:" + postgresqlPort + "/torganizer");
+
     // Get the entity manager for the tests.
-    entityManagerFactory = Persistence.createEntityManagerFactory("testcontainersPU");
+    entityManagerFactory = Persistence.createEntityManagerFactory("testcontainersPU", configOverrides);
     entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
   }
