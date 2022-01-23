@@ -6,7 +6,7 @@ pipeline {
 
   agent any
 
-  properties([
+  options([
     parameters([
       string(name: 'myParam', defaultValue: 'dafaultValue', description: 'das ist <b>fett</B>')
     ])
