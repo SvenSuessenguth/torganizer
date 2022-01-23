@@ -6,6 +6,12 @@ pipeline {
 
   agent any
 
+  properties([
+    parameters([
+      string(name: 'myParam', defaultValue: 'dafaultValue', description: 'das ist <b>fett</B>')
+    ])
+  ])
+
   stages {
     stage('prepare') {
       steps {
