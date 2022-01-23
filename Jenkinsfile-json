@@ -6,8 +6,11 @@ pipeline {
 
   agent any
 
+  // to use html in the description:
+  // https://stackoverflow.com/questions/33821217/html-in-jenkins-job-descriptions
   parameters {
-      string(name: 'myParam', defaultValue: 'dafaultValue', description: 'das ist <b>fett</B>')
+    string(name: 'myParam', defaultValue: 'dafaultValue', description: 'das ist <b>fettes</B> '
+    + ' html')
   }
 
   stages {

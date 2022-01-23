@@ -73,7 +73,7 @@
         <!-- dritte Zeile -->
         <h:commandButton value="#{i18nText.save}" action="#{saveRoundAction.execute()}"/>
         <h:commandButton value="#{i18nText.delete}" action="#{deleteRoundAction.execute()}"/>
-        <h:commandButton value="#{i18nText.cancel}"/>
+        <h:commandButton value="#{i18nText.cancel}" action="#{cancelRoundAction.execute()}"/>
         <span/>
         <span/>
         <span/>
@@ -126,6 +126,11 @@
         <tc:rr-chart group="#{group}" onDragStartAction="rrChartOnDragStartAction" onDropAction="rrChartOnDropAction"/>
         <br/>
       </c:forEach>
+
+      <hr ></hr>
+      Position: #{round.position}<br />
+      System: #{round.system} <br />
+      Qualified: #{round.qualified}<br />
     </h:form>
   </ui:define>
 </ui:composition>
