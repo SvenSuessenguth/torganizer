@@ -108,6 +108,9 @@ public class SquadsState implements Serializable {
     return allPlayersTableIndex > 0;
   }
 
+  /**
+   * Is there a next chunk with players to display.
+   */
   public boolean hasNextAllPlayersTableChunk() {
     if (players == null) {
       return false;
