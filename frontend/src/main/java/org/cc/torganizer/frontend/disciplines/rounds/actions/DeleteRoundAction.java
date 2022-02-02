@@ -23,9 +23,7 @@ public class DeleteRoundAction extends RoundAction {
   @Inject
   private DisciplineRoundStateSynchronizer synchronizer;
 
-  /**
-   * Execute.
-   */
+  @Override
   public void execute() {
     // only last round in discipline with no opponents can be deleted
     // ... checks are coming

@@ -22,9 +22,7 @@ public class SaveRoundAction extends RoundAction {
   @Inject
   private RoundsRepository roundsRepository;
 
-  /**
-   * Functional Interface method.
-   */
+  @Override
   public void execute() {
     var round = roundState.getRound();
     updateNumberOfGroups(round);

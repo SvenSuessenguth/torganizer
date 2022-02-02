@@ -10,9 +10,7 @@ import jakarta.inject.Named;
 @Named
 public class ShowPreviousRound extends RoundAction {
 
-  /**
-   * Functional Interface method.
-   */
+  @Override
   public void execute() {
     var round = roundState.getRound();
     var discipline = coreState.getDiscipline();

@@ -9,6 +9,7 @@ import java.util.Set;
 import org.cc.torganizer.core.OpponentsToGroupsAssigner;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.frontend.disciplines.rounds.DisciplineRoundState;
 import org.cc.torganizer.frontend.disciplines.rounds.DisciplineRoundStateSynchronizer;
 import org.cc.torganizer.persistence.RoundsRepository;
 
@@ -17,7 +18,7 @@ import org.cc.torganizer.persistence.RoundsRepository;
  */
 @RequestScoped
 @Named
-public class AddOpponentToRoundAction extends RoundAction {
+public class AddOpponentToRoundAction {
 
   @Inject
   private DisciplineRoundStateSynchronizer synchronizer;
@@ -28,9 +29,9 @@ public class AddOpponentToRoundAction extends RoundAction {
   @Inject
   private RoundsRepository roundsRepository;
 
-  /**
-   * Adding an opponent to the groups of the round.
-   */
+  @Inject
+  protected DisciplineRoundState roundState;
+
   public void execute(Opponent opponent) {
     var round = roundState.getRound();
     List<Group> groups = round.getGroups();
