@@ -15,5 +15,8 @@ public abstract class RoundAction {
   @Inject
   protected DisciplinesCoreState coreState;
 
+  /**
+   * Executing the action.
+   */
   public abstract void execute();
 }

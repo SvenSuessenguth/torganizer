@@ -21,6 +21,7 @@ public class CancelRoundAction extends RoundAction {
   @Inject
   private DisciplineRoundStateSynchronizer synchronizer;
 
+  @Override
   public void execute() {
     Round round = state.getRound();
     Long id = round.getId();
