@@ -32,6 +32,10 @@ public class AddOpponentToRoundAction {
   @Inject
   protected DisciplineRoundState roundState;
 
+  /**
+   * Adding an opponent to the current round.
+   * @param opponent opponent to add to the round
+   */
   public void execute(Opponent opponent) {
     var round = roundState.getRound();
     List<Group> groups = round.getGroups();

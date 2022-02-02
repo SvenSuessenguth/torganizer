@@ -8,6 +8,9 @@ import org.cc.torganizer.frontend.disciplines.rounds.DisciplineRoundState;
 import org.cc.torganizer.frontend.disciplines.rounds.DisciplineRoundStateSynchronizer;
 import org.cc.torganizer.persistence.RoundsRepository;
 
+/**
+ * Cancel to create/edit a round.
+ */
 @RequestScoped
 @Named
 public class CancelRoundAction extends RoundAction {
