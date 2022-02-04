@@ -81,6 +81,11 @@
                 user="${env.dataSource_user}" password="${env.dataSource_password}"/>
   </dataSource>
 
+  <!--
+   | https://blog.bmarwell.de/en/my-top-10-favourite-openliberty-hidden-features/?utm_source=rss&utm_medium=rss&utm_campaign=my-top-10-favourite-openliberty-hidden-features
+   +-->
+  <cdi12 enableImplicitBeanArchives="false" />
+
   <application type="war" id="frontend_war_exploded" name="frontend_war_exploded" location="${server.config.dir}/apps/frontend.war" context-root="/"/>
 </server>
 
