@@ -2,6 +2,7 @@
 // https://updates.jenkins.io/download/plugins/
 // SonarQube Scanner
 // Warnings Next Generation
+// NodeJS
 
 pipeline {
 
@@ -19,6 +20,8 @@ pipeline {
   tools {
     maven 'apache-maven-3.8'
     jdk 'jdk-17'
+    // used for SonarQube
+    nodejs 'nodejs-17.4'
   }
 
   stages {
