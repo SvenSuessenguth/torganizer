@@ -32,9 +32,12 @@ services:
     ports:
       - 8080:8080
     container_name: frontend
-    env_file:
-      - ./frontend/src/main/liberty/config/server.env
-    
+    environment:
+      dataSource_serverName: postgresql
+      dataSource_portNumber: 5432
+      dataSource_user: postgres
+      dataSource_password: postgres
+
 networks:
   torganizer:
     driver: bridge

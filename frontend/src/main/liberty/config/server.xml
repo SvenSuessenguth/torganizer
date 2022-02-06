@@ -71,7 +71,7 @@
     <!--
      |                          | postgresql     | mysql
      | ___________________________________________________________
-     | dataSource.serverName    | postgreql      | mysql
+     | dataSource.serverName    | localhost      | mysql
      | dataSource.portNumber    | 5432           | 3306
      | dataSource.user          | postgres       | root
      | dataSource.password      | postgres       | root
