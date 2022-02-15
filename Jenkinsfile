@@ -21,7 +21,7 @@ pipeline {
     maven 'apache-maven-3.8'
     jdk 'jdk-17'
     // used for SonarQube
-    nodejs 'nodejs-17'
+    nodejs 'nodejs-16'
   }
 
   stages {
