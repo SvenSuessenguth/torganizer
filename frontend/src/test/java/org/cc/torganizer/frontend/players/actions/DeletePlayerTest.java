@@ -2,7 +2,6 @@ package org.cc.torganizer.frontend.players.actions;
 
 import static org.mockito.Mockito.when;
 
-import org.apache.logging.log4j.Logger;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.frontend.ApplicationMessages;
 import org.cc.torganizer.frontend.ApplicationState;
@@ -16,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
 
 @ExtendWith(MockitoExtension.class)
 class DeletePlayerTest {

@@ -5,8 +5,8 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.util.Map;
-import org.apache.logging.log4j.Logger;
 import org.cc.torganizer.frontend.disciplines.rounds.DisciplineRoundState;
+import org.slf4j.Logger;
 
 /**
  * Switch two opponents between groups and position.

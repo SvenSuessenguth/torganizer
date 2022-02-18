@@ -7,13 +7,13 @@ import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import org.apache.logging.log4j.Logger;
 import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.tournaments.TournamentsBacking;
 import org.cc.torganizer.frontend.tournaments.TournamentsState;
 import org.cc.torganizer.frontend.tournaments.TournamentsStateSynchronizer;
 import org.cc.torganizer.persistence.TournamentsRepository;
+import org.slf4j.Logger;
 
 /**
  * Saving the current tournament.

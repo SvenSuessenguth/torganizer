@@ -1,20 +1,6 @@
 version: '3.7'
 
 services:
-  prometheus:
-    build: ./docker/prometheus
-    networks:
-      - torganizer
-    ports:
-      - 9090:9090
-    container_name: prometheus
-  grafana:
-    build: ./docker/grafana
-    networks:
-      - torganizer
-    ports:
-      - 3000:3000
-    container_name: grafana
   postgresql:
     build: ./docker/postgresql
     networks:

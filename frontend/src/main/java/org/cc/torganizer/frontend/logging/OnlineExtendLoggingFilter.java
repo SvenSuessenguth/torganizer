@@ -8,7 +8,7 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 import java.io.IOException;
 import java.util.UUID;
-import org.apache.logging.log4j.ThreadContext;
+import org.slf4j.MDC;
 
 /**
  * Filter for setting ThreadContext-Parameter to the Logging framework.
@@ -21,13 +21,14 @@ public class OnlineExtendLoggingFilter implements Filter {
       throws IOException, ServletException {
     try {
       // https://logging.apache.org/log4j/2.x/manual/thread-context.html
-      ThreadContext.put("requestId", UUID.randomUUID().toString());
-      ThreadContext.put("ipAddress", request.getRemoteAddr());
-      ThreadContext.put("hostName", request.getServerName());
+      MDC.put("requestId", UUID.randomUUID().toString());
+      MDC.put("ipAddress", request.getRemoteAddr());
+      MDC.put("hostName", request.getServerName());
+      MDC.put("name", "Sven");
 
       chain.doFilter(request, response);
     } finally {
-      ThreadContext.clearAll();
+      MDC.clear();
     }
   }
 }

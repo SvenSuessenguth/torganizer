@@ -42,17 +42,15 @@
     <checkstyle.version>9.3</checkstyle.version>
     <jakarta.activation-api.version>2.1.0</jakarta.activation-api.version>
     <jakarta.jakartaee-api.version>9.1.0</jakarta.jakartaee-api.version>
-    <jakarta.xml.bind-api.version>4.0.0-RC2</jakarta.xml.bind-api.version>
+    <jakarta.xml.bind-api.version>4.0.0-RC3</jakarta.xml.bind-api.version>
     <jaxb-core.version>3.0.2</jaxb-core.version>
     <jaxb-impl.version>3.0.2</jaxb-impl.version>
     <junit-jupiter.version>5.8.2</junit-jupiter.version>
     <junit-platform.version>1.3.0-RC1</junit-platform.version>
-    <log4j-api.version>2.17.1</log4j-api.version>
-    <log4j-core.version>${log4j-api.version}</log4j-core.version>
     <microprofile.version>5.0</microprofile.version>
     <mockito.version>4.3.1</mockito.version>
-    <openliberty-jakartaee9.version>22.0.0.1</openliberty-jakartaee9.version>
-    <postgresql.version>42.3.2</postgresql.version>
+    <openliberty-jakartaee9.version>22.0.0.2</openliberty-jakartaee9.version>
+    <postgresql.version>42.3.3</postgresql.version>
     <spotbugs.version>4.5.3</spotbugs.version>
     <testcontainers.junit-jupiter.version>1.16.3</testcontainers.junit-jupiter.version>
 
@@ -73,10 +71,10 @@
     <maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
     <maven-javadoc-plugin.version>3.3.2</maven-javadoc-plugin.version>
     <maven-jxr-plugin.version>3.1.1</maven-jxr-plugin.version>
-    <maven-pmd-plugin.version>3.15.0</maven-pmd-plugin.version>
+    <maven-pmd-plugin.version>3.16.0</maven-pmd-plugin.version>
     <maven-project-info-reports-plugin.version>3.2.1</maven-project-info-reports-plugin.version>
     <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
-    <maven-site-plugin.version>3.10.0</maven-site-plugin.version>
+    <maven-site-plugin.version>3.11.0</maven-site-plugin.version>
     <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
     <maven-war-plugin.version>3.3.2</maven-war-plugin.version>    
     <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
@@ -99,20 +97,21 @@
         <scope>provided</scope>
       </dependency>
 
-      <!--
-       | https://logging.apache.org/log4j/2.x/maven-artifacts.html
-       +-->
       <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-api</artifactId>
-        <version>${log4j-api.version}</version>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>2.0.0-alpha6</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-core</artifactId>
-        <version>${log4j-core.version}</version>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>2.0.0-alpha6</version>
       </dependency>
-
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-core</artifactId>
+        <version>1.3.0-alpha14</version>
+      </dependency>
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-api</artifactId>
@@ -196,12 +195,16 @@
      +-->
     <!-- logging -->
     <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-api</artifactId>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
     </dependency>
 
     <!--

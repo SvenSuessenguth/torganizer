@@ -38,9 +38,6 @@ public abstract class AbstractDbUnitJpaTest {
 
   static {
     String portProp = System.getProperty("postgresql.port");
-    System.out.println("----------------------------------------------");
-    System.out.println("portProp " + portProp);
-    System.out.println("----------------------------------------------");
     postgresqlPort = portProp.isEmpty() ? 5432 : Integer.parseInt(portProp);
   }
 
