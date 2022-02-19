@@ -19,16 +19,22 @@ public class OnlineExtendLoggingFilter implements Filter {
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
+    insertMDC(request);
     try {
-      // https://logging.apache.org/log4j/2.x/manual/thread-context.html
-      MDC.put("requestId", UUID.randomUUID().toString());
-      MDC.put("ipAddress", request.getRemoteAddr());
-      MDC.put("hostName", request.getServerName());
-      MDC.put("name", "Sven");
-
       chain.doFilter(request, response);
     } finally {
-      MDC.clear();
+      clearMDC();
     }
   }
+
+  private void insertMDC(ServletRequest request) {
+    MDC.put("correlationId", UUID.randomUUID().toString());
+    MDC.put("remoteAddr", request.getRemoteAddr());
+    MDC.put("serverName", request.getServerName());
+  }
+
+  private void clearMDC() {
+    MDC.clear();
+  }
+
 }
