@@ -37,7 +37,7 @@
     <dependency>
       <groupId>org.glassfish</groupId>
       <artifactId>jakarta.faces</artifactId>
-      <version>4.0.0-M1</version>
+      <version>${jakarta.faces.version}</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
