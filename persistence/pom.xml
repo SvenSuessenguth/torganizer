@@ -18,7 +18,6 @@
   <properties>
     <dbunit.version>2.7.3</dbunit.version>
     <org.eclipse.persistence.jpa.version>3.1.0-M1</org.eclipse.persistence.jpa.version>
-    <slf4j.version>2.0.0-alpha6</slf4j.version>
   </properties>
 
   <dependencies>
