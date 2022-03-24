@@ -68,7 +68,7 @@
      | [WARNING] The following plugins do not have their version specified:
      +-->
     <build-helper-maven-plugin.version>3.3.0</build-helper-maven-plugin.version>
-    <dependency-check-maven.version>7.0.0</dependency-check-maven.version>
+    <dependency-check-maven.version>7.0.1</dependency-check-maven.version>
     <liberty-maven-plugin.version>3.5.1</liberty-maven-plugin.version>
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
     <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
