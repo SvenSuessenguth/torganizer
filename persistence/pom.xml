@@ -77,13 +77,11 @@
      *-->
     <dependency>
       <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <version>${slf4j.version}</version>
+      <artifactId>slf4j-simple</artifactId>      
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>${slf4j.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -118,7 +116,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>${maven-surefire-plugin.version}</version>
         <configuration>
           <systemPropertyVariables>
             <postgresql.port>${postgresql.port}</postgresql.port>
