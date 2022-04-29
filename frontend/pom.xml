@@ -16,11 +16,7 @@
   <name>frontend</name>
 
   <properties>
-    <failOnMissingWebXml>false</failOnMissingWebXml>
-    <!--
-     | https://openliberty.io/guides/maven-intro.html
-     +-->
-    <version.liberty-maven-plugin>3.5</version.liberty-maven-plugin>
+    <failOnMissingWebXml>false</failOnMissingWebXml>    
   </properties>
 
   <dependencies>
