@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class StatusTest {
 
-  public static Stream<Arguments> testFromIntArguments() {
+  public static Stream<Arguments> fromInt() {
     return Stream.of(
         Arguments.of(0, Status.INACTIVE),
         Arguments.of(1, Status.ACTIVE),
@@ -19,8 +19,8 @@ class StatusTest {
   }
 
   @ParameterizedTest
-  @MethodSource("testFromIntArguments")
-  void testFromInt(int value, Status expected) {
+  @MethodSource("fromInt")
+  void fromInt(int value, Status expected) {
     Status actual = Status.fromInt(value);
 
     assertThat(actual).isEqualTo(expected);
