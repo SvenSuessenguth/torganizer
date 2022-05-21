@@ -39,7 +39,7 @@
      | dependency versions
      +-->
     <!-- compile -->
-    <logback.version>1.3.0-alpha14</logback.version>
+    <logback.version>1.3.0-alpha16</logback.version>
     <slf4j.version>2.0.0-alpha7</slf4j.version>
     <!-- runtime -->
     <!-- provided -->
@@ -54,11 +54,11 @@
     <junit-jupiter.version>5.8.2</junit-jupiter.version>
     <junit-platform.version>1.3.0-RC1</junit-platform.version>
     <mockito.version>4.5.1</mockito.version>
-    <testcontainers.junit-jupiter.version>1.17.1</testcontainers.junit-jupiter.version>
+    <testcontainers.junit-jupiter.version>1.17.2</testcontainers.junit-jupiter.version>
     <!-- plugin -->
     <checkstyle.version>10.2</checkstyle.version>
     <jakarta.activation-api.version>2.1.0</jakarta.activation-api.version>
-    <openliberty-jakartaee9.version>22.0.0.4</openliberty-jakartaee9.version>
+    <openliberty-jakartaee9.version>22.0.0.5</openliberty-jakartaee9.version>
     <pmd.version>6.45.0</pmd.version>
     <postgresql.version>42.3.5</postgresql.version>
     <spotbugs.version>4.7.0</spotbugs.version>

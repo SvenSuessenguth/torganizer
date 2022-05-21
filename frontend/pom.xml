@@ -16,7 +16,7 @@
   <name>frontend</name>
 
   <properties>
-    <failOnMissingWebXml>false</failOnMissingWebXml>    
+    <failOnMissingWebXml>false</failOnMissingWebXml>
   </properties>
 
   <dependencies>
