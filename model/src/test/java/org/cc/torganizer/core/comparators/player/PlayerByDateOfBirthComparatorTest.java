@@ -28,7 +28,7 @@ class PlayerByDateOfBirthComparatorTest {
     assertThat(comparator.getPlayerOrderCriteria()).isEqualTo(BY_DATE_OF_BIRTH);
   }
 
-  public static Stream<Arguments> compare() {
+  public static Stream<Arguments> comparePlayers() {
     return Stream.of(
         arguments(null, null, 0),
         arguments(null, newPlayerWithDateOfBirth(null), -1),
@@ -45,7 +45,7 @@ class PlayerByDateOfBirthComparatorTest {
   }
 
   @ParameterizedTest
-  @MethodSource("compare")
+  @MethodSource("comparePlayers")
   void compare(Player player1, Player player2, int expectedCompare) {
     int actualCompare = comparator.compare(player1, player2);
 

@@ -23,7 +23,7 @@ class PersonTest {
   private static final Month nowMonth = now().getMonth();
   private static final int nowDayOfMonth = now().getDayOfMonth();
 
-  private static Stream<Arguments> testFitsGender() {
+  private static Stream<Arguments> testPersonFitsGender() {
     return Stream.of(
         Arguments.of(newPersonWithGender(UNKNOWN), UNKNOWN, true),
         Arguments.of(newPersonWithGender(UNKNOWN), MALE, true),
@@ -36,12 +36,43 @@ class PersonTest {
     );
   }
 
-  private static Stream<Arguments> testGetAge() {
+  @ParameterizedTest
+  @MethodSource("testPersonFitsGender")
+  void testFitsGender(Person person, Gender gender, boolean expected) {
+    boolean actual = person.fitsGender(gender);
+
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  private static Stream<Arguments> testGetPersonAge() {
     return Stream.of(
         Arguments.of(newPersonWitDateOfBirth(of(nowYear - 1, nowMonth, nowDayOfMonth)), 1),
         Arguments.of(newPersonWitDateOfBirth(of(nowYear - 10, nowMonth, nowDayOfMonth)), 10),
         Arguments.of(newPersonWitDateOfBirth(null), null)
     );
+  }
+
+  @ParameterizedTest
+  @MethodSource("testGetPersonAge")
+  void testGetAge(Person person, Integer expectedAge) {
+    Integer actualAge = person.getAge();
+
+    assertThat(actualAge).isEqualTo(expectedAge);
+  }
+
+  @Test
+  void testGetAge_0() {
+    Person person = newPersonWitDateOfBirth(now());
+
+    assertThrows(IllegalDateOfBirthException.class, person::getAge);
+  }
+
+  @Test
+  void testSetGender_null() {
+    Person p = new Person();
+    p.setGender(null);
+
+    assertThat(p.getGender()).isEqualTo(UNKNOWN);
   }
 
   private static Person newPersonWithGender(Gender gender) {
@@ -57,36 +88,4 @@ class PersonTest {
 
     return person;
   }
-
-  @ParameterizedTest
-  @MethodSource("testFitsGender")
-  void testFitsGender(Person person, Gender gender, boolean expected) {
-    boolean actual = person.fitsGender(gender);
-
-    assertThat(actual).isEqualTo(expected);
-  }
-
-  @ParameterizedTest
-  @MethodSource("testGetAge")
-  void testGetAge(Person person, Integer expectedAge) {
-    Integer actualAge = person.getAge();
-
-    assertThat(actualAge).isEqualTo(expectedAge);
-  }
-
-  @Test
-  void testGetAge_0() {
-    Person person = newPersonWitDateOfBirth(now());
-
-    assertThrows(IllegalDateOfBirthException.class, () -> person.getAge());
-  }
-
-  @Test
-  void testSetGender_null() {
-    Person p = new Person();
-    p.setGender(null);
-
-    assertThat(p.getGender()).isEqualTo(UNKNOWN);
-  }
-
 }
