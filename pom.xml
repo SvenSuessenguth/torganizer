@@ -56,12 +56,12 @@
     <mockito.version>4.6.1</mockito.version>
     <testcontainers.junit-jupiter.version>1.17.2</testcontainers.junit-jupiter.version>
     <!-- plugin -->
-    <checkstyle.version>10.3</checkstyle.version>
+    <checkstyle.version>10.3.1</checkstyle.version>
     <jakarta.activation-api.version>2.1.0</jakarta.activation-api.version>
     <openliberty-jakartaee9.version>22.0.0.6</openliberty-jakartaee9.version>
-    <pmd.version>6.46.0</pmd.version>
+    <pmd.version>6.47.0</pmd.version>
     <postgresql.version>42.4.0</postgresql.version>
-    <spotbugs.version>4.7.0</spotbugs.version>
+    <spotbugs.version>4.7.1</spotbugs.version>
 
     <!--
      | mvn site and mvn versions:display-plugin-updates shows a warning
@@ -84,7 +84,7 @@
     <maven-pmd-plugin.version>3.17.0</maven-pmd-plugin.version>
     <maven-project-info-reports-plugin.version>3.3.0</maven-project-info-reports-plugin.version>
     <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
-    <maven-site-plugin.version>4.0.0-M1</maven-site-plugin.version>
+    <maven-site-plugin.version>4.0.0-M2</maven-site-plugin.version>
     <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
     <maven-war-plugin.version>3.3.2</maven-war-plugin.version>    
     <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
