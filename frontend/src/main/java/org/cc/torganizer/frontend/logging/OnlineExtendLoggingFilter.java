@@ -19,7 +19,7 @@ public class OnlineExtendLoggingFilter implements Filter {
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
-    insertMDC(request);
+    insertMappedDiagnosticContext(request);
     try {
       chain.doFilter(request, response);
     } finally {
@@ -27,7 +27,7 @@ public class OnlineExtendLoggingFilter implements Filter {
     }
   }
 
-  private void insertMDC(ServletRequest request) {
+  private void insertMappedDiagnosticContext(ServletRequest request) {
     MDC.put("correlationId", UUID.randomUUID().toString());
     MDC.put("remoteAddr", request.getRemoteAddr());
     MDC.put("serverName", request.getServerName());
