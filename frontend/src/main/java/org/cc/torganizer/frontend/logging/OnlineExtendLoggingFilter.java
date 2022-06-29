@@ -23,7 +23,7 @@ public class OnlineExtendLoggingFilter implements Filter {
     try {
       chain.doFilter(request, response);
     } finally {
-      clearMDC();
+      clearMappedDiagnosticContext();
     }
   }
 
@@ -33,7 +33,7 @@ public class OnlineExtendLoggingFilter implements Filter {
     MDC.put("serverName", request.getServerName());
   }
 
-  private void clearMDC() {
+  private void clearMappedDiagnosticContext() {
     MDC.clear();
   }
 
