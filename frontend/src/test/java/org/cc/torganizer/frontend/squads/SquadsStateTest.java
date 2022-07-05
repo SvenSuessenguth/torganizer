@@ -27,25 +27,25 @@ class SquadsStateTest {
   }
 
   @SuppressWarnings("unused")
-  public static Stream<Arguments> hasNextAllPlayersTableChunk() {
+  public static Stream<Arguments> hasNextAllPlayersTableChunkArguments() {
     return Stream.of(
-        Arguments.of(getPlayers(0), 0, false),
-        Arguments.of(getPlayers(0), 1, false),
-        Arguments.of(getPlayers(0), 2, false),
-        Arguments.of(getPlayers(0), -1, false),
+        Arguments.of(getAmountOfPlayers(0), 0, false),
+        Arguments.of(getAmountOfPlayers(0), 1, false),
+        Arguments.of(getAmountOfPlayers(0), 2, false),
+        Arguments.of(getAmountOfPlayers(0), -1, false),
         Arguments.of(null, 1, false),
-        Arguments.of(getPlayers(10), 1, false),
-        Arguments.of(getPlayers(100), 10, false),
-        Arguments.of(getPlayers(100), 11, false),
+        Arguments.of(getAmountOfPlayers(10), 1, false),
+        Arguments.of(getAmountOfPlayers(100), 10, false),
+        Arguments.of(getAmountOfPlayers(100), 11, false),
 
-        Arguments.of(getPlayers(11), 0, true),
-        Arguments.of(getPlayers(101), 9, true),
-        Arguments.of(getPlayers(101), 8, true)
+        Arguments.of(getAmountOfPlayers(11), 0, true),
+        Arguments.of(getAmountOfPlayers(101), 9, true),
+        Arguments.of(getAmountOfPlayers(101), 8, true)
     );
   }
 
   @ParameterizedTest
-  @MethodSource
+  @MethodSource("hasNextAllPlayersTableChunkArguments")
   void hasNextAllPlayersTableChunk(List<Player> players, int allPlayersTableIndex, boolean expected) {
     squadsState.setPlayers(players);
     squadsState.setAllPlayersTableIndex(allPlayersTableIndex);
@@ -56,20 +56,20 @@ class SquadsStateTest {
   }
 
   @SuppressWarnings("unused")
-  public static Stream<Arguments> getPlayers() {
+  public static Stream<Arguments> getPlayersArguments() {
     return Stream.of(
         Arguments.of(null, MALE, 0, 0),
-        Arguments.of(getPlayers(0, MALE), MALE, 0, 0),
-        Arguments.of(getPlayers(1, MALE), MALE, 0, ALL_PLAYERS_TABLE_SIZE),
-        Arguments.of(getPlayers(9, MALE), MALE, 0, ALL_PLAYERS_TABLE_SIZE),
-        Arguments.of(getPlayers(10, MALE), MALE, 0, ALL_PLAYERS_TABLE_SIZE),
-        Arguments.of(getPlayers(1, MALE), MALE, 1, 0),
-        Arguments.of(getPlayers(1, MALE), FEMALE, 1, 0)
+        Arguments.of(getAmountPlayers(0, MALE), MALE, 0, 0),
+        Arguments.of(getAmountPlayers(1, MALE), MALE, 0, ALL_PLAYERS_TABLE_SIZE),
+        Arguments.of(getAmountPlayers(9, MALE), MALE, 0, ALL_PLAYERS_TABLE_SIZE),
+        Arguments.of(getAmountPlayers(10, MALE), MALE, 0, ALL_PLAYERS_TABLE_SIZE),
+        Arguments.of(getAmountPlayers(1, MALE), MALE, 1, 0),
+        Arguments.of(getAmountPlayers(1, MALE), FEMALE, 1, 0)
     );
   }
 
   @ParameterizedTest
-  @MethodSource
+  @MethodSource("getPlayersArguments")
   void getPlayers(List<Player> players, Gender gender, int allPlayersTableIndex, int expectedChunkSize) {
     squadsState.setPlayers(players);
     squadsState.setGender(gender);
@@ -80,11 +80,11 @@ class SquadsStateTest {
     assertThat(actualChunkSize).isEqualTo(expectedChunkSize);
   }
 
-  private static List<Player> getPlayers(Integer size) {
-    return getPlayers(size, UNKNOWN);
+  private static List<Player> getAmountOfPlayers(Integer size) {
+    return getAmountPlayers(size, UNKNOWN);
   }
 
-  private static List<Player> getPlayers(Integer size, Gender gender) {
+  private static List<Player> getAmountPlayers(Integer size, Gender gender) {
     List<Player> players = new ArrayList<>();
 
     for (int index = 0; index < size; index++) {
