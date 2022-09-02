@@ -1,6 +1,5 @@
 package org.cc.torganizer.core.filter;
 
-import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.cc.torganizer.core.entities.Gender.FEMALE;
 import static org.cc.torganizer.core.entities.Gender.MALE;
@@ -9,6 +8,7 @@ import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
 import static org.cc.torganizer.core.entities.OpponentType.SQUAD;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Stream;
 import org.cc.torganizer.core.builder.PlayerBuilder;
 import org.cc.torganizer.core.entities.AgeRestriction;
@@ -26,7 +26,7 @@ class OpponentFilterTest {
   OpponentFilter filter;
 
   @SuppressWarnings("unused")
-  private static Stream<Arguments> addMatch() {
+  private static Stream<Arguments> pass() {
     PlayerBuilder playerBuilder = new PlayerBuilder();
 
     // Opponent, Restrictions, expected
@@ -34,23 +34,23 @@ class OpponentFilterTest {
         // player pass no restriction
         Arguments.of(
             playerBuilder.standard().withAge(10).withGender(MALE).get(),
-            asList(),
+            List.of(),
             1),
         Arguments.of(
             playerBuilder.standard().withAge(10).withGender(MALE).get(),
-            asList(new GenderRestriction(MALE), new AgeRestriction(9, 11)),
+            List.of(new GenderRestriction(MALE), new AgeRestriction(9, 11)),
             1),
         Arguments.of(
             playerBuilder.standard().withAge(10).withGender(MALE).get(),
-            asList(new GenderRestriction(MALE), new AgeRestriction(9, 11), new OpponentTypeRestriction(SQUAD)),
+            List.of(new GenderRestriction(MALE), new AgeRestriction(9, 11), new OpponentTypeRestriction(SQUAD)),
             0),
         Arguments.of(
             playerBuilder.standard().withAge(10).withGender(MALE).get(),
-            asList(new GenderRestriction(FEMALE), new AgeRestriction(9, 11), new OpponentTypeRestriction(PLAYER)),
+            List.of(new GenderRestriction(FEMALE), new AgeRestriction(9, 11), new OpponentTypeRestriction(PLAYER)),
             0),
         Arguments.of(
             playerBuilder.standard().withAge(10).withGender(MALE).get(),
-            asList(new GenderRestriction(UNKNOWN), new AgeRestriction(), new OpponentTypeRestriction(PLAYER)),
+            List.of(new GenderRestriction(UNKNOWN), new AgeRestriction(), new OpponentTypeRestriction(PLAYER)),
             1)
     );
   }
@@ -61,10 +61,10 @@ class OpponentFilterTest {
   }
 
   @ParameterizedTest
-  @MethodSource("addMatch")
-  void testFilter(Opponent opponent, Collection<Restriction> restrictions, int expected) {
+  @MethodSource("pass")
+  void pass(Opponent opponent, Collection<Restriction> restrictions, int expected) {
 
-    Collection<Opponent> pass = filter.pass(asList(opponent), restrictions);
+    Collection<Opponent> pass = filter.pass(List.of(opponent), restrictions);
 
     assertThat(pass).size().isEqualTo(expected);
   }
