@@ -24,26 +24,14 @@ public class Result extends Entity implements Positional {
     this(DEFAULT_POSITION);
   }
 
-  /**
-   * Konstruktor.
-   *
-   * @param newPosition Index
-   */
-  public Result(Integer newPosition) {
-    this(newPosition, 0, 0);
+  public Result(Integer position) {
+    this(position, 0, 0);
   }
 
-  /**
-   * Bequemlichkeitskonstruktor.
-   *
-   * @param newPosition   Index des Results
-   * @param newHomeScore  Score des Homes
-   * @param newGuestScore Score des Guests
-   */
-  public Result(Integer newPosition, Integer newHomeScore, Integer newGuestScore) {
-    this.position = newPosition == null ? DEFAULT_POSITION : newPosition;
-    this.homeScore = newHomeScore;
-    this.guestScore = newGuestScore;
+  public Result(Integer position, Integer homeScore, Integer guestScore) {
+    this.position = position == null ? DEFAULT_POSITION : position;
+    this.homeScore = homeScore;
+    this.guestScore = guestScore;
   }
 
   /**
