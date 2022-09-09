@@ -52,7 +52,7 @@
     <jaxb-core.version>4.0.0</jaxb-core.version>
     <jaxb-impl.version>4.0.0</jaxb-impl.version>
     <junit-jupiter.version>5.9.0</junit-jupiter.version>
-    <mockito.version>4.7.0</mockito.version>
+    <mockito.version>4.8.0</mockito.version>
     <testcontainers.junit-jupiter.version>1.17.3</testcontainers.junit-jupiter.version>
     <!-- plugin -->
     <checkstyle.version>10.3.3</checkstyle.version>
@@ -60,7 +60,7 @@
     <openliberty-jakartaee9.version>22.0.0.9</openliberty-jakartaee9.version>
     <pmd.version>6.49.0</pmd.version>
     <postgresql.version>42.5.0</postgresql.version>
-    <spotbugs.version>4.7.1</spotbugs.version>
+    <spotbugs.version>4.7.2</spotbugs.version>
 
     <!--
      | mvn site and mvn versions:display-plugin-updates shows a warning
@@ -80,14 +80,14 @@
     <maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
     <maven-javadoc-plugin.version>3.4.1</maven-javadoc-plugin.version>
     <maven-jxr-plugin.version>3.3.0</maven-jxr-plugin.version>
-    <maven-pmd-plugin.version>3.18.0</maven-pmd-plugin.version>
+    <maven-pmd-plugin.version>3.19.0</maven-pmd-plugin.version>
     <maven-project-info-reports-plugin.version>3.4.1</maven-project-info-reports-plugin.version>
     <maven-resources-plugin.version>3.3.0</maven-resources-plugin.version>
     <maven-site-plugin.version>4.0.0-M3</maven-site-plugin.version>
     <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
     <maven-war-plugin.version>3.3.2</maven-war-plugin.version>    
     <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
-    <spotbugs-maven-plugin.version>4.7.1.1</spotbugs-maven-plugin.version>
+    <spotbugs-maven-plugin.version>4.7.2.0</spotbugs-maven-plugin.version>
   </properties>
 
   <dependencyManagement>
