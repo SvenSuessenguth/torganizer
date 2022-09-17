@@ -43,8 +43,8 @@ class ResultTest {
   }
 
   @ParameterizedTest
-  @MethodSource(value = "areScoresSet")
-  void testAreScoresSet(Integer homeScore, Integer guestScore, boolean expected) {
+  @MethodSource
+  void areScoresSet(Integer homeScore, Integer guestScore, boolean expected) {
     result.setHomeScore(homeScore);
     result.setGuestScore(guestScore);
 
@@ -64,8 +64,8 @@ class ResultTest {
   }
 
   @ParameterizedTest
-  @MethodSource(value = "isDraw")
-  void testIsDraw(Integer homeScore, Integer guestScore, boolean expected) {
+  @MethodSource
+  void isDraw(Integer homeScore, Integer guestScore, boolean expected) {
     result.setHomeScore(homeScore);
     result.setGuestScore(guestScore);
 
