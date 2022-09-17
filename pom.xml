@@ -39,12 +39,12 @@
      | dependency versions
      +-->
     <!-- compile -->
-    <logback.version>1.4.0</logback.version>
-    <slf4j.version>2.0.0</slf4j.version>
+    <logback.version>1.4.1</logback.version>
+    <slf4j.version>2.0.1</slf4j.version>
     <!-- runtime -->
     <!-- provided -->
     <jakarta.faces.version>4.0.0</jakarta.faces.version>
-    <jakarta.jakartaee-api.version>9.1.0</jakarta.jakartaee-api.version>
+    <jakarta.jakartaee-api.version>10.0.0</jakarta.jakartaee-api.version>
     <microprofile.version>5.0</microprofile.version>
     <!-- test -->
     <assertj-core.version>3.23.1</assertj-core.version>
@@ -66,7 +66,7 @@
      | mvn site and mvn versions:display-plugin-updates shows a warning
      | [WARNING] The following plugins do not have their version specified:
      +-->
-    <dependency-check-maven.version>7.1.2</dependency-check-maven.version>
+    <dependency-check-maven.version>7.2.0</dependency-check-maven.version>
     <build-helper-maven-plugin.version>3.3.0</build-helper-maven-plugin.version>
     <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
     <liberty-maven-plugin.version>3.6.1</liberty-maven-plugin.version>
@@ -77,7 +77,7 @@
     <maven-deploy-plugin.version>3.0.0</maven-deploy-plugin.version>
     <maven-enforcer-plugin.version>3.1.0</maven-enforcer-plugin.version>
     <maven-install-plugin.version>3.0.1</maven-install-plugin.version>
-    <maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
+    <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
     <maven-javadoc-plugin.version>3.4.1</maven-javadoc-plugin.version>
     <maven-jxr-plugin.version>3.3.0</maven-jxr-plugin.version>
     <maven-pmd-plugin.version>3.19.0</maven-pmd-plugin.version>
