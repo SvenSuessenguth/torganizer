@@ -8,6 +8,7 @@
   display: grid;
   grid-template-columns: fit-content(200px) auto;
   grid-gap: 1em;
+  height: min-content;
 }
 
 .ageRestrictionData {

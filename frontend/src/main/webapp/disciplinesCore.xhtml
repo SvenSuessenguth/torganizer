@@ -23,14 +23,15 @@
       <h:panelGroup styleClass="container">
 
         <h:panelGroup styleClass="tabs">
-          <h:commandButton action="disciplinesCore" value="core" disabled="#{empty disciplinesCoreState.discipline.id}"/>
+          <h:commandButton action="disciplinesCore" value="core"
+                           disabled="#{empty disciplinesCoreState.discipline.id}"/>
           <h:commandButton action="disciplinesRounds" value="rounds"
                            disabled="#{empty disciplinesCoreState.discipline.id}"/>
         </h:panelGroup>
 
         <h:dataTable id="disciplines" value="#{disciplinesCoreState.disciplines}" var="discipline"
                      rowClasses="default-odd-row default-even-row" headerClass="default-header"
-                     styleClass="default-table">
+                     styleClass="default-table" style="height: min-content">
           <h:column>
             <f:facet name="header">Bezeichnung</f:facet>
             <h:commandLink action="#{selectDiscipline.execute(discipline)}" value="#{discipline.name}">
@@ -79,17 +80,16 @@
               <f:converter converterId="opponentTypeConverter"/>
             </h:selectOneMenu>
           </h:panelGroup>
-        </h:panelGroup>
-
-        <h:panelGroup styleClass="commands">
-          <h:commandButton id="disciplinesSave" action="#{saveDiscipline.execute()}" value="#{i18nText.save}"/>
-          <h:commandButton id="disciplinesDelete" action="#{deleteDiscipline.execute()}"
-                           value="#{i18nText.delete}"
-                           disabled="#{disciplinesCoreState.discipline.id == null}"/>
-          <h:commandButton id="disciplinesCancel" action="#{cancelDiscipline.execute}" value="#{i18nText.cancel}"
-                           disabled="#{disciplinesCoreState.discipline.id == null}">
-            <f:ajax render="disciplinesForm" immediate="true" execute="@this"/>
-          </h:commandButton>
+          <h:panelGroup styleClass="commands">
+            <h:commandButton id="disciplinesSave" action="#{saveDiscipline.execute()}" value="#{i18nText.save}"/>
+            <h:commandButton id="disciplinesDelete" action="#{deleteDiscipline.execute()}"
+                             value="#{i18nText.delete}"
+                             disabled="#{disciplinesCoreState.discipline.id == null}"/>
+            <h:commandButton id="disciplinesCancel" action="#{cancelDiscipline.execute}" value="#{i18nText.cancel}"
+                             disabled="#{disciplinesCoreState.discipline.id == null}">
+              <f:ajax render="disciplinesForm" immediate="true" execute="@this"/>
+            </h:commandButton>
+          </h:panelGroup>
         </h:panelGroup>
       </h:panelGroup>
     </h:form>
