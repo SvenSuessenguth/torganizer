@@ -40,7 +40,7 @@
      +-->
     <!-- compile -->
     <logback.version>1.4.1</logback.version>
-    <slf4j.version>2.0.2</slf4j.version>
+    <slf4j.version>2.0.3</slf4j.version>
     <!-- runtime -->
     <!-- provided -->
     <jakarta.faces.version>4.0.0</jakarta.faces.version>
@@ -53,12 +53,12 @@
     <jaxb-impl.version>4.0.1</jaxb-impl.version>
     <junit-jupiter.version>5.9.1</junit-jupiter.version>
     <mockito.version>4.8.0</mockito.version>
-    <testcontainers.junit-jupiter.version>1.17.3</testcontainers.junit-jupiter.version>
+    <testcontainers.junit-jupiter.version>1.17.4</testcontainers.junit-jupiter.version>
     <!-- plugin -->
-    <checkstyle.version>10.3.3</checkstyle.version>
+    <checkstyle.version>10.3.4</checkstyle.version>
     <jakarta.activation-api.version>2.1.0</jakarta.activation-api.version>
     <openliberty-jakartaee9.version>22.0.0.9</openliberty-jakartaee9.version>
-    <pmd.version>6.49.0</pmd.version>
+    <pmd.version>6.50.0</pmd.version>
     <postgresql.version>42.5.0</postgresql.version>
     <spotbugs.version>4.7.2</spotbugs.version>
 
