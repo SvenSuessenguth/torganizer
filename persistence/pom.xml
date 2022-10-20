@@ -17,7 +17,7 @@
 
   <properties>
     <dbunit.version>2.7.3</dbunit.version>
-    <org.eclipse.persistence.jpa.version>4.0.0-RC2</org.eclipse.persistence.jpa.version>
+    <org.eclipse.persistence.jpa.version>4.0.0</org.eclipse.persistence.jpa.version>
   </properties>
 
   <dependencies>
