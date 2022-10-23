@@ -69,7 +69,7 @@
     <dependency-check-maven.version>7.3.0</dependency-check-maven.version>
     <build-helper-maven-plugin.version>3.3.0</build-helper-maven-plugin.version>
     <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
-    <liberty-maven-plugin.version>3.7</liberty-maven-plugin.version>
+    <liberty-maven-plugin.version>3.7.1</liberty-maven-plugin.version>
     <maven-checkstyle-plugin.version>3.2.0</maven-checkstyle-plugin.version>
     <maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
     <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
