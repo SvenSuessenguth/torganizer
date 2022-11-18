@@ -1,42 +1,60 @@
 package org.cc.torganizer.frontend.matches;
 
-import jakarta.enterprise.inject.Vetoed;
-import java.io.Serializable;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
+import org.cc.torganizer.core.PendingMatchDetector;
+import org.cc.torganizer.core.PendingMatchDetectorFactory;
 import org.cc.torganizer.core.entities.Match;
+import org.cc.torganizer.frontend.ApplicationState;
+import org.cc.torganizer.persistence.MatchesRepository;
 
 /**
  * State for the match-view.
  */
-@Vetoed
-public class MatchesState implements Serializable {
+@RequestScoped
+@Named
+@SuppressWarnings("unused")
+public class MatchesState {
 
-  private List<Match> finishedMatches = new ArrayList<>();
-  private List<Match> possibleMatches = new ArrayList<>();
-  private List<Match> runningMatches = new ArrayList<>();
+  @Inject
+  private MatchesRepository matchesRepository;
+
+  @Inject
+  private ApplicationState applicationState;
+
+  @Inject
+  private PendingMatchDetectorFactory pendingMatchDetectorFactory;
 
   public List<Match> getRunningMatches() {
-    return runningMatches;
+    var tournament = applicationState.getTournament();
+    return matchesRepository.getRunningMatches(tournament);
   }
 
-  public void setRunningMatches(List<Match> runningMatches) {
-    this.runningMatches = runningMatches;
-  }
 
   public List<Match> getPossibleMatches() {
+    var possibleMatches = new ArrayList<Match>();
+
+    var tournament = applicationState.getTournament();
+    for (var d : tournament.getDisciplines()) {
+      for (var r : d.getRounds()) {
+        var system = r.getSystem();
+        PendingMatchDetector pendingMatchDetector = pendingMatchDetectorFactory.getPendingMatchDetector(system);
+        for (var g : r.getGroups()) {
+          var pendingMatches = pendingMatchDetector.getPendingMatches(g);
+          possibleMatches.addAll(pendingMatches);
+        }
+      }
+    }
+
+
     return possibleMatches;
   }
 
-  public void setPossibleMatches(List<Match> possibleMatches) {
-    this.possibleMatches = possibleMatches;
-  }
-
   public List<Match> getFinishedMatches() {
-    return this.finishedMatches;
-  }
-
-  public void setFinishedMatches(List<Match> finishedMatches) {
-    this.finishedMatches = finishedMatches;
+    var tournament = applicationState.getTournament();
+    return matchesRepository.getFinishedMatches(tournament);
   }
 }

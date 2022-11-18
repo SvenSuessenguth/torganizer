@@ -1,5 +1,6 @@
 package org.cc.torganizer.core.singleelimination;
 
+import jakarta.enterprise.context.RequestScoped;
 import java.util.ArrayList;
 import java.util.List;
 import org.cc.torganizer.core.PendingMatchDetector;
@@ -114,6 +115,7 @@ import org.cc.torganizer.core.entities.Unknown;
  * </tbody>
  * </table>
  */
+@RequestScoped
 public class SingleEliminationMatchDetector implements PendingMatchDetector {
 
   @Override

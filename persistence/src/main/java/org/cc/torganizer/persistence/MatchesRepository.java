@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
 import org.cc.torganizer.core.entities.Match;
+import org.cc.torganizer.core.entities.Tournament;
 
 /**
  * Accessing the Repository for Matches and related entities.
@@ -48,5 +49,19 @@ public class MatchesRepository extends Repository<Match> {
   public long count() {
     var query = entityManager.createQuery("SELECT count(m) FROM Match m");
     return (long) query.getSingleResult();
+  }
+
+  public List<Match> getRunningMatches(Tournament tournament) {
+    TypedQuery<Match> namedQuery = entityManager.createNamedQuery("Match.runningMatches", Match.class);
+    namedQuery.setParameter("tournament", tournament.getId());
+
+    return namedQuery.getResultList();
+  }
+
+  public List<Match> getFinishedMatches(Tournament tournament) {
+    TypedQuery<Match> namedQuery = entityManager.createNamedQuery("Match.finishedMatches", Match.class);
+    namedQuery.setParameter("tournament", tournament.getId());
+
+    return namedQuery.getResultList();
   }
 }

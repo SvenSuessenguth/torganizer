@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 import org.cc.torganizer.core.entities.Match;
+import org.cc.torganizer.core.entities.Tournament;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,14 +26,14 @@ class MatchesRepositoryTest extends AbstractDbUnitJpaTest {
 
   @Test
   void read_notExisting() {
-    Match match = repository.read(2L);
+    Match match = repository.read(999L);
     assertThat(match).isNull();
   }
 
   @Test
   void read_inRange() {
     List<Match> matches = repository.read(0, 10);
-    assertThat(matches).hasSize(1);
+    assertThat(matches).hasSize(2);
   }
 
   @Test
@@ -44,12 +45,37 @@ class MatchesRepositoryTest extends AbstractDbUnitJpaTest {
   @Test
   void read_defaultRange() {
     List<Match> matches = repository.read(null, null);
-    assertThat(matches).hasSize(1);
+    assertThat(matches).hasSize(2);
   }
 
   @Test
   void count() {
     long count = repository.count();
-    assertThat(count).isEqualTo(1);
+    assertThat(count).isEqualTo(2);
   }
+
+  @Test
+  void getRunningMatches() {
+    var runningMatches = repository.getRunningMatches(new Tournament(1L));
+    assertThat(runningMatches).isNotEmpty().hasSize(1);
+  }
+
+  @Test
+  void getFinishedMatches() {
+    var finishedMatches = repository.getFinishedMatches(new Tournament(1L));
+    assertThat(finishedMatches).isNotEmpty().hasSize(1);
+  }
+
+  @Test
+  void getRunningMatches_invalidTournament() {
+    var runningMatches = repository.getRunningMatches(new Tournament(2L));
+    assertThat(runningMatches).isEmpty();
+  }
+
+  @Test
+  void getFinishedMatches_invalidTournament() {
+    var finishedMatches = repository.getFinishedMatches(new Tournament(2L));
+    assertThat(finishedMatches).isEmpty();
+  }
+
 }

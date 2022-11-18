@@ -1,5 +1,6 @@
 package org.cc.torganizer.core.roundrobin;
 
+import jakarta.enterprise.context.RequestScoped;
 import java.util.ArrayList;
 import java.util.List;
 import org.cc.torganizer.core.PendingMatchDetector;
@@ -11,6 +12,7 @@ import org.cc.torganizer.core.entities.System;
 /**
  * RoundRobin bedeutet jeder spielt gegen jeden.
  */
+@RequestScoped
 public class RoundRobinMatchDetector implements PendingMatchDetector {
 
   @Override

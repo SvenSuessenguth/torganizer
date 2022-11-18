@@ -12,6 +12,26 @@
   <named-query name="Match.findAll">
     <query>SELECT m FROM Match m</query>
   </named-query>
+  <named-query name="Match.runningMatches">
+    <query>SELECT m
+      FROM Match m, Round r, Group g, Discipline d, Tournament t
+      WHERE m MEMBER OF g.matches
+      AND  g MEMBER OF r.groups
+      AND r MEMBER OF d.rounds
+      AND d MEMBER OF t.disciplines
+      AND t.id = :tournament
+      AND m.running = TRUE</query>
+  </named-query>
+  <named-query name="Match.finishedMatches">
+    <query>SELECT m
+      FROM Match m, Round r, Group g, Discipline d, Tournament t
+      WHERE m MEMBER OF g.matches
+      AND  g MEMBER OF r.groups
+      AND r MEMBER OF d.rounds
+      AND d MEMBER OF t.disciplines
+      AND t.id = :tournament
+      AND m.running = FALSE</query>
+  </named-query>
 
   <entity class="org.cc.torganizer.core.entities.Match" access="FIELD">
     <table name="_MATCHES"/>

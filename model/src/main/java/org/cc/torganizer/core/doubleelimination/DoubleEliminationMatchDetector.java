@@ -1,5 +1,6 @@
 package org.cc.torganizer.core.doubleelimination;
 
+import jakarta.enterprise.context.RequestScoped;
 import java.util.ArrayList;
 import java.util.List;
 import org.cc.torganizer.core.PendingMatchDetector;
@@ -73,6 +74,7 @@ import org.cc.torganizer.core.util.Checker;
  * @see <a
  *     href="https://groups.google.com/forum/?fromgroups#!topic/rec.sport.table-soccer/CCUadSrQymk">rec.sport.table-soccer</a>
  */
+@RequestScoped
 public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetector
     implements PendingMatchDetector {
 

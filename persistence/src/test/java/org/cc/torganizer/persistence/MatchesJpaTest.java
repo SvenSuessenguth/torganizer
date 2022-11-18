@@ -17,7 +17,7 @@ class MatchesJpaTest extends AbstractDbUnitJpaTest {
 
   @Test
   void testCount() {
-    Long countExpected = 1L;
+    Long countExpected = 2L;
     Long countActual = repository.count();
 
     Assertions.assertThat(countActual).isEqualTo(countExpected);
