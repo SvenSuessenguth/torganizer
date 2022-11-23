@@ -57,7 +57,7 @@
     <!-- plugin-dependencies -->
     <checkstyle.version>10.4</checkstyle.version>
     <jakarta.activation-api.version>2.1.0</jakarta.activation-api.version>
-    <openliberty-jakartaee9.version>22.0.0.11</openliberty-jakartaee9.version>
+    <openliberty-jakartaee9.version>22.0.0.12</openliberty-jakartaee9.version>
     <pmd.version>6.51.0</pmd.version>
     <postgresql.version>42.5.0</postgresql.version>
     <spotbugs.version>4.7.3</spotbugs.version>
