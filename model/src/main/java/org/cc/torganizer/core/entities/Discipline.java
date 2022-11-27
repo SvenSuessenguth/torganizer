@@ -25,11 +25,11 @@ public class Discipline extends Entity {
   /**
    * Opponents that are member of the first round.
    */
-  private final Set<Opponent> opponents = new HashSet<>();
+  private Set<Opponent> opponents = new HashSet<>();
 
-  private final List<Round> rounds = new ArrayList<>();
+  private List<Round> rounds = new ArrayList<>();
 
-  private final Set<Restriction> restrictions = new HashSet<>();
+  private Set<Restriction> restrictions = new HashSet<>();
 
   /**
    * Finden der letzten Round, in der Opponents zugewiesen sind. In einer Round
