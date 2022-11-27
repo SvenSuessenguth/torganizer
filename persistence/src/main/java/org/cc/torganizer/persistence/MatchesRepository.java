@@ -2,7 +2,6 @@ package org.cc.torganizer.persistence;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
 import java.util.List;
 import org.cc.torganizer.core.entities.Match;
 import org.cc.torganizer.core.entities.Tournament;
@@ -41,7 +40,7 @@ public class MatchesRepository extends Repository<Match> {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    TypedQuery<Match> namedQuery = em.createNamedQuery("Match.findAll", Match.class);
+    var namedQuery = em.createNamedQuery("Match.findAll", Match.class);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
     return namedQuery.getResultList();
@@ -52,15 +51,21 @@ public class MatchesRepository extends Repository<Match> {
     return (long) query.getSingleResult();
   }
 
+  /**
+   * Reading all running matches.
+   */
   public List<Match> getRunningMatches(Tournament tournament) {
-    TypedQuery<Match> namedQuery = em.createNamedQuery("Match.runningMatches", Match.class);
+    var namedQuery = em.createNamedQuery("Match.runningMatches", Match.class);
     namedQuery.setParameter("tournament", tournament.getId());
 
     return namedQuery.getResultList();
   }
 
+  /**
+   * Reading all finished matches.
+   */
   public List<Match> getFinishedMatches(Tournament tournament) {
-    TypedQuery<Match> namedQuery = em.createNamedQuery("Match.finishedMatches", Match.class);
+    var namedQuery = em.createNamedQuery("Match.finishedMatches", Match.class);
     namedQuery.setParameter("tournament", tournament.getId());
 
     return namedQuery.getResultList();
