@@ -36,8 +36,8 @@ public class PositionalOpponent extends Entity implements Positional {
    * @param other {@link PositionalOpponent}, mit dem die Position getauscht werden soll.
    */
   public void swapPosition(PositionalOpponent other) {
-    int thisPosition = getPosition();
-    int otherPosition = other.getPosition();
+    var thisPosition = getPosition();
+    var otherPosition = other.getPosition();
 
     this.setPosition(otherPosition);
     other.setPosition(thisPosition);

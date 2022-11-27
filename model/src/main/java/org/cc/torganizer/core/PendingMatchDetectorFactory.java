@@ -20,7 +20,7 @@ public class PendingMatchDetectorFactory {
    */
   public PendingMatchDetector getPendingMatchDetector(System system) {
 
-    for (PendingMatchDetector detector : detectors) {
+    for (var detector : detectors) {
       if (Objects.equals(system, detector.getSystem())) {
         return detector;
       }

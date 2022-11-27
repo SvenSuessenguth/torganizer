@@ -3,7 +3,6 @@ package org.cc.torganizer.core.comparators.player;
 import static org.cc.torganizer.core.comparators.player.PlayerOrderCriteria.BY_DATE_OF_BIRTH;
 
 import jakarta.enterprise.context.RequestScoped;
-import java.time.LocalDate;
 import java.util.Objects;
 import org.cc.torganizer.core.entities.Player;
 
@@ -24,8 +23,8 @@ public class PlayerByDateOfBirthComparator implements PlayerComparator {
       return 1;
     }
 
-    LocalDate player1DateOfBirth = player1.getPerson().getDateOfBirth();
-    LocalDate player2DateOfBirth = player2.getPerson().getDateOfBirth();
+    var player1DateOfBirth = player1.getPerson().getDateOfBirth();
+    var player2DateOfBirth = player2.getPerson().getDateOfBirth();
 
     if (player1DateOfBirth == null && player2DateOfBirth == null) {
       return 0;

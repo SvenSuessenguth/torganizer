@@ -20,7 +20,7 @@ public class Bye extends Opponent {
   static List<Opponent> createByes(int size) {
 
     // fehlenden Byes generieren
-    List<Opponent> byes = new ArrayList<>();
+    var byes = new ArrayList<Opponent>();
     for (var i = 0; i < size; i += 1) {
       var bye = new Bye();
       byes.add(bye);

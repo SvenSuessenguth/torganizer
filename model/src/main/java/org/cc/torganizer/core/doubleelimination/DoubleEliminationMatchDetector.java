@@ -82,11 +82,11 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
   @Override
   public List<Match> getPendingMatches(Group group) {
 
-    List<Match> pendingMatches = new ArrayList<>();
+    var pendingMatches = new ArrayList<Match>();
 
     // Upper und Lower Bracket
-    List<Match> pendingMatchesUpperBracket = super.getPendingMatches(group);
-    List<Match> pendingMatchesLowerBracket = getPendingMatchesLowerBracket(group);
+    var pendingMatchesUpperBracket = super.getPendingMatches(group);
+    var pendingMatchesLowerBracket = getPendingMatchesLowerBracket(group);
     pendingMatches.addAll(pendingMatchesUpperBracket);
     pendingMatches.addAll(pendingMatchesLowerBracket);
 
@@ -113,8 +113,8 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
       return null;
     }
 
-    Opponent wub = Match.getWinner(group.getMatch(0));
-    Opponent wlb = Match.getWinner(group.getMatch(finalMatchIndex - 1));
+    var wub = Match.getWinner(group.getMatch(0));
+    var wlb = Match.getWinner(group.getMatch(finalMatchIndex - 1));
 
     if (Checker.isNoNullValue(wub, wlb)) {
       finalMatch = new Match(wub, wlb);
@@ -132,16 +132,16 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    */
   List<Match> getPendingMatchesLowerBracket(Group group) {
     // Hilfslisten
-    List<Match> pendingMatches = new ArrayList<>();
+    var pendingMatches = new ArrayList<Match>();
 
-    int groupSize = group.getOpponents().size();
+    var groupSize = group.getOpponents().size();
 
     // Anzahl der Level
-    long maxLevel = super.getUpperBracketsNumberOfLevels(groupSize) * 2L;
+    var maxLevel = super.getUpperBracketsNumberOfLevels(groupSize) * 2L;
     // Matches der jeweiligen Level ermitteln
     for (var level = 0; level <= maxLevel; level += 1) {
-      List<Match> matchesOnLevel = getMatchesOnLevel(level, group);
-      for (Match match : matchesOnLevel) {
+      var matchesOnLevel = getMatchesOnLevel(level, group);
+      for (var match : matchesOnLevel) {
         if (!match.isFinished()) {
           pendingMatches.add(match);
         }
@@ -160,29 +160,29 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    */
   private List<Match> getMatchesOnLevel(int level, Group group) {
 
-    List<Match> matches = new ArrayList<>();
+    var matches = new ArrayList<Match>();
 
     if (isFirstLevel(level)) {
       matches.addAll(getFirstLevelMatches(group));
     } else if (hasToMixUpperLowerBracket(level)) {
       // umsortierte Verlierer aus dem Level '(l+1)/2' aus dem Upper Bracket
       // mit den Gewinnern des Levels 'l-1' aus dem Lower Bracket
-      int splitFactor = (int) (Math.pow(2.0, level));
-      List<Opponent> tmp = super.getUpperBracketLosersOnLevel((level + 1) / 2, group);
-      List<Opponent> ubl = orderUpperBracketLosers(tmp, splitFactor, 1);
-      List<Opponent> lbw = getWinnersOnLevel(level - 1, group);
+      var splitFactor = (int) (Math.pow(2.0, level));
+      var tmp = super.getUpperBracketLosersOnLevel((level + 1) / 2, group);
+      var ubl = orderUpperBracketLosers(tmp, splitFactor, 1);
+      var lbw = getWinnersOnLevel(level - 1, group);
 
       // Das Upper und das Lower Bracket koennen unterschiedlich weit fortgeschritten sein
       // Daher die minimale Groesse der Listen verwenden
       for (var i = 0; i < Math.min(ubl.size(), lbw.size()); i += 1) {
-        Opponent home = ubl.get(i);
-        Opponent guest = lbw.get(i);
+        var home = ubl.get(i);
+        var guest = lbw.get(i);
         addMatchToList(matches, createPendingMatch(level, i, home, guest, group));
       }
 
     } else {
       // Gewinner des Levels 'l-1' aus dem Lower Bracket
-      List<Opponent> opponents = getWinnersOnLevel(level - 1, group);
+      var opponents = getWinnersOnLevel(level - 1, group);
       for (var i = 0; i < opponents.size() / 2; i += 2) {
         var home = opponents.get(i);
         var guest = opponents.get(i + 1);
@@ -201,8 +201,8 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    */
   List<Match> getFirstLevelMatches(Group group) {
     var level = 0;
-    List<Match> matches = new ArrayList<>();
-    List<Opponent> losers = super.getUpperBracketLosersOnLevel(level, group);
+    var matches = new ArrayList<Match>();
+    var losers = super.getUpperBracketLosersOnLevel(level, group);
     for (var i = 0; i < losers.size() - 1; i += 2) {
       var home = losers.get(i);
       var guest = losers.get(i + 1);
@@ -224,9 +224,9 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    */
   Match createPendingMatch(int level, int i, Opponent home, Opponent guest, Group group) {
     Match match = null;
-    int groupSize = group.getOpponents().size();
+    var groupSize = group.getOpponents().size();
 
-    int matchIndex = getMatchIndex(level, i, groupSize);
+    var matchIndex = getMatchIndex(level, i, groupSize);
     if (Checker.isNoNullValue(home, guest) && group.getMatch(matchIndex) == null) {
       match = new Match(home, guest);
       match.setPosition(matchIndex);
@@ -279,7 +279,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    * @return Index des Matches unter Beruecksichtigung des Upper Brackets
    */
   int getMatchIndex(int level, int levelIndex, int groupSize) {
-    int mub = countMatchesUpperBracket(groupSize);
+    var mub = countMatchesUpperBracket(groupSize);
 
     if (level == 0) {
       return mub + levelIndex;
@@ -338,7 +338,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
 
     // n / 2 Opponents nach dem ersten Level im Upper Bracket
     // n / 2 / 2 Matches (mit je zwei opponents!) auf Level 0 im Lower Bracket
-    int start = groupSize / 2 / 2;
+    var start = groupSize / 2 / 2;
 
     // Beispiel 16 Opponents -> start = 4
     // level 0:  4/1
@@ -349,9 +349,9 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
     // level 5:  4/4
     // der Divisor verdoppelt sich bei jedem Tupel
 
-    double exponent = (level - (level % 2)) / 2.0;
-    double divisor = Math.pow(2.0, exponent);
-    double number = start / divisor;
+    var exponent = (level - (level % 2)) / 2.0;
+    var divisor = Math.pow(2.0, exponent);
+    var number = start / divisor;
 
     return (int) number;
   }
@@ -366,10 +366,10 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    */
   List<Opponent> getWinnersOnLevel(int level, Group group) {
 
-    List<Opponent> winners = new ArrayList<>();
-    List<Match> matches = getDoubleEliminationExistingMatchesOnLevel(level, group);
+    var winners = new ArrayList<Opponent>();
+    var matches = getDoubleEliminationExistingMatchesOnLevel(level, group);
 
-    for (Match match : matches) {
+    for (var match : matches) {
       winners.add(Match.getWinner(match));
     }
 
@@ -384,11 +384,11 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
    * @return Liste der bereits vorhandenen Matches auf einem Level
    */
   private List<Match> getDoubleEliminationExistingMatchesOnLevel(int level, Group group) {
-    List<Match> matches = new ArrayList<>();
-    int groupSize = group.getOpponents().size();
+    var matches = new ArrayList<Match>();
+    var groupSize = group.getOpponents().size();
 
-    int startMatchIndex = getStartMatchIndex(level, groupSize);
-    int endMatchIndex = getEndMatchIndex(level, groupSize);
+    var startMatchIndex = getStartMatchIndex(level, groupSize);
+    var endMatchIndex = getEndMatchIndex(level, groupSize);
 
     for (var matchIndex = startMatchIndex; matchIndex <= endMatchIndex; matchIndex += 1) {
       var match = group.getMatch(matchIndex);
@@ -443,12 +443,12 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
       return opponents;
     }
 
-    int notReverseFactor = isFirstLevel(reverseFactor) ? 1 : 0;
+    var notReverseFactor = isFirstLevel(reverseFactor) ? 1 : 0;
 
-    List<Opponent> left = opponents.subList(0, opponents.size() / 2);
-    List<Opponent> right = opponents.subList(opponents.size() / 2, opponents.size());
+    var left = opponents.subList(0, opponents.size() / 2);
+    var right = opponents.subList(opponents.size() / 2, opponents.size());
 
-    List<Opponent> result = new ArrayList<>();
+    var result = new ArrayList<Opponent>();
     if (reverseFactor == 1) {
       result.addAll(orderUpperBracketLosers(right, splitFactor / 2, notReverseFactor));
       result.addAll(orderUpperBracketLosers(left, splitFactor / 2, notReverseFactor));

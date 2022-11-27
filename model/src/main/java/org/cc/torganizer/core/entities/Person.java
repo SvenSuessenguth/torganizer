@@ -84,7 +84,7 @@ public class Person extends Entity {
       return null;
     }
 
-    int ageInYears = LocalDate.now().getYear() - dateOfBirth.getYear();
+    var ageInYears = LocalDate.now().getYear() - dateOfBirth.getYear();
 
     if (ageInYears < 1) {
       throw new IllegalDateOfBirthException("Age of " + this + " must be greate than 0");

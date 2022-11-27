@@ -4,7 +4,6 @@ import jakarta.enterprise.context.RequestScoped;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import org.cc.torganizer.core.entities.Club;
@@ -29,34 +28,34 @@ public class OpponentsToGroupsAssigner {
     }
 
     // avoid/minimize matches with opponents of the same club
-    for (Opponent opponent : opponents) {
-      List<Group> minOpponentGroups = getGroupsWithMinOpponents(groups);
+    for (var opponent : opponents) {
+      var minOpponentGroups = getGroupsWithMinOpponents(groups);
 
       if (minOpponentGroups.size() == 1) {
         minOpponentGroups.get(0).addOpponent(opponent);
       } else {
-        List<Club> clubs = opponent
+        var clubs = opponent
             .getPlayers()
             .stream()
             .map(Player::getClub)
             .toList();
-        List<Group> minClubGroups = getGroupsWithMinClubMembers(minOpponentGroups, clubs);
+        var minClubGroups = getGroupsWithMinClubMembers(minOpponentGroups, clubs);
         minClubGroups.get(0).addOpponent(opponent);
       }
     }
   }
 
   protected List<Group> getGroupsWithMinOpponents(List<Group> groups) {
-    Integer minGroupsSize = Integer.MAX_VALUE;
-    List<Group> groupsWithMinOppoents = new ArrayList<>();
+    var minGroupsSize = Integer.MAX_VALUE;
+    var groupsWithMinOppoents = new ArrayList<Group>();
 
-    for (Group group : groups) {
-      Integer groupSize = group.getOpponents().size();
+    for (var group : groups) {
+      var groupSize = group.getOpponents().size();
       if (groupSize < minGroupsSize) {
         minGroupsSize = groupSize;
         groupsWithMinOppoents.clear();
       }
-      if (groupSize.equals(minGroupsSize)) {
+      if (Objects.equals(groupSize, minGroupsSize)) {
         groupsWithMinOppoents.add(group);
       }
     }
@@ -65,14 +64,14 @@ public class OpponentsToGroupsAssigner {
   }
 
   protected List<Group> getGroupsWithMinClubMembers(List<Group> groups, List<Club> clubs) {
-    List<Group> minClubMembers = new ArrayList<>();
+    var minClubMembers = new ArrayList<Group>();
 
     // counting clubs in group, which have to be minimized
-    Map<Group, Integer> groupClubCount = new HashMap<>();
-    for (Group group : groups) {
+    var groupClubCount = new HashMap<Group, Integer>();
+    for (var group : groups) {
       groupClubCount.put(group, 0);
-      for (Opponent o : group.getOpponents()) {
-        for (Player p : o.getPlayers()) {
+      for (var o : group.getOpponents()) {
+        for (var p : o.getPlayers()) {
           if (clubs.contains(p.getClub())) {
             Integer tmpCounter = groupClubCount.get(group);
             groupClubCount.put(group, tmpCounter + 1);
@@ -81,10 +80,10 @@ public class OpponentsToGroupsAssigner {
       }
     }
 
-    Integer minAccordance = Integer.MAX_VALUE;
-    for (Map.Entry<Group, Integer> entry : groupClubCount.entrySet()) {
+    var minAccordance = Integer.MAX_VALUE;
+    for (var entry : groupClubCount.entrySet()) {
       var group = entry.getKey();
-      Integer count = entry.getValue();
+      var count = entry.getValue();
 
       if (count < minAccordance) {
         minClubMembers.clear();

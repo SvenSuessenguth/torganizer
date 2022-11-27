@@ -28,7 +28,7 @@ public class Checker {
     var nullCounter = 0;
 
     // count null values
-    for (Object object : objects) {
+    for (var object : objects) {
       nullCounter += object == null ? 1 : 0;
     }
 
@@ -42,7 +42,7 @@ public class Checker {
    * @return a boolean.
    */
   public static boolean onlyNullValues(Object... objects) {
-    int counter = countNullValues(objects);
+    var counter = countNullValues(objects);
 
     return objects == null ? TRUE : counter == objects.length;
   }
@@ -59,7 +59,7 @@ public class Checker {
       return true;
     }
 
-    for (Object object : objects) {
+    for (var object : objects) {
       if (object == null) {
         return false;
       }

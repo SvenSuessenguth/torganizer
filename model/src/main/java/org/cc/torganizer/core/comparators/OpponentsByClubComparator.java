@@ -3,7 +3,6 @@ package org.cc.torganizer.core.comparators;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Objects;
 import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.core.entities.Opponent;
@@ -41,7 +40,7 @@ public class OpponentsByClubComparator implements Comparator<Opponent>, Serializ
 
     // list all Clubnames of the Players
     // Players can play together as in squads, whether they are in different clubs
-    List<Club> clubs = new ArrayList<>();
+    var clubs = new ArrayList<Club>();
     for (Player player : opponent.getPlayers()) {
       var club = player.getClub();
       if (club != null) {

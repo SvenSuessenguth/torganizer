@@ -58,7 +58,7 @@ public abstract class AbstractAggregate {
     if (object == null || this.getClass() != object.getClass()) {
       return false;
     }
-    AbstractAggregate other = (AbstractAggregate) object;
+    var other = (AbstractAggregate) object;
 
     return wins == other.wins && lose == other.lose;
   }

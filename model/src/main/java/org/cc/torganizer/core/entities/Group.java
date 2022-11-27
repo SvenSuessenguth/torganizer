@@ -61,10 +61,10 @@ public class Group extends Entity implements Positional {
    * @return Liste der Opponents, die dieser Gruppe zugewiesen sind.
    */
   public List<Opponent> getOpponents() {
-    List<Opponent> result = new ArrayList<>();
+    var result = new ArrayList<Opponent>();
     getPositionalOpponents().sort(new PositionalComparator());
 
-    for (PositionalOpponent io : getPositionalOpponents()) {
+    for (var io : getPositionalOpponents()) {
       result.add(io.getOpponent());
     }
 
@@ -83,7 +83,7 @@ public class Group extends Entity implements Positional {
       return;
     }
 
-    for (Opponent o : newOpponents) {
+    for (var o : newOpponents) {
       var io = new PositionalOpponent(o, newOpponents.indexOf(o) + 1);
       getPositionalOpponents().add(io);
     }
@@ -118,7 +118,7 @@ public class Group extends Entity implements Positional {
 
     // Neuindizierung
     var newPosition = 0;
-    for (PositionalOpponent o : getPositionalOpponents()) {
+    for (var o : getPositionalOpponents()) {
       o.setPosition(newPosition);
       newPosition += 1;
     }
@@ -134,7 +134,7 @@ public class Group extends Entity implements Positional {
    */
   public PositionalOpponent getPositionalOpponent(Opponent opponent) {
     PositionalOpponent positionalOpponent = null;
-    for (PositionalOpponent io : getPositionalOpponents()) {
+    for (var io : getPositionalOpponents()) {
       if (io.getOpponent().equals(opponent)) {
         positionalOpponent = io;
       }
@@ -151,7 +151,7 @@ public class Group extends Entity implements Positional {
    */
   public PositionalOpponent getPositionalOpponent(Integer reqPosition) {
     PositionalOpponent positionalOpponent = null;
-    for (PositionalOpponent po : getPositionalOpponents()) {
+    for (var po : getPositionalOpponents()) {
       if (po != null && po.getPosition().equals(reqPosition)) {
         positionalOpponent = po;
       }
@@ -180,7 +180,7 @@ public class Group extends Entity implements Positional {
    */
   public void moveUp(Opponent opponent) {
     var positionalOpponent = getPositionalOpponent(opponent);
-    int positionOld = positionalOpponent.getPosition();
+    var positionOld = positionalOpponent.getPosition();
 
     if (positionOld > 0) {
       var swap = getPositionalOpponent(positionOld - 1);
@@ -197,7 +197,7 @@ public class Group extends Entity implements Positional {
    */
   public void moveDown(Opponent opponent) {
     var positionalOpponent = getPositionalOpponent(opponent);
-    int positionOld = positionalOpponent.getPosition();
+    var positionOld = positionalOpponent.getPosition();
 
     if (positionOld <= getPositionalOpponents().size() - 2) {
       var swap = getPositionalOpponent(positionOld + 1);
@@ -274,7 +274,7 @@ public class Group extends Entity implements Positional {
    * @return a {@link org.cc.torganizer.core.entities.Match} object.
    */
   public Match getMatch(Integer matchPosition) {
-    for (Match match : getMatches()) {
+    for (var match : getMatches()) {
       if (match != null && matchPosition.equals(match.getPosition())) {
         return match;
       }
@@ -286,15 +286,15 @@ public class Group extends Entity implements Positional {
    * Aggregating all matches of all opponents of this group to get a ranking.
    */
   public List<Aggregation> getAggregates() {
-    List<Aggregation> aggregates = new ArrayList<>();
+    var aggregates = new ArrayList<Aggregation>();
 
     // zusammenstellen der Aggregates
-    for (Opponent opponent : getOpponents()) {
+    for (var opponent : getOpponents()) {
       var ma = new MatchAggregate();
       var ra = new ResultAggregate();
       var sa = new ScoreAggregate();
 
-      for (Match match : getMatches()) {
+      for (var match : getMatches()) {
         ma.aggregate(match, opponent);
         ra.aggregate(match, opponent);
         sa.aggregate(match, opponent);

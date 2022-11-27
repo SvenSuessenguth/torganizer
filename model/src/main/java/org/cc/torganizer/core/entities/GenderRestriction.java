@@ -27,7 +27,7 @@ public class GenderRestriction extends Restriction {
 
     var isRestricted = false;
 
-    for (Player player : opponent.getPlayers()) {
+    for (var player : opponent.getPlayers()) {
       // gender does not fit
       if (player.hasGender() && isGenderRestricted(player)) {
         isRestricted = true;

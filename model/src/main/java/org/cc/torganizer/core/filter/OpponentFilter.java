@@ -3,7 +3,6 @@ package org.cc.torganizer.core.filter;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Restriction;
 
 /**
@@ -16,14 +15,14 @@ public class OpponentFilter {
    */
   public Collection<Opponent> pass(Collection<Opponent> opponents,
                                    Collection<Restriction> restrictions) {
-    Collection<Opponent> result = new ArrayList<>();
+    var result = new ArrayList<Opponent>();
 
-    for (Opponent opponent : opponents) {
+    for (var opponent : opponents) {
       var isRestricted = false;
 
       // all opponents players must pass
-      for (Player player : opponent.getPlayers()) {
-        for (Restriction restriction : restrictions) {
+      for (var player : opponent.getPlayers()) {
+        for (var restriction : restrictions) {
           isRestricted = isRestricted || restriction.isRestricted(player);
         }
       }

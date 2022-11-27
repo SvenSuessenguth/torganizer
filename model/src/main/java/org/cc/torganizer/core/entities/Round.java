@@ -80,7 +80,7 @@ public class Round extends Entity implements Positional {
    * @return Groups an der Stelle mit dem Index
    */
   public Group getGroup(Integer position) {
-    for (Group g : groups) {
+    for (var g : groups) {
       if (Objects.equals(g.getPosition(), position)) {
         return g;
       }
@@ -93,9 +93,9 @@ public class Round extends Entity implements Positional {
    * Get groups, which can be deleted. A group can be deleted, if it contains no opponent.
    */
   public List<Group> getDeletableGroups() {
-    List<Group> deletableGroups = new ArrayList<>();
+    var deletableGroups = new ArrayList<Group>();
 
-    for (Group group : groups) {
+    for (var group : groups) {
       if (group.getOpponents().isEmpty()) {
         deletableGroups.add(group);
       }

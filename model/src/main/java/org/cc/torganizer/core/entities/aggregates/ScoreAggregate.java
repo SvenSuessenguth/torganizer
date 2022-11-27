@@ -2,7 +2,6 @@ package org.cc.torganizer.core.entities.aggregates;
 
 import org.cc.torganizer.core.entities.Match;
 import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.Result;
 
 /**
  * Aggregieren der Daten zu verlorenen und gewonnenen Punkten.
@@ -16,8 +15,8 @@ public class ScoreAggregate extends AbstractAggregate {
       return;
     }
 
-    boolean isHome = match.getHome().equals(opponent);
-    for (Result result : match.getResults()) {
+    var isHome = match.getHome().equals(opponent);
+    for (var result : match.getResults()) {
       if (isHome) {
         increaseWins(result.getHomeScore());
         increaseLose(result.getGuestScore());

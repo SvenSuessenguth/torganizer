@@ -36,7 +36,7 @@ public enum Status {
    * @return Status
    */
   public static Status fromInt(int value) {
-    for (Status status : values()) {
+    for (var status : values()) {
       if (status.value == value) {
         return status;
       }

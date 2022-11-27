@@ -19,7 +19,7 @@ public class PlayerComparatorProvider {
    */
   public PlayerComparator get(PlayerOrderCriteria playerOrderCriteria) {
 
-    for (PlayerComparator pc : playerComparators) {
+    for (var pc : playerComparators) {
       if (Objects.equals(playerOrderCriteria, pc.getPlayerOrderCriteria())) {
         return pc;
       }

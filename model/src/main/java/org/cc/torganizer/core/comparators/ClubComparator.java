@@ -22,8 +22,8 @@ public class ClubComparator implements Comparator<Club>, Serializable {
       return -1;
     }
 
-    String name1 = o1.getName();
-    String name2 = o2.getName();
+    var name1 = o1.getName();
+    var name2 = o2.getName();
 
     if (name1 == null && name2 == null) {
       return 0;

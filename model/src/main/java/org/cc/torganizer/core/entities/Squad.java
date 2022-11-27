@@ -58,7 +58,7 @@ public class Squad extends Opponent {
   @Override
   public String toString() {
     var personsString = new StringBuilder();
-    for (Player p : getPlayers()) {
+    for (var p : getPlayers()) {
       personsString.append(p.toString());
     }
 

@@ -44,9 +44,9 @@ public class Team extends Opponent {
 
   @Override
   public Set<Player> getPlayers() {
-    Set<Player> players = new HashSet<>();
+    var players = new HashSet<Player>();
 
-    for (Opponent opponent : opponents) {
+    for (var opponent : opponents) {
       players.addAll(opponent.getPlayers());
     }
 

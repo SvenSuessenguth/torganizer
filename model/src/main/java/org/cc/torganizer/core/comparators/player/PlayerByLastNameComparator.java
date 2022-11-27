@@ -24,8 +24,8 @@ public class PlayerByLastNameComparator implements PlayerComparator {
       return 1;
     }
 
-    String o1LastName = o1.getPerson().getLastName();
-    String o2LastName = o2.getPerson().getLastName();
+    var o1LastName = o1.getPerson().getLastName();
+    var o2LastName = o2.getPerson().getLastName();
 
     if (o1LastName == null && o2LastName == null) {
       return 0;

@@ -5,7 +5,6 @@ import static java.util.Collections.unmodifiableList;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -103,7 +102,7 @@ public class Match extends Entity implements Positional {
     var guestScores = 0;
 
     // Aufsummieren der Results
-    for (Result result : results) {
+    for (var result : results) {
       homeScores += result.getHomeScore();
       guestScores += result.getGuestScore();
 
@@ -159,7 +158,7 @@ public class Match extends Entity implements Positional {
    * @return Verlierer des Matches oder <code>null</code>, bei unentschieden.
    */
   public Opponent getLoser() {
-    Opponent winner = getWinner();
+    var winner = getWinner();
     Opponent loser;
 
     // Wenn es keinen Gewinner gibt, gibt es auch keinen Verlierer
@@ -205,7 +204,7 @@ public class Match extends Entity implements Positional {
   public String toString() {
     var result = new StringBuilder();
 
-    Iterator<Opponent> iter = getOpponents().iterator();
+    var iter = getOpponents().iterator();
 
     while (iter.hasNext()) {
       var opponent = iter.next();
@@ -237,8 +236,8 @@ public class Match extends Entity implements Positional {
    *     mitspielt, sonst <code>false</code>
    */
   public boolean isSharingPlayer(Match otherMatch) {
-    for (Opponent opponent : this.getOpponents()) {
-      for (Player player : opponent.getPlayers()) {
+    for (var opponent : this.getOpponents()) {
+      for (var player : opponent.getPlayers()) {
         if (otherMatch.isParticipant(player)) {
           return true;
         }
@@ -255,8 +254,8 @@ public class Match extends Entity implements Positional {
    *     <code>false</code>
    */
   protected boolean isParticipant(Player player) {
-    for (Opponent o : this.getOpponents()) {
-      for (Player p : o.getPlayers()) {
+    for (var o : this.getOpponents()) {
+      for (var p : o.getPlayers()) {
         if (p.equals(player)) {
           return true;
         }
@@ -298,7 +297,7 @@ public class Match extends Entity implements Positional {
 
     var aggregatedIdleTime = 0L;
 
-    for (Opponent o : getOpponents()) {
+    for (var o : getOpponents()) {
       aggregatedIdleTime += o.getIdleTime();
     }
 

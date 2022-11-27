@@ -18,8 +18,8 @@ public class MatchHistoryComparator
   public int compare(Match m1, Match m2) {
 
     // average time to wait  Wartezeit der Player ermitteln
-    Long idleTimeMatch1 = m1.getIdleTime();
-    Long idleTimeMatch2 = m2.getIdleTime();
+    var idleTimeMatch1 = m1.getIdleTime();
+    var idleTimeMatch2 = m2.getIdleTime();
 
     return idleTimeMatch2.compareTo(idleTimeMatch1);
   }

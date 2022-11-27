@@ -71,7 +71,7 @@ public class Player extends Opponent {
 
   @Override
   public Set<Player> getPlayers() {
-    Set<Player> players = new HashSet<>();
+    var players = new HashSet<Player>();
     players.add(this);
 
     return players;

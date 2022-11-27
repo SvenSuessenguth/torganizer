@@ -4,7 +4,6 @@ import static java.time.LocalDateTime.MIN;
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.MINUTES;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
 
 /**
@@ -33,8 +32,8 @@ public abstract class Opponent extends Entity {
   public Long getIdleTime() {
     var overallMinutesSinceLastMatch = 0L;
 
-    for (Player p : getPlayers()) {
-      LocalDateTime lastMatchTime = p.getLastMatchTime();
+    for (var p : getPlayers()) {
+      var lastMatchTime = p.getLastMatchTime();
 
       lastMatchTime = lastMatchTime == null ? MIN : lastMatchTime;
 
