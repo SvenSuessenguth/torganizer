@@ -7,8 +7,6 @@
   <version>2.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <url>http://localhost:8080/torganizer</url>
-
   <scm>
     <connection>scm:git:https://github.com/SvenSuessenguth/torganizer.git</connection>
     <developerConnection>scm:git:git@github.com:SvenSuessenguth/torganizer.git</developerConnection>
@@ -40,7 +38,7 @@
      +-->
     <!-- compile -->
     <logback.version>1.4.5</logback.version>
-    <slf4j.version>2.0.4</slf4j.version>
+    <slf4j.version>2.0.5</slf4j.version>
     <!-- runtime -->
     <!-- provided -->
     <jakarta.faces.version>4.0.0</jakarta.faces.version>
@@ -58,8 +56,8 @@
     <checkstyle.version>10.4</checkstyle.version>
     <jakarta.activation-api.version>2.1.0</jakarta.activation-api.version>
     <openliberty-jakartaee9.version>22.0.0.12</openliberty-jakartaee9.version>
-    <pmd.version>6.51.0</pmd.version>
-    <postgresql.version>42.5.0</postgresql.version>
+    <pmd.version>6.52.0</pmd.version>
+    <postgresql.version>42.5.1</postgresql.version>
     <spotbugs.version>4.7.3</spotbugs.version>
 
     <!--
