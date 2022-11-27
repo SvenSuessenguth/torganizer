@@ -11,7 +11,7 @@ public class Gymnasium extends Entity {
 
   private String name;
 
-  private List<Court> courts = new ArrayList<>();
+  private final List<Court> courts = new ArrayList<>();
 
   /**
    * Default.

@@ -4,7 +4,6 @@ import static jakarta.transaction.Transactional.TxType.NEVER;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import org.cc.torganizer.core.entities.Club;
@@ -16,6 +15,7 @@ import org.cc.torganizer.core.entities.Player;
 @RequestScoped
 public class ClubsRepository extends Repository<Club> {
 
+  @SuppressWarnings("unused")
   public ClubsRepository() {
   }
 
@@ -25,7 +25,7 @@ public class ClubsRepository extends Repository<Club> {
    * @param entityManager EntityManager
    */
   ClubsRepository(EntityManager entityManager) {
-    this.entityManager = entityManager;
+    this.em = entityManager;
   }
 
 
@@ -37,7 +37,7 @@ public class ClubsRepository extends Repository<Club> {
   @Override
   @Transactional(NEVER)
   public Club read(Long clubId) {
-    return entityManager.find(Club.class, clubId);
+    return em.find(Club.class, clubId);
   }
 
   @Override
@@ -46,7 +46,7 @@ public class ClubsRepository extends Repository<Club> {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    TypedQuery<Club> namedQuery = entityManager.createNamedQuery("Club.findAll", Club.class);
+    var namedQuery = em.createNamedQuery("Club.findAll", Club.class);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
     return namedQuery.getResultList();
@@ -54,7 +54,7 @@ public class ClubsRepository extends Repository<Club> {
 
   @Transactional(NEVER)
   public long count() {
-    var query = entityManager.createQuery("SELECT count(c) FROM Club c");
+    var query = em.createQuery("SELECT count(c) FROM Club c");
     return (long) query.getSingleResult();
   }
 
@@ -63,7 +63,7 @@ public class ClubsRepository extends Repository<Club> {
    */
   @Transactional(NEVER)
   public List<Player> getPlayers(Club club) {
-    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Club.findPlayers",
+    var namedQuery = em.createNamedQuery("Club.findPlayers",
         Player.class);
     namedQuery.setParameter("club", club);
     return namedQuery.getResultList();
@@ -74,7 +74,7 @@ public class ClubsRepository extends Repository<Club> {
    */
   @Transactional(NEVER)
   public Long countPlayers(Club club) {
-    TypedQuery<Long> namedQuery = entityManager.createNamedQuery("Club.countPlayers", Long.class);
+    var namedQuery = em.createNamedQuery("Club.countPlayers", Long.class);
     namedQuery.setParameter("club", club);
 
     return namedQuery.getSingleResult();

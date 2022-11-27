@@ -12,6 +12,7 @@ import org.cc.torganizer.core.entities.Restriction;
 @RequestScoped
 public class RestrictionsRepository extends Repository<Restriction> {
 
+  @SuppressWarnings("unused")
   public RestrictionsRepository() {
   }
 
@@ -21,7 +22,7 @@ public class RestrictionsRepository extends Repository<Restriction> {
    * @param entityManager EntityManager
    */
   RestrictionsRepository(EntityManager entityManager) {
-    this.entityManager = entityManager;
+    this.em = entityManager;
   }
 
   //-----------------------------------------------------------------------------------------------
@@ -31,7 +32,7 @@ public class RestrictionsRepository extends Repository<Restriction> {
   //-----------------------------------------------------------------------------------------------
   @Override
   public Restriction read(Long restrictionId) {
-    return entityManager.find(Restriction.class, restrictionId);
+    return em.find(Restriction.class, restrictionId);
   }
 
   @Override
@@ -39,7 +40,7 @@ public class RestrictionsRepository extends Repository<Restriction> {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    TypedQuery<Restriction> namedQuery = entityManager.createNamedQuery("Restriction.findAll",
+    TypedQuery<Restriction> namedQuery = em.createNamedQuery("Restriction.findAll",
         Restriction.class);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);

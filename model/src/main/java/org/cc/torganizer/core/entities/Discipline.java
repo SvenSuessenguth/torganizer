@@ -25,11 +25,11 @@ public class Discipline extends Entity {
   /**
    * Opponents that are member of the first round.
    */
-  private Set<Opponent> opponents = new HashSet<>();
+  private final Set<Opponent> opponents = new HashSet<>();
 
-  private List<Round> rounds = new ArrayList<>();
+  private final List<Round> rounds = new ArrayList<>();
 
-  private Set<Restriction> restrictions = new HashSet<>();
+  private final Set<Restriction> restrictions = new HashSet<>();
 
   /**
    * Finden der letzten Round, in der Opponents zugewiesen sind. In einer Round
@@ -39,8 +39,8 @@ public class Discipline extends Entity {
    */
   Optional<Round> getCurrentRound() {
     Round currentRound = null;
-    for (Round r : getRounds()) {
-      for (Group g : r.getGroups()) {
+    for (var r : getRounds()) {
+      for (var g : r.getGroups()) {
         if (!g.getOpponents().isEmpty()) {
           currentRound = r;
         }
@@ -67,7 +67,7 @@ public class Discipline extends Entity {
    */
   public void addOpponent(Opponent opponent) {
     // pruefen aller restrictions und werfen einer RestrictionException
-    for (Restriction restriction : restrictions) {
+    for (var restriction : restrictions) {
       if (restriction != null && restriction.isRestricted(opponent)) {
         throw new RestrictionException("violation with restriction "
             + restriction.getClass().getName());
@@ -109,21 +109,20 @@ public class Discipline extends Entity {
    * Getting the round with bthe given index.
    */
   public Round getRound(int index) {
-    Round round = null;
-    for (Round r : getRounds()) {
-      if (r.getPosition() == index) {
-        round = r;
+    for (var round : getRounds()) {
+      if (round.getPosition() == index) {
+        return round;
       }
     }
 
-    return round;
+    return null;
   }
 
   /**
    * Getting the players of the discipline.
    */
   public Set<Player> getPlayers() {
-    Set<Player> players = new HashSet<>();
+    var players = new HashSet<Player>();
 
     getOpponents().forEach(opponent -> players.addAll(opponent.getPlayers()));
 
@@ -144,7 +143,7 @@ public class Discipline extends Entity {
    */
   public Collection<Restriction> getRestrictions() {
 
-    List<Restriction> orderedRestrictions = new ArrayList<>(this.restrictions);
+    var orderedRestrictions = new ArrayList<>(this.restrictions);
 
     orderedRestrictions.sort(Comparator.comparing(o -> o.getDiscriminator().getId()));
 
@@ -155,7 +154,7 @@ public class Discipline extends Entity {
    * Returns the Rstrictions with the given discriminator.
    */
   public Restriction getRestriction(Restriction.Discriminator discriminator) {
-    for (Restriction restriction : restrictions) {
+    for (var restriction : restrictions) {
       if (Objects.equals(discriminator, restriction.getDiscriminator())) {
         return restriction;
       }
@@ -182,7 +181,7 @@ public class Discipline extends Entity {
   public Round getLastRound() {
     Round lastRound = null;
 
-    for (Round round : getRounds()) {
+    for (var round : getRounds()) {
       if (lastRound == null || lastRound.getPosition() < round.getPosition()) {
         lastRound = round;
       }

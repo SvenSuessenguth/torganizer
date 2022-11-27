@@ -9,7 +9,7 @@ public enum Gender {
   FEMALE("F"),
   UNKNOWN("U");
 
-  private String id;
+  private final String id;
 
   Gender(String id) {
     this.id = id;
@@ -19,7 +19,7 @@ public enum Gender {
    * Nullsafe converting a given id to a Gender-Object.
    */
   public static Gender byId(String id) {
-    for (Gender gender : values()) {
+    for (var gender : values()) {
       if (gender.id.equals(id)) {
         return gender;
       }

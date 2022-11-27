@@ -1,15 +1,9 @@
 package org.cc.torganizer.persistence;
 
-import static java.util.Collections.sort;
-
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
-import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Join;
-import jakarta.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -30,6 +24,7 @@ public class RoundsRepository extends Repository<Round> {
   @Inject
   private DisciplinesRepository disciplineRepo;
 
+  @SuppressWarnings("unused")
   public RoundsRepository() {
   }
 
@@ -39,7 +34,7 @@ public class RoundsRepository extends Repository<Round> {
    * @param entityManager EntityManager
    */
   RoundsRepository(EntityManager entityManager, DisciplinesRepository disciplineRepo) {
-    this.entityManager = entityManager;
+    this.em = entityManager;
     this.disciplineRepo = disciplineRepo;
   }
 
@@ -50,7 +45,7 @@ public class RoundsRepository extends Repository<Round> {
   //-----------------------------------------------------------------------------------------------
   @Override
   public Round read(Long roundId) {
-    return entityManager.find(Round.class, roundId);
+    return em.find(Round.class, roundId);
   }
 
   @Override
@@ -58,7 +53,7 @@ public class RoundsRepository extends Repository<Round> {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    TypedQuery<Round> namedQuery = entityManager.createNamedQuery("Round.findAll", Round.class);
+    var namedQuery = em.createNamedQuery("Round.findAll", Round.class);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
 
@@ -69,14 +64,14 @@ public class RoundsRepository extends Repository<Round> {
    * Reading the opponents which are related to the round with the given id.
    */
   public Collection<Opponent> getOpponents(Long roundId) {
-    Long prevRoundId = getPrevRoundId(roundId);
+    var prevRoundId = getPrevRoundId(roundId);
     Collection<Opponent> opponents;
 
     if (prevRoundId != null) {
       var prevRound = read(prevRoundId);
       opponents = prevRound.getQualifiedOpponents();
     } else {
-      Long disciplineId = disciplineRepo.getDisciplineId(roundId);
+      var disciplineId = disciplineRepo.getDisciplineId(roundId);
       opponents = new HashSet<>(disciplineRepo.getOpponents(disciplineId, 0, 999));
     }
 
@@ -89,17 +84,17 @@ public class RoundsRepository extends Repository<Round> {
   public Collection<Opponent> getNotAssignedOpponents(Long roundId, Integer offset,
                                                       Integer maxResults) {
 
-    Collection<Opponent> opponents = getOpponents(roundId);
-    Set<Opponent> assignedOpponents = getAssignedOpponents(roundId);
+    var opponents = getOpponents(roundId);
+    var assignedOpponents = getAssignedOpponents(roundId);
 
     // sets can't work with positions
-    List<Opponent> notAssignedOpponents = new ArrayList<>(opponents);
+    var notAssignedOpponents = new ArrayList<>(opponents);
     notAssignedOpponents.removeAll(assignedOpponents);
-    sort(notAssignedOpponents, new OpponentByNameComparator());
+    notAssignedOpponents.sort(new OpponentByNameComparator());
 
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
-    Integer foundOpponentsSize = notAssignedOpponents.size();
+    var foundOpponentsSize = notAssignedOpponents.size();
     maxResults = maxResults > foundOpponentsSize ? foundOpponentsSize : maxResults;
 
     return new HashSet<>(notAssignedOpponents.subList(offset, maxResults));
@@ -109,17 +104,17 @@ public class RoundsRepository extends Repository<Round> {
    * Getting all opponents which are assigned to the round with the given id.
    */
   public Set<Opponent> getAssignedOpponents(Long roundId) {
-    TypedQuery<PositionalOpponent> query = entityManager.createQuery("SELECT po "
+    var query = em.createQuery("SELECT po "
             + "FROM Round r, Group g , PositionalOpponent po "
             + "WHERE r.id = :roundId "
             + "AND g MEMBER OF r.groups "
             + "AND po MEMBER OF g.positionalOpponents",
         PositionalOpponent.class);
     query.setParameter("roundId", roundId);
-    List<PositionalOpponent> resultList = query.getResultList();
+    var resultList = query.getResultList();
 
-    Set<Opponent> assignedOpponents = new HashSet<>(resultList.size());
-    for (PositionalOpponent po : resultList) {
+    var assignedOpponents = new HashSet<Opponent>(resultList.size());
+    for (var po : resultList) {
       assignedOpponents.add(po.getOpponent());
     }
 
@@ -139,11 +134,11 @@ public class RoundsRepository extends Repository<Round> {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    var cb = entityManager.getCriteriaBuilder();
-    CriteriaQuery<Group> cq = cb.createQuery(Group.class);
-    Root<Round> round = cq.from(Round.class);
-    Root<Group> group = cq.from(Group.class);
-    Join<Round, Group> roundGroupJoin = round.join("groups");
+    var cb = em.getCriteriaBuilder();
+    var cq = cb.createQuery(Group.class);
+    var round = cq.from(Round.class);
+    var group = cq.from(Group.class);
+    var roundGroupJoin = round.join("groups");
 
     cq.select(group);
     cq.where(
@@ -153,25 +148,12 @@ public class RoundsRepository extends Repository<Round> {
         )
     );
 
-    TypedQuery<Group> query = entityManager.createQuery(cq);
+    var query = em.createQuery(cq);
     query.setFirstResult(offset);
     query.setMaxResults(maxResults);
 
     return query.getResultList();
 
-  }
-
-  /**
-   * Adding the group with the given id to the round with the given id.
-   */
-  public Round newGroup(Long roundId, Long groupId) {
-    var group = entityManager.find(Group.class, groupId);
-    var round = read(roundId);
-
-    round.getGroups().add(group);
-    entityManager.persist(round);
-
-    return round;
   }
 
   /**
@@ -184,35 +166,22 @@ public class RoundsRepository extends Repository<Round> {
 
     var group = new Group();
     round.appendGroup(group);
-    entityManager.persist(group);
+    em.persist(group);
 
-    entityManager.merge(round);
-    entityManager.flush();
+    em.merge(round);
+    em.flush();
 
     return round.getGroups();
-  }
-
-  /**
-   * Remove the group with the given id from the round with the given id.
-   */
-  public Round removeGroup(Long roundId, Long groupId) {
-    var group = entityManager.find(Group.class, groupId);
-    var round = read(roundId);
-
-    round.getGroups().remove(group);
-    entityManager.persist(round);
-
-    return round;
   }
 
   /**
    * Getting the id of the round, to which the group with the given id is related.
    */
   public Long getRoundId(Long groupId) {
-    Long roundId = null;
+    Long roundId;
 
     try {
-      TypedQuery<Long> query = entityManager.createQuery("SELECT r.id FROM Round r, Group g "
+      var query = em.createQuery("SELECT r.id FROM Round r, Group g "
           + "WHERE g.id = :groupId "
           + "AND g MEMBER OF r.groups", Long.class);
       query.setParameter("groupId", groupId);
@@ -229,10 +198,10 @@ public class RoundsRepository extends Repository<Round> {
    * and has the given position.
    */
   public Long getRoundId(Long disciplineId, Integer roundPosition) {
-    Long roundId = null;
+    Long roundId;
 
     try {
-      TypedQuery<Long> query = entityManager.createQuery("SELECT r.id FROM Round r, Discipline d "
+      var query = em.createQuery("SELECT r.id FROM Round r, Discipline d "
           + "WHERE d.id = :disciplineId "
           + "AND r MEMBER OF d.rounds "
           + "AND r.position = :roundPosition", Long.class);
@@ -250,9 +219,9 @@ public class RoundsRepository extends Repository<Round> {
    * Getting the id of the round which is the processor of the round with the given id.
    */
   public Long getPrevRoundId(Long roundId) {
-    Integer roundPosition = getPosition(roundId);
-    Integer prevRoundPosition = roundPosition - 1;
-    Long disciplineId = disciplineRepo.getDisciplineId(roundId);
+    var roundPosition = getPosition(roundId);
+    var prevRoundPosition = roundPosition - 1;
+    var disciplineId = disciplineRepo.getDisciplineId(roundId);
     return getRoundId(disciplineId, prevRoundPosition);
   }
 
@@ -261,7 +230,7 @@ public class RoundsRepository extends Repository<Round> {
    */
   public Integer getPosition(Long roundId) {
     try {
-      TypedQuery<Integer> query = entityManager.createQuery("SELECT r.position FROM Round r "
+      var query = em.createQuery("SELECT r.position FROM Round r "
           + "WHERE r.id = :roundId", Integer.class);
       query.setParameter("roundId", roundId);
       return query.getSingleResult();
@@ -277,13 +246,13 @@ public class RoundsRepository extends Repository<Round> {
    */
   public List<Group> deleteGroup(Long roundId) {
     var round = this.read(roundId);
-    List<Group> groups = round.getDeletableGroups();
+    var groups = round.getDeletableGroups();
 
     if (!groups.isEmpty()) {
       round.removeGroup(groups.get(0));
 
-      entityManager.merge(round);
-      entityManager.flush();
+      em.merge(round);
+      em.flush();
     }
 
     return round.getGroups();

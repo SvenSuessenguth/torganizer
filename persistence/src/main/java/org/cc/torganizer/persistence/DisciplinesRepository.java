@@ -3,10 +3,6 @@ package org.cc.torganizer.persistence;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
-import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Join;
-import jakarta.persistence.criteria.Root;
 import java.util.List;
 import java.util.logging.Logger;
 import org.cc.torganizer.core.entities.Discipline;
@@ -31,7 +27,7 @@ public class DisciplinesRepository extends Repository<Discipline> {
    * @param entityManager EntityManager
    */
   DisciplinesRepository(EntityManager entityManager) {
-    this.entityManager = entityManager;
+    this.em = entityManager;
   }
 
   //-----------------------------------------------------------------------------------------------
@@ -41,7 +37,7 @@ public class DisciplinesRepository extends Repository<Discipline> {
   //-----------------------------------------------------------------------------------------------
   @Override
   public Discipline read(Long disciplineId) {
-    return entityManager.find(Discipline.class, disciplineId);
+    return em.find(Discipline.class, disciplineId);
   }
 
   @Override
@@ -62,11 +58,11 @@ public class DisciplinesRepository extends Repository<Discipline> {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    var cb = entityManager.getCriteriaBuilder();
-    CriteriaQuery<Opponent> cq = cb.createQuery(Opponent.class);
-    Root<Discipline> discipline = cq.from(Discipline.class);
-    Root<Opponent> opponent = cq.from(Opponent.class);
-    Join<Discipline, Opponent> disciplineOpponentJoin = discipline.join("opponents");
+    var cb = em.getCriteriaBuilder();
+    var cq = cb.createQuery(Opponent.class);
+    var discipline = cq.from(Discipline.class);
+    var opponent = cq.from(Opponent.class);
+    var disciplineOpponentJoin = discipline.join("opponents");
 
     cq.select(opponent);
     cq.where(
@@ -76,37 +72,11 @@ public class DisciplinesRepository extends Repository<Discipline> {
         )
     );
 
-    TypedQuery<Opponent> query = entityManager.createQuery(cq);
+    var query = em.createQuery(cq);
     query.setFirstResult(offset);
     query.setMaxResults(maxResults);
 
     return query.getResultList();
-  }
-
-  /**
-   * Adding the opponent with the give id to the discipline with the given id.
-   */
-  public Discipline addOpponent(Long disciplineId, Long opponentId) {
-    var opponent = entityManager.find(Opponent.class, opponentId);
-
-    var discipline = read(disciplineId);
-    discipline.getOpponents().add(opponent);
-    entityManager.persist(discipline);
-
-    return discipline;
-  }
-
-  /**
-   * Removing the opponent with the give id from the discipline with the given id.
-   */
-  public Discipline removeOpponent(Long disciplineId, Long opponentId) {
-    var opponent = entityManager.find(Opponent.class, opponentId);
-
-    var discipline = read(disciplineId);
-    discipline.getOpponents().remove(opponent);
-    entityManager.persist(discipline);
-
-    return discipline;
   }
 
   //-----------------------------------------------------------------------------------------------
@@ -122,11 +92,11 @@ public class DisciplinesRepository extends Repository<Discipline> {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    var cb = entityManager.getCriteriaBuilder();
-    CriteriaQuery<Round> cq = cb.createQuery(Round.class);
-    Root<Discipline> discipline = cq.from(Discipline.class);
-    Root<Round> round = cq.from(Round.class);
-    Join<Discipline, Round> disciplineRoundJoin = discipline.join("rounds");
+    var cb = em.getCriteriaBuilder();
+    var cq = cb.createQuery(Round.class);
+    var discipline = cq.from(Discipline.class);
+    var round = cq.from(Round.class);
+    var disciplineRoundJoin = discipline.join("rounds");
 
     cq.select(round);
     cq.where(
@@ -136,7 +106,7 @@ public class DisciplinesRepository extends Repository<Discipline> {
         )
     );
 
-    TypedQuery<Round> query = entityManager.createQuery(cq);
+    var query = em.createQuery(cq);
     query.setFirstResult(offset);
     query.setMaxResults(maxResults);
 
@@ -147,11 +117,11 @@ public class DisciplinesRepository extends Repository<Discipline> {
    * Adding the round with the give id to the discipline with the given id.
    */
   public Discipline addRound(Long disciplineId, Long roundId) {
-    var round = entityManager.find(Round.class, roundId);
+    var round = em.find(Round.class, roundId);
 
     var discipline = read(disciplineId);
     discipline.addRound(round);
-    entityManager.persist(discipline);
+    em.persist(discipline);
 
     LOGGER.info("Position der Round nach hinzufügen zu Discipline: " + round.getPosition());
 
@@ -162,11 +132,11 @@ public class DisciplinesRepository extends Repository<Discipline> {
    * Rmoving the round with the give id to the discipline with the given id.
    */
   public Discipline removeRound(Long disciplineId, Long roundId) {
-    var round = entityManager.find(Round.class, roundId);
+    var round = em.find(Round.class, roundId);
 
     var discipline = read(disciplineId);
     discipline.getRounds().remove(round);
-    entityManager.persist(discipline);
+    em.persist(discipline);
 
     return discipline;
   }
@@ -178,7 +148,7 @@ public class DisciplinesRepository extends Repository<Discipline> {
     Long disciplineId;
 
     try {
-      TypedQuery<Long> query = entityManager.createQuery("SELECT d.id "
+      var query = em.createQuery("SELECT d.id "
           + "FROM Discipline d, Round r "
           + "WHERE r.id = :roundId "
           + "AND r MEMBER OF d.rounds", Long.class);
@@ -198,7 +168,7 @@ public class DisciplinesRepository extends Repository<Discipline> {
     Round round;
 
     try {
-      TypedQuery<Round> query = entityManager.createQuery("SELECT r "
+      var query = em.createQuery("SELECT r "
           + "FROM Round r, Discipline d "
           + "WHERE r.position = :position "
           + "AND d.id = :disciplineId", Round.class);
@@ -213,7 +183,7 @@ public class DisciplinesRepository extends Repository<Discipline> {
   }
 
   public long count() {
-    var query = entityManager.createQuery("SELECT count(d) FROM Discipline d");
+    var query = em.createQuery("SELECT count(d) FROM Discipline d");
     return (long) query.getSingleResult();
   }
 }

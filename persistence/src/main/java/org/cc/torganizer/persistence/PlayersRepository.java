@@ -12,6 +12,7 @@ import org.cc.torganizer.core.entities.Player;
 @RequestScoped
 public class PlayersRepository extends Repository<Player> {
 
+  @SuppressWarnings("unused")
   public PlayersRepository() {
   }
 
@@ -21,7 +22,7 @@ public class PlayersRepository extends Repository<Player> {
    * @param entityManager EntityManager
    */
   PlayersRepository(EntityManager entityManager) {
-    this.entityManager = entityManager;
+    this.em = entityManager;
   }
 
   //-----------------------------------------------------------------------------------------------
@@ -31,7 +32,7 @@ public class PlayersRepository extends Repository<Player> {
   //-----------------------------------------------------------------------------------------------
   @Override
   public Player read(Long playerId) {
-    return entityManager.find(Player.class, playerId);
+    return em.find(Player.class, playerId);
   }
 
   @Override
@@ -39,7 +40,7 @@ public class PlayersRepository extends Repository<Player> {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Player.findAll",
+    TypedQuery<Player> namedQuery = em.createNamedQuery("Player.findAll",
         Player.class);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
@@ -47,7 +48,7 @@ public class PlayersRepository extends Repository<Player> {
   }
 
   public long count() {
-    var query = entityManager.createQuery("SELECT count(p) FROM Player p");
+    var query = em.createQuery("SELECT count(p) FROM Player p");
     return (long) query.getSingleResult();
   }
 }

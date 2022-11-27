@@ -2,8 +2,8 @@
  
 import jenkins.model.*
 import hudson.security.*
-import hudson.util.*;
-import jenkins.install.*;
+import hudson.util.*
+import jenkins.install.*
  
 def instance = Jenkins.getInstance()
 def hudsonRealm = new HudsonPrivateSecurityRealm(false)

@@ -18,5 +18,5 @@ public enum System {
   /**
    * Gruppenspiele.
    */
-  ROUND_ROBIN;
+  ROUND_ROBIN
 }

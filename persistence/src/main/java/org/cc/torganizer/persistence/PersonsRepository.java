@@ -13,6 +13,7 @@ import org.cc.torganizer.core.entities.Person;
 @RequestScoped
 public class PersonsRepository extends Repository<Person> {
 
+  @SuppressWarnings("unused")
   public PersonsRepository() {
   }
 
@@ -22,7 +23,7 @@ public class PersonsRepository extends Repository<Person> {
    * @param entityManager EntityManager
    */
   PersonsRepository(EntityManager entityManager) {
-    this.entityManager = entityManager;
+    this.em = entityManager;
   }
 
   //-----------------------------------------------------------------------------------------------
@@ -32,7 +33,7 @@ public class PersonsRepository extends Repository<Person> {
   //-----------------------------------------------------------------------------------------------
   @Override
   public Person read(Long personId) {
-    return entityManager.find(Person.class, personId);
+    return em.find(Person.class, personId);
   }
 
   @Override
@@ -41,7 +42,7 @@ public class PersonsRepository extends Repository<Person> {
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
 
-    TypedQuery<Person> namedQuery = entityManager.createNamedQuery("Person.findAll",
+    TypedQuery<Person> namedQuery = em.createNamedQuery("Person.findAll",
         Person.class);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
@@ -56,7 +57,7 @@ public class PersonsRepository extends Repository<Person> {
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
 
-    TypedQuery<Person> namedQuery = entityManager.createNamedQuery("Person.findByGender",
+    TypedQuery<Person> namedQuery = em.createNamedQuery("Person.findByGender",
         Person.class);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
@@ -66,7 +67,7 @@ public class PersonsRepository extends Repository<Person> {
   }
 
   public long count() {
-    var query = entityManager.createQuery("SELECT count(p) FROM Person p");
+    var query = em.createQuery("SELECT count(p) FROM Person p");
     return (long) query.getSingleResult();
   }
 }

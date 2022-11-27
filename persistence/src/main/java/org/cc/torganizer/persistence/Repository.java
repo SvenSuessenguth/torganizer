@@ -19,7 +19,7 @@ public abstract class Repository<T extends Entity> {
   protected static final Integer DEFAULT_OFFSET = 0;
 
   @PersistenceContext(name = "torganizer")
-  protected EntityManager entityManager;
+  protected EntityManager em;
 
   protected Repository() {
   }
@@ -33,8 +33,8 @@ public abstract class Repository<T extends Entity> {
       t.setId(null);
       t.setLastUpdate(new Date(System.currentTimeMillis()));
 
-      entityManager.persist(t);
-      entityManager.flush();
+      em.persist(t);
+      em.flush();
 
       return t;
     } catch (Exception exc) {
@@ -65,7 +65,7 @@ public abstract class Repository<T extends Entity> {
    */
   @Transactional(REQUIRED)
   public T delete(T t) {
-    entityManager.remove(t);
+    em.remove(t);
     return t;
   }
 
@@ -75,6 +75,6 @@ public abstract class Repository<T extends Entity> {
   @Transactional(REQUIRES_NEW)
   public T update(T t) {
     t.setLastUpdate(new Date(System.currentTimeMillis()));
-    return entityManager.merge(t);
+    return em.merge(t);
   }
 }

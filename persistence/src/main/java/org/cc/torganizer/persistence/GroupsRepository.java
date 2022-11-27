@@ -25,6 +25,7 @@ public class GroupsRepository extends Repository<Group> {
   @Inject
   private DisciplinesRepository disciplineRepo;
 
+  @SuppressWarnings("unused")
   public GroupsRepository() {
   }
 
@@ -34,7 +35,7 @@ public class GroupsRepository extends Repository<Group> {
    * @param entityManager EntityManager
    */
   GroupsRepository(EntityManager entityManager) {
-    this.entityManager = entityManager;
+    this.em = entityManager;
   }
 
   //-----------------------------------------------------------------------------------------------
@@ -44,7 +45,7 @@ public class GroupsRepository extends Repository<Group> {
   //-----------------------------------------------------------------------------------------------
   @Override
   public Group read(Long groupId) {
-    return entityManager.find(Group.class, groupId);
+    return em.find(Group.class, groupId);
   }
 
   @Override
@@ -53,14 +54,14 @@ public class GroupsRepository extends Repository<Group> {
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
 
-    TypedQuery<Group> namedQuery = entityManager.createNamedQuery("Group.findAll", Group.class);
+    TypedQuery<Group> namedQuery = em.createNamedQuery("Group.findAll", Group.class);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
     return namedQuery.getResultList();
   }
 
   public long count() {
-    var query = entityManager.createQuery("SELECT count(g) FROM Group g");
+    var query = em.createQuery("SELECT count(g) FROM Group g");
     return (long) query.getSingleResult();
   }
 
@@ -72,14 +73,15 @@ public class GroupsRepository extends Repository<Group> {
    * <li>is not already assigned to a group in the current round</li>
    * </ul>
    */
+  @SuppressWarnings("unused")
   public Set<Opponent> getAssignableOpponents(Long groupId) {
-    Long roundId = roundsRep.getRoundId(groupId);
+    var roundId = roundsRep.getRoundId(groupId);
     var round = roundsRep.read(roundId);
-    Long disciplineId = disciplineRepo.getDisciplineId(roundId);
+    var disciplineId = disciplineRepo.getDisciplineId(roundId);
     var discipline = disciplineRepo.read(disciplineId);
 
     // opponents in round of group (passed the previous round)
-    Collection<Opponent> opponentsInRound = null;
+    Collection<Opponent> opponentsInRound;
     if (round.getPosition() == 0) {
       opponentsInRound = discipline.getOpponents();
     } else {
@@ -93,9 +95,9 @@ public class GroupsRepository extends Repository<Group> {
 
   protected Set<Opponent> filterAlreadyAssignedOpponents(Round round,
                                                          Collection<Opponent> opponentsInRound) {
-    Set<Opponent> assignableOpponents = new HashSet<>();
-    List<Group> groups = round.getGroups();
-    for (Opponent candidate : opponentsInRound) {
+    var assignableOpponents = new HashSet<Opponent>();
+    var groups = round.getGroups();
+    for (var candidate : opponentsInRound) {
       var isAssignable = true;
       for (Group group : groups) {
         if (group.getOpponents().contains(candidate)) {
@@ -115,11 +117,11 @@ public class GroupsRepository extends Repository<Group> {
    * Adding an opponent with the given id to the group with the given id.
    */
   public Group addOpponent(Long groupId, Long opponentId) {
-    var opponent = entityManager.find(Opponent.class, opponentId);
+    var opponent = em.find(Opponent.class, opponentId);
 
     var group = read(groupId);
     group.addOpponent(opponent);
-    entityManager.persist(group);
+    em.persist(group);
 
     return group;
   }
@@ -132,7 +134,7 @@ public class GroupsRepository extends Repository<Group> {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    TypedQuery<PositionalOpponent> namedQuery = entityManager
+    var namedQuery = em
         .createNamedQuery("Group.findPositionalOpponents", PositionalOpponent.class);
     namedQuery.setParameter("groupId", groupId);
     namedQuery.setFirstResult(offset);

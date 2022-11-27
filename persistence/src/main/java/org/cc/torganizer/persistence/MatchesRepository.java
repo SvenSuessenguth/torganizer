@@ -13,6 +13,7 @@ import org.cc.torganizer.core.entities.Tournament;
 @RequestScoped
 public class MatchesRepository extends Repository<Match> {
 
+  @SuppressWarnings("unused")
   public MatchesRepository() {
   }
 
@@ -22,7 +23,7 @@ public class MatchesRepository extends Repository<Match> {
    * @param entityManager EntityManager
    */
   MatchesRepository(EntityManager entityManager) {
-    this.entityManager = entityManager;
+    this.em = entityManager;
   }
 
   //-----------------------------------------------------------------------------------------------
@@ -32,7 +33,7 @@ public class MatchesRepository extends Repository<Match> {
   //-----------------------------------------------------------------------------------------------
   @Override
   public Match read(Long matchId) {
-    return entityManager.find(Match.class, matchId);
+    return em.find(Match.class, matchId);
   }
 
   @Override
@@ -40,26 +41,26 @@ public class MatchesRepository extends Repository<Match> {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    TypedQuery<Match> namedQuery = entityManager.createNamedQuery("Match.findAll", Match.class);
+    TypedQuery<Match> namedQuery = em.createNamedQuery("Match.findAll", Match.class);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
     return namedQuery.getResultList();
   }
 
   public long count() {
-    var query = entityManager.createQuery("SELECT count(m) FROM Match m");
+    var query = em.createQuery("SELECT count(m) FROM Match m");
     return (long) query.getSingleResult();
   }
 
   public List<Match> getRunningMatches(Tournament tournament) {
-    TypedQuery<Match> namedQuery = entityManager.createNamedQuery("Match.runningMatches", Match.class);
+    TypedQuery<Match> namedQuery = em.createNamedQuery("Match.runningMatches", Match.class);
     namedQuery.setParameter("tournament", tournament.getId());
 
     return namedQuery.getResultList();
   }
 
   public List<Match> getFinishedMatches(Tournament tournament) {
-    TypedQuery<Match> namedQuery = entityManager.createNamedQuery("Match.finishedMatches", Match.class);
+    TypedQuery<Match> namedQuery = em.createNamedQuery("Match.finishedMatches", Match.class);
     namedQuery.setParameter("tournament", tournament.getId());
 
     return namedQuery.getResultList();

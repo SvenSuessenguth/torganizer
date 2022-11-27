@@ -41,7 +41,7 @@ public class TournamentsRepository extends Repository<Tournament> {
    * @param entityManager EntityManager
    */
   TournamentsRepository(EntityManager entityManager) {
-    this.entityManager = entityManager;
+    this.em = entityManager;
   }
 
 
@@ -57,7 +57,7 @@ public class TournamentsRepository extends Repository<Tournament> {
   @Override
   @Transactional(SUPPORTS)
   public Tournament read(Long tournamentId) {
-    return entityManager.find(Tournament.class, tournamentId);
+    return em.find(Tournament.class, tournamentId);
   }
 
   /**
@@ -69,7 +69,7 @@ public class TournamentsRepository extends Repository<Tournament> {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    TypedQuery<Tournament> namedQuery = entityManager.createNamedQuery("Tournament.findAll",
+    TypedQuery<Tournament> namedQuery = em.createNamedQuery("Tournament.findAll",
         Tournament.class);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
@@ -91,7 +91,7 @@ public class TournamentsRepository extends Repository<Tournament> {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    TypedQuery<Player> namedQuery = entityManager.createNamedQuery("Tournament.findPlayers",
+    TypedQuery<Player> namedQuery = em.createNamedQuery("Tournament.findPlayers",
         Player.class);
     namedQuery.setParameter("id", tournamentId);
     namedQuery.setFirstResult(offset);
@@ -109,7 +109,7 @@ public class TournamentsRepository extends Repository<Tournament> {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    var cb = entityManager.getCriteriaBuilder();
+    var cb = em.getCriteriaBuilder();
     CriteriaQuery<Player> cq = cb.createQuery(Player.class);
     Root<Tournament> tournament = cq.from(Tournament.class);
     Root<Player> player = cq.from(Player.class);
@@ -130,7 +130,7 @@ public class TournamentsRepository extends Repository<Tournament> {
         )
     );
 
-    TypedQuery<Player> query = entityManager.createQuery(cq);
+    TypedQuery<Player> query = em.createQuery(cq);
     query.setFirstResult(offset);
     query.setMaxResults(maxResults);
 
@@ -141,17 +141,15 @@ public class TournamentsRepository extends Repository<Tournament> {
    * Add a player to a tournament.
    */
   @Transactional(REQUIRED)
-  public Opponent addOpponent(Long tournamentId, Long opponentId) {
-    var opponent = entityManager.find(Opponent.class, opponentId);
-    var tournament = entityManager.find(Tournament.class, tournamentId);
+  public void addOpponent(Long tournamentId, Long opponentId) {
+    var opponent = em.find(Opponent.class, opponentId);
+    var tournament = em.find(Tournament.class, tournamentId);
 
     Set<Opponent> opponents = tournament.getOpponents();
     opponents.add(opponent);
-    entityManager.persist(tournament);
+    em.persist(tournament);
     // to get the id
-    entityManager.flush();
-
-    return opponent;
+    em.flush();
   }
 
   /**
@@ -159,14 +157,14 @@ public class TournamentsRepository extends Repository<Tournament> {
    */
   @Transactional(REQUIRED)
   public Opponent removeOpponent(Long tournamentId, Long opponentId) {
-    var opponent = entityManager.find(Opponent.class, opponentId);
-    var tournament = entityManager.find(Tournament.class, tournamentId);
+    var opponent = em.find(Opponent.class, opponentId);
+    var tournament = em.find(Tournament.class, tournamentId);
 
     // persist tournament
     tournament.getOpponents().remove(opponent);
-    entityManager.persist(tournament);
+    em.persist(tournament);
     // to get the id
-    entityManager.flush();
+    em.flush();
 
     return opponent;
   }
@@ -176,14 +174,14 @@ public class TournamentsRepository extends Repository<Tournament> {
    */
   @Transactional(REQUIRED)
   public Discipline removeDiscipline(Long tournamentId, Long disciplineId) {
-    var discipline = entityManager.find(Discipline.class, disciplineId);
-    var tournament = entityManager.find(Tournament.class, tournamentId);
+    var discipline = em.find(Discipline.class, disciplineId);
+    var tournament = em.find(Tournament.class, tournamentId);
 
     // persist tournament
     tournament.getDisciplines().remove(discipline);
-    entityManager.persist(tournament);
+    em.persist(tournament);
     // to get the id
-    entityManager.flush();
+    em.flush();
 
     return discipline;
   }
@@ -193,7 +191,7 @@ public class TournamentsRepository extends Repository<Tournament> {
    */
   @Transactional(NEVER)
   public long countPlayers(Long tournamentId) {
-    var query = entityManager.createNamedQuery("Tournament.countPlayers");
+    var query = em.createNamedQuery("Tournament.countPlayers");
     query.setParameter("id", tournamentId);
 
     return (long) query.getSingleResult();
@@ -213,7 +211,7 @@ public class TournamentsRepository extends Repository<Tournament> {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    TypedQuery<Squad> namedQuery = entityManager.createNamedQuery("Tournament.findSquads",
+    TypedQuery<Squad> namedQuery = em.createNamedQuery("Tournament.findSquads",
         Squad.class);
     namedQuery.setParameter("id", tournamentId);
     namedQuery.setFirstResult(offset);
@@ -228,8 +226,9 @@ public class TournamentsRepository extends Repository<Tournament> {
    * Counting the squads of a tournament.
    */
   @Transactional(NEVER)
+  @SuppressWarnings("unused")
   public long countSquads(Long tournamentId) {
-    var query = entityManager.createNamedQuery("Tournament.countSquads");
+    var query = em.createNamedQuery("Tournament.countSquads");
     query.setParameter("id", tournamentId);
 
     return (long) query.getSingleResult();
@@ -249,7 +248,7 @@ public class TournamentsRepository extends Repository<Tournament> {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    TypedQuery<Discipline> namedQuery = entityManager.createNamedQuery(
+    TypedQuery<Discipline> namedQuery = em.createNamedQuery(
         "Tournament.findDisciplines", Discipline.class);
     namedQuery.setParameter("id", tournamentId);
     namedQuery.setFirstResult(offset);
@@ -262,14 +261,12 @@ public class TournamentsRepository extends Repository<Tournament> {
    * Adding a discipline to a tournament.
    */
   @Transactional(REQUIRED)
-  public Discipline addDiscipline(Long tournamentId, Discipline discipline) {
-    var tournament = entityManager.find(Tournament.class, tournamentId);
+  public void addDiscipline(Long tournamentId, Discipline discipline) {
+    var tournament = em.find(Tournament.class, tournamentId);
 
     // persist tournament
     tournament.getDisciplines().add(discipline);
-    entityManager.persist(tournament);
-
-    return discipline;
+    em.persist(tournament);
   }
 
   /**
@@ -284,7 +281,7 @@ public class TournamentsRepository extends Repository<Tournament> {
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
     // load tournaments opponents
-    var tournament = entityManager.find(Tournament.class, tournamentId);
+    var tournament = em.find(Tournament.class, tournamentId);
     Set<Opponent> opponents = tournament.getOpponents();
 
     // filter opponents
@@ -311,15 +308,16 @@ public class TournamentsRepository extends Repository<Tournament> {
   /**
    * counting the opponents for the given tournament.
    */
+  @SuppressWarnings("unused")
   public Long countOpponents(Long id) {
-    var cb = entityManager.getCriteriaBuilder();
+    var cb = em.getCriteriaBuilder();
     CriteriaQuery<Tuple> cq = cb.createTupleQuery();
     Root<Tournament> tournament = cq.from(Tournament.class);
     Join<Tournament, Opponent> tournamentOpponentJoin = tournament.join("opponents", JoinType.LEFT);
     cq.select(cb.tuple(tournament, cb.count(tournamentOpponentJoin)));
     cq.where(cb.equal(tournament.get("id"), id));
 
-    List<Tuple> result = entityManager.createQuery(cq).getResultList();
+    List<Tuple> result = em.createQuery(cq).getResultList();
     return (Long) result.get(0).get(1);
   }
 }

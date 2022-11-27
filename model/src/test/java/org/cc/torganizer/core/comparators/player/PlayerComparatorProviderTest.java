@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 import jakarta.enterprise.inject.Instance;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
@@ -28,7 +27,7 @@ class PlayerComparatorProviderTest {
 
   @BeforeEach
   public void beforeEach() {
-    List<PlayerComparator> list = Arrays.asList(
+    List<PlayerComparator> list = List.of(
         new PlayerByClubComparator()
     );
 

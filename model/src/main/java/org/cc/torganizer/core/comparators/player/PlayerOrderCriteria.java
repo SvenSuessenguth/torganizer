@@ -7,5 +7,5 @@ public enum PlayerOrderCriteria {
   BY_LAST_NAME,
   BY_CLUB,
   BY_DATE_OF_BIRTH,
-  BY_LAST_UPDATE;
+  BY_LAST_UPDATE
 }
