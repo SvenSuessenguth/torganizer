@@ -33,6 +33,9 @@ public class MatchesState {
   }
 
 
+  /**
+   * Reading possible matches.
+   */
   public List<Match> getPossibleMatches() {
     var possibleMatches = new ArrayList<Match>();
 
