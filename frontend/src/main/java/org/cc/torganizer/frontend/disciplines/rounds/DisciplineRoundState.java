@@ -43,7 +43,7 @@ public class DisciplineRoundState implements Serializable {
     var highestPostion = 0;
 
     // getting highest round
-    for (Round r : discipline.getRounds()) {
+    for (var r : discipline.getRounds()) {
       if (r.getPosition() > highestPostion) {
         highestPostion = r.getPosition();
       }

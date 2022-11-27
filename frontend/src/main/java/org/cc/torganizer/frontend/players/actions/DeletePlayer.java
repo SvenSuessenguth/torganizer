@@ -3,7 +3,6 @@ package org.cc.torganizer.frontend.players.actions;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.frontend.ApplicationMessages;
 import org.cc.torganizer.persistence.TournamentsRepository;
 import org.slf4j.Logger;
@@ -33,9 +32,9 @@ public class DeletePlayer extends PlayersAction {
     logger.info("delete player");
 
     // delete from tournament and from players/persons-tables
-    Long tournamentId = applicationState.getTournamentId();
-    Player current = state.getCurrent();
-    Long playerId = current.getId();
+    var tournamentId = applicationState.getTournamentId();
+    var current = state.getCurrent();
+    var playerId = current.getId();
 
     if (tournamentId == null || playerId == null) {
       applicationMessages.addMessage(CLUBS_I18N_BASE_NAME, "error_on_delete_player",

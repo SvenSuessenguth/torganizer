@@ -14,7 +14,7 @@ public class PrevAllPlayersChunk extends PlayersAction {
    * Execute.
    */
   public void execute() {
-    int chunkIndex = state.getAllPlayersChunkIndex();
+    var chunkIndex = state.getAllPlayersChunkIndex();
     if (chunkIndex > 0) {
       state.setAllPlayersChunkIndex(chunkIndex - 1);
     }

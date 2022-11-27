@@ -33,14 +33,14 @@ public class DeleteSquad extends SquadAction {
    */
   public void execute() {
     // delete from tournament and from squads-tables
-    Long tournamentId = applicationState.getTournamentId();
+    var tournamentId = applicationState.getTournamentId();
     var squad = state.getCurrent();
 
     if (tournamentId == null || squad == null) {
       return;
     }
 
-    Long squadId = squad.getId();
+    var squadId = squad.getId();
     tournamentsRepository.removeOpponent(tournamentId, squadId);
     squadsRepository.delete(squadId);
     synchronizer.synchronize(state);

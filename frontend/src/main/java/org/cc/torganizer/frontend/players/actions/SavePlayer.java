@@ -32,7 +32,7 @@ public class SavePlayer extends PlayersAction {
     logger.info("save player");
 
     var player = state.getCurrent();
-    Long tournamentId = applicationState.getTournamentId();
+    var tournamentId = applicationState.getTournamentId();
 
     if (player.getId() == null) {
       repository.create(player);

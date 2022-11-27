@@ -18,7 +18,7 @@ public class DisciplinesCoreStateSynchronizer {
   private ApplicationState appState;
 
   public void synchronize(DisciplinesCoreState state) {
-    Long tournamentId = appState.getTournamentId();
+    var tournamentId = appState.getTournamentId();
     state.setDisciplines(tournamentsRepository.getDisciplines(tournamentId, 0, 1000));
   }
 }

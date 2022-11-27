@@ -3,7 +3,6 @@ package org.cc.torganizer.frontend.disciplines.rounds.actions;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.frontend.disciplines.rounds.DisciplineRoundState;
 import org.cc.torganizer.frontend.disciplines.rounds.DisciplineRoundStateSynchronizer;
 import org.cc.torganizer.persistence.RoundsRepository;
@@ -26,8 +25,8 @@ public class CancelRoundAction extends RoundAction {
 
   @Override
   public void execute() {
-    Round round = state.getRound();
-    Long id = round.getId();
+    var round = state.getRound();
+    var id = round.getId();
     round = roundsRepository.read(id);
 
     synchronizer.synchronize(state);

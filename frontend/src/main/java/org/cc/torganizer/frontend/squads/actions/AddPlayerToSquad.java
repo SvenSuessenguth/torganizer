@@ -3,7 +3,6 @@ package org.cc.torganizer.frontend.squads.actions;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.core.entities.Squad;
 
 /**
  * Adding a player to the current squad.
@@ -18,11 +17,11 @@ public class AddPlayerToSquad extends SquadAction {
    */
   public void execute(Player player) {
     // player must have an id
-    Squad current = state.getCurrent();
+    var current = state.getCurrent();
     current.addPlayer(player);
 
     // remove player with no id (if existing)
-    for (Player p : current.getPlayers()) {
+    for (var p : current.getPlayers()) {
       if (p.getId() == null) {
         current.removePlayer(p);
         break;

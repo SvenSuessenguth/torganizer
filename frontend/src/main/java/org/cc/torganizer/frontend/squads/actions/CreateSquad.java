@@ -3,7 +3,6 @@ package org.cc.torganizer.frontend.squads.actions;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 import org.cc.torganizer.frontend.squads.SquadsStateSynchronizer;
 import org.cc.torganizer.persistence.PlayersRepository;
@@ -34,14 +33,14 @@ public class CreateSquad extends SquadAction {
    * creating a squad an link with current tournament.
    */
   public void execute() {
-    Squad current = state.getCurrent();
+    var current = state.getCurrent();
     var newSquad = new Squad();
     squadsRepository.create(newSquad);
 
-    Long tournamentId = applicationState.getTournamentId();
+    var tournamentId = applicationState.getTournamentId();
     tournamentsRepository.addOpponent(tournamentId, newSquad.getId());
 
-    for (Player p : current.getPlayers()) {
+    for (var p : current.getPlayers()) {
       var p2 = playersRepository.read(p.getId());
       newSquad.addPlayer(p2);
     }

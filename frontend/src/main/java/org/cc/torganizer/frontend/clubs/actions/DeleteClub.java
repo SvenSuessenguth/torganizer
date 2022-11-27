@@ -3,7 +3,6 @@ package org.cc.torganizer.frontend.clubs.actions;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import org.cc.torganizer.core.entities.Club;
 import org.cc.torganizer.frontend.ApplicationMessages;
 import org.cc.torganizer.frontend.clubs.ClubsStateSynchronizer;
 
@@ -26,10 +25,10 @@ public class DeleteClub extends ClubsAction {
    * A club can only be deleted if it has no linked players.
    */
   public void execute() {
-    Club current = state.getCurrent();
-    Long id = current.getId();
+    var current = state.getCurrent();
+    var id = current.getId();
 
-    Long clubsPlayers = clubsRepository.countPlayers(current);
+    var clubsPlayers = clubsRepository.countPlayers(current);
 
     if (clubsPlayers > 0) {
       appMessages.addMessage(CLUBS_I18N_BASE_NAME, "no_delete_linked_players",

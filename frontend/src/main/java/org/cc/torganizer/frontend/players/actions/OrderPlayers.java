@@ -4,9 +4,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import java.util.List;
 import org.cc.torganizer.core.comparators.player.PlayerComparatorProvider;
-import org.cc.torganizer.core.entities.Player;
 
 /**
  * Ordering Players by selected Criteria.
@@ -28,7 +26,7 @@ public class OrderPlayers extends PlayersAction {
    */
   public void execute() {
     var playerOrderCriteria = state.getPlayerOrderCriteria();
-    List<Player> players = state.getPlayers();
+    var players = state.getPlayers();
 
     var comparator = playerComparatorProvider.get(playerOrderCriteria);
     players.sort(comparator);

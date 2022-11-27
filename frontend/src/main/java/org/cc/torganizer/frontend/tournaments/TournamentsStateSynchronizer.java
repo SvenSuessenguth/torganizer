@@ -2,7 +2,6 @@ package org.cc.torganizer.frontend.tournaments;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
-import java.util.List;
 import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.frontend.ConversationController;
 import org.cc.torganizer.persistence.TournamentsRepository;
@@ -23,7 +22,7 @@ public class TournamentsStateSynchronizer {
    * Synchronizing the tournaments state with db-data.
    */
   public void synchronize(TournamentsState state) {
-    List<Tournament> tournaments = tournamentsRepository.read(0, 100);
+    var tournaments = tournamentsRepository.read(0, 100);
     var current = new Tournament();
 
     state.setTournaments(tournaments);

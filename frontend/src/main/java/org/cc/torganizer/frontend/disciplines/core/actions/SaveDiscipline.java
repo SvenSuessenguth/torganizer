@@ -58,7 +58,7 @@ public class SaveDiscipline {
     if (discipline.getId() == null) {
       // saving restrictions
       disciplinesRepository.create(discipline);
-      Long tournamentId = applicationState.getTournamentId();
+      var tournamentId = applicationState.getTournamentId();
       tournamentsRepository.addDiscipline(tournamentId, discipline);
 
       // every discipline must have at least one round

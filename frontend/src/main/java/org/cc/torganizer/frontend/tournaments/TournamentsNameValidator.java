@@ -27,10 +27,10 @@ public class TournamentsNameValidator implements Validator<String> {
     // to keep it simple a new tournament with the given name/id is created and then validated
     var tournament = new Tournament();
     tournament.setName(tournamentsName);
-    Set<ConstraintViolation<Tournament>> constraintViolations = validate(tournament);
+    var constraintViolations = validate(tournament);
 
     if (!constraintViolations.isEmpty()) {
-      Collection<FacesMessage> facesMessages = createFacesMessages(constraintViolations);
+      var facesMessages = createFacesMessages(constraintViolations);
       throw new ValidatorException(facesMessages);
     }
   }

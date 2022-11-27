@@ -5,7 +5,6 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
-import org.cc.torganizer.core.PendingMatchDetector;
 import org.cc.torganizer.core.PendingMatchDetectorFactory;
 import org.cc.torganizer.core.entities.Match;
 import org.cc.torganizer.frontend.ApplicationState;
@@ -41,7 +40,7 @@ public class MatchesState {
     for (var d : tournament.getDisciplines()) {
       for (var r : d.getRounds()) {
         var system = r.getSystem();
-        PendingMatchDetector pendingMatchDetector = pendingMatchDetectorFactory.getPendingMatchDetector(system);
+        var pendingMatchDetector = pendingMatchDetectorFactory.getPendingMatchDetector(system);
         for (var g : r.getGroups()) {
           var pendingMatches = pendingMatchDetector.getPendingMatches(g);
           possibleMatches.addAll(pendingMatches);

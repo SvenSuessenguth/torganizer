@@ -4,7 +4,6 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import java.util.Map;
 import org.cc.torganizer.frontend.disciplines.rounds.DisciplineRoundState;
 import org.slf4j.Logger;
 
@@ -25,7 +24,7 @@ public class SwitchOpponents {
    * Saveing the Opponent to switch given in the request.
    */
   public void setSwitchSource() {
-    Map<String, String> params = FacesContext.getCurrentInstance()
+    var params = FacesContext.getCurrentInstance()
         .getExternalContext().getRequestParameterMap();
     var sourceGroupId = Long.valueOf(params.get("gId"));
     var sourceOpponentId = Long.valueOf(params.get("oId"));
@@ -38,12 +37,12 @@ public class SwitchOpponents {
    * Switch the source-opponent with the opponent given in the request.
    */
   public void switchWith() {
-    Map<String, String> params = FacesContext.getCurrentInstance()
+    var params = FacesContext.getCurrentInstance()
         .getExternalContext().getRequestParameterMap();
     var targetGroupId = Long.valueOf(params.get("gId"));
     var targetOpponentId = Long.valueOf(params.get("oId"));
 
-    String message = """
+    var message = """
         switch %s / %s
         with %s / %s
         """

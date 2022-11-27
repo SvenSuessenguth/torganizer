@@ -7,7 +7,6 @@ import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.tournaments.TournamentsBacking;
 import org.cc.torganizer.frontend.tournaments.TournamentsState;
@@ -46,7 +45,7 @@ public class UpdateTournament {
    * save changes on already persisted tournament.
    */
   public void execute() {
-    Tournament current = state.getCurrent();
+    var current = state.getCurrent();
 
     try {
       tournamentsRepository.update(current);

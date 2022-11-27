@@ -15,8 +15,8 @@ public class NextAllPlayersChunk extends PlayersAction {
    * Executing.
    */
   public void execute() {
-    int chunkIndex = state.getAllPlayersChunkIndex();
-    int allPlayersCount = state.getPlayers().size();
+    var chunkIndex = state.getAllPlayersChunkIndex();
+    var allPlayersCount = state.getPlayers().size();
 
     if ((chunkIndex + 1) * PlayersState.ALL_PLAYERS_CHUNK_SIZE > allPlayersCount) {
       return;

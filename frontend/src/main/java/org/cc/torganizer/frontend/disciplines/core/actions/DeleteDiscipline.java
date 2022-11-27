@@ -45,7 +45,7 @@ public class DeleteDiscipline {
     Long disciplineId = discipline.getId();
     Long tournamentId = applicationState.getTournamentId();
 
-    boolean hasOpponents = !disciplinesRepository.getOpponents(disciplineId, 0, 1).isEmpty();
+    var hasOpponents = !disciplinesRepository.getOpponents(disciplineId, 0, 1).isEmpty();
 
     if (hasOpponents) {
       appMessages.addMessage(DISCIPLINES_I18N_BASE_NAME, "no_delete_linked_players",

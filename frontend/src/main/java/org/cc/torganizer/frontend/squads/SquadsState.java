@@ -54,19 +54,19 @@ public class SquadsState implements Serializable {
     }
 
     // filter by gender
-    List<Player> collect = players
+    var collect = players
         .stream()
         .filter(p -> p.getPerson().fitsGender(gender))
         .toList();
 
     // fill chunk of players
-    int fromIndex = allPlayersTableIndex * ALL_PLAYERS_TABLE_SIZE;
-    int toIndex = Math.min(fromIndex + ALL_PLAYERS_TABLE_SIZE, collect.size());
+    var fromIndex = allPlayersTableIndex * ALL_PLAYERS_TABLE_SIZE;
+    var toIndex = Math.min(fromIndex + ALL_PLAYERS_TABLE_SIZE, collect.size());
     if (toIndex < fromIndex) {
       return Collections.emptyList();
     }
 
-    List<Player> chunk = new ArrayList<>(collect.subList(fromIndex, toIndex));
+    var chunk = new ArrayList<>(collect.subList(fromIndex, toIndex));
 
     // fill up to 10 to show not only table headers
     int playersCount = chunk.size();

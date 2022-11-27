@@ -5,7 +5,6 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.transaction.Transactional;
 import java.util.Objects;
-import org.cc.torganizer.core.entities.Tournament;
 import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.tournaments.TournamentsState;
 import org.cc.torganizer.frontend.tournaments.TournamentsStateSynchronizer;
@@ -39,7 +38,7 @@ public class DeleteTournament {
    */
   @Transactional
   public void execute() {
-    Tournament current = state.getCurrent();
+    var current = state.getCurrent();
 
     if (current == null || current.getId() == null) {
       return;

@@ -48,14 +48,13 @@ public class PlayersState implements Serializable {
    * Getting current chunk of players.
    */
   public Collection<Player> getPlayersChunk() {
-    Chunk<Player> chunk = new Chunk<>();
-    Collection<Player> playersChunk = chunk.get(this.players, ALL_PLAYERS_CHUNK_SIZE,
-        allPlayersChunkIndex);
+    var chunk = new Chunk<Player>();
+    var playersChunk = chunk.get(this.players, ALL_PLAYERS_CHUNK_SIZE, allPlayersChunkIndex);
 
     // up to ALL_PLAYERS_CHUNK_SIZE with empty players
     // to have an even view
-    int startIndex = playersChunk.size();
-    for (int i = startIndex; i < ALL_PLAYERS_CHUNK_SIZE; i++) {
+    var startIndex = playersChunk.size();
+    for (var i = startIndex; i < ALL_PLAYERS_CHUNK_SIZE; i++) {
       playersChunk.add(new Player(new Person()));
     }
 
@@ -95,7 +94,7 @@ public class PlayersState implements Serializable {
    */
   public void setCurrentPlayersClubById(Long clubId) {
     current.setClub(null);
-    for (Club club : clubs) {
+    for (var club : clubs) {
       if (club.getId().equals(clubId)) {
         current.setClub(club);
       }

@@ -33,7 +33,7 @@ public class SaveSquad extends SquadAction {
    */
   public void execute() {
     var squad = state.getCurrent();
-    Long tournamentId = applicationState.getTournamentId();
+    var tournamentId = applicationState.getTournamentId();
 
     if (squad.getId() == null) {
       squadsRepository.create(squad);

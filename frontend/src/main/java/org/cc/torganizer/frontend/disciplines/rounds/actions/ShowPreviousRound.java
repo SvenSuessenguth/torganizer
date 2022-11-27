@@ -15,7 +15,7 @@ public class ShowPreviousRound extends RoundAction {
     var round = roundState.getRound();
     var discipline = coreState.getDiscipline();
 
-    int position = round.getPosition();
+    var position = round.getPosition();
 
     var newRound = discipline.getRound(position - 1);
     roundState.setRound(newRound);

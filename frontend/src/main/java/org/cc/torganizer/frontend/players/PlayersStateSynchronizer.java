@@ -2,7 +2,6 @@ package org.cc.torganizer.frontend.players;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
-import java.util.List;
 import org.cc.torganizer.core.comparators.player.PlayerComparatorProvider;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
@@ -33,10 +32,9 @@ public class PlayersStateSynchronizer {
    */
   public void synchronize(PlayersState state) {
     var currentTournament = applicationState.getTournament();
-    Long tournamentId = currentTournament.getId();
+    var tournamentId = currentTournament.getId();
 
-    List<Player> players = tournamentsRepository.getPlayers(tournamentId,
-        0, 1000);
+    var players = tournamentsRepository.getPlayers(tournamentId, 0, 1000);
 
     var pc = playerComparatorProvider.get(state.getPlayerOrderCriteria());
     players.sort(pc);

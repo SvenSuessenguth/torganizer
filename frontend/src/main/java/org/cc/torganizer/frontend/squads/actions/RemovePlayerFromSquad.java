@@ -7,7 +7,6 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.core.entities.Squad;
 import org.cc.torganizer.frontend.squads.SquadsState;
 
 /**
@@ -26,7 +25,7 @@ public class RemovePlayerFromSquad {
    */
   public void execute(Player player) {
 
-    Squad current = state.getCurrent();
+    var current = state.getCurrent();
     current.removePlayer(player);
 
     // to show table, add empty players with no id, which are replaced

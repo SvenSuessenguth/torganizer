@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.cc.torganizer.core.comparators.OpponentByNameComparator;
-import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.core.entities.System;
@@ -50,7 +49,7 @@ public class DisciplinesRoundBacking {
     boolean isFirstRound = currentRound.getPosition() == 0;
     if (isFirstRound) {
       var discipline = disciplinesCoreState.getDiscipline();
-      Long tournamentId = appState.getTournamentId();
+      var tournamentId = appState.getTournamentId();
       assignableOpponents = tournamentsRepository
           .getAssignableOpponentsForDiscipline(tournamentId, discipline, 0, 1000);
     } else {
@@ -63,8 +62,8 @@ public class DisciplinesRoundBacking {
 
   protected void removeAlreadyAssignedOpponents(Collection<Opponent> assignableOpponents,
                                                 Round currentRound) {
-    List<Opponent> alreadyAssignedOpponents = new ArrayList<>();
-    for (Group group : currentRound.getGroups()) {
+    var alreadyAssignedOpponents = new ArrayList<Opponent>();
+    for (var group : currentRound.getGroups()) {
       alreadyAssignedOpponents.addAll(group.getOpponents());
     }
 
@@ -72,7 +71,7 @@ public class DisciplinesRoundBacking {
   }
 
   protected List<Opponent> sortByName(Collection<Opponent> assignableOpponents) {
-    List<Opponent> opponents = new ArrayList<>(assignableOpponents);
+    var opponents = new ArrayList<>(assignableOpponents);
     opponents.sort(new OpponentByNameComparator());
 
     return opponents;

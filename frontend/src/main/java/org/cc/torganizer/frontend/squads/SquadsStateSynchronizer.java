@@ -30,7 +30,7 @@ public class SquadsStateSynchronizer {
    */
   public void synchronize(SquadsState state) {
     var currentTournament = applicationState.getTournament();
-    Long tournamentId = currentTournament.getId();
+    var tournamentId = currentTournament.getId();
 
     state.setSquads(tournamentsRepository.getSquads(tournamentId, 0, MAX_SQUADS_RESULTS));
     state.setPlayers(tournamentsRepository.getPlayers(tournamentId, 0, MAX_PLAYERS_RESULTS));

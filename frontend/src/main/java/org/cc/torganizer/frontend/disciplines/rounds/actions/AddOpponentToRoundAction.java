@@ -4,10 +4,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import org.cc.torganizer.core.OpponentsToGroupsAssigner;
-import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.frontend.disciplines.rounds.DisciplineRoundState;
 import org.cc.torganizer.frontend.disciplines.rounds.DisciplineRoundStateSynchronizer;
@@ -39,9 +36,9 @@ public class AddOpponentToRoundAction {
    */
   public void execute(Opponent opponent) {
     var round = roundState.getRound();
-    List<Group> groups = round.getGroups();
+    var groups = round.getGroups();
 
-    Set<Opponent> opponents = new HashSet<>();
+    var opponents = new HashSet<Opponent>();
     opponents.add(opponent);
     assigner.assign(opponents, groups);
 

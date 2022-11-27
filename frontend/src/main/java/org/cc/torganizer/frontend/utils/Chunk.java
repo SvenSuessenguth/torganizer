@@ -13,9 +13,9 @@ public class Chunk<T> {
    */
   public Collection<T> get(Collection<T> all, int chunkSize, int chunkIndex) {
 
-    int allSize = all.size();
-    int startIndex = (chunkIndex) * chunkSize;
-    int endIndex = (chunkIndex + 1) * chunkSize;
+    var allSize = all.size();
+    var startIndex = (chunkIndex) * chunkSize;
+    var endIndex = (chunkIndex + 1) * chunkSize;
     endIndex = Math.min(endIndex, allSize);
 
     if (startIndex > allSize) {
