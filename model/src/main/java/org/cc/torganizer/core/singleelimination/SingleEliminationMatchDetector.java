@@ -209,10 +209,10 @@ public class SingleEliminationMatchDetector implements PendingMatchDetector {
    *
    * @return Anzahl der Level bis zum Finale
    */
-  protected double getUpperBracketsNumberOfLevels(int groupSize) {
+  protected int getUpperBracketsNumberOfLevels(int groupSize) {
 
     // Gruppe hat Opponents
-    return Math.round(Math.log10(groupSize) / Math.log10(2));
+    return (int) Math.round(Math.log10(groupSize) / Math.log10(2));
   }
 
   /**
@@ -282,7 +282,7 @@ public class SingleEliminationMatchDetector implements PendingMatchDetector {
    */
   int getUpperBracketStartIndex(int level, int groupSize) {
     var maxLevel = getUpperBracketsNumberOfLevels(groupSize);
-    return (int) (Math.pow(2, maxLevel - level - 1) - 1);
+    return (int) (Math.pow(2, maxLevel - level - 1d) - 1);
   }
 
   /**
@@ -294,7 +294,7 @@ public class SingleEliminationMatchDetector implements PendingMatchDetector {
    */
   int getUpperBracketEndIndex(int level, int groupSize) {
     var maxLevel = getUpperBracketsNumberOfLevels(groupSize);
-    return (int) (Math.pow(2, maxLevel - level) - 2);
+    return (int) (Math.pow(2, maxLevel - (double) level) - 2);
   }
 
   @Override
