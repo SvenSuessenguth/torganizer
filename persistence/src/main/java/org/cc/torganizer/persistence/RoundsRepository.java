@@ -94,7 +94,7 @@ public class RoundsRepository extends Repository<Round> {
 
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
-    var foundOpponentsSize = notAssignedOpponents.size();
+    var foundOpponentsSize = Integer.valueOf(notAssignedOpponents.size());
     maxResults = maxResults > foundOpponentsSize ? foundOpponentsSize : maxResults;
 
     return new HashSet<>(notAssignedOpponents.subList(offset, maxResults));
@@ -244,6 +244,7 @@ public class RoundsRepository extends Repository<Round> {
    *
    * @return List of all groups assigned to the round with the given id
    */
+  @SuppressWarnings("unused")
   public List<Group> deleteGroup(Long roundId) {
     var round = this.read(roundId);
     var groups = round.getDeletableGroups();
