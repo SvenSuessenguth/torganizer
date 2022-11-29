@@ -28,6 +28,9 @@ public class Result extends Entity implements Positional {
     this(position, 0, 0);
   }
 
+  /**
+   * Creating a result with DEFAULT_POSITION when given position is NULL.
+   */
   public Result(Integer position, Integer homeScore, Integer guestScore) {
     this.position = position == null ? DEFAULT_POSITION : position;
     this.homeScore = homeScore;
