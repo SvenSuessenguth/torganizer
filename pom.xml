@@ -64,7 +64,7 @@
      | mvn site and mvn versions:display-plugin-updates shows a warning
      | [WARNING] The following plugins do not have their version specified:
      +-->
-    <dependency-check-maven.version>7.3.2</dependency-check-maven.version>
+    <dependency-check-maven.version>7.4.0</dependency-check-maven.version>
     <build-helper-maven-plugin.version>3.3.0</build-helper-maven-plugin.version>
     <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
     <liberty-maven-plugin.version>3.7.1</liberty-maven-plugin.version>
@@ -81,7 +81,7 @@
     <maven-pmd-plugin.version>3.19.0</maven-pmd-plugin.version>
     <maven-project-info-reports-plugin.version>3.4.1</maven-project-info-reports-plugin.version>
     <maven-resources-plugin.version>3.3.0</maven-resources-plugin.version>
-    <maven-site-plugin.version>4.0.0-M3</maven-site-plugin.version>
+    <maven-site-plugin.version>4.0.0-M4</maven-site-plugin.version>
     <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
     <maven-war-plugin.version>3.3.2</maven-war-plugin.version>    
     <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
