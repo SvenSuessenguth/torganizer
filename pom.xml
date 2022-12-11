@@ -64,7 +64,7 @@
      | mvn site and mvn versions:display-plugin-updates shows a warning
      | [WARNING] The following plugins do not have their version specified:
      +-->
-    <dependency-check-maven.version>7.4.0</dependency-check-maven.version>
+    <dependency-check-maven.version>7.4.1</dependency-check-maven.version>
     <build-helper-maven-plugin.version>3.3.0</build-helper-maven-plugin.version>
     <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
     <liberty-maven-plugin.version>3.7.1</liberty-maven-plugin.version>
