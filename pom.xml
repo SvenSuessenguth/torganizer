@@ -45,7 +45,7 @@
     <jakarta.jakartaee-api.version>10.0.0</jakarta.jakartaee-api.version>
     <microprofile.version>6.0</microprofile.version>
     <!-- test -->
-    <assertj-core.version>3.24.1</assertj-core.version>
+    <assertj-core.version>3.24.2</assertj-core.version>
     <jakarta.xml.bind-api.version>4.0.0</jakarta.xml.bind-api.version>
     <jaxb-core.version>4.0.1</jaxb-core.version>
     <jaxb-impl.version>4.0.1</jaxb-impl.version>
@@ -64,7 +64,7 @@
      | mvn site and mvn versions:display-plugin-updates shows a warning
      | [WARNING] The following plugins do not have their version specified:
      +-->
-    <dependency-check-maven.version>8.0.0</dependency-check-maven.version>
+    <dependency-check-maven.version>8.0.1</dependency-check-maven.version>
     <build-helper-maven-plugin.version>3.3.0</build-helper-maven-plugin.version>
     <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
     <liberty-maven-plugin.version>3.7.1</liberty-maven-plugin.version>
