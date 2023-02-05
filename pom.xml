@@ -41,7 +41,7 @@
     <slf4j.version>2.0.6</slf4j.version>
     <!-- runtime -->
     <!-- provided -->
-    <jakarta.faces.version>4.0.0</jakarta.faces.version>
+    <jakarta.faces.version>4.0.1</jakarta.faces.version>
     <jakarta.jakartaee-api.version>10.0.0</jakarta.jakartaee-api.version>
     <microprofile.version>6.0</microprofile.version>
     <!-- test -->
@@ -57,7 +57,7 @@
     <jakarta.activation-api.version>2.1.1</jakarta.activation-api.version>
     <openliberty-jakartaee9.version>22.0.0.13</openliberty-jakartaee9.version>
     <pmd.version>6.54.0</pmd.version>
-    <postgresql.version>42.5.2</postgresql.version>
+    <postgresql.version>42.5.3</postgresql.version>
     <spotbugs.version>4.7.3</spotbugs.version>
 
     <!--
