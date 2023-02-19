@@ -57,7 +57,7 @@
     <jakarta.activation-api.version>2.1.1</jakarta.activation-api.version>
     <openliberty-jakartaee9.version>23.0.0.1</openliberty-jakartaee9.version>
     <pmd.version>6.54.0</pmd.version>
-    <postgresql.version>42.5.3</postgresql.version>
+    <postgresql.version>42.5.4</postgresql.version>
     <spotbugs.version>4.7.3</spotbugs.version>
 
     <!--
