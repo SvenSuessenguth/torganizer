@@ -19,7 +19,7 @@
   <name>documentation</name>
 
   <properties>
-    <asciidoctor-maven-plugin.version>2.2.2</asciidoctor-maven-plugin.version>
+    <asciidoctor-maven-plugin.version>2.2.3</asciidoctor-maven-plugin.version>
   </properties>
 
   <build>
