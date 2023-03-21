@@ -18,7 +18,7 @@ pipeline {
   }
 
   tools {
-    maven 'apache-maven-3.8'
+    maven 'apache-maven-3.9'
     jdk 'jdk-17'
     // used for SonarQube
     nodejs 'nodejs-16'
