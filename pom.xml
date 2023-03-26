@@ -53,7 +53,7 @@
     <mockito.version>5.2.0</mockito.version>
     <testcontainers.junit-jupiter.version>1.17.6</testcontainers.junit-jupiter.version>
     <!-- plugin-dependencies -->
-    <checkstyle.version>10.9.2</checkstyle.version>
+    <checkstyle.version>10.9.3</checkstyle.version>
     <jakarta.activation-api.version>2.1.1</jakarta.activation-api.version>
     <openliberty-jakartaee9.version>23.0.0.2</openliberty-jakartaee9.version>
     <pmd.version>6.55.0</pmd.version>
