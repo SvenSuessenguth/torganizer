@@ -67,7 +67,7 @@
   <library id="dataSourceLibrary">
     <file name="${shared.resource.dir}/postgresql/postgresql.jar"/>
   </library>
-  <dataSource id="torganizerDS" jndiName="jdbc/torganizerDS" transactional="true">
+  <dataSource id="torganizerDS" jndiName="jdbc/torganizerDS" transactional="true" statementCacheSize="25">
     <jdbcDriver libraryRef="dataSourceLibrary"/>
     <properties databaseName="torganizer"
                 serverName="${env.dataSource_serverName}" portNumber="${env.dataSource_portNumber}"
