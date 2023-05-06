@@ -56,7 +56,7 @@
           <runtimeArtifact>
             <groupId>io.openliberty</groupId>
             <artifactId>openliberty-runtime</artifactId>
-            <version>${openliberty-jakartaee9.version}</version>
+            <version>${openliberty-jakartaee10.version}</version>
             <type>zip</type>
           </runtimeArtifact>
         </configuration>
