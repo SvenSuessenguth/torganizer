@@ -49,13 +49,13 @@
     <jakarta.xml.bind-api.version>4.0.0</jakarta.xml.bind-api.version>
     <jaxb-core.version>4.0.2</jaxb-core.version>
     <jaxb-impl.version>4.0.2</jaxb-impl.version>
-    <junit-jupiter.version>5.9.3</junit-jupiter.version>
+    <junit-jupiter.version>5.10.0-M1</junit-jupiter.version>
     <mockito.version>5.3.1</mockito.version>
-    <testcontainers.junit-jupiter.version>1.18.0</testcontainers.junit-jupiter.version>
+    <testcontainers.junit-jupiter.version>1.18.1</testcontainers.junit-jupiter.version>
     <!-- plugin-dependencies -->
-    <checkstyle.version>10.10.0</checkstyle.version>
+    <checkstyle.version>10.11.0</checkstyle.version>
     <jakarta.activation-api.version>2.1.2</jakarta.activation-api.version>
-    <openliberty-jakartaee10.version>23.0.0.4</openliberty-jakartaee10.version>
+    <openliberty-jakartaee9.version>23.0.0.4</openliberty-jakartaee9.version>
     <pmd.version>7.0.0-rc2</pmd.version>
     <postgresql.version>42.6.0</postgresql.version>
     <spotbugs.version>4.7.3</spotbugs.version>
@@ -65,9 +65,9 @@
      | [WARNING] The following plugins do not have their version specified:
      +-->
     <dependency-check-maven.version>8.2.1</dependency-check-maven.version>
-    <build-helper-maven-plugin.version>3.3.0</build-helper-maven-plugin.version>
+    <build-helper-maven-plugin.version>3.4.0</build-helper-maven-plugin.version>
     <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
-    <liberty-maven-plugin.version>3.7.1</liberty-maven-plugin.version>
+    <liberty-maven-plugin.version>3.8</liberty-maven-plugin.version>
     <maven-checkstyle-plugin.version>3.2.2</maven-checkstyle-plugin.version>
     <maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
     <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
@@ -82,7 +82,7 @@
     <maven-project-info-reports-plugin.version>3.4.3</maven-project-info-reports-plugin.version>
     <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
     <maven-site-plugin.version>4.0.0-M8</maven-site-plugin.version>
-    <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
+    <maven-surefire-plugin.version>3.1.0</maven-surefire-plugin.version>
     <maven-war-plugin.version>3.3.2</maven-war-plugin.version>    
     <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
     <spotbugs-maven-plugin.version>4.7.3.4</spotbugs-maven-plugin.version>
