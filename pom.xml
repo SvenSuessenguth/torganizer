@@ -78,7 +78,7 @@
     <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
     <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
     <maven-jxr-plugin.version>3.3.0</maven-jxr-plugin.version>
-    <maven-pmd-plugin.version>3.20.0</maven-pmd-plugin.version>
+    <maven-pmd-plugin.version>3.21.0</maven-pmd-plugin.version>
     <maven-project-info-reports-plugin.version>3.4.3</maven-project-info-reports-plugin.version>
     <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
     <maven-site-plugin.version>4.0.0-M8</maven-site-plugin.version>
