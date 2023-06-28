@@ -53,10 +53,9 @@
     <mockito.version>5.4.0</mockito.version>
     <testcontainers.junit-jupiter.version>1.18.3</testcontainers.junit-jupiter.version>
     <!-- plugin-dependencies -->
-    <checkstyle.version>10.12.0</checkstyle.version>
+    <checkstyle.version>10.12.1</checkstyle.version>
     <jakarta.activation-api.version>2.1.2</jakarta.activation-api.version>
-    <openliberty-jakartaee9.version>23.0.0.5</openliberty-jakartaee9.version>
-    <pmd.version>7.0.0-rc3</pmd.version>
+    <openliberty-jakartaee9.version>23.0.0.6</openliberty-jakartaee9.version>
     <postgresql.version>42.6.0</postgresql.version>
     <spotbugs.version>4.7.3</spotbugs.version>
 
@@ -285,18 +284,6 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-pmd-plugin</artifactId>
           <version>${maven-pmd-plugin.version}</version>
-          <dependencies>
-            <dependency>
-              <groupId>net.sourceforge.pmd</groupId>
-              <artifactId>pmd-core</artifactId>
-              <version>${pmd.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>net.sourceforge.pmd</groupId>
-              <artifactId>pmd-java</artifactId>
-              <version>${pmd.version}</version>
-            </dependency>
-          </dependencies>
         </plugin>
         <plugin>
           <groupId>com.github.spotbugs</groupId>
