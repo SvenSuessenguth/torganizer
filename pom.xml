@@ -1,7 +1,9 @@
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
-  <modelVersion>4.0.0</modelVersion>
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+  xmlns="http://maven.apache.org/POM/4.1.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.1.0 https://maven.apache.org/xsd/maven-4.1.0.xsd"
+  root="true">
   <groupId>org.cc.torganizer</groupId>
   <artifactId>torganizer</artifactId>
   <version>2.0-SNAPSHOT</version>
@@ -37,54 +39,54 @@
      | dependency versions
      +-->
     <!-- compile -->
-    <logback.version>1.4.14</logback.version>
+    <logback.version>1.5.16</logback.version>
     <slf4j.version>2.1.0-alpha1</slf4j.version>
     <!-- runtime -->
     <!-- provided -->
-    <jakarta.faces.version>4.1.0-M1</jakarta.faces.version>
-    <jakarta.jakartaee-api.version>11.0.0-M1</jakarta.jakartaee-api.version>
-    <microprofile.version>6.1</microprofile.version>
+    <jakarta.faces.version>4.1.2</jakarta.faces.version>
+    <jakarta.jakartaee-api.version>11.0.0-M4</jakarta.jakartaee-api.version>
+    <microprofile.version>7.0</microprofile.version>
     <!-- test -->
-    <assertj-core.version>3.25.3</assertj-core.version>
-    <jakarta.xml.bind-api.version>4.0.1</jakarta.xml.bind-api.version>
-    <jaxb-core.version>4.0.4</jaxb-core.version>
-    <jaxb-impl.version>4.0.4</jaxb-impl.version>
-    <junit-jupiter.version>5.10.2</junit-jupiter.version>
-    <mockito.version>5.10.0</mockito.version>
-    <testcontainers.junit-jupiter.version>1.19.5</testcontainers.junit-jupiter.version>
+    <assertj-core.version>3.27.2</assertj-core.version>
+    <jakarta.xml.bind-api.version>4.0.2</jakarta.xml.bind-api.version>
+    <jaxb-core.version>4.0.5</jaxb-core.version>
+    <jaxb-impl.version>4.0.5</jaxb-impl.version>
+    <junit-jupiter.version>5.11.4</junit-jupiter.version>
+    <mockito.version>5.15.2</mockito.version>
+    <testcontainers.junit-jupiter.version>1.20.4</testcontainers.junit-jupiter.version>
     <!-- plugin-dependencies -->
-    <checkstyle.version>10.13.0</checkstyle.version>
-    <jakarta.activation-api.version>2.1.2</jakarta.activation-api.version>
-    <openliberty-jakartaee9.version>23.0.0.7</openliberty-jakartaee9.version>
-    <postgresql.version>42.7.1</postgresql.version>
-    <spotbugs.version>4.8.3</spotbugs.version>
+    <checkstyle.version>10.21.1</checkstyle.version>
+    <jakarta.activation-api.version>2.1.3</jakarta.activation-api.version>
+    <openliberty-jakartaee10.version>25.0.0.1</openliberty-jakartaee10.version>
+    <postgresql.version>42.7.4</postgresql.version>
+    <spotbugs.version>4.8.6</spotbugs.version>
 
     <!--
      | mvn site and mvn versions:display-plugin-updates shows a warning
      | [WARNING] The following plugins do not have their version specified:
      +-->
-    <dependency-check-maven.version>9.0.9</dependency-check-maven.version>
-    <build-helper-maven-plugin.version>3.5.0</build-helper-maven-plugin.version>
-    <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
-    <liberty-maven-plugin.version>3.10</liberty-maven-plugin.version>
-    <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
-    <maven-clean-plugin.version>3.3.2</maven-clean-plugin.version>
-    <maven-compiler-plugin.version>3.12.1</maven-compiler-plugin.version>
-    <maven-dependency-plugin.version>3.6.1</maven-dependency-plugin.version>
-    <maven-deploy-plugin.version>3.1.1</maven-deploy-plugin.version>
-    <maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
-    <maven-install-plugin.version>3.1.1</maven-install-plugin.version>
-    <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
-    <maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
-    <maven-jxr-plugin.version>3.3.2</maven-jxr-plugin.version>
-    <maven-pmd-plugin.version>3.21.2</maven-pmd-plugin.version>
-    <maven-project-info-reports-plugin.version>3.5.0</maven-project-info-reports-plugin.version>
+    <dependency-check-maven.version>11.1.1</dependency-check-maven.version>
+    <build-helper-maven-plugin.version>3.6.0</build-helper-maven-plugin.version>
+    <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
+    <liberty-maven-plugin.version>3.11.2</liberty-maven-plugin.version>
+    <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
+    <maven-clean-plugin.version>3.4.0</maven-clean-plugin.version>
+    <maven-compiler-plugin.version>3.9.0</maven-compiler-plugin.version>
+    <maven-dependency-plugin.version>3.8.1</maven-dependency-plugin.version>
+    <maven-deploy-plugin.version>3.1.3</maven-deploy-plugin.version>
+    <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
+    <maven-install-plugin.version>3.1.3</maven-install-plugin.version>
+    <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
+    <maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
+    <maven-jxr-plugin.version>3.6.0</maven-jxr-plugin.version>
+    <maven-pmd-plugin.version>3.26.0</maven-pmd-plugin.version>
+    <maven-project-info-reports-plugin.version>3.8.0</maven-project-info-reports-plugin.version>
     <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
-    <maven-site-plugin.version>4.0.0-M13</maven-site-plugin.version>
-    <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
+    <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
+    <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
     <maven-war-plugin.version>3.4.0</maven-war-plugin.version>
-    <sonar-maven-plugin.version>3.10.0.2594</sonar-maven-plugin.version>
-    <spotbugs-maven-plugin.version>4.8.3.0</spotbugs-maven-plugin.version>
+    <sonar-maven-plugin.version>5.0.0.4389</sonar-maven-plugin.version>
+    <spotbugs-maven-plugin.version>4.8.6.6</spotbugs-maven-plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -258,13 +260,13 @@
     </dependency>
   </dependencies>
 
-  <modules>
-    <module>docker</module>
-    <module>documentation</module>
-    <module>frontend</module>
-    <module>model</module>
-    <module>persistence</module>
-  </modules>
+  <subprojects>
+    <subproject>docker</subproject>
+    <subproject>documentation</subproject>
+    <subproject>frontend</subproject>
+    <subproject>model</subproject>
+    <subproject>persistence</subproject>
+  </subprojects>
 
   <build>
     <pluginManagement>
@@ -332,7 +334,7 @@
           <version>${sonar-maven-plugin.version}</version>
         </plugin>
 
-        <!-- 
+        <!--
          | mvn versions:display-plugin-updates shows a warning
          | [WARNING] The following plugins do not have their version specified:
          +-->
@@ -380,7 +382,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
-          <version>${maven-site-plugin.version}</version>		  
+          <version>${maven-site-plugin.version}</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -420,7 +422,7 @@
             <configuration>
               <rules>
                 <requireMavenVersion>
-                  <version>3.8.6</version>
+                  <version>4.0.0-rc-2</version>
                 </requireMavenVersion>
               </rules>
             </configuration>
