@@ -70,7 +70,7 @@ class DisciplineTest {
     discipline.addRestriction(new GenderRestriction());
 
     List<Restriction> restrictions = new ArrayList(discipline.getRestrictions());
-    assertThat(restrictions.get(0)).isInstanceOf(AgeRestriction.class);
+    assertThat(restrictions.getFirst()).isInstanceOf(AgeRestriction.class);
     assertThat(restrictions.get(1)).isInstanceOf(GenderRestriction.class);
     assertThat(restrictions.get(2)).isInstanceOf(OpponentTypeRestriction.class);
   }

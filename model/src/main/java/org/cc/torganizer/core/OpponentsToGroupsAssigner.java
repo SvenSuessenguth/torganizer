@@ -32,7 +32,7 @@ public class OpponentsToGroupsAssigner {
       var minOpponentGroups = getGroupsWithMinOpponents(groups);
 
       if (minOpponentGroups.size() == 1) {
-        minOpponentGroups.get(0).addOpponent(opponent);
+        minOpponentGroups.getFirst().addOpponent(opponent);
       } else {
         var clubs = opponent
             .getPlayers()
@@ -40,7 +40,7 @@ public class OpponentsToGroupsAssigner {
             .map(Player::getClub)
             .toList();
         var minClubGroups = getGroupsWithMinClubMembers(minOpponentGroups, clubs);
-        minClubGroups.get(0).addOpponent(opponent);
+        minClubGroups.getFirst().addOpponent(opponent);
       }
     }
   }
@@ -73,8 +73,7 @@ public class OpponentsToGroupsAssigner {
       for (var o : group.getOpponents()) {
         for (var p : o.getPlayers()) {
           if (clubs.contains(p.getClub())) {
-            Integer tmpCounter = groupClubCount.get(group);
-            groupClubCount.put(group, tmpCounter + 1);
+              groupClubCount.compute(group, (k, tmpCounter) -> tmpCounter + 1);
           }
         }
       }

@@ -29,7 +29,7 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
   void testCriteriaListPlayersOrderedByLastName() {
     List<Player> players = repository.getPlayersOrderedByLastName(1L, 0, 5);
 
-    assertThat(players.get(0).getPerson().getLastName()).isEqualTo("Aöüß");
+    assertThat(players.getFirst().getPerson().getLastName()).isEqualTo("Aöüß");
   }
 
   @Test

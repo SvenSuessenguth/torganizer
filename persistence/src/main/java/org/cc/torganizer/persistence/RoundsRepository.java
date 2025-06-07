@@ -250,7 +250,7 @@ public class RoundsRepository extends Repository<Round> {
     var groups = round.getDeletableGroups();
 
     if (!groups.isEmpty()) {
-      round.removeGroup(groups.get(0));
+      round.removeGroup(groups.getFirst());
 
       em.merge(round);
       em.flush();

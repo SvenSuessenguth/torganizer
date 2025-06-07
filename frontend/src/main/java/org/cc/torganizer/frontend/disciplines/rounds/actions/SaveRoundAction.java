@@ -52,7 +52,7 @@ public class SaveRoundAction extends RoundAction {
         // find deletable round and delete it
         var deletableGroups = round.getDeletableGroups();
         if (!deletableGroups.isEmpty()) {
-          round.removeGroup(deletableGroups.get(0));
+          round.removeGroup(deletableGroups.getFirst());
         }
       }
     }

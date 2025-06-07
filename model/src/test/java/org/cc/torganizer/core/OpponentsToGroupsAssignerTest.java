@@ -60,7 +60,7 @@ class OpponentsToGroupsAssignerTest {
 
     assigner.assign(opponents, groups);
 
-    List<Opponent> opponents0 = groups.get(0).getOpponents();
+    List<Opponent> opponents0 = groups.getFirst().getOpponents();
     List<Opponent> opponents1 = groups.get(1).getOpponents();
     assertThat(opponents0).hasSizeBetween(3, 4);
     assertThat(opponents1).hasSizeBetween(3, 4);

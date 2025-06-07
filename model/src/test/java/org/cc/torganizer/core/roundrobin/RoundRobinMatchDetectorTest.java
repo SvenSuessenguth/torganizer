@@ -68,7 +68,7 @@ class RoundRobinMatchDetectorTest {
 
     List<Match> matches = rrmd.getPendingMatches(group);
 
-    assertThat(matches.get(0).getPosition().intValue()).isEqualTo(1);
+    assertThat(matches.getFirst().getPosition().intValue()).isEqualTo(1);
     assertThat(matches.get(1).getPosition().intValue()).isEqualTo(2);
     assertThat(matches.get(2).getPosition().intValue()).isEqualTo(5);
   }
@@ -79,7 +79,7 @@ class RoundRobinMatchDetectorTest {
       group.addOpponent(opponent);
     }
 
-    Match m0 = rrmd.getPendingMatches(group).get(0);
+    Match m0 = rrmd.getPendingMatches(group).getFirst();
     m0.addResult(new Result(0, 1, 0));
     m0.setFinishedTime(LocalDateTime.now());
     m0.setRunning(false);

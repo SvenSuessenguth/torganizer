@@ -20,6 +20,8 @@ public class TournamentsState implements Serializable {
   }
 
   public List<Tournament> getTournaments() {
+
+    System.out.println("hallo du da");
     return tournaments;
   }
 

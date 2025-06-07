@@ -56,11 +56,11 @@ class SquadsRepositoryTest extends AbstractDbUnitJpaTest {
     List<Squad> squads = repository.readOrderByLastName(0, 1);
 
     assertThat(squads).hasSize(1);
-    Squad s = squads.get(0);
+    Squad s = squads.getFirst();
     List<Player> players = new ArrayList<>(s.getPlayers());
     players.sort(new OpponentByNameComparator());
 
-    assertThat(players.get(0).getPerson().getLastName()).isEqualTo("Meier");
+    assertThat(players.getFirst().getPerson().getLastName()).isEqualTo("Meier");
   }
 
   @Test
@@ -68,11 +68,11 @@ class SquadsRepositoryTest extends AbstractDbUnitJpaTest {
     List<Squad> squads = repository.readOrderByLastName(1, 1);
 
     assertThat(squads).hasSize(1);
-    Squad s = squads.get(0);
+    Squad s = squads.getFirst();
     List<Player> players = new ArrayList<>(s.getPlayers());
     players.sort(new OpponentByNameComparator());
 
-    assertThat(players.get(0).getPerson().getLastName()).isEqualTo("nn3");
+    assertThat(players.getFirst().getPerson().getLastName()).isEqualTo("nn3");
   }
 
   @Test

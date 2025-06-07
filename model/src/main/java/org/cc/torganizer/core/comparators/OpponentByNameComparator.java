@@ -41,8 +41,8 @@ public class OpponentByNameComparator implements Comparator<Opponent>, Serializa
     o1Players.sort(pbnComparator);
     o2Players.sort(pbnComparator);
 
-    var po1 = o1Players.get(0);
-    var p02 = o2Players.get(0);
+    var po1 = o1Players.getFirst();
+    var p02 = o2Players.getFirst();
 
     return pbnComparator.compare(po1, p02);
   }

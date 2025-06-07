@@ -152,7 +152,7 @@ class DoubleEliminationMatchDetectorTest {
 
     List<Opponent> orderedLosers = demd.orderUpperBracketLosers(losersOnLevel, splitFactor, reverseFactor);
 
-    assertThat(((Player) orderedLosers.get(0)).getPerson().getFirstName()).isEqualTo("2");
+    assertThat(((Player) orderedLosers.getFirst()).getPerson().getFirstName()).isEqualTo("2");
     assertThat(((Player) orderedLosers.get(1)).getPerson().getFirstName()).isEqualTo("3");
     assertThat(((Player) orderedLosers.get(2)).getPerson().getFirstName()).isEqualTo("0");
     assertThat(((Player) orderedLosers.get(3)).getPerson().getFirstName()).isEqualTo("1");
@@ -288,7 +288,7 @@ class DoubleEliminationMatchDetectorTest {
     List<Match> matches = demd.getPendingMatchesLowerBracket(group);
 
     assertThat(matches).hasSize(1);
-    assertThat(matches.get(0).getGuest()).isInstanceOf(Unknown.class);
+    assertThat(matches.getFirst().getGuest()).isInstanceOf(Unknown.class);
   }
 
   @Test

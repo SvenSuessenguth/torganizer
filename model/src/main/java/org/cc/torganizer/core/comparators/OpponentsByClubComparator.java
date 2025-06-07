@@ -50,6 +50,6 @@ public class OpponentsByClubComparator implements Comparator<Opponent>, Serializ
     clubs.sort(new ClubComparator());
 
 
-    return clubs.isEmpty() ? null : clubs.get(0);
+    return clubs.isEmpty() ? null : clubs.getFirst();
   }
 }

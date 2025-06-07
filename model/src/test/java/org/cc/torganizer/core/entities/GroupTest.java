@@ -35,7 +35,7 @@ class GroupTest {
     group.setPositionalOpponents(pos);
 
     assertThat(group.getPositionalOpponents()).hasSize(2);
-    assertThat(group.getPositionalOpponents().get(0).getPosition()).isZero();
+    assertThat(group.getPositionalOpponents().getFirst().getPosition()).isZero();
   }
 
   @Test
@@ -133,7 +133,7 @@ class GroupTest {
 
     List<Aggregation> aggregates = group.getAggregates();
     assertThat(aggregates).isNotEmpty().hasSize(2);
-    assertThat(aggregates.get(0).getOpponent()).isEqualTo(p2);
+    assertThat(aggregates.getFirst().getOpponent()).isEqualTo(p2);
   }
 
   @SuppressWarnings("unused")

@@ -318,6 +318,6 @@ public class TournamentsRepository extends Repository<Tournament> {
     cq.where(cb.equal(tournament.get("id"), id));
 
     List<Tuple> result = em.createQuery(cq).getResultList();
-    return (Long) result.get(0).get(1);
+    return (Long) result.getFirst().get(1);
   }
 }

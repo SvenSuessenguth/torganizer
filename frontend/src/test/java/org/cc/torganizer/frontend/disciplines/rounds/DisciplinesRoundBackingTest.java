@@ -40,7 +40,7 @@ class DisciplinesRoundBackingTest {
     backing.removeAlreadyAssignedOpponents(opponents, r);
 
     assertThat(opponents).hasSize(1);
-    assertThat(opponents.get(0).getId()).isEqualTo(5L);
+    assertThat(opponents.getFirst().getId()).isEqualTo(5L);
   }
 
   private Group group(Opponent... opponents) {

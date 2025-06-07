@@ -1,10 +1,5 @@
 package org.cc.torganizer.frontend.tournaments.actions;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIInput;
 import jakarta.faces.context.FacesContext;
@@ -19,36 +14,39 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
 @ExtendWith(MockitoExtension.class)
 class CreateTournamentTest {
 
-  @Mock
-  private TournamentsRepository tournamentsRepository;
+    @Mock
+    private TournamentsRepository tournamentsRepository;
 
-  @Mock
-  private TournamentsState state;
+    @Mock
+    private TournamentsState state;
 
-  @Mock
-  private TournamentsBacking tournamentsBacking;
+    @Mock
+    private TournamentsBacking tournamentsBacking;
 
-  @Mock
-  private FacesContext facesContext;
+    @Mock
+    private FacesContext facesContext;
 
-  @InjectMocks
-  private CreateTournament createTournament;
+    @InjectMocks
+    private CreateTournament createTournament;
 
-  @Test
-  void executeWithException() {
-    when(state.getCurrent()).thenReturn(new Tournament());
-    when(tournamentsRepository.create(any(Tournament.class)))
-        .thenThrow(CreateEntityException.class);
-    when(tournamentsBacking.getNameClientId()).thenReturn("1");
-    when(tournamentsBacking.getNameInputText()).thenReturn(new UIInput());
+    @Test
+    void executeWithException() {
+        when(state.getCurrent()).thenReturn(new Tournament());
+        when(tournamentsRepository.create(any(Tournament.class)))
+                .thenThrow(CreateEntityException.class);
+        when(tournamentsBacking.getNameClientId()).thenReturn("1");
+        var uiInput = mock(UIInput.class);
+        when(tournamentsBacking.getNameInputText()).thenReturn(uiInput);
 
-    createTournament.execute();
+        createTournament.execute();
 
-    verify(facesContext, times(1))
-        .addMessage(any(String.class), any(FacesMessage.class));
-  }
-
+        verify(facesContext, times(1))
+                .addMessage(any(String.class), any(FacesMessage.class));
+    }
 }
