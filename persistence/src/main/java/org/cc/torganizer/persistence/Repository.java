@@ -5,6 +5,7 @@ import static jakarta.transaction.Transactional.TxType.REQUIRES_NEW;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.PersistenceContextType;
 import jakarta.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +19,7 @@ public abstract class Repository<T extends Entity> {
   protected static final Integer DEFAULT_MAX_RESULTS = 10;
   protected static final Integer DEFAULT_OFFSET = 0;
 
-  @PersistenceContext(name = "torganizer")
+  @PersistenceContext(unitName = "torganizer", type = PersistenceContextType.EXTENDED)
   protected EntityManager em;
 
   protected Repository() {

@@ -50,33 +50,23 @@
         <artifactId>liberty-maven-plugin</artifactId>
         <version>${liberty-maven-plugin.version}</version>
         <configuration>
-          <serverName>frontend</serverName>
           <runtimeArtifact>
             <groupId>io.openliberty</groupId>
-            <artifactId>openliberty-jakartaee10</artifactId>
-            <version>${openliberty-jakartaee10.version}</version>
+            <artifactId>openliberty-runtime</artifactId>
+            <version>${openliberty-runtime.version}</version>
             <type>zip</type>
           </runtimeArtifact>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <version>${maven-dependency-plugin.version}</version>
-        <configuration>
-          <artifactItems>
-            <artifactItem>
+          <copyDependencies>
+            <stripVersion>true</stripVersion>
+            <location>../../shared/resources/postgresql</location>
+            <dependency>
               <groupId>org.postgresql</groupId>
               <artifactId>postgresql</artifactId>
               <version>${postgresql.version}</version>
-              <type>jar</type>
-              <outputDirectory>${project.build.directory}/liberty/wlp/usr/shared/resources/postgresql</outputDirectory>
-              <destFileName>postgresql.jar</destFileName>
-            </artifactItem>
-          </artifactItems>
+            </dependency>
+          </copyDependencies>
         </configuration>
       </plugin>
     </plugins>
   </build>
-
 </project>

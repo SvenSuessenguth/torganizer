@@ -3,14 +3,7 @@
   <featureManager>
     <feature>jakartaee-10.0</feature>
     <feature>microProfile-7.0</feature>
-    <feature>sessionDatabase-1.0</feature>
   </featureManager>
-
-  <!--
-   | https://www.ibm.com/support/knowledgecenter/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/twlp_admin_session_persistence.html
-   +-->
-  <httpSessionDatabase id="SessionDB" dataSourceRef="torganizerDS" />
-  <httpSession storageRef="SessionDB" cloneId="${torganizerCloneId}" />
 
   <!--
    | To access this server from a remote client add a host attribute to the following element, e.g. host="*"

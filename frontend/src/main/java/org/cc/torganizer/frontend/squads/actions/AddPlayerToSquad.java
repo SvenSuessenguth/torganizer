@@ -9,7 +9,6 @@ import org.cc.torganizer.core.entities.Player;
  */
 @RequestScoped
 @Named
-@SuppressWarnings("unused")
 public class AddPlayerToSquad extends SquadAction {
 
   /**

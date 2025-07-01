@@ -1,49 +1,49 @@
 package org.cc.torganizer.core.entities;
 
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.time.LocalDate;
-import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.time.LocalDate;
+import java.util.stream.Stream;
+
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
+import static org.assertj.core.api.Assertions.assertThat;
+
 class AgeRestrictionTest {
 
-  @SuppressWarnings("unused")
   private static Stream<Arguments> addRestrictionAndPlayer() {
     // maxAgeOfBirth, minAgeOfBirth, dateOfBirth, expectedRestriction
 
     return Stream.of(
-        // in der Altersbegrenzung
-        Arguments.of(new AgeRestriction(localDateFactory(2010, 1, 1), localDateFactory(2009, 1, 1)),
-            playerFactory(2009, 1, 2), FALSE),
+      // in der Altersbegrenzung
+      Arguments.of(new AgeRestriction(localDateFactory(2010, 1, 1), localDateFactory(2009, 1, 1)),
+        playerFactory(2009, 1, 2), FALSE),
 
-        // in der Altersbegrenzung (Taggenau an der Untergrenze)
-        Arguments.of(new AgeRestriction(localDateFactory(2010, 1, 1), localDateFactory(2009, 1, 1)),
-            playerFactory(2009, 1, 1), FALSE),
+      // in der Altersbegrenzung (Taggenau an der Untergrenze)
+      Arguments.of(new AgeRestriction(localDateFactory(2010, 1, 1), localDateFactory(2009, 1, 1)),
+        playerFactory(2009, 1, 1), FALSE),
 
-        // in der Altersbegrenzung (Taggenau an der Obergrenze)
-        Arguments.of(new AgeRestriction(localDateFactory(2010, 1, 1), localDateFactory(2009, 1, 1)),
-            playerFactory(2010, 1, 1), FALSE),
+      // in der Altersbegrenzung (Taggenau an der Obergrenze)
+      Arguments.of(new AgeRestriction(localDateFactory(2010, 1, 1), localDateFactory(2009, 1, 1)),
+        playerFactory(2010, 1, 1), FALSE),
 
-        // zu alt (einen Tag)
-        Arguments.of(new AgeRestriction(localDateFactory(2010, 1, 1), localDateFactory(2009, 1, 1)),
-            playerFactory(2008, 12, 31), TRUE),
+      // zu alt (einen Tag)
+      Arguments.of(new AgeRestriction(localDateFactory(2010, 1, 1), localDateFactory(2009, 1, 1)),
+        playerFactory(2008, 12, 31), TRUE),
 
-        // zu jung (einen Tag)
-        Arguments.of(new AgeRestriction(localDateFactory(2010, 1, 1), localDateFactory(2009, 1, 1)),
-            playerFactory(2010, 1, 2), TRUE),
+      // zu jung (einen Tag)
+      Arguments.of(new AgeRestriction(localDateFactory(2010, 1, 1), localDateFactory(2009, 1, 1)),
+        playerFactory(2010, 1, 2), TRUE),
 
-        // kein Geburtstag angegeben
-        Arguments.of(new AgeRestriction(localDateFactory(2010, 1, 1), localDateFactory(2009, 1, 1)),
-            playerFactory(null, null, null), FALSE),
+      // kein Geburtstag angegeben
+      Arguments.of(new AgeRestriction(localDateFactory(2010, 1, 1), localDateFactory(2009, 1, 1)),
+        playerFactory(null, null, null), FALSE),
 
-        // keine Untergrenze angegeben
-        Arguments.of(new AgeRestriction(localDateFactory(2010, 1, 1), localDateFactory(null, null, null)),
-            playerFactory(2009, 1, 1), FALSE));
+      // keine Untergrenze angegeben
+      Arguments.of(new AgeRestriction(localDateFactory(2010, 1, 1), null),
+        playerFactory(2009, 1, 1), FALSE));
   }
 
   private static Player playerFactory(Integer year, Integer month, Integer day) {
