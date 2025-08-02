@@ -1,5 +1,8 @@
 package org.cc.torganizer.core.entities;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -9,10 +12,12 @@ import java.util.Set;
  * Ein Team ist eine Zusammenfassung mehrere Opponents. im Badminton sind das
  * z.B. Squads und Players.
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class Team extends Opponent {
 
   /**
-   * Ersatz f\u00fcr null-Values.
+   * Ersatz für null-Values.
    */
   public static final Team NONE = new Team();
 
@@ -23,23 +28,8 @@ public class Team extends Opponent {
    */
   private List<Opponent> opponents = new ArrayList<>();
 
-  /**
-   * Default.
-   */
-  public Team() {
-    // gem. Bean-Spec.
-  }
-
   public void addOpponent(Opponent opponent) {
     opponents.add(opponent);
-  }
-
-  public List<Opponent> getOpponents() {
-    return opponents;
-  }
-
-  public void setOpponents(List<Opponent> newOpponents) {
-    this.opponents = newOpponents;
   }
 
   @Override

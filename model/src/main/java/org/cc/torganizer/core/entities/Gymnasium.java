@@ -1,5 +1,8 @@
 package org.cc.torganizer.core.entities;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,18 +10,11 @@ import java.util.List;
 /**
  * Gymnasium.
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class Gymnasium extends Entity {
-
   private String name;
-
   private final List<Court> courts = new ArrayList<>();
-
-  /**
-   * Default.
-   */
-  public Gymnasium() {
-    // gem. Bean-Spec.
-  }
 
   /**
    * Erzeugen einer vorgegebenen Anzahl von Courts. Die bereits bestehenden
@@ -35,17 +31,5 @@ public class Gymnasium extends Entity {
         courts.add(court);
       }
     }
-  }
-
-  public List<Court> getCourts() {
-    return courts;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
   }
 }

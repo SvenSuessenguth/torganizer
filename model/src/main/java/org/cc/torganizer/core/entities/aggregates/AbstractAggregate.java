@@ -1,11 +1,13 @@
 package org.cc.torganizer.core.entities.aggregates;
 
+import lombok.Data;
 import org.cc.torganizer.core.entities.Match;
 import org.cc.torganizer.core.entities.Opponent;
 
 /**
  * Allgemeine Funktionen zur Verdichtung von Daten.
  */
+@Data
 public abstract class AbstractAggregate {
 
   private int wins;
@@ -24,10 +26,6 @@ public abstract class AbstractAggregate {
     return (double) wins / (double) (wins + lose);
   }
 
-  public int getWins() {
-    return wins;
-  }
-
   /**
    * Erhoehen der gewonnenen.
    *
@@ -35,10 +33,6 @@ public abstract class AbstractAggregate {
    */
   void increaseWins(int i) {
     this.wins += i;
-  }
-
-  public int getLose() {
-    return lose;
   }
 
   /**

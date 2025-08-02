@@ -1,23 +1,25 @@
 package org.cc.torganizer.core.entities;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.cc.torganizer.core.comparators.PositionalComparator;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import org.cc.torganizer.core.comparators.PositionalComparator;
 
 /**
- * Runde in einer Disziplin. Alle Runden m\u00fcssen in einer definierten
+ * Runde in einer Disziplin. Alle Runden müssen in einer definierten
  * Reihenfolge gespielt werden, daher der INDEX. Analog im Fussball gibt eine
  * Qualifikationsrunde, Vorrunde und Finalrunde. Im Badminton wird haeufig in
  * der ersten Runde Gruppenspiele gefolgt von Einfachem KO gespielt.
  */
-
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class Round extends Entity implements Positional {
-
   private Integer position;
-
   private List<Group> groups = new ArrayList<>();
 
   /**
@@ -68,10 +70,6 @@ public class Round extends Entity implements Positional {
     return Collections.unmodifiableList(groups);
   }
 
-  public void setGroups(List<Group> newGroups) {
-    this.groups = newGroups;
-  }
-
   /**
    * Lesen der Group an der Stelle mit der geforderten Position aus der List aller
    * Groups.
@@ -106,30 +104,5 @@ public class Round extends Entity implements Positional {
 
   public Collection<Opponent> getQualifiedOpponents() {
     return Collections.emptyList();
-  }
-
-  public System getSystem() {
-    return system;
-  }
-
-  public void setSystem(System system) {
-    this.system = system;
-  }
-
-  public Integer getQualified() {
-    return qualified;
-  }
-
-  public void setQualified(Integer qualified) {
-    this.qualified = qualified;
-  }
-
-  @Override
-  public Integer getPosition() {
-    return position;
-  }
-
-  public void setPosition(Integer position) {
-    this.position = position;
   }
 }

@@ -1,26 +1,24 @@
 package org.cc.torganizer.core.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
 
 /**
  * Restriktion bezueglich des Geschlechtes.
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
+@NoArgsConstructor
 public class GenderRestriction extends Restriction {
 
   private static final Discriminator DISCRIMINATOR = Discriminator.GENDER_RESTRICTION;
 
   private Gender gender = UNKNOWN;
-
-  /**
-   * Default.
-   */
-  public GenderRestriction() {
-    // gem. Bean-Spec.
-  }
-
-  public GenderRestriction(Gender gender) {
-    this.gender = gender;
-  }
 
   @Override
   public boolean isRestricted(Opponent opponent) {
@@ -55,14 +53,6 @@ public class GenderRestriction extends Restriction {
 
     // no gender is UNKNOWN, so the genders must be equal
     return !this.gender.equals(playersGender);
-  }
-
-  public Gender getGender() {
-    return gender;
-  }
-
-  public void setGender(Gender newGender) {
-    this.gender = newGender;
   }
 
   @Override

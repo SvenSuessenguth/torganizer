@@ -1,5 +1,9 @@
 package org.cc.torganizer.core.entities;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,16 +12,11 @@ import java.util.Set;
  * Ein Squad ist eine Zusammenfassung mehrerer Players. Dies kann z.B. im
  * Badminton oder Tennis ein Doppel sein.
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor
 public class Squad extends Opponent {
-
   private Set<Player> players = new HashSet<>();
-
-  /**
-   * Default.
-   */
-  public Squad() {
-    // gem. Bean-Spec.
-  }
 
   public Squad(Long id) {
     setId(id);
@@ -40,15 +39,6 @@ public class Squad extends Opponent {
 
   public void addPlayers(Collection<Player> players) {
     players.forEach(this::addPlayer);
-  }
-
-  @Override
-  public Collection<Player> getPlayers() {
-    return players;
-  }
-
-  public void setPlayers(Set<Player> newPlayers) {
-    this.players = newPlayers;
   }
 
   public OpponentType getOpponentType() {

@@ -1,5 +1,8 @@
 package org.cc.torganizer.core.entities;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;
 
@@ -9,16 +12,16 @@ import java.util.List;
 
 
 /**
- * Ein <i>match</i> stellt eine Spiel zwischen zwei oder mehr <i>opponents</i>
+ * Ein <i>match</i> stellt ein Spiel zwischen zwei oder mehr <i>opponents</i>
  * dar.
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class Match extends Entity implements Positional {
-
   /**
    * Match, bei dem keiner der Opponents bekannt ist.
    */
   public static final Match NULL_MATCH;
-
   static {
     Opponent home = new Unknown();
     Opponent guest = new Unknown();
@@ -26,14 +29,12 @@ public class Match extends Entity implements Positional {
   }
 
   private Opponent home;
-
   private Opponent guest;
-
   private final List<Result> results;
 
   /**
    * Nummer des Matches in der Gruppe, in der das Match stattfindet. Die Position
-   * wird zum Beispiel f\u00fcr das System DoubleKO ben\u00f6tigt. Standardwert
+   * wird zum Beispiel für das System DoubleKO benötigt. Standardwert
    * ist '-1'.
    */
   private Integer position = -1;
@@ -84,7 +85,7 @@ public class Match extends Entity implements Positional {
   }
 
   /**
-   * Der Opponent, der die meisten Results f\u00fcr sich entscheiden konnte, ist
+   * Der Opponent, der die meisten Results für sich entscheiden konnte, ist
    * Winner.
    *
    * @return Gweinner des Matches bzw. Unknown bei einem Unentschieden
@@ -129,17 +130,6 @@ public class Match extends Entity implements Positional {
   }
 
   /**
-   * <p>
-   * Getter for the field <code>results</code>.
-   * </p>
-   *
-   * @return a {@link java.util.List} object.
-   */
-  public List<Result> getResults() {
-    return results;
-  }
-
-  /**
    * Hinzufuegen eines Results.
    *
    * @param result Result
@@ -170,14 +160,6 @@ public class Match extends Entity implements Positional {
     return loser;
   }
 
-  public LocalDateTime getFinishedTime() {
-    return finishedTime;
-  }
-
-  public void setFinishedTime(LocalDateTime finishedTime) {
-    this.finishedTime = finishedTime;
-  }
-
   public boolean isFinished() {
     return getFinishedTime() != null;
   }
@@ -189,15 +171,6 @@ public class Match extends Entity implements Positional {
    */
   public List<Opponent> getOpponents() {
     return unmodifiableList(asList(home, guest));
-  }
-
-  @Override
-  public Integer getPosition() {
-    return position;
-  }
-
-  public void setPosition(Integer position) {
-    this.position = position;
   }
 
   @Override
@@ -215,14 +188,6 @@ public class Match extends Entity implements Positional {
     }
 
     return result.toString();
-  }
-
-  public Boolean isRunning() {
-    return running;
-  }
-
-  public void setRunning(Boolean running) {
-    this.running = running;
   }
 
   /**
@@ -263,22 +228,6 @@ public class Match extends Entity implements Positional {
     }
 
     return false;
-  }
-
-  public Opponent getHome() {
-    return home;
-  }
-
-  public void setHome(Opponent home) {
-    this.home = home;
-  }
-
-  public Opponent getGuest() {
-    return guest;
-  }
-
-  public void setGuest(Opponent guest) {
-    this.guest = guest;
   }
 
   /**

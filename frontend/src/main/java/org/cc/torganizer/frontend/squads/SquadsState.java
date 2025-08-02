@@ -1,22 +1,24 @@
 package org.cc.torganizer.frontend.squads;
 
-import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
-
 import jakarta.enterprise.inject.Vetoed;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import lombok.Data;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Person;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
+
 /**
  * State of the Squads-UI.
  */
 @Vetoed
-@SuppressWarnings("unused")
+@Data
 public class SquadsState implements Serializable {
 
   public static final int ALL_PLAYERS_TABLE_SIZE = 10;
@@ -29,22 +31,6 @@ public class SquadsState implements Serializable {
   // Filter
   private Gender gender = UNKNOWN;
 
-  public Squad getCurrent() {
-    return current;
-  }
-
-  public void setCurrent(Squad current) {
-    this.current = current;
-  }
-
-  public List<Squad> getSquads() {
-    return squads;
-  }
-
-  public void setSquads(List<Squad> squads) {
-    this.squads = squads;
-  }
-
   /**
    * Getting the players.
    */
@@ -55,9 +41,9 @@ public class SquadsState implements Serializable {
 
     // filter by gender
     var collect = players
-        .stream()
-        .filter(p -> p.getPerson().fitsGender(gender))
-        .toList();
+      .stream()
+      .filter(p -> p.getPerson().fitsGender(gender))
+      .toList();
 
     // fill chunk of players
     var fromIndex = allPlayersTableIndex * ALL_PLAYERS_TABLE_SIZE;
@@ -75,18 +61,6 @@ public class SquadsState implements Serializable {
     }
 
     return chunk;
-  }
-
-  public void setPlayers(List<Player> players) {
-    this.players = players;
-  }
-
-  public Gender getGender() {
-    return gender;
-  }
-
-  public void setGender(Gender gender) {
-    this.gender = gender;
   }
 
   public void incAllPlayersTableChunk() {
@@ -117,13 +91,5 @@ public class SquadsState implements Serializable {
     }
 
     return players.size() > (allPlayersTableIndex + 1) * ALL_PLAYERS_TABLE_SIZE;
-  }
-
-  protected void setAllPlayersTableIndex(int allPlayersTableIndex) {
-    this.allPlayersTableIndex = allPlayersTableIndex;
-  }
-
-  protected int getAllPlayersTableIndex() {
-    return this.allPlayersTableIndex;
   }
 }

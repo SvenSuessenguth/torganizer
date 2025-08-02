@@ -1,14 +1,18 @@
 package org.cc.torganizer.core.entities;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 /**
  * Ein <i>result</i> kann das endgueltige Endergebnis eines <i>matches</i> sein,
  * oder ein Zwischenergebnis (z.B. Satzergebnis) repraesentieren.
  */
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class Result extends Entity implements Positional {
 
   public static final Integer DEFAULT_POSITION = -1;
   private Integer homeScore;
-
   private Integer guestScore;
 
   /**
@@ -41,7 +45,7 @@ public class Result extends Entity implements Positional {
    * Prueft, ob beide Scores gesetzt sind.
    *
    * @return <code>true</code>, wenn beide Scores gesetzt sind, sonst
-   *     <code>false</code>
+   * <code>false</code>
    */
   public boolean areScoresSet() {
     return homeScore != null && guestScore != null;
@@ -52,34 +56,9 @@ public class Result extends Entity implements Positional {
    * erreicht haben.
    *
    * @return <code>true</code>, wenn das Match unentschieden ist, sonst
-   *     <code>false</code>
+   * <code>false</code>
    */
   public boolean isDraw() {
     return areScoresSet() && homeScore.equals(guestScore);
-  }
-
-  @Override
-  public Integer getPosition() {
-    return position;
-  }
-
-  public void setPosition(Integer newPosition) {
-    this.position = newPosition;
-  }
-
-  public Integer getHomeScore() {
-    return homeScore;
-  }
-
-  public void setHomeScore(Integer newHomeScore) {
-    this.homeScore = newHomeScore;
-  }
-
-  public Integer getGuestScore() {
-    return guestScore;
-  }
-
-  public void setGuestScore(Integer newGuestScore) {
-    this.guestScore = newGuestScore;
   }
 }

@@ -20,12 +20,12 @@ public class AggregationComparator implements Comparator<Aggregation>, Serializa
     var result = 0;
 
     // matches > results > scores
-    if (Checker.isNoNullValue(o1.getMa(), o2.getMa()) && !o1.getMa().equals(o2.getMa())) {
-      result = o1.getMa().getRatio().compareTo(o2.getMa().getRatio());
-    } else if (Checker.isNoNullValue(o1.getRa(), o2.getRa()) && !o1.getRa().equals(o2.getRa())) {
-      result = o1.getRa().getRatio().compareTo(o2.getRa().getRatio());
-    } else if (Checker.isNoNullValue(o1.getSa(), o2.getSa()) && !o1.getSa().equals(o2.getSa())) {
-      result = o1.getSa().getRatio().compareTo(o2.getSa().getRatio());
+    if (Checker.isNoNullValue(o1.getMatchAggregate(), o2.getMatchAggregate()) && !o1.getMatchAggregate().equals(o2.getMatchAggregate())) {
+      result = o1.getMatchAggregate().getRatio().compareTo(o2.getMatchAggregate().getRatio());
+    } else if (Checker.isNoNullValue(o1.getResultAggregate(), o2.getResultAggregate()) && !o1.getResultAggregate().equals(o2.getResultAggregate())) {
+      result = o1.getResultAggregate().getRatio().compareTo(o2.getResultAggregate().getRatio());
+    } else if (Checker.isNoNullValue(o1.getScoreAggregate(), o2.getScoreAggregate()) && !o1.getScoreAggregate().equals(o2.getScoreAggregate())) {
+      result = o1.getScoreAggregate().getRatio().compareTo(o2.getScoreAggregate().getRatio());
     }
     return result;
   }

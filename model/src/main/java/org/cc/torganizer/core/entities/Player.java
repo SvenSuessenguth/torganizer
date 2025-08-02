@@ -2,6 +2,8 @@ package org.cc.torganizer.core.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -15,6 +17,8 @@ import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
  * Attribut sein.
  */
 @Builder
+@Data
+@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public class Player extends Opponent {
   @Builder.Default
@@ -61,28 +65,12 @@ public class Player extends Opponent {
     this.club = club;
   }
 
-  public Person getPerson() {
-    return person;
-  }
-
-  public void setPerson(Person newPerson) {
-    this.person = newPerson;
-  }
-
   @Override
   public Set<Player> getPlayers() {
     var players = new HashSet<Player>();
     players.add(this);
 
     return players;
-  }
-
-  public LocalDateTime getLastMatchTime() {
-    return lastMatchTime;
-  }
-
-  public void setLastMatchTime(LocalDateTime localDateTime) {
-    this.lastMatchTime = localDateTime;
   }
 
   /**
@@ -101,14 +89,6 @@ public class Player extends Opponent {
     }
 
     return isGenderSet;
-  }
-
-  public Club getClub() {
-    return club;
-  }
-
-  public void setClub(Club club) {
-    this.club = club;
   }
 
   public OpponentType getOpponentType() {

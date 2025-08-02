@@ -102,10 +102,10 @@
         <th id="chartHeader#{varStatus.index}" class="rr-chart-header">
           <tc:opponent opponent="#{aggregate.opponent}" showLastNames="true" showFirstNames="true"/>
         </th>
-        <td class="rr-chart-aggregate">#{aggregate.ma.wins+aggregate.ma.lose}</td>
-        <td class="rr-chart-aggregate">#{aggregate.ma.wins}:#{aggregate.ma.lose}</td>
-        <td class="rr-chart-aggregate">#{aggregate.ra.wins}:#{aggregate.ra.lose}</td>
-        <td class="rr-chart-aggregate">#{aggregate.sa.wins}:#{aggregate.sa.lose}</td>
+        <td class="rr-chart-aggregate">#{aggregate.matchAggregate.wins+aggregate.matchAggregate.lose}</td>
+        <td class="rr-chart-aggregate">#{aggregate.matchAggregate.wins}:#{aggregate.matchAggregate.lose}</td>
+        <td class="rr-chart-aggregate">#{aggregate.resultAggregate.wins}:#{aggregate.resultAggregate.lose}</td>
+        <td class="rr-chart-aggregate">#{aggregate.scoreAggregate.wins}:#{aggregate.scoreAggregate.lose}</td>
       </tr>
     </c:forEach>
   </table>

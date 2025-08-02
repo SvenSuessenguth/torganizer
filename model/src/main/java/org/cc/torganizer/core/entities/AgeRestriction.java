@@ -1,5 +1,8 @@
 package org.cc.torganizer.core.entities;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import static org.cc.torganizer.core.entities.Restriction.Discriminator.AGE_RESTRICTION;
 
 import java.time.LocalDate;
@@ -9,6 +12,8 @@ import java.time.LocalDate;
  * die obere oder untere Grenze, ist das Intervall in die entsprechende Richtung
  * offen.
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class AgeRestriction extends Restriction {
 
   /**
@@ -17,7 +22,7 @@ public class AgeRestriction extends Restriction {
   private static final Discriminator DISCRIMINATOR = AGE_RESTRICTION;
 
   /**
-   * liegt zeitlich NACH dem minDateOfBirth (hat h\u00f6heren Jahres-, Monats-
+   * liegt zeitlich NACH dem minDateOfBirth (hat höheren Jahres-, Monats-
    * oder Tageswert).
    */
   private LocalDate maxDateOfBirth;
@@ -49,22 +54,6 @@ public class AgeRestriction extends Restriction {
   public AgeRestriction(LocalDate newMaxDateOfBirth,
                         LocalDate newMinDateOfBirth) {
     this.maxDateOfBirth = newMaxDateOfBirth;
-    this.minDateOfBirth = newMinDateOfBirth;
-  }
-
-  public LocalDate getMaxDateOfBirth() {
-    return maxDateOfBirth;
-  }
-
-  public void setMaxDateOfBirth(LocalDate newMaxDateOfBirth) {
-    this.maxDateOfBirth = newMaxDateOfBirth;
-  }
-
-  public LocalDate getMinDateOfBirth() {
-    return minDateOfBirth;
-  }
-
-  public void setMinDateOfBirth(LocalDate newMinDateOfBirth) {
     this.minDateOfBirth = newMinDateOfBirth;
   }
 

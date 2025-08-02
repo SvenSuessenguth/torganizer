@@ -2,6 +2,9 @@ package org.cc.torganizer.core.entities;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.cc.torganizer.core.comparators.AggregationComparator;
 import org.cc.torganizer.core.comparators.PositionalComparator;
 import org.cc.torganizer.core.entities.aggregates.Aggregation;
@@ -11,15 +14,15 @@ import org.cc.torganizer.core.entities.aggregates.ScoreAggregate;
 
 /**
  * Eine Group sammelt Opponents zusammen. Innerhalb einer Group werden die
- * Matches ausgef\u00fchrt, die den Sieger oder die Opponents, die in die
- * n\u00e4chste Round kommen, bestimmen
+ * Matches ausgeführt, die den Sieger oder die Opponents, die in die
+ * nächste Round kommen, bestimmen
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class Group extends Entity implements Positional {
 
   private Integer position;
-
   private List<PositionalOpponent> positionalOpponents = new ArrayList<>();
-
   /**
    * Ein Match soll nur der Group zugewiesen werden, wenn es persistiert werden
    * soll (running/finished).
@@ -33,18 +36,9 @@ public class Group extends Entity implements Positional {
     this.position = position;
   }
 
-  /**
-   * Gibt die nach Position sortierte Liste von Opponents zur\u00fcck.
-   *
-   * @return nach Position sortierte Liste von PositionalOpponents
-   */
-  public List<PositionalOpponent> getPositionalOpponents() {
-    return positionalOpponents;
-  }
 
   /**
-   * <p>
-   * Setter for the field <code>positionalOpponents</code>.
+   * <p>Setter for the field <code>positionalOpponents</code>. Also ordering the given opponents.
    * </p>
    *
    * @param newPositionalOpponents a {@link java.util.List} object.
@@ -56,7 +50,7 @@ public class Group extends Entity implements Positional {
 
   /**
    * Lesen der Opponents, die dieser Group zugewiesen sind. Die Liste
-   * enth\u00e4lt die Opponents in der durch die Position  vorgegebenen Reihenfolge.
+   * enthält die Opponents in der durch die Position  vorgegebenen Reihenfolge.
    *
    * @return Liste der Opponents, die dieser Gruppe zugewiesen sind.
    */
@@ -72,8 +66,8 @@ public class Group extends Entity implements Positional {
   }
 
   /**
-   * Liste der Opponents, die zu dieser Group geh\u00f6ren wird neu gesetzt.
-   * Alte Inhalte werden dabei gel\u00f6scht.
+   * Liste der Opponents, die zu dieser Group gehören wird neu gesetzt.
+   * Alte Inhalte werden dabei gelöscht.
    *
    * @param newOpponents Opponents, die der Group zugewiesen werden sollen.
    */
@@ -90,10 +84,10 @@ public class Group extends Entity implements Positional {
   }
 
   /**
-   * Hinzuf\u00fcgen eines (unindizierten) Opponents. Die neue Position ist so
-   * gro\u00df, dass der neue Opponent als letzter angef\u00fcgt wird.
+   * Hinzufügen eines (unindizierten) Opponents. Die neue Position ist so
+   * groß, dass der neue Opponent als letzter angefügt wird.
    *
-   * @param opponent Opponent, der de Group hinzugef\u00fcgt werden soll.
+   * @param opponent Opponent, der de Group hinzugefügt werden soll.
    */
   public void addOpponent(Opponent opponent) {
     Integer lastPosition = positionalOpponents.size();
@@ -126,7 +120,7 @@ public class Group extends Entity implements Positional {
 
   /**
    * Lesen des indizierten Opponents, bei dem der Opponent mit dem Parameter
-   * \u00fcbereinstimmt.
+   * übereinstimmt.
    *
    * @param opponent Opponent, zu dem der indizierte Opponent gefunden werden
    *                 soll.
@@ -144,7 +138,7 @@ public class Group extends Entity implements Positional {
 
   /**
    * Lesen des indizierten Opponents, bei dem die Position mit dem Parameter
-   * \u00fcbereinstimmt.
+   * übereinstimmt.
    *
    * @param reqPosition Index, zu dem der indizierte Opponent gefunden werden soll.
    * @return Der IndexedOpponent
@@ -171,9 +165,9 @@ public class Group extends Entity implements Positional {
   }
 
   /**
-   * \u00c4ndern der Reihenfolge innerhalb der Liste der indizierten Opponents
-   * durch tauschen der Position, so dass der \u00fcbergebene Opponent die
-   * n\u00e4chst kleinere Position bekommt.
+   * Ändern der Reihenfolge innerhalb der Liste der indizierten Opponents
+   * durch wechsel der Position, sodass der übergebene Opponent die
+   * nächst kleinere Position bekommt.
    *
    * @param opponent Opponent, der in der Positionsreihenfolge weiter vorne stehen
    *                 soll (kleinerer Position)
@@ -205,26 +199,6 @@ public class Group extends Entity implements Positional {
     }
   }
 
-  @Override
-  public Integer getPosition() {
-    return position;
-  }
-
-  public void setPosition(Integer newPosition) {
-    this.position = newPosition;
-  }
-
-  /**
-   * <p>
-   * Getter for the field <code>matches</code>.
-   * </p>
-   *
-   * @return a {@link java.util.List} object.
-   */
-  public List<Match> getMatches() {
-    return matches;
-  }
-
   /**
    * <p>
    * Setter for the field <code>matches</code>.
@@ -244,7 +218,7 @@ public class Group extends Entity implements Positional {
   public List<Match> getRunningMatches() {
     return getMatches()
         .stream()
-        .filter(m -> m.isRunning() && !m.isFinished())
+        .filter(m -> m.getRunning() && !m.isFinished())
         .toList();
   }
 
@@ -302,9 +276,9 @@ public class Group extends Entity implements Positional {
 
       var ca = new Aggregation();
       ca.setOpponent(opponent);
-      ca.setMa(ma);
-      ca.setRa(ra);
-      ca.setSa(sa);
+      ca.setMatchAggregate(ma);
+      ca.setResultAggregate(ra);
+      ca.setScoreAggregate(sa);
 
       aggregates.add(ca);
     }

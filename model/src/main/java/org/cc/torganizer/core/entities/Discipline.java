@@ -13,22 +13,20 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.cc.torganizer.core.exceptions.RestrictionException;
 
 /**
  * Auszufuehrende Disziplin innerhalb eines Turnieres (z.B. HE-A)
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class Discipline extends Entity {
-
   private String name;
-
-  /**
-   * Opponents that are member of the first round.
-   */
   private Set<Opponent> opponents = new HashSet<>();
-
   private List<Round> rounds = new ArrayList<>();
-
   private Set<Restriction> restrictions = new HashSet<>();
 
   /**
@@ -48,18 +46,6 @@ public class Discipline extends Entity {
     }
 
     return Optional.ofNullable(currentRound);
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String newName) {
-    this.name = newName;
-  }
-
-  public Set<Opponent> getOpponents() {
-    return opponents;
   }
 
   /**

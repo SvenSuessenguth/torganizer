@@ -5,6 +5,8 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
+
+import lombok.Data;
 import org.cc.torganizer.core.PendingMatchDetectorFactory;
 import org.cc.torganizer.core.entities.Match;
 import org.cc.torganizer.frontend.ApplicationState;
@@ -15,15 +17,12 @@ import org.cc.torganizer.persistence.MatchesRepository;
  */
 @RequestScoped
 @Named
-@SuppressWarnings("unused")
+@Data
 public class MatchesState {
-
   @Inject
   private MatchesRepository matchesRepository;
-
   @Inject
   private ApplicationState applicationState;
-
   @Inject
   private PendingMatchDetectorFactory pendingMatchDetectorFactory;
 
@@ -31,7 +30,6 @@ public class MatchesState {
     var tournament = applicationState.getTournament();
     return matchesRepository.getRunningMatches(tournament);
   }
-
 
   /**
    * Calculating possible matches.

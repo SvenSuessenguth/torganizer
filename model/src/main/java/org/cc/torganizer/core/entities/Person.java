@@ -2,6 +2,8 @@ package org.cc.torganizer.core.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.cc.torganizer.core.exceptions.IllegalDateOfBirthException;
 
@@ -13,6 +15,8 @@ import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
  * A person represents a man or a woman with core data.
  */
 @Builder
+@Data
+@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
 public class Person extends Entity {
@@ -35,41 +39,6 @@ public class Person extends Entity {
     this.lastName = lastName;
   }
 
-  public String getFirstName() {
-    return firstName;
-  }
-
-  public void setFirstName(String newFirstName) {
-    this.firstName = newFirstName;
-  }
-
-  public String getLastName() {
-    return lastName;
-  }
-
-  public void setLastName(String newLastName) {
-    this.lastName = newLastName;
-  }
-
-  public LocalDate getDateOfBirth() {
-    return dateOfBirth;
-  }
-
-  public void setDateOfBirth(LocalDate dateOfBirth) {
-    this.dateOfBirth = dateOfBirth;
-  }
-
-  public Gender getGender() {
-    return gender;
-  }
-
-  /**
-   * Setting the gender and asserting, that the gender is not <code>null</code>.
-   */
-  public void setGender(Gender gender) {
-    this.gender = gender == null ? UNKNOWN : gender;
-  }
-
   /**
    * Calculating the age of the person in years. If no dato of birth is given, the age is NULL.
    */
@@ -88,7 +57,7 @@ public class Person extends Entity {
   }
 
   /**
-   * Checking, if the person have the given gender.
+   * Checking, if the person has the given gender.
    */
   public boolean fitsGender(Gender gender) {
     // no statement can be made, so return true

@@ -37,10 +37,10 @@ class AggregationComparatorTest {
     when(ma2.getWins()).thenReturn(1);
 
     Aggregation a1 = new Aggregation();
-    a1.setMa(ma1);
+    a1.setMatchAggregate(ma1);
 
     Aggregation a2 = new Aggregation();
-    a2.setMa(ma2);
+    a2.setMatchAggregate(ma2);
 
     assertThat(a1).usingComparator(comparator).isEqualTo(a2);
   }
@@ -53,10 +53,10 @@ class AggregationComparatorTest {
     when(ra2.getWins()).thenReturn(1);
 
     Aggregation a1 = new Aggregation();
-    a1.setRa(ra1);
+    a1.setResultAggregate(ra1);
 
     Aggregation a2 = new Aggregation();
-    a2.setRa(ra2);
+    a2.setResultAggregate(ra2);
 
     assertThat(a1).usingComparator(comparator).isEqualTo(a2);
   }
@@ -69,10 +69,10 @@ class AggregationComparatorTest {
     when(sa2.getWins()).thenReturn(1);
 
     Aggregation a1 = new Aggregation();
-    a1.setSa(sa1);
+    a1.setScoreAggregate(sa1);
 
     Aggregation a2 = new Aggregation();
-    a2.setSa(sa2);
+    a2.setScoreAggregate(sa2);
 
     assertThat(a1).usingComparator(comparator).isEqualTo(a2);
   }
