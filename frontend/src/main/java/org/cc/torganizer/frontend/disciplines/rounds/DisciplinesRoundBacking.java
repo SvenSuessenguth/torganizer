@@ -3,9 +3,6 @@ package org.cc.torganizer.frontend.disciplines.rounds;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import org.cc.torganizer.core.comparators.OpponentByNameComparator;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Round;
@@ -13,6 +10,10 @@ import org.cc.torganizer.core.entities.System;
 import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.disciplines.core.DisciplinesCoreState;
 import org.cc.torganizer.persistence.TournamentsRepository;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Accessing data from outside the state or the state itself.
@@ -51,7 +52,7 @@ public class DisciplinesRoundBacking {
       var discipline = disciplinesCoreState.getDiscipline();
       var tournamentId = appState.getTournamentId();
       assignableOpponents = tournamentsRepository
-          .getAssignableOpponentsForDiscipline(tournamentId, discipline, 0, 1000);
+        .getAssignableOpponentsForDiscipline(tournamentId, discipline, 0, 1000);
     } else {
       assignableOpponents = currentRound.getQualifiedOpponents();
     }
@@ -61,11 +62,10 @@ public class DisciplinesRoundBacking {
   }
 
   protected void removeAlreadyAssignedOpponents(Collection<Opponent> assignableOpponents,
-                                                Round currentRound) {
-    var alreadyAssignedOpponents = new ArrayList<Opponent>();
-    for (var group : currentRound.getGroups()) {
-      alreadyAssignedOpponents.addAll(group.getOpponents());
-    }
+                                                Round round) {
+    var alreadyAssignedOpponents = round.getGroups().stream()
+      .flatMap(g -> g.getOpponents().stream())
+      .toList();
 
     assignableOpponents.removeAll(alreadyAssignedOpponents);
   }

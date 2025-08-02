@@ -48,7 +48,7 @@ class ScoreAggregateTest {
   }
 
   public static Match m(List<Result> results) {
-    var match = new Match(new Player(), new Player());
+    var match = new Match(new Player("1", "1"), new Player("2", "2"));
     results.forEach(match::addResult);
 
     return match;

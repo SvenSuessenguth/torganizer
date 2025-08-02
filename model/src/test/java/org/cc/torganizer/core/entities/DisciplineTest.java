@@ -1,5 +1,11 @@
 package org.cc.torganizer.core.entities;
 
+import org.cc.torganizer.core.exceptions.RestrictionException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+
 import static java.time.LocalDate.of;
 import static java.time.Month.JANUARY;
 import static java.time.Month.MAY;
@@ -11,13 +17,6 @@ import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
 import static org.cc.torganizer.core.entities.Restriction.Discriminator.AGE_RESTRICTION;
 import static org.cc.torganizer.core.entities.Restriction.Discriminator.GENDER_RESTRICTION;
 import static org.cc.torganizer.core.entities.Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import org.cc.torganizer.core.exceptions.RestrictionException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 class DisciplineTest {
 
@@ -33,13 +32,13 @@ class DisciplineTest {
 
   @Test
   void testGetRestriction_null() {
-    Restriction restriction = discipline.getRestriction(null);
+    var restriction = discipline.getRestriction(null);
     assertThat(restriction).isNull();
   }
 
   @Test
   void testGetRestriction_ageRestriction() {
-    Restriction restriction = discipline.getRestriction(AGE_RESTRICTION);
+    var restriction = discipline.getRestriction(AGE_RESTRICTION);
 
     assertThat(restriction).isNotNull();
     assertThat(restriction.getDiscriminator()).isEqualTo(AGE_RESTRICTION);
@@ -47,7 +46,7 @@ class DisciplineTest {
 
   @Test
   void testGetRestriction_genderRestriction() {
-    Restriction restriction = discipline.getRestriction(GENDER_RESTRICTION);
+    var restriction = discipline.getRestriction(GENDER_RESTRICTION);
 
     assertThat(restriction).isNotNull();
     assertThat(restriction.getDiscriminator()).isEqualTo(GENDER_RESTRICTION);
@@ -55,7 +54,7 @@ class DisciplineTest {
 
   @Test
   void testGetRestriction_opponentTypeRestriction() {
-    Restriction restriction = discipline.getRestriction(OPPONENT_TYPE_RESTRICTION);
+    var restriction = discipline.getRestriction(OPPONENT_TYPE_RESTRICTION);
 
     assertThat(restriction).isNotNull();
     assertThat(restriction.getDiscriminator()).isEqualTo(OPPONENT_TYPE_RESTRICTION);
@@ -64,12 +63,12 @@ class DisciplineTest {
   @SuppressWarnings({"rawtypes", "unchecked"})
   @Test
   void testGetRestrictions_order() {
-    Discipline discipline = new Discipline();
+    var discipline = new Discipline();
     discipline.addRestriction(new OpponentTypeRestriction());
     discipline.addRestriction(new AgeRestriction());
     discipline.addRestriction(new GenderRestriction());
 
-    List<Restriction> restrictions = new ArrayList(discipline.getRestrictions());
+    var restrictions = new ArrayList(discipline.getRestrictions());
     assertThat(restrictions.getFirst()).isInstanceOf(AgeRestriction.class);
     assertThat(restrictions.get(1)).isInstanceOf(GenderRestriction.class);
     assertThat(restrictions.get(2)).isInstanceOf(OpponentTypeRestriction.class);
@@ -77,8 +76,8 @@ class DisciplineTest {
 
   @Test
   void testSetRounds_empty() {
-    List<Round> rounds = new ArrayList<>();
-    Discipline discipline = new Discipline();
+    var rounds = new ArrayList<Round>();
+    var discipline = new Discipline();
     discipline.addRound(new Round());
     discipline.setRounds(rounds);
 
@@ -87,7 +86,7 @@ class DisciplineTest {
 
   @Test
   void testSetRounds_null() {
-    Discipline discipline = new Discipline();
+    var discipline = new Discipline();
     discipline.setRounds(null);
 
     assertThat(discipline.getRounds()).isNotNull();
@@ -95,9 +94,9 @@ class DisciplineTest {
 
   @Test
   void testSetRounds_some() {
-    List<Round> rounds = new ArrayList<>();
+    var rounds = new ArrayList<Round>();
     rounds.add(new Round());
-    Discipline discipline = new Discipline();
+    var discipline = new Discipline();
     discipline.setRounds(rounds);
 
     assertThat(discipline.getRounds()).hasSize(1);
@@ -105,7 +104,7 @@ class DisciplineTest {
 
   @Test
   void testGetLastRound_noRoundAvailable() {
-    Round actual = discipline.getLastRound();
+    var actual = discipline.getLastRound();
     assertThat(actual).isNull();
   }
 
@@ -114,14 +113,14 @@ class DisciplineTest {
     discipline.addRound(new Round());
     discipline.addRound(new Round());
     discipline.addRound(new Round());
-    Round actual = discipline.getLastRound();
+    var actual = discipline.getLastRound();
     assertThat(actual).isNotNull();
     assertThat(actual.getPosition()).isEqualTo(2);
   }
 
   @Test
   void addOpponent_restriction() {
-    Player player = new Player("a", "a");
+    var player = new Player("a", "a");
     player.getPerson().setGender(FEMALE);
 
     assertThatThrownBy(() -> discipline.addOpponent(player)).isInstanceOf(RestrictionException.class);
@@ -129,64 +128,64 @@ class DisciplineTest {
 
   @Test
   void addOpponent() {
-    Player player = new Player("a", "a");
+    var player = new Player("a", "a");
     player.getPerson().setGender(MALE);
 
-    int countBefore = discipline.getOpponents().size();
+    var countBefore = discipline.getOpponents().size();
     discipline.addOpponent(player);
-    int countAfter = discipline.getOpponents().size();
+    var countAfter = discipline.getOpponents().size();
 
     assertThat(countBefore + 1).isEqualTo(countAfter);
   }
 
   @Test
   void getPlayers() {
-    Discipline discipline = new Discipline();
+    var discipline = new Discipline();
 
-    Squad squad = new Squad();
-    squad.addPlayer(new Player(new Person()));
-    squad.addPlayer(new Player(new Person()));
+    var squad = new Squad();
+    squad.addPlayer(new Player(new Person("1", "1")));
+    squad.addPlayer(new Player(new Person("2", "2")));
     discipline.addOpponent(squad);
-    discipline.addOpponent(new Player());
+    discipline.addOpponent(new Player(new Person()));
 
     assertThat(discipline.getPlayers()).hasSize(3);
   }
 
   @Test
   void getCurrentRound_noRound() {
-    Optional<Round> currentRound = new Discipline().getCurrentRound();
+    var currentRound = new Discipline().getCurrentRound();
     assertThat(currentRound).isEmpty();
   }
 
   @Test
   void getCurrentRound_emptyRound() {
-    Discipline discipline = new Discipline();
+    var discipline = new Discipline();
     discipline.addRound(new Round());
-    Optional<Round> currentRound = discipline.getCurrentRound();
+    var currentRound = discipline.getCurrentRound();
     assertThat(currentRound).isEmpty();
   }
 
   @Test
   void getCurrentRound_emptyGrooup() {
-    Discipline discipline = new Discipline();
-    Round round = new Round();
-    Group group = new Group();
+    var discipline = new Discipline();
+    var round = new Round();
+    var group = new Group();
     round.appendGroup(group);
     discipline.addRound(round);
-    Optional<Round> currentRound = discipline.getCurrentRound();
+    var currentRound = discipline.getCurrentRound();
 
     assertThat(currentRound).isEmpty();
   }
 
   @Test
   void getCurrentRound() {
-    Discipline discipline = new Discipline();
-    Round round = new Round();
-    Group group = new Group();
+    var discipline = new Discipline();
+    var round = new Round();
+    var group = new Group();
     group.addOpponent(new Player());
     round.appendGroup(group);
     discipline.addRound(round);
-    Optional<Round> currentRound = discipline.getCurrentRound();
+    var currentRound = discipline.getCurrentRound();
 
     assertThat(currentRound).isPresent();
   }

@@ -1,15 +1,15 @@
 package org.cc.torganizer.frontend.disciplines.rounds;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.ArrayList;
-import java.util.List;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Round;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class DisciplinesRoundBackingTest {
 
@@ -22,15 +22,15 @@ class DisciplinesRoundBackingTest {
 
   @Test
   void removeAlreadyAssignedOpponents() {
-    Opponent o1 = opponent(1L);
-    Opponent o2 = opponent(2L);
-    Group g1 = group(o1, o2);
-    Opponent o3 = opponent(3L);
-    Opponent o4 = opponent(4L);
-    Group g2 = group(o3, o4);
-    Round r = round(g1, g2);
+    var o1 = opponent(1L);
+    var o2 = opponent(2L);
+    var g1 = group(o1, o2);
+    var o3 = opponent(3L);
+    var o4 = opponent(4L);
+    var g2 = group(o3, o4);
+    var r = round(g1, g2);
 
-    List<Opponent> opponents = new ArrayList<>();
+    var opponents = new ArrayList<Opponent>();
     opponents.add(o1);
     opponents.add(o2);
     opponents.add(o3);
@@ -44,8 +44,8 @@ class DisciplinesRoundBackingTest {
   }
 
   private Group group(Opponent... opponents) {
-    Group g = new Group();
-    for (Opponent o : opponents) {
+    var g = new Group();
+    for (var o : opponents) {
       g.addOpponent(o);
     }
 
@@ -53,15 +53,15 @@ class DisciplinesRoundBackingTest {
   }
 
   private Opponent opponent(Long id) {
-    Player p = new Player("", "");
+    var p = new Player(id.toString(), id.toString());
     p.setId(id);
 
     return p;
   }
 
   private Round round(Group... groups) {
-    Round r = new Round();
-    for (Group g : groups) {
+    var r = new Round();
+    for (var g : groups) {
       r.appendGroup(g);
     }
 

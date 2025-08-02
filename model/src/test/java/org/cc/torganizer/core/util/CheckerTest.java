@@ -67,12 +67,12 @@ class CheckerTest {
     assertThat(onlyNullValues(null, new Object(), null)).isFalse();
   }
 
-  private static final Player PLAYER_ONE = new Player();
-  private static final Player PLAYER_TWO = new Player();
+  private static final Player PLAYER_ONE = new Player("1", "1");
+  private static final Player PLAYER_TWO = new Player("2", "2");
 
   private static Stream<Arguments> equals() {
     return Stream.of(
-        Arguments.of(singletonList(new Player()), singletonList(new Player()), false),
+        Arguments.of(singletonList(PLAYER_ONE), singletonList(PLAYER_TWO), false),
         Arguments.of(asList(PLAYER_TWO, PLAYER_ONE), asList(PLAYER_ONE, PLAYER_TWO), true),
         Arguments.of(asList(PLAYER_TWO, PLAYER_ONE), singletonList(PLAYER_ONE), false),
         Arguments.of(emptyList(), asList(PLAYER_ONE, PLAYER_TWO), false),
@@ -86,7 +86,7 @@ class CheckerTest {
   @ParameterizedTest
   @MethodSource
   void equals(List<?> l1, List<?> l2, boolean expected) {
-    boolean equals = Checker.equals(l1, l2);
+    var equals = Checker.equals(l1, l2);
 
     assertThat(equals).isEqualTo(expected);
   }
@@ -103,7 +103,7 @@ class CheckerTest {
   @ParameterizedTest
   @MethodSource
   void isNoNullValue(boolean expected, Object... objects) {
-    boolean noNullValue = Checker.isNoNullValue(objects);
+    var noNullValue = Checker.isNoNullValue(objects);
     assertThat(noNullValue).isEqualTo(expected);
   }
 }

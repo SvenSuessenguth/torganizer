@@ -1,10 +1,9 @@
 package org.cc.torganizer.core.entities;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class TeamTest {
 
@@ -17,12 +16,12 @@ class TeamTest {
 
   @Test
   void getPlayers() {
-    Squad squad = new Squad();
-    squad.addPlayer(new Player(new Person()));
-    squad.addPlayer(new Player(new Person()));
+    var squad = new Squad();
+    squad.addPlayer(new Player(new Person("1", "1")));
+    squad.addPlayer(new Player(new Person("2", "2")));
     team.addOpponent(squad);
 
-    Set<Player> players = team.getPlayers();
+    var players = team.getPlayers();
 
     assertThat(players).hasSize(2);
   }

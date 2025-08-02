@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.cc.torganizer.core.exceptions.IllegalDateOfBirthException;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
 
@@ -66,5 +67,9 @@ public class Person extends Entity {
     }
 
     return gender == this.gender;
+  }
+
+  public void setGender(Gender gender) {
+    this.gender = Objects.requireNonNullElse(gender, UNKNOWN);
   }
 }
