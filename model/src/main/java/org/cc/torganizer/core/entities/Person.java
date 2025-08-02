@@ -1,26 +1,30 @@
 package org.cc.torganizer.core.entities;
 
-import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
-
-import java.time.LocalDate;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import org.cc.torganizer.core.exceptions.IllegalDateOfBirthException;
 
+import java.time.LocalDate;
+
+import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
+
 /**
- * A person represents an man or a woman with core data.
+ * A person represents a man or a woman with core data.
  */
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Person extends Entity {
-
-  private String firstName;
-
-  private String lastName;
-
-  private LocalDate dateOfBirth;
-
+  @Builder.Default
+  private String firstName = "firstName";
+  @Builder.Default
+  private String lastName = "lastName";
+  @Builder.Default
+  private LocalDate dateOfBirth = LocalDate.now().minusYears(20);
+  @Builder.Default
   private Gender gender = UNKNOWN;
 
-  public Person() {
-    // gem. Bean-Spec.
-  }
 
   public Person(Long id) {
     setId(id);
@@ -29,16 +33,6 @@ public class Person extends Entity {
   public Person(String firstName, String lastName) {
     this.firstName = firstName;
     this.lastName = lastName;
-  }
-
-  /**
-   * Convenience constructor.
-   */
-  public Person(String firstName, String lastName, LocalDate dateOfBirth, Gender gender) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.dateOfBirth = dateOfBirth;
-    this.gender = gender;
   }
 
   public String getFirstName() {

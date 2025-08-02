@@ -56,7 +56,7 @@ class PersonsRepositoryTest extends AbstractDbUnitJpaTest {
 
   @Test
   void testCreate() {
-    var person = new Person("firstName", "lastName");
+    var person = Person.builder().build();
 
     repository.create(person);
 

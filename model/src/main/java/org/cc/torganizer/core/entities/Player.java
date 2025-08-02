@@ -1,29 +1,29 @@
 package org.cc.torganizer.core.entities;
 
-import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
+
 /**
- * Wegen Restriktionen der Persistenz-API k\u00f6nnen keine Interfaces verwendet
+ * Wegen Restriktionen der Persistenz-API können keine Interfaces verwendet
  * werden. Daher muss im Objektmodell der Player ein Opponent mit Person als
  * Attribut sein.
  */
+@Builder
+@AllArgsConstructor
 public class Player extends Opponent {
-
-  private Person person;
-
+  @Builder.Default
+  private Person person = Person.builder().build();
   private Club club;
-
   private LocalDateTime lastMatchTime;
 
-  /**
-   * default.
-   */
   public Player() {
-    // gem. Bean-Spec.
+    person = null;
   }
 
   public Player(Long id) {
@@ -89,7 +89,7 @@ public class Player extends Opponent {
    * Prueft, ob das Gender des Players bekannt ist (also nicht UNKNOWN).
    *
    * @return <code>true</code>, wenn das Gender der Person nicht
-   *     <code>null</code> und nicht unbekannt ist, sonst <code>false</code>
+   * <code>null</code> und nicht unbekannt ist, sonst <code>false</code>
    */
   public boolean hasGender() {
 

@@ -1,10 +1,11 @@
 package org.cc.torganizer.frontend.tournaments;
 
 import jakarta.enterprise.inject.Vetoed;
+import org.cc.torganizer.core.entities.Tournament;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import org.cc.torganizer.core.entities.Tournament;
 
 /**
  * The current tournament is used for every following action. So this bean is in session-scope.
@@ -20,8 +21,6 @@ public class TournamentsState implements Serializable {
   }
 
   public List<Tournament> getTournaments() {
-
-    System.out.println("hallo du da");
     return tournaments;
   }
 
