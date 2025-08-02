@@ -3,24 +3,21 @@ package org.cc.torganizer.persistence;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
+import lombok.NoArgsConstructor;
+import lombok.extern.java.Log;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Round;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Accessing the Repository for Disciplines and related entities.
  */
 @RequestScoped
+@NoArgsConstructor
+@Log
 public class DisciplinesRepository extends Repository<Discipline> {
-
-  private static final Logger LOGGER = Logger.getLogger(DisciplinesRepository.class.getName());
-
-  public DisciplinesRepository() {
-
-  }
 
   /**
    * Constructor for testing.
@@ -124,7 +121,7 @@ public class DisciplinesRepository extends Repository<Discipline> {
     discipline.addRound(round);
     em.persist(discipline);
 
-    LOGGER.info("Position der Round nach hinzufügen zu Discipline: " + round.getPosition());
+    log.info("Position der Round nach hinzufügen zu Discipline: " + round.getPosition());
 
     return discipline;
   }
