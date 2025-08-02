@@ -7,19 +7,10 @@ import com.github.dockerjava.api.model.Ports;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.DefaultMetadataHandler;
-import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.ReplacementDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
@@ -30,6 +21,12 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Objects;
+
 @Testcontainers
 public abstract class AbstractDbUnitJpaTest {
 
@@ -37,7 +34,7 @@ public abstract class AbstractDbUnitJpaTest {
   private static final Integer postgresqlPort;
 
   static {
-    String portProp = System.getProperty("postgresql.port");
+    var portProp = System.getProperty("postgresql.port");
     postgresqlPort = portProp.isEmpty() ? 5432 : Integer.parseInt(portProp);
   }
 
@@ -48,19 +45,19 @@ public abstract class AbstractDbUnitJpaTest {
   @SuppressWarnings("all")
   @Container
   public static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer<>("postgres:17.5")
-      .withDatabaseName("torganizer")
-      .withUsername("postgres")
-      .withPassword("postgres")
-      .withExposedPorts(Integer.valueOf(postgresqlPort))
-      .withCreateContainerCmdModifier(cmd -> cmd.withHostConfig(
-          new HostConfig().withPortBindings(new PortBinding(Ports.Binding.bindPort(postgresqlPort), new ExposedPort(5432)))
-      ));
+    .withDatabaseName("torganizer")
+    .withUsername("postgres")
+    .withPassword("postgres")
+    .withExposedPorts(Integer.valueOf(postgresqlPort))
+    .withCreateContainerCmdModifier(cmd -> cmd.withHostConfig(
+      new HostConfig().withPortBindings(new PortBinding(Ports.Binding.bindPort(postgresqlPort), new ExposedPort(5432)))
+    ));
 
   @BeforeEach
   public void initTestFixture() {
     // overriding defaults from persistence.xml
     // see https://www.generacodice.com/en/articolo/1290009/Read-Environment-Variables-in-persistence.xml-file
-    Map<String, Object> configOverrides = new HashMap<>();
+    var configOverrides = new HashMap<String, Object>();
     configOverrides.put("jakarta.persistence.jdbc.url", "jdbc:postgresql://localhost:" + postgresqlPort + "/torganizer");
 
     // Get the entity manager for the tests.
@@ -78,17 +75,17 @@ public abstract class AbstractDbUnitJpaTest {
 
   public void initDatabase(String testData) throws IOException, DatabaseUnitException, SQLException {
     // Connection aufbauen
-    Connection connection = entityManager.unwrap(Connection.class);
-    IDatabaseConnection dbunitConn = new DatabaseConnection(connection);
-    DatabaseConfig dbConfig = dbunitConn.getConfig();
+    var connection = entityManager.unwrap(Connection.class);
+    var dbunitConn = new DatabaseConnection(connection);
+    var dbConfig = dbunitConn.getConfig();
     dbConfig.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
     dbConfig.setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER, new DefaultMetadataHandler());
     dbConfig.setProperty(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, Boolean.TRUE);
 
     // Testdaten laden und [NULL] durch null-Value ersetzen
-    URL url = getClass().getClassLoader().getResource(testData);
-    InputStream is = Objects.requireNonNull(url).openStream();
-    ReplacementDataSet dataSet = new ReplacementDataSet(new FlatXmlDataSetBuilder().build(is));
+    var url = getClass().getClassLoader().getResource(testData);
+    var is = Objects.requireNonNull(url).openStream();
+    var dataSet = new ReplacementDataSet(new FlatXmlDataSetBuilder().build(is));
     dataSet.addReplacementObject("[NULL]", null);
 
     // Daten in Datenbank eintragen

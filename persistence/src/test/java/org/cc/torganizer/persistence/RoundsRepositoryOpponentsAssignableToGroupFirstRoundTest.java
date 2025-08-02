@@ -1,14 +1,11 @@
 package org.cc.torganizer.persistence;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.Collection;
-import java.util.Set;
-import org.cc.torganizer.core.entities.Opponent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class RoundsRepositoryOpponentsAssignableToGroup_FirstRound_Test extends AbstractDbUnitJpaTest {
+import static org.assertj.core.api.Assertions.assertThat;
+
+class RoundsRepositoryOpponentsAssignableToGroupFirstRoundTest extends AbstractDbUnitJpaTest {
 
   private RoundsRepository repository;
 
@@ -20,21 +17,21 @@ class RoundsRepositoryOpponentsAssignableToGroup_FirstRound_Test extends Abstrac
 
   @Test
   void testGetOpponentsAssignableToRound() {
-    Collection<Opponent> opponentsAssignableToRound = repository.getNotAssignedOpponents(1L, 0, 10);
+    var opponentsAssignableToRound = repository.getNotAssignedOpponents(1L, 0, 10);
 
     assertThat(opponentsAssignableToRound).hasSize(1);
   }
 
   @Test
   void testGetOpponentsAssignableToRound_offsetMaxResults() {
-    Collection<Opponent> opponentsAssignableToRound = repository.getNotAssignedOpponents(1L, 0, 0);
+    var opponentsAssignableToRound = repository.getNotAssignedOpponents(1L, 0, 0);
 
     assertThat(opponentsAssignableToRound).isEmpty();
   }
 
   @Test
   void testGetAlreadyAssignedOpponents() {
-    Set<Opponent> alreadyAssignedOpponents = repository.getAssignedOpponents(1L);
+    var alreadyAssignedOpponents = repository.getAssignedOpponents(1L);
 
     assertThat(alreadyAssignedOpponents).hasSize(2);
   }

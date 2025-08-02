@@ -3,11 +3,12 @@ package org.cc.torganizer.persistence;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
-import java.util.List;
-import java.util.logging.Logger;
 import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.Opponent;
 import org.cc.torganizer.core.entities.Round;
+
+import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Accessing the Repository for Disciplines and related entities.
@@ -66,10 +67,10 @@ public class DisciplinesRepository extends Repository<Discipline> {
 
     cq.select(opponent);
     cq.where(
-        cb.and(
-            cb.equal(discipline.get("id"), disciplineId),
-            cb.equal(disciplineOpponentJoin.get("id"), opponent.get("id"))
-        )
+      cb.and(
+        cb.equal(discipline.get("id"), disciplineId),
+        cb.equal(disciplineOpponentJoin.get("id"), opponent.get("id"))
+      )
     );
 
     var query = em.createQuery(cq);
@@ -100,10 +101,10 @@ public class DisciplinesRepository extends Repository<Discipline> {
 
     cq.select(round);
     cq.where(
-        cb.and(
-            cb.equal(discipline.get("id"), disciplineId),
-            cb.equal(disciplineRoundJoin.get("id"), round.get("id"))
-        )
+      cb.and(
+        cb.equal(discipline.get("id"), disciplineId),
+        cb.equal(disciplineRoundJoin.get("id"), round.get("id"))
+      )
     );
 
     var query = em.createQuery(cq);
@@ -145,41 +146,34 @@ public class DisciplinesRepository extends Repository<Discipline> {
    * Getting the Discipline to which the round is related.
    */
   public Long getDisciplineId(Long roundId) {
-    Long disciplineId;
-
     try {
       var query = em.createQuery("SELECT d.id "
-          + "FROM Discipline d, Round r "
-          + "WHERE r.id = :roundId "
-          + "AND r MEMBER OF d.rounds", Long.class);
+        + "FROM Discipline d, Round r "
+        + "WHERE r.id = :roundId "
+        + "AND r MEMBER OF d.rounds", Long.class);
       query.setParameter("roundId", roundId);
-      disciplineId = query.getSingleResult();
+      return query.getSingleResult();
     } catch (NoResultException nrExc) {
       return null;
     }
-
-    return disciplineId;
   }
 
   /**
    * Getting the round with the given position from the discipline with the given id.
    */
   public Round getRoundByPosition(Long disciplineId, Integer position) {
-    Round round;
-
     try {
       var query = em.createQuery("SELECT r "
-          + "FROM Round r, Discipline d "
-          + "WHERE r.position = :position "
-          + "AND d.id = :disciplineId", Round.class);
+        + "FROM Round r, Discipline d "
+        + "WHERE r.position = :position "
+        + "AND d.id = :disciplineId", Round.class);
       query.setParameter("disciplineId", disciplineId);
       query.setParameter("position", position);
-      round = query.getSingleResult();
+
+      return query.getSingleResult();
     } catch (NoResultException nrExc) {
       return null;
     }
-
-    return round;
   }
 
   public long count() {

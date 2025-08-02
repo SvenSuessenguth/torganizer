@@ -1,23 +1,16 @@
 package org.cc.torganizer.persistence;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Stream;
-import org.cc.torganizer.core.entities.AgeRestriction;
-import org.cc.torganizer.core.entities.Discipline;
-import org.cc.torganizer.core.entities.Gender;
-import org.cc.torganizer.core.entities.GenderRestriction;
-import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.OpponentType;
-import org.cc.torganizer.core.entities.OpponentTypeRestriction;
-import org.cc.torganizer.core.entities.Round;
+import org.cc.torganizer.core.entities.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+
+import java.time.LocalDate;
+import java.util.stream.Stream;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
 
@@ -36,7 +29,7 @@ class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
 
   @Test
   void testGetOpponents() {
-    List<Opponent> opponents = repository.getOpponents(1L, null, null);
+    var opponents = repository.getOpponents(1L, null, null);
 
     assertThat(opponents).hasSize(2);
   }
@@ -45,7 +38,7 @@ class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
   void testGetDisciplineId_existing() {
     // testdata:
     // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="3" />
-    Long id = repository.getDisciplineId(3L);
+    var id = repository.getDisciplineId(3L);
 
     assertThat(id).isEqualTo(1L);
   }
@@ -54,7 +47,7 @@ class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
   void testGetRoundId_roundDoesNotExist() {
     // testdata:
     // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="1" />
-    Long id = repository.getDisciplineId(-1L);
+    var id = repository.getDisciplineId(-1L);
 
     assertThat(id).isNull();
   }
@@ -63,7 +56,7 @@ class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
   void testGetRoundByPosition_roundExisting() {
     // testdata:
     // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="1" />
-    Round round = repository.getRoundByPosition(1L, 2);
+    var round = repository.getRoundByPosition(1L, 2);
 
     assertThat(round).isNotNull();
   }
@@ -72,7 +65,7 @@ class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
   void testGetRoundByPosition_roundNotExisting() {
     // testdata:
     // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="1" />
-    Round round = repository.getRoundByPosition(1L, 4);
+    var round = repository.getRoundByPosition(1L, 4);
 
     assertThat(round).isNull();
   }
@@ -81,23 +74,23 @@ class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
   void testGetRoundByPosition_disciplineNotExisting() {
     // testdata:
     // <_DISCIPLINES_ROUNDS _DISCIPLINE_ID="1" _ROUND_ID="1" />
-    Round round = repository.getRoundByPosition(2L, 2);
+    var round = repository.getRoundByPosition(2L, 2);
 
     assertThat(round).isNull();
   }
 
   @Test
   void testCreate() {
-    Discipline discipline = new Discipline();
+    var discipline = new Discipline();
     discipline.setName("test");
 
-    GenderRestriction genderRestriction = new GenderRestriction();
+    var genderRestriction = new GenderRestriction();
     genderRestriction.setGender(Gender.FEMALE);
 
-    OpponentTypeRestriction opponentTypeRestriction = new OpponentTypeRestriction();
+    var opponentTypeRestriction = new OpponentTypeRestriction();
     opponentTypeRestriction.setOpponentType(OpponentType.SQUAD);
 
-    AgeRestriction ageRestriction = new AgeRestriction();
+    var ageRestriction = new AgeRestriction();
     ageRestriction.setMaxDateOfBirth(LocalDate.now());
     ageRestriction.setMinDateOfBirth(LocalDate.now().minusYears(1));
 
@@ -109,9 +102,9 @@ class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
     discipline.addRestriction(opponentTypeRestriction);
     discipline.addRestriction(ageRestriction);
 
-    long countBefore = repository.count();
+    var countBefore = repository.count();
     repository.create(discipline);
-    long countAfter = repository.count();
+    var countAfter = repository.count();
 
     assertThat(countBefore).isEqualTo(countAfter - 1);
     assertThat(discipline.getId()).isNotNull();
@@ -123,10 +116,10 @@ class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
 
   @Test
   void testPersistNewRound() {
-    Discipline discipline = repository.read(1L);
-    int roundsCount = discipline.getRounds().size();
+    var discipline = repository.read(1L);
+    var roundsCount = discipline.getRounds().size();
 
-    Round round = new Round();
+    var round = new Round();
     roundsRepository.create(round);
     discipline.addRound(round);
     repository.update(discipline);
@@ -134,28 +127,28 @@ class DisciplinesRepositoryTest extends AbstractDbUnitJpaTest {
     assertThat(discipline).isNotNull();
     assertThat(round.getId()).isNotNull();
 
-    Discipline discipline2 = repository.read(1L);
-    int roundsCount2 = discipline2.getRounds().size();
+    var discipline2 = repository.read(1L);
+    var roundsCount2 = discipline2.getRounds().size();
 
     assertThat(roundsCount).isLessThan(roundsCount2);
   }
 
   public static Stream<Arguments> getRounds() {
     return Stream.of(
-        Arguments.of(null, null, 3),
-        Arguments.of(null, 10, 3),
-        Arguments.of(0, null, 3),
-        Arguments.of(0, 3, 3),
-        Arguments.of(0, 1, 1),
-        Arguments.of(1, 2, 2),
-        Arguments.of(5, 1, 0)
+      Arguments.of(null, null, 3),
+      Arguments.of(null, 10, 3),
+      Arguments.of(0, null, 3),
+      Arguments.of(0, 3, 3),
+      Arguments.of(0, 1, 1),
+      Arguments.of(1, 2, 2),
+      Arguments.of(5, 1, 0)
     );
   }
 
   @ParameterizedTest
   @MethodSource
   void getRounds(Integer offset, Integer maxResults, Integer count) {
-    List<Round> rounds = repository.getRounds(1L, offset, maxResults);
+    var rounds = repository.getRounds(1L, offset, maxResults);
 
     assertThat(rounds).hasSize(count);
   }

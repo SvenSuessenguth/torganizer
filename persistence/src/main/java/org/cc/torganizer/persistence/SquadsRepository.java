@@ -67,6 +67,7 @@ public class SquadsRepository extends Repository<Squad> {
 
   public long count() {
     var query = em.createQuery("SELECT count(s) FROM Squad s");
+
     return (long) query.getSingleResult();
   }
 

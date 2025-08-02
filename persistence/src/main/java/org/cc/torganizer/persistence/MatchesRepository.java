@@ -43,6 +43,7 @@ public class MatchesRepository extends Repository<Match> {
     var namedQuery = em.createNamedQuery("Match.findAll", Match.class);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
+
     return namedQuery.getResultList();
   }
 

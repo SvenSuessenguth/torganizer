@@ -1,30 +1,17 @@
 package org.cc.torganizer.persistence;
 
-import static jakarta.transaction.Transactional.TxType.NEVER;
-import static jakarta.transaction.Transactional.TxType.REQUIRED;
-import static jakarta.transaction.Transactional.TxType.SUPPORTS;
-
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.Tuple;
-import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
-import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
 import org.cc.torganizer.core.comparators.OpponentByNameComparator;
-import org.cc.torganizer.core.entities.Discipline;
-import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.Player;
-import org.cc.torganizer.core.entities.Restriction;
-import org.cc.torganizer.core.entities.Squad;
-import org.cc.torganizer.core.entities.Tournament;
+import org.cc.torganizer.core.entities.*;
 import org.cc.torganizer.core.filter.OpponentFilter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static jakarta.transaction.Transactional.TxType.*;
 
 /**
  * Accessing the Repository for Tournaments and related entities.
@@ -69,10 +56,10 @@ public class TournamentsRepository extends Repository<Tournament> {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    TypedQuery<Tournament> namedQuery = em.createNamedQuery("Tournament.findAll",
-        Tournament.class);
+    var namedQuery = em.createNamedQuery("Tournament.findAll", Tournament.class);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
+
     return namedQuery.getResultList();
   }
 
@@ -86,13 +73,11 @@ public class TournamentsRepository extends Repository<Tournament> {
    * reading all players from the given tournament.
    */
   @Transactional(NEVER)
-  public List<Player> getPlayers(Long tournamentId, Integer offset,
-                                 Integer maxResults) {
+  public List<Player> getPlayers(Long tournamentId, Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    TypedQuery<Player> namedQuery = em.createNamedQuery("Tournament.findPlayers",
-        Player.class);
+    var namedQuery = em.createNamedQuery("Tournament.findPlayers", Player.class);
     namedQuery.setParameter("id", tournamentId);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
@@ -104,33 +89,32 @@ public class TournamentsRepository extends Repository<Tournament> {
    * Getting the Players (offset to maxResults) of the given tournament ordered by last name.
    */
   @Transactional(NEVER)
-  public List<Player> getPlayersOrderedByLastName(Long tournamentId, Integer offset,
-                                                  Integer maxResults) {
+  public List<Player> getPlayersOrderedByLastName(Long tournamentId, Integer offset, Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
     var cb = em.getCriteriaBuilder();
-    CriteriaQuery<Player> cq = cb.createQuery(Player.class);
-    Root<Tournament> tournament = cq.from(Tournament.class);
-    Root<Player> player = cq.from(Player.class);
-    Join<Tournament, Player> tournamentOpponentJoin = tournament.join("opponents");
+    var cq = cb.createQuery(Player.class);
+    var tournament = cq.from(Tournament.class);
+    var player = cq.from(Player.class);
+    var tournamentOpponentJoin = tournament.join("opponents");
 
     cq.select(player);
     cq.where(
-        cb.and(
-            cb.equal(tournament.get("id"), tournamentId),
-            cb.equal(tournamentOpponentJoin.type(), Player.class),
-            cb.equal(player.get("id"), tournamentOpponentJoin.get("id"))
-        )
+      cb.and(
+        cb.equal(tournament.get("id"), tournamentId),
+        cb.equal(tournamentOpponentJoin.type(), Player.class),
+        cb.equal(player.get("id"), tournamentOpponentJoin.get("id"))
+      )
     );
 
     cq.orderBy(
-        cb.asc(
-            player.get("person").get("lastName")
-        )
+      cb.asc(
+        player.get("person").get("lastName")
+      )
     );
 
-    TypedQuery<Player> query = em.createQuery(cq);
+    var query = em.createQuery(cq);
     query.setFirstResult(offset);
     query.setMaxResults(maxResults);
 
@@ -145,7 +129,7 @@ public class TournamentsRepository extends Repository<Tournament> {
     var opponent = em.find(Opponent.class, opponentId);
     var tournament = em.find(Tournament.class, tournamentId);
 
-    Set<Opponent> opponents = tournament.getOpponents();
+    var opponents = tournament.getOpponents();
     opponents.add(opponent);
     em.persist(tournament);
     // to get the id
@@ -211,12 +195,12 @@ public class TournamentsRepository extends Repository<Tournament> {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    TypedQuery<Squad> namedQuery = em.createNamedQuery("Tournament.findSquads",
-        Squad.class);
+    var namedQuery = em.createNamedQuery("Tournament.findSquads", Squad.class);
     namedQuery.setParameter("id", tournamentId);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
-    List<Squad> squads = namedQuery.getResultList();
+
+    var squads = namedQuery.getResultList();
     squads.sort(new OpponentByNameComparator());
 
     return squads;
@@ -248,8 +232,7 @@ public class TournamentsRepository extends Repository<Tournament> {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-    TypedQuery<Discipline> namedQuery = em.createNamedQuery(
-        "Tournament.findDisciplines", Discipline.class);
+    var namedQuery = em.createNamedQuery("Tournament.findDisciplines", Discipline.class);
     namedQuery.setParameter("id", tournamentId);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
@@ -273,22 +256,20 @@ public class TournamentsRepository extends Repository<Tournament> {
    * Getting the opponents, which can be assigned to a discipline.
    */
   @Transactional(NEVER)
-  public List<Opponent> getAssignableOpponentsForDiscipline(Long tournamentId,
-                                                            Discipline discipline,
-                                                            Integer offset,
+  public List<Opponent> getAssignableOpponentsForDiscipline(Long tournamentId, Discipline discipline, Integer offset,
                                                             Integer maxResults) {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
     // load tournaments opponents
     var tournament = em.find(Tournament.class, tournamentId);
-    Set<Opponent> opponents = tournament.getOpponents();
+    var opponents = tournament.getOpponents();
 
     // filter opponents
     var opponentFilter = new OpponentFilter();
-    Collection<Restriction> restrictions = discipline.getRestrictions();
-    Collection<Opponent> pass = opponentFilter.pass(opponents, restrictions);
-    List<Opponent> assignableOpponents = new ArrayList<>(pass);
+    var restrictions = discipline.getRestrictions();
+    var pass = opponentFilter.pass(opponents, restrictions);
+    var assignableOpponents = new ArrayList<>(pass);
 
     // sort and use offset/length
     assignableOpponents.sort(new OpponentByNameComparator());
@@ -311,13 +292,14 @@ public class TournamentsRepository extends Repository<Tournament> {
   @SuppressWarnings("unused")
   public Long countOpponents(Long id) {
     var cb = em.getCriteriaBuilder();
-    CriteriaQuery<Tuple> cq = cb.createTupleQuery();
-    Root<Tournament> tournament = cq.from(Tournament.class);
-    Join<Tournament, Opponent> tournamentOpponentJoin = tournament.join("opponents", JoinType.LEFT);
+    var cq = cb.createTupleQuery();
+    var tournament = cq.from(Tournament.class);
+    var tournamentOpponentJoin = tournament.join("opponents", JoinType.LEFT);
     cq.select(cb.tuple(tournament, cb.count(tournamentOpponentJoin)));
     cq.where(cb.equal(tournament.get("id"), id));
 
-    List<Tuple> result = em.createQuery(cq).getResultList();
+    var result = em.createQuery(cq).getResultList();
+
     return (Long) result.getFirst().get(1);
   }
 }

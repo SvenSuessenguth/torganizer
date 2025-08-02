@@ -1,12 +1,10 @@
 package org.cc.torganizer.persistence;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
-import org.cc.torganizer.core.entities.Match;
 import org.cc.torganizer.core.entities.Tournament;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class MatchesRepositoryTest extends AbstractDbUnitJpaTest {
 
@@ -20,37 +18,37 @@ class MatchesRepositoryTest extends AbstractDbUnitJpaTest {
 
   @Test
   void read_existing() {
-    Match match = repository.read(1L);
+    var match = repository.read(1L);
     assertThat(match).isNotNull();
   }
 
   @Test
   void read_notExisting() {
-    Match match = repository.read(999L);
+    var match = repository.read(999L);
     assertThat(match).isNull();
   }
 
   @Test
   void read_inRange() {
-    List<Match> matches = repository.read(0, 10);
+    var matches = repository.read(0, 10);
     assertThat(matches).hasSize(2);
   }
 
   @Test
   void read_outRange() {
-    List<Match> matches = repository.read(10, 10);
+    var matches = repository.read(10, 10);
     assertThat(matches).isEmpty();
   }
 
   @Test
   void read_defaultRange() {
-    List<Match> matches = repository.read(null, null);
+    var matches = repository.read(null, null);
     assertThat(matches).hasSize(2);
   }
 
   @Test
   void count() {
-    long count = repository.count();
+    var count = repository.count();
     assertThat(count).isEqualTo(2);
   }
 
@@ -77,5 +75,4 @@ class MatchesRepositoryTest extends AbstractDbUnitJpaTest {
     var finishedMatches = repository.getFinishedMatches(new Tournament(2L));
     assertThat(finishedMatches).isEmpty();
   }
-
 }

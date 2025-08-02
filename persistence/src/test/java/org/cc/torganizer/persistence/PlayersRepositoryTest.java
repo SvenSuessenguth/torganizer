@@ -1,13 +1,10 @@
 package org.cc.torganizer.persistence;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.cc.torganizer.core.entities.Status.INACTIVE;
-
-import java.util.List;
-import org.cc.torganizer.core.entities.Club;
-import org.cc.torganizer.core.entities.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.cc.torganizer.core.entities.Status.INACTIVE;
 
 class PlayersRepositoryTest extends AbstractDbUnitJpaTest {
 
@@ -23,7 +20,7 @@ class PlayersRepositoryTest extends AbstractDbUnitJpaTest {
   @Test
   void testGetPlayers() {
 
-    List<Player> players = repository.read(null, null);
+    var players = repository.read(null, null);
 
     assertThat(players).hasSize(2);
     // status von opponent 2 checken (inactive)
@@ -33,7 +30,7 @@ class PlayersRepositoryTest extends AbstractDbUnitJpaTest {
   @Test
   void testGetPlayer() {
 
-    Player player = repository.read(2L);
+    var player = repository.read(2L);
 
     assertThat(player).isNotNull();
     assertThat(player.getPerson().getFirstName()).isEqualTo("Üöä");
@@ -42,16 +39,16 @@ class PlayersRepositoryTest extends AbstractDbUnitJpaTest {
 
   @Test
   void testPlayersClubIsNotNull() {
-    Player player = repository.read(1L);
-    Club club = player.getClub();
+    var player = repository.read(1L);
+    var club = player.getClub();
 
     assertThat(club).isNotNull();
   }
 
   @Test
   void testPlayersClubIsNull() {
-    Player player = repository.read(2L);
-    Club club = player.getClub();
+    var player = repository.read(2L);
+    var club = player.getClub();
 
     assertThat(club).isNull();
   }

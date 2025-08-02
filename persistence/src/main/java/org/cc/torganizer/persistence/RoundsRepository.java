@@ -178,19 +178,16 @@ public class RoundsRepository extends Repository<Round> {
    * Getting the id of the round, to which the group with the given id is related.
    */
   public Long getRoundId(Long groupId) {
-    Long roundId;
-
     try {
       var query = em.createQuery("SELECT r.id FROM Round r, Group g "
           + "WHERE g.id = :groupId "
           + "AND g MEMBER OF r.groups", Long.class);
       query.setParameter("groupId", groupId);
-      roundId = query.getSingleResult();
+
+      return query.getSingleResult();
     } catch (NoResultException nrExc) {
       return null;
     }
-
-    return roundId;
   }
 
   /**
@@ -198,8 +195,6 @@ public class RoundsRepository extends Repository<Round> {
    * and has the given position.
    */
   public Long getRoundId(Long disciplineId, Integer roundPosition) {
-    Long roundId;
-
     try {
       var query = em.createQuery("SELECT r.id FROM Round r, Discipline d "
           + "WHERE d.id = :disciplineId "
@@ -207,12 +202,10 @@ public class RoundsRepository extends Repository<Round> {
           + "AND r.position = :roundPosition", Long.class);
       query.setParameter("disciplineId", disciplineId);
       query.setParameter("roundPosition", roundPosition);
-      roundId = query.getSingleResult();
+      return query.getSingleResult();
     } catch (NoResultException nrExc) {
       return null;
     }
-
-    return roundId;
   }
 
   /**
@@ -222,6 +215,7 @@ public class RoundsRepository extends Repository<Round> {
     var roundPosition = getPosition(roundId);
     var prevRoundPosition = roundPosition - 1;
     var disciplineId = disciplineRepo.getDisciplineId(roundId);
+
     return getRoundId(disciplineId, prevRoundPosition);
   }
 
@@ -233,6 +227,7 @@ public class RoundsRepository extends Repository<Round> {
       var query = em.createQuery("SELECT r.position FROM Round r "
           + "WHERE r.id = :roundId", Integer.class);
       query.setParameter("roundId", roundId);
+
       return query.getSingleResult();
     } catch (NoResultException nrExc) {
       return null;

@@ -1,11 +1,10 @@
 package org.cc.torganizer.persistence;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
 import org.cc.torganizer.core.entities.Result;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ResultsJpaTest extends AbstractDbUnitJpaTest {
 
@@ -16,7 +15,7 @@ class ResultsJpaTest extends AbstractDbUnitJpaTest {
 
   @Test
   void testFindAll() {
-    List<Result> results = entityManager.createNamedQuery("Result.findAll", Result.class).getResultList();
+    var results = entityManager.createNamedQuery("Result.findAll", Result.class).getResultList();
     assertThat(results).hasSize(3);
   }
 }

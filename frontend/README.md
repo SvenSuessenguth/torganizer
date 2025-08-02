@@ -1,7 +1,7 @@
 # frontend
 
 Start coding
-mvn liberty:create liberty:install-features
+mvn liberty:create
 
 Running Liberty  
 mvn clean package dependency:copy liberty:run

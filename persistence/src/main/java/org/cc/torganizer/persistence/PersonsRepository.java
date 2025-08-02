@@ -2,10 +2,10 @@ package org.cc.torganizer.persistence;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
-import java.util.List;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Person;
+
+import java.util.List;
 
 /**
  * Accessing the Repository for Persons and related entities.
@@ -41,11 +41,10 @@ public class PersonsRepository extends Repository<Person> {
     offset = offset == null ? DEFAULT_OFFSET : offset;
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
-
-    TypedQuery<Person> namedQuery = em.createNamedQuery("Person.findAll",
-        Person.class);
+    var namedQuery = em.createNamedQuery("Person.findAll", Person.class);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
+
     return namedQuery.getResultList();
   }
 
@@ -57,8 +56,7 @@ public class PersonsRepository extends Repository<Person> {
     maxResults = maxResults == null ? DEFAULT_MAX_RESULTS : maxResults;
 
 
-    TypedQuery<Person> namedQuery = em.createNamedQuery("Person.findByGender",
-        Person.class);
+    var namedQuery = em.createNamedQuery("Person.findByGender", Person.class);
     namedQuery.setFirstResult(offset);
     namedQuery.setMaxResults(maxResults);
     namedQuery.setParameter("gender", gender);
@@ -68,6 +66,7 @@ public class PersonsRepository extends Repository<Person> {
 
   public long count() {
     var query = em.createQuery("SELECT count(p) FROM Person p");
+
     return (long) query.getSingleResult();
   }
 }

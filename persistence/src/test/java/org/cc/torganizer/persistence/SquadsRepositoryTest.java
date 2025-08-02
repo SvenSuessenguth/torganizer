@@ -1,15 +1,14 @@
 package org.cc.torganizer.persistence;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import jakarta.persistence.TypedQuery;
-import java.util.ArrayList;
-import java.util.List;
 import org.cc.torganizer.core.comparators.OpponentByNameComparator;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Squad;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class SquadsRepositoryTest extends AbstractDbUnitJpaTest {
 
@@ -24,16 +23,16 @@ class SquadsRepositoryTest extends AbstractDbUnitJpaTest {
 
   @Test
   void testCreate() {
-    long countBefore = repository.count();
+    var countBefore = repository.count();
 
-    Squad squad = new Squad();
+    var squad = new Squad();
     squad = repository.create(squad);
-    Long squadId = squad.getId();
+    var squadId = squad.getId();
 
     repository.addPlayer(squadId, 1L);
     repository.addPlayer(squadId, 2L);
 
-    long countAfter = repository.count();
+    var countAfter = repository.count();
 
     assertThat(countAfter).isEqualTo(countBefore + 1L);
     assertThat(squadId).isNotNull();
@@ -46,18 +45,18 @@ class SquadsRepositoryTest extends AbstractDbUnitJpaTest {
     // dem bestehenden Squad 5 hinzugefügt werdem
     // <_SQUAD_PLAYERS _SQUAD_ID="5" _PLAYER_ID="2" />
     repository.addPlayer(5L, 2L);
-    Squad squad = repository.read(5L);
+    var squad = repository.read(5L);
 
     assertThat(squad.getPlayers()).hasSize(2);
   }
 
   @Test
   void testReadOrderdByLastName_0() {
-    List<Squad> squads = repository.readOrderByLastName(0, 1);
+    var squads = repository.readOrderByLastName(0, 1);
 
     assertThat(squads).hasSize(1);
-    Squad s = squads.getFirst();
-    List<Player> players = new ArrayList<>(s.getPlayers());
+    var s = squads.getFirst();
+    var players = new ArrayList<>(s.getPlayers());
     players.sort(new OpponentByNameComparator());
 
     assertThat(players.getFirst().getPerson().getLastName()).isEqualTo("Meier");
@@ -65,11 +64,11 @@ class SquadsRepositoryTest extends AbstractDbUnitJpaTest {
 
   @Test
   void testReadOrderdByLastName_1() {
-    List<Squad> squads = repository.readOrderByLastName(1, 1);
+    var squads = repository.readOrderByLastName(1, 1);
 
     assertThat(squads).hasSize(1);
-    Squad s = squads.getFirst();
-    List<Player> players = new ArrayList<>(s.getPlayers());
+    var s = squads.getFirst();
+    var players = new ArrayList<>(s.getPlayers());
     players.sort(new OpponentByNameComparator());
 
     assertThat(players.getFirst().getPerson().getLastName()).isEqualTo("nn3");
@@ -77,14 +76,14 @@ class SquadsRepositoryTest extends AbstractDbUnitJpaTest {
 
   @Test
   void testFindAll() {
-    List<Squad> squads = entityManager.createNamedQuery("Squad.findAll", Squad.class)
-        .getResultList();
+    var squads = entityManager.createNamedQuery("Squad.findAll", Squad.class)
+      .getResultList();
     assertThat(squads).hasSize(2);
   }
 
   @Test
   void testById_notExisting() {
-    Squad squad = repository.read(-1L);
+    var squad = repository.read(-1L);
     assertThat(squad).isNull();
   }
 
@@ -98,9 +97,9 @@ class SquadsRepositoryTest extends AbstractDbUnitJpaTest {
 
   @Test
   void testFindPlayers() {
-    TypedQuery<Player> query = entityManager.createNamedQuery("Squad.findPlayers", Player.class);
+    var query = entityManager.createNamedQuery("Squad.findPlayers", Player.class);
     query.setParameter("id", 5L);
-    List<Player> players = query.getResultList();
+    var players = query.getResultList();
 
     assertThat(players).hasSize(1);
   }

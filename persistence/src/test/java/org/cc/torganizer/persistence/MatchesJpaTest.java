@@ -1,8 +1,9 @@
 package org.cc.torganizer.persistence;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class MatchesJpaTest extends AbstractDbUnitJpaTest {
 
@@ -17,9 +18,9 @@ class MatchesJpaTest extends AbstractDbUnitJpaTest {
 
   @Test
   void testCount() {
-    Long countExpected = 2L;
-    Long countActual = repository.count();
+    var countExpected = 2L;
+    var countActual = repository.count();
 
-    Assertions.assertThat(countActual).isEqualTo(countExpected);
+    assertThat(countActual).isEqualTo(countExpected);
   }
 }

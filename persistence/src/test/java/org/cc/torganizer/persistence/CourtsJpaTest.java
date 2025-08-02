@@ -1,11 +1,10 @@
 package org.cc.torganizer.persistence;
 
-import jakarta.persistence.TypedQuery;
-import java.util.List;
-import org.assertj.core.api.Assertions;
 import org.cc.torganizer.core.entities.Court;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class CourtsJpaTest extends AbstractDbUnitJpaTest {
 
@@ -16,9 +15,9 @@ class CourtsJpaTest extends AbstractDbUnitJpaTest {
 
   @Test
   void testFindAll() {
-    TypedQuery<Court> namedQuery = entityManager.createNamedQuery("Court.findAll", Court.class);
+    var namedQuery = entityManager.createNamedQuery("Court.findAll", Court.class);
 
-    List<Court> allCourts = namedQuery.getResultList();
-    Assertions.assertThat(allCourts).hasSize(2);
+    var allCourts = namedQuery.getResultList();
+    assertThat(allCourts).hasSize(2);
   }
 }
