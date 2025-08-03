@@ -1,5 +1,11 @@
 package org.cc.torganizer.core.entities;
 
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
+
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -8,20 +14,14 @@ import static org.cc.torganizer.core.entities.Gender.MALE;
 import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-import java.text.ParseException;
-import java.util.stream.Stream;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
-
 class GenderRestrictionTest {
 
-  static Stream<Arguments> playerProvider() throws ParseException {
+  static Stream<Arguments> playerProvider() {
     return Stream.of(
-        arguments(new GenderRestriction(MALE), newPlayerWithGender(MALE), FALSE),
-        arguments(new GenderRestriction(FEMALE), newPlayerWithGender(MALE), TRUE),
-        arguments(new GenderRestriction(MALE), newPlayerWithGender(null), FALSE),
-        arguments(new GenderRestriction(MALE), newPlayerWithGender(UNKNOWN), FALSE)
+      arguments(new GenderRestriction(MALE), newPlayerWithGender(MALE), FALSE),
+      arguments(new GenderRestriction(FEMALE), newPlayerWithGender(MALE), TRUE),
+      arguments(new GenderRestriction(MALE), newPlayerWithGender(null), FALSE),
+      arguments(new GenderRestriction(MALE), newPlayerWithGender(UNKNOWN), FALSE)
     );
   }
 

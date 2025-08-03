@@ -38,15 +38,15 @@ class PlayerByClubComparatorTest {
   }
 
   static Player newPlayerWithClub(String clubName) {
-    Player player = new Player("firstName", "lastName");
-    Club club = new Club(clubName);
+    var player = new Player("firstName", "lastName");
+    var club = new Club(clubName);
     player.setClub(club);
 
     return player;
   }
 
   @BeforeEach
-  public void beforeEach() {
+  void beforeEach() {
     comparator = new PlayerByClubComparator();
   }
 

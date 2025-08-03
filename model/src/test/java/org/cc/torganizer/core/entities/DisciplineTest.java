@@ -4,6 +4,7 @@ import org.cc.torganizer.core.exceptions.RestrictionException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static java.time.LocalDate.of;
@@ -14,6 +15,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.cc.torganizer.core.entities.Gender.FEMALE;
 import static org.cc.torganizer.core.entities.Gender.MALE;
 import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
+import static org.cc.torganizer.core.entities.OpponentType.UNKNOWN;
 import static org.cc.torganizer.core.entities.Restriction.Discriminator.AGE_RESTRICTION;
 import static org.cc.torganizer.core.entities.Restriction.Discriminator.GENDER_RESTRICTION;
 import static org.cc.torganizer.core.entities.Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION;
@@ -63,12 +65,13 @@ class DisciplineTest {
   @SuppressWarnings({"rawtypes", "unchecked"})
   @Test
   void testGetRestrictions_order() {
-    var discipline = new Discipline();
-    discipline.addRestriction(new OpponentTypeRestriction());
-    discipline.addRestriction(new AgeRestriction());
-    discipline.addRestriction(new GenderRestriction());
+    // test ordering, so a test-local discipline is used
+    var localDiscipline = new Discipline();
+    localDiscipline.addRestriction(new OpponentTypeRestriction());
+    localDiscipline.addRestriction(new AgeRestriction());
+    localDiscipline.addRestriction(new GenderRestriction());
 
-    var restrictions = new ArrayList(discipline.getRestrictions());
+    var restrictions = new ArrayList(localDiscipline.getRestrictions());
     assertThat(restrictions.getFirst()).isInstanceOf(AgeRestriction.class);
     assertThat(restrictions.get(1)).isInstanceOf(GenderRestriction.class);
     assertThat(restrictions.get(2)).isInstanceOf(OpponentTypeRestriction.class);
@@ -77,7 +80,6 @@ class DisciplineTest {
   @Test
   void testSetRounds_empty() {
     var rounds = new ArrayList<Round>();
-    var discipline = new Discipline();
     discipline.addRound(new Round());
     discipline.setRounds(rounds);
 
@@ -86,7 +88,6 @@ class DisciplineTest {
 
   @Test
   void testSetRounds_null() {
-    var discipline = new Discipline();
     discipline.setRounds(null);
 
     assertThat(discipline.getRounds()).isNotNull();
@@ -96,7 +97,6 @@ class DisciplineTest {
   void testSetRounds_some() {
     var rounds = new ArrayList<Round>();
     rounds.add(new Round());
-    var discipline = new Discipline();
     discipline.setRounds(rounds);
 
     assertThat(discipline.getRounds()).hasSize(1);
@@ -140,13 +140,28 @@ class DisciplineTest {
 
   @Test
   void getPlayers() {
-    var discipline = new Discipline();
+    discipline.addRestriction(new OpponentTypeRestriction(UNKNOWN));
 
     var squad = new Squad();
-    squad.addPlayer(new Player(new Person("1", "1")));
-    squad.addPlayer(new Player(new Person("2", "2")));
+    var p1 = Person.builder()
+      .firstName("p1")
+      .dateOfBirth(LocalDate.of(1968, JANUARY, 12 ))
+      .gender(MALE)
+      .build();
+    var p2 = Person.builder()
+      .firstName("p2")
+      .dateOfBirth(LocalDate.of(1968, JANUARY, 12 ))
+      .gender(MALE)
+      .build();
+    var p3 = Person.builder()
+      .firstName("p3")
+      .dateOfBirth(LocalDate.of(1968, JANUARY, 12 ))
+      .gender(MALE)
+      .build();
+    squad.addPlayer(new Player(p1));
+    squad.addPlayer(new Player(p2));
     discipline.addOpponent(squad);
-    discipline.addOpponent(new Player(new Person()));
+    discipline.addOpponent(new Player(p3));
 
     assertThat(discipline.getPlayers()).hasSize(3);
   }
@@ -159,7 +174,6 @@ class DisciplineTest {
 
   @Test
   void getCurrentRound_emptyRound() {
-    var discipline = new Discipline();
     discipline.addRound(new Round());
     var currentRound = discipline.getCurrentRound();
     assertThat(currentRound).isEmpty();
@@ -167,7 +181,6 @@ class DisciplineTest {
 
   @Test
   void getCurrentRound_emptyGrooup() {
-    var discipline = new Discipline();
     var round = new Round();
     var group = new Group();
     round.appendGroup(group);
@@ -179,7 +192,6 @@ class DisciplineTest {
 
   @Test
   void getCurrentRound() {
-    var discipline = new Discipline();
     var round = new Round();
     var group = new Group();
     group.addOpponent(new Player());

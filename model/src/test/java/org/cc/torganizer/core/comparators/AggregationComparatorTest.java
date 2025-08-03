@@ -18,7 +18,7 @@ class AggregationComparatorTest {
   private AggregationComparator comparator;
 
   @BeforeEach
-  public void before() {
+  void before() {
     comparator = new AggregationComparator();
   }
 

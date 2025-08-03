@@ -54,7 +54,7 @@ class OpponentFilterTest {
   }
 
   @BeforeEach
-  public void beforeEach() {
+  void beforeEach() {
     filter = new OpponentFilter();
   }
 

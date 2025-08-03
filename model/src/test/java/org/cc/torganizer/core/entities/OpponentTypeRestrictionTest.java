@@ -1,18 +1,18 @@
 package org.cc.torganizer.core.entities;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.cc.torganizer.core.entities.OpponentType.PLAYER;
 import static org.cc.torganizer.core.entities.OpponentType.TEAM;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 class OpponentTypeRestrictionTest {
 
   private OpponentTypeRestriction restriction;
 
   @BeforeEach
-  public void beforeEach() {
+  void beforeEach() {
     restriction = new OpponentTypeRestriction();
   }
 
@@ -26,7 +26,7 @@ class OpponentTypeRestrictionTest {
   @Test
   void isRestricted_true() {
     restriction.setOpponentType(TEAM);
-    Opponent opponent = new Player();
+    var opponent = new Player();
     boolean actual = restriction.isRestricted(opponent);
 
     assertThat(actual).isTrue();
@@ -35,8 +35,8 @@ class OpponentTypeRestrictionTest {
   @Test
   void isRestricted_false() {
     restriction.setOpponentType(PLAYER);
-    Opponent opponent = new Player();
-    boolean actual = restriction.isRestricted(opponent);
+    var opponent = new Player();
+    var actual = restriction.isRestricted(opponent);
 
     assertThat(actual).isFalse();
   }

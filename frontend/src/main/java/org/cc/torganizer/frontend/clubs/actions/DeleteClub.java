@@ -25,7 +25,7 @@ public class DeleteClub extends ClubsAction {
 
     if (clubsPlayers > 0) {
       appMessages.addMessage(CLUBS_I18N_BASE_NAME, "no_delete_linked_players",
-          new Object[]{current.getName()});
+        new Object[]{current.getName()});
     } else {
       clubsRepository.delete(id);
       synchronizer.synchronize(state);

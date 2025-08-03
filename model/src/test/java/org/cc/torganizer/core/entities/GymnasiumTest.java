@@ -1,16 +1,17 @@
 package org.cc.torganizer.core.entities;
 
-import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 class GymnasiumTest {
 
   private Gymnasium gymnasium;
 
   @BeforeEach
-  public void beforeEach() {
+  void beforeEach() {
     gymnasium = new Gymnasium();
   }
 

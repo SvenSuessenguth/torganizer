@@ -16,7 +16,7 @@ class GroupsRepositoryTest extends AbstractDbUnitJpaTest {
   private GroupsRepository repository;
 
   @BeforeEach
-  public void beforeAll() throws Exception {
+  void beforeAll() throws Exception {
     super.initDatabase("test-data-groups.xml");
     repository = new GroupsRepository(entityManager);
   }

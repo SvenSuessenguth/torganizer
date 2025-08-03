@@ -1,13 +1,6 @@
 package org.cc.torganizer.core;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
-
 import jakarta.enterprise.inject.Instance;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
 import org.cc.torganizer.core.doubleelimination.DoubleEliminationMatchDetector;
 import org.cc.torganizer.core.entities.System;
 import org.cc.torganizer.core.roundrobin.RoundRobinMatchDetector;
@@ -19,6 +12,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
+
 @ExtendWith(MockitoExtension.class)
 class PendingMatchDetectorFactoryTest {
 
@@ -29,14 +28,14 @@ class PendingMatchDetectorFactoryTest {
   private PendingMatchDetectorFactory factory;
 
   @BeforeEach
-  public void beforeEach() {
-    List<PendingMatchDetector> list = Arrays.asList(
-        new DoubleEliminationMatchDetector(),
-        new SingleEliminationMatchDetector(),
-        new RoundRobinMatchDetector()
+  void beforeEach() {
+    var list = Arrays.asList(
+      new DoubleEliminationMatchDetector(),
+      new SingleEliminationMatchDetector(),
+      new RoundRobinMatchDetector()
     );
 
-    Iterator<PendingMatchDetector> iterator = list.iterator();
+    var iterator = list.iterator();
     when(detectors.iterator()).thenReturn(iterator);
   }
 
@@ -47,7 +46,7 @@ class PendingMatchDetectorFactoryTest {
 
   @Test
   void testGetMatchMakerExisting() {
-    PendingMatchDetector pmd = factory.getPendingMatchDetector(System.ROUND_ROBIN);
+    var pmd = factory.getPendingMatchDetector(System.ROUND_ROBIN);
     assertThat(pmd).isNotNull();
   }
 }

@@ -18,7 +18,7 @@ class OpponentByClubComparatorTest {
   private OpponentsByClubComparator comparator;
 
   @BeforeEach
-  public void before() {
+  void before() {
     comparator = new OpponentsByClubComparator();
   }
 
@@ -41,15 +41,15 @@ class OpponentByClubComparatorTest {
 
   // pwc = player with club
   private static Player pwc(Club club) {
-    Player player = new Player(new Person());
+    var player = new Player(new Person());
     player.setClub(club);
     return player;
   }
 
   // swp = squad with players
   private static Squad swp(Player... players) {
-    Squad squad = new Squad();
-    for (Player player : players) {
+    var squad = new Squad();
+    for (var player : players) {
       squad.addPlayer(player);
     }
     return squad;

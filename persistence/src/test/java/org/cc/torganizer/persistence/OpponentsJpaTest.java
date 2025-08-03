@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class OpponentsJpaTest extends AbstractDbUnitJpaTest {
 
   @BeforeEach
-  public void beforeAll() throws Exception {
+  void beforeAll() throws Exception {
     super.initDatabase("test-data-opponents.xml");
   }
 

@@ -33,7 +33,7 @@ class GenderJsfConverterTest {
   }
 
   @BeforeEach
-  public void beforeEach() {
+  void beforeEach() {
     converter = new GenderJsfConverter();
   }
 

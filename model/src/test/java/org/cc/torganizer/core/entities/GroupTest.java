@@ -1,13 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 import org.cc.torganizer.core.entities.aggregates.Aggregation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,12 +7,21 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 class GroupTest {
 
   private Group group;
 
   @BeforeEach
-  public void beforeEach() {
+  void beforeEach() {
     group = new Group();
   }
 
@@ -139,10 +140,10 @@ class GroupTest {
   @SuppressWarnings("unused")
   public static Stream<Arguments> getFinishedMatches() {
     return Stream.of(
-        Arguments.of(null, 0),
-        Arguments.of(List.of(), 0),
-        Arguments.of(List.of(runningMatch(), idleMatch()), 0),
-        Arguments.of(List.of(finishedMatch(), finishedMatch(), runningMatch(), idleMatch(), finishedMatch()), 3)
+      Arguments.of(null, 0),
+      Arguments.of(List.of(), 0),
+      Arguments.of(List.of(runningMatch(), idleMatch()), 0),
+      Arguments.of(List.of(finishedMatch(), finishedMatch(), runningMatch(), idleMatch(), finishedMatch()), 3)
     );
   }
 
@@ -160,10 +161,10 @@ class GroupTest {
   @SuppressWarnings("unused")
   public static Stream<Arguments> getRunningMatches() {
     return Stream.of(
-        Arguments.of(null, 0),
-        Arguments.of(List.of(), 0),
-        Arguments.of(List.of(runningMatch(), idleMatch()), 1),
-        Arguments.of(List.of(finishedMatch(), finishedMatch(), runningMatch(), idleMatch(), finishedMatch()), 1)
+      Arguments.of(null, 0),
+      Arguments.of(List.of(), 0),
+      Arguments.of(List.of(runningMatch(), idleMatch()), 1),
+      Arguments.of(List.of(finishedMatch(), finishedMatch(), runningMatch(), idleMatch(), finishedMatch()), 1)
     );
   }
 
@@ -180,12 +181,12 @@ class GroupTest {
 
   public static Stream<Arguments> getMatch() {
     return Stream.of(
-        Arguments.of(List.of(finishedMatch(), finishedMatch(), runningMatch(), idleMatch(), finishedMatch()), 0, true),
-        Arguments.of(List.of(finishedMatch(), finishedMatch(), runningMatch(), idleMatch(), finishedMatch()), 4, true),
-        Arguments.of(List.of(finishedMatch(), finishedMatch(), runningMatch(), idleMatch(), finishedMatch()), 6, false),
-        Arguments.of(List.of(finishedMatch(), finishedMatch(), runningMatch(), idleMatch(), finishedMatch()), -1, false),
-        Arguments.of(List.of(), 0, false),
-        Arguments.of(null, 0, false)
+      Arguments.of(List.of(finishedMatch(), finishedMatch(), runningMatch(), idleMatch(), finishedMatch()), 0, true),
+      Arguments.of(List.of(finishedMatch(), finishedMatch(), runningMatch(), idleMatch(), finishedMatch()), 4, true),
+      Arguments.of(List.of(finishedMatch(), finishedMatch(), runningMatch(), idleMatch(), finishedMatch()), 6, false),
+      Arguments.of(List.of(finishedMatch(), finishedMatch(), runningMatch(), idleMatch(), finishedMatch()), -1, false),
+      Arguments.of(List.of(), 0, false),
+      Arguments.of(null, 0, false)
 
     );
   }
@@ -195,7 +196,7 @@ class GroupTest {
   void getMatch(List<Match> matches, int position, boolean matchFound) {
     if (matches != null) {
       IntStream.range(0, matches.size())
-          .forEach(idx -> matches.get(idx).setPosition(idx));
+        .forEach(idx -> matches.get(idx).setPosition(idx));
     }
     Group g = new Group();
     g.setMatches(matches);

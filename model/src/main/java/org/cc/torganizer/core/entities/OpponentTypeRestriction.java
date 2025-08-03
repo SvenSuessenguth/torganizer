@@ -24,6 +24,9 @@ public class OpponentTypeRestriction extends Restriction {
     if (opponent == null) {
       return true;
     }
+    if (opponentType == OpponentType.UNKNOWN) {
+      return false;
+    }
 
     var ot = opponent.getOpponentType();
     return opponentType != ot;

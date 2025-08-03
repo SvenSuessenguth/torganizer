@@ -12,7 +12,7 @@ class ChunkTest {
   private Chunk<String> chunk;
 
   @BeforeEach
-  public void beforeEach() {
+  void beforeEach() {
     chunk = new Chunk<>();
   }
 

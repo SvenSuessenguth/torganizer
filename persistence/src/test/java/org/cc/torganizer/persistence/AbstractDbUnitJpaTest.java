@@ -31,11 +31,11 @@ import java.util.Objects;
 public abstract class AbstractDbUnitJpaTest {
 
   // dynamic port for Postgresql-Testcontainer to run tests in parallel on Jenkins
-  private static final Integer postgresqlPort;
+  private static final Integer POSTGRESQL_PORT;
 
   static {
     var portProp = System.getProperty("postgresql.port");
-    postgresqlPort = portProp.isEmpty() ? 5432 : Integer.parseInt(portProp);
+    POSTGRESQL_PORT = portProp.isEmpty() ? 5432 : Integer.parseInt(portProp);
   }
 
   private EntityManagerFactory entityManagerFactory;
@@ -48,9 +48,9 @@ public abstract class AbstractDbUnitJpaTest {
     .withDatabaseName("torganizer")
     .withUsername("postgres")
     .withPassword("postgres")
-    .withExposedPorts(Integer.valueOf(postgresqlPort))
+    .withExposedPorts(Integer.valueOf(POSTGRESQL_PORT))
     .withCreateContainerCmdModifier(cmd -> cmd.withHostConfig(
-      new HostConfig().withPortBindings(new PortBinding(Ports.Binding.bindPort(postgresqlPort), new ExposedPort(5432)))
+      new HostConfig().withPortBindings(new PortBinding(Ports.Binding.bindPort(POSTGRESQL_PORT), new ExposedPort(5432)))
     ));
 
   @BeforeEach
@@ -58,7 +58,7 @@ public abstract class AbstractDbUnitJpaTest {
     // overriding defaults from persistence.xml
     // see https://www.generacodice.com/en/articolo/1290009/Read-Environment-Variables-in-persistence.xml-file
     var configOverrides = new HashMap<String, Object>();
-    configOverrides.put("jakarta.persistence.jdbc.url", "jdbc:postgresql://localhost:" + postgresqlPort + "/torganizer");
+    configOverrides.put("jakarta.persistence.jdbc.url", "jdbc:postgresql://localhost:" + POSTGRESQL_PORT + "/torganizer");
 
     // Get the entity manager for the tests.
     entityManagerFactory = Persistence.createEntityManagerFactory("testcontainersPU", configOverrides);

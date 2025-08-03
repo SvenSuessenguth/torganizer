@@ -16,7 +16,7 @@ class DisciplinesRoundBackingTest {
   private DisciplinesRoundBacking backing;
 
   @BeforeEach
-  public void beforeEach() {
+  void beforeEach() {
     backing = new DisciplinesRoundBacking();
   }
 

@@ -11,7 +11,7 @@ class PlayersRepositoryTest extends AbstractDbUnitJpaTest {
   private PlayersRepository repository;
 
   @BeforeEach
-  public void beforeAll() throws Exception {
+  void beforeAll() throws Exception {
     super.initDatabase("test-data-players.xml");
 
     repository = new PlayersRepository(entityManager);
@@ -24,7 +24,7 @@ class PlayersRepositoryTest extends AbstractDbUnitJpaTest {
 
     assertThat(players).hasSize(2);
     // status von opponent 2 checken (inactive)
-    players.stream().filter((player) -> (player.getId() == 2L)).forEachOrdered((player) -> assertThat(player.getStatus()).isEqualTo(INACTIVE));
+    players.stream().filter(player -> (player.getId() == 2L)).forEachOrdered(player -> assertThat(player.getStatus()).isEqualTo(INACTIVE));
   }
 
   @Test

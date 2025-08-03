@@ -1,9 +1,8 @@
 package org.cc.torganizer.core.entities;
 
-import static java.util.Collections.unmodifiableList;
-import static org.cc.torganizer.core.entities.Restriction.Discriminator.AGE_RESTRICTION;
-import static org.cc.torganizer.core.entities.Restriction.Discriminator.GENDER_RESTRICTION;
-import static org.cc.torganizer.core.entities.Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.cc.torganizer.core.exceptions.RestrictionException;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,9 +13,10 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.cc.torganizer.core.exceptions.RestrictionException;
+import static java.util.Collections.unmodifiableList;
+import static org.cc.torganizer.core.entities.Restriction.Discriminator.AGE_RESTRICTION;
+import static org.cc.torganizer.core.entities.Restriction.Discriminator.GENDER_RESTRICTION;
+import static org.cc.torganizer.core.entities.Restriction.Discriminator.OPPONENT_TYPE_RESTRICTION;
 
 /**
  * Auszufuehrende Disziplin innerhalb eines Turnieres (z.B. HE-A)
@@ -56,7 +56,7 @@ public class Discipline extends Entity {
     for (var restriction : restrictions) {
       if (restriction != null && restriction.isRestricted(opponent)) {
         throw new RestrictionException("violation with restriction "
-            + restriction.getClass().getName());
+          + restriction.getClass().getName());
       }
     }
 
@@ -116,6 +116,12 @@ public class Discipline extends Entity {
   }
 
   public void addRestriction(Restriction restriction) {
+    var restrictiontoReplace = restrictions.stream()
+      .filter(r -> r.getDiscriminator() == restriction.getDiscriminator())
+      .findFirst()
+      .orElse(null);
+    restrictions.remove(restrictiontoReplace);
+
     restrictions.add(restriction);
   }
 
