@@ -11,7 +11,6 @@ public class SquadAction {
 
   @Inject
   ApplicationState applicationState;
-
   @Inject
   SquadsState state;
 }

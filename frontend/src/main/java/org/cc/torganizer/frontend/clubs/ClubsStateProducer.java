@@ -7,18 +7,12 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-/**
- * Producer for a serializable state for working with clubs.
- */
 @RequestScoped
 public class ClubsStateProducer {
 
   @Inject
   private ClubsStateSynchronizer synchronizer;
 
-  /**
-   * Producing a serializable state for working with clubs.
-   */
   @Produces
   @ViewScoped
   @Default

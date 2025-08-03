@@ -14,9 +14,7 @@ import org.cc.torganizer.core.comparators.player.PlayerOrderCriteria;
 public class PlayerOrderCriteriaConverter implements Converter<PlayerOrderCriteria> {
 
   @Override
-  public PlayerOrderCriteria getAsObject(FacesContext facesContext,
-                                         UIComponent uiComponent,
-                                         String value) {
+  public PlayerOrderCriteria getAsObject(FacesContext facesContext, UIComponent uiComponent, String value) {
     if (value == null || value.trim().isEmpty()) {
       return null;
     }
@@ -29,8 +27,7 @@ public class PlayerOrderCriteriaConverter implements Converter<PlayerOrderCriter
   }
 
   @Override
-  public String getAsString(FacesContext facesContext, UIComponent uiComponent,
-                            PlayerOrderCriteria playerOrderCriteria) {
+  public String getAsString(FacesContext facesContext, UIComponent uiComponent, PlayerOrderCriteria playerOrderCriteria) {
     return playerOrderCriteria == null ? "" : playerOrderCriteria.name();
   }
 }

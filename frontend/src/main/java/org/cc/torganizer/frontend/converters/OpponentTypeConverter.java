@@ -7,9 +7,6 @@ import jakarta.faces.convert.ConverterException;
 import jakarta.faces.convert.FacesConverter;
 import org.cc.torganizer.core.entities.OpponentType;
 
-/**
- * Converting OpponentTypes to/from String.
- */
 @FacesConverter(value = "opponentTypeConverter")
 public class OpponentTypeConverter implements Converter<OpponentType> {
 

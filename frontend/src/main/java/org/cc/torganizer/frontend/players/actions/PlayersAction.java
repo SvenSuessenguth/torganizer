@@ -12,14 +12,10 @@ import org.cc.torganizer.persistence.PlayersRepository;
 public abstract class PlayersAction {
   @Inject
   protected PlayersState state;
-
   @Inject
   protected PlayersRepository repository;
-
   @Inject
   protected PlayersStateSynchronizer synchronizer;
-
   @Inject
   protected ApplicationState applicationState;
-
 }

@@ -16,7 +16,6 @@ public class CancelTournament {
 
   @Inject
   protected TournamentsRepository tournamentsRepository;
-
   @Inject
   protected TournamentsState state;
 

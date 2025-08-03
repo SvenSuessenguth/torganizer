@@ -5,15 +5,11 @@ import jakarta.inject.Inject;
 import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
-/**
- * State of the UI for editing Disciplines.
- */
 @RequestScoped
 public class DisciplinesCoreStateSynchronizer {
 
   @Inject
   private TournamentsRepository tournamentsRepository;
-
   @Inject
   private ApplicationState appState;
 

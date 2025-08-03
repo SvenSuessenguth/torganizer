@@ -8,11 +8,12 @@ import jakarta.faces.validator.Validator;
 import jakarta.faces.validator.ValidatorException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
+import org.cc.torganizer.core.entities.Tournament;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.cc.torganizer.core.entities.Tournament;
 
 /**
  * Validating the name of a Tournament.
@@ -23,7 +24,6 @@ public class TournamentsNameValidator implements Validator<String> {
 
   @Override
   public void validate(FacesContext facesContext, UIComponent uiComponent, String tournamentsName) {
-
     // to keep it simple a new tournament with the given name/id is created and then validated
     var tournament = new Tournament();
     tournament.setName(tournamentsName);
@@ -41,13 +41,12 @@ public class TournamentsNameValidator implements Validator<String> {
     return validator.validate(newTournament);
   }
 
-  private Collection<FacesMessage> createFacesMessages(
-      Set<ConstraintViolation<Tournament>> constraintViolations) {
+  private Collection<FacesMessage> createFacesMessages(Set<ConstraintViolation<Tournament>> constraintViolations) {
 
     return constraintViolations
-        .stream()
-        .map(ConstraintViolation::getMessage)
-        .map(messageText -> new FacesMessage(FacesMessage.SEVERITY_ERROR, messageText, messageText))
-        .collect(Collectors.toCollection(() -> new ArrayList<>(constraintViolations.size())));
+      .stream()
+      .map(ConstraintViolation::getMessage)
+      .map(messageText -> new FacesMessage(FacesMessage.SEVERITY_ERROR, messageText, messageText))
+      .collect(Collectors.toCollection(() -> new ArrayList<>(constraintViolations.size())));
   }
 }

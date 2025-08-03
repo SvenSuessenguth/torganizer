@@ -16,10 +16,8 @@ public class CancelRoundAction extends RoundAction {
 
   @Inject
   private DisciplineRoundState state;
-
   @Inject
   private RoundsRepository roundsRepository;
-
   @Inject
   private DisciplineRoundStateSynchronizer synchronizer;
 

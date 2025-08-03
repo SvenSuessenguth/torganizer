@@ -20,16 +20,12 @@ public class DeleteTournament {
 
   @Inject
   private Logger logger;
-
   @Inject
   protected TournamentsRepository tournamentsRepository;
-
   @Inject
   protected TournamentsState state;
-
   @Inject
   protected ApplicationState appState;
-
   @Inject
   private TournamentsStateSynchronizer synchronizer;
 
@@ -44,7 +40,7 @@ public class DeleteTournament {
       return;
     }
 
-    Long currentTournamentId = current.getId();
+    var currentTournamentId = current.getId();
     logger.info("delete with name: '{}' currentTournamentId: '{}'", current.getName(),
         currentTournamentId);
 

@@ -16,7 +16,6 @@ public class SelectTournament {
 
   @Inject
   protected TournamentsState state;
-
   @Inject
   protected ApplicationState appState;
 

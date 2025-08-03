@@ -20,9 +20,6 @@ public class RemovePlayerFromSquad {
   @Inject
   protected SquadsState state;
 
-  /**
-   * Functional Interface Methode.
-   */
   public void execute(Player player) {
 
     var current = state.getCurrent();

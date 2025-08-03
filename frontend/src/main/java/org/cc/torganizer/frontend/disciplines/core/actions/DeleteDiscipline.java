@@ -10,9 +10,6 @@ import org.cc.torganizer.frontend.disciplines.core.DisciplinesCoreStateSynchroni
 import org.cc.torganizer.persistence.DisciplinesRepository;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
-/**
- * Deleting a Discipline from the Tournament.
- */
 @RequestScoped
 @Named
 public class DeleteDiscipline {
@@ -42,8 +39,8 @@ public class DeleteDiscipline {
    */
   public void execute() {
     var discipline = state.getDiscipline();
-    Long disciplineId = discipline.getId();
-    Long tournamentId = applicationState.getTournamentId();
+    var disciplineId = discipline.getId();
+    var tournamentId = applicationState.getTournamentId();
 
     var hasOpponents = !disciplinesRepository.getOpponents(disciplineId, 0, 1).isEmpty();
 

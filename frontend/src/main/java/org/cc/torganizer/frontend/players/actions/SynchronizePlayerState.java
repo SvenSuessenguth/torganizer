@@ -16,10 +16,8 @@ public class SynchronizePlayerState {
 
   @Inject
   private PlayersStateSynchronizer synchronizer;
-
   @Inject
   protected PlayersState state;
-
   @Inject
   protected ApplicationState applicationState;
 

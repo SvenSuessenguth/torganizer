@@ -85,7 +85,7 @@
             <h:commandButton id="disciplinesDelete" action="#{deleteDiscipline.execute()}"
                              value="#{i18nText.delete}"
                              disabled="#{disciplinesCoreState.discipline.id == null}"/>
-            <h:commandButton id="disciplinesCancel" action="#{cancelDiscipline.execute}" value="#{i18nText.cancel}"
+            <h:commandButton id="disciplinesCancel" action="#{cancelDisciplineFromTournament.execute}" value="#{i18nText.cancel}"
                              disabled="#{disciplinesCoreState.discipline.id == null}">
               <f:ajax render="disciplinesForm" immediate="true" execute="@this"/>
             </h:commandButton>

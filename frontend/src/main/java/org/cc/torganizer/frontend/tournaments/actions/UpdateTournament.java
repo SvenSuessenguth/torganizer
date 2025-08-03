@@ -22,22 +22,14 @@ public class UpdateTournament {
 
   @Inject
   private Logger logger;
-
   @Inject
   protected TournamentsRepository tournamentsRepository;
-
   @Inject
   protected TournamentsState state;
-
-  @Inject
-  protected ApplicationState appState;
-
   @Inject
   private CancelTournament cancelTournament;
-
   @Inject
   private TournamentsBacking tournamentsBacking;
-
   @Inject
   private FacesContext facesContext;
 

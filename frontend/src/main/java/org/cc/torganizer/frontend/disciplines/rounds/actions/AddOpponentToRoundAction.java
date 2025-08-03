@@ -19,13 +19,10 @@ public class AddOpponentToRoundAction {
 
   @Inject
   private DisciplineRoundStateSynchronizer synchronizer;
-
   @Inject
   private OpponentsToGroupsAssigner assigner;
-
   @Inject
   private RoundsRepository roundsRepository;
-
   @Inject
   protected DisciplineRoundState roundState;
 

@@ -2,25 +2,20 @@ package org.cc.torganizer.frontend;
 
 import jakarta.enterprise.context.ConversationScoped;
 import jakarta.inject.Named;
-import java.io.Serializable;
+import lombok.Data;
 import org.cc.torganizer.core.entities.Tournament;
+
+import java.io.Serializable;
 
 /**
  * State of the Tournament-Application.
  */
 @ConversationScoped
 @Named
+@Data
 public class ApplicationState implements Serializable {
 
   private Tournament tournament;
-
-  public Tournament getTournament() {
-    return tournament;
-  }
-
-  public void setTournament(Tournament tournament) {
-    this.tournament = tournament;
-  }
 
   public Long getTournamentId() {
     return tournament.getId();

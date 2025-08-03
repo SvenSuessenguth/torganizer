@@ -7,18 +7,12 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-/**
- * Producing a serializable and initialized state.
- */
 @RequestScoped
 public class SquadsStateProducer {
 
   @Inject
   private SquadsStateSynchronizer synchronizer;
 
-  /**
-   * Producing a serializable and initialized state.
-   */
   @Produces
   @ViewScoped
   @Default

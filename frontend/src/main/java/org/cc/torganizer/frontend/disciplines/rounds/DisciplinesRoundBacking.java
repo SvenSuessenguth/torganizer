@@ -24,13 +24,10 @@ public class DisciplinesRoundBacking {
 
   @Inject
   private ApplicationState appState;
-
   @Inject
   private DisciplinesCoreState disciplinesCoreState;
-
   @Inject
   private TournamentsRepository tournamentsRepository;
-
   @Inject
   private DisciplineRoundState state;
 

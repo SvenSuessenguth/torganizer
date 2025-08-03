@@ -7,9 +7,6 @@ import java.util.List;
 import lombok.Data;
 import org.cc.torganizer.core.entities.Club;
 
-/**
- * State for editing Clubs.
- */
 @Vetoed
 @Data
 public class ClubsState implements Serializable {

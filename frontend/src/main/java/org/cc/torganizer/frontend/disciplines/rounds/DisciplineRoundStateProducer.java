@@ -16,7 +16,6 @@ public class DisciplineRoundStateProducer {
 
   @Inject
   private DisciplineRoundStateSynchronizer synchronizer;
-
   @Inject
   private DisciplinesCoreState disciplinesCoreState;
 

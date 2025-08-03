@@ -21,7 +21,6 @@ public class SquadsStateSynchronizer {
 
   @Inject
   private ApplicationState applicationState;
-
   @Inject
   private TournamentsRepository tournamentsRepository;
 

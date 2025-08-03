@@ -36,8 +36,8 @@ public class MatchesState {
    */
   public List<Match> getPossibleMatches() {
     var possibleMatches = new ArrayList<Match>();
-
     var tournament = applicationState.getTournament();
+
     for (var d : tournament.getDisciplines()) {
       for (var r : d.getRounds()) {
         var system = r.getSystem();
@@ -48,7 +48,6 @@ public class MatchesState {
         }
       }
     }
-
 
     return possibleMatches;
   }

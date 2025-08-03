@@ -16,10 +16,8 @@ public class DeleteRoundAction extends RoundAction {
 
   @Inject
   private DisciplinesRepository disciplinesRepository;
-
   @Inject
   private RoundsRepository roundsRepository;
-
   @Inject
   private DisciplineRoundStateSynchronizer synchronizer;
 

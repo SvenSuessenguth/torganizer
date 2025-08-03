@@ -5,9 +5,6 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.cc.torganizer.frontend.clubs.ClubsStateSynchronizer;
 
-/**
- * Persisting the selected Club.
- */
 @RequestScoped
 @Named
 public class SaveClub extends ClubsAction {
@@ -15,9 +12,6 @@ public class SaveClub extends ClubsAction {
   @Inject
   private ClubsStateSynchronizer synchronizer;
 
-  /**
-   * Saving a club.
-   */
   public void execute() {
     var current = state.getCurrent();
 

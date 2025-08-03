@@ -15,7 +15,6 @@ public class SynchronizeDisciplinesState {
 
   @Inject
   private DisciplinesCoreStateSynchronizer synchronizer;
-
   @Inject
   private DisciplinesCoreState state;
 

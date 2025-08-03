@@ -11,9 +11,6 @@ import java.util.List;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.OpponentType;
 
-/**
- * Access data for core disciplines outside the state.
- */
 @RequestScoped
 @Named
 public class DisciplinesCoreBacking {

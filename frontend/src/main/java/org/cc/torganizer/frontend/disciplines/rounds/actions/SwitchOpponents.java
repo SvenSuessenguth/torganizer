@@ -16,7 +16,6 @@ public class SwitchOpponents {
 
   @Inject
   private DisciplineRoundState drState;
-
   @Inject
   private Logger logger;
 
@@ -25,7 +24,7 @@ public class SwitchOpponents {
    */
   public void setSwitchSource() {
     var params = FacesContext.getCurrentInstance()
-        .getExternalContext().getRequestParameterMap();
+      .getExternalContext().getRequestParameterMap();
     var sourceGroupId = Long.valueOf(params.get("gId"));
     var sourceOpponentId = Long.valueOf(params.get("oId"));
 
@@ -37,17 +36,14 @@ public class SwitchOpponents {
    * Switch the source-opponent with the opponent given in the request.
    */
   public void switchWith() {
-    var params = FacesContext.getCurrentInstance()
-        .getExternalContext().getRequestParameterMap();
-    var targetGroupId = Long.valueOf(params.get("gId"));
-    var targetOpponentId = Long.valueOf(params.get("oId"));
+    var params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 
-    var message = """
-        switch %s / %s
-        with %s / %s
-        """
-        .formatted(drState.getSourceGroupId(), drState.getSourceOpponentId(),
-            targetGroupId, targetOpponentId);
+    var message = "switch ${sourceGroupId} / ${sourceOpponentId} with ${targetGroupId} / ${targetOpponentId}"
+      .replace("${sourceGroupId}", Long.toString(drState.getSourceGroupId()))
+      .replace("${sourceOpponentId}", Long.toString(drState.getSourceOpponentId()))
+      .replace("${targetGroupId}", params.get("gId"))
+      .replace("${targetOpponentId}", params.get("oId"));
+
     logger.debug(message);
   }
 }

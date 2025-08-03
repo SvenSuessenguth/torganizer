@@ -16,10 +16,8 @@ public class ConversationController {
 
   @Inject
   private Logger logger;
-
   @Inject
   private Conversation conversation;
-
   @Inject
   private FacesContext facesContext;
 

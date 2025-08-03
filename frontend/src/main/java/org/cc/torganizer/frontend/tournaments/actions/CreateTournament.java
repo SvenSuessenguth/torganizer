@@ -23,22 +23,16 @@ public class CreateTournament {
 
   @Inject
   private Logger logger;
-
   @Inject
   protected TournamentsRepository tournamentsRepository;
-
   @Inject
   protected TournamentsState state;
-
   @Inject
   protected ApplicationState appState;
-
   @Inject
   private TournamentsBacking tournamentsBacking;
-
   @Inject
   private TournamentsStateSynchronizer synchronizer;
-
   @Inject
   private FacesContext facesContext;
 

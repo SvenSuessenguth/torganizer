@@ -6,9 +6,6 @@ import jakarta.inject.Named;
 import org.cc.torganizer.frontend.ApplicationMessages;
 import org.cc.torganizer.frontend.clubs.ClubsStateSynchronizer;
 
-/**
- * Deleting selected Club.
- */
 @RequestScoped
 @Named
 public class DeleteClub extends ClubsAction {
@@ -17,13 +14,9 @@ public class DeleteClub extends ClubsAction {
 
   @Inject
   private ClubsStateSynchronizer synchronizer;
-
   @Inject
   private ApplicationMessages appMessages;
 
-  /**
-   * A club can only be deleted if it has no linked players.
-   */
   public void execute() {
     var current = state.getCurrent();
     var id = current.getId();

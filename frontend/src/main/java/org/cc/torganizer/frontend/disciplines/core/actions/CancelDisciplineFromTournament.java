@@ -8,20 +8,13 @@ import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.GenderRestriction;
 import org.cc.torganizer.core.entities.OpponentTypeRestriction;
 import org.cc.torganizer.frontend.disciplines.core.DisciplinesCoreState;
-
-/**
- * Cancel editing the current discipline.
- */
 @RequestScoped
 @Named
-public class CancelDiscipline {
+public class CancelDisciplineFromTournament {
 
   @Inject
   private DisciplinesCoreState state;
 
-  /**
-   * cancel.
-   */
   public String execute() {
     var discipline = new Discipline();
     discipline.addRestriction(new GenderRestriction());

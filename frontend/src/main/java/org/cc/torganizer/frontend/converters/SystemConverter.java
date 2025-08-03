@@ -7,9 +7,6 @@ import jakarta.faces.convert.ConverterException;
 import jakarta.faces.convert.FacesConverter;
 import org.cc.torganizer.core.entities.System;
 
-/**
- * Converting Systems from/to Strings.
- */
 @FacesConverter(value = "systemConverter")
 public class SystemConverter implements Converter<System> {
 

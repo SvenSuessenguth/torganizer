@@ -17,7 +17,6 @@ public class SaveRoundAction extends RoundAction {
 
   @Inject
   private DisciplinesRepository disciplinesRepository;
-
   @Inject
   private RoundsRepository roundsRepository;
 

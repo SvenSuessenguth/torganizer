@@ -13,41 +13,29 @@ import org.cc.torganizer.persistence.RestrictionsRepository;
 import org.cc.torganizer.persistence.RoundsRepository;
 import org.cc.torganizer.persistence.TournamentsRepository;
 
-/**
- * Persisting the selected Discipline.
- */
 @RequestScoped
 @Named
 public class SaveDiscipline {
 
   @Inject
   private TournamentsRepository tournamentsRepository;
-
   @Inject
   private RestrictionsRepository restrictionsRepository;
-
   @Inject
   private RoundsRepository roundsRepository;
-
   @Inject
   private DisciplinesRepository disciplinesRepository;
-
   @Inject
   private ApplicationState applicationState;
-
   @Inject
   private DisciplinesCoreState state;
-
   @Inject
   private DisciplinesCoreStateSynchronizer synchronizer;
 
-  /**
-   * Persisting a discipline.
-   */
   public void execute() {
     // new restrictions should be persisted also
     var discipline = state.getDiscipline();
-    for (Restriction restriction : discipline.getRestrictions()) {
+    for (var restriction : discipline.getRestrictions()) {
       if (restriction.getId() == null) {
         restrictionsRepository.create(restriction);
       } else {

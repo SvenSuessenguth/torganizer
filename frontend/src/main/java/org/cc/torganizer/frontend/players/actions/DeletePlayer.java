@@ -18,10 +18,8 @@ public class DeletePlayer extends PlayersAction {
 
   @Inject
   private Logger logger;
-
   @Inject
   protected TournamentsRepository tournamentsRepository;
-
   @Inject
   private ApplicationMessages applicationMessages;
 

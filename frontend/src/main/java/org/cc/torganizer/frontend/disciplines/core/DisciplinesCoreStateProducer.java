@@ -11,18 +11,12 @@ import org.cc.torganizer.core.entities.Discipline;
 import org.cc.torganizer.core.entities.GenderRestriction;
 import org.cc.torganizer.core.entities.OpponentTypeRestriction;
 
-/**
- * Producer for a serializable state.
- */
 @RequestScoped
 public class DisciplinesCoreStateProducer {
 
   @Inject
   private DisciplinesCoreStateSynchronizer synchronizer;
 
-  /**
-   * Producing a serializable and initialized state.
-   */
   @Produces
   @ConversationScoped
   @Default

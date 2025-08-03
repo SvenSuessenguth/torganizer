@@ -8,25 +8,17 @@ import org.cc.torganizer.frontend.disciplines.core.DisciplinesCoreState;
 import org.cc.torganizer.frontend.disciplines.rounds.DisciplineRoundState;
 import org.cc.torganizer.frontend.disciplines.rounds.DisciplineRoundStateSynchronizer;
 
-/**
- * Selecting a Discipline from the UI.
- */
 @RequestScoped
 @Named
 public class SelectDiscipline {
 
   @Inject
   private DisciplinesCoreState state;
-
   @Inject
   private DisciplineRoundState roundState;
-
   @Inject
   private DisciplineRoundStateSynchronizer roundStateSynchronizer;
 
-  /**
-   * Set the selected discipline to the disciplines core state and synchronize other states.
-   */
   public void execute(Discipline discipline) {
     state.setDiscipline(discipline);
 

@@ -19,13 +19,10 @@ public class CreateSquad extends SquadAction {
 
   @Inject
   protected SquadsRepository squadsRepository;
-
   @Inject
   protected PlayersRepository playersRepository;
-
   @Inject
   protected TournamentsRepository tournamentsRepository;
-
   @Inject
   private SquadsStateSynchronizer synchronizer;
 

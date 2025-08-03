@@ -17,13 +17,10 @@ public class PlayersStateSynchronizer {
 
   @Inject
   private ApplicationState applicationState;
-
   @Inject
   private TournamentsRepository tournamentsRepository;
-
   @Inject
   private PlayerComparatorProvider playerComparatorProvider;
-
   @Inject
   private ClubsRepository clubsRepository;
 

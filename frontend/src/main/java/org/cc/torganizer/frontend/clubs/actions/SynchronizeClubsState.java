@@ -5,9 +5,6 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.cc.torganizer.frontend.clubs.ClubsStateSynchronizer;
 
-/**
- * Initializing the clubs staten.
- */
 @RequestScoped
 @Named
 public class SynchronizeClubsState extends ClubsAction {

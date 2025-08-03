@@ -10,9 +10,6 @@ import jakarta.inject.Named;
 @Named
 public class PrevAllPlayersChunk extends PlayersAction {
 
-  /**
-   * Execute.
-   */
   public void execute() {
     var chunkIndex = state.getAllPlayersChunkIndex();
     if (chunkIndex > 0) {

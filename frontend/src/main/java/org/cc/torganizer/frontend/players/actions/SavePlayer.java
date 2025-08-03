@@ -15,18 +15,15 @@ public class SavePlayer extends PlayersAction {
 
   @Inject
   private Logger logger;
-
   @Inject
   protected TournamentsRepository tournamentsRepository;
-
   @Inject
   private OrderPlayers orderPlayers;
-
   @Inject
   private CancelPlayer createPlayer;
 
   /**
-   * persisting changes to a already persisted player.
+   * persisting changes to an already persisted player.
    */
   public void execute() {
     logger.info("save player");

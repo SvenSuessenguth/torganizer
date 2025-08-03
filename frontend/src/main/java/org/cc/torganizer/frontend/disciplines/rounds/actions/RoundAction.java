@@ -11,7 +11,6 @@ public abstract class RoundAction {
 
   @Inject
   protected DisciplineRoundState roundState;
-
   @Inject
   protected DisciplinesCoreState coreState;
 
