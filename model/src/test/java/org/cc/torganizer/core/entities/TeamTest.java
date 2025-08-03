@@ -10,7 +10,7 @@ class TeamTest {
   private Team team;
 
   @BeforeEach
-  public void beforeEach() {
+  void beforeEach() {
     team = new Team();
   }
 

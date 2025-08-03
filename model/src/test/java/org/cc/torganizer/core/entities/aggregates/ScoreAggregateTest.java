@@ -17,7 +17,7 @@ class ScoreAggregateTest {
   private ScoreAggregate scoreAggregate;
 
   @BeforeEach
-  public void beforeEach() {
+  void beforeEach() {
     scoreAggregate = new ScoreAggregate();
   }
 

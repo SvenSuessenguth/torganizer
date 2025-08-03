@@ -1,14 +1,5 @@
 package org.cc.torganizer.frontend.squads;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.cc.torganizer.core.entities.Gender.FEMALE;
-import static org.cc.torganizer.core.entities.Gender.MALE;
-import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
-import static org.cc.torganizer.frontend.squads.SquadsState.ALL_PLAYERS_TABLE_SIZE;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
 import org.cc.torganizer.core.entities.Gender;
 import org.cc.torganizer.core.entities.Player;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,30 +8,40 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.cc.torganizer.core.entities.Gender.FEMALE;
+import static org.cc.torganizer.core.entities.Gender.MALE;
+import static org.cc.torganizer.core.entities.Gender.UNKNOWN;
+import static org.cc.torganizer.frontend.squads.SquadsState.ALL_PLAYERS_TABLE_SIZE;
+
 class SquadsStateTest {
 
   private SquadsState squadsState;
 
   @BeforeEach
-  public void beforeEach() {
+  void beforeEach() {
     squadsState = new SquadsState();
   }
 
   @SuppressWarnings("unused")
   public static Stream<Arguments> hasNextAllPlayersTableChunkArguments() {
     return Stream.of(
-        Arguments.of(getAmountOfPlayers(0), 0, false),
-        Arguments.of(getAmountOfPlayers(0), 1, false),
-        Arguments.of(getAmountOfPlayers(0), 2, false),
-        Arguments.of(getAmountOfPlayers(0), -1, false),
-        Arguments.of(null, 1, false),
-        Arguments.of(getAmountOfPlayers(10), 1, false),
-        Arguments.of(getAmountOfPlayers(100), 10, false),
-        Arguments.of(getAmountOfPlayers(100), 11, false),
+      Arguments.of(getAmountOfPlayers(0), 0, false),
+      Arguments.of(getAmountOfPlayers(0), 1, false),
+      Arguments.of(getAmountOfPlayers(0), 2, false),
+      Arguments.of(getAmountOfPlayers(0), -1, false),
+      Arguments.of(null, 1, false),
+      Arguments.of(getAmountOfPlayers(10), 1, false),
+      Arguments.of(getAmountOfPlayers(100), 10, false),
+      Arguments.of(getAmountOfPlayers(100), 11, false),
 
-        Arguments.of(getAmountOfPlayers(11), 0, true),
-        Arguments.of(getAmountOfPlayers(101), 9, true),
-        Arguments.of(getAmountOfPlayers(101), 8, true)
+      Arguments.of(getAmountOfPlayers(11), 0, true),
+      Arguments.of(getAmountOfPlayers(101), 9, true),
+      Arguments.of(getAmountOfPlayers(101), 8, true)
     );
   }
 
@@ -50,7 +51,7 @@ class SquadsStateTest {
     squadsState.setPlayers(players);
     squadsState.setAllPlayersTableIndex(allPlayersTableIndex);
 
-    boolean actual = squadsState.hasNextAllPlayersTableChunk();
+    var actual = squadsState.hasNextAllPlayersTableChunk();
 
     assertThat(actual).isEqualTo(expected);
   }
@@ -58,13 +59,13 @@ class SquadsStateTest {
   @SuppressWarnings("unused")
   public static Stream<Arguments> getPlayersArguments() {
     return Stream.of(
-        Arguments.of(null, MALE, 0, 0),
-        Arguments.of(getAmountPlayers(0, MALE), MALE, 0, 0),
-        Arguments.of(getAmountPlayers(1, MALE), MALE, 0, ALL_PLAYERS_TABLE_SIZE),
-        Arguments.of(getAmountPlayers(9, MALE), MALE, 0, ALL_PLAYERS_TABLE_SIZE),
-        Arguments.of(getAmountPlayers(10, MALE), MALE, 0, ALL_PLAYERS_TABLE_SIZE),
-        Arguments.of(getAmountPlayers(1, MALE), MALE, 1, 0),
-        Arguments.of(getAmountPlayers(1, MALE), FEMALE, 1, 0)
+      Arguments.of(null, MALE, 0, 0),
+      Arguments.of(getAmountPlayers(0, MALE), MALE, 0, 0),
+      Arguments.of(getAmountPlayers(1, MALE), MALE, 0, ALL_PLAYERS_TABLE_SIZE),
+      Arguments.of(getAmountPlayers(9, MALE), MALE, 0, ALL_PLAYERS_TABLE_SIZE),
+      Arguments.of(getAmountPlayers(10, MALE), MALE, 0, ALL_PLAYERS_TABLE_SIZE),
+      Arguments.of(getAmountPlayers(1, MALE), MALE, 1, 0),
+      Arguments.of(getAmountPlayers(1, MALE), FEMALE, 1, 0)
     );
   }
 
@@ -75,7 +76,7 @@ class SquadsStateTest {
     squadsState.setGender(gender);
     squadsState.setAllPlayersTableIndex(allPlayersTableIndex);
 
-    int actualChunkSize = squadsState.getPlayers().size();
+    var actualChunkSize = squadsState.getPlayers().size();
 
     assertThat(actualChunkSize).isEqualTo(expectedChunkSize);
   }
@@ -85,9 +86,9 @@ class SquadsStateTest {
   }
 
   private static List<Player> getAmountPlayers(Integer size, Gender gender) {
-    List<Player> players = new ArrayList<>();
+    var players = new ArrayList<Player>();
 
-    for (int index = 0; index < size; index++) {
+    for (var index = 0; index < size; index++) {
       var player = new Player(String.valueOf(index), String.valueOf(index));
       player.getPerson().setGender(gender);
       players.add(player);
@@ -98,10 +99,10 @@ class SquadsStateTest {
 
   @Test
   void incAllPlayersTableChunk() {
-    int index = 1;
+    var index = 1;
     squadsState.setAllPlayersTableIndex(index);
     squadsState.incAllPlayersTableChunk();
-    int actual = squadsState.getAllPlayersTableIndex();
+    var actual = squadsState.getAllPlayersTableIndex();
 
     assertThat(actual).isEqualTo(index + 1);
   }
@@ -109,10 +110,10 @@ class SquadsStateTest {
   @SuppressWarnings("unused")
   public static Stream<Arguments> decAllPlayersTableChunk() {
     return Stream.of(
-        Arguments.of(0, 0),
-        Arguments.of(1, 0),
-        Arguments.of(-1, 0),
-        Arguments.of(2, 1)
+      Arguments.of(0, 0),
+      Arguments.of(1, 0),
+      Arguments.of(-1, 0),
+      Arguments.of(2, 1)
     );
   }
 
@@ -121,7 +122,7 @@ class SquadsStateTest {
   void decAllPlayersTableChunk(int index, int expected) {
     squadsState.setAllPlayersTableIndex(index);
     squadsState.decAllPlayersTableChunk();
-    int actual = squadsState.getAllPlayersTableIndex();
+    var actual = squadsState.getAllPlayersTableIndex();
 
     assertThat(actual).isEqualTo(expected);
   }

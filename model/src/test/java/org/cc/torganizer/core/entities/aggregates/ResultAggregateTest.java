@@ -1,9 +1,5 @@
 package org.cc.torganizer.core.entities.aggregates;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
-import java.util.stream.Stream;
 import org.cc.torganizer.core.entities.Match;
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.core.entities.Result;
@@ -12,20 +8,25 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.List;
+import java.util.stream.Stream;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 class ResultAggregateTest {
 
   private ResultAggregate resultAggregate;
 
   @BeforeEach
-  public void beforeEach() {
+  void beforeEach() {
     resultAggregate = new ResultAggregate();
   }
 
   public static Stream<Arguments> aggregate() {
     return Stream.of(
-        Arguments.of(m(List.of(r(1, 1, 0), r(2, 1, 0))), 2, 0),
-        Arguments.of(m(List.of(r(1, 0, 1), r(2, 0, 1))), 0, 2),
-        Arguments.of(m(List.of(r(1, 1, 0), r(2, 0, 1))), 1, 1)
+      Arguments.of(m(List.of(r(1, 1, 0), r(2, 1, 0))), 2, 0),
+      Arguments.of(m(List.of(r(1, 0, 1), r(2, 0, 1))), 0, 2),
+      Arguments.of(m(List.of(r(1, 1, 0), r(2, 0, 1))), 1, 1)
     );
   }
 
@@ -57,6 +58,4 @@ class ResultAggregateTest {
   public static Result r(Integer position, Integer homeScore, Integer guestScore) {
     return new Result(position, homeScore, guestScore);
   }
-
-
 }

@@ -15,7 +15,7 @@ class SquadsRepositoryTest extends AbstractDbUnitJpaTest {
   private SquadsRepository repository;
 
   @BeforeEach
-  public void beforeAll() throws Exception {
+  void beforeAll() throws Exception {
     super.initDatabase("test-data-squads.xml");
 
     repository = new SquadsRepository(entityManager);
@@ -89,7 +89,7 @@ class SquadsRepositoryTest extends AbstractDbUnitJpaTest {
 
   @Test
   void testById_existing() {
-    Squad squad = repository.read(5L);
+    var squad = repository.read(5L);
 
     assertThat(squad).isNotNull();
     assertThat(squad.getPlayers()).hasSize(1);

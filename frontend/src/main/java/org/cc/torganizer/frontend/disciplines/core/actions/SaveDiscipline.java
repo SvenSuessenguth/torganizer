@@ -3,7 +3,6 @@ package org.cc.torganizer.frontend.disciplines.core.actions;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import org.cc.torganizer.core.entities.Restriction;
 import org.cc.torganizer.core.entities.Round;
 import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.disciplines.core.DisciplinesCoreState;
