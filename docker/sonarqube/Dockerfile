@@ -1,1 +1,1 @@
-FROM sonarqube:25.1.0.102122-community
+FROM sonarqube:2025.4.1-developer
