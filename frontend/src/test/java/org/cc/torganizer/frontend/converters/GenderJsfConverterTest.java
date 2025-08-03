@@ -40,7 +40,7 @@ class GenderJsfConverterTest {
   @ParameterizedTest
   @MethodSource("asObject")
   void testGetAsObject(String value, Gender expected) {
-    Gender actual = converter.getAsObject(null, null, value);
+    var actual = converter.getAsObject(null, null, value);
 
     assertThat(actual).isEqualTo(expected);
   }
@@ -48,7 +48,7 @@ class GenderJsfConverterTest {
   @ParameterizedTest
   @MethodSource("asString")
   void testGetAsString(Gender gender, String expected) {
-    String actual = converter.getAsString(null, null, gender);
+    var actual = converter.getAsString(null, null, gender);
 
     assertThat(actual).isEqualTo(expected);
   }

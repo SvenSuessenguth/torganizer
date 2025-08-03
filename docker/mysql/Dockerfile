@@ -1,7 +1,12 @@
-FROM mysql
+FROM mysql:9.4.0
 
 ENV MYSQL_ROOT_PASSWORD=root
 
-ADD init.sql /docker-entrypoint-initdb.d
+RUN addgroup -S nonroot \
+    && adduser -S nonroot -G nonroot
+
+USER nonroot
+
+COPY init.sql /docker-entrypoint-initdb.d
 
 EXPOSE 3306

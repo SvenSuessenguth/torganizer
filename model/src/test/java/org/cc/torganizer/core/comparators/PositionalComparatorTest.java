@@ -1,6 +1,6 @@
 package org.cc.torganizer.core.comparators;
 
-import lombok.Data;
+import lombok.Value;
 import org.cc.torganizer.core.entities.Positional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -40,7 +40,7 @@ class PositionalComparatorTest {
   }
 }
 
-@Data
+@Value
 class TestPositional implements Positional {
   Integer position;
 }

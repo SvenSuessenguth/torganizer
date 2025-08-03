@@ -1,11 +1,5 @@
 package org.cc.torganizer.core.doubleelimination;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import org.cc.torganizer.core.entities.Group;
 import org.cc.torganizer.core.entities.Match;
 import org.cc.torganizer.core.entities.Opponent;
@@ -15,6 +9,12 @@ import org.cc.torganizer.core.entities.Unknown;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author svens
@@ -36,25 +36,25 @@ class DoubleEliminationMatchDetectorTest {
   @Test
   void testCreatePendingMatchWithNull() {
 
-    Player player = new Player();
+    var player = new Player();
     assertThrows(NullPointerException.class, () -> demd.createPendingMatch(0, 0, null, player, null));
   }
 
   @Test
   void testCreatePendingMatch() {
-    Group group = new Group();
-    for (int i = 0; i < 4; i++) {
+    var group = new Group();
+    for (var i = 0; i < 4; i++) {
       group.addOpponent(new Player());
     }
 
-    Match match = demd.createPendingMatch(0, 0, new Player("a", "a"), new Player("b", "b"), group);
+    var match = demd.createPendingMatch(0, 0, new Player("a", "a"), new Player("b", "b"), group);
 
     assertThat(match).isNotNull();
   }
 
   @Test
   void testAddMatchToListNull() {
-    List<Match> matches = new ArrayList<>();
+    var matches = new ArrayList<Match>();
     demd.addMatchToList(matches, null);
 
     assertThat(matches).isEmpty();
@@ -62,7 +62,7 @@ class DoubleEliminationMatchDetectorTest {
 
   @Test
   void testAddMatchToList() {
-    List<Match> matches = new ArrayList<>();
+    var matches = new ArrayList<Match>();
     demd.addMatchToList(matches, new Match());
 
     assertThat(matches).isNotEmpty();
@@ -111,7 +111,7 @@ class DoubleEliminationMatchDetectorTest {
   void testGetMatchIndex() {
     // Gruppe mit 16 Opponents
     // 16=Opponents, Level=0, LevelIndex=0 -> matchIndex = 15
-    int matchIndex = demd.getMatchIndex(0, 0, 16);
+    var matchIndex = demd.getMatchIndex(0, 0, 16);
     assertThat(matchIndex).isEqualTo(15);
 
     // 16=Opponents, Level=3, LevelIndex=1 -> matchIndex = 26
@@ -137,20 +137,20 @@ class DoubleEliminationMatchDetectorTest {
   void testOrderUpperBracketLosers() {
 
     // 64 Opponents -> 32 auf Level 1 der Verlierer
-    int players = 32;
-    int level = 3;
-    int playersInRound = Double.valueOf(players / Math.pow(2, level - 1)).intValue();
-    int splitFactor = Double.valueOf(Math.pow(2.0, level - 1.0)).intValue();
+    var players = 32;
+    var level = 3;
+    var playersInRound = players / Math.pow(2, level - 1);
+    var splitFactor = (int) Math.pow(2.0, level - 1.0);
     // calculate reverseFactor = (level + 1) % 2;
     // in this test always 0
-    int reverseFactor = 0;
+    var reverseFactor = 0;
 
-    List<Opponent> losersOnLevel = new ArrayList<>();
-    for (int i = 0; i < playersInRound; i++) {
+    var losersOnLevel = new ArrayList<Opponent>();
+    for (var i = 0; i < playersInRound; i++) {
       losersOnLevel.add(new Player("" + i, ""));
     }
 
-    List<Opponent> orderedLosers = demd.orderUpperBracketLosers(losersOnLevel, splitFactor, reverseFactor);
+    var orderedLosers = demd.orderUpperBracketLosers(losersOnLevel, splitFactor, reverseFactor);
 
     assertThat(((Player) orderedLosers.getFirst()).getPerson().getFirstName()).isEqualTo("2");
     assertThat(((Player) orderedLosers.get(1)).getPerson().getFirstName()).isEqualTo("3");
@@ -172,26 +172,26 @@ class DoubleEliminationMatchDetectorTest {
      * p1 \ | muss gefunden werden p2 /
      *
      */
-    Group group = new Group();
-    Player[] players = new Player[4];
-    for (int i = 0; i < 4; i++) {
-      Player player = new Player("p" + i, "p" + i);
+    var group = new Group();
+    var players = new Player[4];
+    for (var i = 0; i < 4; i++) {
+      var player = new Player("p" + i, "p" + i);
       players[i] = player;
       group.addOpponent(player);
     }
-    Match m1 = new Match(players[0], players[1]);
+    var m1 = new Match(players[0], players[1]);
     m1.addResult(new Result(0, 1, 0));
     m1.setFinishedTime(LocalDateTime.now());
     m1.setPosition(1);
     group.getMatches().add(m1);
 
-    Match m2 = new Match(players[2], players[3]);
+    var m2 = new Match(players[2], players[3]);
     m2.addResult(new Result(0, 2, 3));
     m2.setFinishedTime(LocalDateTime.now());
     m2.setPosition(2);
     group.getMatches().add(m2);
 
-    List<Match> matches = demd.getPendingMatchesLowerBracket(group);
+    var matches = demd.getPendingMatchesLowerBracket(group);
 
     assertThat(matches).isNotEmpty();
   }
@@ -212,10 +212,10 @@ class DoubleEliminationMatchDetectorTest {
      * p5 \ |- 0:1 (m8) p6 p6 /
      *
      */
-    Group group = new Group();
-    Player[] players = new Player[8];
-    for (int i = 0; i < 8; i++) {
-      Player player = new Player("p" + i, "p" + i);
+    var group = new Group();
+    var players = new Player[8];
+    for (var i = 0; i < 8; i++) {
+      var player = new Player("p" + i, "p" + i);
       players[i] = player;
       group.addOpponent(player);
     }
@@ -228,17 +228,17 @@ class DoubleEliminationMatchDetectorTest {
     addMatch(group, 7, players[1], players[2], new Result(0, 1, 0));
     addMatch(group, 8, players[5], players[6], new Result(0, 0, 1));
 
-    List<Match> matches = demd.getPendingMatchesLowerBracket(group);
+    var matches = demd.getPendingMatchesLowerBracket(group);
 
     assertThat(matches).hasSize(2);
   }
 
   @Test
   void testGetWinnersOnLevel() {
-    Group group = new Group();
-    Player[] players = new Player[8];
-    for (int i = 0; i < 8; i++) {
-      Player player = new Player("p" + i, "p" + i);
+    var group = new Group();
+    var players = new Player[8];
+    for (var i = 0; i < 8; i++) {
+      var player = new Player("p" + i, "p" + i);
       players[i] = player;
       group.addOpponent(player);
     }
@@ -254,7 +254,7 @@ class DoubleEliminationMatchDetectorTest {
     addMatch(group, 7, players[1], players[2], new Result(0, 1, 0));
     addMatch(group, 8, players[5], players[6], new Result(0, 0, 1));
 
-    List<Opponent> winnersOnLevel = demd.getWinnersOnLevel(0, group);
+    var winnersOnLevel = demd.getWinnersOnLevel(0, group);
 
     assertThat(winnersOnLevel).hasSize(2);
   }
@@ -270,22 +270,22 @@ class DoubleEliminationMatchDetectorTest {
      *
      * p1 \ |- running (m0+3) p2 /
      */
-    Group group = new Group();
-    Player[] players = new Player[4];
-    for (int i = 0; i < 4; i++) {
-      Player player = new Player("p" + i, "p" + i);
+    var group = new Group();
+    var players = new Player[4];
+    for (var i = 0; i < 4; i++) {
+      var player = new Player("p" + i, "p" + i);
       players[i] = player;
       group.addOpponent(player);
     }
     addMatch(group, 1, players[0], players[1], new Result(0, 1, 0));
     addMatch(group, 2, players[2], players[3], new Result(0, 0, 1));
     addMatch(group, 0, players[0], players[3], new Result(0, 1, 0));
-    Match m3 = new Match(players[1], players[3]);
+    var m3 = new Match(players[1], players[3]);
     m3.setPosition(3);
     m3.setRunning(true);
     group.getMatches().add(m3);
 
-    List<Match> matches = demd.getPendingMatchesLowerBracket(group);
+    var matches = demd.getPendingMatchesLowerBracket(group);
 
     assertThat(matches).hasSize(1);
     assertThat(matches.getFirst().getGuest()).isInstanceOf(Unknown.class);
@@ -299,10 +299,10 @@ class DoubleEliminationMatchDetectorTest {
      * p0 \ |- 1:0 (m1) - p0 \ p1 / | |- 1:0 (m0) - p0 \ p2 \ | | |- 0:1 (m2) - p3 /
      * |- p3 / | p3 \ | |- 1:0 (m0+4) - p3 / p1 \ | |- 1:0 (m0+3) p1 / p2 /
      */
-    Group group = new Group();
-    Player[] players = new Player[4];
-    for (int i = 0; i < 4; i++) {
-      Player player = new Player("p" + i, "p" + i);
+    var group = new Group();
+    var players = new Player[4];
+    for (var i = 0; i < 4; i++) {
+      var player = new Player("p" + i, "p" + i);
       players[i] = player;
       group.addOpponent(player);
     }
@@ -312,7 +312,7 @@ class DoubleEliminationMatchDetectorTest {
     addMatch(group, 3, players[1], players[2], new Result(0, 1, 0));
     addMatch(group, 4, players[3], players[1], new Result(0, 1, 0));
 
-    Match finalMatch = demd.getPendingFinalMatch(group);
+    var finalMatch = demd.getPendingFinalMatch(group);
 
     assertThat(finalMatch).isNotNull();
   }
@@ -326,10 +326,10 @@ class DoubleEliminationMatchDetectorTest {
      * |- 1:0 (m0+5) p3 / | p3 \ | |- 1:0 (m0+4) - p3 / p1 \ | |- 1:0 (m0+3) p1 / p2
      * /
      */
-    Group group = new Group();
-    Player[] players = new Player[4];
-    for (int i = 0; i < 4; i++) {
-      Player player = new Player("p" + i, "p" + i);
+    var group = new Group();
+    var players = new Player[4];
+    for (var i = 0; i < 4; i++) {
+      var player = new Player("p" + i, "p" + i);
       players[i] = player;
       group.addOpponent(player);
     }
@@ -340,7 +340,7 @@ class DoubleEliminationMatchDetectorTest {
     addMatch(group, 4, players[3], players[1], new Result(0, 1, 0));
     addMatch(group, 5, players[0], players[3], new Result(0, 1, 0));
 
-    Match finalMatch = demd.getPendingFinalMatch(group);
+    var finalMatch = demd.getPendingFinalMatch(group);
 
     assertThat(finalMatch).isNull();
   }
@@ -367,10 +367,10 @@ class DoubleEliminationMatchDetectorTest {
 
   @Test
   void testGetFirstLevelMatches() {
-    Group group = new Group();
-    Opponent[] opponents = new Opponent[8];
-    for (int i = 0; i < 8; i++) {
-      Player player = new Player("p" + i, "p" + i);
+    var group = new Group();
+    var opponents = new Opponent[8];
+    for (var i = 0; i < 8; i++) {
+      var player = new Player("p" + i, "p" + i);
       opponents[i] = player;
       group.addOpponent(player);
     }
@@ -380,13 +380,13 @@ class DoubleEliminationMatchDetectorTest {
     addMatch(group, 5, opponents[4], opponents[5], new Result(0, 2, 1));
     addMatch(group, 6, opponents[6], opponents[7], new Result(0, 2, 0));
 
-    List<Match> firstLevelMatches = demd.getFirstLevelMatches(group);
+    var firstLevelMatches = demd.getFirstLevelMatches(group);
 
     assertThat(firstLevelMatches).hasSize(2);
   }
 
   private void addMatch(Group group, int matchIndex, Opponent home, Opponent guest, Result result) {
-    Match match = new Match(home, guest);
+    var match = new Match(home, guest);
 
     if (result != null) {
       match.addResult(result);

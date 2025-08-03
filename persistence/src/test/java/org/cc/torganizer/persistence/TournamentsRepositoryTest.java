@@ -15,7 +15,7 @@ class TournamentsRepositoryTest extends AbstractDbUnitJpaTest {
   private TournamentsRepository repository;
 
   @BeforeEach
-  public void beforeAll() throws Exception {
+  void beforeAll() throws Exception {
     super.initDatabase("test-data-tournament.xml");
 
     repository = new TournamentsRepository(entityManager);
