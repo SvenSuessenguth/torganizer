@@ -72,6 +72,6 @@
    +-->
   <cdi12 enableImplicitBeanArchives="false" />
 
-  <application type="war" id="frontend_war_exploded" name="frontend_war_exploded" location="${server.config.dir}/apps/frontend.war" context-root="/"/>
+  <application type="war" id="frontend_war_exploded" name="frontend_war_exploded" location="${server.config.dir}apps/frontend.war" context-root="/"/>
 </server>
 
