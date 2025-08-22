@@ -86,7 +86,7 @@
     <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
     <maven-war-plugin.version>3.4.0</maven-war-plugin.version>
     <sonar-maven-plugin.version>5.1.0.4751</sonar-maven-plugin.version>
-    <spotbugs-maven-plugin.version>4.9.3.2</spotbugs-maven-plugin.version>
+    <spotbugs-maven-plugin.version>4.9.4.0</spotbugs-maven-plugin.version>
   </properties>
 
   <dependencyManagement>
