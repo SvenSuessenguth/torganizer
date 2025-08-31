@@ -41,7 +41,7 @@ class MatchIdleTimeComparatorTest {
     assertThat(compare).hasSameSign(expected);
   }
 
-  private static final Match match(Long idleTime) {
+  private static Match match(Long idleTime) {
     var match = mock(Match.class);
     when(match.getIdleTime()).thenReturn(idleTime);
 
@@ -67,8 +67,8 @@ class SignAssert extends AbstractAssert<SignAssert, Number> {
     }
 
     if (actual.doubleValue() * other.doubleValue() < 0) {
-      String actualSign = actual.doubleValue() > 0 ? "'+'" : "'-";
-      String expectedSign = other.doubleValue() > 0 ? "'+'" : "'-'";
+      var actualSign = actual.doubleValue() > 0 ? "'+'" : "'-";
+      var expectedSign = other.doubleValue() > 0 ? "'+'" : "'-'";
       failWithMessage("Expected sign is <%s> but was <%s>", expectedSign, actualSign);
     }
 

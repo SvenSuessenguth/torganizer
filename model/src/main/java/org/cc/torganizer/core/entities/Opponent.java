@@ -3,11 +3,11 @@ package org.cc.torganizer.core.entities;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.Collection;
+
 import static java.time.LocalDateTime.MIN;
 import static java.time.LocalDateTime.now;
 import static java.time.temporal.ChronoUnit.MINUTES;
-
-import java.util.Collection;
 
 /**
  * Abstract Opponent class.
@@ -19,6 +19,7 @@ public abstract class Opponent extends Entity {
   private Status status = Status.ACTIVE;
 
   public abstract Collection<Player> getPlayers();
+
   public abstract OpponentType getOpponentType();
 
   /**
@@ -30,13 +31,11 @@ public abstract class Opponent extends Entity {
 
     for (var p : getPlayers()) {
       var lastMatchTime = p.getLastMatchTime();
-
       lastMatchTime = lastMatchTime == null ? MIN : lastMatchTime;
-
       overallMinutesSinceLastMatch += MINUTES.between(lastMatchTime, now());
     }
 
-    int playerCount = getPlayers().size();
+    var playerCount = getPlayers().size();
     return playerCount != 0 ? overallMinutesSinceLastMatch / playerCount : Long.MAX_VALUE;
   }
 }

@@ -90,7 +90,7 @@ public class Group extends Entity implements Positional {
    * @param opponent Opponent, der de Group hinzugefügt werden soll.
    */
   public void addOpponent(Opponent opponent) {
-    Integer lastPosition = positionalOpponents.size();
+    var lastPosition = positionalOpponents.size();
     var positionalOpponent = new PositionalOpponent();
     positionalOpponent.setPosition(lastPosition);
     positionalOpponent.setOpponent(opponent);

@@ -108,7 +108,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
   Match getPendingFinalMatch(Group group) {
 
     Match finalMatch = null;
-    int finalMatchIndex = 2 * (group.getOpponents().size() - 1) - 1;
+    var finalMatchIndex = 2 * (group.getOpponents().size() - 1) - 1;
     if (group.getMatch(finalMatchIndex) != null) {
       return null;
     }
@@ -285,7 +285,7 @@ public class DoubleEliminationMatchDetector extends SingleEliminationMatchDetect
       return mub + levelIndex;
     }
 
-    int matchIndex = mub;
+    var matchIndex = mub;
     matchIndex += countMatchesUpToLevel(level - 1, groupSize);
     matchIndex += levelIndex;
 

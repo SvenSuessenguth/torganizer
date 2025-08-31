@@ -1,6 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import org.cc.torganizer.core.entities.aggregates.Aggregation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -50,17 +49,17 @@ class GroupTest {
 
   @Test
   void testRemoveOpponent_reindex() {
-    Player playerToRemove = new Player();
-    Player testPlayer = new Player();
+    var playerToRemove = new Player();
+    var testPlayer = new Player();
 
     group.addOpponent(new Player());
     group.addOpponent(playerToRemove);
     group.addOpponent(testPlayer);
 
-    int indexBefore = group.getPositionalOpponent(testPlayer).getPosition();
+    var indexBefore = group.getPositionalOpponent(testPlayer).getPosition();
     group.removeOpponent(playerToRemove);
-    int indexAfter = group.getPositionalOpponent(testPlayer).getPosition();
-    List<Opponent> opponentsAfter = group.getOpponents();
+    var indexAfter = group.getPositionalOpponent(testPlayer).getPosition();
+    var opponentsAfter = group.getOpponents();
 
     assertThat(opponentsAfter).hasSize(2);
     assertThat(indexBefore).isNotEqualTo(indexAfter);
@@ -68,7 +67,7 @@ class GroupTest {
 
   @Test
   void testGetPositionalOpponent_null() {
-    PositionalOpponent positionalOpponent = group.getPositionalOpponent((Opponent) null);
+    var positionalOpponent = group.getPositionalOpponent((Opponent) null);
 
     assertThat(positionalOpponent).isNull();
   }
@@ -76,63 +75,63 @@ class GroupTest {
   @Test
   void testSetOpponents_null() {
     group.setOpponents(null);
-    List<PositionalOpponent> positionalOpponents = group.getPositionalOpponents();
+    var positionalOpponents = group.getPositionalOpponents();
     assertThat(positionalOpponents).isEmpty();
   }
 
   @Test
   void testSetOpponents_empty() {
     group.setOpponents(new ArrayList<>());
-    List<PositionalOpponent> positionalOpponents = group.getPositionalOpponents();
+    var positionalOpponents = group.getPositionalOpponents();
     assertThat(positionalOpponents).isEmpty();
   }
 
   @Test
   void testSetOpponents() {
     group.setOpponents(Arrays.asList(new Player(), new Player()));
-    List<PositionalOpponent> positionalOpponents = group.getPositionalOpponents();
+    var positionalOpponents = group.getPositionalOpponents();
     assertThat(positionalOpponents).hasSize(2);
   }
 
   @Test
   void testGetOpponent_null() {
-    Opponent opponent = group.getOpponent(null);
+    var opponent = group.getOpponent(null);
     assertThat(opponent).isNull();
   }
 
   @Test
   void testGetOpponent_invalid() {
-    Opponent opponent = group.getOpponent(Integer.MIN_VALUE);
+    var opponent = group.getOpponent(Integer.MIN_VALUE);
     assertThat(opponent).isNull();
   }
 
   @Test
   void testGetOpponent_valid() {
-    Player expected = new Player();
+    var expected = new Player();
     group.addOpponent(expected);
-    Opponent opponent = group.getOpponent(0);
+    var opponent = group.getOpponent(0);
     assertThat(opponent).isNotNull().isEqualTo(expected);
   }
 
   @Test
   void testGetAggregates_empty() {
-    List<Aggregation> aggregates = group.getAggregates();
+    var aggregates = group.getAggregates();
     assertThat(aggregates).isEmpty();
   }
 
   @Test
   void testGetAggregates_minimal() {
     // two players with one match
-    Player p1 = new Player();
-    Player p2 = new Player();
+    var p1 = new Player();
+    var p2 = new Player();
     group.addOpponent(p1);
     group.addOpponent(p2);
 
-    Match m = new Match(p1, p2);
+    var m = new Match(p1, p2);
     m.addResult(new Result(0, 0, 1));
     group.getMatches().add(m);
 
-    List<Aggregation> aggregates = group.getAggregates();
+    var aggregates = group.getAggregates();
     assertThat(aggregates).isNotEmpty().hasSize(2);
     assertThat(aggregates.getFirst().getOpponent()).isEqualTo(p2);
   }
@@ -150,10 +149,10 @@ class GroupTest {
   @ParameterizedTest
   @MethodSource
   void getFinishedMatches(List<Match> matches, int expected) {
-    Group g = new Group();
+    var g = new Group();
     g.setMatches(matches);
 
-    List<Match> finishedMatches = g.getFinishedMatches();
+    var finishedMatches = g.getFinishedMatches();
 
     assertThat(finishedMatches).hasSize(expected);
   }
@@ -171,10 +170,10 @@ class GroupTest {
   @ParameterizedTest
   @MethodSource
   void getRunningMatches(List<Match> matches, int expected) {
-    Group g = new Group();
+    var g = new Group();
     g.setMatches(matches);
 
-    List<Match> runningMatches = g.getRunningMatches();
+    var runningMatches = g.getRunningMatches();
 
     assertThat(runningMatches).hasSize(expected);
   }
@@ -198,29 +197,29 @@ class GroupTest {
       IntStream.range(0, matches.size())
         .forEach(idx -> matches.get(idx).setPosition(idx));
     }
-    Group g = new Group();
+    var g = new Group();
     g.setMatches(matches);
 
-    Match match = g.getMatch(position);
+    var match = g.getMatch(position);
     assertThat(match != null).isEqualTo(matchFound);
   }
 
 
   private static Match finishedMatch() {
-    Match m = new Match();
+    var m = new Match();
     m.setRunning(false);
     m.setFinishedTime(LocalDateTime.now());
     return m;
   }
 
   private static Match runningMatch() {
-    Match m = new Match();
+    var m = new Match();
     m.setRunning(true);
     return m;
   }
 
   private static Match idleMatch() {
-    Match m = new Match();
+    var m = new Match();
     m.setRunning(false);
     return m;
   }

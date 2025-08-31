@@ -62,7 +62,7 @@ class OpponentFilterTest {
   @MethodSource("pass")
   void pass(Opponent opponent, Collection<Restriction> restrictions, int expected) {
 
-    Collection<Opponent> pass = filter.pass(List.of(opponent), restrictions);
+    var pass = filter.pass(List.of(opponent), restrictions);
 
     assertThat(pass).size().isEqualTo(expected);
   }

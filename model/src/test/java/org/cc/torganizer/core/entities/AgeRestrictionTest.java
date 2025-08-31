@@ -47,8 +47,8 @@ class AgeRestrictionTest {
   }
 
   private static Player playerFactory(Integer year, Integer month, Integer day) {
-    LocalDate dateOfBirth = localDateFactory(year, month, day);
-    Person person = new Person("a", "b", dateOfBirth, Gender.UNKNOWN);
+    var dateOfBirth = localDateFactory(year, month, day);
+    var person = new Person("a", "b", dateOfBirth, Gender.UNKNOWN);
     return new Player(person);
   }
 
@@ -62,7 +62,7 @@ class AgeRestrictionTest {
   @ParameterizedTest
   @MethodSource("addRestrictionAndPlayer")
   void testPlayerRestriction(Restriction restriction, Player player, boolean expectedRestricted) {
-    boolean isRestricted = restriction.isRestricted(player);
+    var isRestricted = restriction.isRestricted(player);
     assertThat(isRestricted).isEqualTo(expectedRestricted);
   }
 }

@@ -33,11 +33,11 @@ class PlayerByLastUpdateComparatorTest {
 
     Date lastUpdate = null;
     if (s != null) {
-      DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+      var formatter = new SimpleDateFormat("dd.MM.yyyy");
       lastUpdate = formatter.parse(s);
     }
 
-    Player player = new Player("firstName", "lastName");
+    var player = new Player("firstName", "lastName");
     player.setLastUpdate(lastUpdate);
     return player;
   }
@@ -50,7 +50,7 @@ class PlayerByLastUpdateComparatorTest {
   @ParameterizedTest
   @MethodSource("playerProvider")
   void test(Player player1, Player player2, int expectedCompare) {
-    int actualCompare = comparator.compare(player1, player2);
+    var actualCompare = comparator.compare(player1, player2);
 
     assertThat(actualCompare).isEqualTo(expectedCompare);
   }

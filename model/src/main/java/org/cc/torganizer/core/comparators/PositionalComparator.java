@@ -1,11 +1,12 @@
 package org.cc.torganizer.core.comparators;
 
-import static org.cc.torganizer.core.util.Checker.countNullValues;
-import static org.cc.torganizer.core.util.Checker.onlyNullValues;
+import org.cc.torganizer.core.entities.Positional;
 
 import java.io.Serializable;
 import java.util.Comparator;
-import org.cc.torganizer.core.entities.Positional;
+
+import static org.cc.torganizer.core.util.Checker.countNullValues;
+import static org.cc.torganizer.core.util.Checker.onlyNullValues;
 
 /**
  * Sortieren nach der Position.
@@ -22,7 +23,7 @@ public class PositionalComparator implements Comparator<Positional>, Serializabl
 
     // exact one value is NULL
     if (countNullValues(p0, p1) == 1) {
-      int result;
+      var result = 0;
       if (p0 == null) {
         result = 1;
       } else {
