@@ -3,18 +3,16 @@ package org.cc.torganizer.frontend.players.actions;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import lombok.extern.slf4j.Slf4j;
 import org.cc.torganizer.persistence.TournamentsRepository;
-import org.slf4j.Logger;
 
 /**
  * Persisting selected Player.
  */
 @RequestScoped
 @Named
+@Slf4j
 public class SavePlayer extends PlayersAction {
-
-  @Inject
-  private Logger logger;
   @Inject
   protected TournamentsRepository tournamentsRepository;
   @Inject
@@ -26,7 +24,7 @@ public class SavePlayer extends PlayersAction {
    * persisting changes to an already persisted player.
    */
   public void execute() {
-    logger.info("save player");
+    log.info("save player");
 
     var player = state.getCurrent();
     var tournamentId = applicationState.getTournamentId();

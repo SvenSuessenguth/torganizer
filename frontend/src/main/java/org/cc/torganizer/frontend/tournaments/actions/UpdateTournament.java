@@ -5,10 +5,10 @@ import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import lombok.extern.slf4j.Slf4j;
 import org.cc.torganizer.frontend.tournaments.TournamentsBacking;
 import org.cc.torganizer.frontend.tournaments.TournamentsState;
 import org.cc.torganizer.persistence.TournamentsRepository;
-import org.slf4j.Logger;
 
 import static jakarta.faces.application.FacesMessage.SEVERITY_ERROR;
 
@@ -17,10 +17,8 @@ import static jakarta.faces.application.FacesMessage.SEVERITY_ERROR;
  */
 @RequestScoped
 @Named
+@Slf4j
 public class UpdateTournament {
-
-  @Inject
-  private Logger logger;
   @Inject
   protected TournamentsRepository tournamentsRepository;
   @Inject
@@ -50,6 +48,6 @@ public class UpdateTournament {
     }
 
     cancelTournament.execute();
-    logger.info("update tournament '{}'", current.getName());
+    log.info("update tournament '{}'", current.getName());
   }
 }

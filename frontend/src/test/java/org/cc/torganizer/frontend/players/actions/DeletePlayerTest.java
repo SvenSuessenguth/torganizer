@@ -1,7 +1,5 @@
 package org.cc.torganizer.frontend.players.actions;
 
-import static org.mockito.Mockito.when;
-
 import org.cc.torganizer.core.entities.Player;
 import org.cc.torganizer.frontend.ApplicationMessages;
 import org.cc.torganizer.frontend.ApplicationState;
@@ -15,45 +13,40 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.slf4j.Logger;
+
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class DeletePlayerTest {
 
   @Mock
   private TournamentsRepository tRepository;
-
   @Mock
-  private Logger logger;
-
-  @Mock
+  @SuppressWarnings("unused")
   private ApplicationMessages applicationMessages;
-
   @Mock
   protected PlayersState state;
-
   @Mock
+  @SuppressWarnings("unused")
   protected PlayersRepository repository;
-
   @Mock
+  @SuppressWarnings("unused")
   protected PlayersStateSynchronizer synchronizer;
-
   @Mock
   protected ApplicationState applicationState;
-
   @InjectMocks
   private DeletePlayer deletePlayer;
-
 
   @Test
   void execute() {
     when(applicationState.getTournamentId()).thenReturn(1L);
-    Player current = new Player("current", "player");
+    var current = new Player("current", "player");
     current.setId(1L);
     when(state.getCurrent()).thenReturn(current);
 
     deletePlayer.execute();
 
-    Mockito.verify(tRepository, Mockito.times(1)).removeOpponent(1L, 1L);
+    verify(tRepository, Mockito.times(1)).removeOpponent(1L, 1L);
   }
 }

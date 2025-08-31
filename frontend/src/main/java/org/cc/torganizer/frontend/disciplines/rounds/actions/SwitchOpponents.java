@@ -4,20 +4,20 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import lombok.extern.slf4j.Slf4j;
 import org.cc.torganizer.frontend.disciplines.rounds.DisciplineRoundState;
-import org.slf4j.Logger;
+import org.cc.torganizer.persistence.GroupsRepository;
 
 /**
  * Switch two opponents between groups and position.
  */
 @Named
 @RequestScoped
+@Slf4j
 public class SwitchOpponents {
-
   @Inject
   private DisciplineRoundState drState;
-  @Inject
-  private Logger logger;
+  private GroupsRepository groupsRepository;
 
   /**
    * Saveing the Opponent to switch given in the request.
@@ -38,12 +38,19 @@ public class SwitchOpponents {
   public void switchWith() {
     var params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 
-    var message = "switch ${sourceGroupId} / ${sourceOpponentId} with ${targetGroupId} / ${targetOpponentId}"
-      .replace("${sourceGroupId}", Long.toString(drState.getSourceGroupId()))
-      .replace("${sourceOpponentId}", Long.toString(drState.getSourceOpponentId()))
-      .replace("${targetGroupId}", params.get("gId"))
-      .replace("${targetOpponentId}", params.get("oId"));
+    var sourceGroupId = Long.toString(drState.getSourceGroupId());
+    var sourceOpponentId = Long.toString(drState.getSourceOpponentId());
+    var targetGroupId = params.get("gId");
+    var targetOpponentId = params.get("oId");
 
-    logger.debug(message);
+    var message = "switch ${sourceGroupId} / ${sourceOpponentId} with ${targetGroupId} / ${targetOpponentId}"
+      .replace("${sourceGroupId}", sourceGroupId)
+      .replace("${sourceOpponentId}", sourceOpponentId)
+      .replace("${targetGroupId}", targetGroupId)
+      .replace("${targetOpponentId}", targetOpponentId);
+
+    //
+
+    log.debug(message);
   }
 }

@@ -1,28 +1,26 @@
 package org.cc.torganizer.frontend.tournaments.actions;
 
-import static jakarta.faces.application.FacesMessage.SEVERITY_ERROR;
-
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import lombok.extern.slf4j.Slf4j;
 import org.cc.torganizer.frontend.ApplicationState;
 import org.cc.torganizer.frontend.tournaments.TournamentsBacking;
 import org.cc.torganizer.frontend.tournaments.TournamentsState;
 import org.cc.torganizer.frontend.tournaments.TournamentsStateSynchronizer;
 import org.cc.torganizer.persistence.TournamentsRepository;
-import org.slf4j.Logger;
+
+import static jakarta.faces.application.FacesMessage.SEVERITY_ERROR;
 
 /**
  * Saving the current tournament.
  */
 @RequestScoped
 @Named
+@Slf4j
 public class CreateTournament {
-
-  @Inject
-  private Logger logger;
   @Inject
   protected TournamentsRepository tournamentsRepository;
   @Inject
@@ -47,10 +45,10 @@ public class CreateTournament {
       synchronizer.synchronize(state);
       appState.setTournament(current);
 
-      logger.info("save with name: '{}'", current.getName());
+      log.info("save with name: '{}'", current.getName());
     } catch (Exception e) {
       var facesMessage = new FacesMessage(SEVERITY_ERROR,
-          "Error saving tournament '%s'".formatted(current.getName()), e.getMessage());
+        "Error saving tournament '%s'".formatted(current.getName()), e.getMessage());
       facesContext.addMessage(tournamentsBacking.getNameClientId(), facesMessage);
       tournamentsBacking.getNameInputText().setValid(false);
       current.setId(null);

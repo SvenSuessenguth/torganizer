@@ -1,15 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html lang="en"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
       xmlns:fn="http://java.sun.com/jsp/jstl/functions"
       xmlns:tc="http://xmlns.jcp.org/jsf/composite/components">
 
 <head>
-  <title>round robin chart</title>
+    <title>round robin chart</title>
 </head>
 
 <cc:interface name="rr-chart"
@@ -18,96 +17,96 @@
               expert="false"
               shortDescription="chart for a group playing round robin">
 
-  <cc:attribute name="group" required="true" type="org.cc.torganizer.core.entities.Group"/>
+    <cc:attribute name="group" required="true" type="org.cc.torganizer.core.entities.Group"/>
 
-  <!--
-   | Support Drag'n'Drop
-   +-->
-  <cc:attribute name="onDragStartAction" required="false" type="java.lang.String"
-                default="rrChartOnDragStartDefaultAction"/>
-  <cc:attribute name="onDropAction" required="false" type="java.lang.String" default="rrChartOnDropDefaultAction"/>
+    <!--
+     | Support Drag'n'Drop
+     +-->
+    <cc:attribute name="onDragStartAction" required="false" type="java.lang.String"
+                  default="rrChartOnDragStartDefaultAction"/>
+    <cc:attribute name="onDropAction" required="false" type="java.lang.String" default="rrChartOnDropDefaultAction"/>
 </cc:interface>
 
 <cc:implementation>
-  <script type="text/javascript">
-    function rrChartOnDragStartDefaultAction(gId, oId) {
-      console.log("rrChartOnDragStartDefaultAction: " + gId + " : " + oId);
-    }
+    <script type="text/javascript">
+        function rrChartOnDragStartDefaultAction(gId, oId) {
+            console.log("rrChartOnDragStartDefaultAction: " + gId + " : " + oId);
+        }
 
-    function onDragOver(event) {
-      event.preventDefault();
-    }
+        function onDragOver(event) {
+            event.preventDefault();
+        }
 
-    function rrChartOnDropDefaultAction(gId, oId) {
-      console.log("rrChartOnDropDefaultAction: " + gId + " : " + oId);
-    }
-  </script>
+        function rrChartOnDropDefaultAction(gId, oId) {
+            console.log("rrChartOnDropDefaultAction: " + gId + " : " + oId);
+        }
+    </script>
 
-  <!--
-   | Matches
-   +-->
-  <table class="rr-matches-table">
-    <caption>matches of group #{cc.attrs.group.position}</caption>
-    <tr>
-      <th id="matchesHeader" class="rr-chart-header">&nbsp;</th>
-      <c:forEach var="pOpponent" items="#{cc.attrs.group.positionalOpponents}" varStatus="varStatus">
-        <th id="#{pOpponent.id}#{varStatus.index}" class="rr-chart-header">
-          <div draggable="true"
-               ondragstart="#{cc.attrs.onDragStartAction}({gId: #{cc.attrs.group.id}, oId: #{pOpponent.id}})"
-               ondrop="#{cc.attrs.onDropAction}({gId: #{cc.attrs.group.id}, oId: #{pOpponent.position}})"
-               ondragover="onDragOver(event)">
-            <tc:opponent opponent="#{pOpponent.opponent}" showLastNames="true"/>
-          </div>
-        </th>
-      </c:forEach>
-    </tr>
+    <!--
+     | Matches
+     +-->
+    <table class="rr-matches-table">
+        <caption>matches of group #{cc.attrs.group.position}</caption>
+        <tr>
+            <th id="matchesHeader" class="rr-chart-header">&nbsp;</th>
+            <c:forEach var="pOpponent" items="#{cc.attrs.group.positionalOpponents}" varStatus="varStatus">
+                <th id="#{pOpponent.id}#{varStatus.index}" class="rr-chart-header">
+                    <div draggable="true"
+                         ondragstart="#{cc.attrs.onDragStartAction}({gId: #{cc.attrs.group.id}, oId: #{pOpponent.id}})"
+                         ondrop="#{cc.attrs.onDropAction}({gId: #{cc.attrs.group.id}, oId: #{pOpponent.position}})"
+                         ondragover="onDragOver(event)">
+                        <tc:opponent opponent="#{pOpponent.opponent}" showLastNames="true"/>
+                    </div>
+                </th>
+            </c:forEach>
+        </tr>
 
-    <c:forEach var="pOpponent" items="#{cc.attrs.group.positionalOpponents}" varStatus="row">
-      <tr>
-        <th id="rowOpponentHeader" class="rr-chart-header">
-          <div draggable="true"
-               ondragstart="#{cc.attrs.onDragStartAction}({gId: #{cc.attrs.group.id}, oId: #{pOpponent.id}})"
-               ondrop="#{cc.attrs.onDropAction}({gId: #{cc.attrs.group.id}, oId: #{pOpponent.id}})"
-               ondragover="onDragOver(event)">
-            <tc:opponent opponent="#{pOpponent.opponent}" showLastNames="true"/>
-          </div>
-        </th>
-        <!-- Opponents -->
-        <c:forEach var="pOpponent" items="#{cc.attrs.group.positionalOpponents}" varStatus="col">
-          <td class="#{(col.index le row.index) ? 'rr-matches-lower-bracket' : 'rr-matches-upper-bracket'}">
-            <tc:results
-              rendered="#{group.match(row.index*fn:length(group.opponents)+col.index)!=null}"
-              results="#{group.match(row.index*fn:length(group.opponents)+col.index).results}"
-              alignment="vertical"/>
-          </td>
+        <c:forEach var="pOpponent" items="#{cc.attrs.group.positionalOpponents}" varStatus="row">
+            <tr>
+                <th id="rowOpponentHeader" class="rr-chart-header">
+                    <div draggable="true"
+                         ondragstart="#{cc.attrs.onDragStartAction}({gId: #{cc.attrs.group.id}, oId: #{pOpponent.id}})"
+                         ondrop="#{cc.attrs.onDropAction}({gId: #{cc.attrs.group.id}, oId: #{pOpponent.id}})"
+                         ondragover="onDragOver(event)">
+                        <tc:opponent opponent="#{pOpponent.opponent}" showLastNames="true"/>
+                    </div>
+                </th>
+                <!-- Opponents -->
+                <c:forEach var="pOpponent" items="#{cc.attrs.group.positionalOpponents}" varStatus="col">
+                    <td class="#{(col.index le row.index) ? 'rr-matches-lower-bracket' : 'rr-matches-upper-bracket'}">
+                        <tc:results
+                                rendered="#{group.match(row.index*fn:length(group.opponents)+col.index)!=null}"
+                                results="#{group.match(row.index*fn:length(group.opponents)+col.index).results}"
+                                alignment="vertical"/>
+                    </td>
+                </c:forEach>
+            </tr>
         </c:forEach>
-      </tr>
-    </c:forEach>
-  </table>
+    </table>
 
-  <!--
-   | Chart
-   +-->
-  <table id="rrChartTable" class="rr-chart-table">
-    <caption>chart table for group #{cc.attrs.group.position}</caption>
-    <tr>
-      <th id="chartHeaderEdge" class="rr-chart-header">&nbsp;</th>
-      <th id="chartHeaderPlayed" class="rr-chart-header">gespielt</th>
-      <th id="chartHeaderMatches" class="rr-chart-header">Spiele</th>
-      <th id="chartHeaderSets" class="rr-chart-header">Saetze</th>
-      <th id="chartHeaderPoints" class="rr-chart-header">Punkte</th>
-    </tr>
-    <c:forEach var="aggregate" items="#{cc.attrs.group.aggregates}" varStatus="varStatus">
-      <tr>
-        <th id="chartHeader#{varStatus.index}" class="rr-chart-header">
-          <tc:opponent opponent="#{aggregate.opponent}" showLastNames="true" showFirstNames="true"/>
-        </th>
-        <td class="rr-chart-aggregate">#{aggregate.matchAggregate.wins+aggregate.matchAggregate.lose}</td>
-        <td class="rr-chart-aggregate">#{aggregate.matchAggregate.wins}:#{aggregate.matchAggregate.lose}</td>
-        <td class="rr-chart-aggregate">#{aggregate.resultAggregate.wins}:#{aggregate.resultAggregate.lose}</td>
-        <td class="rr-chart-aggregate">#{aggregate.scoreAggregate.wins}:#{aggregate.scoreAggregate.lose}</td>
-      </tr>
-    </c:forEach>
-  </table>
+    <!--
+     | Chart
+     +-->
+    <table id="rrChartTable" class="rr-chart-table">
+        <caption>chart table for group #{cc.attrs.group.position}</caption>
+        <tr>
+            <th id="chartHeaderEdge" class="rr-chart-header">&nbsp;</th>
+            <th id="chartHeaderPlayed" class="rr-chart-header">gespielt</th>
+            <th id="chartHeaderMatches" class="rr-chart-header">Spiele</th>
+            <th id="chartHeaderSets" class="rr-chart-header">Saetze</th>
+            <th id="chartHeaderPoints" class="rr-chart-header">Punkte</th>
+        </tr>
+        <c:forEach var="aggregate" items="#{cc.attrs.group.aggregates}" varStatus="varStatus">
+            <tr>
+                <th id="chartHeader#{varStatus.index}" class="rr-chart-header">
+                    <tc:opponent opponent="#{aggregate.opponent}" showLastNames="true" showFirstNames="true"/>
+                </th>
+                <td class="rr-chart-aggregate">#{aggregate.matchAggregate.wins+aggregate.matchAggregate.lose}</td>
+                <td class="rr-chart-aggregate">#{aggregate.matchAggregate.wins}:#{aggregate.matchAggregate.lose}</td>
+                <td class="rr-chart-aggregate">#{aggregate.resultAggregate.wins}:#{aggregate.resultAggregate.lose}</td>
+                <td class="rr-chart-aggregate">#{aggregate.scoreAggregate.wins}:#{aggregate.scoreAggregate.lose}</td>
+            </tr>
+        </c:forEach>
+    </table>
 </cc:implementation>
 </html>

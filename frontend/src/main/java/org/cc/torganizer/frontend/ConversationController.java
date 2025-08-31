@@ -5,17 +5,15 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import org.slf4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Start and ends a conversation.
  */
 @Named
 @RequestScoped
+@Slf4j
 public class ConversationController {
-
-  @Inject
-  private Logger logger;
   @Inject
   private Conversation conversation;
   @Inject
@@ -27,7 +25,7 @@ public class ConversationController {
   public void beginConversation() {
     if (conversation.isTransient()) {
       conversation.begin();
-      logger.info("conversation begin with id '{}'", conversation.getId());
+      log.info("conversation begin with id '{}'", conversation.getId());
     }
   }
 
