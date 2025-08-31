@@ -9,29 +9,29 @@ class OpponentTest {
 
   @Test
   void testIdleTimePlayer() {
-    Player player = createPlayerWithMinutesSinceLastMatch(60);
+    var player = createPlayerWithMinutesSinceLastMatch(60);
 
-    Long idleTime = player.getIdleTime();
+    var idleTime = player.getIdleTime();
 
     assertThat(idleTime).isEqualTo(60);
   }
 
   @Test
   void testIdleTimeSquad() {
-    Player player1 = createPlayerWithMinutesSinceLastMatch(31);
-    Player player2 = createPlayerWithMinutesSinceLastMatch(62);
-    Squad squad = new Squad();
+    var player1 = createPlayerWithMinutesSinceLastMatch(31);
+    var player2 = createPlayerWithMinutesSinceLastMatch(62);
+    var squad = new Squad();
     squad.addPlayer(player1);
     squad.addPlayer(player2);
-    Long idleTime = squad.getIdleTime();
+    var idleTime = squad.getIdleTime();
 
     assertThat(idleTime).isEqualTo(46);
   }
 
   private Player createPlayerWithMinutesSinceLastMatch(Integer minutesSinceLastMatch) {
-    Player player = new Player("firstName", "lastName");
-    LocalDateTime now = LocalDateTime.now();
-    LocalDateTime lastMatchTime = now.minusMinutes(minutesSinceLastMatch);
+    var player = new Player("firstName", "lastName");
+    var now = LocalDateTime.now();
+    var lastMatchTime = now.minusMinutes(minutesSinceLastMatch);
     player.setLastMatchTime(lastMatchTime);
 
     return player;

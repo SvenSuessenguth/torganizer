@@ -1,11 +1,11 @@
 package org.cc.torganizer.core.comparators;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.cc.torganizer.core.entities.Club;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ClubComparatorTest {
 
@@ -23,45 +23,45 @@ class ClubComparatorTest {
 
   @Test
   void testCompare_Null_Null() {
-    int result = comparator.compare(null, null);
+    var result = comparator.compare(null, null);
 
     assertThat(result).isZero();
   }
 
   @Test
   void testCompare_Club_Null() {
-    Club c1 = new Club("c1");
+    var c1 = new Club("c1");
 
-    int result = comparator.compare(c1, null);
+    var result = comparator.compare(c1, null);
 
     assertThat(result).isEqualTo(-1);
   }
 
   @Test
   void testCompare_Null_Club() {
-    Club c1 = new Club("c1");
+    var c1 = new Club("c1");
 
-    int result = comparator.compare(null, c1);
+    var result = comparator.compare(null, c1);
 
     assertThat(result).isEqualTo(1);
   }
 
   @Test
   void testCompare_Clubs_with_same_name() {
-    Club c1 = new Club("club");
-    Club c2 = new Club("club");
+    var c1 = new Club("club");
+    var c2 = new Club("club");
 
-    int result = comparator.compare(c1, c2);
+    var result = comparator.compare(c1, c2);
 
     assertThat(result).isZero();
   }
 
   @Test
   void testCompare_Clubs_with_different_name() {
-    Club c1 = new Club("club1");
-    Club c2 = new Club("club2");
+    var c1 = new Club("club1");
+    var c2 = new Club("club2");
 
-    int result = comparator.compare(c1, c2);
+    var result = comparator.compare(c1, c2);
 
     assertThat(result).isEqualTo(-1);
   }

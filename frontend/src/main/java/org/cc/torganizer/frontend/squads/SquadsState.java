@@ -55,7 +55,7 @@ public class SquadsState implements Serializable {
     var chunk = new ArrayList<>(collect.subList(fromIndex, toIndex));
 
     // fill up to 10 to show not only table headers
-    int playersCount = chunk.size();
+    var playersCount = chunk.size();
     for (var i = 0; i < ALL_PLAYERS_TABLE_SIZE - playersCount; i++) {
       chunk.add(new Player(new Person()));
     }
