@@ -41,52 +41,53 @@
     <!-- compile -->
     <logback.version>1.5.18</logback.version>
     <slf4j.version>2.1.0-alpha1</slf4j.version>
+    <lombok.version>1.18.42</lombok.version>
     <!-- runtime -->
     <!-- provided -->
-    <jakarta.faces.version>4.1.3</jakarta.faces.version>
+    <jakarta.faces.version>4.1.4</jakarta.faces.version>
     <jakarta.jakartaee-api.version>11.0.0</jakarta.jakartaee-api.version>
     <microprofile.version>7.1</microprofile.version>
     <!-- test -->
     <assertj-core.version>4.0.0-M1</assertj-core.version>
-    <jakarta.xml.bind-api.version>4.0.2</jakarta.xml.bind-api.version>
-    <jaxb-core.version>4.0.5</jaxb-core.version>
-    <jaxb-impl.version>4.0.5</jaxb-impl.version>
-    <junit.version>6.0.0-RC2</junit.version>
-    <mockito.version>5.19.0</mockito.version>
+    <jakarta.xml.bind-api.version>4.0.4</jakarta.xml.bind-api.version>
+    <jaxb-core.version>4.0.6</jaxb-core.version>
+    <jaxb-impl.version>4.0.6</jaxb-impl.version>
+    <junit.version>6.0.0-RC3</junit.version>
+    <mockito.version>5.20.0</mockito.version>
     <testcontainers.junit-jupiter.version>1.21.3</testcontainers.junit-jupiter.version>
     <!-- plugin-dependencies -->
-    <checkstyle.version>11.0.0</checkstyle.version>
-    <jakarta.activation-api.version>2.1.3</jakarta.activation-api.version>
+    <checkstyle.version>11.0.1</checkstyle.version>
+    <jakarta.activation-api.version>2.2.0-M1</jakarta.activation-api.version>
     <openliberty-runtime.version>25.0.0.8</openliberty-runtime.version>
-    <postgresql.version>42.7.7</postgresql.version>
-    <spotbugs.version>4.9.4</spotbugs.version>
+    <postgresql.version>42.7.8</postgresql.version>
+    <spotbugs.version>4.9.6</spotbugs.version>
 
     <!--
      | mvn site and mvn versions:display-plugin-updates shows a warning
      | [WARNING] The following plugins do not have their version specified:
      +-->
-    <dependency-check-maven.version>12.1.3</dependency-check-maven.version>
+    <dependency-check-maven.version>12.1.6</dependency-check-maven.version>
     <build-helper-maven-plugin.version>3.6.1</build-helper-maven-plugin.version>
     <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
     <liberty-maven-plugin.version>3.11.5</liberty-maven-plugin.version>
     <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
     <maven-clean-plugin.version>3.5.0</maven-clean-plugin.version>
-    <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
+    <maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
     <maven-dependency-plugin.version>3.8.1</maven-dependency-plugin.version>
     <maven-deploy-plugin.version>3.1.4</maven-deploy-plugin.version>
     <maven-enforcer-plugin.version>3.6.1</maven-enforcer-plugin.version>
     <maven-install-plugin.version>3.1.4</maven-install-plugin.version>
     <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
-    <maven-javadoc-plugin.version>3.11.3</maven-javadoc-plugin.version>
+    <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
     <maven-jxr-plugin.version>3.6.0</maven-jxr-plugin.version>
     <maven-pmd-plugin.version>3.27.0</maven-pmd-plugin.version>
     <maven-project-info-reports-plugin.version>3.9.0</maven-project-info-reports-plugin.version>
     <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
     <maven-site-plugin.version>4.0.0-M16</maven-site-plugin.version>
-    <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
+    <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
     <maven-war-plugin.version>3.4.0</maven-war-plugin.version>
     <sonar-maven-plugin.version>5.2.0.4988</sonar-maven-plugin.version>
-    <spotbugs-maven-plugin.version>4.9.4.0</spotbugs-maven-plugin.version>
+    <spotbugs-maven-plugin.version>4.9.6.0</spotbugs-maven-plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -204,7 +205,7 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.38</version>
+      <version>${lombok.version}</version>
       <scope>provided</scope>
     </dependency>
 
