@@ -1,15 +1,16 @@
 package org.cc.torganizer.core;
 
 import jakarta.enterprise.context.RequestScoped;
+import org.cc.torganizer.core.entities.Club;
+import org.cc.torganizer.core.entities.Group;
+import org.cc.torganizer.core.entities.Opponent;
+import org.cc.torganizer.core.entities.Player;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import org.cc.torganizer.core.entities.Club;
-import org.cc.torganizer.core.entities.Group;
-import org.cc.torganizer.core.entities.Opponent;
-import org.cc.torganizer.core.entities.Player;
 
 /**
  * Assign Opponents evenly distibuted by Clubs to Groups by the RoundRobin-System.
@@ -18,7 +19,7 @@ import org.cc.torganizer.core.entities.Player;
 public class OpponentsToGroupsAssigner {
 
   /**
-   * Assigning an set of opponents to some groups.
+   * Assigning a set of opponents to some groups.
    * Assigning is optimized to reduce matches between opponents of the same club.
    */
   public void assign(Set<Opponent> opponents, List<Group> groups) {
@@ -35,10 +36,10 @@ public class OpponentsToGroupsAssigner {
         minOpponentGroups.getFirst().addOpponent(opponent);
       } else {
         var clubs = opponent
-            .getPlayers()
-            .stream()
-            .map(Player::getClub)
-            .toList();
+          .getPlayers()
+          .stream()
+          .map(Player::getClub)
+          .toList();
         var minClubGroups = getGroupsWithMinClubMembers(minOpponentGroups, clubs);
         minClubGroups.getFirst().addOpponent(opponent);
       }
@@ -73,7 +74,7 @@ public class OpponentsToGroupsAssigner {
       for (var o : group.getOpponents()) {
         for (var p : o.getPlayers()) {
           if (clubs.contains(p.getClub())) {
-              groupClubCount.compute(group, (k, tmpCounter) -> tmpCounter + 1);
+            groupClubCount.compute(group, (k, tmpCounter) -> tmpCounter + 1);
           }
         }
       }

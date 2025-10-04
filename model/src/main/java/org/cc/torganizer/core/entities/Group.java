@@ -1,8 +1,5 @@
 package org.cc.torganizer.core.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.cc.torganizer.core.comparators.AggregationComparator;
@@ -11,6 +8,9 @@ import org.cc.torganizer.core.entities.aggregates.Aggregation;
 import org.cc.torganizer.core.entities.aggregates.MatchAggregate;
 import org.cc.torganizer.core.entities.aggregates.ResultAggregate;
 import org.cc.torganizer.core.entities.aggregates.ScoreAggregate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Eine Group sammelt Opponents zusammen. Innerhalb einer Group werden die
@@ -217,9 +217,9 @@ public class Group extends Entity implements Positional {
    */
   public List<Match> getRunningMatches() {
     return getMatches()
-        .stream()
-        .filter(m -> m.getRunning() && !m.isFinished())
-        .toList();
+      .stream()
+      .filter(m -> m.getRunning() && !m.isFinished())
+      .toList();
   }
 
   /**
@@ -229,15 +229,15 @@ public class Group extends Entity implements Positional {
    */
   public List<Match> getFinishedMatches() {
     return getMatches()
-        .stream()
-        .filter(Match::isFinished).toList();
+      .stream()
+      .filter(Match::isFinished).toList();
   }
 
   @Override
   public String toString() {
     return "[position:" + position + "]"
-        + "[matches:" + getMatches().size() + "]"
-        + "[positionalOpponents:" + positionalOpponents.size() + "]";
+      + "[matches:" + getMatches().size() + "]"
+      + "[positionalOpponents:" + positionalOpponents.size() + "]";
   }
 
   /**

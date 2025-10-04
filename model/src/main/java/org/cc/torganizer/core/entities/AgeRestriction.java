@@ -3,9 +3,9 @@ package org.cc.torganizer.core.entities;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import static org.cc.torganizer.core.entities.Restriction.Discriminator.AGE_RESTRICTION;
-
 import java.time.LocalDate;
+
+import static org.cc.torganizer.core.entities.Restriction.Discriminator.AGE_RESTRICTION;
 
 /**
  * Restriktion auf Teilnahme an einem Modus wegen der Altersbeschraenkung. Fehlt
@@ -85,11 +85,9 @@ public class AgeRestriction extends Restriction {
 
   @Override
   public String toString() {
-    return "AgeRestriction with maxDateOfBirth='"
-        + maxDateOfBirth
-        + "' and minDateOfBirth='"
-        + minDateOfBirth
-        + "'";
+    return "AgeRestriction with maxDateOfBirth='${maxDateOfBirth}' and minDateOfBirth='${minDateOfBirth}'"
+      .replace("${maxDateOfBirth}", maxDateOfBirth.toString())
+      .replace("${minDateOfBirth}", minDateOfBirth.toString());
   }
 
   @Override
