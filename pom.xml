@@ -56,7 +56,7 @@
     <mockito.version>5.20.0</mockito.version>
     <testcontainers.junit-jupiter.version>1.21.3</testcontainers.junit-jupiter.version>
     <!-- plugin-dependencies -->
-    <checkstyle.version>11.1.0</checkstyle.version>
+    <checkstyle.version>12.0.1</checkstyle.version>
     <jakarta.activation-api.version>2.2.0-M1</jakarta.activation-api.version>
     <openliberty-runtime.version>25.0.0.8</openliberty-runtime.version>
     <postgresql.version>42.7.8</postgresql.version>
@@ -66,9 +66,9 @@
      | mvn site and mvn versions:display-plugin-updates shows a warning
      | [WARNING] The following plugins do not have their version specified:
      +-->
-    <dependency-check-maven.version>12.1.6</dependency-check-maven.version>
+    <dependency-check-maven.version>12.1.8</dependency-check-maven.version>
     <build-helper-maven-plugin.version>3.6.1</build-helper-maven-plugin.version>
-    <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
+    <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
     <liberty-maven-plugin.version>3.11.5</liberty-maven-plugin.version>
     <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
     <maven-clean-plugin.version>3.5.0</maven-clean-plugin.version>
@@ -80,7 +80,7 @@
     <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
     <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
     <maven-jxr-plugin.version>3.6.0</maven-jxr-plugin.version>
-    <maven-pmd-plugin.version>3.27.0</maven-pmd-plugin.version>
+    <maven-pmd-plugin.version>3.28.0</maven-pmd-plugin.version>
     <maven-project-info-reports-plugin.version>3.9.0</maven-project-info-reports-plugin.version>
     <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
     <maven-site-plugin.version>4.0.0-M16</maven-site-plugin.version>
@@ -462,10 +462,6 @@
         <configuration>
           <skipProvidedScope>true</skipProvidedScope>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
       </plugin>
       <plugin>
         <groupId>org.jacoco</groupId>

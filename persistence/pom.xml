@@ -16,7 +16,7 @@
 
   <properties>
     <dbunit.version>3.0.0</dbunit.version>
-    <org.eclipse.persistence.jpa.version>5.0.0-B10</org.eclipse.persistence.jpa.version>
+    <org.eclipse.persistence.jpa.version>5.0.0-B11</org.eclipse.persistence.jpa.version>
   </properties>
 
   <dependencies>
