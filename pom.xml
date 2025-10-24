@@ -39,7 +39,7 @@
      | dependency versions
      +-->
     <!-- compile -->
-    <logback.version>1.5.19</logback.version>
+    <logback.version>1.5.20</logback.version>
     <slf4j.version>2.1.0-alpha1</slf4j.version>
     <lombok.version>1.18.42</lombok.version>
     <!-- runtime -->
@@ -56,11 +56,11 @@
     <mockito.version>5.20.0</mockito.version>
     <testcontainers.junit-jupiter.version>1.21.3</testcontainers.junit-jupiter.version>
     <!-- plugin-dependencies -->
-    <checkstyle.version>12.0.1</checkstyle.version>
+    <checkstyle.version>12.1.0</checkstyle.version>
     <jakarta.activation-api.version>2.2.0-M1</jakarta.activation-api.version>
     <openliberty-runtime.version>25.0.0.8</openliberty-runtime.version>
     <postgresql.version>42.7.8</postgresql.version>
-    <spotbugs.version>4.9.6</spotbugs.version>
+    <spotbugs.version>4.9.8</spotbugs.version>
 
     <!--
      | mvn site and mvn versions:display-plugin-updates shows a warning
@@ -87,7 +87,7 @@
     <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
     <maven-war-plugin.version>3.4.0</maven-war-plugin.version>
     <sonar-maven-plugin.version>5.2.0.4988</sonar-maven-plugin.version>
-    <spotbugs-maven-plugin.version>4.9.6.0</spotbugs-maven-plugin.version>
+    <spotbugs-maven-plugin.version>4.9.8.1</spotbugs-maven-plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -513,5 +513,7 @@
       </plugin>
     </plugins>
   </reporting>
+
+  <url>http://localhost</url>
 
 </project>

@@ -44,7 +44,7 @@ public abstract class AbstractDbUnitJpaTest {
   // https://stackoverflow.com/questions/69132686/how-can-i-set-the-port-for-postgresql-when-using-testcontainers
   @SuppressWarnings("all")
   @Container
-  public static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer<>("postgres:17.5")
+  public static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer<>("postgres:18.0")
     .withDatabaseName("torganizer")
     .withUsername("postgres")
     .withPassword("postgres")

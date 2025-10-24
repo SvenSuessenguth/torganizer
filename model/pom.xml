@@ -14,7 +14,7 @@
   <name>model</name>
 
   <properties>
-    <hibernate-validator.version>9.1.0.Alpha2</hibernate-validator.version>
+    <hibernate-validator.version>9.1.0.Beta1</hibernate-validator.version>
     <jakarta.el.version>5.0.0-M1</jakarta.el.version>
   </properties>
 
