@@ -56,7 +56,7 @@
     <mockito.version>5.20.0</mockito.version>
     <testcontainers.junit-jupiter.version>1.21.3</testcontainers.junit-jupiter.version>
     <!-- plugin-dependencies -->
-    <checkstyle.version>12.1.0</checkstyle.version>
+    <checkstyle.version>12.1.1</checkstyle.version>
     <jakarta.activation-api.version>2.2.0-M1</jakarta.activation-api.version>
     <openliberty-runtime.version>25.0.0.8</openliberty-runtime.version>
     <postgresql.version>42.7.8</postgresql.version>
@@ -85,7 +85,7 @@
     <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
     <maven-site-plugin.version>4.0.0-M16</maven-site-plugin.version>
     <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
-    <maven-war-plugin.version>3.4.0</maven-war-plugin.version>
+    <maven-war-plugin.version>3.5.0</maven-war-plugin.version>
     <sonar-maven-plugin.version>5.2.0.4988</sonar-maven-plugin.version>
     <spotbugs-maven-plugin.version>4.9.8.1</spotbugs-maven-plugin.version>
   </properties>
