@@ -44,7 +44,7 @@
     <lombok.version>1.18.48</lombok.version>
     <!-- runtime -->
     <!-- provided -->
-    <jakarta.faces.version>4.1.19</jakarta.faces.version>
+    <jakarta.faces.version>4.1.20</jakarta.faces.version>
     <jakarta.jakartaee-api.version>11.0.0</jakarta.jakartaee-api.version>
     <microprofile.version>7.2-RC5</microprofile.version>
     <!-- test -->
@@ -58,7 +58,7 @@
     <!-- plugin-dependencies -->
     <checkstyle.version>14.4.0</checkstyle.version>
     <jakarta.activation-api.version>2.2.0-M2</jakarta.activation-api.version>
-    <openliberty-runtime.version>26.0.0.10</openliberty-runtime.version>
+    <openliberty-runtime.version>26.0.0.11</openliberty-runtime.version>
     <postgresql.version>42.7.14</postgresql.version>
     <spotbugs.version>4.10.5</spotbugs.version>
 
